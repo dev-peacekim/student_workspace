@@ -24,7 +24,7 @@ public class BoardStudyController {
 
 	@GetMapping(value="boardRegisteWrite")
 	public String boardRegisterDetail() {
-		return "ykm/boardRegisterDetail";
+		return "ykm/boardRegisterForm";
 	}
 	
 	
