@@ -28,6 +28,7 @@
 			<div class="row">
 				<div class="card">
 					<div class="card-body">
+						<!-- 탭 시작  -->
 						<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
 							role="tablist">
 							<li class="nav-item" role="presentation">
@@ -46,7 +47,9 @@
 									data-bs-target="#bordered-contact" type="button" role="tab"
 									aria-controls="contact" aria-selected="false">모집완료</button>
 							</li>
+							<!-- End Nav-Tab -->
 
+							<!-- 검색 시작  -->
 							<li class="nav-item ms-auto" role="presentation">
 								<div class="search-bar d-flex justify-content-end">
 									<form class="search-form d-flex align-items-center"
@@ -59,35 +62,9 @@
 									</form>
 								</div>
 							</li>
-
-
 						</ul>
-						<!-- End Nav-Tab -->
+						<!-- End Search tab -->
 
-						<!-- 		<div class="search-bar d-flex justify-content-end">
-							<div class="col-md-3">
-								<form class="search-form d-flex align-items-center"
-									method="POST" action="#">
-									<input type="text" name="query" placeholder="Search"
-										title="Enter search keyword">
-									<button type="submit" title="Search">
-										<i class="bi bi-search"></i>
-									</button>
-								</form>
-							</div>
-						</div> -->
-
-
-
-
-
-
-
-
-
-						<!-- End Page search -->
-
-						<h6 class="card-title"></h6>
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -102,7 +79,7 @@
 							<tbody>
 								<tr>
 									<th scope="row">1</th>
-									<td>여기는 스터디임</td>
+									<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
 									<td>Designer</td>
 									<td>28</td>
 									<td>2016-05-25</td>
@@ -110,7 +87,7 @@
 								</tr>
 								<tr>
 									<th scope="row">2</th>
-									<td>Bridie Kessler</td>
+									<td><span class="recruited">모집완료</span> Bridie Kessler</td>
 									<td>Developer</td>
 									<td>35</td>
 									<td>2014-12-05</td>
@@ -128,7 +105,9 @@
 						</table>
 						<!-- End Table with hoverable rows -->
 
-						<button type="button" class="btn btn-primary">글쓰기</button>
+					<form action="boardRegisteWrite" method="get">
+						<input type="submit" class="btn btn-primary" value="글쓰기">
+					</form>
 					</div>
 				</div>
 			</div>

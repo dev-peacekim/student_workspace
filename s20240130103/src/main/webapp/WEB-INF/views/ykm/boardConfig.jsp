@@ -31,4 +31,4 @@
   	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
   	<script src="assets/vendor/php-email-form/validate.js"></script>
-    
+  	
