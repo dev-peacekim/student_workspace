@@ -14,10 +14,15 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository;
-
+	
 	@Override
 	public void joinUser(User user) {
 		userRepository.userJoin(user);
+	}
+	
+	@Override
+	public int findUserById(String id) {
+		return userRepository.findUserById(id);
 	}
 
 }

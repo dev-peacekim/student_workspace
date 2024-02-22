@@ -17,5 +17,13 @@ public class UserRepositoryImpl implements UserRepository {
 	public void userJoin(User user) {
 		entityManager.persist(user);
 	}
+	
+	@Override
+	public int findUserById(String id) {
+		String jpqlSQL = "select count(u) from User u where u.user_id=:id";
+		Long result = (Long) entityManager.createQuery(jpqlSQL).setParameter("id", id).getSingleResult();
+		System.out.println("UserRepository findUserById cnt : " + result);
+		return result.intValue();
+	}
 
 }

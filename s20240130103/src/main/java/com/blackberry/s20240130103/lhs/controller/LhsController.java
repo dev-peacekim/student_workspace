@@ -71,7 +71,7 @@ public class LhsController {
 		return chkNum;
 	}
 	
-	@PostMapping("userJoin")
+	@PostMapping(value = "userJoin")
 	public String userJoin(HttpServletRequest request) {
 		User user = new User();
 		user.setUser_id(request.getParameter("user_id"));
@@ -85,6 +85,13 @@ public class LhsController {
 		userService.joinUser(user);
 		System.out.println("조인성공");
 		return "loginForm";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "joinIdChk")
+	public int joinIdChk(@RequestParam(name = "id")String id) {
+		int result = userService.findUserById(id);
+		return result;
 	}
 	
 }

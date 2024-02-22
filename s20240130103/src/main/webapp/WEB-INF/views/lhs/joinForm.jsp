@@ -6,6 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/lhsjoinform.js" defer="defer"></script>
   <title>회원가입</title>
   <meta content="" name="description">
@@ -67,13 +68,13 @@
                     <h5 class="card-title text-center pb-0 fs-4">회원가입</h5>
                   </div>
 
-                  <form action="/userJoin" class="row g-3" method="post" enctype="multipart/form-data">
+                  <form action="/userJoin" class="row g-3" method="post" enctype="multipart/form-data" onsubmit="return chk()">
                   
                     <div class="col-12">
                       <label for="id" class="form-label">아이디</label>
                       <div class="inlinediv">
                       	<input type="text" name="user_id" class="form-control" id="id" required>
-                    	<button class="btn btn-secondary">중복확인</button>
+                    	<button type="button" class="btn btn-secondary" id="idChkBtn">중복확인</button>
                       </div>
                       <div class="enableId">사용가능한 아이디입니다.</div>
                       <div class="disableId">사용불가능한 아이디입니다.</div>
