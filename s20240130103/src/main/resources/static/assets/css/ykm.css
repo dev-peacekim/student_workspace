@@ -6,7 +6,8 @@
 --------------------------------------------------------------*/
 .search-bar {
 	min-width: 360px;
-	padding: 0 20px;
+	padding-top: 10px;
+  	padding-bottom: 10px;
 }
 
 @media ( max-width : 1199px) {
@@ -15,8 +16,8 @@
 		top: 50px;
 		left: 0;
 		right: 0;
-		padding: 20px;
-		padding-top: 2px;
+  	  	padding-top: 20px;
+  	  	padding-bottom: 20px;
 		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
 		background: white;
 		z-index: 9999;
@@ -70,7 +71,16 @@
 	font-family: 'NanumSquare', sans-serif;
 }
 
-.nav-link {
+.section .nav-link {
 	font-weight: bold;
 	font-size: large;
+}
+
+
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+.btn {
+	display: inline-block;
+	float: right;
 }

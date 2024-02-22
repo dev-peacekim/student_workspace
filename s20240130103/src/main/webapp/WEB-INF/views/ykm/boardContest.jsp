@@ -80,7 +80,7 @@
 							<tbody>
 								<tr>
 									<th scope="row">1</th>
-									<td>여기는 스터디임</td>
+									<td>여긴 공모전 페이지다</td>
 									<td>Designer</td>
 									<td>28</td>
 									<td>2016-05-25</td>
@@ -107,7 +107,7 @@
 						<!-- End Table with hoverable rows -->
 						<button type="button" class="btn btn-primary">글쓰기</button>
 					</div>
-					
+
 				</div>
 			</div>
 		</section>

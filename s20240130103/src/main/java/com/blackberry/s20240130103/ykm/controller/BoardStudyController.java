@@ -15,6 +15,12 @@ public class BoardStudyController {
 		return "ykm/boardStudy";
 	}
 	
+	
+	@GetMapping(value="boardContest")
+	public String boardContest() {
+		return "ykm/boardContest";
+	}
+	
 
 	
 }
