@@ -277,7 +277,8 @@
                 			</tbody>
               			</table>
               			<div class="floatright">
-		  				<button type="button" class="btn-msg-primary">글쓰기</button>
+		  				<button type="button" class="btn-msg-primary">
+		  					<a href="askWrite">글작성</a></button>
 		  				</div>
               <!-- End Table with stripped rows -->
               
