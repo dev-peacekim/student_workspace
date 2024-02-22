@@ -72,7 +72,7 @@
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">이메일 확인</h5>
                   </div>
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form action="/joinForm" class="row g-3 needs-validation" onsubmit="return chk()" novalidate>
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">이메일</label>
                       <div class="input-group has-validation">
@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">인증번호</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" disabled>
+                      <input type="password" name="cnumber" class="form-control" id="cnumber" disabled>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
                     <div class="col-12">

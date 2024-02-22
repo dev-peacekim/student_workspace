@@ -30,21 +30,12 @@
 
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/lhs.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
 <header id="header" class="header fixed-top d-flex align-items-center">
-
         <div class="d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
                 <img src="/assets/img/blueberry-logo.png" alt="">
@@ -71,30 +62,39 @@
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
                   </div>
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation">
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">아이디</label>
                       <div class="input-group has-validation">
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                       <!--  <div class="invalid-feedback">Please enter your username.</div> -->
                       </div>
                     </div>
+                    <br>
+                    <br>
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">비밀번호</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="yourPassword" class="form-label" >비밀번호</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" autocomplete="off" required>
+                      <!-- <div class="invalid-feedback">Please enter your password!</div> -->
                     </div>
+                    <br>
+                    <br>
+                    <br>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
+                    <br>
+                    <br>
                     <div class="col-12">
                       <input class="w-100 btn btn-outline-secondary" type="button" value="JOIN" onclick="location.href='/jointerms'">
                     </div>
+                    <br>
+                    <br>
                   </form>
                 </div>
               </div>
               <p>
-              	<a class="search" href="/">아이디 찾기</a>|<a class="search" href="/">비밀번호 찾기</a>
+              	<a href="/">아이디 찾기</a>&nbsp;|&nbsp;<a href="/">비밀번호 찾기</a>
               </p>
             </div>
           

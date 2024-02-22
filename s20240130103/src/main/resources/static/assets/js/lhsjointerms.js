@@ -6,3 +6,7 @@ document.getElementById("okbtn").addEventListener('click',function(){
 		alert("약관에 동의해주세요");
 	}
 })
+
+document.getElementById("canclebtn").addEventListener("click",function(){
+	location.href="/";
+})

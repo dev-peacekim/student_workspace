@@ -30,7 +30,6 @@
 
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/lhs.css" rel="stylesheet">
 
   <!-- =======================================================
@@ -199,7 +198,7 @@
 	        		<label class="form-check-label" for="gridCheck1">위의 약관에 동의하십니까?</label>
 	        	</div>
 	        	<div class="termsBtnsdiv">
-	        		<button class="btn btn-secondary">취소</button>
+	        		<button class="btn btn-secondary" id="canclebtn">취소</button>
 	        		<button class="joinbtn" id="okbtn">확인</button>
 	        	</div>
 	        </div>
