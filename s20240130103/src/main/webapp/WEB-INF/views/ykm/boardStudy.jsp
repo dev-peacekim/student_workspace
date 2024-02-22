@@ -25,33 +25,46 @@
 
 		<!-- ======= Bordered Tabs ======= -->
 		<section class="section">
-			<div class="row"></div>
-			<div class="col-lg">
+			<div class="row">
 				<div class="card">
 					<div class="card-body">
-						<form>
-							<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
-								role="tablist">
-								<li class="nav-item" role="presentation">
-									<button class="nav-link active" id="home-tab"
-										data-bs-toggle="tab" data-bs-target="#bordered-home"
-										type="button" role="tab" aria-controls="home"
-										aria-selected="true">전체</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-										data-bs-target="#bordered-profile" type="button" role="tab"
-										aria-controls="profile" aria-selected="false">모집중</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-										data-bs-target="#bordered-contact" type="button" role="tab"
-										aria-controls="contact" aria-selected="false">모집완료</button>
-								</li>
-							</ul>
-						</form>
+						<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
+							role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="home-tab"
+									data-bs-toggle="tab" data-bs-target="#bordered-home"
+									type="button" role="tab" aria-controls="home"
+									aria-selected="true">전체</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+									data-bs-target="#bordered-profile" type="button" role="tab"
+									aria-controls="profile" aria-selected="false">모집중</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+									data-bs-target="#bordered-contact" type="button" role="tab"
+									aria-controls="contact" aria-selected="false">모집완료</button>
+							</li>
 
-						<div class="search-bar d-flex justify-content-end">
+							<li class="nav-item ms-auto" role="presentation">
+								<div class="search-bar d-flex justify-content-end">
+									<form class="search-form d-flex align-items-center"
+										method="POST" action="#">
+										<input type="text" name="query" placeholder="Search"
+											title="Enter search keyword">
+										<button type="submit" title="Search">
+											<i class="bi bi-search"></i>
+										</button>
+									</form>
+								</div>
+							</li>
+
+
+						</ul>
+						<!-- End Nav-Tab -->
+
+						<!-- 		<div class="search-bar d-flex justify-content-end">
 							<div class="col-md-3">
 								<form class="search-form d-flex align-items-center"
 									method="POST" action="#">
@@ -62,7 +75,16 @@
 									</button>
 								</form>
 							</div>
-						</div>
+						</div> -->
+
+
+
+
+
+
+
+
+
 						<!-- End Page search -->
 
 						<h6 class="card-title"></h6>
@@ -105,9 +127,9 @@
 							</tbody>
 						</table>
 						<!-- End Table with hoverable rows -->
+
 						<button type="button" class="btn btn-primary">글쓰기</button>
 					</div>
-					
 				</div>
 			</div>
 		</section>

@@ -7,7 +7,7 @@
 .search-bar {
 	min-width: 360px;
 	padding-top: 10px;
-  	padding-bottom: 10px;
+  	padding-bottom: 20px;
 }
 
 @media ( max-width : 1199px) {
@@ -65,7 +65,7 @@
 }
 
 /*--------------------------------------------------------------
-# Search Bar
+# section
 --------------------------------------------------------------*/
 .section {
 	font-family: 'NanumSquare', sans-serif;
@@ -76,6 +76,17 @@
 	font-size: large;
 }
 
+
+/*--------------------------------------------------------------
+# section
+--------------------------------------------------------------*/
+
+.card-title {
+	font-weight: bold;
+	font-family: 'NanumSquare', sans-serif;
+	padding-left: 10px;
+	padding-top: 10px;
+}
 
 /*--------------------------------------------------------------
 # btn
