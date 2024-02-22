@@ -2,12 +2,11 @@
     pageEncoding="UTF-8"%>
     <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <title>자유게시판</title>
+  <title>질문 게시판</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -44,18 +43,29 @@
 
 <body>
 
+
     <!-- ======= Header ======= -->
+    
     <%@ include file="header.jsp" %>
+    
+    <!-- ======= End Header  ======= -->
+    
 
     <!-- ======= Sidebar ======= -->
+   
     <%@ include file="asidebar.jsp" %>
     
-    <!-- End Sidebar-->
-     <!-- Page Title -->
+	<!-- ======= End Sidebar  ======= -->
+    
+    
+    
+   
+ <!-- ======= Page Title ======= -->
   <main id="main" class="main">
   
     <div class="pagetitle">
-     <h1 style="font-size: 24px;">자유 질문 게시판</h1>
+    <h1 style="font-size: 24px;">자유 질문 게시판</h1>
+
 
        <nav style="--bs-breadcrumb-divider: '-';">
                 <ol class="breadcrumb">
@@ -64,12 +74,14 @@
                   <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
                 </ol>
               </nav>
-    </div><!-- End Page Title -->
+    </div>
+<!-- ======= End Page Title ======= -->
 
+
+ <!-- ======= search-bar ======= -->
   <div class="card">
             <div class="card-body">
-              <h5 class="card-title">자유 게시판</h5>
-              
+              <h5 class="card-title">질문 게시판</h5>
 		<!-- Search Bar -->
 		<div class="search-bar">
    		 <form class="search-form d-flex align-items-center" method="POST" action="#" style="display: flex; justify-content: flex-end;">
@@ -78,7 +90,6 @@
     </form>
 </div>
 
-    	<!-- End Search Bar -->
     	
 		<!-- Search Icon-->
     	<nav class="header-nav ms-auto">
@@ -88,10 +99,11 @@
            		 <i class="bi bi-search"></i>
           		</a>
        			 </li>
-        <!-- End Search Icon-->
+   <!-- ======= End Search-bar ======= -->
         
            
-            <!-- 게시판 테이블 -->
+           
+   <!-- ======= Board Ask Table ======= -->
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -140,16 +152,23 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- 게시판 테이블 끝 -->
-           
+              
             </div>
-             	<div class="text-end">
-    				<button type="button" class="btn btn-primary" onclick="window.location.href='boardWrite'">글쓰기</button>
-				</div>
-
+            
+            
+ <!-- ======= Text Add Btn ======= -->
+ 				<div>
+              	<button type="button" class="btn btn-primary">글쓰기</button>
+              </div>
           </div>
           
-       <!-- 페이지 표시 -->
+          
+  <!-- ======= End Board Ask Table ======= -->
+          
+          
+                
+                
+   <!-- ======= Paging Section ======= -->
        <section>
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
@@ -167,8 +186,15 @@
 				</ul>
 			</nav>
 		</section>
-<!-- 페이지 표시 끝 -->
-  </main><!-- End #main -->
+		
+<!-- ======= Paging Section ======= -->
+
+
+  </main>
+  
+  <!-- ======= End Main ======= -->
+  
+  
     
     <!-- ======= Footer ======= -->
     <%@ include file="footer.jsp" %>

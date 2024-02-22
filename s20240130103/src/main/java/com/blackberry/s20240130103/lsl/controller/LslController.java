@@ -12,9 +12,14 @@ public class LslController {
 		return "lsl/boardFree";
 	}
 	
-	@PostMapping(value = "search-bar")
-	public String searchbar() {
-		return "lsl/boardFree";
+	@GetMapping(value = "boardAsk")
+	public String boardAsk() {
+		return "lsl/boardAsk";
+	}
+	
+	@GetMapping(value = "boardWrite" )
+	public String boardWrite() {
+		return "lsl/boardWrite";
 	}
 
 }
