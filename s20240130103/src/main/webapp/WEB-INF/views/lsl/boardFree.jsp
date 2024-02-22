@@ -100,16 +100,16 @@
        			 </li>
         <!-- End Search Icon-->
         
-              <!-- Table with stripped rows -->
-            <!-- Table with hoverable rows -->
+           
+            <!-- 게시판 테이블 -->
               <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">No</th>
                     <th scope="col">제목</th>
-                    <th scope="col">글쓴이</th>
+                    <th scope="col">작성자</th>
                     <th scope="col">작성일</th>
+                    <th scope="col">조회수</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -150,15 +150,17 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- End Table with hoverable rows -->
+              <!-- 게시판 테이블 끝 -->
+           
             </div>
+             	<div class="text-end">
+  					<button type="button" class="btn btn-primary" style="margin-bottom: 20px; margin-right: 20px;">글쓰기</button>
+				</div>
           </div>
-
-        </div>
-      </div>
-       <!-- Basic Pagination -->
-             <nav aria-label="Page navigation example" style="text-align: center;">
-    <ul class="pagination" style="display: inline-block;">
+          
+       <!-- 페이지 표시 -->
+        <nav aria-label="Page navigation example" style="text-align: center;">
+   		<ul class="pagination" style="display: inline-block;">
         <li class="page-item" style="display: inline-block;"><a class="page-link" href="#">Previous</a></li>
         <li class="page-item" style="display: inline-block;"><a class="page-link" href="#">1</a></li>
         <li class="page-item" style="display: inline-block;"><a class="page-link" href="#">2</a></li>
@@ -166,9 +168,7 @@
         <li class="page-item" style="display: inline-block;"><a class="page-link" href="#">Next</a></li>
     </ul>
 </nav>
-<!-- End Basic Pagination -->
-    </section>
-
+<!-- 페이지 표시 끝 -->
   </main><!-- End #main -->
     
     <!-- ======= Footer ======= -->
