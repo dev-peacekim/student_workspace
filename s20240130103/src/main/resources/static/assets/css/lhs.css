@@ -125,3 +125,24 @@
 .inlinediv button{
 	margin-left: 10px;
 }
+.wid50 {
+	width: 50%;
+}
+.wid80 {
+	width : 80%;
+}
+#file{
+	width : 40%;
+}
+#joinPicture{
+	max-height: 400px;
+	max-width: 300px;
+}
+.enableId{
+	color: blue;
+	display: none;
+}
+.disableId{
+	color: red;
+	display: none;
+}

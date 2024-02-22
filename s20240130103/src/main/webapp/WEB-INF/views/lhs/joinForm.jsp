@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <script type="text/javascript" src="assets/js/lhsjoinform.js" defer="defer"></script>
   <title>회원가입</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -29,7 +29,7 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/lhs.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -57,8 +57,7 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center wid50">
 
               <div class="card mb-3">
 
@@ -68,36 +67,59 @@
                     <h5 class="card-title text-center pb-0 fs-4">회원가입</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form action="/userJoin" class="row g-3" method="post" enctype="multipart/form-data">
+                  
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                      <label for="id" class="form-label">아이디</label>
+                      <div class="inlinediv">
+                      	<input type="text" name="user_id" class="form-control" id="id" required>
+                    	<button class="btn btn-secondary">중복확인</button>
+                      </div>
+                      <div class="enableId">사용가능한 아이디입니다.</div>
+                      <div class="disableId">사용불가능한 아이디입니다.</div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="pw1" class="form-label">비밀번호</label>
+                      <input type="password" name="user_pw" class="form-control" id="pw1" required>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="pw2" class="form-label">비밀번호확인</label>
+                      <input type="password" name="user_pw" class="form-control" id="pw2" required>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="name" class="form-label">이름</label>
+                      <input type="text" name="user_name" class="form-control" required>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      <label for="email" class="form-label">이메일</label>
+                      <!-- <input type="email" name="user_email" class="form-control" value="" required> -->
+                       <input type="email" name="user_email" class="form-control" value="${email}" required> 
                     </div>
-
+                    
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
+                      <label for="nicname" class="form-label">닉네임</label>
+                      <input type="text" name="user_nic" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="phone" class="form-label">휴대폰 번호</label>
+                      <input type="text" name="user_phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-12">
+                      <label for="picture" class="form-label">프로필 사진</label>
+                      <div class="inlinediv">
+	                      <input type="file" name="user_profile" class="form-control" id="file">
+	                      <img id="joinPicture">
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit">회원가입</button>
                     </div>
 
                   </form>
