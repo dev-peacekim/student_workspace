@@ -11,5 +11,8 @@ public class MsgController {
 	public String receivebox() {
 		return "kdw/msgReceivebox";
 	}
-	
+	@GetMapping(value = "msgSendbox")
+	public String msgSendbox() {
+		return "kdw/msgSendbox";
+	}
 }

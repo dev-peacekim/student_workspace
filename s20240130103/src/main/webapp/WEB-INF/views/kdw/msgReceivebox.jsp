@@ -37,27 +37,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
+<link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
 <!-- 검색바&드롭박스 JS -->
+
 <script type="text/javascript">
-	function changeDropdownItem(item) {
-		document.getElementById('navbarDropdown').innerText = item;
-	}
 
-	document.addEventListener('DOMContentLoaded', function () {
-	    var dropdown = document.querySelector('.receivebox-section .dropdown');
-
-	    dropdown.addEventListener('click', function () {
-	        dropdown.classList.toggle('active');
-	    });
-
-	    document.addEventListener('click', function (event) {
-	        // 클릭된 요소가 dropdown 내부에 속하지 않으면 dropdown을 닫습니다.
-	        if (!dropdown.contains(event.target)) {
-	            dropdown.classList.remove('active');
-	        }
-	    });
-	});	
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -87,8 +71,8 @@
 		<section class="receivebox-section">
 			<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 			<div id="noteCount" class="note-count">
-				읽은 쪽지 개수: [<span id="readCount">3</span>] / 전체
-				받은 쪽지 개수: [<span id="totalCount">10</span>]
+				읽은 쪽지 개수: [<span id="readCount">3</span>] / 전체 받은 쪽지 개수: [<span
+					id="totalCount">10</span>]
 			</div>
 			<!-- 검색바&드롭박스 -->
 			<div class="search-container">
@@ -97,8 +81,9 @@
 						action="#">
 						<div class="dropdown">
 							<span class="search-bar-dropdown-toggle" id="navbarDropdown"
-								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								전체&nbsp;&nbsp;&nbsp;<i class="bi bi-caret-down-fill"></i>
+								role="button" data-bs-toggle="dropdown" aria-expanded="false"
+								onclick="toggleDropdown()"> <span id="selectedItem">전체</span>&nbsp;&nbsp;
+								<i class="bi bi-caret-down-fill" id="dropdownIcon"></i>
 							</span>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="#"
@@ -125,8 +110,8 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th><input type="checkbox" id="selectAll"> 
-							<label for="selectAll">선택</label></th>
+							<th><input type="checkbox" id="selectAll"> <label
+								for="selectAll">선택</label></th>
 							<th scope="col">읽음</th>
 							<th scope="col" class="subject">제목</th>
 							<th scope="col">보낸 사람</th>
@@ -156,7 +141,7 @@
 							<td>보낸이3</td>
 							<td>2024-02-21 14:56</td>
 						</tr>
-												<tr class="list-item">
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">네 번째 메일 제목이 여기에 들어갑니다.</td>
@@ -177,7 +162,7 @@
 							<td>보낸이6</td>
 							<td>2024-02-21 14:56</td>
 						</tr>
-												<tr class="list-item">
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">일곱 번째 메일 제목이 여기에 들어갑니다.</td>
@@ -198,7 +183,7 @@
 							<td>보낸이9</td>
 							<td>2024-02-21 14:56</td>
 						</tr>
-												<tr class="list-item">
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">열 번째 메일 제목이 여기에 들어갑니다.</td>
@@ -219,7 +204,7 @@
 							<td>보낸이12</td>
 							<td>2024-02-21 14:56</td>
 						</tr>
-												<tr class="list-item">
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">열 세 번째 메일 제목이 여기에 들어갑니다.</td>
@@ -248,8 +233,8 @@
 		<!-- 받은 쪽지함 세션 END -->
 		<!-- 리스트 하단 버튼 -->
 		<div class="btn-container">
-		  <button type="button" class="btn-msg-storebox">보관</button>
-		  <button type="button" class="btn-msg-trashbox">삭제</button>
+			<button type="button" class="btn-msg-storebox">보관</button>
+			<button type="button" class="btn-msg-trashbox">삭제</button>
 		</div>
 		<!-- 리스트 번호 -->
 		<nav aria-label="...">
@@ -266,12 +251,13 @@
 	</main>
 	<!-- 받은 쪽지함 Main END-->
 
-	
+
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
 	<!-- End Footer -->
 
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center">
 		<i class="bi bi-arrow-up-short"></i>
 	</a>
 

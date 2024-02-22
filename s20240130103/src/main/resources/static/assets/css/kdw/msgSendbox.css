@@ -154,73 +154,60 @@ body {
 
 /* 드롭다운 스타일 */
 .receivebox-section .dropdown {
-    position: relative;
-    min-width: 90px;
-    color: #012970;
-    border: 1px solid rgba(1, 41, 112, 0.2);
-    padding: 7px 38px 7px 8px;
-    background: white;
-    font-size: 14px;
-    text-align: left;
-    cursor: pointer; /* 영역이 클릭되게 */
-    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-}
-
-.receivebox-section .search-bar-dropdown-toggle i.bi-caret-down-fill {
-    transform: rotate(0deg); /* 역삼각형 */
-    transition: transform 0.3s ease; /* 부드러운 전환을 위한 트랜지션 추가 */
-}
-
-.receivebox-section .dropdown.active .search-bar-dropdown-toggle i.bi-caret-down-fill {
-    transform: rotate(180deg); /* 삼각형 */
+	position: relative;
+	display: inline-block;
+	min-width: 90px;
+	color: #012970;
+	border: 1px solid rgba(1, 41, 112, 0.2);
+	padding: 7px 38px 7px 8px;
+	background: white;
+	font-size: 14px;
+	text-align: left;
+	cursor: pointer; /* 영역이 클릭되게 */
 }
 
 .receivebox-section .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: -1px;
-    z-index: 1000;
-    display: none;
-    min-width: 110px;
-    list-style: none;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    font-size: 14px;
-    text-align: left;
-}
-
-.receivebox-section .dropdown.active .dropdown-menu {
-    display: block;
+	position: absolute;
+	top: 100%;
+	right: -1px;
+	z-index: 1000;
+	display: none;
+	min-width: 110px;
+	list-style: none;
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	font-size: 14px;
+	text-align: left;
 }
 
 .receivebox-section .dropdown-menu li {
-    text-align: left; /* 메뉴 아이템을 왼쪽 정렬로 변경 */
+	text-align: left; /* 메뉴 아이템을 왼쪽 정렬로 변경 */
 }
 
 .receivebox-section .dropdown-menu li a {
-    display: block;
-    padding: 3px 1.5rem;
-    color: #212529;
-    white-space: nowrap;
-    text-align: left; /* 메뉴 아이템 텍스트를 왼쪽 정렬로 설정 */
+	display: block;
+	padding: 3px 1.5rem;
+	color: #212529;
+	white-space: nowrap;
+	text-align: left; /* 메뉴 아이템 텍스트를 왼쪽 정렬로 설정 */
 }
 
-.receivebox-section .dropdown-menu li:hover a, .receivebox-section .dropdown-menu li:focus a {
-    color: #fff;
-    text-decoration: none;
-    background-color: #007bff;
+.receivebox-section .dropdown-menu li:hover a, .receivebox-section .dropdown-menu li:focus a
+	{
+	color: #fff;
+	text-decoration: none;
+	background-color: #007bff;
 }
 
 .receivebox-section .dropdown-menu .dropdown-item {
-    text-align: left;
+	text-align: left;
 }
 
 .receivebox-section .dropdown.active .dropdown-menu {
-    display: block;
+	display: block;
 }
-
 /* 검색바&드롭박스 END */
 
 /* 전체 쪽지 & 읽은 쪽지*/
