@@ -24,7 +24,8 @@
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/workspace.css" rel="stylesheet">
+    <link href="assets/css/projectAddForm.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script defer src="./assets/js/projectAdd.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -41,10 +42,10 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <%@ include file="header.jsp" %>
+    <%@ include file="../header.jsp" %>
 
     <!-- ======= Sidebar ======= -->
-    <%@ include file="asidebar.jsp" %>
+    <%@ include file="../asidebar.jsp" %>
     
     <!-- End Sidebar-->
 
@@ -63,27 +64,27 @@
         <section class="section dashboard">
 			<div class="card">
 	            <p>프로젝트 정보 입력</p>
-	            <form>
-	                <div class="">
-	                    <p>프로젝트 제목</p>
-	                    <input name="title" type="text" class="form-control">
-	                  </div>
-	                  <div class="">
-	                    <p>프로젝트 내용</p>
-	                    <input type="text" class="form-control">
-	                  </div>
-	                  <div class="">
+	            <form action="projectAdd" method="post">
+	                <div>
+	                   <p>프로젝트 제목</p>
+	                   <input name="project_title" type="text" class="form-control">
+	                </div>
+	                <div>
+	                	<p>프로젝트 내용</p>
+	                    <input name="project_content" type="text" class="form-control">
+	                </div>
+	                <div>
 	                    <p>시작일</p>
-	                    <input type="date" class="form-control" />
-	                  </div>
-	                  <div class="">
+	                    <input name="project_start" type="date" class="form-control" />
+	                </div>
+	                <div>
 	                    <p>종료일</p>
-	                    <input type="date" class="form-control" />
-	                  </div>
-	                  <div class="text-center">
+	                    <input name="project_end" type="date" class="form-control" />
+	                </div>
+	                <div class="text-center">
 	                    <button type="submit" class="btn btn-primary">저장</button>
 	                    <button type="button" class="btn btn-secondary">취소</button>
-	                  </div>
+	                </div>
 	            </form>
         	</div>
         </section>
@@ -92,7 +93,7 @@
     <!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
     <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
