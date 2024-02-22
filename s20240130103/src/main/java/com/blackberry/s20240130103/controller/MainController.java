@@ -17,4 +17,9 @@ public class MainController {
 		return "main";
 	}
 	
+	@GetMapping("projectAdd")
+	public String projectAdd() {
+		return "projectAdd";
+	}
+	
 }

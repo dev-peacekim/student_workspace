@@ -67,7 +67,33 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-
+			<div class="card info-card sales-card project">
+       
+	        <div class="card-body my-project">
+	          <div>
+	            <h5 class="card-title">나의 프로젝트</span></h5>
+	            <form action="projectAdd">
+	              <button type="submit" class="plus-btn">+</button>
+	            </form>  
+	          </div>
+	        </div>
+	
+	      </div>
+	
+	      <div class="card info-card sales-card summary">
+	       
+	        <div class="card-body">
+	          <div class="all-project-report">
+	            <h5 class="card-title">전체 프로젝트</span></h5>  
+	          </div>
+	
+	          <div class="address">
+	            <h5 class="card-title">주소록</span></h5>  
+	          </div>
+	          
+	        </div>
+	
+	      </div>
         </section>
 
     </main>
