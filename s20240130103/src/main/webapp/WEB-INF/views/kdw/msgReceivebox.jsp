@@ -37,87 +37,29 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<style>
-@import
-	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
-	;
+  <link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
+<!-- 검색바&드롭박스 JS -->
+<script type="text/javascript">
+	function changeDropdownItem(item) {
+		document.getElementById('navbarDropdown').innerText = item;
+	}
 
-body {
-	font-family: 'NanumSquare', sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #FCF3FF;
-	box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
-}
+	document.addEventListener('DOMContentLoaded', function () {
+	    var dropdown = document.querySelector('.receivebox-section .dropdown');
 
-.table-container {
-	margin: 20px;
-	overflow-x: auto;
-	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-	box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-	box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-	box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-	background-color: #FFFFFF;
-}
+	    dropdown.addEventListener('click', function () {
+	        dropdown.classList.toggle('active');
+	    });
 
-.table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.table th, .table td {
-	padding: 12px;
-	text-align: left;
-	border-bottom: 1px solid #DDDDDD;
-	font-weight: bold;
-}
-
-/* 메일 툴바 */
-.table th {
-	background-color: #0D6DFD;
-	color: #FFFFFF;
-}
-/* 메일 목록 리스트 */
-.table td {
-	font-size: 13px;
-}
-
-.table input[type="checkbox"] {
-	margin-right: 5px;
-	margin-top: 3px; /* 체크박스와 텍스트 사이에 여백 추가 */
-}
-
-/* 받은 메일함 메일 제목 */
-.subject {
-	white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
-	overflow: hidden; /* 넘치는 부분을 감 */
-	text-overflow: ellipsis;
-	/* 텍스트가 너무 길어서 화면에 표시되지 않을 때, 말줄임표(...)로 표시되도록 설정 */
-}
-/* 메일 보관버튼 삭제버튼 */
-.btn-container {
-	margin-right: 21px;
-	display: flex;
-	justify-content: flex-end; /* 우측 정렬 */
-}
-
-.btn-msg-storebox, .btn-msg-trashbox {
-	margin-left: 10px;
-	color: #0d6efd;
-	background-color: transparent;
-	border: 1px solid #0D6DFD; 
-  	border-radius: 7px; /* 모서리를 둥글게 만들기 */
-  	padding: 2px 15px;
-  	transition: background-color 0.3s ease; /* 부드러운 전환을 위한 트랜지션 추가 */
-}
-
-.btn-msg-storebox:hover,
-.btn-msg-trashbox:hover {
-  background-color: #B52BFC; /* 마우스를 올렸을 때의 배경색 */
-  color: #ffffff; /* 마우스를 올렸을 때의 텍스트 색상 */
-  border: 1px solid #B52BFC; 
-}
-</style>
+	    document.addEventListener('click', function (event) {
+	        // 클릭된 요소가 dropdown 내부에 속하지 않으면 dropdown을 닫습니다.
+	        if (!dropdown.contains(event.target)) {
+	            dropdown.classList.remove('active');
+	        }
+	    });
+	});	
+</script>
+<!-- 검색바&드롭박스 JS END-->
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -130,7 +72,7 @@ body {
 	<main id="main" class="main">
 
 		<!-- 받은 쪽지함 pageTitle -->
-		<div class="receivebox_pagetitle">
+		<div class="receivebox-pagetitle">
 			<h1>받은 쪽지함</h1>
 			<nav>
 				<ol class="breadcrumb">
@@ -142,7 +84,42 @@ body {
 		<!-- End Page Title -->
 
 		<!-- 받은 쪽지함 세션 부분 -->
-		<section class="receivebox_section">
+		<section class="receivebox-section">
+			<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
+			<div id="noteCount" class="note-count">
+				읽은 쪽지 개수: [<span id="readCount">3</span>] / 전체
+				받은 쪽지 개수: [<span id="totalCount">10</span>]
+			</div>
+			<!-- 검색바&드롭박스 -->
+			<div class="search-container">
+				<div class="search-bar">
+					<form class="search-form d-flex align-items-center" method="POST"
+						action="#">
+						<div class="dropdown">
+							<span class="search-bar-dropdown-toggle" id="navbarDropdown"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								전체&nbsp;&nbsp;&nbsp;<i class="bi bi-caret-down-fill"></i>
+							</span>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#"
+									onclick="changeDropdownItem('전체')">전체</a></li>
+								<li><a class="dropdown-item" href="#"
+									onclick="changeDropdownItem('아이디')">아이디</a></li>
+								<li><a class="dropdown-item" href="#"
+									onclick="changeDropdownItem('제목+내용')">제목+내용</a></li>
+								<li><a class="dropdown-item" href="#"
+									onclick="changeDropdownItem('기간')">기간</a></li>
+							</ul>
+						</div>
+						<input type="text" name="query" placeholder="Search"
+							title="Enter search keyword">
+						<button type="submit" title="Search">
+							<i class="bi bi-search"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+			<!-- 검색바&드롭박스 END -->
 			<!-- 툴바와 테이블 -->
 			<div class="table-container">
 				<table class="table">
@@ -151,83 +128,118 @@ body {
 							<th><input type="checkbox" id="selectAll"> 
 							<label for="selectAll">선택</label></th>
 							<th scope="col">읽음</th>
-							<th scope="col">제목</th>
+							<th scope="col" class="subject">제목</th>
 							<th scope="col">보낸 사람</th>
 							<th scope="col">일시</th>
 						</tr>
 					</thead>
 					<!-- 나중에 구현할때 읽은건 폰트에 bold 빼야함 -->
 					<tbody>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">첫 번째 메일 제목이 여기에 들어갑니다.</td>
 							<td>보낸이1</td>
 							<td>2024-02-21 12:34</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">두 번째 메일 제목이 여기에 들어갑니다.</td>
 							<td>보낸이2</td>
 							<td>2024-02-21 13:45</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
 							<td>읽음 여부</td>
 							<td class="subject">세 번째 메일 제목이 여기에 들어갑니다.</td>
 							<td>보낸이3</td>
 							<td>2024-02-21 14:56</td>
 						</tr>
-						<tr>
+												<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
-						</tr>						
-						<tr>
-							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
+							<td>읽음 여부</td>
+							<td class="subject">네 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이4</td>
+							<td>2024-02-21 12:34</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
+							<td>읽음 여부</td>
+							<td class="subject">다섯 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이5</td>
+							<td>2024-02-21 13:45</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
+							<td>읽음 여부</td>
+							<td class="subject">여섯 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이6</td>
+							<td>2024-02-21 14:56</td>
 						</tr>
-						<tr>
+												<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
+							<td>읽음 여부</td>
+							<td class="subject">일곱 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이7</td>
+							<td>2024-02-21 12:34</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
+							<td>읽음 여부</td>
+							<td class="subject">여덟 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이8</td>
+							<td>2024-02-21 13:45</td>
 						</tr>
-						<tr>
+						<tr class="list-item">
 							<td><input type="checkbox"></td>
-							<td></td>
-							<td class="subject"></td>
-							<td></td>
-							<td></td>
-						</tr>					
+							<td>읽음 여부</td>
+							<td class="subject">아홉 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이9</td>
+							<td>2024-02-21 14:56</td>
+						</tr>
+												<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이10</td>
+							<td>2024-02-21 12:34</td>
+						</tr>
+						<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 한 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이11</td>
+							<td>2024-02-21 13:45</td>
+						</tr>
+						<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 두 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이12</td>
+							<td>2024-02-21 14:56</td>
+						</tr>
+												<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 세 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이13</td>
+							<td>2024-02-21 12:34</td>
+						</tr>
+						<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 네 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이14</td>
+							<td>2024-02-21 13:45</td>
+						</tr>
+						<tr class="list-item">
+							<td><input type="checkbox"></td>
+							<td>읽음 여부</td>
+							<td class="subject">열 다섯 번째 메일 제목이 여기에 들어갑니다.</td>
+							<td>보낸이15</td>
+							<td>2024-02-21 14:56</td>
+						</tr>
 						<!--현재 10개의 메일 항목이 있고 추가할거면 이곳 -->
 					</tbody>
 				</table>
@@ -239,10 +251,22 @@ body {
 		  <button type="button" class="btn-msg-storebox">보관</button>
 		  <button type="button" class="btn-msg-trashbox">삭제</button>
 		</div>
+		<!-- 리스트 번호 -->
+		<nav aria-label="...">
+			<ul class="pagination">
+				<li class="page-item disabled"><a class="page-link" href="#"
+					tabindex="-1" aria-disabled="true">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item active" aria-current="page"><a
+					class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
+		</nav>
 	</main>
 	<!-- 받은 쪽지함 Main END-->
 
-
+	
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
 	<!-- End Footer -->
@@ -250,6 +274,9 @@ body {
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
 		<i class="bi bi-arrow-up-short"></i>
 	</a>
+
+
+
 
 	<!-- Vendor JS Files -->
 	<!-- <script src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
