@@ -37,11 +37,78 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
+  <link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- 검색바&드롭박스 JS -->
-
 <script type="text/javascript">
+function changeDropdownItem(value) {
+    var dropdown = document.getElementById('dropdownSelect');
+    dropdown.value = value;
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    var dropdown = document.getElementById('dropdownSelect');
+
+    dropdown.addEventListener('click', function (event) {
+        event.stopPropagation();
+        dropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+});
+
+// 메일리스트 15번 뿌려주기 함수 
+function createMailItem(index) {
+    var listItem = document.createElement('tr');
+    listItem.className = 'list-item';
+
+    var checkboxCell = document.createElement('td');
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkboxCell.appendChild(checkbox);
+
+    var readCell = document.createElement('td');
+    readCell.textContent = '읽음 여부';
+
+    var subjectCell = document.createElement('td');
+    var subjectDiv = document.createElement('div');
+    subjectDiv.className = 'subject';
+    subjectDiv.textContent = index + ' 번째 메일 제목이 여기에 들어갑니다.';
+    subjectCell.appendChild(subjectDiv);
+
+    var authorCell = document.createElement('td');
+    var authorDiv = document.createElement('div');
+    authorDiv.className = 'author';
+    authorDiv.textContent = '보낸이' + index;
+    authorCell.appendChild(authorDiv);
+
+    var dateCell = document.createElement('td');
+    var dateDiv = document.createElement('div');
+    dateDiv.className = 'date';
+    dateDiv.textContent = '2024-02-21 12:34';
+    dateCell.appendChild(dateDiv);
+
+    listItem.appendChild(checkboxCell);
+    listItem.appendChild(readCell);
+    listItem.appendChild(subjectCell);
+    listItem.appendChild(authorCell);
+    listItem.appendChild(dateCell);
+
+    return listItem;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var mailList = document.getElementById('mailList');
+    
+    // 15개의 메일 항목 생성하여 테이블에 추가
+    for (var i = 1; i <= 15; i++) {
+        mailList.appendChild(createMailItem(i));
+    }
+});
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -53,25 +120,31 @@
 	<%@ include file="../asidebar.jsp"%>
 
 	<!-- ======= 받은 쪽지함 Main ======= -->
+	
 	<main id="main" class="main">
-
+		
 		<!-- 받은 쪽지함 pageTitle -->
-		<div class="receivebox-pagetitle">
-			<h1>받은 쪽지함</h1>
+		<div class="pagetitle">
+			<h1>받은쪽지함</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="main.html">Home</a></li>
-					<li class="breadcrumb-item active">받은 쪽지함</li>
+					<li class="breadcrumb-item active">받은쪽지함</li>
 				</ol>
 			</nav>
 		</div>
 		<!-- End Page Title -->
-
+		<div class="card">
 		<!-- 받은 쪽지함 세션 부분 -->
 		<section class="receivebox-section">
+		
+			<!-- 쪽지 쓰기 -->
+			<div class="msg-create">
+				<button type="button" class="msg-create-btn">쪽지쓰기</button>
+			</div>
 			<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 			<div id="noteCount" class="note-count">
-				읽은 쪽지 개수: [<span id="readCount">3</span>] / 전체 받은 쪽지 개수: [<span
+				읽은쪽지: [<span id="readCount">3</span>] / 전체쪽지: [<span
 					id="totalCount">10</span>]
 			</div>
 			<!-- 검색바&드롭박스 -->
@@ -79,24 +152,13 @@
 				<div class="search-bar">
 					<form class="search-form d-flex align-items-center" method="POST"
 						action="#">
-						<div class="dropdown">
-							<span class="search-bar-dropdown-toggle" id="navbarDropdown"
-								role="button" data-bs-toggle="dropdown" aria-expanded="false"
-								onclick="toggleDropdown()"> <span id="selectedItem">전체</span>&nbsp;&nbsp;
-								<i class="bi bi-caret-down-fill" id="dropdownIcon"></i>
-							</span>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#"
-									onclick="changeDropdownItem('전체')">전체</a></li>
-								<li><a class="dropdown-item" href="#"
-									onclick="changeDropdownItem('아이디')">아이디</a></li>
-								<li><a class="dropdown-item" href="#"
-									onclick="changeDropdownItem('제목+내용')">제목+내용</a></li>
-								<li><a class="dropdown-item" href="#"
-									onclick="changeDropdownItem('기간')">기간</a></li>
-							</ul>
-						</div>
-						<input type="text" name="query" placeholder="Search"
+						<select id="dropdownSelect"
+							onchange="changeDropdownItem(this.value)">
+							<option value="전체">전체</option>
+							<option value="아이디">아이디</option>
+							<option value="제목+내용">제목+내용</option>
+							<option value="기간">기간</option>
+						</select> <input type="text" name="query" placeholder="Search"
 							title="Enter search keyword">
 						<button type="submit" title="Search">
 							<i class="bi bi-search"></i>
@@ -114,122 +176,23 @@
 								for="selectAll">선택</label></th>
 							<th scope="col">읽음</th>
 							<th scope="col" class="subject">제목</th>
-							<th scope="col">보낸 사람</th>
+							<th scope="col" class="author">보낸사람</th>
 							<th scope="col">일시</th>
 						</tr>
 					</thead>
 					<!-- 나중에 구현할때 읽은건 폰트에 bold 빼야함 -->
-					<tbody>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">첫 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이1</td>
-							<td>2024-02-21 12:34</td>
+					<tbody id="mailList">
+					</tbody>
+					<tbody class="mailList-whiteSpace">
+						<tr>
+							<td colspan="5"></td>
 						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">두 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이2</td>
-							<td>2024-02-21 13:45</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">세 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이3</td>
-							<td>2024-02-21 14:56</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">네 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이4</td>
-							<td>2024-02-21 12:34</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">다섯 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이5</td>
-							<td>2024-02-21 13:45</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">여섯 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이6</td>
-							<td>2024-02-21 14:56</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">일곱 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이7</td>
-							<td>2024-02-21 12:34</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">여덟 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이8</td>
-							<td>2024-02-21 13:45</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">아홉 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이9</td>
-							<td>2024-02-21 14:56</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이10</td>
-							<td>2024-02-21 12:34</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 한 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이11</td>
-							<td>2024-02-21 13:45</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 두 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이12</td>
-							<td>2024-02-21 14:56</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 세 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이13</td>
-							<td>2024-02-21 12:34</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 네 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이14</td>
-							<td>2024-02-21 13:45</td>
-						</tr>
-						<tr class="list-item">
-							<td><input type="checkbox"></td>
-							<td>읽음 여부</td>
-							<td class="subject">열 다섯 번째 메일 제목이 여기에 들어갑니다.</td>
-							<td>보낸이15</td>
-							<td>2024-02-21 14:56</td>
-						</tr>
-						<!--현재 10개의 메일 항목이 있고 추가할거면 이곳 -->
 					</tbody>
 				</table>
 			</div>
+			
 		</section>
+		
 		<!-- 받은 쪽지함 세션 END -->
 		<!-- 리스트 하단 버튼 -->
 		<div class="btn-container">
@@ -237,27 +200,35 @@
 			<button type="button" class="btn-msg-trashbox">삭제</button>
 		</div>
 		<!-- 리스트 번호 -->
-		<nav aria-label="...">
-			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item active" aria-current="page"><a
-					class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
+		<nav aria-label="Page navigation" class="msgReceivebox-pagination-container">
+		    <ul class="pagination">
+		        <li class="page-item">
+		            <a class="page-link" href="#" aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		            </a>
+		        </li>
+		        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+		        <li class="page-item"><a class="page-link" href="#">2</a></li>
+		        <li class="page-item"><a class="page-link" href="#">3</a></li>
+		        <li class="page-item"><a class="page-link" href="#">4</a></li>
+		        <li class="page-item"><a class="page-link" href="#">5</a></li>
+		        <li class="page-item">
+		            <a class="page-link" href="#" aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		            </a>
+		        </li>
+		    </ul>
 		</nav>
+		</div>
 	</main>
 	<!-- 받은 쪽지함 Main END-->
 
-
+	
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
 	<!-- End Footer -->
 
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center">
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
 		<i class="bi bi-arrow-up-short"></i>
 	</a>
 
