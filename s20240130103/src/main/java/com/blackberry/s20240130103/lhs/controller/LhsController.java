@@ -103,7 +103,7 @@ public class LhsController {
 			session.setAttribute("user_name", user.getUser_name());
 			session.setAttribute("user_profile", user.getUser_profile());
 			System.out.println("LHSController session user no : " + session.getAttribute("user_no"));
-			return "mainLogic";
+			return "redirect:/main";
 		}else {
 			request.setAttribute("islogin", 0);
 			return "lhs/loginForm";

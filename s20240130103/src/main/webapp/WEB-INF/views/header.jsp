@@ -164,6 +164,8 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    
+                    <!-- 로그인 성공 시 세션으로 인해 화면이 변하는 부분 -->
                         <c:choose>
                         	<c:when test="${sessionScope.user_no eq null}">
                         		<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
@@ -174,7 +176,7 @@
                         		<span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.user_no } : ${sessionScope.user_name }</span>
                         	</c:otherwise>
                         </c:choose>
-                        
+                    <!-- 로그인 성공 시 세션으로 인해 화면이 변하는 부분 -->
                         
                     </a><!-- End Profile Iamge Icon -->
 

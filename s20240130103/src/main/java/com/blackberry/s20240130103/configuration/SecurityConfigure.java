@@ -24,7 +24,7 @@ public class SecurityConfigure {
 						.requestMatchers("/**"
 								+ "").permitAll()
 				);
-			http.csrf(csrf->csrf.disable());
+			http.cors(cors->cors.disable()).csrf(csrf -> csrf.disable()); 
 		return http.build();
 	}
 	
