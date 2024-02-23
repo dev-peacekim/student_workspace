@@ -28,7 +28,10 @@
 			<div class="row">
 				<div class="card">
 					<div class="card-body">
-						<div class="d-flex justify-content-between align-items-center">
+						<div class="community-header">
+							<h5>공모전 게시판</h5>
+						</div>
+						<div class="community-body">
 							<div class="contest-title">함께 성장할 공모전 팀원을 모집해보세요</div>
 							<div class="search-bar d-flex justify-content-end">
 								<form class="search-form d-flex align-items-center"
@@ -90,23 +93,23 @@
 							</form>
 						</div>
 					</div>
+					<!-- ======= Pagination ======= -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Previous"> <span aria-hidden="true">«</span>
+							</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Next"> <span aria-hidden="true">»</span>
+							</a></li>
+						</ul>
+					</nav>
 				</div>
-				<!-- ======= Pagination ======= -->
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Previous"> <span aria-hidden="true">«</span>
-						</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Next"> <span aria-hidden="true">»</span>
-						</a></li>
-					</ul>
-				</nav>
 			</div>
 		</section>
 

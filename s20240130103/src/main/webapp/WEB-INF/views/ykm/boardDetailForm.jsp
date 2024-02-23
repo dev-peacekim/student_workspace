@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm/boardStudyDetailForm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardDetailForm.css" rel="stylesheet">
 </head>
 <body>
 	<!-- ======= header ======= -->

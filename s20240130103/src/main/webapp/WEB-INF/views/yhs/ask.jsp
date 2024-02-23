@@ -189,7 +189,7 @@
     		<div class="col-lg-12">
     			<div class="card">
     				<div class="card-body">
-    					<h5 class="card-title">여러분의 질문은 Blueberry를 자라게하는 자양분입니다!</h5>
+    					<h5 class="card-title">여러분의 질문은 Blueberry를 성장시키는 자양분입니다!</h5>
     						<p></p>
     					<div class="search-bar d-flex justify-content-end">
     						<div class="col-md-3">
@@ -212,12 +212,22 @@
                     				<th>#</th>
                     				<th>제목</th>
                     				<th>작성자</th>
-                    				<th data-type="date" data-format="YYYY/DD/MM">날짜</th>
-                    				<th>조회수</th>
-                    				<th>댓글</th>
+                    				<th data-type="date" data-format="YYYY/DD/MM">작성일시</th>
+                    				<th>답변여부</th>
+                    				<th></th>
                   				</tr>
                 			</thead>
                 			<tbody>
+                				<c:forEach var="BOARD_ADMIN" items="${ask}">
+								<tr>
+									<td>${num }</td>
+									<td>${BOARD_ADMIN.admin_title }</td>
+									<td><a href="detailAsk?admin_title=${BOARD_ADMIN.user.no}">${emp.ename}</a></td>
+									<td>${BOARD_ADMIN.user_no}</td>
+									<td>${BOARD_ADMIN.admin_reply_chk}</td>
+								</tr>
+							<c:set var="num" value="${num - 1 }"></c:set>
+								</c:forEach>
                   				<tr>
                     				<td>7</td>
                     				<td>Curicó</td>
@@ -278,7 +288,7 @@
               			</table>
               			<div class="floatright">
 		  				<button type="button" class="btn-msg-primary">
-		  					<a href="askWrite">글작성</a></button>
+		  					<a href="askForm">글작성</a></button>
 		  				</div>
               <!-- End Table with stripped rows -->
               

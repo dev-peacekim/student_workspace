@@ -1,4 +1,4 @@
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+@charset "UTF-8";@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 /* Card */
 .card {
@@ -59,9 +59,18 @@
     color: white;
 }
 
-.btn.bfWrite {
+.btn.bfmCancle {
+	position:absolute;
+	width: 100px;
+	right: 140px;
+	bottom: 20px;
+}
+
+
+.btn.bfmModify {
 	position:absolute;
 	width: 100px;
 	right: 20px;
-	bottom: 60px;
+	bottom: 20px;
+   
 }

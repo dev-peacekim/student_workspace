@@ -17,9 +17,18 @@ public class LslController {
 		return "lsl/boardAsk";
 	}
 	
-	@GetMapping(value = "boardWrite" )
-	public String boardWrite() {
-		return "lsl/boardWrite";
+	@GetMapping(value = "boardFreeWrite" )
+	public String boardFreeWrite() {
+		return "lsl/boardFreeWrite";
 	}
-
+	
+	@GetMapping(value = "boardFreeContents" )
+	public String boardFreeContents() {
+		return "lsl/boardFreeContents";
+	}
+	
+	@GetMapping(value = "boardFreeModify")
+	public String boardFreeModify() {
+		return "lsl/boardFreeModify";
+	}
 }

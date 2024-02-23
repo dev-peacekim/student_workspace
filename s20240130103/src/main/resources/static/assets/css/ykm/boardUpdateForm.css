@@ -7,8 +7,7 @@
 .search-bar {
 	min-width: 360px;
 	padding-top: 10px;
-  	padding-bottom: 20px;
-	font-family: 'NanumSquare', sans-serif;
+	padding-bottom: 20px;
 }
 
 @media ( max-width : 1199px) {
@@ -17,8 +16,8 @@
 		top: 50px;
 		left: 0;
 		right: 0;
-  	  	padding-top: 20px;
-  	  	padding-bottom: 20px;
+		padding-top: 20px;
+		padding-bottom: 20px;
 		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
 		background: white;
 		z-index: 9999;
@@ -68,48 +67,37 @@
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
-.section {
+.boardRegisteForm {
 	font-family: 'NanumSquare', sans-serif;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	max-height: 100%;
+	min-height: 480px;
+	border-radius: 8px;
 }
-
-.section .nav-link {
-	font-weight: bold;
-	font-size: large;
-}
-
 
 /*--------------------------------------------------------------
-# section
+# card
 --------------------------------------------------------------*/
 .card {
-	border: none;
-	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-}
-.card-body {
-	position: relative;
 	padding: 0.5rem;
 	width: 100%;
 	font-family: 'NanumSquare', sans-serif;
 	height: 100%;
 	max-height: 100%;
+	border: none;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.card-body {
 	min-height: 700px
 }
 
-
-.card-title {
-	font-weight: bold;
-	padding-left: 10px;
-	
-}
-.community-body {
+.title-input {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.contest-title {
-	font-weight: bold;
-	font-size: 18px;
-	font-family: 'NanumSquare', sans-serif;
+	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .community-header {
@@ -125,12 +113,23 @@
 	color: #424242;
 }
 
+/*--------------------------------------------------------------
+# content
+--------------------------------------------------------------*/
+
+.content-input {
+	font-family: 'NanumSquare', sans-serif;
+}
+
+.textarea.form-control {
+	min-height: 300px
+}
+
 
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
 .btn-container {
-	position: absolute;
 	bottom: 0;
 	left: 0;
 	display: flex;
@@ -139,20 +138,9 @@
 	padding: 16px 20px;
 	width: 100%;
 	z-index: 100;
-	
 }
 
 .btn-container form {
 	margin-left: 10px; /* 버튼 사이 간격 조정 */
 	
-}
-
-thead tr, tead th {
-	height: 30px;
-	line-height: 30px;
-}
-
-tbody th, tbody td {
-	height: 30px;
-	line-height: 30px;
 }
