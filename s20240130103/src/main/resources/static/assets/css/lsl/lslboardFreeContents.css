@@ -36,6 +36,7 @@
 
 .card-body {
 	padding: 0 20px 20px 20px;
+	height: 100%;
 	
 	
 }
@@ -98,20 +99,35 @@
 	bottom: 20px;
 }
 
-.btn.bfcCancle {
+.btn.bfcModify {
 	position: absolute;
 	width: 100px;
 	right: 140px;
 	bottom: 20px;
 }
 
-.btn.bfcComple {
+.btn.bfcList {
 	position: absolute;
 	width: 100px;
 	right: 20px;
 	bottom: 20px;
 }
 
-/*--------------------------------------------------------------
-# TBox
---------------------------------------------------------------*/
+.btn.bfcRwrite {
+	position: absolute;
+	width: 100px;
+	right: 20px;
+	bottom: 10px;
+
+}
+
+.btn.bfcRDelete {
+	position: absolute;
+	width: 100px;
+	right: 140px;
+	bottom: 10px;
+	
+}
+.boardRepl {
+	height: 300px;
+}

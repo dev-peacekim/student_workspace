@@ -86,8 +86,8 @@
          					 
                             <div class="mb-3">
                               <button type="submit" class="btn bfcDelete">삭제</button>
-                               <button type="button" class="btn bfcCancle" onclick="window.location.href='boardFreeModify'">수정</button>
-                                <button type="submit" class="btn bfcComple">목록</button>
+                               <button type="button" class="btn bfcModify" onclick="window.location.href='boardFreeModify'">수정</button>
+                                <button type="submit" class="btn bfcList">목록</button>
                             </div>
                         </form><!-- End General Form Elements -->
 
@@ -96,6 +96,13 @@
             </div>
         </div>
     </section>
+    <div class="bfcComment">
+<div class="comment alert alert-secondary alert-dismissible fade show" role="alert">
+    댓글 내용을 여기에 입력하세요.
+</div>
+  <button type="button" class="btn bfcRwrite">등록</button>
+    <button type="button" class="btn bfcRDelete" data-bs-dismiss="alert" aria-label="Close">삭제</button>
+</div>
 </main>
 
 
