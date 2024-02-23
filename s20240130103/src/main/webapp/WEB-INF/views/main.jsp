@@ -16,6 +16,10 @@
     <!-- Favicons -->
     <link href="assets/img/blueberry-logo.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    
+    <!-- Google Fonts -->
+  	<link href="https://fonts.gstatic.com" rel="preconnect">
+ 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -68,7 +72,7 @@
         
 			<div class="card1 info-card sales-card project">
 		        <div class="card-body my-project">
-		        	<div class="my-porject-title">
+		        	<div class="my-project-title">
 		            	<h5 class="card-title">나의 프로젝트</h5>
 		            	<a href="projectAddForm"><button type="submit" class="plus-btn">+</button></a>
 		          	</div>
@@ -77,21 +81,29 @@
 		        			<div class="card-body my-project-detail">
 		        				<div>
 		            				<h5 class="my-project-detail-title">${project.project_title }</h5>
-		            				<form action="detailProject" method="post">
+		            				<form action="eval" method="post">
+		            					<c:if test="${project.project_comp_chk eq 1 }">
+		            						<input name="project_no" value="${project.project_no }" hidden="true"/>
+		            						<input type="submit" class="evaluation-btn" value="팀원평가"/>	
+		            					</c:if>
+									</form>
+		          				</div>
+		          				<div>
+		          					<div class="progress" style="width:70%; margin-top:20px; height: 20px; border-radius: 10px; background-color: rgba(246, 249, 255, 0.3);">
+					                <c:choose>
+					                    <c:when test="${project.comp_task_count + project.uncomp_task_count != 0}">
+					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: ${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%; height: 30px; line-height: 20px;" aria-valuenow="${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}" aria-valuemin="0" aria-valuemax="100">${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%</div>
+					                    </c:when>
+					                    <c:otherwise>
+					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%; height: 30px; line-height: 20px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+					                    </c:otherwise>
+					                </c:choose>
+				            		</div>
+				            		<form action="detailProject" method="post">
 		            					<input name="project_no" value="${project.project_no }" hidden="true" />
 		            					<input type="submit" class="enter-btn" value="입장하기" />
 		            				</form>
 		          				</div>
-		          				<div class="progress" style="margin-top:20px; height: 20px; border-radius: 10px; background-color: rgba(246, 249, 255, 0.3);">
-				                <c:choose>
-				                    <c:when test="${project.comp_task_count + project.uncomp_task_count != 0}">
-				                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: ${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%; height: 30px; line-height: 20px;" aria-valuenow="${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}" aria-valuemin="0" aria-valuemax="100">${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%</div>
-				                    </c:when>
-				                    <c:otherwise>
-				                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%; height: 30px; line-height: 20px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-				                    </c:otherwise>
-				                </c:choose>
-				            </div>
 		       				</div>
 	      				</div>
 		        	</c:forEach>
@@ -107,23 +119,21 @@
 	            		<div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>전체 과업</p>
-			            		<p>전체 과업</p>
+			            		<p>${totalTaskCount }</p>
 			            	</div>
-			            	<div>sadf</div>
+			            	<div class="compPercent">${Math.round((totalCompTaskCount/totalTaskCount)*100) }%</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
-			            		<p>전체 과업</p>
-			            		<p>전체 과업</p>
+			            		<p>완료 과업</p>
+			            		<p>${totalCompTaskCount }</p>
 			            	</div>
-			            	<div>sadf</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
-			            		<p>전체 과업</p>
-			            		<p>전체 과업</p>
+			            		<p>미완료 과업</p>
+			            		<p>${totalUnCompTaskCount }</p>
 			            	</div>
-			            	<div>sadf</div>
 				        </div>
 	            	</div>
 			        
