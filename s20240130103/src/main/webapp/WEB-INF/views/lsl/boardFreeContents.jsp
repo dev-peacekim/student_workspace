@@ -25,7 +25,8 @@
   
   
   <!-- Template Main CSS File -->
-  <link href="assets/css/lsl/lslboardFree.css" rel="stylesheet"> <!-- 추가된 부분 -->
+  <link href="assets/css/lsl/lslboardFreeContents.css" rel="stylesheet"> 
+   <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
   
   <!-- =======================================================
@@ -45,9 +46,9 @@
     <%@ include file="asidebar.jsp" %>
 
     <!-- ======= Main ======= -->
- <main id="main" class="main">
+<main id="main" class="main">
     <div class="pagetitle">
-        <h1 style="font-size: 24px">게시판 글쓰기</h1>
+        <h1>게시판 </h1>
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="main">Home</a></li>
@@ -62,25 +63,31 @@
             <div class="col-lg-13">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">글쓰기</h5>
-
                         <!-- General Form Elements -->
+                        
                         <form>
-                            <div class="mb-3">
-                                <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText">
+                         <h5 class="card-title">제목</h5>
+                            <div class="bcfTBox">
+                                <div class="TBox">   
+                                제목입니다.
+						           </div>
                             </div>
+                        
+        				
+        				 	 <h5 class="card-title">내용</h5>
+            					<div class="bfcCBox">
+              					<div class="CBox">
+              						 Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
+						              Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem numquam. Enim fuga ipsum dolor nulla quia ut.
+						              Rerum dolor voluptatem et deleniti libero totam numquam nobis distinctio. Sit sint aut. Consequatur rerum in.
+						           </div>
+              					</div>
+         				<!-- End Default Card -->
+         					 
                             <div class="mb-3">
-                                <label for="inputNumber" class="form-label">파일</label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">내용</label>
-                                <textarea class="form-control" style="height: 600px;"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">취소</button>
-                                <button type="submit" class="btn btn-primary">완료</button>
+                              <button type="submit" class="btn bfcDelete">삭제</button>
+                               <button type="button" class="btn bfcCancle" onclick="window.location.href='boardFreeModify'">수정</button>
+                                <button type="submit" class="btn bfcComple">목록</button>
                             </div>
                         </form><!-- End General Form Elements -->
 
@@ -90,6 +97,7 @@
         </div>
     </section>
 </main>
+
 
     <!-- ======= End Main ======= -->
     
