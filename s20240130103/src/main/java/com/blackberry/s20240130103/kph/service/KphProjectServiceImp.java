@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
 import com.blackberry.s20240130103.kph.model.KphProject;
+import com.blackberry.s20240130103.kph.model.KphTask;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,8 +29,26 @@ public class KphProjectServiceImp implements KphProjectService {
 	public List<KphProject> projectList(int user_no) {
 		System.out.println("KphProjectServiceImp projectList start...");
 		List<KphProject> projectList = kphProjectDao.projectList(user_no);
-		System.out.println("KphProjectServiceImp projectList projectList=>" + projectList.size());
+		System.out.println("KphProjectServiceImp projectList projectList.size=>" + projectList.size());
 		return projectList;
+	}
+
+
+	@Override
+	public List<KphTask> unCompTaskListByProjectNo(int project_no) {
+		System.out.println("KphProjectServiceImp unCompTaskListByProjectNo start...");
+		List<KphTask> upCompTaskList = kphProjectDao.unCompTaskListByProjectNo(project_no);
+		System.out.println("KphProjectServiceImp unCompTaskListByProjectNo upCompTaskList.size=>" + upCompTaskList.size());
+		return upCompTaskList;
+	}
+
+
+	@Override
+	public List<KphTask> compTaskListByProjectNo(int project_no) {
+		System.out.println("KphProjectServiceImp compTaskListByProjectNo start...");
+		List<KphTask> CompTaskList = kphProjectDao.compTaskListByProjectNo(project_no);
+		System.out.println("KphProjectServiceImp compTaskListByProjectNo compTaskList.size=>" + CompTaskList.size());
+		return CompTaskList;
 	}
 	
 }

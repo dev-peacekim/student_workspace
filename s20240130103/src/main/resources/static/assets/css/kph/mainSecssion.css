@@ -7,6 +7,7 @@
   margin-bottom: 30px;
   background-color: white;
   width: 30%;
+  height: 700px;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
@@ -31,9 +32,11 @@ project > div {
 	display: flex;
 } 
 
+
+
 .detail-card {
   margin-bottom: 10px;
-  background-color: #90a4ec;
+  background-color: #88a2fd;
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -46,7 +49,7 @@ project > div {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
 }
 
 .card-body div {
@@ -54,7 +57,7 @@ project > div {
 }
 
 .card-title {
-  padding: 20px 0 15px 0;
+  padding: 0px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
   color: #012970;
@@ -65,10 +68,52 @@ project > div {
 	display: flex
 }
 
-.project .card-body h5 {
+.project .card-body .my-project-detail-title {
   font-family:'NanumSquare', sans-serif;
   font-weight: bold;
   width: 240px;
+  margin-top: 7px;
+}
+
+.my-porject-title .card-title {
+  font-family:'NanumSquare', sans-serif;
+  font-weight: bold;
+  width: 240px;
+}
+
+.all-project-report-box {
+	display: flex;	
+}
+
+.all-project-report-detail {
+  margin-bottom: 30px;
+  display: flex;
+  background-color: #88a2fd;
+  color: white;
+  width: 29%;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0 10px rgba(1, 41, 112, 0.1);
+  overflow-y: auto;
+}
+
+all-project-report-detail div:first-child {
+	width: 78%
+}
+
+.all-project-report-detail div p:first-child {
+	font-family: 'NanumSquare', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.all-project-report-detail div:last-child {
+	width: 20%
+}
+
+.all-project-report-detail div p:last-child {
+	font-family: 'NanumSquare', sans-serif;
+	text-decoration: underline;
 }
 
 .summary .card-body h5 {
@@ -91,14 +136,14 @@ project > div {
   background-color: #486ef3;
   border: none;
   color: white;
-  margin-top: 15px;
+  margin-top: -15px;
   width: 28px;
   height: 28px;
   border-radius: 0.375rem;
 }
 
 .plus-btn:hover {
-  background-color: rgb(139, 164, 248);
+  background-color: #8ca2f0;
 }
 
 .enter-btn {
@@ -107,10 +152,9 @@ project > div {
   font-weight: bold;
   border: none;
   color: #012970;
-  margin-top: 15px;
   width: 80px;
   height: 40px;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: -5px;
   box-shadow: 0px 0 10px rgba(1, 41, 112, 0.1);
 }

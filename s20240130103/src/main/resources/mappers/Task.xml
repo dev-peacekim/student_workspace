@@ -2,10 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.oBootMybatis01.TaskMapper">
 					
-	<select id="kphTaskList" parameterType="Task" resultType="int">
+	<select id="kphUnCompTaskListByProjectNo" parameterType="int" resultType="Task">
 		SELECT *
-		FROM PROJECT
-		WHERE USER_NO = #{user_no}
+		FROM TASK
+		WHERE PROJECT_NO = #{project_no}
+		AND TASK_COMP_CHK = 0
+	</select>
+	
+	<select id="kphCompTaskListByProjectNo" parameterType="int" resultType="Task">
+		SELECT *
+		FROM TASK
+		WHERE PROJECT_NO = #{project_no}
+		AND TASK_COMP_CHK = 1
 	</select>
 	
 </mapper>

@@ -3,7 +3,7 @@
 <mapper namespace="com.oracle.oBootMybatis01.ProjectMapper">
 			
 	<insert id="kphProjectInsert" parameterType="Project">
-		INSERT INTO PROJECT VALUES (PROJECT_SEQ.NEXTVAL, #{project_title}, #{project_content}, #{project_start}, #{project_end}, #{user_no}, sysdate, 0, 0);
+		INSERT INTO PROJECT VALUES (PROJECT_SEQ.NEXTVAL, #{project_title}, #{project_content}, #{project_start}, #{project_end}, #{user_no}, SYSDATE, 0, 0)
 	</insert>
 	
 	<select id="kphProjectList" parameterType="int" resultType="Project">
