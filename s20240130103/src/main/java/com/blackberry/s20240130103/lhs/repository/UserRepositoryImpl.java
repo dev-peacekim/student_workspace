@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.lhs.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lhs.domain.User;
@@ -19,11 +21,18 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
-	public int findUserById(String id) {
-		String jpqlSQL = "select count(u) from User u where u.user_id=:id";
-		Long result = (Long) entityManager.createQuery(jpqlSQL).setParameter("id", id).getSingleResult();
-		System.out.println("UserRepository findUserById cnt : " + result);
-		return result.intValue();
+	public Optional<User> findUserById(String id) {
+		//jpql count 사용법
+		//String jpqlSQL = "select count(u) from User u where u.user_id=:id";
+		//Long result = (Long) entityManager.createQuery(jpqlSQL).setParameter("id", id).getSingleResult();
+		String findUserIdSql = "select u from User u where u.user_id=:id";
+		User user = null;
+		try {
+			user =  (User) entityManager.createQuery(findUserIdSql).setParameter("id", id).getSingleResult();
+		}catch (Exception e) {
+			System.out.println("UserRepositoryImpl findUserById exception : " + e.getMessage());
+		}
+		return Optional.ofNullable(user);
 	}
 
 }

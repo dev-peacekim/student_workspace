@@ -23,13 +23,26 @@
   overflow-y: auto;
 }
 
+project > div {
+	display: flex;
+}
+
+.my-project-detail> div:first-child {
+	display: flex;
+} 
+
 .detail-card {
   margin-bottom: 10px;
-  background-color: #718ceb;
+  background-color: #90a4ec;
   width: 100%;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 0 10px rgba(1, 41, 112, 0.1);
+}
+
+.detail-card .card-title {
+  color : white;
+  font-size: 25px;
 }
 
 .card-body {
@@ -37,7 +50,6 @@
 }
 
 .card-body div {
-  display: flex;
   justify-content: space-between;
 }
 
@@ -49,9 +61,14 @@
   font-family: "Poppins", sans-serif;
 }
 
+.my-porject-title {
+	display: flex
+}
+
 .project .card-body h5 {
   font-family:'NanumSquare', sans-serif;
   font-weight: bold;
+  width: 240px;
 }
 
 .summary .card-body h5 {
@@ -81,5 +98,19 @@
 }
 
 .plus-btn:hover {
-  background-color: #486ef3;
+  background-color: rgb(139, 164, 248);
+}
+
+.enter-btn {
+  background-color: white;
+  font-family:'NanumSquare', sans-serif;
+  font-weight: bold;
+  border: none;
+  color: #012970;
+  margin-top: 15px;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 0px 0 10px rgba(1, 41, 112, 0.1);
 }

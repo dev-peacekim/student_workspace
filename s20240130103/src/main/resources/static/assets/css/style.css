@@ -295,7 +295,8 @@ h6 {
   font-size: 22px;
   font-weight: 700;
   color: transparent;
-  font-family: "Nunito", sans-serif;
+  font-family:'NanumSquare', sans-serif;
+  font-weight: 800; 
 }
 
 .header {
@@ -406,6 +407,7 @@ h6 {
 .header-nav .nav-profile span {
   font-size: 14px;
   font-weight: 600;
+  font-family:'NanumSquare', sans-serif;
 }
 
 .header-nav .badge-number {
@@ -494,6 +496,7 @@ h6 {
   margin-bottom: 0;
   font-weight: 600;
   color: #444444;
+  font-family:'NanumSquare', sans-serif;
 }
 
 .header-nav .profile .dropdown-header span {
@@ -515,6 +518,7 @@ h6 {
 .header-nav .profile .dropdown-item:hover {
   background-color: #f6f9ff;
 }
+
 
 /*--------------------------------------------------------------
 # Sidebar
