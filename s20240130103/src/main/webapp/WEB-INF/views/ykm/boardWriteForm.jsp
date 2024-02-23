@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm/boardRegisteForm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -26,27 +26,36 @@
 			<div class="row">
 				<div class="card">
 					<div class="card-body">
-						<div class="title-input">
-							<label for="boradTitle" class="form-label"></label><input
-								type="text" id="boardTitle" class="form-control"
-								aria-describedby="titleHelpBlock"
-								placeholder="제목에 핵심 내용을 요약해보세요.">
+						<div class="community-header">
+							<h5>글쓰기</h5>
 						</div>
-						<div class="content-input">
-							<label for="boardContent" class="form-label"></label>
-							<textarea class="form-control" id="boardContent" rows="15"
-								placeholder="내용을 입력하세요."></textarea>
+						<div class="community-body">
+							<div class="title-input">
+								<label for="boradTitle" class="form-label"></label><input
+									type="text" id="boardTitle" class="form-control"
+									aria-describedby="titleHelpBlock"
+									placeholder="제목에 핵심 내용을 요약해보세요.">
+							</div>
+							 <div class="upload-files">
+                                <label for="inputNumber" class="form-label">파일 첨부</label>
+                                <input class="form-control" type="file" id="formFile">
+                            </div>
+							<div class="content-input">
+								<label for="boardContent" class="form-label"></label>
+								<textarea class="form-control" id="boardContent" rows="15"
+									placeholder="내용을 입력하세요."></textarea>
+							</div>
 						</div>
-					</div>
-					<!-- End Quill Editor Default -->
-					<div class="btn-container">
-						<form action="boardRegistesubmit" method="get">
-							<input type="submit" class="btn btn-primary" value="submit">
-						</form>
-						<form action="boardRegistereset" method="get">
-							<input type="submit" class="btn btn-secondary" value="reset">
-						</form>
-					</div>
+						<!-- End Quill Editor Default -->
+						<div class="btn-container">
+							<form action="boardWritesubmit" method="get">
+								<input type="submit" class="btn btn-primary" value="submit">
+							</form>
+							<form action="boardWritereset" method="get">
+								<input type="submit" class="btn btn-secondary" value="reset">
+							</form>
+						</div>
+					</div>ㄴ
 				</div>
 			</div>
 		</section>

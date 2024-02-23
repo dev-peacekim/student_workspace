@@ -14,42 +14,55 @@ public class BoardStudyController {
 		return "ykm/boardStudy";
 	}
 	
-	
 	@GetMapping(value="boardContest")
 	public String boardContest() {
 		return "ykm/boardContest";
 	}
+
+	@GetMapping(value = "boardWriteForm")
+	public String boardWriteForm() {
+		return "ykm/boardWriteForm";
+	}
+	
+	@GetMapping(value = "boardUpdateForm")
+	public String boardUpdateForm() {
+		return "ykm/boardUpdateForm";
+	}
+	
+	@GetMapping(value="boardDetailForm")
+	public String boardDetailForm() {
+		return "ykm/boardDetailForm";
+	}
+	
+	
+	/* button */
+	
+	@GetMapping(value = "boardStuConWrite")
+	public String boardStuConWrite() {
+		return "ykm/boardWriteForm";
+	}
+
+
+	@GetMapping(value="boardWritesubmit")
+	public String boardWritesubmit() {
+		return "ykm/boardStudy";
+	}
+	
+	@GetMapping(value = "boardWritereset")
+	public String boardWritereset() {
+		return "ykm/boardStudy";
+	}
+	
+	@GetMapping(value="boardUpdatesubmit")
+	public String boardUpdatesubmit() {
+		return "ykm/boardStudy";
+	}
+	
+	@GetMapping(value = "boardUpdatereset")
+	public String boardUpdatereset() {
+		return "ykm/boardStudy";
+	}
 	
 
-	@GetMapping(value="boardRegisteWrite")
-	public String boardRegisterDetail() {
-		return "ykm/boardRegisteForm";
-	}
-	
-	@GetMapping(value="boardRegistesubmit")
-	public String boardRegistersubmit() {
-		return "ykm/boardStudy";
-	}
-	
-	@GetMapping(value = "boardRegistereset")
-	public String boardRegisterreset() {
-		return "ykm/boardStudy";
-	}
-	
-	@GetMapping(value="boardModifysubmit")
-	public String boardModifysubmit() {
-		return "ykm/boardStudy";
-	}
-	
-	@GetMapping(value = "boardModifyreset")
-	public String boardModifyreset() {
-		return "ykm/boardStudy";
-	}
-	
-	@GetMapping(value="boardStudyDetailForm")
-	public String boardStudyDetailForm() {
-		return "ykm/boardStudyDetailForm";
-	}
-  
 	
 }

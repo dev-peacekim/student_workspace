@@ -68,6 +68,7 @@
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
+
 .section {
 	font-family: 'NanumSquare', sans-serif;
 }
@@ -80,7 +81,10 @@
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
-
+.card {
+	border: none;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
 .card-body {
 	position: relative;
 	padding: 0.5rem;
@@ -88,13 +92,24 @@
 	font-family: 'NanumSquare', sans-serif;
 	height: 100%;
 	max-height: 100%;
-	font-family: 'NanumSquare', sans-serif;
-	min-height: 500px
+	min-height: 700px
 }
 
 .card-title {
 	font-weight: bold;
 	padding-left: 10px;
+}
+
+.community-header {
+    padding: 16px 20px;
+    justify-content : center;
+    align-items: center;
+}
+.community-header h5 {
+	font-family: 'NanumSquare', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	color: #424242;
 }
 
 /*--------------------------------------------------------------

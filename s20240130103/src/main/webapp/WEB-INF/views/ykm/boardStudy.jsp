@@ -28,6 +28,9 @@
 			<div class="row">
 				<div class="card">
 					<div class="card-body">
+						<div class="community-header">
+							<h5>스터디 게시판</h5>
+						</div>
 						<!-- 탭 시작  -->
 						<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
 							role="tablist">
@@ -108,7 +111,7 @@
 
 						<!-- 버튼 시작 -->
 						<div class="btn-container">
-							<form action="boardRegisteWrite" method="get">
+							<form action="boardStuConWrite" method="get">
 								<input type="submit" class="btn btn-primary" value="글쓰기">
 							</form>
 						</div>
@@ -130,7 +133,8 @@
 						</ul>
 					</nav>
 				</div>
-				<!-- ======= Pagination ======= -->
+			</div>
+			<!-- ======= Pagination ======= -->
 		</section>
 
 

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm/boardRegisteForm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardUpdateForm.css" rel="stylesheet">
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -40,10 +40,13 @@
 					</div>
 					<!-- End Quill Editor Default -->
 					<div class="btn-container">
-						<form action="boardModifysubmit" method="get">
+						<form action="boardUpdatesubmit" method="get">
 							<input type="submit" class="btn btn-primary" value="submit">
 						</form>
-						<form action="boardModifyreset" method="get">
+						<form action="boardUpdateDelete" method="get">
+							<input type="submit" class="btn btn-danger" value="delete">
+						</form>
+						<form action="boardUpdatereset" method="get">
 							<input type="submit" class="btn btn-secondary" value="reset">
 						</form>
 					</div>
@@ -56,26 +59,6 @@
 		<%@ include file="../asidebar.jsp"%>
 
 
-
-
-		<!-- ======= Pagination ======= -->
-		<section>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">«</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">»</span>
-					</a></li>
-				</ul>
-			</nav>
-		</section>
 	</main>
 
 	<!-- ======= Footer ======= -->
