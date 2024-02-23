@@ -9,6 +9,6 @@
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <a href="ask">문의 하기</a>
+      <a href="ask">문의하기</a>
     </div>
 </footer>
