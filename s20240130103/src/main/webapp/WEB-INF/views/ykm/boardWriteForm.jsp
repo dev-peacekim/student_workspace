@@ -37,7 +37,7 @@
 									placeholder="제목에 핵심 내용을 요약해보세요.">
 							</div>
 							 <div class="upload-files">
-                                <label for="inputNumber" class="form-label">파일 첨부</label>
+                                <label for="inputNumber" class="form-label"><span class="upload-file-title">파일 첨부</span></label>
                                 <input class="form-control" type="file" id="formFile">
                             </div>
 							<div class="content-input">
