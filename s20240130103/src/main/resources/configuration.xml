@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="Project" type="com.blackberry.s20240130103.kph.model.KphProject"/>
+		<typeAlias alias="Task" type="com.blackberry.s20240130103.kph.model.KphTask"/>
 	</typeAliases>
 </configuration>

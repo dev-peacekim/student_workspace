@@ -28,7 +28,7 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
-    <link href="assets/css/mainSecssion.css"  rel="stylesheet"  type="text/css"> <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
+    <link href="assets/css/kph/mainSecssion.css"  rel="stylesheet"  type="text/css"> <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
      
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
 
@@ -39,13 +39,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-    <style>
-        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-
-        body {
-            font-family: 'NanumSquare';
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -74,17 +68,21 @@
         
 			<div class="card1 info-card sales-card project">
 		        <div class="card-body my-project">
-		        	<div>
+		        	<div class="my-porject-title">
 		            	<h5 class="card-title">나의 프로젝트</span></h5>
 		            	<form action="projectAddForm">
 		              	<button type="submit" class="plus-btn">+</button>
 		            	</form>  
 		          	</div>
 		          	<div class="detail-card info-card sales-card project-detail">
-		        		<div class="card-body my-project">
+		        		<div class="card-body my-project-detail">
 		        			<div>
-		            			<h5 class="card-title">나의 프로젝트</span></h5>
+		            			<h5 class="card-title">marketing comunication</span></h5>
+		            			<button class="enter-btn">입장하기</button>
 		          			</div>
+		          			<div class="progress" style="height: 20px; border-radius: 10px; background-color: rgba(246, 249, 255, 0.3);">
+                				<div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 25%; height: 30px; line-height: 20px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+              				</div>
 		       			</div>
 	      			</div>
 		       </div>
@@ -117,10 +115,10 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="assets/vendor/chart.js/chart.umd.js"></script> -->
     <!-- <script src="assets/vendor/echarts/echarts.min.js"></script> -->
-    <!-- <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script> -->
+    <script src="assets/vendor/quill/quill.min.js"></script>
+ 	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  	<script src="assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
