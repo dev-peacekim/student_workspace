@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardStudy.css" rel="stylesheet">
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -63,53 +63,58 @@
 								</div>
 							</li>
 						</ul>
-						<!-- End Search tab -->
+					<!-- End Search tab -->
+					<div class="table-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">날짜</th>
+								<th scope="col">조회수</th>
+								<th scope="col">댓글</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
+								<td>Designer</td>
+								<td>28</td>
+								<td>2016-05-25</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td><span class="recruited">모집완료</span> Bridie Kessler</td>
+								<td>Developer</td>
+								<td>35</td>
+								<td>2014-12-05</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>Ashleigh Langosh</td>
+								<td>Finance</td>
+								<td>45</td>
+								<td>2011-08-12</td>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+						</div>
+					<!-- End Table with hoverable rows -->
 
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
-									<th scope="col">날짜</th>
-									<th scope="col">조회수</th>
-									<th scope="col">댓글</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
-									<td>Designer</td>
-									<td>28</td>
-									<td>2016-05-25</td>
-									<td>0</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td><span class="recruited">모집완료</span> Bridie Kessler</td>
-									<td>Developer</td>
-									<td>35</td>
-									<td>2014-12-05</td>
-									<td>0</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Ashleigh Langosh</td>
-									<td>Finance</td>
-									<td>45</td>
-									<td>2011-08-12</td>
-									<td>0</td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- End Table with hoverable rows -->
-
-					<form action="boardRegisteWrite" method="get">
-						<input type="submit" class="btn btn-primary" value="글쓰기">
-					</form>
+					<!-- 버튼 시작 -->
+					<div class="btn-container">
+						<form action="boardRegisteWrite" method="get">
+							<input type="submit" class="btn btn-primary" value="글쓰기">
+						</form>
 					</div>
+					<!-- End btn -->
 				</div>
+			</div>
 			</div>
 		</section>
 
@@ -117,7 +122,6 @@
 
 		<!-- ======= aSidebar ======= -->
 		<%@ include file="../asidebar.jsp"%>
-
 
 
 
