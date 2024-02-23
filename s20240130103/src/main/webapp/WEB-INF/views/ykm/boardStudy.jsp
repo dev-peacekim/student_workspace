@@ -63,59 +63,74 @@
 								</div>
 							</li>
 						</ul>
-					<!-- End Search tab -->
-					<div class="table-body">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">날짜</th>
-								<th scope="col">조회수</th>
-								<th scope="col">댓글</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
-								<td>Designer</td>
-								<td>28</td>
-								<td>2016-05-25</td>
-								<td>0</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td><span class="recruited">모집완료</span> Bridie Kessler</td>
-								<td>Developer</td>
-								<td>35</td>
-								<td>2014-12-05</td>
-								<td>0</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Ashleigh Langosh</td>
-								<td>Finance</td>
-								<td>45</td>
-								<td>2011-08-12</td>
-								<td>0</td>
-							</tr>
-						</tbody>
-					</table>
+						<!-- End Search tab -->
+						<div class="table-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col">날짜</th>
+										<th scope="col">조회수</th>
+										<th scope="col">댓글</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
+										<td>Designer</td>
+										<td>28</td>
+										<td>2016-05-25</td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td><span class="recruited">모집완료</span> Bridie Kessler</td>
+										<td>Developer</td>
+										<td>35</td>
+										<td>2014-12-05</td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>Ashleigh Langosh</td>
+										<td>Finance</td>
+										<td>45</td>
+										<td>2011-08-12</td>
+										<td>0</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-					<!-- End Table with hoverable rows -->
+						<!-- End Table with hoverable rows -->
 
-					<!-- 버튼 시작 -->
-					<div class="btn-container">
-						<form action="boardRegisteWrite" method="get">
-							<input type="submit" class="btn btn-primary" value="글쓰기">
-						</form>
+						<!-- 버튼 시작 -->
+						<div class="btn-container">
+							<form action="boardRegisteWrite" method="get">
+								<input type="submit" class="btn btn-primary" value="글쓰기">
+							</form>
+						</div>
+						<!-- End btn -->
 					</div>
-					<!-- End btn -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Previous"> <span aria-hidden="true">«</span>
+							</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Next"> <span aria-hidden="true">»</span>
+							</a></li>
+						</ul>
+					</nav>
 				</div>
-			</div>
-			</div>
+				<!-- ======= Pagination ======= -->
 		</section>
 
 
@@ -125,24 +140,6 @@
 
 
 
-		<!-- ======= Pagination ======= -->
-		<section>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">«</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">»</span>
-					</a></li>
-				</ul>
-			</nav>
-		</section>
 	</main>
 
 	<!-- ======= Footer ======= -->

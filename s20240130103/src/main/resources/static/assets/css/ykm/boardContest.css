@@ -7,7 +7,7 @@
 .search-bar {
 	min-width: 360px;
 	padding-top: 10px;
-	padding-bottom: 20px;
+  	padding-bottom: 20px;
 	font-family: 'NanumSquare', sans-serif;
 }
 
@@ -17,8 +17,8 @@
 		top: 50px;
 		left: 0;
 		right: 0;
-		padding-top: 20px;
-		padding-bottom: 20px;
+  	  	padding-top: 20px;
+  	  	padding-bottom: 20px;
 		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
 		background: white;
 		z-index: 9999;
@@ -77,6 +77,7 @@
 	font-size: large;
 }
 
+
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
@@ -88,15 +89,23 @@
 	font-family: 'NanumSquare', sans-serif;
 	height: 100%;
 	max-height: 100%;
-	font-family: 'NanumSquare', sans-serif;
+}
+
+.card-body {
 	min-height: 500px
 }
 
 .card-title {
 	font-weight: bold;
 	padding-left: 10px;
+	
 }
 
+.contest-title {
+	font-weight: bold;
+	font-size: 18px;
+	font-family: 'NanumSquare', sans-serif;
+}
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
@@ -110,10 +119,12 @@
 	padding: 16px 20px;
 	width: 100%;
 	z-index: 100;
+	
 }
 
 .btn-container form {
 	margin-left: 10px; /* 버튼 사이 간격 조정 */
+	
 }
 
 thead tr, tead th {
@@ -124,32 +135,4 @@ thead tr, tead th {
 tbody th, tbody td {
 	height: 30px;
 	line-height: 30px;
-}
-
-.recruiting {
-	display: inline-flex;
-	position: relative;
-	height: 30px;
-	align-items: center;
-	border-radius: 0.375rem;
-	background-color: #D1FAE5;
-	padding: 0.3rem 0.5rem;
-	font-size: 0.75rem;
-	font-weight: 600;
-	color: #047857;
-	border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.recruited {
-	display: inline-flex;
-	position: relative;
-	height: 30px;
-	align-items: center;
-	border-radius: 0.375rem;
-	background-color: #F9FAFB;
-	padding: 0.3rem 0.5rem;
-	font-size: 0.75rem;
-	font-weight: 600;
-	color: #4B5563;
-	border: 1px solid rgba(107, 114, 128, 0.1);
 }

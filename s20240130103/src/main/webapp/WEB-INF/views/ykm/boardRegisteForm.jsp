@@ -35,15 +35,15 @@
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" rows="15"
-								placeholder="내용을 입력해주세요"></textarea>
+								placeholder="내용을 입력하세요."></textarea>
 						</div>
 					</div>
 					<!-- End Quill Editor Default -->
 					<div class="btn-container">
-						<form action="boardRegistersubmit" method="get">
+						<form action="boardRegistesubmit" method="get">
 							<input type="submit" class="btn btn-primary" value="submit">
 						</form>
-						<form action="boardRegisterreset" method="get">
+						<form action="boardRegistereset" method="get">
 							<input type="submit" class="btn btn-secondary" value="reset">
 						</form>
 					</div>
