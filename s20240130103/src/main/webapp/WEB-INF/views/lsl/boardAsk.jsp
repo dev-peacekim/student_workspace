@@ -29,7 +29,8 @@
 
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/lsl/lslboardFree.css" rel="stylesheet">
+  <link href="assets/css/lsl/lslboardAsk.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
 
   <!-- =======================================================
@@ -62,135 +63,116 @@
    
  <!-- ======= Page Title ======= -->
   <main id="main" class="main">
-  
-    <div class="pagetitle">
-    <h1 style="font-size: 24px;">자유 질문 게시판</h1>
-
-
-       <nav style="--bs-breadcrumb-divider: '-';">
+        <div class="pagetitle">
+            <h1>자유 질문 게시판</h1>
+            <nav style="--bs-breadcrumb-divider: '-';">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="main">Home</a></li>
-                  <li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-                  <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+                    <li class="breadcrumb-item"><a href="main">Home</a></li>
+                    <li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
+                    <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
                 </ol>
-              </nav>
-    </div>
-<!-- ======= End Page Title ======= -->
-
-
- <!-- ======= search-bar ======= -->
-  <div class="card">
+            </nav>
+        </div><!-- End Page Title -->
+         <div class="row justify-content-center">
+         <div class="col-lg-13">
+        <div class="card">
             <div class="card-body">
-              <h5 class="card-title">질문 게시판</h5>
-		<!-- Search Bar -->
-		<div class="search-bar">
-   		 <form class="search-form d-flex align-items-center" method="POST" action="#" style="display: flex; justify-content: flex-end;">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-    </form>
-</div>
+                <h5 class="card-title">질문 게시판</h5>
+                
+                
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="#" style="display: flex; justify-content: flex-end;">
+                        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                <!-- End Search Bar -->
 
-    	
-		<!-- Search Icon-->
-    	<nav class="header-nav ms-auto">
-    		  <ul class="d-flex align-items-center">
-       			 <li class="nav-item d-block d-lg-none">
-          		<a class="nav-link nav-icon search-bar-toggle " href="#">
-           		 <i class="bi bi-search"></i>
-          		</a>
-       			 </li>
-   <!-- ======= End Search-bar ======= -->
-        
-           
-           
-   <!-- ======= Board Ask Table ======= -->
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">작성일</th>
-                    <th scope="col">조회수</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                </tbody>
-              </table>
-              
+                <!-- 게시판 테이블 -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Brandon Jacob</td>
+                            <td>Designer</td>
+                            <td>28</td>
+                            <td>2016-05-25</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Bridie Kessler</td>
+                            <td>Developer</td>
+                            <td>35</td>
+                            <td>2014-12-05</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Ashleigh Langosh</td>
+                            <td>Finance</td>
+                            <td>45</td>
+                            <td>2011-08-12</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Angus Grady</td>
+                            <td>HR</td>
+                            <td>34</td>
+                            <td>2012-06-11</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Raheem Lehner</td>
+                            <td>Dynamic Division Officer</td>
+                            <td>47</td>
+                            <td>2011-04-19</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Raheem Lehner</td>
+                            <td>Dynamic Division Officer</td>
+                            <td>47</td>
+                            <td>2011-04-19</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 게시판 테이블 끝 -->
+                <div class="text-end">
+                    <button type="button" class="btn baWrite" onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+                </div>
+                        <!-- 페이지 표시 -->
+        <section>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span>
+                        </a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span>
+                        </a></li>
+                </ul>
+            </nav>
+        </section>
+        <!-- 페이지 표시 끝 -->
+                
             </div>
-            
-            
- <!-- ======= Text Add Btn ======= -->
- 				<div>
-              	<button type="button" class="btn btn-primary">글쓰기</button>
-              </div>
-          </div>
-          
-          
-  <!-- ======= End Board Ask Table ======= -->
-          
-          
-                
-                
-   <!-- ======= Paging Section ======= -->
-       <section>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">«</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">»</span>
-					</a></li>
-				</ul>
-			</nav>
-		</section>
-		
-<!-- ======= Paging Section ======= -->
+        </div>
+        </div>
+        </div>
 
-
-  </main>
+    </main><!-- End #main -->
   
   <!-- ======= End Main ======= -->
   
