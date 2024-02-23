@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
@@ -164,8 +164,18 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">김 동욱</span>
+                        <c:choose>
+                        	<c:when test="${sessionScope.user_no eq null}">
+                        		<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        		<span class="d-none d-md-block dropdown-toggle ps-2">로그인안됨</span>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        		<span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.user_no } : ${sessionScope.user_name }</span>
+                        	</c:otherwise>
+                        </c:choose>
+                        
+                        
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

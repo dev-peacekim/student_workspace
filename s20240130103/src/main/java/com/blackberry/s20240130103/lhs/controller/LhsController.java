@@ -2,7 +2,6 @@ package com.blackberry.s20240130103.lhs.controller;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import com.blackberry.s20240130103.lhs.service.UserService;
 
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class LhsController {
 	
 	private final JavaMailSender mailSender;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final UserService userService;
 	
 	@GetMapping(value = "loginForm")
@@ -75,7 +74,7 @@ public class LhsController {
 	public String userJoin(HttpServletRequest request) {
 		User user = new User();
 		user.setUser_id(request.getParameter("user_id"));
-		user.setUser_pw(bCryptPasswordEncoder.encode(request.getParameter("user_pw")));
+		user.setUser_pw(request.getParameter("user_pw"));
 		user.setUser_name(request.getParameter("user_name"));
 		user.setUser_email(request.getParameter("user_email"));
 		user.setUser_nic(request.getParameter("user_nic"));;
@@ -84,14 +83,31 @@ public class LhsController {
 		user.setUser_profile("임시파일이름");
 		userService.joinUser(user);
 		System.out.println("조인성공");
-		return "loginForm";
+		return "lhs/loginForm";
 	}
 	
 	@ResponseBody
 	@PostMapping(value = "joinIdChk")
 	public int joinIdChk(@RequestParam(name = "id")String id) {
-		int result = userService.findUserById(id);
+		int result = userService.joinIdChk(id);
 		return result;
+	}
+	
+	@PostMapping("userLogin")
+	public String userLogin(User user,HttpServletRequest request) {
+		int result = userService.loginChk(user);
+		if(result==1) {
+			request.getSession().invalidate();
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user_no", user.getUser_no());
+			session.setAttribute("user_name", user.getUser_name());
+			session.setAttribute("user_profile", user.getUser_profile());
+			System.out.println("LHSController session user no : " + session.getAttribute("user_no"));
+			return "mainLogic";
+		}else {
+			request.setAttribute("islogin", 0);
+			return "lhs/loginForm";
+		}
 	}
 	
 }

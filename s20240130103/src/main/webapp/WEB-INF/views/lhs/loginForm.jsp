@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,22 +63,22 @@
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
                   </div>
-                  <form class="row g-3 needs-validation">
+                  <form class="row g-3 needs-validation" action="userLogin" method="post">
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">아이디</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                       <!--  <div class="invalid-feedback">Please enter your username.</div> -->
+                        <input type="text" name="user_id" class="form-control" id="yourUsername" required>
                       </div>
                     </div>
                     <br>
                     <br>
                     <div class="col-12">
                       <label for="yourPassword" class="form-label" >비밀번호</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" autocomplete="off" required>
-                      <!-- <div class="invalid-feedback">Please enter your password!</div> -->
+                      <input type="password" name="user_pw" class="form-control" id="yourPassword" autocomplete="off" required>
                     </div>
-                    <br>
+                    <c:if test="${islogin==0 }" >
+                    	<div class="loginfail">아이디 혹은 비밀번호를 확인해주세요</div>
+                    </c:if>
                     <br>
                     <br>
                     <div class="col-12">
