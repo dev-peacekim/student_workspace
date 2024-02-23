@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -25,8 +27,8 @@
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/projectSecssion.css"  rel="stylesheet"  type="text/css">
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
+    <link href="assets/css/mainSecssion.css"  rel="stylesheet"  type="text/css"> <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
      
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
 
@@ -69,35 +71,37 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-			<div class="card info-card sales-card project">
-       
-	        <div class="card-body my-project">
-	          <div>
-	            <h5 class="card-title">나의 프로젝트</span></h5>
-	            <form action="projectAdd">
-	              <button type="submit" class="plus-btn">+</button>
-	            </form>  
-	          </div>
-	        </div>
+        
+			<div class="card1 info-card sales-card project">
+		        <div class="card-body my-project">
+		        	<div>
+		            	<h5 class="card-title">나의 프로젝트</span></h5>
+		            	<form action="projectAddForm">
+		              	<button type="submit" class="plus-btn">+</button>
+		            	</form>  
+		          	</div>
+		          	<div class="detail-card info-card sales-card project-detail">
+		        		<div class="card-body my-project">
+		        			<div>
+		            			<h5 class="card-title">나의 프로젝트</span></h5>
+		          			</div>
+		       			</div>
+	      			</div>
+		       </div>
+	      	</div>
 	
-	      </div>
-	
-	      <div class="card info-card sales-card summary">
-	       
+	      <div class="card2 info-card sales-card summary">
 	        <div class="card-body">
 	          <div class="all-project-report">
 	            <h5 class="card-title">전체 프로젝트</span></h5>  
 	          </div>
-	
 	          <div class="address">
 	            <h5 class="card-title">주소록</span></h5>  
 	          </div>
-	          
 	        </div>
-	
 	      </div>
+	      
         </section>
-
     </main>
     <!-- End #main -->
 

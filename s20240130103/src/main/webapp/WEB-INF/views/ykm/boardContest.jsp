@@ -25,13 +25,12 @@
 
 		<!-- ======= Bordered Tabs ======= -->
 		<section class="section">
-			<div class="row"></div>
-			<div class="col-lg">
+			<div class="row">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">함께 성장할 공모전 팀원을 모집해보세요</h5>
-						<div class="search-bar d-flex justify-content-end">
-							<div class="col-md-3">
+						<div class="d-flex justify-content-between align-items-center">
+							<h5 class="card-title">함께 성장할 공모전 팀원을 모집해보세요</h5>
+							<div class="search-bar d-flex justify-content-end">
 								<form class="search-form d-flex align-items-center"
 									method="POST" action="#">
 									<input type="text" name="query" placeholder="Search"
@@ -44,7 +43,7 @@
 						</div>
 						<!-- End Page search -->
 
-						
+
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -84,9 +83,8 @@
 							</tbody>
 						</table>
 						<!-- End Table with hoverable rows -->
-						<button type="button" class="btn btn-primary" style="background-color: #7e57c2; border-color: #7e57c2;">글쓰기</button>
+						<button type="button" class="btn btn2 btn-primary">글쓰기</button>
 					</div>
-
 				</div>
 			</div>
 		</section>
