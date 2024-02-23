@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class BoardStudyController {
+public class BoardStuConController {
 	
 	@GetMapping(value="boardStudy")
 	public String boardStudy() {
@@ -63,6 +63,10 @@ public class BoardStudyController {
 		return "ykm/boardStudy";
 	}
 	
+	@GetMapping(value = "boardComment")
+	public String boardComment() {
+		return "ykm/boardComment";
+	}
 
 	
 }

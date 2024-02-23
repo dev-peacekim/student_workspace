@@ -29,81 +29,35 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="container-md">
-							<div class="row comment-form">
-								<div class="col-md">
-									<h3>Комментарии</h3>
-									<p>
-										Вы вошли как <a href="#">Alexa Poruch</a>
-									</p>
-									<form method="POST" action="">
-										<div class="form-group">
-											<textarea id="editor" class="form-control"></textarea>
-										</div>
-										<div class="form-group text-right">
-											<button class="btn btn-secondary comment-send" type="button">Отправить</button>
-										</div>
-									</form>
-								</div>
-							</div>
-							<div class="row">
-
-								<div class="col-md">
-
-									<ul class="list-unstyled comment">
-										<li>
-											<div class="row">
-												<div class="col-sm-2 text-center">
-													<img class="avatar d-none d-md-block"
-														src="https://www.gravatar.com/avatar/a2c4fd58ec293b5cb556fde9685ee31e?d=mp&s=200"
-														alt="Alexa Poruch" />
-												</div>
-												<div class="col-md-10">
-													<div class="card">
-														<div class="card-header p-0 px-3">
-															<div class="row py-3">
-																<div class="mx-3 user">
-																	<a class="isAuthor" href="#">Alexa Poruch</a>
-																</div>
-																<div class="ml-auto mr-4">
-																	<i class="fas fa-reply" data-toggle="tooltip"
-																		title="Ответить"></i>
-																</div>
-															</div>
-														</div>
-														<!-- card-header -->
-														<div class="card-body">
-															<p class="card-text">Lorem ipsum dolor sit amet,
-																consectetur adipiscing elit. Videamus animi partes,
-																quarum est conspectus illustrior; Ita credo. Quae
-																contraria sunt his, malane?</p>
-															<p>
-																Ea possunt paria non esse. Non semper, inquam; <b>Duo
-																	Reges: constructio interrete.</b> <b>Omnis enim est
-																	natura diligens sui.</b> <i>Invidiosum nomen est,
-																	infame, suspectum.</i> Quid Zeno?
-															</p>
-															<div class="row">
-																<div class="ml-auto pr-3">
-																	<i class="fas fa-thumbs-up mr-1" data-toggle="tooltip"
-																		title="Нравится"></i> <i
-																		class="fas fa-thumbs-up fa-rotate-180"
-																		data-toggle="tooltip" title="Не нравится"></i>
-																</div>
-															</div>
-														</div>
-														<!-- card-body -->
+							<ul class="list-unstyled comment">
+								<li>
+									<div class="col-md-10">
+										<div class="card">
+											<div class="card-header p-0 px-3">
+												<div class="row py-3">
+													<div class="mx-0 user">
+														<a class="isAuthor mr-auto" href="#">Alexa Poruch</a>
 													</div>
-													<!-- card -->
+													<div class="ml-auto mr-3">
+														<i class="fas fa-reply" data-toggle="tooltip"
+															title="Ответить"></i>
+													</div>
 												</div>
-												<!-- col-9 -->
 											</div>
-											<!-- row -->
-										</li>
+											<!-- card-header -->
+											<div class="card-body">
+												<p class="card-text">Lorem ipsum dolor sit amet,
+													consectetur adipiscing elit. Videamus animi partes, quarum
+													est conspectus illustrior; Ita credo. Quae contraria sunt
+													his, malane?</p>
 
-									</ul>
-
-								</div>
-							</div>
+											</div>
+											<!-- card-body -->
+										</div>
+										<!-- card -->
+									</div> <!-- row -->
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
