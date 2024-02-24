@@ -7,12 +7,35 @@
 <link href="assets/css/ykm/boardDetailForm.css" rel="stylesheet">
 </head>
 <body>
+	<!-- 	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function() {
+			// 입력 필드 가져오기
+			var inputField = document.getElementById('inputField');
+
+			// 버튼들 가져오기
+			var submitBtn = document.getElementById('submitBtn');
+			var resetBtn = document.getElementById('resetBtn');
+
+			// 입력 필드에 클릭 이벤트 리스너 추가
+			inputField.addEventListener('click', function() {
+				// 버튼들이 숨겨져 있으면 보이게 하고, 보이고 있으면 숨기기
+				if (submitBtn.classList.contains('hidden')) {
+					submitBtn.classList.remove('hidden');
+					resetBtn.classList.remove('hidden');
+				} else {
+					submitBtn.classList.add('hidden');
+					resetBtn.classList.add('hidden');
+				}
+			});
+
+		});
+	</script> -->
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>스터디 게시판</h1>
+			<h1>공모전 스터디 게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '-';">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="main">Home</a></li>
@@ -22,51 +45,84 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-		<section class="section">
-			<div class="row">
-				<div class="card">
-					<div class="card-body">
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="contest-title">함께 성장할 공모전 팀원을 모집해보세요</div>
-							<div class="search-bar d-flex justify-content-end">
-								<form class="search-form d-flex align-items-center"
-									method="POST" action="#">
-									<input type="text" name="query" placeholder="Search"
-										title="Enter search keyword">
-									<button type="submit" title="Search">
-										<i class="bi bi-search"></i>
+		<section class="community-post-detail">
+			<div class="row card main-card card-body">
+				<div class="card-header community-post-header">
+					<h3 class="card-title post-header-title">함께 공부할 스티디원 모집합니다!</h3>
+					<div class="card-subtitle post-user-container">
+						<i class="bi bi-person-circle post-user-profile" alt="유저 프로필"></i>
+						<div class="card-title-header">
+							<h5 class="card-title post-user-name">
+								<a href="#">유저네임</a>
+							</h5>
+							<div class="card-subtitle post-subtitle">
+								<p class="post-updated-at">작성일 2024.02.23 오후 5:24</p>
+								<p class="post-veiw-count">조회수 11</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="community-post-header-body">
+					<span class="post-content">함께 할 수 있으면 좋을 것 같습니다!</span>
+				</div>
+				<section class="community-post-answer">
+					<div class="answer-info-header">
+						<div class="answer-info-title">
+							댓글 <span class="answer-info-title-count">23</span>
+						</div>
+						<div class="comment-editor">
+							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+							<input type="text" name="comment" id="inputField"
+								placeholder="id님, 댓글을 작성해보세요." class="form-control" required="">
+						</div>
+						<div class="btn-container is-editor-open">
+							<form action="boardCommentreset" method="get">
+								<button id="resetBtn" class="hidden btn btn-secondary">취소</button>
+							</form>
+							<form action="boardCommentsubmit" method="get">
+								<button id="submitBtn" class="hidden btn btn-primary">등록</button>
+							</form>
+						</div>
+					</div>
+				</section>
+				<div class="re-comment-body">
+					<div class="comment-card">
+						<div class="comment-header">
+							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+							<div class="comment-user-container">
+								<p class="card-title comment-user-name">
+									<a href="#">유저네임</a>
+								</p>
+								<p class="card-subtitle comment-updated-at">작성일 2024.02.24
+									오후 2:24</p>
+							</div>
+							<div class="re-btn-container">
+								<form action="/commentReplay" method="GET">
+									<button type="submit" class="btn btn-outline-primary">
+										<i class="bi bi-reply-fill">Replay</i>
 									</button>
 								</form>
 							</div>
 						</div>
-						<!--  검색 탭 끝 -->
-						<div class="study-post">
-							<div class="study-post-header">
-								<div class="header-title">제목이요 공모전 정보드립니다.</div>
-								<div class="header-subtitle">
-									<div class="user-name">admin00</div>
-									<div class="created-at">
-										<span class="sub-title__title">작성일</span> <span
-											class="sub-title__value">24.02.23 14:23</span>
-									</div>
-									<div class="view-count">
-										<span class="sub-title__title">조회수</span> <span
-											class="sub-title__value">30</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="study-post-content">
-								<div class="content-body">
-									<div class="markdown-body">내용이 들어가면 됨</div>
-								</div>
-							</div>
-							<div class="study-post-comment">댓글</div>
+						<div class="card-body comment-body">
+							<p class="markdown-body">근데 이거.. 어떻게 참여 원하시는 분들한테 연락을 드리는
+								건가요?</p>
 						</div>
+					</div>
+					<div class="ref-comment-body">
+						<div class="ref-comment-card">
+							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+							<div class="ref-comment-header">
+								<p class="ref-comment-user-name">유저네임</p>
+								<p class="ref-comment-updated-at">작성일 2024.02.24 오후 11:20</p>
+							</div>
+						</div>
+						<div class="ref-comment-content">졸려죽겠다</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
 
 		<!-- ======= aSidebar ======= -->
 		<%@ include file="../asidebar.jsp"%>
@@ -74,24 +130,6 @@
 
 
 
-		<!-- ======= Pagination ======= -->
-		<section>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">«</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">»</span>
-					</a></li>
-				</ul>
-			</nav>
-		</section>
 	</main>
 
 	<!-- ======= Footer ======= -->

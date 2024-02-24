@@ -84,24 +84,24 @@
 										<th scope="row">1</th>
 										<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
 										<td>Designer</td>
-										<td>28</td>
 										<td>2016-05-25</td>
+										<td>28</td>
 										<td>0</td>
 									</tr>
 									<tr>
 										<th scope="row">2</th>
 										<td><span class="recruited">모집완료</span> Bridie Kessler</td>
 										<td>Developer</td>
-										<td>35</td>
 										<td>2014-12-05</td>
+										<td>35</td>
 										<td>0</td>
 									</tr>
 									<tr>
 										<th scope="row">3</th>
 										<td>Ashleigh Langosh</td>
 										<td>Finance</td>
-										<td>45</td>
 										<td>2011-08-12</td>
+										<td>45</td>
 										<td>0</td>
 									</tr>
 								</tbody>
@@ -112,7 +112,7 @@
 						<!-- 버튼 시작 -->
 						<div class="btn-container">
 							<form action="boardStuConWrite" method="get">
-								<input type="submit" class="btn btn-primary" value="글쓰기">
+								<input type="submit" class="btn btn-primary custom-btn btn-15" value="글쓰기">
 							</form>
 						</div>
 						<!-- End btn -->

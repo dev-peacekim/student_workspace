@@ -2,108 +2,232 @@
 	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
 	;
 /*--------------------------------------------------------------
-# Search Bar
+# community-post
 --------------------------------------------------------------*/
-.search-bar {
-	min-width: 360px;
-	padding-top: 10px;
-  	padding-bottom: 20px;
-	font-family: 'NanumSquare', sans-serif;
-}
-
-@media ( max-width : 1199px) {
-	.search-bar {
-		position: fixed;
-		top: 50px;
-		left: 0;
-		right: 0;
-  	  	padding-top: 20px;
-  	  	padding-bottom: 20px;
-		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
-		background: white;
-		z-index: 9999;
-		transition: 0.3s;
-		visibility: hidden;
-		opacity: 0;
-	}
-	.search-bar-show {
-		top: 60px;
-		visibility: visible;
-		opacity: 1;
-	}
-}
-
-.search-form {
-	width: 100%;
-}
-
-.search-form input {
-	border: 0;
-	font-size: 14px;
-	color: #012970;
-	border: 1px solid rgba(1, 41, 112, 0.2);
-	padding: 7px 38px 7px 8px;
-	border-radius: 3px;
-	transition: 0.3s;
-	width: 100%;
-}
-
-.search-form input:focus, .search-form input:hover {
-	outline: none;
-	box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
-	border: 1px solid rgba(1, 41, 112, 0.3);
-}
-
-.search-form button {
-	border: 0;
-	padding: 0;
-	margin-left: -30px;
-	background: none;
-}
-
-.search-form button i {
-	color: #012970;
-}
-
-/*--------------------------------------------------------------
-# section
---------------------------------------------------------------*/
-.section {
-	font-family: 'NanumSquare', sans-serif;
-}
-
-.section .nav-link {
-	font-weight: bold;
-	font-size: large;
-}
-
-
-/*--------------------------------------------------------------
-# section
---------------------------------------------------------------*/
-.card {
+.main-card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
-.card-body {
+.community-post-detail  * {
+	font-family: 'NanumSquare', sans-serif;
+}
+
+.post-header .btn-container {
 	position: relative;
-	padding: 0.5rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
 	width: 100%;
-	font-family: 'NanumSquare', sans-serif;
-	height: 100%;
-	max-height: 100%;
-	min-height: 700px
+	max-width: 200px;
 }
 
-.card-title {
-	font-weight: bold;
-	padding-left: 10px;
-	
+.post-header .btn-container:hover button, .post-header .btn-container:hover i
+	{
+	color: #212121;
 }
 
-.contest-title {
-	font-weight: bold;
+.community-post-header {
+	align-items: center;
+	position: relative;
+	flex-grow: 1;
+}
+
+.card-title-header {
+	display: flex;
+	flex-direction: column;
+}
+
+.post-user-container {
+	display: flex;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-top: 0px;
+}
+
+.post-user-name {
+	margin-bottom: 0px;
+}
+
+.post-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+.post-updated-at {
+	margin-bottom: 0px;
+}
+
+.post-subtitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	color: #757575;
+	font-size: 13px;
+	margin-left: 10px;
+	margin: 0;
+}
+
+.post-veiw-count {
+	margin-left: 10px;
+	margin-bottom: 0px;
+}
+
+/*--------------------------------------------------------------
+# community-post-body
+--------------------------------------------------------------*/
+.community-post-header {
+	background-color: #fff !important;
+}
+
+.community-post-answer {
+	padding: 16px;
+	border-top: 1px solid #f1f3f5;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
+}
+
+.community-post-header-body {
+	font-size: 16px;
+	padding: 16px;
+	min-height: 200px;
+}
+
+.answer-info-title {
+	height: 27px;
+	letter-spacing: -.3px;
+	color: #495057;
 	font-size: 18px;
-	font-family: 'NanumSquare', sans-serif;
+	font-weight: 700;
 }
+
+.comment-editor {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
+
+.comment-user-profile {
+	margin-left: 10px;
+	font-size: 2em;
+}
+
+.btn-container {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-left: 16px;
+	margin-right: 16px;
+}
+
+.form-control {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	margin-left: 16px;
+	margin-right: 16px;
+	min-height: calc(2em + 1rem + 2px);
+}
+
+.btn-container form {
+	margin-left: 10px;
+}
+
+/*--------------------------------------------------------------
+# comment
+--------------------------------------------------------------*/
+.re-comment-body {
+	padding: 16px;
+	border-top: 1px solid #f1f3f5;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
+}
+
+.card-header {
+	background-color: #f8f9fa;
+}
+
+.comment-header {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+.comment-user-profile {
+	margin-left: 10px;
+	font-size: 2em;
+	margin-right: 16px;
+}
+.comment-user-name {
+	margin-bottom: 5px;
+}
+
+.comment-header .re-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
+}
+
+.comment-updated-at {
+	font-size: 13px
+}
+
+/*--------------------------------------------------------------
+# ref-comment
+--------------------------------------------------------------*/
+.ref-comment-card {
+	padding: 0 32px 20px 32px;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+
+
+.comment-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+
+/*--------------------------------------------------------------
+# ref-comment
+--------------------------------------------------------------*/
+.ref-comment-header {
+	display: flex;
+	align-items: center;
+	flex-direction: row; 
+}
+
+.ref-comment-user-name {
+	margin-bottom: 0px;
+}
+.ref-comment-content {
+	align-items: center;
+	margin-bottom: 0px;
+}
+.ref-comment-updated-at {
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    margin-left: auto;
+    margin-bottom: 0px;
+    font-size: 13px
+}
+
+/* .ref-comment-card {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
+} */
