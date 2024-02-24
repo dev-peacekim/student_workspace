@@ -44,3 +44,8 @@
 .card form div p {
     margin-bottom: 5px;
 }
+
+.project-alert {
+	color: red;
+	display: none;
+}

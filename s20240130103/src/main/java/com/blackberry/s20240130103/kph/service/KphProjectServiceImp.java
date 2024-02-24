@@ -36,18 +36,14 @@ public class KphProjectServiceImp implements KphProjectService {
 
 	@Override
 	public List<KphTask> unCompTaskListByProjectNo(int project_no) {
-		System.out.println("KphProjectServiceImp unCompTaskListByProjectNo start...");
 		List<KphTask> upCompTaskList = kphProjectDao.unCompTaskListByProjectNo(project_no);
-		System.out.println("KphProjectServiceImp unCompTaskListByProjectNo upCompTaskList.size=>" + upCompTaskList.size());
 		return upCompTaskList;
 	}
 
 
 	@Override
 	public List<KphTask> compTaskListByProjectNo(int project_no) {
-		System.out.println("KphProjectServiceImp compTaskListByProjectNo start...");
 		List<KphTask> CompTaskList = kphProjectDao.compTaskListByProjectNo(project_no);
-		System.out.println("KphProjectServiceImp compTaskListByProjectNo compTaskList.size=>" + CompTaskList.size());
 		return CompTaskList;
 	}
 	
