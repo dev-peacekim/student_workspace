@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>보낸 쪽지함 : 블루베리</title>
+<title>휴지통 : 블루베리</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -37,7 +37,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<link href="assets/css/kdw/msgSendbox.css" rel="stylesheet">
+<link href="assets/css/kdw/msgTrashbox.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- 검색바&드롭박스 JS -->
 <script type="text/javascript">
@@ -78,18 +78,22 @@
 	    var attachment = document.createElement('td');
 	    attachment.className = 'attachment';
 	    attachment.textContent = 'img';
+	    
+	    var mailType = document.createElement('td');
+	    mailType.className = 'mailType';
+	    mailType.textContent = '유형';
+	    
+	    var authorCell = document.createElement('td');
+	    var authorDiv = document.createElement('div');
+	    authorDiv.className = 'author';
+	    authorDiv.textContent = '아이디' + index;
+	    authorCell.appendChild(authorDiv);
 
 	    var subjectCell = document.createElement('td');
 	    var subjectDiv = document.createElement('div');
 	    subjectDiv.className = 'subject';
 	    subjectDiv.textContent = index + ' 번째 메일 제목이 여기에 들어갑니다.';
 	    subjectCell.appendChild(subjectDiv);
-
-	    var authorCell = document.createElement('td');
-	    var authorDiv = document.createElement('div');
-	    authorDiv.className = 'author';
-	    authorDiv.textContent = '받는이 ' + index;
-	    authorCell.appendChild(authorDiv);
 
 	    var dateCell = document.createElement('td');
 	    var dateDiv = document.createElement('div');
@@ -100,8 +104,9 @@
 	    listItem.appendChild(checkboxCell);
 	    listItem.appendChild(readStatus);
 	    listItem.appendChild(attachment);
-	    listItem.appendChild(subjectCell);
+	    listItem.appendChild(mailType);
 	    listItem.appendChild(authorCell);
+	    listItem.appendChild(subjectCell);
 	    listItem.appendChild(dateCell);
 
 	    return listItem;
@@ -131,11 +136,11 @@
 
 		<!-- 받은 쪽지함 pageTitle -->
 		<div class="pagetitle">
-			<h1>보낸쪽지함</h1>
+			<h1>휴지통</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="main.html">Home</a></li>
-					<li class="breadcrumb-item active">보낸쪽지함</li>
+					<li class="breadcrumb-item active">휴지통</li>
 				</ol>
 			</nav>
 		</div>
@@ -181,8 +186,9 @@
 									<label for="select-all-checkbox"></label></th>
 								<th scope="col" class="readStatus">읽음</th>
 								<th scope="col" class="attachment">첨부</th>
+								<th scope="col" class="mailType">유형</th>
+								<th scope="col" class="author">아이디</th>
 								<th scope="col" class="subject">제목</th>
-								<th scope="col" class="author">받는사람</th>
 								<th scope="col" class="date">일시</th>
 							</tr>
 						</thead>
@@ -191,7 +197,7 @@
 						</tbody>
 						<tbody class="mailList-whiteSpace">
 							<tr>
-								<td colspan="6"></td>
+								<td colspan="7"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -202,8 +208,7 @@
 			<!-- 받은 쪽지함 세션 END -->
 			<!-- 리스트 하단 버튼 -->
 			<div class="btn-container">
-				<button type="button" class="btn-msg-storebox">보관</button>
-				<button type="button" class="btn-msg-trashbox">삭제</button>
+				<button type="button" class="btn-msg-trashbox">영구삭제</button>
 			</div>
 			<!-- 리스트 번호 -->
 			<nav aria-label="Page navigation"

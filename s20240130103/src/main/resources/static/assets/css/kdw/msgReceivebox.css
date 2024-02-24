@@ -1,71 +1,93 @@
-@charset "utf-8";
-
+@charset "UTF-8";
+/* 받은 쪽지함 */
 @import
 	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
 	;
 
 body {
 	font-family: 'NanumSquare', sans-serif;
-	width: 100%;
 	margin: 0;
 	padding: 0;
 	box-shadow: 0 5px 20px 0 rgba(82, 63, 105, 0.2);
 }
-.receivebox-section {
-	margin-top: -10px;
-}
 
 /* Card */
 .card {
-  margin-bottom: 30px;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-  height: 83%;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	position:relative;
+	width: 100%;
+	min-width: 800px;
+	height: 800px;
+	min-height: 500px;
+	margin-bottom: 0;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	border: none;
+	border-radius: 5px;
 }
 
 .table-container {
-    margin: 20px;
-    overflow-x: auto;
-    background-color: #FFFFFF;
-    overflow: hidden; 
+	width:100%;
+	position:absolute;
+    background-color: #FFFFFF;   
     border: none;
+    padding: 0 20px; /* 양쪽으로 10px의 패딩을 추가 */
+    margin-top: 60px;
 }
 
 /* 테이블의 전반적인 스타일 */
 .table {
-	width: 100%;
-	margin-bottom: 50px; /* 하단으로 튀어나오는 여백 */
-	border-collapse: collapse;
+	margin-bottom: 35px; /* 하단공백 */
+    border-collapse: collapse;
 }
 
-.table th, .table td {
-	padding: 10px;
-	text-align: left;
-	border: none;
+.table #mailList tr td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-/* 메일 툴바의 스타일 */
+/* 리스트 하단 공백과 경계선 */
+.mailList-whiteSpace {
+  border-bottom: 1px solid #c9c9c9; /* 원하는 경계선 스타일 및 색상으로 설정 */
+  margin-bottom: -2px; /* 아래 여백을 제거하여 총적으로 길이를 줄임 */
+}
+
+.mailList-whiteSpace td {
+  height: 60px; /* 원하는 높이로 조절 */
+}
+
+/* 메일 상단 툴바의 스타일 */
 .table thead th {
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
-    font-size: 15px;
-    font-weight: bold;
+    border-top: 1px solid #c9c9c9;
+    border-bottom: 1px solid #dddddd;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 10px;
 }
 
 thead th:first-child {
-    width: 65px; /* 선택 셀 가로 */
+    width: 10px; /* 선택 셀 가로 */
 }
 thead th:nth-child(2) {
-    width: 80px; /* 읽음 여부 셀 가로 */
+    width: 10px; /* 읽음 여부 셀 가로 */
+}
+thead th:nth-child(3) {
+    width: 10px; /* 첨부파일 여부 셀 가로 */
 }
 thead th:nth-child(4) {
-    width: 100px; /* 글쓴이 셀 가로*/
+    width: 1500px; /* 제목 셀 가로 */
+}
+thead th:nth-child(5) {
+    width: 80px; /* 글쓴이 셀 가로*/
 }
 
-thead th:nth-child(5) {
-    width: 130px; /* 기간 셀 가로 */
+thead th:nth-child(6) {
+    width: 150px; /* 기간 셀 가로 */
 }
 
 
@@ -79,7 +101,7 @@ thead th:nth-child(5) {
 /* 메일 목록 리스트의 스타일 */
 .table .list-item {
 	font-size: 13px;
-	font-weight: bold;
+	font-weight: 700;
 }
 
 .table .list-item .subject:hover {
@@ -97,89 +119,69 @@ thead th:nth-child(5) {
 	margin-top: 3px; /* 체크박스와 텍스트 사이에 여백 추가 */
 }
 
-/* 리스트 하단 공백과 경계선 */
-.mailList-whiteSpace {
-  border-bottom: 1px solid #e7e7e7; /* 원하는 경계선 스타일 및 색상으로 설정 */
-  padding-bottom: 2px; /* 아래쪽으로 밀어내어 보더바텀을 줄임 */
-  margin-bottom: -2px; /* 아래 여백을 제거하여 총적으로 길이를 줄임 */
-}
-
-.mailList-whiteSpace td {
-  height: 40px; /* 원하는 높이로 조절 */
-}
-
-
-/* 받은 메일함 메일 제목 */
-.table .subject {
-	white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
-	overflow: hidden; /* 넘치는 부분을 감 */
-	/* 텍스트가 너무 길어서 화면에 표시되지 않을 때, 말줄임표(...)로 표시되도록 설정 */
-	text-overflow: ellipsis;
-	width: 800px;
-}
 
 /* 쪽지 쓰기 버튼 */
-.msg-create {
-	position:absolute;
-	margin-top: 40px; 
-    margin-left: 20px;
-}
 .msg-create .msg-create-btn {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 20px;
     width: 100px;
     height: 35px;
-    background-color: white;
-    border: 1px solid #0D6DFD;
+    background-color: #0D6DFD;
+    border: #0D6DFD;
     border-radius: 5px;
-    color: #0d6efd;
-    padding: 1px 15px;
-    transition: background-color 0.3s ease; /* 부드러운 전환을 위한 트랜지션*/
-    font-size: 16px;
-    font-weight: bold;
-    
-}
-.msg-create .msg-create-btn:hover { 
-	background-color: #0129704D; /* 마우스를 올렸을 때의 배경색 */
-    color: #ffffff; /* 마우스를 올렸을 때의 텍스트 색상 */
-    border: 1px solid #0129704D;
-    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 3;
 }
 
-/*========== 전체 쪽지 & 읽은 쪽지 count ==========*/
+.msg-create .msg-create-btn:active,
+.msg-create .msg-create-btn:hover {
+    background-color: #A3A6DD; 
+    color: #ffffff; 
+    border: #A3A6DD;
+}
+
+/*========== 전체 쪽지 & 안읽음 쪽지 count ==========*/
 .note-count {
 	position:absolute;
-	margin-top: 55px;
+	margin-top: 37px;
 	margin-left: 135px;
 	font-size: 15px;
-	font-weight: bold;
-	color: #555;
+	font-weight: 800;
+	color: #000000;
+	z-index: 3;
+	
 }
 
 .note-count #readCount {
-	color: red;
+	color: 0D6DFD;
 }
 
 .note-count #totalCount {
-	color: blue;
+	color: #636363;
 }
 
-/* 쪽지 보관버튼 삭제버튼 */
+/* === 쪽지 보관버튼 삭제버튼 === */
 .btn-container {
     position: absolute;
     display: flex;
-    right: 40px; /* 우측에서 40px 떨어진 위치 */
-    bottom: 17px; /* 아래에서 50px 떨어진 위치 */
+    right: 30px;
+    bottom: 10px;
+    font-size: 14px;
 }
 
 .btn-msg-storebox,
 .btn-msg-trashbox {
-    margin-left: 0px;
+    margin-left: 0;
     color: #0d6efd;
     background-color: white;
     border: 1px solid #0D6DFD;
     padding: 1px 15px;
-    transition: background-color 0.3s ease; /* 부드러운 전환을 위한 트랜지션*/
     font-weight: bold;
     height: 35px;
+    width: 60px;
 }
 
 .btn-msg-storebox:first-child {
@@ -202,19 +204,16 @@ thead th:nth-child(5) {
 /*========== 검색바&셀렉트박스 ==========*/
 /* 검색바 스타일 */
 .receivebox-section .search-container {
-	margin-top: 30px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 15px;
-    margin-bottom: -40px;
-    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+    position: absolute;
+    right: 15px;
 }
 
 .receivebox-section .search-bar {
     min-width: 360px;
     padding: 0 20px;
-    position: relative;
     
 }
 
@@ -225,10 +224,9 @@ thead th:nth-child(5) {
 }
 
 .receivebox-section .search-form input {
-    border: 0;
     font-size: 14px;
     color: #012970;
-    border: 1px solid rgba(1, 41, 112, 0.2);
+    border: 1px solid #c9c9c9;
     padding: 7px 38px 7px 8px;
     transition: 0.3s;
     width: 100%;
@@ -239,11 +237,11 @@ thead th:nth-child(5) {
 .receivebox-section .search-form input:focus,
 .receivebox-section .search-form input:hover {
     outline: none;
-    border: 1px solid #0129704D;
+    border: 1px solid #c9c9c9;
 }
 
 .receivebox-section .search-form button {
-    border: 0;
+    border: none;
     padding: 0;
     margin-left: -30px;
     background: none;
@@ -252,22 +250,22 @@ thead th:nth-child(5) {
 
 /* 셀렉트 박스 스타일 */
 .receivebox-section .search-container .search-bar select {
-	margin-bottom: 10px;
-    border: 1px solid #01297033;
+    border: 1px solid #c9c9c9;
     padding: 7px 38px 7px 8px;
     background: white;
     font-size: 14px;
     text-align: left;
     cursor: pointer;
-    height: 35px; 
+    height: 35px;
     border-right: none;
     border-radius: 5px 0 0 5px;
+    outline: none;
 }
 
-.receivebox-section .search-container .search-bar select:focus ,
-.receivebox-section .search-container .search-bar input:hover {
-    outline: none;
-    border: 1px solid #0129704D;
+.receivebox-section .search-container #dropdownSelect select:focus ,
+.receivebox-section .search-container #dropdownSelect input:hover {
+    border: 1px solid #c9c9c9;
+    border-right: none;
 }
 
 /*========== 검색바&드롭박스 END ==========*/
@@ -275,9 +273,12 @@ thead th:nth-child(5) {
 
 /*========== 쪽지 페이지 리스트 ==========*/
 .msgReceivebox-pagination-container {
+	position:absolute;
     display: flex;
     justify-content: center;
     margin-top: -55px;
+    right: 43%;
+    bottom: 10px;
 }
 
 .msgReceivebox-pagination-container .pagination {
@@ -286,107 +287,33 @@ thead th:nth-child(5) {
 
 .msgReceivebox-pagination-container .pagination li {
     margin: 0; /* 각 번호 간격 조절 */
+    
 }
 
 .msgReceivebox-pagination-container .pagination a {
-    color: #0D6DFD;
+    color: #8A8A8A;
     font-weight: bold;
     text-decoration: none;
     padding: 5px 10px;
-    border: 1px solid #0129704D; /* 테두리 색상 변경 */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .msgReceivebox-pagination-container .pagination a:hover {
-    background-color: #0D6DFD;
-    color: #fff;
+     background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
 }
 
 .msgReceivebox-pagination-container .pagination .active a {
-    background-color: #0D6DFD;
-    color: #fff;
-}
-
-/* 화살표 부분 둥글게 */
-.msgReceivebox-pagination-container .pagination li:first-child a {
-    border-radius: 3px 0 0 3px; /* 왼쪽 끝만 둥글게 */
-}
-
-.msgReceivebox-pagination-container .pagination li:last-child a {
-    border-radius: 0 3px 3px 0; /* 오른쪽 끝만 둥글게 */
-}
-
-/* 폼 요소 간격 */
-.receivebox-section .search-bar select {
-	margin-top: 10px;
-}
-
-/* 테이블 스타일링 */
-.table {
-	table-layout: fixed;
-}
-
-.table th, .table td {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-/* 페이지 레이아웃 */
-.main {
-	padding: 20px; /* 적절한 패딩값 사용 */
-}
-
-/*========== 화면 작아질때  ==========*/
-/* 반응형 디자인 */
-@media screen and (max-width: 768px) {
-    .table-container {
-        overflow-x: auto;
-    }
-
-    .btn-container {
-        position: absolute;
-        display: flex;
-        flex-direction: column; /* 세로 방향으로 배치 */
-        right: 20px; /* 우측에서 20px 떨어진 위치 */
-        bottom: 10px; /* 아래에서 10px 떨어진 위치 */
-    }
-
-    .btn-msg-storebox,
-    .btn-msg-trashbox {
-        margin-top: 10px; /* 각 버튼 사이의 간격을 조정 */
-        width: 100%; /* 버튼을 100% 너비로 설정하여 컨테이너에 꽉 차게 배치 */
-    }
-
-    /* 테이블의 스타일 수정 */
-    .table {
-        width: auto; /* 테이블의 너비를 자동으로 설정하여 내용에 맞게 조절 */
-    }
-
-    .card {
-        width: auto; /* 카드의 너비를 자동으로 설정하여 내용에 맞게 조절 */
-    }
-
-    .list-item {
-        white-space: nowrap; /* 메일 목록 리스트의 텍스트가 줄 바꿈되지 않도록 설정 */
-        overflow: hidden; /* 넘치는 부분을 감 */
-        text-overflow: ellipsis; /* 텍스트가 너무 길어서 화면에 표시되지 않을 때 말줄임표로 표시 */
-    }
-
-    .mailList-whiteSpace td {
-        white-space: nowrap; /* 메일 목록 리스트의 텍스트가 줄 바꿈되지 않도록 설정 */
-        overflow: hidden; /* 넘치는 부분을 감 */
-        text-overflow: ellipsis; /* 텍스트가 너무 길어서 화면에 표시되지 않을 때 말줄임표로 표시 */
-    }
-
-    /* 메일 목록 리스트의 높이를 기준으로 다른 요소들의 높이를 조정 */
-    .receivebox-section {
-        height: auto;
-    }
-
-    .table-container {
-        height: auto;
-    }
-
-    /* 추가적으로 필요한 스타일을 계속해서 추가할 수 있습니다. */
+    background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
+    color: #0D6DFD;
+    border: 1px solid #0D6DFD;
 }
 
