@@ -122,7 +122,9 @@
 							<span class="reply-user-name">대댓글작성자</span> <span
 								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
 						</div>
-						<div class="reply-content">쪽지 남겨놓으면 될까요?</div>
+						<div class="reply-body">
+							<span class="reply-content">쪽지 남겨놓으면 될까요?</span><i class="bi bi-reply-fill"></i>
+						</div>
 					</form>
 				</div>
 

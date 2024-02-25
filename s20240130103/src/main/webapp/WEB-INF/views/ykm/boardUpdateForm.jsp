@@ -41,13 +41,13 @@
 					<!-- End Quill Editor Default -->
 					<div class="btn-container">
 						<form action="boardUpdatesubmit" method="get">
-							<input type="submit" class="btn btn-primary" value="submit">
+							<input type="submit" class="btn btn-primary" value="확인">
 						</form>
 						<form action="boardUpdateDelete" method="get">
-							<input type="submit" class="btn btn-danger" value="delete">
+							<input type="submit" class="btn btn-danger" value="삭제">
 						</form>
 						<form action="boardUpdatereset" method="get">
-							<input type="submit" class="btn btn-secondary" value="reset">
+							<input type="submit" class="btn btn-secondary" value="취소">
 						</form>
 					</div>
 				</div>

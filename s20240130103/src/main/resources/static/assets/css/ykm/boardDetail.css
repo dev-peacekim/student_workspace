@@ -150,6 +150,10 @@
 	background-color: #f8f9fa;
 }
 
+.markdown-body {
+	margin-bottom: 0px;
+}
+
 .card-header {
 	background-color: #f8f9fa;
 }
@@ -194,7 +198,7 @@
 # reply
 --------------------------------------------------------------*/
 .reply-comment {
-	padding: 20px 32px 20px 32px;
+	padding: 8px 32px 8px 60px;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
@@ -222,8 +226,19 @@
 	margin-left: auto;
 }
 
-.reply-content {
+
+.reply-body {
 	padding: 8px;
 	display: flex;
 	align-items: center;
+}
+
+.reply-body > .bi-reply-fill {
+	font-size: 1.5rem;
+	margin-left: 10px;
+	justify-content: flex-end;
+	margin-left: auto;
+}
+.reply-body > .bi-reply-fill:hover {
+	cursor: pointer;
 }
