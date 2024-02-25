@@ -34,6 +34,11 @@ public class BoardStuConController {
 		return "ykm/boardDetail";
 	}
 	
+	@GetMapping(value="boardModify")
+	public String boardModify() {
+		return "ykm/boardModify";
+	}
+	
 	
 	/* button */
 	

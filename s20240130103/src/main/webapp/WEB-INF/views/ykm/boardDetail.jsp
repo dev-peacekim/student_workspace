@@ -60,6 +60,9 @@
 								<p class="post-veiw-count">조회수 11</p>
 							</div>
 						</div>
+						<form class="modify-icon" method="get">
+							<span class="badge bg-light text-dark"><i class="bi bi-pencil-fill"></i> 수정</span>
+						</form>
 					</div>
 				</div>
 				<div class="community-post-header-body">
@@ -98,7 +101,7 @@
 							</div>
 							<div class="re-btn-container">
 								<form action="/commentReplay" method="GET">
-									<button type="submit" class="btn btn-outline-primary">
+									<button type="submit" class="btn btn-outline-dark">
 										<i class="bi bi-reply-fill">Reply</i>
 									</button>
 								</form>

@@ -22,42 +22,40 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-		<section class="section">
-			<div class="row">
-				<div class="card">
-					<div class="card-body">
-						<div class="community-header">
-							<h5>글쓰기</h5>
-						</div>
-						<div class="community-body">
-							<div class="title-input">
-								<label for="boradTitle" class="form-label"></label><input
-									type="text" id="boardTitle" class="form-control"
-									aria-describedby="titleHelpBlock"
-									placeholder="제목에 핵심 내용을 요약해보세요.">
-							</div>
-							 <div class="upload-files">
-                                <label for="inputNumber" class="form-label"><span class="upload-file-title">파일 첨부</span></label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
-							<div class="content-input">
-								<label for="boardContent" class="form-label"></label>
-								<textarea class="form-control" id="boardContent" rows="15"
-									placeholder="내용을 입력하세요."></textarea>
-							</div>
-						</div>
-						<!-- End Quill Editor Default -->
-						<div class="btn-container">
-							<form action="boardWritesubmit" method="get">
-								<input type="submit" class="btn btn-primary" value="submit">
-							</form>
-							<form action="boardWritereset" method="get">
-								<input type="submit" class="btn btn-secondary" value="reset">
-							</form>
-						</div>
+		<section class="board-write">
+			<div class="row card card-body">
+				<div class="community-header">
+					<p>글쓰기</p>
+				</div>
+				<div class="community-body">
+					<div class="title-input">
+						<label for="boradTitle" class="form-label"></label><input
+							type="text" id="boardTitle" class="form-control"
+							aria-describedby="titleHelpBlock"
+							placeholder="제목에 핵심 내용을 요약해보세요.">
+					</div>
+					<div class="upload-files">
+						<label for="inputNumber" class="form-label"><span
+							class="upload-file-title">파일 첨부</span></label> <input
+							class="form-control" type="file" id="formFile">
+					</div>
+					<div class="content-input">
+						<label for="boardContent" class="form-label"></label>
+						<textarea class="form-control" id="boardContent" rows="15"
+							placeholder="내용을 입력하세요."></textarea>
+					</div>
+					<!-- End Quill Editor Default -->
+					<div class="btn-container">
+						<form action="boardWritesubmit" method="get">
+							<input type="submit" class="btn btn-primary" value="확인">
+						</form>
+						<form action="boardWritereset" method="get">
+							<input type="submit" class="btn btn-secondary" value="취소">
+						</form>
 					</div>
 				</div>
 			</div>
+
 		</section>
 
 

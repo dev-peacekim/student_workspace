@@ -79,6 +79,18 @@
 	margin-bottom: 0px;
 }
 
+.modify-icon {
+	display: flex;
+	justify-content: flex-end;
+	font-size: 20px;
+	padding: 8px;
+	padding-right: 2px;
+	align-items: center;
+	margin-left: auto;
+	cursor: pointer;
+}
+
+
 /*--------------------------------------------------------------
 # community-post-body
 --------------------------------------------------------------*/
@@ -226,19 +238,19 @@
 	margin-left: auto;
 }
 
-
 .reply-body {
 	padding: 8px;
 	display: flex;
 	align-items: center;
 }
 
-.reply-body > .bi-reply-fill {
+.reply-body>.bi-reply-fill {
 	font-size: 1.5rem;
 	margin-left: 10px;
 	justify-content: flex-end;
 	margin-left: auto;
 }
-.reply-body > .bi-reply-fill:hover {
+
+.reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
 }
