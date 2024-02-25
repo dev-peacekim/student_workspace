@@ -58,15 +58,14 @@
             <div class="card-body">
                 <h5 class="card-title">자유 게시판</h5>
                 
-                
-                <!-- Search Bar -->
-                <div class="search-bar">
-                    <form class="search-form d-flex align-items-center" method="POST" action="#" style="display: flex; justify-content: flex-end;">
-                        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
-                <!-- End Search Bar -->
+               <!-- Search Bar -->
+               <div class="search-bar">
+                <form class="search-form d-flex align-items-center" method="POST" action="#">
+                  <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                  <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                </form>
+              </div><!-- End Search Bar -->
+        
 
                 <!-- 게시판 테이블 -->
                 <table class="table table-hover">
@@ -77,43 +76,17 @@
                             <th scope="col">작성자</th>
                             <th scope="col">작성일</th>
                             <th scope="col">조회수</th>
+                            <th scope="col">댓글</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Brandon Jacob</td>
-                            <td>Designer</td>
-                            <td>28</td>
+                            <td>자유 게시판!!</td>
+                            <td>이새잎</td>
                             <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Bridie Kessler</td>
-                            <td>Developer</td>
-                            <td>35</td>
-                            <td>2014-12-05</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Ashleigh Langosh</td>
-                            <td>Finance</td>
-                            <td>45</td>
-                            <td>2011-08-12</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Angus Grady</td>
-                            <td>HR</td>
-                            <td>34</td>
-                            <td>2012-06-11</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Raheem Lehner</td>
-                            <td>Dynamic Division Officer</td>
-                            <td>47</td>
-                            <td>2011-04-19</td>
+                            <td>12</td>
+                            <td>0</td>
                         </tr>
                     </tbody>
                 </table>

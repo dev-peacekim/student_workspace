@@ -39,11 +39,11 @@
 </head>
 <body>
     <!-- ======= Header ======= -->
-    <%@ include file="header.jsp" %>
+    <%@ include file="../header.jsp" %>
     
     
     <!-- ======= Sidebar ======= -->
-    <%@ include file="asidebar.jsp" %>
+    <%@ include file="../asidebar.jsp" %>
 
     <!-- ======= Main ======= -->
  <main id="main" class="main">
@@ -96,7 +96,7 @@
     
     
     <!-- ======= Footer ======= -->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
     <!-- End Footer -->
    
    
