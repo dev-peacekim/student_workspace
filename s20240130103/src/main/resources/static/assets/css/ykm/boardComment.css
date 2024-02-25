@@ -1,62 +1,104 @@
 @import
 	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
 	;
-	
+
 .main-card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-}
-
-.board-comment * {
 	font-family: 'NanumSquare', sans-serif;
 }
 
-.btn-container {
-	position: relative;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 0.3rem 0.5rem;
-	width: 100%;
-	max-width: 200px;
-}	
+/*--------------------------------------------------------------
+# comment
+--------------------------------------------------------------*/
+.re-comment-body {
+	padding: 16px;
+	border-top: 1px solid #f1f3f5;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
+}
 
-.btn-container:hover button,
-.btn-container:hover i {
-	color: #212121;
+.card-header {
+	background-color: #f8f9fa;
 }
 
 .comment-header {
 	display: flex;
-	padding-bottom: 20px;
 	align-items: center;
-	background: #fff;
-	position: relative; 
+	flex-direction: row;
 }
-
-.comment-user-container {
-	margin-left: 15px;
-	flex-grow: 1; 
-}
-
 
 .comment-user-profile {
+	margin-left: 10px;
+	font-size: 2em;
+	margin-right: 16px;
+}
+
+.comment-user-name {
+	margin-bottom: 5px;
+}
+
+.comment-header .re-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
+}
+
+.comment-updated-at {
+	font-size: 13px
+}
+
+.re-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
+}
+/*--------------------------------------------------------------
+# ref-comment
+--------------------------------------------------------------*/
+.comment-user-profile {
+	margin-right: 10px;
 	font-size: 2em;
 }
 
-.card-subtitle {
-	color: #757575;
-	font-size: 13px;
+/*--------------------------------------------------------------
+# reply
+--------------------------------------------------------------*/
+.reply-comment {
+	padding: 20px 32px 20px 32px;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
 }
 
-.markdown-body {
-	font-size: 16px;
-}
-
-.comment-replay {
+.reply-header {
 	display: flex;
+	align-items: center;
+}
+
+.reply-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+.reply-user-container {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.reply-updated-at {
+	font-size: 13px;
+	margin-left: 10px;
 	justify-content: flex-end;
+	margin-left: auto;
+}
+
+.reply-content {
+	padding: 8px;
+	display: flex;
+	align-items: center;
 }

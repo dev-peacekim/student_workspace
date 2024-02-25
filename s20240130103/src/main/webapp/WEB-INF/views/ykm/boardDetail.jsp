@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm/boardDetailForm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardDetail.css" rel="stylesheet">
 </head>
 <body>
 	<!-- 	<script type="text/javascript">
@@ -91,7 +91,7 @@
 							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 							<div class="comment-user-container">
 								<p class="card-title comment-user-name">
-									<a href="#">유저네임</a>
+									<a href="#">댓글작성자</a>
 								</p>
 								<p class="card-subtitle comment-updated-at">작성일 2024.02.24
 									오후 2:24</p>
@@ -99,7 +99,7 @@
 							<div class="re-btn-container">
 								<form action="/commentReplay" method="GET">
 									<button type="submit" class="btn btn-outline-primary">
-										<i class="bi bi-reply-fill">Replay</i>
+										<i class="bi bi-reply-fill">Reply</i>
 									</button>
 								</form>
 							</div>
@@ -109,17 +109,23 @@
 								건가요?</p>
 						</div>
 					</div>
-					<div class="ref-comment-body">
-						<div class="ref-comment-card">
-							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-							<div class="ref-comment-header">
-								<p class="ref-comment-user-name">유저네임</p>
-								<p class="ref-comment-updated-at">작성일 2024.02.24 오후 11:20</p>
-							</div>
-						</div>
-						<div class="ref-comment-content">졸려죽겠다</div>
-					</div>
 				</div>
+				<div class="reply-comment">
+					<form action="ref-reply" method="get">
+						<input type="hidden" name="user-profile" value="${profile}">
+						<input type="hidden" name="user-name" value="${user-name}">
+						<input type="hidden" name="group" value="${group}"> <input
+							type="hidden" name="level" value="${level}"> <input
+							type="hidden" name="indent" value="${indent}">
+						<div class="reply-header">
+							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
+							<span class="reply-user-name">대댓글작성자</span> <span
+								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
+						</div>
+						<div class="reply-content">쪽지 남겨놓으면 될까요?</div>
+					</form>
+				</div>
+
 			</div>
 		</section>
 

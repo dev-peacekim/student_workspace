@@ -64,6 +64,7 @@
 
 .post-subtitle {
 	display: flex;
+	position: relative;
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: row;
@@ -164,6 +165,7 @@
 	font-size: 2em;
 	margin-right: 16px;
 }
+
 .comment-user-name {
 	margin-bottom: 5px;
 }
@@ -183,51 +185,45 @@
 /*--------------------------------------------------------------
 # ref-comment
 --------------------------------------------------------------*/
-.ref-comment-card {
-	padding: 0 32px 20px 32px;
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-}
-
-
-
 .comment-user-profile {
 	margin-right: 10px;
 	font-size: 2em;
 }
 
-
 /*--------------------------------------------------------------
-# ref-comment
+# reply
 --------------------------------------------------------------*/
-.ref-comment-header {
-	display: flex;
-	align-items: center;
-	flex-direction: row; 
+.reply-comment {
+	padding: 20px 32px 20px 32px;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
 }
 
-.ref-comment-user-name {
-	margin-bottom: 0px;
-}
-.ref-comment-content {
-	align-items: center;
-	margin-bottom: 0px;
-}
-.ref-comment-updated-at {
+.reply-header {
 	display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0.3rem 0.5rem;
-    margin-left: auto;
-    margin-bottom: 0px;
-    font-size: 13px
+	align-items: center;
 }
 
-/* .ref-comment-card {
+.reply-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+.reply-user-container {
 	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.reply-updated-at {
+	font-size: 13px;
+	margin-left: 10px;
 	justify-content: flex-end;
-	align-items: center;
-	padding: 0.3rem 0.5rem;
 	margin-left: auto;
-} */
+}
+
+.reply-content {
+	padding: 8px;
+	display: flex;
+	align-items: center;
+}

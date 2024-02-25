@@ -29,9 +29,9 @@ public class BoardStuConController {
 		return "ykm/boardUpdateForm";
 	}
 	
-	@GetMapping(value="boardDetailForm")
-	public String boardDetailForm() {
-		return "ykm/boardDetailForm";
+	@GetMapping(value="boardDetail")
+	public String boardDetail() {
+		return "ykm/boardDetail";
 	}
 	
 	

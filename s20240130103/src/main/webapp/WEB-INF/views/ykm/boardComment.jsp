@@ -23,39 +23,46 @@
 		</div>
 		<!-- End Page Title -->
 
-		<!-- ======= Bordered Tabs ======= -->
-		<section class="section">
-			<div class="row">
-				<div class="card main-card">
-					<div class="card-body">
-						<div class="card card-body board-comment">
-							<div class="card-header comment-header">
-								<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-								<div class="comment-user-container">
-									<h5 class="card-title comment-user-name">
-										<a href="#">유저네임</a>
-									</h5>
-									<h6 class="card-subtitle comment-updated-at">작성일 2024.02.24 오후
-										2:24</h6>
-								</div>
-								<div class="btn-container">
-									<form action="/commentReplay" method="GET">
-										<button type="submit" class="btn btn-outline-primary">
-											<i class="bi bi-reply-fill">Replay</i>
-										</button>
-									</form>
-
-								</div>
-							</div>
-							<div class="card-body comment-body">
-								<p class="markdown-body">근데 이거.. 어떻게 참여 원하시는 분들한테 연락을 드리는
-									건가요?</p>
-							</div>
-						</div>
+		<div class="main-card re-comment-body">
+			<div class="comment-card">
+				<div class="comment-header">
+					<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+					<div class="comment-user-container">
+						<p class="card-title comment-user-name">
+							<a href="#">댓글작성자</a>
+						</p>
+						<p class="card-subtitle comment-updated-at">작성일 2024.02.24 오후
+							2:24</p>
+					</div>
+					<div class="re-btn-container">
+						<form action="/commentReplay" method="GET">
+							<button type="submit" class="btn btn-outline-primary">
+								<i class="bi bi-reply-fill">Reply</i>
+							</button>
+						</form>
 					</div>
 				</div>
+				<div class="card-body comment-body">
+					<p class="markdown-body">근데 이거.. 어떻게 참여 원하시는 분들한테 연락을 드리는 건가요?</p>
+				</div>
 			</div>
-		</section>
+		</div>
+		<div class="reply-comment">
+			<form action="ref-reply" method="get">
+				<input type="hidden" name="user-profile" value="${profile}">
+				<input type="hidden" name="user-name" value="${user-name}">
+				<input type="hidden" name="group" value="${group}"> <input
+					type="hidden" name="level" value="${level}"> <input
+					type="hidden" name="indent" value="${indent}">
+				<div class="reply-header">
+					<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
+					<span class="reply-user-name">대댓글작성자</span> <span
+						class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
+				</div>
+				<div class="reply-content">쪽지 남겨놓으면 될까요?</div>
+			</form>
+		</div>
+
 
 
 
@@ -65,24 +72,7 @@
 
 
 
-		<!-- ======= Pagination ======= -->
-		<section>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">«</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">»</span>
-					</a></li>
-				</ul>
-			</nav>
-		</section>
+
 	</main>
 
 	<!-- ======= Footer ======= -->
