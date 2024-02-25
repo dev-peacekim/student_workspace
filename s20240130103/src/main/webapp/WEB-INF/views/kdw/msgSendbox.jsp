@@ -37,8 +37,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+<!-- KDW Main CSS File -->
 <link href="assets/css/kdw/msgSendbox.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <!-- 검색바&드롭박스 JS -->
 <script type="text/javascript">
 	function changeDropdownItem(value) {
@@ -134,7 +136,7 @@
 			<h1>보낸쪽지함</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item active">보낸쪽지함</li>
 				</ol>
 			</nav>
@@ -146,7 +148,7 @@
 
 				<!-- 쪽지 쓰기 -->
 				<div class="msg-create">
-					<button type="button" class="msg-create-btn">쪽지 쓰기</button>
+					<a href="/writeMessage" class="msg-create-btn">쪽지 쓰기</a>
 				</div>
 				<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 				<div id="noteCount" class="note-count">
@@ -162,7 +164,6 @@
 								<option value="전체">전체</option>
 								<option value="아이디">아이디</option>
 								<option value="제목+내용">제목+내용</option>
-								<option value="기간">기간</option>
 							</select> <input type="text" name="query" placeholder="Search"
 								title="Enter search keyword">
 							<button type="submit" title="Search">
