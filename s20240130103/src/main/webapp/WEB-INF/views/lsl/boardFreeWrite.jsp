@@ -11,9 +11,7 @@
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -26,7 +24,7 @@
   
   <!-- Template Main CSS File -->
   <link href="assets/css/lsl/lslboardFreeWrite.css" rel="stylesheet"> 
-   <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
+  <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
   
   <!-- =======================================================
@@ -36,6 +34,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+
 </head>
 <body>
     <!-- ======= Header ======= -->
@@ -66,18 +66,19 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form>
+                        <form action="boardFreeWrite" method="post">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText">
+                                <input type="text" class="form-control" id="inputText" name="Cboard_Title" value="${board_comm.cboard_title }">
                             </div>
                             <div class="mb-3">
                                 <label for="inputNumber" class="form-label">파일 첨부</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" name="Cboard_File_Name" value="${board_comm_file.cboard_file_name }">
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control" style="height: 550px;"></textarea>
+                                <textarea class="form-control" style="height: 550px;" name="Cboard_Content">${board_comm.cboard_content }</textarea>
                             </div>
+
                             <div class="mb-3">
                                 <button type="submit" class="btn bwCancle">취소</button>
                                 <button type="submit" class="btn bwComple">완료</button>
@@ -114,6 +115,6 @@
     
     
     <!-- Template Main JS File -->
-    <script defer src="assets/js/lsl/main.js"></script>
+    <script defer src="assets/js/main.js"></script>
 </body>
 </html>
