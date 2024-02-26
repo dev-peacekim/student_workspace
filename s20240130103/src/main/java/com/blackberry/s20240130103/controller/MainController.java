@@ -18,5 +18,4 @@ public class MainController {
 	public String mainPage() {
 		return "forward:mainLogic";
 	}
-	
 }

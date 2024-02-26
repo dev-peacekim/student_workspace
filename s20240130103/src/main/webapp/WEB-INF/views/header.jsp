@@ -172,7 +172,7 @@
                         		<span class="d-none d-md-block dropdown-toggle ps-2">로그인안됨</span>
                         	</c:when>
                         	<c:otherwise>
-                        		<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        		<img src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" class="rounded-circle">
                         		<span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.user_no } : ${sessionScope.user_name }</span>
                         	</c:otherwise>
                         </c:choose>
@@ -182,8 +182,8 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>김 동욱</h6>
-                            <span>Web Designer</span>
+                            <h6>${sessionScope.user_name }</h6>
+                            <span>회원</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -210,10 +210,13 @@
 			            </li>
 			
 			            <li>
-			              <a class="dropdown-item d-flex align-items-center" href="main">
+			              <a class="dropdown-item d-flex align-items-center" href="userLogout">
 			                <i class="bi bi-box-arrow-right"></i>
 			                <span>로그아웃</span>
 			              </a>
+			            </li>
+			            <li>
+			              <hr class="dropdown-divider">
 			            </li>
 
                     </ul><!-- End Profile Dropdown Items -->

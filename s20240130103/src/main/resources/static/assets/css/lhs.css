@@ -13,17 +13,7 @@
   /* Toggle Sidebar Button */
   /* Search Bar */
 }
-.logo span {
-  background: linear-gradient(to right, #486ef3, #b52bfc); /* 그라데이션 색상 설정 */
-  -webkit-background-clip: text; /* 텍스트에 그라데이션 적용 */
-  font-size: 22px;
-  font-weight: 700;
-  color: transparent;
-  font-family: "Nunito", sans-serif;
-}
-.logo a span {
-    text-decoration: none; /* 밑줄 제거 */
-}
+
 .login-banner {
 	height: 80px;
 	width: 120px;

@@ -1,15 +1,21 @@
 let idChkval = 0;
 let passChkval = 0;
+const extenReg = /.+\.(jpeg|jpg|png)/;
 document.getElementById('file').addEventListener('change',function(){
-	if(this.files[0]){
-		let reader = new FileReader();
-		reader.onload = function(event){
-			document.getElementById('joinPicture').src = event.target.result;
-		};
-		reader.readAsDataURL(this.files[0]);
+	if(this.value.match(extenReg)){
+		if(this.files[0]){
+			let reader = new FileReader();
+			reader.onload = function(event){
+				document.getElementById('joinPicture').src = event.target.result;
+			};
+			reader.readAsDataURL(this.files[0]);
+		}else{
+			alert("파일선택해주세요");
+			document.getElementById('joinPicture').src = "";
+		}
 	}else{
-		alert("파일선택해주세요");
-		document.getElementById('joinPicture').src = "";
+		alert('이미지파일을 선택해주세요');
+		this.value='';
 	}
 });
 
@@ -50,7 +56,6 @@ document.getElementById('pw2').addEventListener('keyup',function(){
 	}
 });
 
-
 function chk(){
 	if(idChkval===1){
 		if(passChkval===1){
@@ -64,4 +69,3 @@ function chk(){
 		return false;
 	}
 }
-
