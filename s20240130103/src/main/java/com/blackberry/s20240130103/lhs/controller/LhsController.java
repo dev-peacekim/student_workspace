@@ -147,9 +147,16 @@ public class LhsController {
 	
 	@GetMapping("userLogout")
 	public String userLogout(HttpServletRequest request) {
-		System.out.println("여기옴?");
 		request.getSession().invalidate();
 		return "thymeleaf/index";
 	}
 	
+	@GetMapping("myPage")
+	public String userProfile(HttpServletRequest request,Model model) {
+		String userNo = request.getSession().getAttribute("user_no").toString();
+		User user = userService.findUserByNo(userNo);
+		System.out.println(user);
+		model.addAttribute("user", user);
+		return "lhs/userMypage";
+	}
 }

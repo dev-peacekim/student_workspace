@@ -34,5 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
 		}
 		return Optional.ofNullable(user);
 	}
+	
+	@Override
+	public User findUserByNo(String userNo) {
+		return entityManager.find(User.class, userNo);
+	}
 
 }

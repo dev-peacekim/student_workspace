@@ -190,7 +190,7 @@
                         </li>
 
                         <li>
-			              <a class="dropdown-item d-flex align-items-center" href="mypage">
+			              <a class="dropdown-item d-flex align-items-center" href="myPage">
 			                <i class="bi bi-person"></i>
 			                <span>마이페이지</span>
 			              </a>

@@ -12,4 +12,6 @@ public interface UserService {
 	int joinIdChk(String id);
 
 	int loginChk(User user);
+
+	User findUserByNo(String userNo);
 }

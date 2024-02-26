@@ -28,7 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/lhs.css" rel="stylesheet">
+  <link href="assets/css/lhs/lhs.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin

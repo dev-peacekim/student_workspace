@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.userProfileSize{
+	max-width: 300px; /* 최대 너비 */
+    max-height: 400px; /* 최대 높이 */
+}
+
+.row{
+	margin-bottom: 30px;
+}

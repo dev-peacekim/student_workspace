@@ -8,4 +8,6 @@ public interface UserRepository {
 	void userJoin(User user);
 
 	Optional<User> findUserById(String id);
+
+	User findUserByNo(String userNo);
 }
