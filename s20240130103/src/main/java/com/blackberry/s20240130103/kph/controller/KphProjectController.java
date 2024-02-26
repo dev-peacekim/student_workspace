@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
+import com.blackberry.s20240130103.lhs.domain.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +30,7 @@ public class KphProjectController {
 	public String mainLogic(HttpServletRequest request, Model model) {
 		System.out.println("KphProjectController mainLogic start...");
 		HttpSession session = request.getSession();
-		int user_no = ((Long)session.getAttribute("user_no")).intValue();
+		Long user_no = (Long)session.getAttribute("user_no");
 		List<KphProject> projectList = kphProjectService.projectList(user_no);
 		Iterator<KphProject> projectIter = projectList.iterator();
 		
@@ -39,8 +41,10 @@ public class KphProjectController {
 			KphProject kphProject = projectIter.next(); 
 			List<KphTask> unComptaskList = kphProjectService.unCompTaskListByProjectNo(kphProject.getProject_no());
 			List<KphTask> compTaskList = kphProjectService.compTaskListByProjectNo(kphProject.getProject_no());
+			int isEvalByUser = kphProjectService.isEvalByUser(kphProject);
 			kphProject.setUncomp_task_count(unComptaskList.size());
 			kphProject.setComp_task_count(compTaskList.size());
+			kphProject.setIsEvalByUser(isEvalByUser);
 			totalCompTaskCount += compTaskList.size();
 			totalUnCompTaskCount += unComptaskList.size();
 		}
@@ -66,13 +70,26 @@ public class KphProjectController {
 	public String projectAdd(KphProject project, HttpServletRequest request) {
 		System.out.println("KphProjectController projectAdd start...");
 		HttpSession session = request.getSession();
-		int user_no = ((Long)session.getAttribute("user_no")).intValue();
+		Long user_no = (Long)session.getAttribute("user_no");
 		
 		project.setUser_no(user_no);
 				
 		int result = kphProjectService.projectAdd(project);
 		System.out.println("KphProjectController projectAdd result=>" + result);
 		return "redirect:/main";
+	}
+	
+	@PostMapping("evalForm")
+	public String eval(HttpServletRequest request) {
+		System.out.println("KphProjectController eval start...");
+		
+		HttpSession session = request.getSession();
+		Long user_no = (Long)session.getAttribute("user_no");
+		Long project_no = Long.parseLong(request.getParameter("project_no"));
+		
+		List<KphUsers> userList = kphProjectService.userListByProjectNo(project_no);
+		
+		return "kph/evalForm";
 	}
 	
 }

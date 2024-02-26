@@ -9,10 +9,12 @@ public interface KphProjectDao {
 
 	int projectAdd(KphProject project);
 
-	List<KphProject> projectList(int user_no);
+	List<KphProject> projectList(Long user_no);
 
-	List<KphTask> unCompTaskListByProjectNo(int project_no);
+	List<KphTask> unCompTaskListByProjectNo(Long project_no);
 
-	List<KphTask> compTaskListByProjectNo(int project_no);
+	List<KphTask> compTaskListByProjectNo(Long project_no);
+
+	int isEvalByUser(KphProject kphProject);
 	
 }

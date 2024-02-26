@@ -77,8 +77,8 @@
 		        			<div class="card-body my-project-detail">
 		        				<div>
 		            				<h5 class="my-project-detail-title">${project.project_title }</h5>
-		            				<form action="eval" method="post">
-		            					<c:if test="${project.project_comp_chk eq 1 }">
+		            				<form action="evalForm" method="post">
+		            					<c:if test="${project.project_comp_chk eq 1 && project.isEvalByUser == 0}">
 		            						<input name="project_no" value="${project.project_no }" hidden="true"/>
 		            						<input type="submit" class="evaluation-btn" value="팀원평가"/>	
 		            					</c:if>
@@ -87,6 +87,9 @@
 		          				<div>
 		          					<div class="progress" style="width:70%; margin-top:20px; height: 20px; border-radius: 10px; background-color: rgba(246, 249, 255, 0.3);">
 					                <c:choose>
+					                	<c:when test="${project.comp_task_count == 0 && project.uncomp_task_count !=0 }">
+					                		<div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%; height: 30px; line-height: 20px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+					                	</c:when>
 					                    <c:when test="${project.comp_task_count + project.uncomp_task_count != 0}">
 					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: ${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%; height: 30px; line-height: 20px;" aria-valuenow="${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}" aria-valuemin="0" aria-valuemax="100">${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%</div>
 					                    </c:when>

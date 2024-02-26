@@ -1,14 +1,12 @@
 package com.blackberry.s20240130103.kph.model;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
 public class KphTask {
 	
-	private int project_no;
-	private int task_no;
+	private Long project_no;
+	private Long task_no;
 	private String task_title;
 	private String task_start;
 	private String task_end;

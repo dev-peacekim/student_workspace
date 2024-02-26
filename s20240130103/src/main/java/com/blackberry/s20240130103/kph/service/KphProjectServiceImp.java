@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUsers;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +27,7 @@ public class KphProjectServiceImp implements KphProjectService {
 
 
 	@Override
-	public List<KphProject> projectList(int user_no) {
+	public List<KphProject> projectList(Long user_no) {
 		System.out.println("KphProjectServiceImp projectList start...");
 		List<KphProject> projectList = kphProjectDao.projectList(user_no);
 		System.out.println("KphProjectServiceImp projectList projectList.size=>" + projectList.size());
@@ -35,16 +36,30 @@ public class KphProjectServiceImp implements KphProjectService {
 
 
 	@Override
-	public List<KphTask> unCompTaskListByProjectNo(int project_no) {
+	public List<KphTask> unCompTaskListByProjectNo(Long project_no) {
 		List<KphTask> upCompTaskList = kphProjectDao.unCompTaskListByProjectNo(project_no);
 		return upCompTaskList;
 	}
 
 
 	@Override
-	public List<KphTask> compTaskListByProjectNo(int project_no) {
+	public List<KphTask> compTaskListByProjectNo(Long project_no) {
 		List<KphTask> CompTaskList = kphProjectDao.compTaskListByProjectNo(project_no);
 		return CompTaskList;
+	}
+
+
+	@Override
+	public int isEvalByUser(KphProject kphProject) {
+		int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
+		return isEvalByUser;
+	}
+
+
+	@Override
+	public List<KphUsers> userListByProjectNo(Long project_no) {
+		System.out.println("KphProjectServiceImp userListByProjectNo start...");
+		return null;
 	}
 	
 }
