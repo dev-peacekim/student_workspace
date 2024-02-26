@@ -10,8 +10,8 @@ public class KphTask {
 	private int project_no;
 	private int task_no;
 	private String task_title;
-	private Date task_start;
-	private Date task_end;
+	private String task_start;
+	private String task_end;
 	private int task_comp_chk;
 	
 }

@@ -63,30 +63,34 @@
 
         <section class="section dashboard">
 			<div class="card">
-	            <p>프로젝트 정보 입력</p>
-	            <form action="projectAdd" method="post">
-	                <div>
-	                   <p>프로젝트 제목</p>
-	                   <input name="project_title" type="text" class="form-control">
-	                </div>
-	                <div>
-	                	<p>프로젝트 내용</p>
-	                    <input name="project_content" type="text" class="form-control">
-	                </div>
-	                <div>
-	                    <p>시작일</p>
-	                    <input name="project_start" type="date" class="form-control" />
-	                </div>
-	                <div>
-	                    <p>종료일</p>
-	                    <input name="project_end" type="date" class="form-control" />
-	                </div>
-	                <div class="text-center">
-	                    <button type="submit" class="btn btn-primary">저장</button>
-	                    <button type="button" class="btn btn-secondary">취소</button>
-	                </div>
-	            </form>
-        	</div>
+				<p>프로젝트 정보 입력</p>
+				<form action="projectAdd" method="post">
+					<div>
+						<p>프로젝트 제목</p>
+						<input name="project_title" type="text" class="form-control">
+						<p class="project-alert project-title-alert">프로젝트 제목을 입력하세요</p>
+					</div>
+					<div>
+						<p>프로젝트 내용</p>
+						<input name="project_content" type="text" class="form-control">
+						<p class="project-alert project-content-alert">프로젝트 내용을 입력하세요</p>
+					</div>
+					<div>
+						<p>시작일</p>
+						<input name="project_start" type="date" class="form-control" />
+						<p class="project-alert project-start-alert">프로젝트 시작일을 입력하세요</p>
+					</div>
+					<div>
+						<p>종료일</p>
+						<input name="project_end" type="date" class="form-control" />
+						<p class="project-alert project-end-alert">프로젝트 종료일을 입력하세요</p>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary">저장</button>
+						<button type="button" class="btn btn-secondary">취소</button>
+					</div>
+				</form>
+			</div>
         </section>
 
     </main>

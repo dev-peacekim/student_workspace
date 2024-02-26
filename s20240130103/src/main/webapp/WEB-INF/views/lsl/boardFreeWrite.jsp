@@ -39,16 +39,16 @@
 </head>
 <body>
     <!-- ======= Header ======= -->
-    <%@ include file="header.jsp" %>
+    <%@ include file="../header.jsp" %>
     
     
     <!-- ======= Sidebar ======= -->
-    <%@ include file="asidebar.jsp" %>
+    <%@ include file="../asidebar.jsp" %>
 
     <!-- ======= Main ======= -->
  <main id="main" class="main">
     <div class="pagetitle">
-        <h1>게시판 글쓰기</h1>
+        <h1>게시판</h1>
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="main">Home</a></li>
@@ -72,11 +72,10 @@
                                 <input type="text" class="form-control" id="inputText">
                             </div>
                             <div class="mb-3">
-                                <label for="inputNumber" class="form-label">파일</label>
+                                <label for="inputNumber" class="form-label">파일 첨부</label>
                                 <input class="form-control" type="file" id="formFile">
                             </div>
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">내용</label>
                                 <textarea class="form-control" style="height: 550px;"></textarea>
                             </div>
                             <div class="mb-3">
@@ -96,7 +95,7 @@
     
     
     <!-- ======= Footer ======= -->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
     <!-- End Footer -->
    
    

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* 보낸 쪽지함 */
+
 @import
 	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
 	;
@@ -19,6 +19,7 @@ body {
 	height: 800px;
 	min-height: 500px;
 	margin-bottom: 0;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 	border: none;
 	border-radius: 5px;
 }
@@ -76,16 +77,20 @@ thead th:nth-child(2) {
     width: 10px; /* 읽음 여부 셀 가로 */
 }
 thead th:nth-child(3) {
-    width: 10px; /* 첨부파일 여부 셀 가로 */
+    width: 10px; /* 파일 여부 셀 가로 */
 }
 thead th:nth-child(4) {
-    width: 1500px; /* 제목 셀 가로 */
+    width: 10px; /* 유형 셀 가로 */
 }
 thead th:nth-child(5) {
-    width: 80px; /* 글쓴이 셀 가로*/
+    width: 80px; /* 아이디 셀 가로*/
 }
 
 thead th:nth-child(6) {
+    width: 1500px; /* 제목 셀 가로 */
+}
+
+thead th:nth-child(7) {
     width: 150px; /* 기간 셀 가로 */
 }
 
@@ -100,7 +105,10 @@ thead th:nth-child(6) {
 /* 메일 목록 리스트의 스타일 */
 .table .list-item {
 	font-size: 13px;
-	font-weight: 500;
+	font-weight: 700;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .table .list-item .subject:hover {
@@ -164,7 +172,7 @@ thead th:nth-child(6) {
 	color: #636363;
 }
 
-/* === 쪽지 보관버튼 삭제버튼 === */
+/* === 쪽지 완전 삭제버튼 === */
 .btn-container {
     position: absolute;
     display: flex;
@@ -173,31 +181,18 @@ thead th:nth-child(6) {
     font-size: 14px;
 }
 
-.btn-msg-storebox,
 .btn-msg-trashbox {
     margin-left: 0;
     color: #0d6efd;
     background-color: white;
     border: 1px solid #0D6DFD;
+    border-radius: 5px;
     padding: 1px 15px;
-    transition: background-color 0.3s ease; /* 부드러운 전환을 위한 트랜지션*/
     font-weight: bold;
     height: 35px;
-    width: 60px;
+    width: 120px;
 }
 
-.btn-msg-storebox:first-child {
-    border-top-left-radius: 5px; /* 좌측 상단 둥근 경계 설정 */
-    border-bottom-left-radius: 5px; /* 좌측 하단 둥근 경계 설정 */
-    border-right: none;
-}
-
-.btn-msg-trashbox:last-child {
-    border-top-right-radius: 5px; /* 우측 상단 둥근 경계 설정 */
-    border-bottom-right-radius: 5px; /* 우측 하단 둥근 경계 설정 */
-}
-
-.btn-msg-storebox:hover,
 .btn-msg-trashbox:hover {
     background-color: #0D6DFD; /* 마우스를 올렸을 때의 배경색 */
     color: #ffffff; /* 마우스를 올렸을 때의 텍스트 색상 */

@@ -39,11 +39,11 @@
 </head>
 <body>
     <!-- ======= Header ======= -->
-    <%@ include file="header.jsp" %>
+    <%@ include file="../header.jsp" %>
     
     
     <!-- ======= Sidebar ======= -->
-    <%@ include file="asidebar.jsp" %>
+    <%@ include file="../asidebar.jsp" %>
 
     <!-- ======= Main ======= -->
 <main id="main" class="main">
@@ -58,44 +58,90 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
-        <div class="row justify-content-center">
-            <div class="col-lg-13">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- General Form Elements -->
-                        
-                        <form>
-                         <h5 class="card-title">제목</h5>
-                            <div class="bcfTBox">
-                                <div class="TBox">   
-                                제목입니다.
-						           </div>
-                            </div>
-                        
-        				
-        				 	 <h5 class="card-title">내용</h5>
-            					<div class="bfcCBox">
-              					<div class="CBox">
-              						 Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
-						              Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem numquam. Enim fuga ipsum dolor nulla quia ut.
-						              Rerum dolor voluptatem et deleniti libero totam numquam nobis distinctio. Sit sint aut. Consequatur rerum in.
-						           </div>
-              					</div>
-         				<!-- End Default Card -->
-         					 
-                            <div class="mb-3">
-                              <button type="submit" class="btn bfcDelete">삭제</button>
-                               <button type="button" class="btn bfcCancle" onclick="window.location.href='boardFreeModify'">수정</button>
-                                <button type="submit" class="btn bfcComple">목록</button>
-                            </div>
-                        </form><!-- End General Form Elements -->
-
+    <section class="community-post-detail">
+        <div class="row card main-card card-body">
+            <div class="card-header community-post-header">
+                <h3 class="card-title post-header-title">질문 있어요!</h3>
+                <div class="card-subtitle post-user-container">
+                    <i class="bi bi-person-circle post-user-profile" alt="유저 프로필"></i>
+                    <div class="card-title-header">
+                        <h5 class="card-title post-user-name">
+                            <a href="#">유저네임</a>
+                        </h5>
+                        <div class="card-subtitle post-subtitle">
+                            <p class="post-updated-at">작성일 2024.02.23 오후 5:24</p>
+                            <p class="post-veiw-count">조회수 11</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="community-post-header-body">
+                <span class="post-content">게시판 내용</span>
+            </div>
+            <section class="community-post-answer">
+                <div class="answer-info-header">
+                    <div class="answer-info-title">
+                        댓글 <span class="answer-info-title-count">23</span>
+                    </div>
+                    <div class="comment-editor">
+                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                        <input type="text" name="comment" id="inputField"
+                            placeholder="id님, 댓글을 작성해보세요." class="form-control" required="">
+                    </div>
+                    <div class="btn-container is-editor-open">
+                        <form action="boardCommentreset" method="get">
+                            <button id="resetBtn" class="hidden btn btn-secondary">취소</button>
+                        </form>
+                        <form action="boardCommentsubmit" method="get">
+                            <button id="submitBtn" class="hidden btn btn-primary">등록</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <div class="re-comment-body">
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                        <div class="comment-user-container">
+                            <p class="card-title comment-user-name">
+                                <a href="#">이새잎</a>
+                            </p>
+                            <p class="card-subtitle comment-updated-at">작성일 2024.02.24
+                                오후 2:24</p>
+                        </div>
+                        <div class="re-btn-container">
+                            <form action="/boardFreeCommentRepl" method="GET">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="bi bi-reply-fill">Replay</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body comment-body">
+                        <p class="markdown-body">언니 이거 내가 뽀려가용ㅎㅎ</p>
+                    </div>
+                </div>
+                <div class="reply-comment">
+					<form action="ref-reply" method="get">
+						<input type="hidden" name="user-profile" value="${profile}">
+						<input type="hidden" name="user-name" value="${user-name}">
+						<input type="hidden" name="group" value="${group}"> <input
+							type="hidden" name="level" value="${level}"> <input
+							type="hidden" name="indent" value="${indent}">
+						<div class="reply-header">
+							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
+							<span class="reply-user-name">유경미</span> <span
+								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
+						</div>
+						<div class="reply-body">
+							<span class="reply-content">구랩!!!</span><i class="bi bi-reply-fill"></i>
+						</div>
+					</form>
+				</div>
+
+			</div>
+            </div>
+            </section>
 </main>
 
 
@@ -103,7 +149,7 @@
     
     
     <!-- ======= Footer ======= -->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
     <!-- End Footer -->
    
    
