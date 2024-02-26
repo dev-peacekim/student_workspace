@@ -32,7 +32,9 @@
 							<h5>공모전 게시판</h5>
 						</div>
 						<div class="community-body">
-							<div class="contest-title">함께 성장할 공모전 팀원을 모집해보세요</div>
+							<div class="contest-title">
+									<span>함께 성장할 공모전 팀원을 모집해보세요</span>
+							</div>
 							<div class="search-bar d-flex justify-content-end">
 								<form class="search-form d-flex align-items-center"
 									method="POST" action="#">
@@ -63,24 +65,24 @@
 										<th scope="row">1</th>
 										<td>여긴 공모전 페이지다</td>
 										<td>Designer</td>
-										<td>28</td>
 										<td>2016-05-25</td>
+										<td>28</td>
 										<td>0</td>
 									</tr>
 									<tr>
 										<th scope="row">2</th>
 										<td>Bridie Kessler</td>
 										<td>Developer</td>
-										<td>35</td>
 										<td>2014-12-05</td>
+										<td>35</td>
 										<td>0</td>
 									</tr>
 									<tr>
 										<th scope="row">3</th>
 										<td>Ashleigh Langosh</td>
 										<td>Finance</td>
-										<td>45</td>
 										<td>2011-08-12</td>
+										<td>45</td>
 										<td>0</td>
 									</tr>
 								</tbody>
@@ -88,8 +90,8 @@
 						</div>
 						<!-- End Table with hoverable rows -->
 						<div class="btn-container">
-							<form action="boardRegisteWrite" method="get">
-								<input type="submit" class="btn btn-primary" value="글쓰기">
+							<form action="boardStuConWrite" method="get">
+								<input type="submit" class="btn btn-primary custom-btn btn-15" value="글쓰기">
 							</form>
 						</div>
 					</div>

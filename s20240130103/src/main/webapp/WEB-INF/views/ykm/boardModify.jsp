@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
-<link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
+<link href="assets/css/ykm/boardModify.css" rel="stylesheet">
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -22,40 +22,38 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-		<section class="board-write">
+		<section class="post-modify">
 			<div class="row card card-body">
-				<div class="community-header">
-					<p>글쓰기</p>
+				<div class="modify-header">
+					<p>수정페이지</p>
 				</div>
-				<div class="community-body">
+				<div class="modify-body">
 					<div class="title-input">
-						<label for="boradTitle" class="form-label"></label><input
-							type="text" id="boardTitle" class="form-control"
-							aria-describedby="titleHelpBlock"
-							placeholder="제목에 핵심 내용을 요약해보세요.">
+						<label for="modifyTitle" class="form-label"></label><input
+							type="text" id="modifyTitle" class="form-control"
+							placeholder="수정할 제목입니다.">
 					</div>
-					<div class="upload-files">
+					<div class="modify-files">
 						<label for="inputNumber" class="form-label"><span
-							class="upload-file-title">파일 첨부</span></label> <input
+							class="modify-file-title">파일 첨부</span></label> <input
 							class="form-control" type="file" id="formFile">
 					</div>
-					<div class="content-input">
-						<label for="boardContent" class="form-label"></label>
-						<textarea class="form-control" id="boardContent" rows="15"
-							placeholder="내용을 입력하세요."></textarea>
-					</div>
-					<!-- End Quill Editor Default -->
-					<div class="btn-container">
-						<form action="boardWritesubmit" method="get">
-							<input type="submit" class="btn btn-primary" value="확인">
-						</form>
-						<form action="boardWritereset" method="get">
-							<input type="submit" class="btn btn-secondary" value="취소">
-						</form>
+					<div class="modify-input">
+						<label for="modify-content" class="form-label"></label>
+						<textarea class="form-control" id="modifyContent" rows="15"
+							placeholder="작성했던 내용이 적혀있음"></textarea>
 					</div>
 				</div>
+				<!-- End Quill Editor Default -->
+				<div class="btn-container">
+					<form action="modifyBtn" method="get">
+						<input type="submit" class="btn btn-primary" value="수정">
+					</form>
+					<form action="modifyResBtn" method="get">
+						<input type="submit" class="btn btn-secondary" value="취소">
+					</form>
+				</div>
 			</div>
-
 		</section>
 
 

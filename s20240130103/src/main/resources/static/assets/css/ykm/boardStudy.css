@@ -65,6 +65,7 @@
 	color: #012970;
 }
 
+
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
@@ -122,7 +123,7 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 16px 20px;
+	padding: 0.3rem 0.5rem;
 	width: 100%;
 	z-index: 100;
 }
@@ -130,6 +131,31 @@
 .btn-container form {
 	margin-left: 10px; /* 버튼 사이 간격 조정 */
 }
+
+
+.custom-btn {
+	color: #fff;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 7px 7px 20px
+		0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+.btn-15 {
+	background: #0b5ed7;
+	border-color: #0b5ed7;
+}
+.btn-15:hover {
+	background-color: #b621fe;
+	border-color: #b621fe;
+}
+.btn-15:after {
+	background-color: #b621fe;
+	transition: all 0.3s ease;
+}
+
+
 
 thead tr, tead th {
 	height: 30px;
@@ -144,6 +170,7 @@ tbody th, tbody td {
 .recruiting {
 	display: inline-flex;
 	position: relative;
+	width: 61.29px;
 	height: 30px;
 	align-items: center;
 	border-radius: 0.375rem;
@@ -153,6 +180,7 @@ tbody th, tbody td {
 	font-weight: 600;
 	color: #047857;
 	border: 1px solid rgba(16, 185, 129, 0.2);
+	justify-content: center;
 }
 
 .recruited {

@@ -1,94 +1,104 @@
-.avatar {
-  display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  font-size: 1.25rem;
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
+
+.main-card {
+	border: none;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	font-family: 'NanumSquare', sans-serif;
 }
 
-.avatar-img,
-.avatar-initials,
-.avatar-placeholder {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%; /* 수정: 모든 요소에 대해 테두리 반경을 50%로 변경하여 원형으로 만듭니다. */
+/*--------------------------------------------------------------
+# comment
+--------------------------------------------------------------*/
+.re-comment-body {
+	padding: 16px;
+	border-top: 1px solid #f1f3f5;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
 }
 
-.avatar-img {
-  display: block;
-  object-fit: cover; /* 수정: 이미지를 커버하는 형태로 조정합니다. */
+.card-header {
+	background-color: #f8f9fa;
 }
 
-.avatar-initials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  background-color: #a0aec0;
+.comment-header {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
 }
 
-.avatar-placeholder {
-  background: #a0aec0
-    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='%23fff' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z'/%3e%3c/svg%3e")
-    no-repeat center/1.75rem;
+.comment-user-profile {
+	margin-left: 10px;
+	font-size: 2em;
+	margin-right: 16px;
 }
 
-.avatar-indicator {
-  width: 20%;
-  height: 20%;
-  background-color: #a0aec0;
-  border-radius: 50%;
+.comment-user-name {
+	margin-bottom: 5px;
 }
 
-.avatar-group {
-  display: inline-flex;
+.comment-header .re-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
 }
 
-.avatar-group .avatar + .avatar {
-  margin-left: -0.75rem;
+.comment-updated-at {
+	font-size: 13px
 }
 
-.avatar-group .avatar:hover {
-  z-index: 1;
+.re-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.3rem 0.5rem;
+	margin-left: auto;
+}
+/*--------------------------------------------------------------
+# ref-comment
+--------------------------------------------------------------*/
+.comment-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
 }
 
-.avatar-sm {
-  width: 2.125rem;
-  height: 2.125rem;
-  font-size: 1rem;
+/*--------------------------------------------------------------
+# reply
+--------------------------------------------------------------*/
+.reply-comment {
+	padding: 20px 32px 20px 32px;
+	border-bottom: 1px solid #f1f3f5;
+	background-color: #f8f9fa;
 }
 
-.avatar-group-sm > .avatar + .avatar {
-  margin-left: -0.53125rem;
+.reply-header {
+	display: flex;
+	align-items: center;
 }
 
-.avatar-lg {
-  width: 4rem;
-  height: 4rem;
-  font-size: 1.5rem;
+.reply-user-profile {
+	margin-right: 10px;
+	font-size: 2em;
 }
 
-.avatar-group-lg > .avatar + .avatar {
-  margin-left: -1rem;
+.reply-user-container {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
 }
 
-.avatar-light .avatar-indicator {
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75);
+.reply-updated-at {
+	font-size: 13px;
+	margin-left: 10px;
+	justify-content: flex-end;
+	margin-left: auto;
 }
 
-.avatar-group-light > .avatar {
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75);
-}
-
-.avatar-dark .avatar-indicator {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
-}
-
-.avatar-group-dark > .avatar {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
-}
-
-/* Font not working in <textarea> for this version of bs */
-
-textarea {
-  font-family: inherit;
+.reply-content {
+	padding: 8px;
+	display: flex;
+	align-items: center;
 }

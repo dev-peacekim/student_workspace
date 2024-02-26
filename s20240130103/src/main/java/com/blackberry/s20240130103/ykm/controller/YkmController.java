@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class BoardStuConController {
+public class YkmController {
 	
 	@GetMapping(value="boardStudy")
 	public String boardStudy() {
@@ -29,9 +29,14 @@ public class BoardStuConController {
 		return "ykm/boardUpdateForm";
 	}
 	
-	@GetMapping(value="boardDetailForm")
-	public String boardDetailForm() {
-		return "ykm/boardDetailForm";
+	@GetMapping(value="boardDetail")
+	public String boardDetail() {
+		return "ykm/boardDetail";
+	}
+	
+	@GetMapping(value="boardModify")
+	public String boardModify() {
+		return "ykm/boardModify";
 	}
 	
 	
