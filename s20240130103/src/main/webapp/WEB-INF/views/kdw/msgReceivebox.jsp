@@ -148,7 +148,7 @@
 
 				<!-- 쪽지 쓰기 -->
 				<div class="msg-create">
-					<a href="/writeMessage" class="msg-create-btn">쪽지 쓰기</a>
+					<a href="/msgWrite" class="msg-create-btn">쪽지 쓰기</a>
 				</div>
 				<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 				<div id="noteCount" class="note-count">

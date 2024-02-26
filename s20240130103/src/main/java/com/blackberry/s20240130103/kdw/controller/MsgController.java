@@ -36,12 +36,17 @@ public class MsgController {
 	/* ========== 버튼 view 이동 =========== */
 	
     // 쪽지쓰기 버튼 클릭시 쪽지쓰기 view 이동
-    @GetMapping(value = "writeMessage")
+    @GetMapping(value = "msgWrite")
     public String writeMessagePage() {
-        return "kdw/writeMessage"; 
+        return "kdw/msgWrite"; 
     }
     
-    /* ========== 쪽지 쓰기 버튼 이동 End =========== */
+    // 보내기 버튼 클릭시 쪽지 보내기 완료 view 이동
+    @GetMapping(value = "msgSent")
+    public String sendMessagePage() {
+        return "kdw/msgSent"; 
+    }
+    /* ========== 버튼 View 이동 End =========== */
     
 	
 	
