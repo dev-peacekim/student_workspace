@@ -149,3 +149,11 @@
 .loginfail{
 	color:red;
 }
+.enablePass{
+	color: blue;
+	display: none;
+}
+.disablePass{
+	color: red;
+	display: none;
+}

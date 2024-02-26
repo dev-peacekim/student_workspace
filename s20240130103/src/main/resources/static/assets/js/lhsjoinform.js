@@ -1,5 +1,5 @@
 let idChkval = 0;
-
+let passChkval = 0;
 document.getElementById('file').addEventListener('change',function(){
 	if(this.files[0]){
 		let reader = new FileReader();
@@ -37,11 +37,30 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 	}
 });
 
-function chk(){
-	if(idChkval=1){
-		return true;
+document.getElementById('pw2').addEventListener('keyup',function(){
+	console.log(this.value);
+	if(document.getElementById('pw1').value === this.value){
+		document.querySelector('.disablePass').style.display='none';
+		document.querySelector('.enablePass').style.display='block';
+		passChkval=1;
 	}else{
-		alert("가입신청다시");
+		document.querySelector('.enablePass').style.display='none';
+		document.querySelector('.disablePass').style.display='block';
+		passChkval=0;
+	}
+});
+
+
+function chk(){
+	if(idChkval===1){
+		if(passChkval===1){
+			return true;
+		}else{
+			alert("pass가 맞는지 확인해주세요")
+			return false;
+		}
+	}else{
+		alert("id중복확인 해주세요");
 		return false;
 	}
 }
