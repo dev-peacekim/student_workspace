@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.UsersMapper">
+			
+	<select id="kphUserListByProjectNoExceptOwn" parameterType="KphUser_Project" resultType="KphUsers">
+		SELECT u.*
+		FROM USERS u , (
+								SELECT USER_NO  
+								FROM USER_PROJECT_MANY 
+								WHERE PROJECT_NO = #{project_no}
+									AND USER_NO NOT IN #{user_no}
+								) upm
+		WHERE u.USER_NO = upm.USER_NO
+	</select>
+	
+</mapper>

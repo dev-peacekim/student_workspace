@@ -138,8 +138,13 @@
 			        
 			     </div>
 			     <div class="address">
-			          <h5 class="card-title">주소록</h5>  
-			        </div>
+			          <h5 class="card-title">주소록</h5>
+			          <div class="address-list">
+						<div class="">
+							sadf
+						</div>
+					  </div>  
+			     </div>
 		      </div>
 	      </div>
 	      

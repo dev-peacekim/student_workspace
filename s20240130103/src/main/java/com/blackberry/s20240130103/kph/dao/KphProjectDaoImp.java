@@ -8,8 +8,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserProject;
+import com.blackberry.s20240130103.kph.model.KphUsers;
 
 import lombok.RequiredArgsConstructor;
 
@@ -61,6 +64,20 @@ public class KphProjectDaoImp implements KphProjectDao {
 	@Override
 	public int isEvalByUser(KphProject kphProject) {
 		return session.selectOne("kphProjectIsEvalByUser", kphProject);
+	}
+
+	@Override
+	public List<KphUsers> userListByProjectNoExceptOwn(KphUserProject kphUserProject) {
+		System.out.println("KphProjectDaoImp userListByProjectNo start...");
+		List<KphUsers> userList = session.selectList("kphUserListByProjectNoExceptOwn", kphUserProject);
+		return userList;
+	}
+
+	@Override
+	public int eval(KphEval eval) {
+		System.out.println("KphProjectDaoImp eval start...");
+		int result = session.update("kphEvalInsert", eval);
+		return result;
 	}
 	
 }

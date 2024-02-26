@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
+import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 
 import lombok.RequiredArgsConstructor;
@@ -57,9 +59,18 @@ public class KphProjectServiceImp implements KphProjectService {
 
 
 	@Override
-	public List<KphUsers> userListByProjectNo(Long project_no) {
+	public List<KphUsers> userListByProjectNoExceptOwn(KphUserProject kphUserProject) {
 		System.out.println("KphProjectServiceImp userListByProjectNo start...");
-		return null;
+		List<KphUsers> userList = kphProjectDao.userListByProjectNoExceptOwn(kphUserProject);
+		return userList;
+	}
+
+
+	@Override
+	public int eval(KphEval eval) {
+		System.out.println("KphProjectServiceImp eval start...");
+		int result = kphProjectDao.eval(eval);
+		return result;
 	}
 	
 }

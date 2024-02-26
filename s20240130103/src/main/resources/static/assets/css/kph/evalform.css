@@ -27,7 +27,7 @@
 	font-family:'NanumSquare', sans-serif;
 }
 
-.eval-group form {
+.eval-group form> div:first-child {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -38,8 +38,8 @@
 	align-items: center;
 	justify-content: space-between;
 	height: 80px;
-	width: 48%;
-	margin-bottom: 20px;
+	width: 49.5%;
+	margin-bottom: 10px;
 	background-color: #486ef3;
 	padding: 20px 20px 20px 20px;
 	border-radius: 5px;
@@ -58,7 +58,8 @@
 }
 
 .user-img-name img {
-	max-width: 40px;
+	width: 40px;
+	height: 40px;
 	margin-right: 10px;
 }
 
@@ -69,4 +70,9 @@
 
 .eval-box .form-select {
 	width: 42%;
+}
+
+.submit-cancle-btn {
+	font-family: 'NanumSquare', sans-serif;
+	text-align: center;
 }

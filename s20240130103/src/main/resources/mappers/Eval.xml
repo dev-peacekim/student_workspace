@@ -9,4 +9,8 @@
 			AND USER_NO = #{user_no}
 	</select>
 	
+	<insert id="kphEvalInsert" parameterType="KphEval">
+		INSERT INTO EVAL VALUES (#{project_no}, #{user_no}, #{puser}, #{eval_score}, sysdate)
+	</insert>
+	
 </mapper>

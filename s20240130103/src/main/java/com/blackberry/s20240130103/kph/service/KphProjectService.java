@@ -2,8 +2,10 @@ package com.blackberry.s20240130103.kph.service;
 
 import java.util.List;
 
+import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 
 public interface KphProjectService {
@@ -18,6 +20,8 @@ public interface KphProjectService {
 
 	int isEvalByUser(KphProject kphProject);
 
-	List<KphUsers> userListByProjectNo(Long project_no);
+	List<KphUsers> userListByProjectNoExceptOwn(KphUserProject kphUserProject);
+
+	int eval(KphEval eval);
 
 }

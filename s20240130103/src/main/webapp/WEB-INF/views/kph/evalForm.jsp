@@ -34,6 +34,9 @@
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="/assets/css/kph/evalform.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
+  
+  <script defer src="./assets/js/evalForm.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -70,26 +73,34 @@
 				<div class="card-body">
 					<div>
 						<p class="card-title">팀원 평가</p>
-						<c:forEach var="user" items="${userList }" varStatus="loop">
-							<div class="eval-group">
-								<form action="eval" method="post">
-									<div class="eval-box">
-										<div class="user-img-name">
-											<input type="hidden" name="user${loop.index }" value="${user.user_no }" /> 
-											<img src="${pageContext.request.contextPath}/upload/userImg/${user.user_profile}" alt="Profile" class="rounded-circle">
-											<p class="${user.user_name }">김평화</p>
+						<div class="eval-group">
+							<form action="eval" method="post">
+								<input type="hidden" name="userListSize" value="${userListSize }">
+								<input type="hidden" name="project_no" value="${project_no }">
+								<div>
+									<c:forEach var="user" items="${userList }" varStatus="loop">
+										<div class="eval-box">
+											<div class="user-img-name">
+												<input type="hidden" name="user${loop.index }" value="${user.user_no }" /> 
+												<img src="${pageContext.request.contextPath}/upload/userImg/${user.user_profile}" alt="Profile" class="rounded-circle">
+												<p class="user-name">${user.user_name }</p>
+											</div>
+											<select name="user${loop.index }_score" class="form-select">
+												<option value="5">⭐⭐⭐⭐⭐</option>
+												<option value="4">⭐⭐⭐⭐</option>
+												<option value="3">⭐⭐⭐</option>
+												<option value="2">⭐⭐</option>
+												<option value="1">⭐</option>
+											</select>
 										</div>
-										<select name="user${loop.index }" class="form-select">
-											<option value="5">⭐⭐⭐⭐⭐</option>
-											<option value="4">⭐⭐⭐⭐</option>
-											<option value="3">⭐⭐⭐</option>
-											<option value="2">⭐⭐</option>
-											<option value="1">⭐</option>
-										</select>
-									</div>
-								</form>
-							</div>
-						</c:forEach>
+									</c:forEach>
+								</div>
+								<div class="submit-cancle-btn">
+									<button type="submit" class="btn btn-primary">저장</button>
+									<button type="button" class="btn btn-secondary">취소</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

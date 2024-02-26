@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.domain.User;
@@ -18,6 +20,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -80,16 +84,48 @@ public class KphProjectController {
 	}
 	
 	@PostMapping("evalForm")
-	public String eval(HttpServletRequest request) {
-		System.out.println("KphProjectController eval start...");
+	public String evalForm(HttpServletRequest request, Model model) {
+		System.out.println("KphProjectController evalForm start...");
 		
 		HttpSession session = request.getSession();
 		Long user_no = (Long)session.getAttribute("user_no");
 		Long project_no = Long.parseLong(request.getParameter("project_no"));
+		KphUserProject kphUserProject = new KphUserProject();
+		kphUserProject.setProject_no(project_no);
+		kphUserProject.setUser_no(user_no);
 		
-		List<KphUsers> userList = kphProjectService.userListByProjectNo(project_no);
+		// 본인 제외 나머지 프로젝트 참여 인원
+		List<KphUsers> userList = kphProjectService.userListByProjectNoExceptOwn(kphUserProject);
+		
+		System.out.println("KphProjectController eval userList size=>" + userList.size());
+		model.addAttribute("userList", userList);
+		model.addAttribute("userListSize", userList.size());
+		model.addAttribute("project_no", project_no);
 		
 		return "kph/evalForm";
+	}
+	
+	@PostMapping("eval")
+	public String eval(HttpServletRequest request) {
+		System.out.println("KphProjectController eval start...");
+		HttpSession session = request.getSession();
+		Long user_no = (Long)session.getAttribute("user_no");
+		Long project_no = Long.parseLong(request.getParameter("project_no"));
+		
+		int userListSize = Integer.parseInt(request.getParameter("userListSize"));
+		for (int i=0; i<userListSize; i++) {
+			Long puser_no = Long.parseLong(request.getParameter("user" + i));
+			int eval_score = Integer.parseInt(request.getParameter("user" + i +"_score"));
+			KphEval eval = new KphEval();
+			eval.setUser_no(user_no);
+			eval.setProject_no(project_no);
+			eval.setPuser(puser_no);
+			eval.setEval_score(eval_score);
+			int result = kphProjectService.eval(eval);
+			System.out.println("KphProjectController eval user" + i + " eval result =>" + result);
+		}
+		
+		return "redirect:/main";
 	}
 	
 }
