@@ -14,8 +14,9 @@
 --------------------------------------------------------------*/
 /* Card */
 .card {
+	margin: 0 auto;
     margin-bottom: 30px;
-    width: 100%;
+    width: 60%;
     border: none;
     border-radius: 5px;
     box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
@@ -25,13 +26,12 @@
     margin-top: 20px;
     margin-left: 20px;
     font-family:'NanumSquare', sans-serif;
-    color: #012970;
+    color: #486ef3;
     font-size: 18px;
-    font-weight: bolder;
+    font-weight: 800;
 }
 
 .card form {
-    margin-top: 5px;
     margin-left: 20px;
     margin-right: 20px;
     font-family:'NanumSquare', sans-serif;

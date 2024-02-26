@@ -56,7 +56,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="main">워크 스페이스</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">프로젝트 추가</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
