@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -212,78 +214,26 @@
                     				<th>#</th>
                     				<th>제목</th>
                     				<th>작성자</th>
-                    				<th data-type="date" data-format="YYYY/DD/MM">작성일시</th>
+                    				<th>작성일시</th>
                     				<th>답변여부</th>
                     				<th></th>
                   				</tr>
                 			</thead>
                 			<tbody>
-                				<c:forEach var="BOARD_ADMIN" items="${ask}">
+<%--                 				<tr th:each="ask : ${BOARD_ADMIN}">
+									<td th:text="${ask.id}"></td>
+									<td th:text="${ask.name}"></td>
+								</tr> --%>
+								
+								
+								<c:forEach items="${ask }" var="BOARD_ADMIN">
 								<tr>
-									<td>${num }</td>
-									<td>${BOARD_ADMIN.admin_title }</td>
-									<td><a href="detailAsk?admin_title=${BOARD_ADMIN.user.no}">${emp.ename}</a></td>
-									<td>${BOARD_ADMIN.user_no}</td>
-									<td>${BOARD_ADMIN.admin_reply_chk}</td>
+									<td>${BOARD_ADMIN.user_no }</td>
+									<td>${BOARD_ADMIN.admin_title }</td>						
+									<td>${BOARD_ADMIN.admin_content }</td>
+									<td>${BOARD_ADMIN.admin_start }</td>
 								</tr>
-							<c:set var="num" value="${num - 1 }"></c:set>
 								</c:forEach>
-                  				<tr>
-                    				<td>7</td>
-                    				<td>Curicó</td>
-                    				<td>Unity Pugh</td>
-                    				<td>2005/02/11</td>
-                    				<td>1403</td>
-                   				 	<td>507</td>
-                  				</tr>
-                  				<tr>
-                    				<td>6</td>
-                    				<td>Dhanbad</td>
-                    				<td>Theodore Duran</td>
-                   				 	<td>1999/04/07</td>
-                    				<td>2079</td>
-                    				<td>472</td>
-								</tr>
-                  				<tr>
-                    				<td>5</td>
-                    				<td>Norman</td>
-                    				<td>NormanKylie Bishop</td>
-                    				<td>2005/09/08</td>
-                    				<td>658</td>
-                    				<td>68</td>
-                  				</tr>
-                  				<tr>
-                    				<td>4</td>
-                    				<td>Amqui</td>
-                    				<td>AmquiWillow Gilliam</td>
-                    				<td>2009/29/11</td>
-                    				<td>862</td>
-                    				<td>436</td>
-                  				</tr>
-                  				<tr>
-                    				<td>3</td>
-                    				<td>Kempten</td>
-                    				<td>Blossom Dickerson</td>
-                    				<td>2006/11/09</td>
-                    				<td>3032</td>
-                    				<td>1541</td>
-                  				</tr>
-                  				<tr>
-                    				<td>2</td>
-                    				<td>Enines</td>
-                    				<td>EninesElliott Snyder</td>
-                    				<td>2006/03/08</td>
-                    				<td>1096</td>
-                    				<td>454</td>
-                  				</tr>
-                  				<tr>
-                    				<td>1</td>
-                    				<td>Neath</td>
-                    				<td>Castor Pugh</td>
-                    				<td>2014/23/12</td>
-                    				<td>982</td>
-                    				<td>602</td>
-                  				</tr>
                 			</tbody>
               			</table>
               			<div class="floatright">

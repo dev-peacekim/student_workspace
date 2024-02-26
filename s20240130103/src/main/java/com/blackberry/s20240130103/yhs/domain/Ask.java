@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Admin {
+public class Ask {
 	@Id
 	private long user_no;
 	private long col;
