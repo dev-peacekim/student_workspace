@@ -4,6 +4,7 @@
 /*--------------------------------------------------------------
 # community-post
 --------------------------------------------------------------*/
+
 .main-card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
@@ -79,17 +80,13 @@
 	margin-bottom: 0px;
 }
 
-.modify-icon {
+.modify-container {
 	display: flex;
 	justify-content: flex-end;
-	font-size: 20px;
-	padding: 8px;
-	padding-right: 2px;
 	align-items: center;
 	margin-left: auto;
-	cursor: pointer;
+	font-size: 1.2rem;
 }
-
 
 /*--------------------------------------------------------------
 # community-post-body
@@ -152,6 +149,10 @@
 	margin-left: 10px;
 }
 
+
+.modify-container * {
+	border: none;
+}
 /*--------------------------------------------------------------
 # comment
 --------------------------------------------------------------*/
@@ -186,16 +187,8 @@
 	margin-bottom: 5px;
 }
 
-.comment-header .re-btn-container {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 0.3rem 0.5rem;
-	margin-left: auto;
-}
-
 .comment-updated-at {
-	font-size: 13px
+	font-size: 13px;
 }
 
 /*--------------------------------------------------------------
@@ -206,6 +199,11 @@
 	font-size: 2em;
 }
 
+.reply-container {
+	font-size: 1.2rem;
+	justify-content: flex-end;
+	margin-left: auto;
+}
 /*--------------------------------------------------------------
 # reply
 --------------------------------------------------------------*/
@@ -245,7 +243,7 @@
 }
 
 .reply-body>.bi-reply-fill {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	margin-left: 10px;
 	justify-content: flex-end;
 	margin-left: auto;
@@ -253,4 +251,60 @@
 
 .reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
+}
+
+
+/*--------------------------------------------------------------
+# popup
+--------------------------------------------------------------*/
+
+.confirmPopup {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	font-family: 'NanumSquare', sans-serif;
+	padding: 1rem;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 420px;
+	height: 300px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup1, .popup2 {
+	font-size: 20px;
+	font-weight: bold;
+	color: #424242;
+	padding: 0.5rem;
+}
+
+.popup-icon {
+	font-size: 3rem;
+	color: #ffc107;
+}
+
+.popup2 {
+	padding-bottom: 16px;
+}
+
+.confirmPopup::before {
+	display: flex;
+}
+
+.confirm-deletion {
+	display: block; 
+	justify-content: center;
+	align-items: center;
 }

@@ -39,6 +39,11 @@ public class YkmController {
 		return "ykm/boardModify";
 	}
 	
+	@GetMapping(value="popup")
+	public String popup() {
+		return "ykm/popup";
+	}
+ 	
 	
 	/* button */
 	

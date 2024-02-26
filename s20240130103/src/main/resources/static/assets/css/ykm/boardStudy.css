@@ -65,13 +65,11 @@
 	color: #012970;
 }
 
-
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
-
 .section {
-	font-family: 'NanumSquare', sans-serif;
+	font-family: 'NanumSquare', sans-serif !important;
 }
 
 .section .nav-link {
@@ -86,11 +84,11 @@
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
+
 .card-body {
 	position: relative;
-	padding: 0.5rem;
+	padding: 1rem;
 	width: 100%;
-	font-family: 'NanumSquare', sans-serif;
 	height: 100%;
 	max-height: 100%;
 	min-height: 700px
@@ -102,28 +100,28 @@
 }
 
 .community-header {
-    padding: 16px 20px;
-    justify-content : center;
-    align-items: center;
-}
-.community-header h5 {
-	font-family: 'NanumSquare', sans-serif;
+	padding: 16px 20px;
+	justify-content: center;
+	align-items: center;
 	font-size: 20px;
 	font-weight: bold;
 	color: #424242;
+}
+
+.community-bottom {
+	width: 100%;
+	position: absolute;
+    bottom: 0;
 }
 
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
 .btn-container {
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0.3rem 0.5rem;
+	padding: 1rem;
 	width: 100%;
 	z-index: 100;
 }
@@ -132,30 +130,29 @@
 	margin-left: 10px; /* 버튼 사이 간격 조정 */
 }
 
-
 .custom-btn {
 	color: #fff;
 	background: transparent;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 7px 7px 20px
-		0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+	box-shadow: 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px
+		rgba(0, 0, 0, .1);
 }
 
 .btn-15 {
-	background: #0b5ed7;
-	border-color: #0b5ed7;
+	background: #0d6efd;
+	border-color: #0d6efd;
 }
+
 .btn-15:hover {
-	background-color: #b621fe;
-	border-color: #b621fe;
+	background-color: #6610f2;
+	border-color: #6610f2;
 }
+
 .btn-15:after {
-	background-color: #b621fe;
+	background-color: #6f42c1;
 	transition: all 0.3s ease;
 }
-
-
 
 thead tr, tead th {
 	height: 30px;

@@ -69,7 +69,7 @@
 # section
 --------------------------------------------------------------*/
 .section {
-	font-family: 'NanumSquare', sans-serif;
+	font-family: 'NanumSquare', sans-serif !important;
 }
 
 .section .nav-link {
@@ -87,12 +87,11 @@
 
 .card-body {
 	position: relative;
-	padding: 0.5rem;
+	padding: 1rem;
 	width: 100%;
-	font-family: 'NanumSquare', sans-serif;
 	height: 100%;
 	max-height: 100%;
-	min-height: 700px
+	min-height: 700px;
 }
 
 .card-title {
@@ -109,7 +108,6 @@
 .contest-title {
 	font-weight: bold;
 	font-size: 16px;
-	font-family: 'NanumSquare', sans-serif;
 	margin-left: 12px;
 	margin-bottom: 24px;
 	color: #616161;
@@ -119,26 +117,24 @@
 	padding: 16px 20px;
 	justify-content: center;
 	align-items: center;
-}
-
-.community-header h5 {
-	font-family: 'NanumSquare', sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 	color: #424242;
 }
 
+.community-bottom {
+	width: 100%;
+	position: absolute;
+    bottom: 0;
+} 
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
 .btn-container {
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0.3rem 0.5rem;
+	padding: 1rem;
 	width: 100%;
 	z-index: 100;
 }
@@ -166,12 +162,18 @@ tbody th, tbody td {
 		0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
 }
 
-.btn-15 {
-	background: #b621fe;
-	border-color: #b621fe;
+.wriBtn {
+	background: #6610f2;
+	border-color: #6610f2;
 }
 
-.btn-15:after {
-	background-color: #663dff;
+.wriBtn:hover {
+	background-color: #0d6efd;
+	border-color: #0d6efd;
+}
+
+
+.wriBtn:after {
+	background-color: #6f42c1;
 	transition: all 0.3s ease;
 }

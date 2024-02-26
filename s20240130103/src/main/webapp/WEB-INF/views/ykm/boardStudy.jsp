@@ -25,98 +25,96 @@
 
 		<!-- ======= Bordered Tabs ======= -->
 		<section class="section">
-			<div class="row">
-				<div class="card">
-					<div class="card-body">
-						<div class="community-header">
-							<h5>스터디 게시판</h5>
-						</div>
-						<!-- 탭 시작  -->
-						<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
-							role="tablist">
-							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="home-tab"
-									data-bs-toggle="tab" data-bs-target="#bordered-home"
-									type="button" role="tab" aria-controls="home"
-									aria-selected="true">전체</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-									data-bs-target="#bordered-profile" type="button" role="tab"
-									aria-controls="profile" aria-selected="false">모집중</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-									data-bs-target="#bordered-contact" type="button" role="tab"
-									aria-controls="contact" aria-selected="false">모집완료</button>
-							</li>
-							<!-- End Nav-Tab -->
+			<div class="row card card-body">
+				<div class="community-header">
+					<span>스터디 게시판</span>
+				</div>
+				<!-- 탭 시작  -->
+				<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
+					role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+							data-bs-target="#bordered-home" type="button" role="tab"
+							aria-controls="home" aria-selected="true">전체</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+							data-bs-target="#bordered-profile" type="button" role="tab"
+							aria-controls="profile" aria-selected="false">모집중</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+							data-bs-target="#bordered-contact" type="button" role="tab"
+							aria-controls="contact" aria-selected="false">모집완료</button>
+					</li>
+					<!-- End Nav-Tab -->
 
-							<!-- 검색 시작  -->
-							<li class="nav-item ms-auto" role="presentation">
-								<div class="search-bar d-flex justify-content-end">
-									<form class="search-form d-flex align-items-center"
-										method="POST" action="#">
-										<input type="text" name="query" placeholder="Search"
-											title="Enter search keyword">
-										<button type="submit" title="Search">
-											<i class="bi bi-search"></i>
-										</button>
-									</form>
-								</div>
-							</li>
-						</ul>
-						<!-- End Search tab -->
-						<div class="table-body">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">제목</th>
-										<th scope="col">작성자</th>
-										<th scope="col">날짜</th>
-										<th scope="col">조회수</th>
-										<th scope="col">댓글</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
-										<td>Designer</td>
-										<td>2016-05-25</td>
-										<td>28</td>
-										<td>0</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td><span class="recruited">모집완료</span> Bridie Kessler</td>
-										<td>Developer</td>
-										<td>2014-12-05</td>
-										<td>35</td>
-										<td>0</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>2011-08-12</td>
-										<td>45</td>
-										<td>0</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- End Table with hoverable rows -->
-
-						<!-- 버튼 시작 -->
-						<div class="btn-container">
-							<form action="boardStuConWrite" method="get">
-								<input type="submit" class="btn btn-primary custom-btn btn-15" value="글쓰기">
+					<!-- 검색 시작  -->
+					<li class="nav-item ms-auto" role="presentation">
+						<div class="search-bar d-flex justify-content-end">
+							<form class="search-form d-flex align-items-center" method="POST"
+								action="#">
+								<input type="text" name="query" placeholder="Search"
+									title="Enter search keyword">
+								<button type="submit" title="Search">
+									<i class="bi bi-search"></i>
+								</button>
 							</form>
 						</div>
-						<!-- End btn -->
+					</li>
+				</ul>
+				<!-- End Search tab -->
+				<div class="table-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">날짜</th>
+								<th scope="col">조회수</th>
+								<th scope="col">댓글</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
+								<td>Designer</td>
+								<td>2016-05-25</td>
+								<td>28</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td><span class="recruited">모집완료</span> Bridie Kessler</td>
+								<td>Developer</td>
+								<td>2014-12-05</td>
+								<td>35</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>Ashleigh Langosh</td>
+								<td>Finance</td>
+								<td>2011-08-12</td>
+								<td>45</td>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- End Table -->
+				<div class="community-bottom">
+					<!-- Write button -->
+					<div class="btn-container">
+						<form action="boardStuConWrite" method="get">
+							<input type="submit" class="btn btn-primary custom-btn btn-15"
+								value="글쓰기">
+						</form>
 					</div>
+
+					<!-- ======= Pagination ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<li class="page-item"><a class="page-link" href="#"
@@ -134,7 +132,6 @@
 					</nav>
 				</div>
 			</div>
-			<!-- ======= Pagination ======= -->
 		</section>
 
 

@@ -7,29 +7,10 @@
 <link href="assets/css/ykm/boardDetail.css" rel="stylesheet">
 </head>
 <body>
-	<!-- 	<script type="text/javascript">
-		document.addEventListener("DOMContentLoaded", function() {
-			// 입력 필드 가져오기
-			var inputField = document.getElementById('inputField');
 
-			// 버튼들 가져오기
-			var submitBtn = document.getElementById('submitBtn');
-			var resetBtn = document.getElementById('resetBtn');
 
-			// 입력 필드에 클릭 이벤트 리스너 추가
-			inputField.addEventListener('click', function() {
-				// 버튼들이 숨겨져 있으면 보이게 하고, 보이고 있으면 숨기기
-				if (submitBtn.classList.contains('hidden')) {
-					submitBtn.classList.remove('hidden');
-					resetBtn.classList.remove('hidden');
-				} else {
-					submitBtn.classList.add('hidden');
-					resetBtn.classList.add('hidden');
-				}
-			});
 
-		});
-	</script> -->
+
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
 
@@ -60,14 +41,25 @@
 								<p class="post-veiw-count">조회수 11</p>
 							</div>
 						</div>
-						<form class="modify-icon" method="get">
-							<span class="badge bg-light text-dark"><i class="bi bi-pencil-fill"></i> 수정</span>
-						</form>
+						<div class="modify-container">
+							<form class="modDelBtn" method="get">
+								<button id="modBtn" type="button"
+									class="badge bg-light text-dark" type="button">
+									<i class="bi bi-pencil-fill"></i> 수정
+								</button>
+								<button id="delBtn" type="button"
+									class="badge bg-light text-dark">
+									<i class="bi bi-trash"></i> 삭제
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
+
 				<div class="community-post-header-body">
 					<span class="post-content">함께 할 수 있으면 좋을 것 같습니다!</span>
 				</div>
+
 				<section class="community-post-answer">
 					<div class="answer-info-header">
 						<div class="answer-info-title">
@@ -80,10 +72,12 @@
 						</div>
 						<div class="btn-container is-editor-open">
 							<form action="boardCommentreset" method="get">
-								<button id="resetBtn" class="hidden btn btn-secondary">취소</button>
+								<button id="resetBtn" type="button"
+									class="hidden btn btn-secondary">취소</button>
 							</form>
 							<form action="boardCommentsubmit" method="get">
-								<button id="submitBtn" class="hidden btn btn-primary">등록</button>
+								<button id="submitBtn" type="button"
+									class="hidden btn btn-primary">등록</button>
 							</form>
 						</div>
 					</div>
@@ -99,12 +93,9 @@
 								<p class="card-subtitle comment-updated-at">작성일 2024.02.24
 									오후 2:24</p>
 							</div>
-							<div class="re-btn-container">
-								<form action="/commentReplay" method="GET">
-									<button type="submit" class="btn btn-outline-dark">
-										<i class="bi bi-reply-fill">Reply</i>
-									</button>
-								</form>
+							<div class="reply-container">
+								<span id="replyBtn" class="badge bg-light text-dark"><i
+									class="bi bi-reply-fill"></i> 댓글</span>
 							</div>
 						</div>
 						<div class="card-body comment-body">
@@ -126,11 +117,24 @@
 								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
 						</div>
 						<div class="reply-body">
-							<span class="reply-content">쪽지 남겨놓으면 될까요?</span><i class="bi bi-reply-fill"></i>
+							<span class="reply-content">쪽지 남겨놓으면 될까요?</span><i
+								class="bi bi-reply-fill"></i>
 						</div>
 					</form>
 				</div>
-
+				<!-- ======= popup ======= -->
+				<div class="card card-body confirmPopup">
+					<div class="popup-container">
+						<i class="bi bi-exclamation-triangle popup-icon"></i> <span
+							class="popup1">정말로 삭제하시겠습니까?</span> <span class="popup2">확인을
+							누르면 글이 삭제됩니다.</span>
+					</div>
+					<form action="confirm-deletion" method="get">
+						<button type="button" id="cancelButton"
+							class="btn btn-outline-dark">취소</button>
+						<button type="button" id="confirmButton" class="btn btn-primary">확인</button>
+					</form>
+				</div>
 			</div>
 		</section>
 
@@ -154,6 +158,8 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-
+	
+	<!-- Confirm Pop-up JS File -->
+	<script src="assets/js/ykm/confirmPopup.js" type="text/javascript" defer></script>
 </body>
 </html>
