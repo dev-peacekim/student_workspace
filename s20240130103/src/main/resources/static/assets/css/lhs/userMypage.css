@@ -2,9 +2,12 @@
 
 .userProfileSize{
 	max-width: 300px; /* 최대 너비 */
-    max-height: 400px; /* 최대 높이 */
+    max-height: 350px; /* 최대 높이 */
 }
 
 .row{
-	margin-bottom: 30px;
+	margin-bottom: 15px;
+}
+.photoUsername{
+	margin : 10px;
 }

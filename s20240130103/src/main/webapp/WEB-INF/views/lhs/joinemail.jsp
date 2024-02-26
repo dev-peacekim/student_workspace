@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/js/lhsjoinemail.js" defer="defer"></script>
+  <script type="text/javascript" src="assets/js/lhs/lhsjoinemail.js" defer="defer"></script>
   <title>이메일인증</title>
   <meta content="" name="description">
   <meta content="" name="keywords">

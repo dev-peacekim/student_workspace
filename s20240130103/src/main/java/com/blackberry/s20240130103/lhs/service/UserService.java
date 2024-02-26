@@ -14,4 +14,6 @@ public interface UserService {
 	int loginChk(User user);
 
 	User findUserByNo(String userNo);
+
+	void updateUser(User user, String userNo);
 }

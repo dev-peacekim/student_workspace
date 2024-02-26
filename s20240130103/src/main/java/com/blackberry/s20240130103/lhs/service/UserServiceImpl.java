@@ -69,4 +69,8 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findUserByNo(userNo);
 	}
 
+	@Override
+	public void updateUser(User user, String userNo) {
+		userRepository.updateUser(user,userNo);
+	}
 }

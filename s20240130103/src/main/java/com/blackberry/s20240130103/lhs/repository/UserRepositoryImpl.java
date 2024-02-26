@@ -39,5 +39,17 @@ public class UserRepositoryImpl implements UserRepository {
 	public User findUserByNo(String userNo) {
 		return entityManager.find(User.class, userNo);
 	}
+	
+	@Override
+	public void updateUser(User user, String userNo) {
+		User finduser = entityManager.find(User.class, userNo);
+		System.out.println(user);
+		finduser.setUser_name(user.getUser_name());
+		finduser.setUser_nic(user.getUser_nic());
+		finduser.setUser_phone(user.getUser_phone());
+		if(user.getUser_profile()!=null) {
+			finduser.setUser_profile(user.getUser_profile());
+		}
+	}
 
 }

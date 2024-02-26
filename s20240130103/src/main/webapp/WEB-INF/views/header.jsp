@@ -172,8 +172,15 @@
                         		<span class="d-none d-md-block dropdown-toggle ps-2">로그인안됨</span>
                         	</c:when>
                         	<c:otherwise>
-                        		<img src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" class="rounded-circle">
-                        		<span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.user_no } : ${sessionScope.user_name }</span>
+                        		<c:choose>
+                        			<c:when test="${user_profile !=null}">
+                        				<img src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" class="rounded-circle">
+                        			</c:when>
+                        			<c:otherwise>
+                        				<img src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle">
+                        			</c:otherwise>
+                        		</c:choose>
+                        			<span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.user_no } : ${sessionScope.user_name }</span>
                         	</c:otherwise>
                         </c:choose>
                     <!-- 로그인 성공 시 세션으로 인해 화면이 변하는 부분 -->

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <script src="assets/js/lhsjointerms.js" defer="defer"></script>
+  <script src="assets/js/lhs/lhsjointerms.js" defer="defer"></script>
   <title>회원약관</title>
   <meta content="" name="description">
   <meta content="" name="keywords">

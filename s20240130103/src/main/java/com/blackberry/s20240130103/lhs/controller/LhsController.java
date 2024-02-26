@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -78,9 +77,7 @@ public class LhsController {
 	}
 	
 	@PostMapping(value = "userJoin")
-	public String userJoin(HttpServletRequest request) throws IOException {
-		FileOutputStream outputStream = null;
-		String savedName = null;
+	public String userJoin(HttpServletRequest request) throws IOException, ServletException {
 		User user = new User();
 		user.setUser_id(request.getParameter("user_id"));
 		user.setUser_pw(request.getParameter("user_pw"));
@@ -89,17 +86,27 @@ public class LhsController {
 		user.setUser_nic(request.getParameter("user_nic"));;
 		user.setUser_phone(request.getParameter("user_phone"));
 		user.setUser_delete_chk(0);
-		//파일 업로드 부분
+		Part part = request.getPart("user_profile");
+		if(part.getSize()!=0) {
+			String uploadPath = request.getSession().getServletContext().getRealPath("/upload/userImg/");
+			user.setUser_profile(upLoadImg(part,request.getParameter("user_id"),uploadPath));
+		}
+		userService.joinUser(user);
+		System.out.println("조인성공");
+		return "lhs/loginForm";
+	}
+	//파일 업로드 부분
+	private String upLoadImg(Part image,String id,String uploadPath) throws IOException {
+		FileOutputStream outputStream = null;
+		String savedName = null;
 		try {
-			Part image = request.getPart("user_profile");
 			InputStream is = image.getInputStream();
 			String suffix = image.getSubmittedFileName().split("\\.")[1];
-			String uploadPath = request.getSession().getServletContext().getRealPath("/upload/userImg/");
 			File fileDirectory = new File(uploadPath);
 			if(!fileDirectory.exists()) {
 				fileDirectory.mkdirs();
 			}
-			savedName = user.getUser_id() + "." + suffix;
+			savedName = id + "." + suffix;
 			File imgFile = new File(uploadPath+savedName);
 			outputStream = new FileOutputStream(imgFile);
 			int read;
@@ -110,15 +117,12 @@ public class LhsController {
 			outputStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (ServletException e) {
-			e.printStackTrace();
 		}finally {
-			outputStream.close();
+			if(outputStream!=null) {
+				outputStream.close();
+			}
 		}
-		user.setUser_profile(savedName);
-		userService.joinUser(user);
-		System.out.println("조인성공");
-		return "lhs/loginForm";
+		return savedName;
 	}
 	
 	@ResponseBody
@@ -155,8 +159,23 @@ public class LhsController {
 	public String userProfile(HttpServletRequest request,Model model) {
 		String userNo = request.getSession().getAttribute("user_no").toString();
 		User user = userService.findUserByNo(userNo);
-		System.out.println(user);
 		model.addAttribute("user", user);
 		return "lhs/userMypage";
+	}
+	
+	@PostMapping("userUpdate")
+	public String userUpdate(HttpServletRequest request) throws IOException, ServletException {
+		String userNo = request.getSession().getAttribute("user_no").toString();
+		User user = new User();
+		user.setUser_name(request.getParameter("user_name"));
+		user.setUser_nic(request.getParameter("user_nic"));;
+		user.setUser_phone(request.getParameter("user_phone"));
+		Part part = request.getPart("user_profile");
+		if(part.getSize()!=0) {
+			String uploadPath = request.getSession().getServletContext().getRealPath("/upload/userImg/");
+			user.setUser_profile(upLoadImg(part,request.getParameter("user_id"),uploadPath));
+		}
+		userService.updateUser(user,userNo);
+		return "redirect:/myPage";
 	}
 }
