@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oracle.oBootMybatis01.TaskMapper">
+<mapper namespace="com.blackberry.s20240130103.TaskMapper">
 					
-	<select id="kphUnCompTaskListByProjectNo" parameterType="int" resultType="Task">
+	<select id="kphUnCompTaskListByProjectNo" parameterType="Long" resultType="KphTask">
 		SELECT *
 		FROM TASK
 		WHERE PROJECT_NO = #{project_no}
 		AND TASK_COMP_CHK = 0
 	</select>
 	
-	<select id="kphCompTaskListByProjectNo" parameterType="int" resultType="Task">
+	<select id="kphCompTaskListByProjectNo" parameterType="Long" resultType="KphTask">
 		SELECT *
 		FROM TASK
 		WHERE PROJECT_NO = #{project_no}

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oracle.oBootMybatis01.ProjectMapper">
+<mapper namespace="com.blackberry.s20240130103.ProjectMapper">
 			
-	<insert id="kphProjectInsert" parameterType="Project">
+	<insert id="kphProjectInsert" parameterType="KphProject">
 		INSERT INTO PROJECT VALUES (PROJECT_SEQ.NEXTVAL, #{project_title}, #{project_content}, #{project_start}, #{project_end}, #{user_no}, SYSDATE, 0, 0)
 	</insert>
 	
-	<select id="kphProjectList" parameterType="int" resultType="Project">
-		SELECT *
+	<select id="kphMaxProjectNoByUserNo" parameterType="KphProject" resultType="Long">
+		SELECT MAX(PROJECT_NO)
 		FROM PROJECT
 		WHERE USER_NO = #{user_no}
+	</select>
+	
+	<select id="kphProjectListByUserNo" parameterType="Long" resultType="KphProject">
+		SELECT *
+		FROM PROJECT p , (SELECT PROJECT_NO FROM USER_PROJECT_MANY WHERE USER_NO = #{user_no}) upm
+		WHERE p.PROJECT_NO = upm.PROJECT_NO
 	</select>
 	
 </mapper>
