@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.lsl.dao.LslDao;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslBoardCommFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,5 +23,22 @@ public class LslServiceImpl implements LslService {
 		boardFreeList = ld.boardFreeList(boardComm);
 		return boardFreeList;
 	}
+
+	@Override
+	public void saveBoardFile(LslBoardCommFile boardCommFile) {
+		System.out.println("LslServiceImpl saveBoardFile Start...");
+		ld.saveBoardFile(boardCommFile);
+		
+	}
+
+	@Override
+	public void saveBoard(LslBoardComm boardComm) {
+		ld.saveBoard(boardComm);
+		
+	}
+
+	
+
+	
 
 }

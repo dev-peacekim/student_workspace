@@ -94,7 +94,7 @@
 										<td>${board.user_no}</td>
 										<td>${board.cboard_date}</td>
 										<td>${board.cboard_viewcnt}</td>
-										<td>${board.comm_big}</td>
+										<td>${board.comm_bi}</td>
 									</tr>
 								</c:forEach>
 							</thead>

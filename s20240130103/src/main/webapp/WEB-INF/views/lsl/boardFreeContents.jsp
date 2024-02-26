@@ -143,7 +143,7 @@
 								var currentUserId = '<%= session.getAttribute("user_id") %>'; 
 
 								// 현재 사용자와 글쓴 사용자의 ID가 같을 때만 버튼을 표시합니다.
-								if (currentUserId !== null && currentUserId === postAuthorId) {
+								if (currentUserId !== null && currentUserId === postAuthorId) 
 							        // 삭제 버튼 표시
 							        document.querySelector('.bfcDelete').removeAttribute('hidden');
 							        // 수정 버튼 표시
@@ -151,7 +151,12 @@
 							</script>
 								<button type="hidden" class="btn bfcDelete">삭제</button>
                                 <button type="hidden" class="btn bfcModify">수정</button>
-                                <button type="submit" class="btn bfcList">목록</button>
+                                <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
+                                <script>
+                                    function goBack() {
+                                      window.history.back();
+                                    }
+                                    </script>
             </div>
             </section>
 </main>

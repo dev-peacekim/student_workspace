@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslBoardCommFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,22 @@ public class LslDaoImpl implements LslDao {
 			
 		}
 		return boardFreeList;
+	}
+
+	@Override
+	public void saveBoardFile(LslBoardCommFile boardCommFile) {
+		System.out.println("LslDaoImpl saveBoardFile Start...");
+		
+		session.insert("slBoardFileSave", boardCommFile);
+		
+	}
+
+	@Override
+	public void saveBoard(LslBoardComm boardComm) {
+		System.out.println("LslDaoImpl saveBoard Start...");
+		
+		session.insert("slBoardSave", boardComm);
+		
 	}
 
 }

@@ -5,6 +5,5 @@
 		<typeAlias alias="Project" type="com.blackberry.s20240130103.kph.model.KphProject"/>
 		<typeAlias alias="Task" type="com.blackberry.s20240130103.kph.model.KphTask"/>
 		<typeAlias alias="LslBoardComm" type="com.blackberry.s20240130103.lsl.model.LslBoardComm"/>
-		
 	</typeAliases>
 </configuration>

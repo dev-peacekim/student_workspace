@@ -66,7 +66,7 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form action="boardFreeWrite" method="post">
+                        <form action="boardFreeWrite" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="Cboard_Title" value="${board_comm.cboard_title }">
@@ -80,8 +80,13 @@
                             </div>
 
                             <div class="mb-3">
-                                <button type="submit" class="btn bwCancle">취소</button>
+                                <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>
                                 <button type="submit" class="btn bwComple">완료</button>
+                                <script>
+                                    function goBack() {
+                                      window.history.back();
+                                    }
+                                    </script>
                             </div>
                         </form><!-- End General Form Elements -->
 
