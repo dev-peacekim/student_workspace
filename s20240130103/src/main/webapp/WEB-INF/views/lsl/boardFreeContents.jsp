@@ -11,9 +11,7 @@
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -138,8 +136,22 @@
 						</div>
 					</form>
 				</div>
-
 			</div>
+			
+			<script>
+								// 사용자 ID를 가져오는 함수 (예: 세션에서)
+								var currentUserId = '<%= session.getAttribute("user_id") %>'; 
+
+								// 현재 사용자와 글쓴 사용자의 ID가 같을 때만 버튼을 표시합니다.
+								if (currentUserId !== null && currentUserId === postAuthorId) {
+							        // 삭제 버튼 표시
+							        document.querySelector('.bfcDelete').removeAttribute('hidden');
+							        // 수정 버튼 표시
+							        document.querySelector('.bfcModify').removeAttribute('hidden');
+							</script>
+								<button type="hidden" class="btn bfcDelete">삭제</button>
+                                <button type="hidden" class="btn bfcModify">수정</button>
+                                <button type="submit" class="btn bfcList">목록</button>
             </div>
             </section>
 </main>

@@ -7,6 +7,10 @@
 .main-card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	min-width: 660px; 
+}
+.card-body {
+	 padding-bottom: 3rem;
 }
 
 .community-post-detail  * {
@@ -240,4 +244,48 @@
 
 .reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
+}
+
+
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+.btn {
+	position: relative;
+	width: 100%;
+	right: 100%;
+	display: inline-block;
+	border: none;
+	background-color: #7e57c2;
+	color: white;
+
+}
+
+.btn:hover {
+	background-color: #9575cd;
+	color: white;
+}
+
+.btn.bfcDelete {
+	position: absolute;
+	margin-top: 10px;
+	width: 100px;
+	right: 260px;
+	bottom: 10px;
+}
+.btn.bfcModify {
+	position: absolute;
+	margin-top: 10px;
+	width: 100px;
+	right: 140px;
+	bottom: 10px;
+	
+}
+.btn.bfcList {
+	position: absolute;
+	margin-top: 10px;
+	width: 100px;
+	right: 20px;
+	bottom: 10px;
+	
 }
