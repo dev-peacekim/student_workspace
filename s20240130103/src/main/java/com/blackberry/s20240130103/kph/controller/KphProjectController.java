@@ -38,6 +38,7 @@ public class KphProjectController {
 		
 		while(projectIter.hasNext()) {
 			KphProject kphProject = projectIter.next(); 
+			kphProject.setUser_no(user_no);
 			List<KphTask> unComptaskList = kphProjectService.unCompTaskListByProjectNo(kphProject.getProject_no());
 			List<KphTask> compTaskList = kphProjectService.compTaskListByProjectNo(kphProject.getProject_no());
 			int isEvalByUser = kphProjectService.isEvalByUser(kphProject);
@@ -92,7 +93,7 @@ public class KphProjectController {
 		// 본인 제외 나머지 프로젝트 참여 인원
 		List<KphUsers> userList = kphProjectService.userListByProjectNoExceptOwn(kphUserProject);
 		
-		System.out.println("KphProjectController eval userList size=>" + userList.size());
+		System.out.println("KphProjectController evalForm userList size=>" + userList.size());
 		model.addAttribute("userList", userList);
 		model.addAttribute("userListSize", userList.size());
 		model.addAttribute("project_no", project_no);
