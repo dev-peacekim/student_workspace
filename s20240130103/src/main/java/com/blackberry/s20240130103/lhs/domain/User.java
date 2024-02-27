@@ -1,8 +1,9 @@
 package com.blackberry.s20240130103.lhs.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,7 +42,12 @@ public class User {
 	private String user_profile;
 	@Column(nullable = false,columnDefinition = "default 0")
 	private int user_delete_chk;
-	@Column(nullable = false)
-	private Date user_date;
+	
+	@Column(nullable = false,updatable = false)
+	private LocalDateTime user_date;
+	
+	@UpdateTimestamp
+	@Column(insertable = false)
+	private LocalDateTime user_update_date;
 	
 }

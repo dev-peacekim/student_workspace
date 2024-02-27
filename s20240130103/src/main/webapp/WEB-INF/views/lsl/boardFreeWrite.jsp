@@ -66,19 +66,18 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form action="boardFreeWrite" method="post" enctype="multipart/form-data">
+                        <form action="boardWrite" method="post">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText" name="Cboard_Title" value="${board_comm.cboard_title }">
+                                <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
                             <div class="mb-3">
                                 <label for="inputNumber" class="form-label">파일 첨부</label>
-                                <input class="form-control" type="file" id="formFile" name="Cboard_File_Name" value="${board_comm_file.cboard_file_name }">
+                                <input class="form-control" type="file" id="formFile" name="cboard_file_name">
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control" style="height: 550px;" name="Cboard_Content">${board_comm.cboard_content }</textarea>
+                                <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>
                             </div>
-
                             <div class="mb-3">
                                 <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>
                                 <button type="submit" class="btn bwComple">완료</button>

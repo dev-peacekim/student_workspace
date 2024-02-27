@@ -43,7 +43,6 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public void updateUser(User user, String userNo) {
 		User finduser = entityManager.find(User.class, userNo);
-		System.out.println(user);
 		finduser.setUser_name(user.getUser_name());
 		finduser.setUser_nic(user.getUser_nic());
 		finduser.setUser_phone(user.getUser_phone());
@@ -51,5 +50,10 @@ public class UserRepositoryImpl implements UserRepository {
 			finduser.setUser_profile(user.getUser_profile());
 		}
 	}
-
+	
+	@Override
+	public void updatePasswordUser(String userNo, String newPassword) {
+		User finduser = entityManager.find(User.class, userNo);
+		finduser.setUser_pw(newPassword);
+	}
 }

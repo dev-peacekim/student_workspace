@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -21,28 +18,12 @@ import lombok.RequiredArgsConstructor;
 public class KphProjectDaoImp implements KphProjectDao {
 
 	private final SqlSession session;
-	private final PlatformTransactionManager transactionManager;
 
 	@Override
 	public int projectAdd(KphProject project) {
 		System.out.println("KphProjectDaoImp projectAdd start...");
-		
-		int result = 0;
-		TransactionStatus transactionStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		
-		try {
-			session.insert("kphProjectInsert", project);
-			Long project_no = session.selectOne("kphMaxProjectNoByUserNo", project);
-			project.setProject_no(project_no);
-			result = session.insert("kphLeaderUserProjectInsert", project);
-			transactionManager.commit(transactionStatus);
-		} catch (Exception e) {
-			transactionManager.rollback(transactionStatus);
-			System.out.println(e.getMessage());
-			result = -1;
-		}
-		
-		return result;
+		session.insert("kphProjectInsertProc", project);
+		return 1;
 	}
 
 	@Override

@@ -46,6 +46,11 @@ public class LhsController {
 		return "lhs/joinemail";
 	}
 	
+	@GetMapping("userChangePassword")
+	public String changePass() {
+		return "lhs/userChangePassword";
+	}
+	
 	@GetMapping(value = "joinForm")
 	public String joinForm(@RequestParam(name = "email") String email,Model model) {
 		model.addAttribute("email",email);
@@ -95,6 +100,7 @@ public class LhsController {
 		System.out.println("조인성공");
 		return "lhs/loginForm";
 	}
+	
 	//파일 업로드 부분
 	private String upLoadImg(Part image,String id,String uploadPath) throws IOException {
 		FileOutputStream outputStream = null;
@@ -178,4 +184,22 @@ public class LhsController {
 		userService.updateUser(user,userNo);
 		return "redirect:/myPage";
 	}
+	
+	@PostMapping("changePassword")
+	public String userChangePassword(HttpServletRequest request,
+									Model model,
+									@RequestParam(name = "password")String oldPassword,
+									@RequestParam(name = "newpassword")String newPassword) {
+		String userNo = request.getSession().getAttribute("user_no").toString();
+		int result = userService.updatePasswordUser(userNo,oldPassword,newPassword);
+		if(result==1) {
+			return "redirect:/myPage";
+		}else {
+			model.addAttribute("result",result);
+			return "lhs/userChangePassword";
+		}
+		
+	}
+	
+	
 }
