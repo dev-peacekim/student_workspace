@@ -32,6 +32,7 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 			success:function(result){
 				if(result=='0'){
 					document.querySelector('.enableId').style.display='block';
+					document.getElementById('id').readOnly=true;
 					idChkval=1;
 				}else{
 					document.querySelector('.disableId').style.display='block';
@@ -44,7 +45,6 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 });
 
 document.getElementById('pw2').addEventListener('keyup',function(){
-	console.log(this.value);
 	if(document.getElementById('pw1').value === this.value){
 		document.querySelector('.disablePass').style.display='none';
 		document.querySelector('.enablePass').style.display='block';

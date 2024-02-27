@@ -73,4 +73,15 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(User user, String userNo) {
 		userRepository.updateUser(user,userNo);
 	}
+	
+	@Override
+	public int updatePasswordUser(String userNo, String oldPassword, String newPassword) {
+		User user = userRepository.findUserByNo(userNo);
+		if(bCryptPasswordEncoder.matches(oldPassword, user.getUser_pw())) {
+			userRepository.updatePasswordUser(userNo,bCryptPasswordEncoder.encode(newPassword));
+			return 1;
+		}else {
+			return 0;
+		}
+	}
 }
