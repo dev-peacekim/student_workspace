@@ -15,15 +15,25 @@ public class LslDaoImpl implements LslDao {
 	private final SqlSession session;
 
 	@Override
-	public int freeBoardWrite(LslBoardComm lslBoardComm) {
-		int insertResult = 0;
-		System.out.println("LslDaoImpl freeBoardWrite Start...");
-		try {
-			insertResult = session.insert("slFreeBoardWrite", lslBoardComm);
-		} catch (Exception e) {
-			System.out.println("LslDaoImpl freeBoardWrite ->" + e.getMessage());
-		}
-		return insertResult;
+	public int freeBoardWrite(LslBoardComm lslBoardComm, Long user_no) {
+	    System.out.println("LslDaoImpl freeBoardWrite Start...");
+	    
+	    // 게시글 삽입
+	    int insertResult = session.insert("lslFreeBoardWrite", lslBoardComm);
+	    
+	    // 파일 정보 삽입
+	    if (insertResult > 0) {
+	        // 게시글이 성공적으로 삽입되었을 때만 파일 정보를 삽입
+	        int fileInsertResult = session.insert("lslFreeBoardFile", lslBoardComm);
+	        if (fileInsertResult <= 0) {
+	            // 파일 정보 삽입 실패 처리
+	           
+	        }
+	    } else {
+	       
+	    }
+	    
+	    return insertResult;
 	}
 
 	

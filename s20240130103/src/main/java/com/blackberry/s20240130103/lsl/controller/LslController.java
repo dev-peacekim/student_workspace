@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.blackberry.s20240130103.lsl.Service.LslService;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -29,24 +31,20 @@ public class LslController {
 		return "lsl/boardFree";
 	} 
 
-	// 글작성 페이지
-	@GetMapping(value = "boardFreeWrite" )
-	public String boardFreeWrite() {
-		return "lsl/boardFreeWrite";
-	}
-	// 자유게시판 글 작성
-	@PostMapping(value="boardWrite")
-	public String freeBoardWrite(LslBoardComm lslBoardComm) {
-		System.out.println("LslController freeBoardWrite Start...");
-		System.out.println("LslController freeBoardWrite lslBoardComm->"+lslBoardComm);
-		
-		int insertResult = ls.freeBoardWrite(lslBoardComm);
-		if(insertResult > 0) return "redirect:boardFreeList";
-		else {
-			
-		}
-		
-	 return "redirect:boardFree";
-	}
+	  // 글 작성 페이지
+    @GetMapping(value = "boardFreeWrite")
+    public String boardFreeWrite() {
+        return "lsl/boardFreeWrite";
+    }
+
+    // 자유게시판 글 작성
+    @PostMapping(value = "boardWrite")
+    public String freeBoardWrite(HttpServletRequest request, LslBoardComm lslBoardComm) {
+        HttpSession session = request.getSession();
+        Long user_no = (Long) session.getAttribute("user_no");
+        int insertResult = ls.freeBoardWrite(lslBoardComm, user_no);
+        if (insertResult > 0) return "redirect:boardFreeList";
+        else return "redirect:boardFree";
+    }
 	
 }

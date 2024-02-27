@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.blackberry.s20240130103.lsl.model.LslBoardComm">
-	<!--  <insert id="slFreeBoardWrite" parameterType="LslBoardComm">
-		INSERT INTO BOARD_COMM (
-		CBOARD_NO,
-		CBOARD_TITLE,
-		CBOARD_CONTENT,
-		CBOARD_VIEWCNT,
-		CBOARD_DATE,
-		USER_NO,
-		COMM_BIG,
-		COMM_MID
-		)
-		VALUES (
-		#{CBOARD_NO},
-		#{CBOARD_TITLE},
-		#{CBOARD_CONTENT},
-		#{CBOARD_VIEWCNT},
-		#{sysdate},
-		#{USER_NO},
-		300,
-		20);
-
-	</insert>
-	-->
+<mapper namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
+    <insert id="lslFreeBoardWrite" parameterType="LslBoardComm">
+        INSERT INTO board_comm (cboard_no, cboard_title, cboard_content, cboard_viewcnt, cboard_date, user_no, cboard_delete_chk, comm_big, comm_mid, comm_big2, comm_mid2, comm_update_date)
+        VALUES (SEQ_BOARDFREE_NO.nextval, #{cboard_title}, #{cboard_content}, 0, sysdate, #{user_no}, 0, 300, 20, 0, 0, sysdate)
+    </insert>
 </mapper>

@@ -15,10 +15,10 @@ public class LslServiceImpl implements LslService {
 	private final LslDao ld;
 
 	@Override
-	public int freeBoardWrite(LslBoardComm lslBoardComm) {
+	public int freeBoardWrite(LslBoardComm lslBoardComm, Long user_no) {
 		int insertResult = 0;
 		System.out.println("LslServiceImpl freeBoardWrite Start...");
-		insertResult = ld.freeBoardWrite(lslBoardComm);
+		insertResult = ld.freeBoardWrite(lslBoardComm, user_no);
 		return insertResult;
 	}
 
