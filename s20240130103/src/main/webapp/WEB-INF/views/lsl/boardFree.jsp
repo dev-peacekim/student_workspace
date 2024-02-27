@@ -64,8 +64,7 @@
 
 						<!-- Search Bar -->
 						<div class="search-bar">
-							<form class="search-form d-flex align-items-center" method="POST"
-								action="#">
+							<form class="search-form d-flex align-items-center" method="POST" action="#">
 								<input type="text" name="query" placeholder="Search"
 									title="Enter search keyword">
 								<button type="submit" title="Search">
@@ -77,6 +76,8 @@
 
 
 						<!-- 게시판 테이블 -->
+						
+					<form action="boardFreeList" method="post">
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -87,14 +88,14 @@
 									<th scope="col">조회수</th>
 									<th scope="col">댓글</th>
 								</tr>
-								<c:forEach var="board" items="${boardFreeList}">
+								<c:forEach var="boardFree" items="${boardFreeList}" varStatus="index">
 									<tr>
-										<td>${board.cboard_no}</td>
-										<td>${board.cboard_title}</td>
-										<td>${board.user_no}</td>
-										<td>${board.cboard_date}</td>
-										<td>${board.cboard_viewcnt}</td>
-										<td>${board.comm_bi}</td>
+										<td>${index.index}</td>
+										<td>${boardFree.cboard_title}</td>
+										<td>${boardFree.user_no}</td>
+										<td>${boardFree.cboard_date}</td>
+										<td>${boardFree.cboard_viewcnt}</td>
+										<td>${boardFree.creply_cnt}</td>
 									</tr>
 								</c:forEach>
 							</thead>
@@ -111,9 +112,11 @@
 						</table>
 						<!-- 게시판 테이블 끝 -->
 						<div class="text-end">
-							<button type="button" class="btn bfWrite"
-								onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+							<button type="button" class="btn bfWrite" onclick="window.location.href='boardFreeWrite'">글쓰기</button>
 						</div>
+						</form>
+						
+						 
 
 						<!-- 페이지 표시 -->
 						<section>

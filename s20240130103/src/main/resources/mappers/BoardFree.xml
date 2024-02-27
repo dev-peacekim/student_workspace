@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.blackberry.s20240130103.lsl.model.LslBoardComm">
-	<select id="slBoardFreeList" parameterType="LslBoardComm" resultType="java.util.List" >
-		select * from  board_comm where comm_big = #{200} and comm_mid = #{20}
-	</select>	
-	
-	 <insert id="slBoardSave" parameterType="LslBoardComm">
-        INSERT INTO lsl_board_comm (cboard_title, cboard_content, cboard_viewcnt, cboard_date, user_no)
-        VALUES (#{cboard_title}, #{cboard_content}, #{cboard_viewcnt}, #{cboard_date}, #{user_no})
-    </insert>
-    
-    <insert id="slBoardFileSave" parameterType="LslBoardCommFile">
-        INSERT INTO lsl_board_comm_file (cboard_no, cboard_file_name, cboard_file_size)
-        VALUES (#{cboard_no}, #{cboard_file_name}, #{cboard_file_size})
-    </insert>
-     
+<mapper
+	namespace="com.blackberry.s20240130103.lsl.model.LslBoardComm">
+	<!--  <insert id="slFreeBoardWrite" parameterType="LslBoardComm">
+		INSERT INTO BOARD_COMM (
+		CBOARD_NO,
+		CBOARD_TITLE,
+		CBOARD_CONTENT,
+		CBOARD_VIEWCNT,
+		CBOARD_DATE,
+		USER_NO,
+		COMM_BIG,
+		COMM_MID
+		)
+		VALUES (
+		#{CBOARD_NO},
+		#{CBOARD_TITLE},
+		#{CBOARD_CONTENT},
+		#{CBOARD_VIEWCNT},
+		#{sysdate},
+		#{USER_NO},
+		300,
+		20);
+
+	</insert>
+	-->
 </mapper>
