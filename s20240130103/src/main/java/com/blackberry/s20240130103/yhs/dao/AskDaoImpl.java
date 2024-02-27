@@ -1,19 +1,20 @@
-package com.blackberry.s20240130103.yhs.repository;
+package com.blackberry.s20240130103.yhs.dao;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.blackberry.s20240130103.yhs.domain.Ask;
+import com.blackberry.s20240130103.yhs.model.Ask;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class AskRepositoryImpl implements AskRepository {
 
+public class AskDaoImpl implements AskDao {
+	
 	private final EntityManager em;
 	
 	@Override
@@ -25,7 +26,7 @@ public class AskRepositoryImpl implements AskRepository {
 
 	@Override
 	public List<Ask> findAll() {
-		System.out.println("AskRepositoryImpl findAll start...");
+		System.out.println("AskDaoImpl findAll start...");
 		List<Ask> memberList = em.createQuery("select m from BOARD_ADMIN m", Ask.class)
 									.getResultList();
 		return memberList;
@@ -49,5 +50,4 @@ public class AskRepositoryImpl implements AskRepository {
 		return;
 	}
 
-	
 }
