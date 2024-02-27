@@ -7,7 +7,6 @@ public class KphUserProject {
 
 	private Long project_no;
 	private Long user_no;
-	private int value_chk;
 	private int comm_big;
 	private int comm_mid;
 	

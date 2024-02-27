@@ -6,7 +6,6 @@
       <typeAlias alias="KphTask" type="com.blackberry.s20240130103.kph.model.KphTask"/>
       <typeAlias alias="LslBoardComm" type="com.blackberry.s20240130103.lsl.model.LslBoardComm"/>
       <typeAlias alias="LslBoardCommFile" type="com.blackberry.s20240130103.lsl.model.LslBoardCommFile"/>
-      <typeAlias alias="KphUser_Project" type="com.blackberry.s20240130103.kph.model.KphUserProject"/>
       <typeAlias alias="KphEval" type="com.blackberry.s20240130103.kph.model.KphEval"/>
       <typeAlias alias="KphUsers" type="com.blackberry.s20240130103.kph.model.KphUsers"/>
    </typeAliases>
