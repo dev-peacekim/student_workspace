@@ -8,5 +8,7 @@
       <typeAlias alias="KphEval" type="com.blackberry.s20240130103.kph.model.KphEval"/>
       <typeAlias alias="KphUsers" type="com.blackberry.s20240130103.kph.model.KphUsers"/>
       <typeAlias alias="LslBoardComm" type="com.blackberry.s20240130103.lsl.model.LslBoardComm"/>
+      <typeAlias alias="KdwMessage" type="com.blackberry.s20240130103.kdw.model.Message"/>
+      <typeAlias alias="KdwMessageFile" type="com.blackberry.s20240130103.kdw.model.MessageFile"/>
    </typeAliases>
 </configuration>
