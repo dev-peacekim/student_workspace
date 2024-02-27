@@ -74,7 +74,6 @@
 	padding-right: 2px;
 }
 
-.btn-container form {
-	margin-left: 10px; /* 버튼 사이 간격 조정 */
-	
+.btn{
+	margin-left: 10px;
 }

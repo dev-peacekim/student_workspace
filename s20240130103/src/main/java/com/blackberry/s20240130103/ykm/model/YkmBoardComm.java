@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class YkmBoardComm {
 
-	// BoardComm
+	// BoardComm DTO
 	private int cboard_no;
 	private String cboard_title;
 	private String cboard_content;
@@ -18,7 +18,7 @@ public class YkmBoardComm {
 	private int comm_mid2;
 	
 	
-	// BoardCommFile
+	// BoardCommFile DTO
 	private int cboard_cnt;
 	private String cboard_name;
 }

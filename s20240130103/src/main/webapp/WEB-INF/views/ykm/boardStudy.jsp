@@ -108,10 +108,9 @@
 				<div class="community-bottom">
 					<!-- Write button -->
 					<div class="btn-container">
-						<form action="ykmBoardWriteForm" method="post">
-							<input type="hidden" name="bcategory" value="20" >
-							<input type="submit" class="btn btn-primary custom-btn wriBtn" value="글쓰기">
-						</form>
+						<a href="/boardWriteForm">
+							<button class="btn btn-primary custom-btn wriBtn">글쓰기</button>
+						</a>
 					</div>
 
 					<!-- ======= Pagination ======= -->

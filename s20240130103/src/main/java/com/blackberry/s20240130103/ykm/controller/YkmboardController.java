@@ -4,12 +4,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.service.YkmService;
+
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class YkmboardController {
+	
+	private final YkmService ykmService;
+
+	/* mapping */
 	
 	@GetMapping(value="boardStudy")
 	public String boardStudy() {
@@ -41,32 +50,30 @@ public class YkmboardController {
 		return "ykm/boardModify";
 	}
 	
-	@GetMapping(value="popup")
-	public String popup() {
-		return "ykm/popup";
-	}
- 	
 	
-	/* button */
+	/* form */
 	
-	@PostMapping(value = "ykmBoardWriteForm")
-	public String ykmBoardWriteForm(Model model) {
+	@PostMapping(value = "boardPost")
+	public int boardPost(HttpServletRequest request, YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmController boardPost Start...");
+		// request 활용해서 세션에 저장한 유저 no 받아오기
+		String user_no = (String)request.getSession().getAttribute("user_no");
 		
-		return "ykm/boardWriteForm";
+		if (user_no != null) {
+			int result = ykmService.insertStuPost(ykmBoardComm, "user_no");
+			return result;
+		} else {
+			return -1;
+		}
+		
+	
 	}
+	
+	
+	
 	
 	
 
-	@GetMapping(value="boardWritesubmit")
-	public String boardWritesubmit() {
-		return "ykm/boardStudy";
-	}
-	
-	@GetMapping(value = "boardWritereset")
-	public String boardWritereset() {
-		return "ykm/boardStudy";
-	}
-	
 	@GetMapping(value="boardUpdatesubmit")
 	public String boardUpdatesubmit() {
 		return "ykm/boardStudy";

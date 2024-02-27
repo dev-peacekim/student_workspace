@@ -7,6 +7,11 @@
 <link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
 </head>
 <body>
+	<script type="text/javascript">
+		function back() {
+			window.history.back()
+		}
+	</script>
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
 
@@ -27,35 +32,39 @@
 				<div class="community-header">
 					<p>글쓰기</p>
 				</div>
-				<div class="community-body">
-					<div class="title-input">
-						<label for="boradTitle" class="form-label"></label><input
-							type="text" id="boardTitle" class="form-control"
-							aria-describedby="titleHelpBlock"
-							placeholder="제목에 핵심 내용을 요약해보세요.">
-					</div>
-					<div class="upload-files">
-						<label for="inputNumber" class="form-label"><span
-							class="upload-file-title">파일 첨부</span></label> <input
-							class="form-control" type="file" id="formFile">
-					</div>
-					<div class="content-input">
-						<label for="boardContent" class="form-label"></label>
-						<textarea class="form-control" id="boardContent" rows="15"
-							placeholder="내용을 입력하세요."></textarea>
-					</div>
-					<!-- End Quill Editor Default -->
-					<div class="btn-container">
-						<form action="boardWritesubmit" method="get">
+				<form action="boardPost" method="post">
+					<div class="community-body">
+						<!-- 제목 -->
+						<div class="title-input">
+							<label for="boradTitle" class="form-label"></label> 
+							<input type="text" class="boardTitle form-control" 
+									name="cboard_title" aria-describedby="제목을 입력해주세요"
+									placeholder="제목에 핵심 내용을 요약해보세요." required="required">
+						</div>
+						
+						<!-- 파일 첨부 -->
+						<div class="upload-files">
+							<label for="inputNumber" class="form-label">
+								<span class="upload-file-title">파일 첨부</span>
+							</label> 
+							<input class="form-control" type="file" id="formFile" >
+						</div>
+						
+						<!-- 내용 -->
+						<div class="content-input">
+							<label for="boardContent" class="form-label"></label>
+							<textarea class="form-control" id="boardContent" rows="15" 
+										placeholder="내용을 입력하세요." required="required"></textarea>
+						</div>
+						
+						<!-- 버튼 -->
+						<div class="btn-container">
 							<input type="submit" class="btn btn-primary" value="확인">
-						</form>
-						<form action="boardWritereset" method="get">
-							<input type="submit" class="btn btn-secondary" value="취소">
-						</form>
+							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
-
 		</section>
 
 

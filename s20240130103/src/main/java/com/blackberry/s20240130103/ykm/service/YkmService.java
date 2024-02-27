@@ -1,12 +1,9 @@
-package com.blackberry.s20240130103.ykm.dao;
+package com.blackberry.s20240130103.ykm.service;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 
-public interface YkmBoardDao {
+public interface YkmService {
 
 	int insertStuPost(YkmBoardComm ykmBoardComm, String string);
-
-
-
 
 }
