@@ -8,12 +8,10 @@ import com.blackberry.s20240130103.lsl.model.LslBoardCommFile;
 public interface LslService {
 
 	List<LslBoardComm> getBoardFreeList(LslBoardComm boardComm);
-
-	void saveBoardFile(LslBoardCommFile boardCommFile);
-
-	void saveBoard(LslBoardComm boardComm);
-
-
-
+	
+	  void saveBoardFile(LslBoardCommFile boardCommFile);
+	  
+	  void saveBoard(LslBoardComm boardComm);
+	 
 
 }

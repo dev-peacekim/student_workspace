@@ -9,9 +9,10 @@ public interface LslDao {
 
 	List<LslBoardComm> boardFreeList(LslBoardComm boardComm);
 
-	void saveBoardFile(LslBoardCommFile boardCommFile);
-
-	void saveBoard(LslBoardComm boardComm);
-
+	
+	  void saveBoardFile(LslBoardCommFile boardCommFile);
+	  
+	  void saveBoard(LslBoardComm boardComm);
+	
 
 }
