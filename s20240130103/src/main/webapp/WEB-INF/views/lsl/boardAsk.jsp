@@ -84,6 +84,7 @@
                   </div><!-- End Search Bar -->
             
                 <!-- 게시판 테이블 -->
+                <form action="boardAskList" method="post">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -94,13 +95,13 @@
                             <th scope="col">조회수</th>
                             <th scope="col">댓글</th>
                         </tr>
-                        <c:forEach var="LslBoardComm" items="${boardAskList}">
+                        <c:forEach var="boardAsk" items="${boardAskList}" varStatus="index">
                         	<tr>
-                        	<td>${cboard_no}</td>
-                        	<td>${cboard_title}</td>
-                        	<td>${cboard_content}</td>
-                        	<td>${cboard_date}</td>
-                        	<td>${cboard_}</td>
+                        	<td>${index.index}</td>
+                        	<td>${boardAsk.cboard_title}</td>
+                        	<td>${boardAsk.cboard_content}</td>
+                        	<td>${boardAsk.cboard_date}</td>
+                        	<td>${boardAsk.creply_cnt}</td>
                  
                         	</tr>
                         </c:forEach>
@@ -120,6 +121,7 @@
                 <div class="text-end">
                     <button type="button" class="btn baWrite" onclick="window.location.href='boardFreeWrite'">글쓰기</button>
                 </div>
+                </form>
                         <!-- 페이지 표시 -->
         <section>
             <nav aria-label="Page navigation example">

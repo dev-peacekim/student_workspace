@@ -10,6 +10,7 @@ document.getElementById("emailchkbtn").addEventListener('click',function(){
 			dataType: 'json',
 			success:function(result){
 				number = result;
+				emailform.readOnly=true;
 				document.getElementById('cnumber').disabled = false;
 			},
 			error : function(){

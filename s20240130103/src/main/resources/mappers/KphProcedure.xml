@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.KphProcedureMapper">
+			
+	<insert id="kphProjectInsertProc" parameterType="KphProject" statementType="CALLABLE">
+      {
+         CALL KPH_PROJECT_INSERT_PROC (
+            #{project_title, mode=IN, jdbcType=VARCHAR}
+            ,#{project_content, mode=IN, jdbcType=VARCHAR}
+            ,#{project_start, mode=IN, jdbcType=DATE}
+            ,#{project_end, mode=IN, jdbcType=DATE}
+            ,#{user_no, mode=IN, jdbcType=INTEGER}
+         )
+      }
+   </insert>
+	
+</mapper>

@@ -1,12 +1,10 @@
 package com.blackberry.s20240130103.lsl.dao;
 
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
-import com.blackberry.s20240130103.lsl.model.LslBoardCommFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,34 +15,17 @@ public class LslDaoImpl implements LslDao {
 	private final SqlSession session;
 
 	@Override
-	public List<LslBoardComm> boardFreeList(LslBoardComm boardComm) {
-		List<LslBoardComm> boardFreeList = null;
-		System.out.println("LslDaoImpl boardFreeList Start...");
+	public int freeBoardWrite(LslBoardComm lslBoardComm) {
+		int insertResult = 0;
+		System.out.println("LslDaoImpl freeBoardWrite Start...");
 		try {
-			boardFreeList = session.selectList("slBoardFreeList", boardComm);
-			System.out.println("LslDaoImpl boardFreeList boardFreeList.size()" + boardFreeList.size());
-
+			insertResult = session.insert("slFreeBoardWrite", lslBoardComm);
 		} catch (Exception e) {
-			System.out.println("LslDaoImpl boardFreeList e.getMessage() -> " + e.getMessage());
-
+			System.out.println("LslDaoImpl freeBoardWrite ->" + e.getMessage());
 		}
-		return boardFreeList;
+		return insertResult;
 	}
 
-	@Override
-	public void saveBoardFile(LslBoardCommFile boardCommFile) {
-		System.out.println("LslDaoImpl saveBoardFile Start...");
-
-		session.insert("slBoardFileSave", boardCommFile);
-
-	}
-
-	@Override
-	public void saveBoard(LslBoardComm boardComm) {
-		System.out.println("LslDaoImpl saveBoard Start...");
-
-		session.insert("slBoardSave", boardComm);
-
-	}
+	
 
 }

@@ -73,9 +73,11 @@
                       <label for="yourPassword" class="form-label" >비밀번호</label>
                       <input type="password" name="user_pw" class="form-control" id="yourPassword" autocomplete="off" required>
                     </div>
+                    
                     <c:if test="${islogin==0 }" >
                     	<div class="loginfail">아이디 혹은 비밀번호를 확인해주세요</div>
                     </c:if>
+                    
                     <br>
                     <br>
                     <div class="col-12">

@@ -12,4 +12,7 @@ public interface UserRepository {
 	User findUserByNo(String userNo);
 
 	void updateUser(User user, String userNo);
+
+	void updatePasswordUser(String userNo, String newPassword);
+
 }

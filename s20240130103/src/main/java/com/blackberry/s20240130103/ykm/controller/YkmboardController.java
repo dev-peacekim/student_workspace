@@ -1,13 +1,15 @@
 package com.blackberry.s20240130103.ykm.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class YkmController {
+public class YkmboardController {
 	
 	@GetMapping(value="boardStudy")
 	public String boardStudy() {
@@ -47,11 +49,13 @@ public class YkmController {
 	
 	/* button */
 	
-	@GetMapping(value = "boardStuConWrite")
-	public String boardStuConWrite() {
+	@PostMapping(value = "ykmBoardWriteForm")
+	public String ykmBoardWriteForm(Model model) {
+		
 		return "ykm/boardWriteForm";
 	}
-
+	
+	
 
 	@GetMapping(value="boardWritesubmit")
 	public String boardWritesubmit() {

@@ -96,8 +96,7 @@
 
                     <div class="col-12">
                       <label for="email" class="form-label">이메일</label>
-                      <!-- <input type="email" name="user_email" class="form-control" value="" required> -->
-                       <input type="email" name="user_email" class="form-control" value="${email}" required> 
+                       <input type="email" name="user_email" class="form-control" value="${email}" readonly="readonly"> 
                     </div>
                     
                     <div class="col-12">
