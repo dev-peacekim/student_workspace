@@ -22,7 +22,8 @@ public class KphProjectDaoImp implements KphProjectDao {
 	@Override
 	public int projectAdd(KphProject project) {
 		System.out.println("KphProjectDaoImp projectAdd start...");
-		return session.insert("kphProjectInsertProc", project);
+		session.insert("kphProjectInsertProc", project);
+		return 1;
 	}
 
 	@Override
