@@ -79,7 +79,7 @@
 						<tbody>
 							<tr>
 								<th scope="row">1</th>
-								<td><span class="recruiting">모집중</span> 여기는 스터디임</td>
+								<td><span class="recruiting">모집중</span> 첫 번째 게시판입니다</td>
 								<td>Designer</td>
 								<td>2016-05-25</td>
 								<td>28</td>
@@ -87,7 +87,7 @@
 							</tr>
 							<tr>
 								<th scope="row">2</th>
-								<td><span class="recruited">모집완료</span> Bridie Kessler</td>
+								<td><span class="recruited">모집완료</span> 두번째 게시판입니다</td>
 								<td>Developer</td>
 								<td>2014-12-05</td>
 								<td>35</td>
@@ -108,9 +108,9 @@
 				<div class="community-bottom">
 					<!-- Write button -->
 					<div class="btn-container">
-						<form action="boardStuConWrite" method="get">
-							<input type="submit" class="btn btn-primary custom-btn btn-15"
-								value="글쓰기">
+						<form action="ykmBoardWriteForm" method="post">
+							<input type="hidden" name="bcategory" value="20" >
+							<input type="submit" class="btn btn-primary custom-btn wriBtn" value="글쓰기">
 						</form>
 					</div>
 

@@ -89,9 +89,9 @@
 				<!-- End Table -->
 				<div class="community-bottom">
 					<div class="btn-container">
-						<form action="boardStuConWrite" method="get">
-							<input type="submit" class="btn btn-primary custom-btn wriBtn"
-								value="글쓰기">
+						<form action="ykmBoardWriteForm" method="post">
+							<input type="hidden" name="boardConWriteBtn" value="10"> 
+							<input type="submit" class="btn btn-primary custom-btn wriBtn" value="글쓰기">
 						</form>
 					</div>
 					<!-- ======= Pagination ======= -->
