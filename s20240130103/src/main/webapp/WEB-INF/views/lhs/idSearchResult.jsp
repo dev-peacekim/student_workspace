@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>로그인</title>
+  <title>아이디 찾기</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -46,62 +47,58 @@
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-          
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-				<div class="login-banner">
-					<a href="/">
-	                	<img src="assets/img/blueberry-logo.png" alt="">
-                	</a>
-				</div>
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
-                  </div>
-                  <form class="row g-3 needs-validation" action="userLogin" method="post">
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">아이디</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="user_id" class="form-control" id="yourUsername" required>
-                      </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label" >비밀번호</label>
-                      <input type="password" name="user_pw" class="form-control" id="yourPassword" autocomplete="off" required>
-                    </div>
-                    
-                    <c:if test="${islogin==0 }" >
-                    	<div class="loginfail">아이디 혹은 비밀번호를 확인해주세요</div>
-                    </c:if>
-                    
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <input class="w-100 btn btn-outline-secondary" type="button" value="JOIN" onclick="location.href='/jointerms'">
-                    </div>
-                    <br>
-                    <br>
-                  </form>
-                </div>
-              </div>
-              <p>
-              	<a href="idSearchForm">아이디 찾기</a>&nbsp;|&nbsp;<a href="passSearchForm">비밀번호 찾기</a>
-              </p>
-            </div>
-          
-          </div>
-        </div>
+	    <div class="container">
+	        <div class="row justify-content-center">
+	            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+	                <div class="login-banner">
+	                    <a href="/">
+	                        <img src="assets/img/blueberry-logo.png" alt="">
+	                    </a>
+	                </div>
+	                <div class="card mb-3">
+	                    <div class="card-body w600_h400">
+	                        <div class="pt-4 pb-2">
+	                            <h5 class="card-title text-center pb-0 fs-4">아이디 찾기 결과</h5>
+	                        </div>
+	                        <div>
+	                        	<c:if test="${not empty user_id }">
+		                            <table class="table">
+		                                <thead>
+		                                    <tr>
+		                                        <th scope="col">아이디</th>
+		                                        <th scope="col">가입일</th>
+		                                    </tr>
+		                                </thead>
+		                                <tbody>
+			                                <tr>
+												<td>${user_id }</td>
+												<td>
+													<fmt:formatDate value="${user_date }" dateStyle="full"/>
+												</td>
+			                                </tr>
+		                                </tbody>
+		                            </table>
+	                            </c:if>
+	                            <c:if test="${empty user_id }">
+	                            	<p>해당 이메일로 가입하신 아이디가 없습니다.</p>
+	                            </c:if>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="container">
+	        <div class="row justify-content-center">
+	            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+	            	<a href="loginForm">
+	            		<button class="btn btn-outline-primary">로그인</button>
+	            	</a>
+	            </div>
+	        </div>
+	    </div>
+	</section>
 
-      </section>
 
     </div>
   </main><!-- End #main -->

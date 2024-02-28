@@ -15,4 +15,11 @@ public interface UserRepository {
 
 	void updatePasswordUser(String userNo, String newPassword);
 
+	void deleteUser(String userNo);
+
+	Optional<User> findIdByemail(String email);
+
+	Optional<User> findPassByIdEmail(User user);
+	
+
 }

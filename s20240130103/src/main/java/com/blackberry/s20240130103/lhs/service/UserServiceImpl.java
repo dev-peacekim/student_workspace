@@ -44,15 +44,17 @@ public class UserServiceImpl implements UserService {
 	public int loginChk(User user) {
 		int result = 0;
 		Optional<User> userOp = userRepository.findUserById(user.getUser_id());
-		if(userOp.isPresent()) {
-			if(bCryptPasswordEncoder.matches(user.getUser_pw(), userOp.get().getUser_pw())) {
+		if(userOp.isPresent()) { //찾은 유저가 있는지
+			if(bCryptPasswordEncoder.matches(user.getUser_pw(), userOp.get().getUser_pw())) { //찾은 유저의 암호화된 비밀번호가 입력한 비밀번호와 일치하는지
 				User user2 = userOp.get();
-				user.setUser_no(user2.getUser_no());
-				user.setUser_profile(user2.getUser_profile());
-				user.setUser_name(user2.getUser_name());
-				user.setUser_nic(user2.getUser_nic());
-				System.out.println("UserServiceImpl 로그인 성공");
-				result = 1;
+				if(user2.getUser_delete_chk()==0) { //찾은 유저의 삭제 상태가 0(삭제X)인지
+					user.setUser_no(user2.getUser_no());
+					user.setUser_profile(user2.getUser_profile());
+					user.setUser_name(user2.getUser_name());
+					user.setUser_nic(user2.getUser_nic());
+					System.out.println("UserServiceImpl 로그인 성공");
+					result = 1;
+				}
 			}else {
 				System.out.println("UserServiceImpl 로그인 실패");
 				System.out.println(user);
@@ -84,4 +86,43 @@ public class UserServiceImpl implements UserService {
 			return 0;
 		}
 	}
+	
+	@Override
+	public int chkPasswordUser(String passwd, String userNo) {
+		User user = userRepository.findUserByNo(userNo);
+		if(bCryptPasswordEncoder.matches(passwd, user.getUser_pw())) {
+			userRepository.deleteUser(userNo);
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
+	@Override
+	public User findIdByemail(String email) {
+		Optional<User> userOp = userRepository.findIdByemail(email);
+		if(userOp.isPresent()) {
+			return userOp.get();
+		}else {
+			return null;
+		}
+	}
+	
+	@Override
+	public Optional<User> findPassByIdEmail(User user) {
+		Optional<User> userOp = userRepository.findPassByIdEmail(user);
+		return userOp;
+	}
+	
+	@Override
+	public int passwordChange(User user) {
+		User finduser = userRepository.findUserByNo(user.getUser_no().toString());
+		if(!bCryptPasswordEncoder.matches(user.getUser_pw(), finduser.getUser_pw())) {
+			userRepository.updatePasswordUser(user.getUser_no().toString(), bCryptPasswordEncoder.encode(user.getUser_pw()));
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
 }

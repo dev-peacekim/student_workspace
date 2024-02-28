@@ -18,4 +18,12 @@ public interface UserService {
 	void updateUser(User user, String userNo);
 
 	int updatePasswordUser(String userNo, String oldPassword, String newPassword);
+
+	int chkPasswordUser(String passwd, String userNo);
+
+	User findIdByemail(String email);
+
+	Optional<User> findPassByIdEmail(User user);
+
+	int passwordChange(User user);
 }

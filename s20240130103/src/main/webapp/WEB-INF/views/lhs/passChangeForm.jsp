@@ -7,8 +7,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>로그인</title>
+  <script type="text/javascript" src="assets/js/lhs/lhsidSearchResult.js" defer="defer"></script>
+  <title>비밀번호 찾기</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -33,6 +33,13 @@
 </head>
 
 <body>
+<c:if test="${result eq 1 }">
+	<script type="text/javascript">
+		alert("비밀번호 변경 완료");
+		location.href="/";
+	</script>
+</c:if>
+
 <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
@@ -44,7 +51,7 @@
 
   <main>
     <div class="container">
-
+    
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
@@ -58,44 +65,31 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">비밀번호 입력</h5>
                   </div>
-                  <form class="row g-3 needs-validation" action="userLogin" method="post">
+                  <form class="row g-3 needs-validation" action="passwordChange" method="post">
+                  <input type="hidden" value="${user_no }" name="user_id">
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">아이디</label>
+                      <label for="yourUserpassword" class="form-label">새 비밀번호</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="user_id" class="form-control" id="yourUsername" required>
+                        <input type="password" name="user_pw" class="form-control" id="user_pw1" required>
                       </div>
                     </div>
-                    <br>
-                    <br>
+                    
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label" >비밀번호</label>
-                      <input type="password" name="user_pw" class="form-control" id="yourPassword" autocomplete="off" required>
+                      <label for="yourUserpassword" class="form-label">비밀번호 확인</label>
+                      <div class="input-group has-validation">
+                        <input type="password" name="user_pw2" class="form-control" id="user_pw2" required>
+                      </div>
                     </div>
                     
-                    <c:if test="${islogin==0 }" >
-                    	<div class="loginfail">아이디 혹은 비밀번호를 확인해주세요</div>
-                    </c:if>
-                    
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                    <div class="col-12 inlinedivwid100 justify-content-center align-items-center">
+                      <button class="btn btn-outline-primary" type="submit">확인</button>
+                      <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
                     </div>
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <input class="w-100 btn btn-outline-secondary" type="button" value="JOIN" onclick="location.href='/jointerms'">
-                    </div>
-                    <br>
-                    <br>
                   </form>
                 </div>
               </div>
-              <p>
-              	<a href="idSearchForm">아이디 찾기</a>&nbsp;|&nbsp;<a href="passSearchForm">비밀번호 찾기</a>
-              </p>
             </div>
           
           </div>

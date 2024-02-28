@@ -115,6 +115,19 @@
 .inlinediv button{
 	margin-left: 10px;
 }
+
+.inlinedivwid100 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.inlinedivwid100 button {
+    flex: 0 0 auto;
+}
+.inlinedivwid100 button{
+	margin-left: 10px;
+}
+
 .wid50 {
 	width: 50%;
 }
@@ -146,4 +159,8 @@
 .disablePass{
 	color: red;
 	display: none;
+}
+.w600_h400{
+	min-width: 600px;
+    min-height: 400px;
 }
