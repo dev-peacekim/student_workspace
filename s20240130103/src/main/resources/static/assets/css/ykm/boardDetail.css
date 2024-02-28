@@ -5,7 +5,7 @@
 # community-post
 --------------------------------------------------------------*/
 
-.main-card {
+.card-body {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
@@ -95,20 +95,18 @@
 	background-color: #fff !important;
 }
 
+.community-post-body {
+	font-size: 16px;
+	padding: 16px;
+	min-height: 200px;
+}
 .community-post-answer {
 	padding: 16px;
 	border-top: 1px solid #f1f3f5;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
-
-.community-post-header-body {
-	font-size: 16px;
-	padding: 16px;
-	min-height: 200px;
-}
-
-.answer-info-title {
+.answer-form {
 	height: 27px;
 	letter-spacing: -.3px;
 	color: #495057;
@@ -156,22 +154,23 @@
 /*--------------------------------------------------------------
 # comment
 --------------------------------------------------------------*/
-.re-comment-body {
+.comment-body {
 	padding: 16px;
-	border-top: 1px solid #f1f3f5;
-	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
+	margin-bottom: 0px;
 }
-
-.markdown-body {
+.comment-body p {
 	margin-bottom: 0px;
 }
 
-.card-header {
+.comment-card {
+	padding: 12px;
 	background-color: #f8f9fa;
+	border-bottom: 1px solid #f1f3f5;
 }
 
 .comment-header {
+	background-color: #f8f9fa;
 	display: flex;
 	align-items: center;
 	flex-direction: row;

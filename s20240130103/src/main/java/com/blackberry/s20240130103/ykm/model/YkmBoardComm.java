@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class YkmBoardComm {
 
-	// BoardComm DTO
+	// BoardComm
 	private int cboard_no;
 	private String cboard_title;
 	private String cboard_content;
@@ -18,8 +18,19 @@ public class YkmBoardComm {
 	private int comm_big2;
 	private int comm_mid2;
 	
-	
-	// BoardCommFile DTO
-	private int cboard_cnt;
+	// BoardCommFile
+	private int cboard_file_cnt;
 	private String cboard_name;
+	
+	// Users 조회용
+	private String user_id;
+//	private String user_name;
+//	private String user_nic;
+//	private String user_email;
+//	private String user_phone;
+//	private String user_profile;
+	
+	// 댓글
+	int reply_cnt;
+	
 }

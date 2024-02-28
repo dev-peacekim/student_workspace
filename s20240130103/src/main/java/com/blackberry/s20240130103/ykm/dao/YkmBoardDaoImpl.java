@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.ykm.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -16,11 +18,26 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public int insertBoardStudyPost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl insertBoardStudyPost start---*");
-		int result =session.insert("ykmBoardStudyPost", ykmBoardComm);
+		int result = session.insert("ykmBoardStudyPost", ykmBoardComm);
 		System.out.println("YkmBoardDaoImpl insertBoardStudyPost result=>" + result);
 		return result;
 	}
 
+	@Override
+	public List<YkmBoardComm> spreadBoardList() {
+		System.out.println("YkmBoardDaoImpl spreadBoardList ---*");
+		List<YkmBoardComm> spreadBoardList = session.selectList("ykmSpreadList");
+		System.out.println("spreadBoardList result --> " +spreadBoardList.size());
+
+		return spreadBoardList;
+	}
+
+	@Override
+	public List<YkmBoardComm> renderPostContent() {
+		System.out.println("YkmBoardDaoImpl renderPostContent ---*");
+		List<YkmBoardComm> renderPostContent = session.selectList("ykmRenterPost");
+		return null;
+	}
 
 
 

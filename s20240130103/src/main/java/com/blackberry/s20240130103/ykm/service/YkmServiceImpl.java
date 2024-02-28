@@ -1,5 +1,8 @@
 package com.blackberry.s20240130103.ykm.service;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
@@ -19,7 +22,25 @@ public class YkmServiceImpl implements YkmService {
 		int result = ykmBoardDao.insertBoardStudyPost(ykmBoardComm);
 		return result;
 	}
-	
+
+	@Override
+	public List<YkmBoardComm> spreadBoardList() {
+		List<YkmBoardComm> spreadBoardList = ykmBoardDao.spreadBoardList();
+		Iterator<YkmBoardComm> boardIter = spreadBoardList.iterator();
+		while(boardIter.hasNext()) {
+			YkmBoardComm ykmBoardComm = boardIter.next();
+			ykmBoardComm.setCboard_date(ykmBoardComm.getCboard_date().substring(0, 10));
+		}
+		return spreadBoardList;
+	}
+
+	@Override
+	public List<YkmBoardComm> renderPostContent() {
+		List<YkmBoardComm> renderPostContent = ykmBoardDao.renderPostContent();
+		return renderPostContent;
+	}
+
+
 	  
 
 }

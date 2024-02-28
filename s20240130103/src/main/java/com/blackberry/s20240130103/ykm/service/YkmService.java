@@ -8,4 +8,8 @@ public interface YkmService {
 
 	int insertBoardStudyPost(YkmBoardComm ykmBoardComm);
 
+	List<YkmBoardComm> spreadBoardList();
+	
+	List<YkmBoardComm> renderPostContent();
+
 }

@@ -80,39 +80,34 @@
 							<c:forEach items="${boardStudyList}" var="bslist">
 								<tr>
 									<th scope="row">1</th>
-									<td><span class="recruiting">모집중</span> 첫 번째 글입니다</td>
-									<td>Designer</td>
-									<td>2016-05-25</td>
-									<td>28</td>
-									<td>0</td>
+									<td><span class="recruiting">모집중</span>	
+										<a href="boardDetail?cboard_no=${bslist.cboard_no}">${bslist.cboard_title}</a></td>						
+									<td>${bslist.user_id}</td>
+									<td>${bslist.cboard_date}</td>
+									<td>${bslist.reply_cnt}</td>
+									<td>${bslist.cboard_viewcnt}</td>
 								</tr>
+								<!-- <span class="recruited"></span> -->
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<!-- End Table -->
 				<div class="community-bottom">
-					<!-- Write button -->
 					<div class="btn-container">
-						<a href="/boardWriteForm">
-							<button class="btn btn-primary custom-btn wriBtn">글쓰기</button>
-						</a>
+						<a href="/boardWriteForm"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
 					</div>
 
 					<!-- ======= Pagination ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">«</span>
-							</a></li>
+							<li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">«</span></a></li>
 							<li class="page-item"><a class="page-link" href="#">1</a></li>
 							<li class="page-item"><a class="page-link" href="#">2</a></li>
 							<li class="page-item"><a class="page-link" href="#">3</a></li>
 							<li class="page-item"><a class="page-link" href="#">4</a></li>
 							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">»</span>
-							</a></li>
+							<li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">»</span></a></li>
 						</ul>
 					</nav>
 				</div>

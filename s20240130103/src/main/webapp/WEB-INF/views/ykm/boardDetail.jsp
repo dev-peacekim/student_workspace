@@ -8,9 +8,6 @@
 </head>
 <body>
 
-
-
-
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
 
@@ -27,83 +24,78 @@
 		</div>
 		<!-- End Page Title -->
 		<section class="community-post-detail">
-			<div class="row card main-card card-body">
-				<div class="card-header community-post-header">
-					<h3 class="card-title post-header-title">함께 공부할 스티디원 모집합니다!</h3>
-					<div class="card-subtitle post-user-container">
-						<i class="bi bi-person-circle post-user-profile" alt="유저 프로필"></i>
-						<div class="card-title-header">
-							<h5 class="card-title post-user-name">
-								<a href="#">유저네임</a>
-							</h5>
-							<div class="card-subtitle post-subtitle">
-								<p class="post-updated-at">작성일 2024.02.23 오후 5:24</p>
-								<p class="post-veiw-count">조회수 11</p>
+			<div class="row card card-body">
+				<c:forEach items="${renderPostContent}">
+					<div class="card-header community-post-header">
+						<h3 class="card-title post-header-title">함께 공부할 스티디원 모집합니다!</h3>
+						<div class="card-subtitle post-user-container">
+							<i class="bi bi-person-circle post-user-profile" alt="유저 프로필"></i>
+							<div class="card-title-header">
+								<h5 class="card-title post-user-info">
+									<a href="#">유저네임</a>
+								</h5>
+								<div class="card-subtitle post-subtitle">
+									<p class="post-updated-at">작성일 2024.02.23 오후 5:24</p>
+									<p class="post-veiw-count">조회수 11</p>
+								</div>
+							</div>
+							<div class="modify-container">
+								<form class="modDelBtn" method="get">
+									<button type="button" class="badge bg-light text-dark">
+										<i class="bi bi-pencil-fill"></i> 수정
+									</button>
+									<button type="button"class="badge bg-light text-dark">
+										<i class="bi bi-trash"></i> 삭제
+									</button>
+								</form>
 							</div>
 						</div>
-						<div class="modify-container">
-							<form class="modDelBtn" method="get">
-								<button id="modBtn" type="button"
-									class="badge bg-light text-dark" type="button">
-									<i class="bi bi-pencil-fill"></i> 수정
-								</button>
-								<button id="delBtn" type="button"
-									class="badge bg-light text-dark">
-									<i class="bi bi-trash"></i> 삭제
-								</button>
-							</form>
-						</div>
 					</div>
-				</div>
 
-				<div class="community-post-header-body">
-					<span class="post-content">함께 할 수 있으면 좋을 것 같습니다!</span>
-				</div>
-
-				<section class="community-post-answer">
-					<div class="answer-info-header">
-						<div class="answer-info-title">
-							댓글 <span class="answer-info-title-count">23</span>
-						</div>
+					<div class="community-post-body">
+						<span class="post-content">함께 할 수 있으면 좋을 것 같습니다!</span>
+					</div>
+				</c:forEach>
+				
+				<div class="community-post-answer">
+					<div class="answer-form">
+						댓글 <span class="answer-count">23</span>
+					</div>
+					<form action="boardComment">
 						<div class="comment-editor">
 							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 							<input type="text" name="comment" id="inputField"
 								placeholder="id님, 댓글을 작성해보세요." class="form-control" required="">
 						</div>
-						<div class="btn-container is-editor-open">
-							<form action="boardCommentreset" method="get">
-								<button id="resetBtn" type="button"
-									class="hidden btn btn-secondary">취소</button>
-							</form>
-							<form action="boardCommentsubmit" method="get">
-								<button id="submitBtn" type="button"
-									class="hidden btn btn-primary">등록</button>
-							</form>
+						<div class="btn-container">
+							<button id="resetBtn" type="button"
+								class="hidden btn btn-secondary">취소</button>
+							<button id="submitBtn" type="button"
+								class="hidden btn btn-primary">등록</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="comment-card">
+					<div class="comment-header">
+						<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+						<div class="comment-user-container">
+							<p class="card-title comment-user-name">
+								<a href="#">댓글작성자</a>
+							</p>
+							<p class="card-subtitle comment-updated-at">작성일 2024.02.24 오후
+								2:24</p>
+						</div>
+						<div class="reply-container">
+							<span id="replyBtn" class="badge bg-light text-dark"><i
+								class="bi bi-reply-fill"></i> 댓글</span>
 						</div>
 					</div>
-				</section>
-				<div class="re-comment-body">
-					<div class="comment-card">
-						<div class="comment-header">
-							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-							<div class="comment-user-container">
-								<p class="card-title comment-user-name">
-									<a href="#">댓글작성자</a>
-								</p>
-								<p class="card-subtitle comment-updated-at">작성일 2024.02.24
-									오후 2:24</p>
-							</div>
-							<div class="reply-container">
-								<span id="replyBtn" class="badge bg-light text-dark"><i
-									class="bi bi-reply-fill"></i> 댓글</span>
-							</div>
-						</div>
-						<div class="card-body comment-body">
-							<p class="markdown-body">근데 이거.. 어떻게 참여 원하시는 분들한테 연락을 드리는
-								건가요?</p>
-						</div>
+					<div class="comment-body">
+						<p>근데 이거.. 어떻게 참여 원하시는 분들한테 연락을 드리는 건가요?</p>
 					</div>
 				</div>
+
 				<div class="reply-comment">
 					<form action="ref-reply" method="get">
 						<input type="hidden" name="user-profile" value="${profile}">
@@ -142,9 +134,6 @@
 		<!-- ======= aSidebar ======= -->
 		<%@ include file="../asidebar.jsp"%>
 
-
-
-
 	</main>
 
 	<!-- ======= Footer ======= -->
@@ -158,8 +147,9 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-	
+
 	<!-- Confirm Pop-up JS File -->
-	<script src="assets/js/ykm/confirmPopup.js" type="text/javascript" defer></script>
+	<script src="assets/js/ykm/confirmPopup.js" type="text/javascript"
+		defer></script>
 </body>
 </html>

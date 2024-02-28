@@ -1,10 +1,9 @@
 package com.blackberry.s20240130103.ykm.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,7 +22,9 @@ public class YkmboardController {
 	/* mapping */
 	
 	@GetMapping(value="boardStudy")
-	public String boardStudy() {
+	public String boardStudy(YkmBoardComm ykmBoardComm, Model model) {
+		List<YkmBoardComm> boardStudyList = ykmService.spreadBoardList();
+		model.addAttribute("boardStudyList", boardStudyList);
 		return "ykm/boardStudy";
 	}
 	
@@ -66,7 +67,7 @@ public class YkmboardController {
 		int result = ykmService.insertBoardStudyPost(ykmBoardComm);
 		System.out.println("ykmBoardComm result : " + result);
 
-		return "ykm/boardStudy";
+		return "redirect:/boardStudy";
 	}
 	
 
