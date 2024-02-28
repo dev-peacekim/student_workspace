@@ -21,7 +21,7 @@ spring:
       
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@ec2-54-180-119-137.ap-northeast-2.compute.amazonaws.com:1521/xe
+    url: jdbc:oracle:thin:@ec2-13-125-91-195.ap-northeast-2.compute.amazonaws.com:1521/xe
     username: s20240130103
     password: tiger
 
