@@ -24,4 +24,6 @@ public interface KphProjectService {
 
 	int eval(KphEval eval);
 
+	List<KphUsers> addressUserList(Long user_no);
+
 }

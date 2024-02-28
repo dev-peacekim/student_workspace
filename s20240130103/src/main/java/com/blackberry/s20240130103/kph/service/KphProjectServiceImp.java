@@ -72,5 +72,13 @@ public class KphProjectServiceImp implements KphProjectService {
 		int result = kphProjectDao.eval(eval);
 		return result;
 	}
+
+
+	@Override
+	public List<KphUsers> addressUserList(Long user_no) {
+		System.out.println("KphProjectServiceImp addressUserList start...");
+		List<KphUsers> addressUserList = kphProjectDao.addressUserList(user_no);
+		return addressUserList;
+	}
 	
 }

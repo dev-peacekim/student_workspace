@@ -30,6 +30,8 @@ public class KphProjectController {
 		System.out.println("KphProjectController mainLogic start...");
 		HttpSession session = request.getSession();
 		Long user_no = (Long)session.getAttribute("user_no");
+		
+		// 프로젝트 리스트 + 과업 설정
 		List<KphProject> projectList = kphProjectService.projectList(user_no);
 		Iterator<KphProject> projectIter = projectList.iterator();
 		
@@ -50,6 +52,9 @@ public class KphProjectController {
 		}
 		
 		int totalTaskCount = totalCompTaskCount+totalUnCompTaskCount;
+		
+		// 주소록 유저 리스트
+		// List<KphUsers> addressUserList = kphProjectService.addressUserList(user_no);
 		
 		System.out.println("KphProjectController mainLogic projectList size=>" + projectList.size());
 		model.addAttribute("projectList", projectList);

@@ -141,15 +141,41 @@
 	            	</div>
 			        
 			     </div>
-			     <div class="address">
-			          <h5 class="card-title">주소록</h5>
-			          <div class="address-list">
-						<div class="">
-							sadf
+					<div class="address">
+						<div class="address-header">
+							<h5 class="address-card-title">주소록</h5>
+							<div class="search-bar">
+								<div class="search-form" action="projectAddressSearch">
+									<input id="search-text" type="text" placeholder="이름을 입력하세요">
+									<button id="search-btn">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+							</div>
 						</div>
-					  </div>  
-			     </div>
-		      </div>
+						<div class="address-list">
+							<c:forEach var="addressUser" items="${addressUsertList }">
+								<div class="address-list-card">
+									<div class="address-list-card-detail">
+										<div class="profile-img-user-name">
+											<img src="${pageContext.request.contextPath}/upload/userImg/${addressUser.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+											<p class="user-name">${addressUser.user_name }</p>
+										</div>
+										<div class="score-message">
+											<div class="user-score rounded-circle">${addressUser.user_score }</div>
+											<form action="" method="get"> <!-- action은 쪽지 기능 완료 후 로직 구현 -->
+												<input type="hidden" name="user_no" value="${addressUser.user_no }">
+												<button type="submit" class="rounded-circle message">
+													<i class="bi bi-envelope-fill"></i>
+												</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 	      </div>
 	      
         </section>

@@ -100,3 +100,37 @@
   }
 
 })();
+
+$('#search-btn').on("click", () => {
+  const name = $("#search-text").val();
+
+  $(".address-list").empty();
+
+    $.ajax({
+      type: "get",
+      url: "projectAddressSearch",
+      data: {name: name},
+      success: function (response) {
+        response.forEach((item) => {
+          $(".address-list").append(`
+            <div class="address-list-card">
+              <div class="address-list-card-detail">
+                <div class="profile-img-user-name">
+                  <img src="/upload/userImg/${item.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+                  <p class="user-name">${item.user_name}</p>
+                </div>
+                <div class="score-message">
+                  <div class="user-score rounded-circle">${item.user_score}</div>
+                  <form action="" method="get">
+                    <input type="hidden" name="user_no" value="${item.user_no}">
+                    <button type="submit" class="rounded-circle message"><i class="bi bi-envelope-fill"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          `);
+        });
+      }
+    });
+
+});

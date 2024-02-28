@@ -193,3 +193,130 @@
 	border-radius: 20px;
 	box-shadow: 0px 0 10px rgba(1, 41, 112, 0.1);
 }
+
+.address-card-title {
+    font-size: 18px;
+	margin-bottom: 0;
+    color: #486ef3;
+	
+}
+
+.address-header {
+	display: flex;
+	text-align: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.search-form {
+	display: flex;
+	justify-content: space-between;
+	border: 0;
+    font-size: 14px;
+    color: #012970;
+    border: 1px solid rgba(1, 41, 112, 0.2);
+    padding: 7px 10px 7px 8px;
+    border-radius: 3px;
+    transition: 0.3s;
+    width: 250px;
+	margin-top: -10px;
+}
+
+.search-form input {
+	outline: none;
+	font-family: 'NanumSquare', sans-serif;
+	border: 0;
+}
+
+.search-form:focus-within,
+.search-form:hover {
+  box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+  border: 1px solid rgba(1, 41, 112, 0.3);
+}
+
+.search-form button {
+	border: 0;
+	padding: 0;
+	background: none;
+}
+
+.header .search-form button i {
+	color: #012970;
+}
+
+.address-list {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	overflow-y: auto;
+	height: 400px;
+}
+
+.address-list .address-list-card {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	
+	width: 32%;
+	height: 100px;
+	border-radius: 5px;
+	background-color: #b62bfc85;
+	color: white;
+	box-shadow: 0 0 10px rgba(1, 41, 112, 0.1);
+	font-family: 'NanumSquare', sans-serif;
+}
+
+.address .address-list-card .address-list-card-detail {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 20px;
+}
+
+.address .address-list-card .address-list-card-detail .profile-img-user-name {
+	display: flex;
+	justify-content: initial;
+	align-items: center;
+	width: 60%;
+}
+
+.address .address-list-card .address-list-card-detail .address-list-profile-img {
+	width: 30px;
+	height: 30px;
+}
+
+.address .address-list-card .address-list-card-detail .user-name {
+	margin-bottom: 0;
+	margin-left: 10px;
+	font-weight: 700;
+}
+
+.address .address-list-card .address-list-card-detail .score-message {
+	display: flex;
+	align-items: center;
+}
+
+.address .address-list-card .address-list-card-detail .user-score {
+	background-color: #486ef3;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.address .address-list-card .address-list-card-detail form {
+	margin-left: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.address .address-list-card .address-list-card-detail .message {
+	width: 40px;
+	height: 40px;
+	background-color: #486ef3;
+	border: none;
+}
+
+.address .address-list-card .address-list-card-detail .message i {
+	color: white;
+}

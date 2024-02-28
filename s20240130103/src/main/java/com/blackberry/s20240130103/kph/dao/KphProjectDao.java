@@ -23,5 +23,7 @@ public interface KphProjectDao {
 	List<KphUsers> userListByProjectNoExceptOwn(KphUserProject kphUserProject);
 
 	int eval(KphEval eval);
+
+	List<KphUsers> addressUserList(Long user_no);
 	
 }

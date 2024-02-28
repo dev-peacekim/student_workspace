@@ -13,4 +13,8 @@
 		WHERE u.USER_NO = upm.USER_NO
 	</select>
 	
+	<select id="kphAddressUserList" parameterType="Long" resultType="KphUsers">
+		
+	</select>
+	
 </mapper>

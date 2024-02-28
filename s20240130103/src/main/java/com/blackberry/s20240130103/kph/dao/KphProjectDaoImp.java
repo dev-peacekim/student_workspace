@@ -60,5 +60,11 @@ public class KphProjectDaoImp implements KphProjectDao {
 		int result = session.update("kphEvalInsert", eval);
 		return result;
 	}
+
+	@Override
+	public List<KphUsers> addressUserList(Long user_no) {
+		System.out.println("KphProjectDaoImp addressUserList start...");
+		return session.selectList("kphAddressUserList", user_no);
+	}
 	
 }
