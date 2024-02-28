@@ -7,8 +7,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>로그인</title>
+  <script type="text/javascript" src="assets/js/lhs/lhsidSearchResult.js" defer="defer"></script>
+  <title>아이디 찾기</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -58,44 +58,25 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">로그인</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">아이디 찾기</h5>
                   </div>
-                  <form class="row g-3 needs-validation" action="userLogin" method="post">
+                  <form class="row g-3 needs-validation" action="userFindId" method="post" onsubmit="return chk()">
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">아이디</label>
+                      <label for="yourUsername" class="form-label">가입하신 이메일을 입력해주세요</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="user_id" class="form-control" id="yourUsername" required>
+                        <input type="text" name="user_email" class="form-control" id="user_email" required>
                       </div>
                     </div>
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label" >비밀번호</label>
-                      <input type="password" name="user_pw" class="form-control" id="yourPassword" autocomplete="off" required>
-                    </div>
-                    
-                    <c:if test="${islogin==0 }" >
-                    	<div class="loginfail">아이디 혹은 비밀번호를 확인해주세요</div>
-                    </c:if>
                     
                     <br>
                     <br>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                    <div class="col-12 inlinedivwid100 justify-content-center align-items-center">
+                      <button class="btn btn-outline-primary" type="submit">확인</button>
+                      <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
                     </div>
-                    <br>
-                    <br>
-                    <div class="col-12">
-                      <input class="w-100 btn btn-outline-secondary" type="button" value="JOIN" onclick="location.href='/jointerms'">
-                    </div>
-                    <br>
-                    <br>
                   </form>
                 </div>
               </div>
-              <p>
-              	<a href="idSearchForm">아이디 찾기</a>&nbsp;|&nbsp;<a href="passSearchForm">비밀번호 찾기</a>
-              </p>
             </div>
           
           </div>

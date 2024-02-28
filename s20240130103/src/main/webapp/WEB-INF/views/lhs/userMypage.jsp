@@ -88,7 +88,7 @@
 				      	<a class="dropdown-item" href="userChangePassword">비밀번호변경</a>
 				      </li>
 				      <li>
-				      	<a class="dropdown-item" href="#">회원탈퇴</a>
+				      	<a class="dropdown-item" href="userLeaveForm">회원탈퇴</a>
 				      </li>
 				  </ul>
                 </li>

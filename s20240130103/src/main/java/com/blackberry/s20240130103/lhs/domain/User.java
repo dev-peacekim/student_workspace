@@ -40,7 +40,7 @@ public class User {
 	@Column(nullable = false)
 	private String user_phone;
 	private String user_profile;
-	@Column(nullable = false,columnDefinition = "default 0")
+	@Column(nullable = false)
 	private int user_delete_chk;
 	
 	@Column(nullable = false,updatable = false)

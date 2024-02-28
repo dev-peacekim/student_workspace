@@ -1,3 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.blackberry.s20240130103.BoardAsk"></mapper>
+<mapper namespace="com.blackberry.s20240130103.BoardAsk">
+	<select id="sltotalBoardAskList" resultType="int">
+		select count(*) from
+		board_comm
+	</select>
+
+	<select id="slBoardAskListAll" parameterType="LslBoardComm"
+		resultType="LslBoardComm">
+<![CDATA[
+SELECT *
+		from
+			(SELECT rownum rn ,a.*
+			from
+				(SELECT bc.*, nvl(cnt,0) creply_cnt,u.user_name
+				FROM BOARD_COMM bc,
+						(SELECT CBOARD_NO, count(*) cnt 
+						FROM BOARD_COMM_REPLY 
+						GROUP BY CBOARD_NO) bcr,
+						users u
+				WHERE bc.CBOARD_NO =bcr.CBOARD_NO(+)
+				AND comm_big=300
+				AND comm_mid=10
+				AND bc.user_no = u.user_no
+				order by cboard_date DESC) a)
+		WHERE  rn >= #{start}
+		 and		rn <=#{end}
+
+]]>
+	</select>
+
+
+</mapper>

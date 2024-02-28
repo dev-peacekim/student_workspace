@@ -1,10 +1,12 @@
 package com.blackberry.s20240130103.ykm.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.service.YkmService;
@@ -54,24 +56,18 @@ public class YkmboardController {
 	/* form */
 	
 	@PostMapping(value = "boardPost")
-	public int boardPost(HttpServletRequest request, YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmController boardPost Start...");
-		// request 활용해서 세션에 저장한 유저 no 받아오기
-		String user_no = (String)request.getSession().getAttribute("user_no");
+	public String boardPost(HttpServletRequest request, YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmController boardPost start---*");
 		
-		if (user_no != null) {
-			int result = ykmService.insertStuPost(ykmBoardComm, "user_no");
-			return result;
-		} else {
-			return -1;
-		}
-		
-	
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		ykmBoardComm.setUser_no(user_no);
+		System.out.println("ykmBoardComm board : " + ykmBoardComm);
+
+		int result = ykmService.insertBoardStudyPost(ykmBoardComm);
+		System.out.println("ykmBoardComm result : " + result);
+
+		return "ykm/boardStudy";
 	}
-	
-	
-	
-	
 	
 
 	@GetMapping(value="boardUpdatesubmit")

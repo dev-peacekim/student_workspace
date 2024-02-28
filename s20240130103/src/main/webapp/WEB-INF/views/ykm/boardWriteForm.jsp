@@ -37,24 +37,23 @@
 						<!-- 제목 -->
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label> 
-							<input type="text" class="boardTitle form-control" 
-									name="cboard_title" aria-describedby="제목을 입력해주세요"
-									placeholder="제목에 핵심 내용을 요약해보세요." required="required">
+							<input type="text" class="form-control boardTitle " 
+									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." required="required">
 						</div>
-						
+
 						<!-- 파일 첨부 -->
 						<div class="upload-files">
 							<label for="inputNumber" class="form-label">
 								<span class="upload-file-title">파일 첨부</span>
 							</label> 
-							<input class="form-control" type="file" id="formFile" >
+							<input class="form-control" type="file" id="formFile" name="cboard_file_name" >
 						</div>
 						
 						<!-- 내용 -->
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" rows="15" 
-										placeholder="내용을 입력하세요." required="required"></textarea>
+										placeholder="내용을 입력하세요." name="cboard_content" required="required"></textarea>
 						</div>
 						
 						<!-- 버튼 -->

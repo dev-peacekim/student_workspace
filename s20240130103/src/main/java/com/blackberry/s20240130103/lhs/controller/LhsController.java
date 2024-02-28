@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -57,6 +58,20 @@ public class LhsController {
 		return "lhs/joinForm";
 	}
 	
+	private void sendEmail(String title,String content,String email) {
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			messageHelper.setFrom("dlgkstnrn@gmail.com");
+			messageHelper.setTo(email);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+			mailSender.send(message);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	@ResponseBody
 	@PostMapping(value = "emailChkAjax")
 	public int emailChkAjax(@RequestParam(name = "email")String email) {
@@ -64,20 +79,8 @@ public class LhsController {
 		int chkNum = (int)(Math.random()*9000)+1000;
 		sb.append("안녕하세요 반갑습니다.\n");
 		sb.append("인증번호 : "+chkNum);
-		System.out.println(sb.toString());
-		String tomail = email;
-		String setFrom = "dlgkstnrn@gmail.com";
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
-			messageHelper.setFrom(setFrom);
-			messageHelper.setTo(tomail);
-			messageHelper.setSubject("인증번호");
-			messageHelper.setText(sb.toString());
-			mailSender.send(message);
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		System.out.println("인증번호 : " + chkNum);
+		sendEmail("인증번호",sb.toString(),email);
 		return chkNum;
 	}
 	
@@ -198,8 +201,72 @@ public class LhsController {
 			model.addAttribute("result",result);
 			return "lhs/userChangePassword";
 		}
-		
 	}
 	
+	@GetMapping("userLeaveForm")
+	public String userLeaveForm() {
+		return "lhs/userLeave";
+	}
 	
+	@PostMapping("userLeave")
+	public String userLeave(HttpServletRequest request,Model model,
+				@RequestParam(name = "passwd1")String passwd) {
+		String userNo = request.getSession().getAttribute("user_no").toString();
+		int result = userService.chkPasswordUser(passwd,userNo);
+		if(result==1) {
+			request.getSession().invalidate();
+		}
+		model.addAttribute("result",result);
+		return "lhs/userLeave";
+	}
+	
+	@GetMapping("idSearchForm")
+	public String userIdSearchForm() {
+		return "lhs/idSearch";
+	}
+	
+	@PostMapping("userFindId")
+	public String userIdSearch(@RequestParam(name = "user_email")String email,Model model) {
+		User user = userService.findIdByemail(email);
+		if(user != null) {
+			model.addAttribute("user_id",user.getUser_id());
+			model.addAttribute("user_date",java.sql.Timestamp.valueOf(user.getUser_date()));
+		}
+		return "lhs/idSearchResult";
+	}
+	
+	@GetMapping("passSearchForm")
+	public String userPassSearchForm() {
+		return "lhs/passSearch";
+	}
+	
+	@PostMapping("userFindPass")
+	public String userPassSearch(User user,Model model) {
+		
+		Optional<User> finduser = userService.findPassByIdEmail(user);
+		if(finduser.isPresent()) {
+			System.out.println(finduser.get());
+			StringBuilder sb = new StringBuilder();
+			sb.append("가입하신 아이디에 비밀번호 변경 주소입니다\n");
+			sb.append("주소 : http://localhost:8989/passwordChangeForm?no=" +finduser.get().getUser_no());
+			sendEmail("비밀번호 변경 주소",sb.toString(),finduser.get().getUser_email());
+			model.addAttribute("result", 1);
+		}else {
+			model.addAttribute("result", 0);
+		}
+		return "lhs/passSearch";
+	}
+	
+	@GetMapping("passwordChangeForm")
+	public String userPassChangeForm(@RequestParam(name="no")String no,Model model) {
+		model.addAttribute("user_no", no);
+		return "lhs/passChangeForm";
+	}
+	
+	@PostMapping("passwordChange")
+	public String passwordChange(User user,Model model) {
+		int result = userService.passwordChange(user);
+		model.addAttribute("result", result);
+		return "lhs/passChangeForm";
+	}
 }

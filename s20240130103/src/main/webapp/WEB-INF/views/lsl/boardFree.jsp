@@ -64,7 +64,8 @@
 
 						<!-- Search Bar -->
 						<div class="search-bar">
-							<form class="search-form d-flex align-items-center" method="POST" action="#">
+							<form class="search-form d-flex align-items-center" method="POST"
+								action="#">
 								<input type="text" name="query" placeholder="Search"
 									title="Enter search keyword">
 								<button type="submit" title="Search">
@@ -76,8 +77,6 @@
 
 
 						<!-- 게시판 테이블 -->
-						
-					<form action="boardFreeList" method="post">
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -88,54 +87,66 @@
 									<th scope="col">조회수</th>
 									<th scope="col">댓글</th>
 								</tr>
-								<c:forEach var="boardFree" items="${boardFreeList}" varStatus="index">
+								<c:forEach var="boardFree" items="${boardFreeList}"
+									varStatus="index">
 									<tr>
-										<td>${index.index}</td>
+										<td>${index.index+1}</td>
 										<td>${boardFree.cboard_title}</td>
-										<td>${boardFree.user_no}</td>
+										<td>${boardFree.user_name}</td>
 										<td>${boardFree.cboard_date}</td>
 										<td>${boardFree.cboard_viewcnt}</td>
-										<td>${boardFree.creply_cnt}</td>
+										<td>${boardFree.creply_cnt}</td> 
 									</tr>
 								</c:forEach>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>자유 게시판!!</td>
-									<td>이새잎</td>
-									<td>2016-05-25</td>
-									<td>12</td>
-									<td>0</td>
-								</tr>
-							</tbody>
 						</table>
-						<!-- 게시판 테이블 끝 -->
+
+						<!-- 글쓰기 버튼  -->
 						<div class="text-end">
-							<button type="button" class="btn bfWrite" onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+							<button type="button" class="btn bfWrite"
+								onclick="window.location.href='boardFreeWrite'">글쓰기</button>
 						</div>
-						</form>
-						
-						 
+						<!-- 글쓰기 버튼 끝  -->
 
 						<!-- 페이지 표시 -->
-						<section>
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <span aria-hidden="true">«</span>
-									</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <span aria-hidden="true">»</span>
-									</a></li>
-								</ul>
-							</nav>
-						</section>
+						<c:if test="${bfpage.startPage > bfpage.pageBlock}">
+							<section>
+								<nav aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">
+										<li class="page-item"><a class="page-link"
+											href="boardFreeList?currentPage=${page.startPage-page.pageBlock}"
+											aria-label="Previous"> <span aria-hidden="true">«</span>
+										</a></li>
+									</ul>
+								</nav>
+							</section>
+						</c:if>
+
+						<c:forEach var="i" begin="${bfpage.startPage}"
+							end="${bfpage.endPage}">
+							<section>
+								<nav aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">
+										<li class="page-item"><a class="page-link"
+											href="boardFreeList?currentPage=${i}">${i}</a></li>
+									</ul>
+								</nav>
+							</section>
+						</c:forEach>
+
+						<c:if test="${bfpage.endPage < bfpage.totalPage}">
+							<section>
+								<nav aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">
+										<li class="page-item"><a class="page-link"
+											href="boardFreeList?currentPage=${bfpage.startPage+page.pageBlock}"
+											aria-label="Next"> <span aria-hidden="true">»</span>
+										</a></li>
+									</ul>
+								</nav>
+							</section>
+						</c:if>
+
 						<!-- 페이지 표시 끝 -->
 					</div>
 				</div>
