@@ -12,5 +12,6 @@
       <typeAlias alias="LslUser" type="com.blackberry.s20240130103.lsl.model.LslUser"/>
       <typeAlias alias="KdwMessage" type="com.blackberry.s20240130103.kdw.model.Message"/>
       <typeAlias alias="KdwMessageFile" type="com.blackberry.s20240130103.kdw.model.MessageFile"/>
+      <typeAlias alias="YkmBoardComm" type="com.blackberry.s20240130103.ykm.model.YkmBoardComm"/>
    </typeAliases>
 </configuration>

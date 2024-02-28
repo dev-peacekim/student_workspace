@@ -4,9 +4,6 @@ import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 
 public interface YkmBoardDao {
 
-	int insertStuPost(YkmBoardComm ykmBoardComm, String string);
-
-
-
+	int insertBoardStudyPost(YkmBoardComm ykmBoardComm);
 
 }

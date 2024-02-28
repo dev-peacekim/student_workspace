@@ -14,11 +14,13 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	private final SqlSession session;
 
 	@Override
-	public int insertStuPost(YkmBoardComm ykmBoardComm, String string) {
-		int result = session.insert("ykminsertStuPost", ykmBoardComm);
-		session.insert("ykmPostFiles", ykmBoardComm);
+	public int insertBoardStudyPost(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl insertBoardStudyPost start---*");
+		int result =session.insert("ykmBoardStudyPost", ykmBoardComm);
+		System.out.println("YkmBoardDaoImpl insertBoardStudyPost result=>" + result);
 		return result;
 	}
+
 
 
 

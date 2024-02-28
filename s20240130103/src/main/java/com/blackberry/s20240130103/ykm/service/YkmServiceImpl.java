@@ -14,12 +14,13 @@ public class YkmServiceImpl implements YkmService {
 	private final YkmBoardDao ykmBoardDao;
 
 	@Override
-	public int insertStuPost(YkmBoardComm ykmBoardComm, String string) {
-		int result = ykmBoardDao.insertStuPost(ykmBoardComm, string);	
+	public int insertBoardStudyPost(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl insertBoardStudyPost start---*");
+		int result = ykmBoardDao.insertBoardStudyPost(ykmBoardComm);
 		return result;
 	}
-
-
+	
+	  
 
 }
 

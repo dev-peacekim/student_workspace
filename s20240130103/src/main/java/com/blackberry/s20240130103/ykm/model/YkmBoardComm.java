@@ -9,6 +9,7 @@ public class YkmBoardComm {
 	private int cboard_no;
 	private String cboard_title;
 	private String cboard_content;
+	private int cboard_viewcnt;
 	private String cboard_date;
 	private Long user_no;
 	private int cboard_delete_chk;

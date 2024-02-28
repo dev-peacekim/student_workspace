@@ -77,30 +77,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td><span class="recruiting">모집중</span> 첫 번째 게시판입니다</td>
-								<td>Designer</td>
-								<td>2016-05-25</td>
-								<td>28</td>
-								<td>0</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td><span class="recruited">모집완료</span> 두번째 게시판입니다</td>
-								<td>Developer</td>
-								<td>2014-12-05</td>
-								<td>35</td>
-								<td>0</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Ashleigh Langosh</td>
-								<td>Finance</td>
-								<td>2011-08-12</td>
-								<td>45</td>
-								<td>0</td>
-							</tr>
+							<c:forEach items="${boardStudyList}" var="bslist">
+								<tr>
+									<th scope="row">1</th>
+									<td><span class="recruiting">모집중</span> 첫 번째 글입니다</td>
+									<td>Designer</td>
+									<td>2016-05-25</td>
+									<td>28</td>
+									<td>0</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
