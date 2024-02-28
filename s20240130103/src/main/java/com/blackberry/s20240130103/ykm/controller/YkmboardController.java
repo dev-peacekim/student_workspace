@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class YkmboardController {
 	
-	@Autowired
 	private final YkmService ykmService;
 
 	/* mapping */
@@ -69,16 +68,6 @@ public class YkmboardController {
 
 		return "ykm/boardStudy";
 	}
-	
-	@
-		
-	
-	
-	
-	
-	
-	
-	
 	
 
 	@GetMapping(value="boardUpdatesubmit")
