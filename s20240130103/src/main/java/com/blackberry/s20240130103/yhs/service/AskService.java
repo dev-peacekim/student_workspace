@@ -1,16 +1,17 @@
 package com.blackberry.s20240130103.yhs.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.blackberry.s20240130103.yhs.model.Ask;
 
 public interface AskService {
 
-	List<Ask> getListAllAsk();
+	int totalAsk();
 	
-	Optional<Ask> findById(Long askId);
+	List<Ask> listAsk(Ask ask);
+
+	int updateAsk(Ask ask);
 	
-	void askUpdate(Ask ask);
+	
 
 }

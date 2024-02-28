@@ -211,9 +211,9 @@
               			<table class="table datatable">
                 			<thead>
                   				<tr>
-                    				<th>#</th>
+                    				<th>문의번호</th>
                     				<th>제목</th>
-                    				<th>작성자</th>
+                    				<th>사용자번호</th>
                     				<th>작성일시</th>
                     				<th>답변여부</th>
                     				<th></th>
@@ -226,12 +226,13 @@
 								</tr> --%>
 								
 								
-								<c:forEach items="${ask }" var="BOARD_ADMIN">
+								<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 								<tr>
-									<td>${BOARD_ADMIN.user_no }</td>
+									<td>${BOARD_ADMIN.col }</td>
 									<td>${BOARD_ADMIN.admin_title }</td>						
-									<td>${BOARD_ADMIN.admin_content }</td>
+									<td>${BOARD_ADMIN.user_no }</td>
 									<td>${BOARD_ADMIN.admin_start }</td>
+									<td>${BOARD_ADMIN.admin_reply_chk }</td>
 								</tr>
 								</c:forEach>
                 			</tbody>
@@ -241,6 +242,15 @@
 		  					<a href="askForm">글작성</a></button>
 		  				</div>
               <!-- End Table with stripped rows -->
+              <c:if test="${page.startPage > page.pageBlock }">
+				<a href="listAsk?currentPage=${page.startPage-page.pageBlock}">[이전]</a>
+			</c:if>
+				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+				<a href="listAsk?currentPage=${i}">[${i}]</a>
+				</c:forEach>
+				<c:if test="${page.endPage < page.totalPage }">
+				<a href="listAsk?currentPage=${page.startPage+page.pageBlock}">[다음]</a>
+				</c:if>	
               
             			</div>
           			</div>

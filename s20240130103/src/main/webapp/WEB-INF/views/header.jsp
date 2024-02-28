@@ -207,7 +207,7 @@
 			            </li>
 			            
 			            <li>
-			              <a class="dropdown-item d-flex align-items-center" href="ask">
+			              <a class="dropdown-item d-flex align-items-center" href="askList">
 			                <i class="bi bi-question-circle"></i>
 			                <span>문의하기</span>
 			              </a>

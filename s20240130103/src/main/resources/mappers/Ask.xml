@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.yhs.AskMapper">
+    
+    <select id="askTotal"  resultType="int">
+		SELECT Count(*) FROM BOARD_ADMIN
+   </select>
+	
+   <select id="yhsAskListAll" parameterType="Ask" resultType="Ask">
+     <![CDATA[
+		SELECT *
+		FROM
+		(
+		        SELECT rownum rn , a.*
+		        FROM
+		                   (select * from BOARD_ADMIN order by col) a
+		 )
+		WHERE  rn  >= #{start} 
+ 		and    rn  <= #{end}    
+ 	 ]]>		
+   </select>
+   
+   <update id="yhsAskUpdate" parameterType="Ask">
+		 UPDATE ask SET col=#{col}, admin_title=#{admin_title},
+					    user_id=#{user_id}, 
+					    admin_start=#{admin_start},
+		                ADMIN_REPLY_CHK=#{ADMIN_REPLY_CHK} 
+   </update>
+    
+</mapper>
