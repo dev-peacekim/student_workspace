@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.lsl.BoardFreeAskFileMapper">
     <insert id="lslFreeBoardFile" parameterType="LslBoardComm">
-        <!-- 파일 업로드가 발생할 때마다 파일 카운터 값을 증가 -->
-        <selectKey keyProperty="cboard_file_cnt" resultType="int" order="BEFORE">
-            SELECT NVL(MAX(cboard_file_cnt), 0) + 1 AS cboard_file_cnt FROM board_comm_file WHERE cboard_no = #{cboard_no}
-        </selectKey>
-        
-        <!-- 파일 정보를 삽입하는 쿼리입니다. -->
         INSERT INTO board_comm_file (cboard_no, cboard_file_cnt, cboard_file_name, cboard_file_user_name)
         VALUES (#{cboard_no}, #{cboard_file_cnt}, #{cboard_file_name}, #{cboard_file_user_name})
     </insert>

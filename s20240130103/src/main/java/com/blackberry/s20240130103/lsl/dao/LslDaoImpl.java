@@ -1,6 +1,8 @@
 package com.blackberry.s20240130103.lsl.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +37,61 @@ public class LslDaoImpl implements LslDao {
 	    
 	    return insertResult;
 	}
+
+	@Override
+	public int totalBoardFree() {
+		int totalBoardFreeCnt  = 0;
+		System.out.println("LslDaoImpl totalBoardFreeList Start...");
+		try {
+			totalBoardFreeCnt = session.selectOne("sltotalBoardFreeList");
+			System.out.println("LslDaoImpl totalBoardFreeListCnt -> "+ totalBoardFreeCnt);
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl totalBoardFreeList Exception ->" + e.getMessage());
+		}
+		return totalBoardFreeCnt;
+	}
+
+	@Override
+	public List<LslBoardComm> boardFreeList(LslBoardComm lslBoardComm) {
+		List<LslBoardComm> boardFreeList = null;
+		System.out.println("LslDaoImpl boardFreeList Start...");
+		
+		try {
+			boardFreeList = session.selectList("slBoardFreeListAll", lslBoardComm);
+			System.out.println("LslDaoImpl boardFreeList.size() ->" + boardFreeList.size());
+			System.out.println("DaoList impl board : " + boardFreeList.get(0));
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl boardFreeList Exception ->" + e.getMessage());
+		}
+		return boardFreeList;
+	}
+
+	@Override
+	public int totalBoardAsk() {
+		int totalBoardAskCnt = 0;
+		System.out.println("LslDaoImpl totalBoardAsk Start...");
+		try {
+			totalBoardAskCnt= session.selectOne("sltotalBoardAskList");
+			System.out.println("LslDaoImpl totalBoardAskCnt -> " + totalBoardAskCnt);
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl totalBoardAsk Exception -> " + e.getMessage());
+		}
+		return totalBoardAskCnt;
+	}
+
+	@Override
+	public List<LslBoardComm> boardAskList(LslBoardComm lslBoardComm) {
+		List<LslBoardComm> boardAskList = null;
+		System.out.println("LslDaoImpl boardAskList Start..");
+		try {
+			boardAskList = session.selectList("slBoardAskListAll", lslBoardComm);
+			System.out.println("LslDaoImpl boardAskList.size() ->" + boardAskList.size());
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl boardAskList Exception -> " + e.getMessage());
+		}
+		return boardAskList;
+	}
+
 
 	
 
