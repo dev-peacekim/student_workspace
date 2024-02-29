@@ -39,7 +39,7 @@
                      			GROUP BY PUSER ) e
 		WHERE u.USER_NO = e.PUSER
 			AND u.USER_NO != #{user_no}
-			AND u.USER_NAME = #{user_name}	
+			AND u.USER_NAME LIKE '%' || #{user_name} || '%'	
 	</select>
 	
 </mapper>
