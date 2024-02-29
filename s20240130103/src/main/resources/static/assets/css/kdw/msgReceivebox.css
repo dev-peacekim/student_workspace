@@ -282,9 +282,11 @@ thead th:nth-child(6) {
 	position:absolute;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: -55px;
-    right: 43%;
+    right: 50%;
     bottom: 10px;
+    transform: translateX(50%);
 }
 
 .msgReceivebox-pagination-container .pagination {

@@ -62,61 +62,6 @@
 			}
 		});
 	});
-
-	// 메일리스트 15번 뿌려주기 함수 
-	function createMailItem(index) {
-	    var listItem = document.createElement('tr');
-	    listItem.className = 'list-item';
-
-	    var checkboxCell = document.createElement('td');
-	    var checkbox = document.createElement('input');
-	    checkbox.type = 'checkbox';
-	    checkboxCell.appendChild(checkbox);
-
-	    var readStatus = document.createElement('td');
-	    readStatus.className = 'readStatus';
-	    readStatus.textContent = 'img';
-
-	    var attachment = document.createElement('td');
-	    attachment.className = 'attachment';
-	    attachment.textContent = 'img';
-
-	    var subjectCell = document.createElement('td');
-	    var subjectDiv = document.createElement('div');
-	    subjectDiv.className = 'subject';
-	    subjectDiv.textContent = index + ' 번째 메일 제목이 여기에 들어갑니다.';
-	    subjectCell.appendChild(subjectDiv);
-
-	    var authorCell = document.createElement('td');
-	    var authorDiv = document.createElement('div');
-	    authorDiv.className = 'author';
-	    authorDiv.textContent = '받는이 ' + index;
-	    authorCell.appendChild(authorDiv);
-
-	    var dateCell = document.createElement('td');
-	    var dateDiv = document.createElement('div');
-	    dateDiv.className = 'date';
-	    dateDiv.textContent = '2024-02-21 12:34';
-	    dateCell.appendChild(dateDiv);
-
-	    listItem.appendChild(checkboxCell);
-	    listItem.appendChild(readStatus);
-	    listItem.appendChild(attachment);
-	    listItem.appendChild(subjectCell);
-	    listItem.appendChild(authorCell);
-	    listItem.appendChild(dateCell);
-
-	    return listItem;
-	}
-
-	document.addEventListener('DOMContentLoaded', function() {
-	    var mailList = document.getElementById('mailList');
-
-	    // 15개의 메일 항목 생성하여 테이블에 추가
-	    for (var i = 1; i <= 15; i++) {
-	        mailList.appendChild(createMailItem(i));
-	    }
-	});
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -188,7 +133,18 @@
 							</tr>
 						</thead>
 						<!-- 나중에 구현할때 읽은건 폰트에 bold 빼야함 -->
+						<!-- 테이블 내용 부분 -->
 						<tbody id="mailList">
+							<c:forEach var="message" items="${sentMessages}">
+								<tr class="list-item">
+									<td><input type="checkbox"></td>
+									<td class="readStatus">img</td>
+									<td class="attachment">img</td>
+									<td class="subject">${message.msg_title}</td>
+									<td class="author">${message.msg_sender}</td>
+									<td class="date">${message.msg_createdate}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 						<tbody class="mailList-whiteSpace">
 							<tr>
@@ -208,19 +164,22 @@
 			</div>
 			<!-- 리스트 번호 -->
 			<nav aria-label="Page navigation"
-				class="msgReceivebox-pagination-container">
+				class="msgSendbox-pagination-container">
 				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.startPage - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
+
+					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+						<li class="page-item ${i eq page.currentPage ? 'active' : ''}">
+							<a class="page-link" href="?currentPage=${i}">${i}</a>
+						</li>
+					</c:forEach>
+
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.endPage + 1}" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span></a></li>
 				</ul>
 			</nav>
 		</div> <!-- card END -->

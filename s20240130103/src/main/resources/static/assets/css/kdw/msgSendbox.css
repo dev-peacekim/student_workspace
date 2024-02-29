@@ -276,25 +276,26 @@ thead th:nth-child(6) {
 
 
 /*========== 쪽지 페이지 리스트 ==========*/
-.msgReceivebox-pagination-container {
+.msgSendbox-pagination-container {
 	position:absolute;
     display: flex;
     justify-content: center;
     margin-top: -55px;
-    right: 43%;
+    right: 50%;
     bottom: 10px;
+    transform: translateX(50%);
 }
 
-.msgReceivebox-pagination-container .pagination {
+.msgSendbox-pagination-container .pagination {
     margin: 0;
 }
 
-.msgReceivebox-pagination-container .pagination li {
+.msgSendbox-pagination-container .pagination li {
     margin: 0; /* 각 번호 간격 조절 */
     
 }
 
-.msgReceivebox-pagination-container .pagination a {
+.msgSendbox-pagination-container .pagination a {
     color: #8A8A8A;
     font-weight: bold;
     text-decoration: none;
@@ -311,11 +312,11 @@ thead th:nth-child(6) {
     background-color: rgba(255, 255, 255, 0);
 }
 
-.msgReceivebox-pagination-container .pagination a:hover {
+.msgSendbox-pagination-container .pagination a:hover {
      background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
 }
 
-.msgReceivebox-pagination-container .pagination .active a {
+.msgSendbox-pagination-container .pagination .active a {
     background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
     color: #0D6DFD;
     border: 1px solid #0D6DFD;

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.MessageMapper">
-	<!-- 받은 쪽지 전체 개수 -->
-	<select id="totMsgReceiveCount" resultType="int">
-		SELECT Count(*) FROM message
+
+	<!-- 받은 쪽지 개수 -->
+	<select id="totReceiveMsgCnt" resultType="int" parameterType="map">
+	    SELECT COUNT(*) FROM message
+	    WHERE msg_receiver = #{msgReceiver}
 	</select>
-	
+	<!-- 보낸 쪽지 개수 -->
+	<select id="totSentMsgCnt" resultType="int" parameterType="map">
+	    SELECT COUNT(*) FROM message
+	    WHERE msg_sender = #{msgSender}
+	</select>
 	
 	<!-- 받은 쪽지 리스트 가져오기 -->
     <select id="kdwReceivedMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
@@ -22,7 +28,21 @@
 	    and rn <= #{end}
 	    ]]>
 	</select>
-	
+	<!-- 보낸 쪽지 리스트 가져오기 -->
+    <select id="kdwSentMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
+	    <![CDATA[
+	    SELECT
+	    *
+	    FROM
+	    (
+	        SELECT rownum rn, a.*
+	        FROM
+	        (select * from message WHERE msg_sender = #{msgSender} order by msg_no DESC) a
+	    )
+	    WHERE rn >= #{start}
+	    and rn <= #{end}
+	    ]]>
+	</select>
 	
 	<!-- 받은 쪽지함에 삽입 (쪽지 보내기) -->
     <insert id="kdwMessageInsert" parameterType="KdwMessage">

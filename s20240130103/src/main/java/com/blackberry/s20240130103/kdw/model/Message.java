@@ -11,7 +11,7 @@ public class Message {
     private String msg_createdate;
     private String msg_readdate;
     private Long msg_sender;
-    private int msg_receiver;
+    private Long msg_receiver;
     private int msg_delete_chk;
     private int msg_store_chk;
     

@@ -23,31 +23,50 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 public class MsgServiceImpl implements MsgService {
-	
+	@Autowired
 	private final MsgDao msgDao;
 	
-	// 쪽지 리스트 
+	// 받은 쪽지 개수를 반환
+	@Override
+	public int totReceiveMsgCnt(Long msgReceiver) {
+		log.info("MsgServiceImpl totReceiveMsgCnt start...");
+		int totReceiveMsgCnt = msgDao.totReceiveMsgCnt(msgReceiver);
+		log.info("MsgServiceImpl totReceiveMsgCnt totMsgCnt->"+totReceiveMsgCnt);
+		return totReceiveMsgCnt;
+	}
+	// 보낸 쪽지 개수를 반환
+	@Override
+	public int totSentMsgCnt(Long msgSender) {
+		log.info("MsgServiceImpl totSendMsgCnt start...");
+		int totSentMsgCnt = msgDao.totSentMsgCnt(msgSender);
+		log.info("MsgServiceImpl totSendMsgCnt totMsgCnt->"+totSentMsgCnt);
+		return totSentMsgCnt;
+	}
+	
+	// 받은 쪽지 리스트 
 	@Override
 	public List<Message> getReceivedMessages(Long msgReceiver, int start, int end) {
         log.info("msgDao getReceivedMessages start...");
         return msgDao.getReceivedMessages(msgReceiver, start, end);
 	}
-
+	// 보낸 쪽지 리스트 
+	@Override
+	public List<Message> getSentMessages(Long msgSender, int start, int end) {
+        log.info("msgDao getSentMessages start...");
+        return msgDao.getSentMessages(msgSender, start, end);
+	}
+	
 	// 쪽지 보내기
 	@Override
 	public void sendMessage(Message message) {
 		log.info("MsgServiceImpl sendMessage start...");
 		msgDao.saveMessage(message);
 	}
-	
-	// 받은 쪽지함에 대한 전체 쪽지 개수를 반환
-	@Override
-	public int totalMsgReceive() {
-		log.info("MsgServiceImpl totalMsgReceive start...");
-		int totMsgReceiveCnt = msgDao.totMsgReceiveCnt();
-		log.info("MsgServiceImpl totalMsgReceive totMsgReceiveCnt->"+totMsgReceiveCnt);
-		return totMsgReceiveCnt;
-	}
+
+
+
+
+
 
 
 

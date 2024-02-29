@@ -37,7 +37,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
+
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/msgReceivebox.css" rel="stylesheet">
 
@@ -64,7 +64,6 @@
 	});
 
 	// 메일리스트 가져오기
-
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -100,7 +99,7 @@
 				</div>
 				<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 				<div id="noteCount" class="note-count">
-				    전체쪽지&nbsp;&nbsp;<span id="readCount">3</span>/<span id="totalCount">15</span>
+					전체쪽지&nbsp;&nbsp;<span id="readCount">3</span>/<span id="totalCount">15</span>
 				</div>
 				<!-- 검색바&드롭박스 -->
 				<div class="search-container">
@@ -169,14 +168,24 @@
 			<nav aria-label="Page navigation"
 				class="msgReceivebox-pagination-container">
 				<ul class="pagination">
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.startPage - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+					</a></li>
+
 					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 						<li class="page-item ${i eq page.currentPage ? 'active' : ''}">
 							<a class="page-link" href="?currentPage=${i}">${i}</a>
 						</li>
 					</c:forEach>
+
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.endPage + 1}" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span></a></li>
 				</ul>
 			</nav>
-		</div> <!-- card END -->
+		</div>
+		<!-- card END -->
 	</main>
 	<!-- 받은 쪽지함 Main END-->
 

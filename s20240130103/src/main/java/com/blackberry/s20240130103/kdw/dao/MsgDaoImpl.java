@@ -18,20 +18,38 @@ public class MsgDaoImpl implements MsgDao {
 	
 	private final SqlSession session;
 	
-	// 받은쪽지 전체 개수
+	// 받은 쪽지 전체 개수
 	@Override
-	public int totMsgReceiveCnt() {
-		int totMsgReceiveCount = 0;
-		System.out.println("EmpDaoImpl start total...");
-		try {
-			totMsgReceiveCount = session.selectOne("com.blackberry.s20240130103.MessageMapper.totMsgReceiveCount");
-			System.out.println("MsgDaoImpl totMsgReceiveCnt totMsgReceiveCount->" + totMsgReceiveCount);
-		} catch (Exception e) {
-			System.out.println("MsgDaoImpl totMsgReceiveCnt Exception ->" + e.getMessage());
-		}
-		return totMsgReceiveCount;
+	public int totReceiveMsgCnt(Long msgReceiver) {
+	    int totReceiveMsgCnt = 0;
+	    try {
+	        Map<String, Long> parameterMap = new HashMap<>();
+	        parameterMap.put("msgReceiver", msgReceiver);
+	        totReceiveMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totReceiveMsgCnt", parameterMap);
+	        System.out.println("MsgServiceImpl totMsgCnt totReceiveMsgCnt->" + totReceiveMsgCnt);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+	    }
+	    return totReceiveMsgCnt;
 	}
-	// 받은 쪽지 가져오기
+	// 보낸 쪽지 전체 개수
+	@Override
+	public int totSentMsgCnt(Long msgSender) {
+	    int totSentMsgCnt = 0;
+	    try {
+	        Map<String, Long> parameterMap = new HashMap<>();
+	        parameterMap.put("msgSender", msgSender);
+	        totSentMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totSentMsgCnt", parameterMap);
+	        System.out.println("MsgServiceImpl totSentMsgCnt->" + totSentMsgCnt);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgServiceImpl totSentMsgCnt Exception ->" + e.getMessage());
+	    }
+	    return totSentMsgCnt;
+	}
+
+	// 받은 쪽지 리스트 가져오기
 	@Override
 	public List<Message> getReceivedMessages(Long msgReceiver, int start, int end) {
 	    List<Message> receivedMessages = null;
@@ -45,12 +63,35 @@ public class MsgDaoImpl implements MsgDao {
 
 	        receivedMessages = session.selectList("kdwReceivedMessagesAll", paramMap);
 	        System.out.println("MsgDaoImpl getReceivedMessages receivedMessages.size()->" + receivedMessages.size());
+	        System.out.println("MsgDaoImpl getReceivedMessages start&end" + start + end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getReceivedMessages e.getMessage()->" + e.getMessage());
 	    }
 
 	    return receivedMessages;
+	}
+	// 보낸 쪽지 리스트 가져오기
+	@Override
+	public List<Message> getSentMessages(Long msgSender, int start, int end) {
+	    List<Message> SentMessages = null;
+	    System.out.println("MsgDaoImpl getSentMessages start...");
+
+	    try {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("msgSender", msgSender);
+	        paramMap.put("start", start);
+	        paramMap.put("end", end);
+
+	        SentMessages = session.selectList("kdwSentMessagesAll", paramMap);
+	        System.out.println("MsgDaoImpl getSentMessages SentMessages.size()->" + SentMessages.size());
+	        System.out.println("MsgDaoImpl getSentMessages start&end" + start + end);
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 에러 상세 내용 출력
+	        System.out.println("MsgDaoImpl getSentMessages e.getMessage()->" + e.getMessage());
+	    }
+
+	    return SentMessages;
 	}
 	
 	@Override
@@ -62,6 +103,11 @@ public class MsgDaoImpl implements MsgDao {
 	        System.out.println("MsgDaoImpl saveMessage Exception: " + e.getMessage());
 	    }
 	}
+
+
+
+
+
 
 
 
