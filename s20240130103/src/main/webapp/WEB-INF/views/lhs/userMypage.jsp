@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,8 +56,13 @@
 				</c:otherwise>
              </c:choose>
              <h2 class="photoUsername">${user.user_name }</h2>
-             <div class="social-links mt-2">
-                대충별점위치
+             <div class="social-links mt-2 fntsize25">
+             <c:forEach var="i" begin="0" end="${user_score-1 }">
+             	<i class="bi bi-star-fill"></i>
+             </c:forEach>
+             <c:forEach var="i" begin="0" end="${5-user_score-1 }">
+             	<i class="bi bi-star"></i>
+             </c:forEach>
              </div>
            </div>
          </div>
@@ -124,7 +130,9 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">가입일</div>
-                    <div class="col-lg-9 col-md-8">${user.user_date }</div>
+                    <div class="col-lg-9 col-md-8">
+                    	<fmt:formatDate value="${user_date }" dateStyle="full"/>
+                    </div>
                   </div>
 
                 </div>

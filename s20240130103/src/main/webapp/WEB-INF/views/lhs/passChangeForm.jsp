@@ -68,7 +68,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">비밀번호 입력</h5>
                   </div>
                   <form class="row g-3 needs-validation" action="passwordChange" method="post">
-                  <input type="hidden" value="${user_no }" name="user_id">
+                  <input type="hidden" name="user_no" value="${user_no }">
                     <div class="col-12">
                       <label for="yourUserpassword" class="form-label">새 비밀번호</label>
                       <div class="input-group has-validation">

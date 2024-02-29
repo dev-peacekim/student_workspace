@@ -20,6 +20,5 @@ public interface UserRepository {
 	Optional<User> findIdByemail(String email);
 
 	Optional<User> findPassByIdEmail(User user);
-	
 
 }

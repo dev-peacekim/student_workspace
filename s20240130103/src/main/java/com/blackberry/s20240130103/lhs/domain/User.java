@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,12 +43,13 @@ public class User {
 	private String user_profile;
 	@Column(nullable = false)
 	private int user_delete_chk;
-	
 	@Column(nullable = false,updatable = false)
 	private LocalDateTime user_date;
-	
 	@UpdateTimestamp
 	@Column(insertable = false)
 	private LocalDateTime user_update_date;
+	//-----------조회용 컬럼-------------
+	@Transient
+	private double eval_score;
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blackberry.s20240130103.lhs.domain.User;
+import com.blackberry.s20240130103.lhs.service.EvalService;
 import com.blackberry.s20240130103.lhs.service.UserService;
 
 import jakarta.mail.internet.MimeMessage;
@@ -31,6 +32,7 @@ public class LhsController {
 	
 	private final JavaMailSender mailSender;
 	private final UserService userService;
+	private final EvalService evalService;
 	
 	@GetMapping(value = "loginForm")
 	public String loginForm() {
@@ -165,10 +167,14 @@ public class LhsController {
 	}
 	
 	@GetMapping("myPage")
-	public String userProfile(HttpServletRequest request,Model model) {
+	public String userMypage(HttpServletRequest request,Model model) {
 		String userNo = request.getSession().getAttribute("user_no").toString();
 		User user = userService.findUserByNo(userNo);
+		double scoreavg = evalService.avgScoreByNo(userNo);
+		System.out.println("LHSController userMypage user-> " +user);
 		model.addAttribute("user", user);
+		model.addAttribute("user_date", java.sql.Timestamp.valueOf(user.getUser_date()));
+		model.addAttribute("user_score", (int)scoreavg);
 		return "lhs/userMypage";
 	}
 	

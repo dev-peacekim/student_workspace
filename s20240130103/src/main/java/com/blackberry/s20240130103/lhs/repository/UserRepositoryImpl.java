@@ -43,6 +43,7 @@ public class UserRepositoryImpl implements UserRepository {
 		return entityManager.find(User.class, userNo);
 	}
 	
+	
 	@Override
 	public void updateUser(User user, String userNo) {
 		User finduser = entityManager.find(User.class, userNo);

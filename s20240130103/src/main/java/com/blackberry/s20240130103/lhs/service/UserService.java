@@ -26,4 +26,5 @@ public interface UserService {
 	Optional<User> findPassByIdEmail(User user);
 
 	int passwordChange(User user);
+
 }
