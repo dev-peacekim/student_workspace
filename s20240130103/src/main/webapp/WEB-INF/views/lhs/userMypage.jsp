@@ -57,10 +57,10 @@
              </c:choose>
              <h2 class="photoUsername">${user.user_name }</h2>
              <div class="social-links mt-2 fntsize25">
-             <c:forEach var="i" begin="0" end="${user_score-1 }">
+             <c:forEach var="i" begin="1" end="${user_score }">
              	<i class="bi bi-star-fill"></i>
              </c:forEach>
-             <c:forEach var="i" begin="0" end="${5-user_score-1 }">
+             <c:forEach var="i" begin="1" end="${5-user_score }">
              	<i class="bi bi-star"></i>
              </c:forEach>
              </div>

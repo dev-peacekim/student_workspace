@@ -58,7 +58,7 @@
 		      </li><!-- End Forms Nav -->
 		
 		      <li class="nav-item">
-		        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="/address">
+		        <a class="nav-link collapsed" href="address">
 		          <i class="bi bi-people-fill"></i><span>주소록</span>
 		        </a>
       		</li><!-- End Charts Nav -->

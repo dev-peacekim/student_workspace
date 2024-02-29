@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.maindiv{
+	width: 100%;
+    height: 750px;
+    min-height: 500px;
+    min-width: 500px;
+    background-color: white;
+    border-radius: 5px;
+    border : 1px solid black;
+}
+.navmargin{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.nav-tabs-bordered{
+	border-bottom: 0;
+}
+
+.width300{
+	width: 300px;
+}

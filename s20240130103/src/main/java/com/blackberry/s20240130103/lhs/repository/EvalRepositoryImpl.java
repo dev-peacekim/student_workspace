@@ -17,10 +17,13 @@ public class EvalRepositoryImpl implements EvalRepository {
 		String jpql = "select avg(e.eval_score) FROM Eval e WHERE e.puser = :userNo order by e.puser";
 		try {
 			score = (Double)entityManager.createQuery(jpql).setParameter("userNo", userNo).getSingleResult();
+			return score;
+		}catch (NullPointerException npe) {
+			System.out.println("evalrepository exception e : " + npe.getMessage());
 		}catch (Exception e) {
 			System.out.println("evalrepository exception e : " + e.getMessage());
 		}
-		return score;
+		return 0;
 	}
 
 }

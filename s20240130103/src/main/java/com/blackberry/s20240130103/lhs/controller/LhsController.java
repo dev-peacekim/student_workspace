@@ -171,7 +171,6 @@ public class LhsController {
 		String userNo = request.getSession().getAttribute("user_no").toString();
 		User user = userService.findUserByNo(userNo);
 		double scoreavg = evalService.avgScoreByNo(userNo);
-		System.out.println("LHSController userMypage user-> " +user);
 		model.addAttribute("user", user);
 		model.addAttribute("user_date", java.sql.Timestamp.valueOf(user.getUser_date()));
 		model.addAttribute("user_score", (int)scoreavg);
@@ -274,5 +273,11 @@ public class LhsController {
 		int result = userService.passwordChange(user);
 		model.addAttribute("result", result);
 		return "lhs/passChangeForm";
+	}
+	
+	@GetMapping("address")
+	public String addressForm() {
+		System.out.println("왜 안나와");
+		return "lhs/address";
 	}
 }
