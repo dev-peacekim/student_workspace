@@ -14,5 +14,6 @@ public interface AskService {
 	Ask detailAsk(int user_no);
 	
 	
+	
 
 }
