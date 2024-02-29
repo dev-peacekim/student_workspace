@@ -220,8 +220,8 @@
                 			<thead>
                   				<tr>
                     				<th>문의번호</th>
+                    				<th>사용자번호</th>
                     				<th>제목</th>
-                    				<th>내용</th>
                     				<th>작성일시</th>
                     				<th>답변여부</th>
                     				<th></th>
@@ -237,10 +237,10 @@
 								<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 								<tr>
 									<td>${BOARD_ADMIN.admin_no }</td>
-									<td>${BOARD_ADMIN.admin_title }</td>						
-									<td><a href="detailAsk?admin_content=${BOARD_ADMIN.admin_content}">${BOARD_ADMIN.admin_content}</a>${BOARD_ADMIN.admin_content}</td>
+									<td>${BOARD_ADMIN.user_no }</td>						
+									<td><a href="detailAsk?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
 									<td>${BOARD_ADMIN.admin_start }</td>
-									<td>${BOARD_ADMIN.admin_reply_chk }</td>
+									<td>${BOARD_ADMIN.admin_reply_chk }</td>	
 								</tr>
 								</c:forEach>
                 			</tbody>

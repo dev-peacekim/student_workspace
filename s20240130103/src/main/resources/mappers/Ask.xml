@@ -28,5 +28,10 @@
 					    admin_start=#{admin_start},
 		                ADMIN_REPLY_CHK=#{ADMIN_REPLY_CHK}
    </update>
+   
+   <select id="yhsAskSelOne"  parameterType="long"  resultType="Ask" >
+        SELECT * FROM  BOARD_ADMIN WHERE user_no = #{user_no}   
+   </select> 
+   
     
 </mapper>

@@ -64,7 +64,7 @@ public class AskController {
 //
 //		2. AskDao   detailAsk method 선언 
 ////		                    mapper ID   ,    Parameter
-//		emp = session.selectOne("tkEmpSelOne",    empno);
+//		ask = session.selectOne("tkEmpSelOne",    empno);
 //		System.out.println("ask->"+ask1);
 		Ask ask = askService.detailAsk(ask1.getUser_no());
 		model.addAttribute("ask",ask);
