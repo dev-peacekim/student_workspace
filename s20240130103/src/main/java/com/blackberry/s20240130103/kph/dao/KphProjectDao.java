@@ -25,5 +25,7 @@ public interface KphProjectDao {
 	int eval(KphEval eval);
 
 	List<KphUsers> addressUserList(Long user_no);
+
+	List<KphUsers> addressUserListByName(KphUsers user);
 	
 }

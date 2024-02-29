@@ -29,7 +29,7 @@
 	margin-bottom: 20px;
 }
 
-.my-project-detail> div:last-child {
+.my-project-detail>div:last-child {
 	display: flex;
 }
 
@@ -50,7 +50,7 @@
 	padding: 20px 20px 20px 20px;
 }
 
-.card-body div {
+.card-body> div {
 	justify-content: space-between;
 }
 
@@ -86,11 +86,12 @@
 
 .all-project-report-box {
 	display: flex;
+	justify-content: space-between;
 }
 
 .all-project-report-detail {
 	flex: initial;
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
@@ -104,11 +105,11 @@
 	overflow-y: auto;
 }
 
-.all-project-report-detail> div:first-child {
+.all-project-report-detail>div:first-child {
 	width: 78%
 }
 
-.all-project-report-detail> div p:first-child {
+.all-project-report-detail>div p:first-child {
 	font-family: 'NanumSquare', sans-serif;
 	font-weight: bold;
 	font-size: 20px;
@@ -127,7 +128,7 @@
 	font-weight: 800;
 }
 
-.all-project-report-detail> div p:last-child {
+.all-project-report-detail>div p:last-child {
 	font-family: 'NanumSquare', sans-serif;
 	text-decoration: underline;
 	margin-bottom: 0rem;
@@ -203,6 +204,7 @@
 
 .address-header {
 	display: flex;
+	justify-content: space-between;
 	text-align: center;
 	align-items: center;
 	margin-bottom: 10px;
@@ -246,17 +248,14 @@
 
 .address-list {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
+	gap: 20px;
 	overflow-y: auto;
-	height: 400px;
 }
 
 .address-list .address-list-card {
 	display: flex;
 	align-items: center;
-	margin-bottom: 20px;
-	
 	width: 32%;
 	height: 100px;
 	border-radius: 5px;
@@ -269,6 +268,7 @@
 .address .address-list-card .address-list-card-detail {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 	margin: 20px;
 }

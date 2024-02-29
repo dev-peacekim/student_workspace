@@ -66,5 +66,11 @@ public class KphProjectDaoImp implements KphProjectDao {
 		System.out.println("KphProjectDaoImp addressUserList start...");
 		return session.selectList("kphAddressUserList", user_no);
 	}
+
+	@Override
+	public List<KphUsers> addressUserListByName(KphUsers user) {
+		System.out.println("KphProjectDaoImp addressUserListByName start...");
+		return session.selectList("kphAddressUserListByName", user);
+	}
 	
 }

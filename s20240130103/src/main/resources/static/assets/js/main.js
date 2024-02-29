@@ -102,27 +102,29 @@
 })();
 
 $('#search-btn').on("click", () => {
-  const name = $("#search-text").val();
+  const user_name = $("#search-text").val();
 
   $(".address-list").empty();
 
     $.ajax({
-      type: "get",
+      type: "post",
       url: "projectAddressSearch",
-      data: {name: name},
+      data: JSON.stringify({user_name: user_name}),
+      contentType: "application/json",
+      dataType: 'json',
       success: function (response) {
-        response.forEach((item) => {
+        response.forEach((user) => {
           $(".address-list").append(`
             <div class="address-list-card">
               <div class="address-list-card-detail">
                 <div class="profile-img-user-name">
-                  <img src="/upload/userImg/${item.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
-                  <p class="user-name">${item.user_name}</p>
+                  <img src="/upload/userImg/${user.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+                  <p class="user-name">${user.user_name}</p>
                 </div>
                 <div class="score-message">
-                  <div class="user-score rounded-circle">${item.user_score}</div>
+                  <div class="user-score rounded-circle">${user.user_score.toFixed(1)}</div>
                   <form action="" method="get">
-                    <input type="hidden" name="user_no" value="${item.user_no}">
+                    <input type="hidden" name="user_no" value="${user.user_no}">
                     <button type="submit" class="rounded-circle message"><i class="bi bi-envelope-fill"></i></button>
                   </form>
                 </div>
@@ -133,4 +135,10 @@ $('#search-btn').on("click", () => {
       }
     });
 
+});
+
+$('#search-text').on('keyup', (event) => {
+    if (event.keyCode === 13) {
+        $('#search-btn').click(); 
+    }
 });

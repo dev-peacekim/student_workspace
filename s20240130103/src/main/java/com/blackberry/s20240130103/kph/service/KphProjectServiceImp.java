@@ -80,5 +80,13 @@ public class KphProjectServiceImp implements KphProjectService {
 		List<KphUsers> addressUserList = kphProjectDao.addressUserList(user_no);
 		return addressUserList;
 	}
+
+
+	@Override
+	public List<KphUsers> addressUserListByName(KphUsers user) {
+		System.out.println("KphProjectServiceImp addressUserListByName start...");
+		List<KphUsers> addressUserList = kphProjectDao.addressUserListByName(user);
+		return addressUserList;
+	}
 	
 }

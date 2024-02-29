@@ -35,6 +35,7 @@
     <link href="assets/css/kph/mainSecssion.css"  rel="stylesheet"  type="text/css"> <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
      
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -92,13 +93,13 @@
 		          					<div class="progress" style="width:70%; margin-top:20px; height: 20px; border-radius: 10px; background-color: rgba(246, 249, 255, 0.3);">
 					                <c:choose>
 					                	<c:when test="${project.comp_task_count == 0 && project.uncomp_task_count !=0 }">
-					                		<div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%; height: 30px; line-height: 20px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+					                		<div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
 					                	</c:when>
 					                    <c:when test="${project.comp_task_count + project.uncomp_task_count != 0}">
-					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: ${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%; height: 30px; line-height: 20px;" aria-valuenow="${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}" aria-valuemin="0" aria-valuemax="100">${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%</div>
+					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: ${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%;" aria-valuenow="${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}" aria-valuemin="0" aria-valuemax="100">${(project.comp_task_count/(project.comp_task_count+project.uncomp_task_count))*100}%</div>
 					                    </c:when>
 					                    <c:otherwise>
-					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%; height: 30px; line-height: 20px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+					                        <div class="progress-bar" role="progressbar" style="color:white; font-weight: bold; width: 9%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
 					                    </c:otherwise>
 					                </c:choose>
 				            		</div>
@@ -154,7 +155,7 @@
 							</div>
 						</div>
 						<div class="address-list">
-							<c:forEach var="addressUser" items="${addressUsertList }">
+							<c:forEach var="addressUser" items="${addressUserList }">
 								<div class="address-list-card">
 									<div class="address-list-card-detail">
 										<div class="profile-img-user-name">

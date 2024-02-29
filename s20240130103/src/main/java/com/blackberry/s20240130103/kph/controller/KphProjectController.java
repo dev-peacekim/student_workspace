@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -14,10 +15,14 @@ import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
+import com.blackberry.s20240130103.lhs.domain.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -54,13 +59,16 @@ public class KphProjectController {
 		int totalTaskCount = totalCompTaskCount+totalUnCompTaskCount;
 		
 		// 주소록 유저 리스트
-		// List<KphUsers> addressUserList = kphProjectService.addressUserList(user_no);
+		List<KphUsers> addressUserList = kphProjectService.addressUserList(user_no);
 		
 		System.out.println("KphProjectController mainLogic projectList size=>" + projectList.size());
+		System.out.println("KphProjectController mainLogic addressUserList size=>" + addressUserList.size());
+		
 		model.addAttribute("projectList", projectList);
 		model.addAttribute("totalCompTaskCount", totalCompTaskCount);
 		model.addAttribute("totalUnCompTaskCount", totalUnCompTaskCount);
 		model.addAttribute("totalTaskCount", totalTaskCount);
+		model.addAttribute("addressUserList", addressUserList);
 		return "main";
 	}
 	
@@ -128,5 +136,27 @@ public class KphProjectController {
 		
 		return "redirect:/main";
 	}
+	
+	@PostMapping("projectAddressSearch")
+	@ResponseBody
+	public List<KphUsers> projectAddressSearch(@RequestBody KphUsers user, HttpServletRequest request) {
+		
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		user.setUser_no(user_no);
+		System.out.println(user);
+		
+		List<KphUsers> userList = null;
+		
+		if (user.getUser_name() == "") {
+			userList = kphProjectService.addressUserList(user_no);
+			System.out.println(userList);
+		} else {
+			userList = kphProjectService.addressUserListByName(user);
+			System.out.println(userList);
+		}
+		
+		return userList;
+	}
+	
 	
 }

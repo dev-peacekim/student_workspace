@@ -17,6 +17,6 @@ public class KphUsers {
 	private String user_date;
 	
 	// 조회용 테이블
-	private int user_score;
+	private double user_score;
 	
 }

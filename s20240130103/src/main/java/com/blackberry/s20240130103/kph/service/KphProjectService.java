@@ -26,4 +26,6 @@ public interface KphProjectService {
 
 	List<KphUsers> addressUserList(Long user_no);
 
+	List<KphUsers> addressUserListByName(KphUsers user);
+
 }
