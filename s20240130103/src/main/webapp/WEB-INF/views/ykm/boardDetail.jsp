@@ -25,18 +25,19 @@
 		<!-- End Page Title -->
 		<section class="community-post-detail">
 			<div class="row card card-body">
-				<c:forEach items="${renderPostContent}">
-					<div class="card-header community-post-header">
-						<h3 class="card-title post-header-title">함께 공부할 스티디원 모집합니다!</h3>
+				<div class="card-header community-post-header">
+					<c:forEach items="${renderPostContent}" var="post">
+						<h3 class="card-title post-title">${post.cboard_title}</h3>
 						<div class="card-subtitle post-user-container">
-							<i class="bi bi-person-circle post-user-profile" alt="유저 프로필"></i>
+							<i class="bi bi-person-circle post-user-profile"
+								alt="${post.user_profile}"></i>
 							<div class="card-title-header">
 								<h5 class="card-title post-user-info">
-									<a href="#">유저네임</a>
+									<a href="#">${post.user_id}</a>
 								</h5>
 								<div class="card-subtitle post-subtitle">
-									<p class="post-updated-at">작성일 2024.02.23 오후 5:24</p>
-									<p class="post-veiw-count">조회수 11</p>
+									<p class="post-updated-at">${post.cboard_date}</p>
+									<p class="post-veiw-count">조회수 ${post.cboard_viewcnt}</p>
 								</div>
 							</div>
 							<div class="modify-container">
@@ -44,19 +45,18 @@
 									<button type="button" class="badge bg-light text-dark">
 										<i class="bi bi-pencil-fill"></i> 수정
 									</button>
-									<button type="button"class="badge bg-light text-dark">
+									<button type="button" class="badge bg-light text-dark">
 										<i class="bi bi-trash"></i> 삭제
 									</button>
 								</form>
 							</div>
 						</div>
-					</div>
-
-					<div class="community-post-body">
-						<span class="post-content">함께 할 수 있으면 좋을 것 같습니다!</span>
-					</div>
+				</div>
+				<div class="community-post-body">
+					<span class="post-content">${post.cboard_content}</span>
+				</div>
 				</c:forEach>
-				
+
 				<div class="community-post-answer">
 					<div class="answer-form">
 						댓글 <span class="answer-count">23</span>
@@ -86,9 +86,8 @@
 							<p class="card-subtitle comment-updated-at">작성일 2024.02.24 오후
 								2:24</p>
 						</div>
-						<div class="reply-container">
-							<span id="replyBtn" class="badge bg-light text-dark"><i
-								class="bi bi-reply-fill"></i> 댓글</span>
+						<div class="replyBtn badge bg-light text-dark">
+							<i class="bi bi-reply-fill"></i> 댓글
 						</div>
 					</div>
 					<div class="comment-body">

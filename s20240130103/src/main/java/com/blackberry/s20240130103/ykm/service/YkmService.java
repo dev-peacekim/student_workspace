@@ -10,6 +10,6 @@ public interface YkmService {
 
 	List<YkmBoardComm> spreadBoardList();
 	
-	List<YkmBoardComm> renderPostContent();
+	List<YkmBoardComm> renderPostContent(int cboard_no);
 
 }

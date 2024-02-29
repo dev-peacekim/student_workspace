@@ -33,12 +33,12 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 
 	@Override
-	public List<YkmBoardComm> renderPostContent() {
+	public List<YkmBoardComm> renderPostContent(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl renderPostContent ---*");
-		List<YkmBoardComm> renderPostContent = session.selectList("ykmRenterPost");
-		return null;
+		List<YkmBoardComm> renderPostContent = session.selectList("ykmRenderPost", cboard_no);
+		System.out.println("renderPostContent result --> "+renderPostContent.size());
+		return renderPostContent;
 	}
-
 
 
 }
