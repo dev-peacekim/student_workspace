@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +85,7 @@
 									<td><span class="recruiting">모집중</span>	
 										<a href="boardDetail?cboard_no=${bslist.cboard_no}">${bslist.cboard_title}</a></td>						
 									<td>${bslist.user_id}</td>
-									<td>${bslist.cboard_date}</td>
+									<td><fmt:formatDate value="${bslist.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${bslist.reply_cnt}</td>
 									<td>${bslist.cboard_viewcnt}</td>
 								</tr>

@@ -2,12 +2,13 @@ package com.blackberry.s20240130103.ykm.service;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
+
 
 import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,30 +31,23 @@ public class YkmServiceImpl implements YkmService {
 		Iterator<YkmBoardComm> boardIter = spreadBoardList.iterator();
 		while (boardIter.hasNext()) {
 			YkmBoardComm ykmBoardComm = boardIter.next();
-			ykmBoardComm.setCboard_date(ykmBoardComm.getCboard_date().substring(0, 10));
+			//ykmBoardComm.setCboard_date(ykmBoardComm.getCboard_date().substring(0, 10));
 		}
 		return spreadBoardList;
 	}
 
 	@Override
-	public List<YkmBoardComm> renderPostContent(int cboard_no) {
-		List<YkmBoardComm> renderPostContent = ykmBoardDao.renderPostContent(cboard_no);
-		 
-		for (YkmBoardComm ykmBoardComm : renderPostContent) {
-		        String cboard_date = ykmBoardComm.getCboard_date();
-		        StringTokenizer tokenizer = new StringTokenizer(cboard_date, " ");
-		      
-		        String dateToken = tokenizer.nextToken();
-		        String timeToken = tokenizer.nextToken();
-		        
-		        String[] timeTokens = timeToken.split(":");
-		        int hour = Integer.parseInt(timeTokens[0])-12;
-		        
-		        String amPm = (hour >= 12)? "오후":"오전";
-		}
-		
+	public YkmBoardComm renderPostContent(int cboard_no) {
+		YkmBoardComm renderPostContent = ykmBoardDao.renderPostContent(cboard_no);
 		return renderPostContent;
 	}
 
+	@Override
+	public void insertStudyPostComment(YkmBoardCommReply ykmBoardCommReply) {
+		
+		
+	}
+
+	
 	
 }

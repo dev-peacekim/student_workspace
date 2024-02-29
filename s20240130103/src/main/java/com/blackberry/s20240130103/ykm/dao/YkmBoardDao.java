@@ -9,6 +9,6 @@ public interface YkmBoardDao {
 
 	List<YkmBoardComm> spreadBoardList();
 
-	List<YkmBoardComm> renderPostContent(int cboard_no);
+	YkmBoardComm renderPostContent(int cboard_no);
 	
 }

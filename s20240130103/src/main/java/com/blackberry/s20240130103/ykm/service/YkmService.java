@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.ykm.service;
 import java.util.List;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 
 public interface YkmService {
 
@@ -10,6 +11,8 @@ public interface YkmService {
 
 	List<YkmBoardComm> spreadBoardList();
 	
-	List<YkmBoardComm> renderPostContent(int cboard_no);
+	YkmBoardComm renderPostContent(int cboard_no);
+
+	void insertStudyPostComment(YkmBoardCommReply ykmBoardCommReply);
 
 }

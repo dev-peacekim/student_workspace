@@ -110,7 +110,7 @@
 	height: 27px;
 	letter-spacing: -.3px;
 	color: #495057;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 700;
 }
 
@@ -199,7 +199,7 @@
 }
 
 .replyBtn {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	justify-content: flex-end;
 	margin-left: auto;
 }

@@ -22,9 +22,11 @@
 	
 	<select id="ykmRenderPost" resultType="YkmBoardComm" parameterType="int">
 		SELECT B.*, U.USER_ID 
-		FROM BOARD_COMM B
-		LEFT JOIN USERS U ON B.USER_NO  = U.USER_NO
-		WHERE B.CBOARD_NO = ( SELECT CBOARD_NO  FROM BOARD_COMM WHERE CBOARD_NO = #{cboard_no})
+		FROM BOARD_COMM B,USERS U
+		WHERE B.CBOARD_NO = #{cboard_no}
+		AND B.USER_NO = U.USER_NO
 	</select>
+	
+	
 	
 </mapper>
