@@ -47,9 +47,9 @@ public class YkmServiceImpl implements YkmService {
 		        String timeToken = tokenizer.nextToken();
 		        
 		        String[] timeTokens = timeToken.split(":");
-		        int hour = Integer.parseInt(timeTokens[0]);
-		        String amPm = (hour >= 12)? "오후":"오전";
+		        int hour = Integer.parseInt(timeTokens[0])-12;
 		        
+		        String amPm = (hour >= 12)? "오후":"오전";
 		}
 		
 		return renderPostContent;
