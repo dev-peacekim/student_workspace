@@ -17,10 +17,10 @@ public class LslServiceImpl implements LslService {
 	private final LslDao ld;
 
 	@Override
-	public int freeBoardWrite(LslBoardComm lslBoardComm, Long user_no) {
+	public int boardAskWrite(LslBoardComm lslBoardComm, Long user_no) {
 		int insertResult = 0;
 		System.out.println("LslServiceImpl freeBoardWrite Start...");
-		insertResult = ld.freeBoardWrite(lslBoardComm, user_no);
+		insertResult = ld.boardAskWrite(lslBoardComm, user_no);
 		return insertResult;
 	}
 
@@ -41,6 +41,18 @@ public class LslServiceImpl implements LslService {
 		
 		return boardFreeList;
 	}
+	
+	@Override
+	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
+	 List<LslBoardComm> boardFreeSearch = null;
+	 System.out.println("LslServiceImpl boardFreeSearch Start...");
+	  boardFreeSearch = ld.boardFreeSearch(lslBoardComm);
+	  System.out.println("EmpServiceImpl boardFreeSearch.size() ->"+boardFreeSearch.size());
+	 return boardFreeSearch;
+	}
+
+
+	
 
 	@Override
 	public int totalBoardAsk() {
@@ -62,6 +74,15 @@ public class LslServiceImpl implements LslService {
 		return boardAskList;
 	}
 
+	@Override
+	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
+		 List<LslBoardComm> boardAskSearch = null;
+		 System.out.println("LslServiceImpl boardAskSearch Start...");
+		 boardAskSearch = ld.boardAskSearch(lslBoardComm);
+		  System.out.println("EmpServiceImpl boardAskSearch.size() ->"+boardAskSearch.size());
+		 return boardAskSearch;
+	}
 
+	
 
 }

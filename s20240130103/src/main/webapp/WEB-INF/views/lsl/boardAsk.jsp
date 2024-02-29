@@ -82,16 +82,16 @@
 						<h5 class="card-title">질문 게시판</h5>
 
 						<!-- Search Bar -->
-						<div class="search-bar">
-							<form class="search-form d-flex align-items-center" method="POST"
-								action="#">
-								<input type="text" name="query" placeholder="Search"
-									title="Enter search keyword">
+						
+					
+							<form action="boardAskSearch" class="search-form d-flex align-items-center">
+								<div class="search-bar" >
+								<input type="text" name="keyword" placeholder="키워드를 입력하세요" title="Enter search keyword">
 								<button type="submit" title="Search">
 									<i class="bi bi-search"></i>
 								</button>
-							</form>
 						</div>
+						</form>
 						<!-- End Search Bar -->
 
 						<!-- 게시판 테이블 -->
@@ -105,28 +105,27 @@
 									<th scope="col">조회수</th>
 									<th scope="col">댓글</th>
 								</tr>
-								<c:forEach var="boardAsk" items="${boardAskList}"
-									varStatus="index">
+								</thead>
+								<tbody>
+								<c:forEach var="boardAsk" items="${boardAskList}">
 									<tr>
 										<td>${boardAsk.cboard_no}</td>
-										<td>${boardAsk.cboard_title}</td>
+										<td><a href="boardFreeContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
 										<td>${boardAsk.user_name}</td>
 										<td>${boardAsk.cboard_date}</td>
 										<td>${boardAsk.cboard_viewcnt}</td>
 										<td>${boardAsk.creply_cnt}</td> 
 								</tr>
 								</c:forEach>
-							</thead>
+								</tbody>
 						</table>
-						
 						<!-- 게시판 테이블 끝 -->
-						<form action="boardAskList" method="post">
 
 							<div class="text-end">
-								<button type="button" class="btn baWrite"
-									onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+								<a href="boardFreeWrite?boardtype=Ask">
+									<button type="button" class="btn baWrite">글쓰기</button>
+								</a>
 							</div>
-						</form>
 						<!-- 페이지 표시 -->
 
 						<c:if test="${bapage.startPage > bapage.pageBlock}">
@@ -134,7 +133,7 @@
 								<nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
 										<li class="page-item"><a class="page-link"
-											href="boardAskList?currentPage=${page.startPage-page.pageBlock}"
+											href="boardAskList?currentPage=${bapage.startPage-bapage.pageBlock}"
 											aria-label="Previous"> <span aria-hidden="true">«</span>
 										</a></li>
 									</ul>
@@ -148,7 +147,7 @@
 								<nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
 										<li class="page-item"><a class="page-link"
-											href="boardAskList?currentPage=${i}">${i}</a></li>
+											href="boardAsk?currentPage=${i}">${i}</a></li>
 									</ul>
 								</nav>
 							</section>
@@ -159,7 +158,7 @@
 								<nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
 										<li class="page-item"><a class="page-link"
-											href="boardAskList?currentPage=${bapage.startPage+page.pageBlock}"
+											href="boardAsk?currentPage=${bapage.startPage+page.pageBlock}"
 											aria-label="Next"> <span aria-hidden="true">»</span>
 										</a></li>
 									</ul>

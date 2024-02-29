@@ -67,6 +67,7 @@
 
                         <!-- General Form Elements -->
                         <form action="boardWrite" method="post">
+                        <input type="hidden" name="boardType" value=${board_type }>
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">

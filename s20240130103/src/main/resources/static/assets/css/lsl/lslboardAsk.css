@@ -142,6 +142,9 @@
 }
 
 /*--------------------------------------------------------------
-# ListTable
+# list Table
 --------------------------------------------------------------*/
-
+a:hover, a:link, a:active, a:visited {
+	color: black !important;
+    text-decoration: none; 
+}

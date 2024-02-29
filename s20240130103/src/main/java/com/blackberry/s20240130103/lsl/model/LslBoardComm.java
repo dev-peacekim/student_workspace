@@ -29,9 +29,10 @@ public class LslBoardComm {
 	private String search;
 	private String keyword;
 	private String pageNum;
+
+	// Page 정보
 	private int start;
 	private int end;
-	// Page 정보
 	private String currentPage;
 	private int pageBlock;
 	private int rowPage;

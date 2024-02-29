@@ -17,16 +17,16 @@ public class LslDaoImpl implements LslDao {
 	private final SqlSession session;
 
 	@Override
-	public int freeBoardWrite(LslBoardComm lslBoardComm, Long user_no) {
+	public int boardAskWrite(LslBoardComm lslBoardComm, Long user_no) {
 	    System.out.println("LslDaoImpl freeBoardWrite Start...");
 	    
 	    // 게시글 삽입
-	    int insertResult = session.insert("lslFreeBoardWrite", lslBoardComm);
+	    int insertResult = session.insert("lslAskBoardWrite", lslBoardComm);
 	    
 	    // 파일 정보 삽입
 	    if (insertResult > 0) {
 	        // 게시글이 성공적으로 삽입되었을 때만 파일 정보를 삽입
-	        int fileInsertResult = session.insert("lslFreeBoardFile", lslBoardComm);
+	        int fileInsertResult = session.insert("lslAskBoardFile", lslBoardComm);
 	        if (fileInsertResult <= 0) {
 	            // 파일 정보 삽입 실패 처리
 	           
@@ -90,6 +90,32 @@ public class LslDaoImpl implements LslDao {
 			System.out.println("LslDaoImpl boardAskList Exception -> " + e.getMessage());
 		}
 		return boardAskList;
+	}
+
+	@Override
+	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
+		List<LslBoardComm> boardFreeSearch = null;
+		System.out.println("LslDaoImpl boardFreeSearch Start...");
+		
+		try {
+			boardFreeSearch = session.selectList("slboardFreeSearch", lslBoardComm);
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl boardFreeSearch Exception ->" + e.getMessage());
+		}
+		return boardFreeSearch;
+	}
+
+	@Override
+	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
+		List<LslBoardComm> boardAskSearch = null;
+		System.out.println("LslDaoImpl boardAskSearch Start...");
+		
+		try {
+			boardAskSearch = session.selectList("slboardAskSearch", lslBoardComm);
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl boardAskSearch Exception ->" + e.getMessage());
+		}
+		return boardAskSearch;
 	}
 
 

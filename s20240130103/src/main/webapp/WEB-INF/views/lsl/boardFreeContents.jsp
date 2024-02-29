@@ -149,8 +149,10 @@
 							        // 수정 버튼 표시
 							        document.querySelector('.bfcModify').removeAttribute('hidden');
 							</script>
+							<c:if test="${session.getAttribute('user_no') == user.user_no }">
 								<button type="hidden" class="btn bfcDelete">삭제</button>
                                 <button type="hidden" class="btn bfcModify">수정</button>
+                            </c:if>
                                 <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
                                 <script>
                                     function goBack() {

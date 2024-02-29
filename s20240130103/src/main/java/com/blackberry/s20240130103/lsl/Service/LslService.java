@@ -6,7 +6,7 @@ import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 
 public interface LslService {
 
-	int     freeBoardWrite(LslBoardComm lslBoardComm, Long user_no);
+	int     boardAskWrite(LslBoardComm lslBoardComm, Long user_no);
 
 	int totalBoardFree();
 
@@ -15,6 +15,10 @@ public interface LslService {
 	int totalBoardAsk();
 
 	List<LslBoardComm> boardAskList(LslBoardComm lslBoardComm);
+
+	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm);
+
+	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
 
 
 }

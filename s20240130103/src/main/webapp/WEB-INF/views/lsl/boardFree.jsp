@@ -63,96 +63,103 @@
 						<h5 class="card-title">자유 게시판</h5>
 
 						<!-- Search Bar -->
-						<div class="search-bar">
-							<form class="search-form d-flex align-items-center" method="POST"
-								action="#">
-								<input type="text" name="query" placeholder="Search"
+
+						<form action="boardFreeSearch"
+							class="search-form d-flex align-items-center">
+							<div class="search-bar">
+
+								<input type="text" name="keyword" placeholder="키워드를 입력하세요"
 									title="Enter search keyword">
 								<button type="submit" title="Search">
 									<i class="bi bi-search"></i>
 								</button>
-							</form>
-						</div>
+
+							</div>
+						</form>
 						<!-- End Search Bar -->
 
 
 						<!-- 게시판 테이블 -->
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
-									<th scope="col">작성일</th>
-									<th scope="col">조회수</th>
-									<th scope="col">댓글</th>
-								</tr>
-								<c:forEach var="boardFree" items="${boardFreeList}"
-									varStatus="index">
+						<div class="table-body">
+							<table class="table table-hover">
+								<thead>
 									<tr>
-										<td>${index.index+1}</td>
-										<td>${boardFree.cboard_title}</td>
-										<td>${boardFree.user_name}</td>
-										<td>${boardFree.cboard_date}</td>
-										<td>${boardFree.cboard_viewcnt}</td>
-										<td>${boardFree.creply_cnt}</td> 
+										<th scope="col">#</th>
+										<th scope="col">제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col">작성일</th>
+										<th scope="col">조회수</th>
+										<th scope="col">댓글</th>
 									</tr>
-								</c:forEach>
-							</thead>
-						</table>
-
-						<!-- 글쓰기 버튼  -->
-						<div class="text-end">
-							<button type="button" class="btn bfWrite"
-								onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+									</thead>
+									<tbody>
+									<c:forEach var="boardFree" items="${boardFreeList}">
+										<tr>
+											<td>${boardFree.cboard_no}</td>
+											<td><a
+												href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
+											<td>${boardFree.user_name}</td>
+											<td>${boardFree.cboard_date}</td>
+											<td>${boardFree.cboard_viewcnt}</td>
+											<td>${boardFree.creply_cnt}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
-						<!-- 글쓰기 버튼 끝  -->
 
-						<!-- 페이지 표시 -->
-						<c:if test="${bfpage.startPage > bfpage.pageBlock}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardFreeList?currentPage=${page.startPage-page.pageBlock}"
-											aria-label="Previous"> <span aria-hidden="true">«</span>
-										</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:if>
 
-						<c:forEach var="i" begin="${bfpage.startPage}"
-							end="${bfpage.endPage}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardFreeList?currentPage=${i}">${i}</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:forEach>
+							<!-- 글쓰기 버튼  -->
+							<div class="text-end">
+								<button type="button" class="btn bfWrite"
+									onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+							</div>
+							<!-- 글쓰기 버튼 끝  -->
 
-						<c:if test="${bfpage.endPage < bfpage.totalPage}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardFreeList?currentPage=${bfpage.startPage+page.pageBlock}"
-											aria-label="Next"> <span aria-hidden="true">»</span>
-										</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:if>
+							<!-- 페이지 표시 -->
+							<c:if test="${bfpage.startPage > bfpage.pageBlock}">
+								<section>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item"><a class="page-link"
+												href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}"
+												aria-label="Previous"> <span aria-hidden="true">«</span>
+											</a></li>
+										</ul>
+									</nav>
+								</section>
+							</c:if>
 
-						<!-- 페이지 표시 끝 -->
+							<c:forEach var="i" begin="${bfpage.startPage}"
+								end="${bfpage.endPage}">
+								<section>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item"><a class="page-link"
+												href="boardFree?currentPage=${i}">${i}</a></li>
+										</ul>
+									</nav>
+								</section>
+							</c:forEach>
+
+							<c:if test="${bfpage.endPage < bfpage.totalPage}">
+								<section>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item"><a class="page-link"
+												href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}"
+												aria-label="Next"> <span aria-hidden="true">»</span>
+											</a></li>
+										</ul>
+									</nav>
+								</section>
+							</c:if>
+
+							<!-- 페이지 표시 끝 -->
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
 	</main>
 	<!-- End #main -->
 	<!-- Footer -->
