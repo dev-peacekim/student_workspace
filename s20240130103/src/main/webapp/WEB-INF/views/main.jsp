@@ -123,20 +123,20 @@
 	            		<div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>전체 과업</p>
-			            		<p>${totalTaskCount }</p>
+			            		<p><a href="totalTaskList">${totalTaskCount }</a></p>
 			            	</div>
 			            	<div class="compPercent">${Math.round((totalCompTaskCount/totalTaskCount)*100) }%</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>완료 과업</p>
-			            		<p>${totalCompTaskCount }</p>
+			            		<p><a href="compTaskList">${totalCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>미완료 과업</p>
-			            		<p>${totalUnCompTaskCount }</p>
+			            		<p><a href="unCompTaskList">${totalUnCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 	            	</div>
@@ -160,7 +160,10 @@
 									<div class="address-list-card-detail">
 										<div class="profile-img-user-name">
 											<img src="${pageContext.request.contextPath}/upload/userImg/${addressUser.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
-											<p class="user-name">${addressUser.user_name }</p>
+											<div>
+												<p class="user-name">${addressUser.user_name }</p>
+												<p class="user-id">#${addressUser.user_id }</p>
+											</div>
 										</div>
 										<div class="score-message">
 											<div class="user-score rounded-circle">${addressUser.user_score }</div>
