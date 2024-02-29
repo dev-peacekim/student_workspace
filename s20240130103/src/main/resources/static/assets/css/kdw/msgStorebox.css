@@ -271,26 +271,27 @@ thead th:nth-child(7) {
 /*========== 검색바&드롭박스 END ==========*/
 
 
-/*========== 쪽지 페이지 리스트 ==========*/
-.msgReceivebox-pagination-container {
+/*========== 쪽지 페이지 리스트 페이징 ==========*/
+.msgStorebox-pagination-container {
 	position:absolute;
     display: flex;
     justify-content: center;
     margin-top: -55px;
-    right: 43%;
+    right: 50%;
     bottom: 10px;
+    transform: translateX(50%);
 }
 
-.msgReceivebox-pagination-container .pagination {
+.msgStorebox-pagination-container .pagination {
     margin: 0;
 }
 
-.msgReceivebox-pagination-container .pagination li {
+.msgStorebox-pagination-container .pagination li {
     margin: 0; /* 각 번호 간격 조절 */
     
 }
 
-.msgReceivebox-pagination-container .pagination a {
+.msgStorebox-pagination-container .pagination a {
     color: #8A8A8A;
     font-weight: bold;
     text-decoration: none;
@@ -307,11 +308,11 @@ thead th:nth-child(7) {
     background-color: rgba(255, 255, 255, 0);
 }
 
-.msgReceivebox-pagination-container .pagination a:hover {
+.msgStorebox-pagination-container .pagination a:hover {
      background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
 }
 
-.msgReceivebox-pagination-container .pagination .active a {
+.msgStorebox-pagination-container .pagination .active a {
     background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
     color: #0D6DFD;
     border: 1px solid #0D6DFD;

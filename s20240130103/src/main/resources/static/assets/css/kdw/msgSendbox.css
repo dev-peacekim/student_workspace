@@ -275,7 +275,7 @@ thead th:nth-child(6) {
 /*========== 검색바&드롭박스 END ==========*/
 
 
-/*========== 쪽지 페이지 리스트 ==========*/
+/*========== 쪽지 페이지 리스트 페이징 ==========*/
 .msgSendbox-pagination-container {
 	position:absolute;
     display: flex;

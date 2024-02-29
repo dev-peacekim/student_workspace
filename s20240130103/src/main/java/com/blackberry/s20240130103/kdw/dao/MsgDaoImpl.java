@@ -18,7 +18,7 @@ public class MsgDaoImpl implements MsgDao {
 	
 	private final SqlSession session;
 	
-	// 받은 쪽지 전체 개수
+	// 받은 쪽지 개수
 	@Override
 	public int totReceiveMsgCnt(Long msgReceiver) {
 	    int totReceiveMsgCnt = 0;
@@ -33,7 +33,7 @@ public class MsgDaoImpl implements MsgDao {
 	    }
 	    return totReceiveMsgCnt;
 	}
-	// 보낸 쪽지 전체 개수
+	// 보낸 쪽지 개수
 	@Override
 	public int totSentMsgCnt(Long msgSender) {
 	    int totSentMsgCnt = 0;
@@ -48,7 +48,39 @@ public class MsgDaoImpl implements MsgDao {
 	    }
 	    return totSentMsgCnt;
 	}
-
+	// 보관함 쪽지 개수
+    @Override
+    public int totStoredMsgCnt(Long storeboxUserNo) {
+	    int totStoredMsgCnt = 0;
+	    try {
+	        Map<String, Long> parameterMap = new HashMap<>();
+	        parameterMap.put("storeboxUserNo", storeboxUserNo);
+	        totStoredMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totStoredMsgCnt", parameterMap);
+	        System.out.println("MsgServiceImpl totStoredMsgCnt->" + totStoredMsgCnt);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgServiceImpl totStoredMsgCnt Exception ->" + e.getMessage());
+	    }
+	    return totStoredMsgCnt;
+    }
+    
+	@Override
+	public int totTrashMsgCnt(Long trashboxUserNo) {
+	    int totTrashMsgCnt = 0;
+	    try {
+	        Map<String, Long> parameterMap = new HashMap<>();
+	        parameterMap.put("trashboxUserNo", trashboxUserNo);
+	        totTrashMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totStoredMsgCnt", parameterMap);
+	        System.out.println("MsgServiceImpl totTrashMsgCnt->" + totTrashMsgCnt);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgServiceImpl totTrashMsgCnt Exception ->" + e.getMessage());
+	    }
+	    return totTrashMsgCnt;
+	}
+    
+    
+    
 	// 받은 쪽지 리스트 가져오기
 	@Override
 	public List<Message> getReceivedMessages(Long msgReceiver, int start, int end) {
@@ -71,10 +103,11 @@ public class MsgDaoImpl implements MsgDao {
 
 	    return receivedMessages;
 	}
+	
 	// 보낸 쪽지 리스트 가져오기
 	@Override
 	public List<Message> getSentMessages(Long msgSender, int start, int end) {
-	    List<Message> SentMessages = null;
+	    List<Message> sentMessages = null;
 	    System.out.println("MsgDaoImpl getSentMessages start...");
 
 	    try {
@@ -83,16 +116,81 @@ public class MsgDaoImpl implements MsgDao {
 	        paramMap.put("start", start);
 	        paramMap.put("end", end);
 
-	        SentMessages = session.selectList("kdwSentMessagesAll", paramMap);
-	        System.out.println("MsgDaoImpl getSentMessages SentMessages.size()->" + SentMessages.size());
+	        sentMessages = session.selectList("kdwSentMessagesAll", paramMap);
+	        System.out.println("MsgDaoImpl getSentMessages SentMessages.size()->" + sentMessages.size());
 	        System.out.println("MsgDaoImpl getSentMessages start&end" + start + end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getSentMessages e.getMessage()->" + e.getMessage());
 	    }
 
-	    return SentMessages;
+	    return sentMessages;
 	}
+	
+	// 보관함 리스트 가져오기
+    @Override
+    public List<Message> getStoredMessages(Long storeboxUserNo, int start, int end) {
+	    List<Message> storedMessages = null;
+	    System.out.println("MsgDaoImpl getStoredMessages start...");
+
+	    try {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("storeboxUserNo", storeboxUserNo);
+	        paramMap.put("start", start);
+	        paramMap.put("end", end);
+
+	        storedMessages = session.selectList("kdwStoredMessagesAll", paramMap);
+	        System.out.println("MsgDaoImpl getSentMessages storedMessages.size()->" + storedMessages.size());
+	        System.out.println("MsgDaoImpl getSentMessages start&end" + start + end);
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 에러 상세 내용 출력
+	        System.out.println("MsgDaoImpl getSentMessages e.getMessage()->" + e.getMessage());
+	    }
+	    return storedMessages;
+    }
+    
+	// 휴지통 리스트 가져오기
+	@Override
+	public List<Message> getTrashMessages(Long trashboxUserNo, int start, int end) {
+	    List<Message> trashMessages = null;
+	    System.out.println("MsgDaoImpl getTrashMessages start...");
+
+	    try {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("trashboxUserNo", trashboxUserNo);
+	        paramMap.put("start", start);
+	        paramMap.put("end", end);
+
+	        trashMessages = session.selectList("kdwTrashMessagesAll", paramMap);
+	        System.out.println("MsgDaoImpl getTrashMessages trashMessages.size()->" + trashMessages.size());
+	        System.out.println("MsgDaoImpl getTrashMessages start&end" + start + end);
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 에러 상세 내용 출력
+	        System.out.println("MsgDaoImpl getTrashMessages e.getMessage()->" + e.getMessage());
+	    }
+	    return trashMessages;
+	}
+    
+	// 쪽지 읽음여부
+    @Override
+    public int updateReadDate(Long storeboxUserNo, String currentDateStr) {
+        log.info("MsgDaoImpl updateReadDate start...");
+
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgNo", storeboxUserNo);
+            paramMap.put("currentDateStr", currentDateStr);
+
+            // MyBatis의 update 쿼리 실행
+            int updatedRows = session.update("kdwUpdateReadDate", paramMap);
+
+            log.info("MsgDaoImpl updateReadDate updatedRows -> " + updatedRows);
+            return updatedRows;
+        } catch (Exception e) {
+            log.error("MsgDaoImpl updateReadDate Exception -> " + e.getMessage());
+            return 0;
+        }
+    }
 	
 	@Override
 	public void saveMessage(Message message) {
@@ -103,6 +201,8 @@ public class MsgDaoImpl implements MsgDao {
 	        System.out.println("MsgDaoImpl saveMessage Exception: " + e.getMessage());
 	    }
 	}
+
+
 
 
 

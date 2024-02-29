@@ -62,66 +62,6 @@
 			}
 		});
 	});
-
-	// 메일리스트 15번 뿌려주기 함수 
-	function createMailItem(index) {
-	    var listItem = document.createElement('tr');
-	    listItem.className = 'list-item';
-
-	    var checkboxCell = document.createElement('td');
-	    var checkbox = document.createElement('input');
-	    checkbox.type = 'checkbox';
-	    checkboxCell.appendChild(checkbox);
-
-	    var readStatus = document.createElement('td');
-	    readStatus.className = 'readStatus';
-	    readStatus.textContent = 'img';
-
-	    var attachment = document.createElement('td');
-	    attachment.className = 'attachment';
-	    attachment.textContent = 'img';
-	    
-	    var mailType = document.createElement('td');
-	    mailType.className = 'mailType';
-	    mailType.textContent = '유형';
-	    
-	    var authorCell = document.createElement('td');
-	    var authorDiv = document.createElement('div');
-	    authorDiv.className = 'author';
-	    authorDiv.textContent = '아이디' + index;
-	    authorCell.appendChild(authorDiv);
-
-	    var subjectCell = document.createElement('td');
-	    var subjectDiv = document.createElement('div');
-	    subjectDiv.className = 'subject';
-	    subjectDiv.textContent = index + ' 번째 메일 제목이 여기에 들어갑니다.';
-	    subjectCell.appendChild(subjectDiv);
-
-	    var dateCell = document.createElement('td');
-	    var dateDiv = document.createElement('div');
-	    dateDiv.className = 'date';
-	    dateDiv.textContent = '2024-02-21 12:34';
-	    dateCell.appendChild(dateDiv);
-
-	    listItem.appendChild(checkboxCell);
-	    listItem.appendChild(readStatus);
-	    listItem.appendChild(attachment);
-	    listItem.appendChild(mailType);
-	    listItem.appendChild(authorCell);
-	    listItem.appendChild(subjectCell);
-	    listItem.appendChild(dateCell);
-
-	    return listItem;
-	}
-
-	document.addEventListener('DOMContentLoaded', function() {
-	    var mailList = document.getElementById('mailList');
-
-	    // 15개의 메일 항목 생성하여 테이블에 추가
-	    for (var i = 1; i <= 15; i++) {
-	        mailList.appendChild(createMailItem(i));
-	    }
-	});
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -131,9 +71,9 @@
 
 	<!-- ======= Sidebar ======= -->
 	<%@ include file="../asidebar.jsp"%>
-
+	
+	
 	<!-- ======= 받은 쪽지함 Main ======= -->
-
 	<main id="main" class="main">
 
 		<!-- 받은 쪽지함 pageTitle -->
@@ -195,6 +135,50 @@
 						</thead>
 						<!-- 나중에 구현할때 읽은건 폰트에 bold 빼야함 -->
 						<tbody id="mailList">
+						    <c:forEach var="message" items="${trashMessages}">
+						        <tr class="list-item">
+						            <td><input type="checkbox"></td>
+						            <td class="readStatus">
+						                <c:choose>
+						                    <c:when test="${message.msg_readdate ne null}">
+						                        <img src="assets/img/kdw/read-icon.png" width="17" height="17">
+						                    </c:when>
+						                    <c:otherwise>
+						                        <img src="assets/img/kdw/unread-icon.png" width="17" height="14">
+						                    </c:otherwise>
+						                </c:choose>
+						            </td>
+						            <td class="attachment">
+						                <img src="" alt="첨부 여부">
+						            </td>
+									<td class="mailType">
+										<!-- 로그인유저와 보낸사람이(user_no = msg_sender) 같다면 -->
+									    <c:choose>
+									        <c:when test="${message.msg_sender == trashboxUserNo}">
+									            발신
+									        </c:when>
+									        <c:otherwise>
+									            수신
+									        </c:otherwise>
+									    </c:choose>
+									</td>
+									<td class="author">
+										<!-- 로그인유저와 보낸사람이(user_no = msg_sender) 같다면 -->
+									    <c:choose>
+									        <c:when test="${message.msg_sender == trashboxUserNo}">
+									            ${message.msg_receiver}
+									        </c:when>
+									        <c:otherwise>
+									            ${message.msg_sender}
+									        </c:otherwise>
+									    </c:choose>
+									</td>
+						            <td class="subject" onclick="markAsRead(${message.msg_no})">
+						                ${message.msg_title}
+						            </td>
+						            <td class="date">${message.msg_createdate}</td>
+						        </tr>
+						    </c:forEach>
 						</tbody>
 						<tbody class="mailList-whiteSpace">
 							<tr>
@@ -213,7 +197,7 @@
 			</div>
 			<!-- 리스트 번호 -->
 			<nav aria-label="Page navigation"
-				class="msgReceivebox-pagination-container">
+				class="msgTrashbox-pagination-container">
 				<ul class="pagination">
 					<li class="page-item"><a class="page-link" href="#"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>

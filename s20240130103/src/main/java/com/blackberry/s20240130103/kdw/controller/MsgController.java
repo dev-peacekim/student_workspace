@@ -25,16 +25,7 @@ public class MsgController {
 	
 	private final MsgService msgService;
 
-	// 쪽지 보관함 view 이동
-	@GetMapping(value = "msgStorebox")
-	public String kdwMsgStorebox() {
-		return "kdw/msgStorebox";      
-	}
-	// 휴지통 view 이동
-	@GetMapping(value = "msgTrashbox")
-	public String kdwMsgTrashbox() {
-		return "kdw/msgTrashbox";
-	}
+
 	/* ========== 쪽지함 ========== */
 	
 	/* ========== 받은 쪽지함 리스트 불러오기 ========== */
@@ -87,8 +78,68 @@ public class MsgController {
 
 	    return "kdw/msgSendbox";
 	}
-
 	
+	// 쪽지 보관함 리스트 가져오기
+	@GetMapping(value = "msgStorebox")
+	public String getStoreboxMessages(HttpServletRequest request, Model model,
+	        @RequestParam(name = "currentPage", defaultValue = "1") String currentPage) {
+	    log.info("MsgController getStoreboxMessages start...");
+	    // HttpSession에서 로그인한 사용자 정보 가져오기 (전체 쪽지)
+	    Long storeboxUserNo = (Long) request.getSession().getAttribute("user_no");
+
+	    // msg_store_chk 값이 1인 쪽지들만 가져오기
+	    int totStoredMsgCnt = msgService.totStoredMsgCnt(storeboxUserNo);
+	    // 페이징 처리
+	    MsgPaging page = new MsgPaging(totStoredMsgCnt, currentPage);
+	    // 로그인한 사용자 정보를 기반으로 보낸 쪽지 목록 가져오기
+	    List<Message> storedMessages = msgService.getStoredMessages(storeboxUserNo, page.getStart(), page.getEnd());
+
+	    // 'Model'에 보관된 쪽지 목록과 페이징 정보를 담아서 전달
+	    model.addAttribute("totStoredMsgCnt", totStoredMsgCnt);
+	    model.addAttribute("storedMessages", storedMessages);
+	    model.addAttribute("page", page);
+	    model.addAttribute("storeboxUserNo", storeboxUserNo);
+
+	    return "kdw/msgStorebox";
+	}
+	
+    // 휴지통 리스트 가져오기
+    @GetMapping(value = "msgTrashbox")
+    public String getTrashboxMessages(HttpServletRequest request, Model model,
+            @RequestParam(name = "currentPage", defaultValue = "1") String currentPage) {
+        log.info("MsgController getTrashboxMessages start...");
+        // HttpSession에서 로그인한 사용자 정보 가져오기 (휴지통 쪽지)
+        Long trashboxUserNo = (Long) request.getSession().getAttribute("user_no");
+
+        // msg_trash_chk 값이 1인 쪽지들만 가져오기
+        int totTrashMsgCnt = msgService.totTrashMsgCnt(trashboxUserNo);
+        // 페이징 처리
+        MsgPaging page = new MsgPaging(totTrashMsgCnt, currentPage);
+        // 로그인한 사용자 정보를 기반으로 휴지통 쪽지 목록 가져오기
+        List<Message> trashMessages = msgService.getTrashMessages(trashboxUserNo, page.getStart(), page.getEnd());
+
+        // 'Model'에 보관된 휴지통 쪽지 목록과 페이징 정보를 담아서 전달
+        model.addAttribute("totTrashMsgCnt", totTrashMsgCnt);
+        model.addAttribute("trashMessages", trashMessages);
+        model.addAttribute("page", page);
+        model.addAttribute("trashboxUserNo", trashboxUserNo);
+
+        return "kdw/msgTrashbox";
+    }
+	
+    // 쪽지 읽음 표시 기능
+    @GetMapping(value = "readMessage")
+    public String readMessage(@RequestParam(name = "msgNo") Long msgNo) {
+        log.info("MsgController readMessage start...");
+
+        // 쪽지를 읽음으로 표시
+        msgService.markMessageAsRead(msgNo);
+
+        // 읽은 쪽지로 이동 또는 다른 로직 추가
+        return "redirect:/msgReceivebox";
+    }
+	
+
 	
     // 쪽지쓰기 버튼 클릭시 쪽지쓰기 view 이동
     @GetMapping(value = "msgWrite")
@@ -106,6 +157,7 @@ public class MsgController {
         msgService.sendMessage(message);
         return "kdw/msgSent";
     }
+    
     /* ========== 받은편지함 버튼 기능 구현 END =========== */
     
 	

@@ -11,14 +11,31 @@ public interface MsgDao {
 	List<Message> getReceivedMessages(Long msgReceiver, int start, int end);
 	// 보낸쪽지함 리스트
 	List<Message> getSentMessages(Long msgSender, int start, int end);
+	// 쪽지보관함 리스트
+	List<Message> getStoredMessages(Long storeboxUserNo, int start, int end);
+	// 휴지통 리스트
+	List<Message> getTrashMessages(Long trashboxUserNo, int start, int end);
 	
-	// 받은쪽지 전체 개수
+	// 받은쪽지 개수
 	int totReceiveMsgCnt(Long msgReceiver);
-	// 보낸쪽지 전체 개수
+	// 보낸쪽지 개수
 	int totSentMsgCnt(Long msgSender);
+	// 쪽지보관함 쪽지 개수
+	int totStoredMsgCnt(Long storeboxUserNo);
+	// 휴지통 쪽지 개수
+	int totTrashMsgCnt(Long trashboxUserNo);
+	
+	// 쪽지 읽음 여부
+	int updateReadDate(Long msgNo, String currentDateStr);
+	
 	
 	// 받은쪽지 저장처리
 	void saveMessage(Message message);
+	
+	
+
+	
+	
 
 	
 	

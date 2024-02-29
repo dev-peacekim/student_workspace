@@ -6,12 +6,32 @@
 	<select id="totReceiveMsgCnt" resultType="int" parameterType="map">
 	    SELECT COUNT(*) FROM message
 	    WHERE msg_receiver = #{msgReceiver}
+	    AND msg_store_chk = 0
+	    AND msg_delete_chk = 0
 	</select>
 	<!-- 보낸 쪽지 개수 -->
 	<select id="totSentMsgCnt" resultType="int" parameterType="map">
 	    SELECT COUNT(*) FROM message
 	    WHERE msg_sender = #{msgSender}
+	    AND msg_store_chk = 0
+	    AND msg_delete_chk = 0
 	</select>
+	<!-- 쪽지보관함 개수 -->
+	<select id="totStoredMsgCnt" resultType="int" parameterType="map">
+	    SELECT COUNT(*) FROM message
+	    WHERE (msg_receiver = #{storeboxUserNo} OR msg_sender = #{storeboxUserNo})
+	    AND msg_store_chk = 1
+	    AND msg_delete_chk = 0
+	</select>
+	<!-- 휴지통 개수 -->
+	<select id="totTrashMsgCnt" resultType="int" parameterType="map">
+	    SELECT COUNT(*) FROM message
+	    WHERE (msg_receiver = #{trashboxUserNo} OR msg_sender = #{trashboxUserNo})
+	    AND msg_delete_chk = 1
+	</select>
+	
+	
+	
 	
 	<!-- 받은 쪽지 리스트 가져오기 -->
     <select id="kdwReceivedMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
@@ -22,7 +42,12 @@
 	    (
 	        SELECT rownum rn, a.*
 	        FROM
-	        (select * from message WHERE msg_receiver = #{msgReceiver} order by msg_no DESC) a
+	        (select * 
+	        from message 
+	        WHERE msg_receiver = #{msgReceiver} 
+	        AND msg_store_chk = 0 
+	        AND msg_delete_chk = 0 
+	        order by msg_no DESC) a
 	    )
 	    WHERE rn >= #{start}
 	    and rn <= #{end}
@@ -37,12 +62,61 @@
 	    (
 	        SELECT rownum rn, a.*
 	        FROM
-	        (select * from message WHERE msg_sender = #{msgSender} order by msg_no DESC) a
+	        (select * 
+	        from message 
+	        WHERE msg_sender = #{msgSender} 
+	        AND msg_store_chk = 0 
+	        AND msg_delete_chk = 0 
+	        order by msg_no DESC) a
 	    )
 	    WHERE rn >= #{start}
 	    and rn <= #{end}
 	    ]]>
 	</select>
+	<!-- 쪽지 보관함 리스트 가져오기 -->
+	<select id="kdwStoredMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
+	    <![CDATA[
+	    SELECT *
+	    FROM (
+	        SELECT rownum rn, a.*
+	        FROM (
+	            SELECT *
+	            FROM message
+	            WHERE (msg_receiver = #{storeboxUserNo} OR msg_sender = #{storeboxUserNo})
+	              AND msg_store_chk = 1
+	              AND msg_delete_chk = 0
+	            ORDER BY msg_no DESC
+	        ) a
+	    )
+	    WHERE rn >= #{start} AND rn <= #{end}
+	    ]]>
+	</select>
+	
+	<!-- 휴지통 리스트 가져오기 -->
+	<select id="kdwTrashMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
+	    <![CDATA[
+	    SELECT *
+	    FROM (
+	        SELECT rownum rn, a.*
+	        FROM (
+	            SELECT *
+	            FROM message
+	            WHERE (msg_receiver = #{trashboxUserNo} OR msg_sender = #{trashboxUserNo})
+	              AND msg_delete_chk = 1
+	            ORDER BY msg_no DESC
+	        ) a
+	    )
+	    WHERE rn >= #{start} AND rn <= #{end}
+	    ]]>
+	</select>
+	
+	
+	<!-- 쪽지 읽음 여부 -->
+	<update id="kdwUpdateReadDate" parameterType="map">
+	    UPDATE messages
+	    SET msg_readdate = TO_TIMESTAMP(#{currentDateStr}, 'YYYY-MM-DD HH24:MI:SS')
+	    WHERE msg_no = #{msgNo}
+	</update>
 	
 	<!-- 받은 쪽지함에 삽입 (쪽지 보내기) -->
     <insert id="kdwMessageInsert" parameterType="KdwMessage">

@@ -71,11 +71,9 @@
 
 	<!-- ======= Sidebar ======= -->
 	<%@ include file="../asidebar.jsp"%>
-
+	
 	<!-- ======= 받은 쪽지함 Main ======= -->
-
 	<main id="main" class="main">
-
 		<!-- 받은 쪽지함 pageTitle -->
 		<div class="pagetitle">
 			<h1>보낸쪽지함</h1>
@@ -138,10 +136,17 @@
 							<c:forEach var="message" items="${sentMessages}">
 								<tr class="list-item">
 									<td><input type="checkbox"></td>
-									<td class="readStatus">img</td>
-									<td class="attachment">img</td>
+									<td class="readStatus"><c:choose>
+											<c:when test="${message.msg_readdate ne null}">
+												<img src="assets/img/kdw/read-icon.png" width="17" height="17">
+											</c:when>
+											<c:otherwise>
+												<img src="assets/img/kdw/unread-icon.png" width="17" height="14">
+											</c:otherwise>
+										</c:choose></td>
+									<td class="attachment"><img src=""></td>
 									<td class="subject">${message.msg_title}</td>
-									<td class="author">${message.msg_sender}</td>
+									<td class="author">${message.msg_receiver}</td>
 									<td class="date">${message.msg_createdate}</td>
 								</tr>
 							</c:forEach>
