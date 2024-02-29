@@ -35,12 +35,17 @@ public class AskServiceImpl implements AskService {
 		return askList;
 	}
 	
+
+	public Ask detailAsk(long user_no) {
+		Ask ask = null;
+		ask = askDao.detailAsk(user_no);
+		return ask;
+	}
+
 	@Override
-	public int updateAsk(Ask ask) {
-		System.out.println("EmpServiceImpl update...");
-		int updateCount = 0;
-		updateCount = askDao.updateAsk(ask);
-		return updateCount;
+	public Ask detailAsk(int user_no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

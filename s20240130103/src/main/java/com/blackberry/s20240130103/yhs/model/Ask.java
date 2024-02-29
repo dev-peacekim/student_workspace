@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Ask {
 	private long user_no;
-	private long col;
+	private long admin_no;
 	private String admin_date;
 	private String admin_title;
 	private String admin_content;
@@ -25,4 +25,5 @@ public class Ask {
 	
 	//Page 정보
 	private String currentPage;
+
 }

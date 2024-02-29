@@ -42,18 +42,22 @@ public class AskDaoImpl implements AskDao {
 		}
 		return askList;
 	}
-	
+
 	@Override
-	public int updateAsk(Ask ask) {
-		System.out.println("EmpDaoImpl update start..");
-		int updateCount= 0;
+	public Ask detailAsk(long user_no) {
+		System.out.println("EmpDaoImpl detail start..");
+		//Emp emp = null;
+		Ask ask = new Ask();
 		try {
-			updateCount = session.update("yhsAskUpdate",ask);
+			//                       mapper ID   ,    Parameter
+			ask = session.selectOne("tkEmpSelOne",    user_no);
+			System.out.println("AskDaoImpl detail getEname->"+ask.getAdmin_no());
 		} catch (Exception e) {
-			System.out.println("AskDaoImpl updateAsk Exception->"+e.getMessage());
+			System.out.println("AskDaoImpl detail Exception->"+e.getMessage());
 		}
-		return updateCount;
+		return ask;
 	}
+	
 
 
 		

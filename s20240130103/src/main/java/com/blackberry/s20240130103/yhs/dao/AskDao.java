@@ -11,7 +11,7 @@ public interface AskDao {
 	
 	List<Ask> listAsk(Ask ask);
 
-	int updateAsk(Ask ask);
+	Ask detailAsk(long user_no);
 	
 	/*
 	 * Emp detailEmp(int empno);

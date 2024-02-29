@@ -13,7 +13,9 @@
 		(
 		        SELECT rownum rn , a.*
 		        FROM
-		                   (select * from BOARD_ADMIN order by col) a
+		                   (select * from BOARD_ADMIN 
+		                   where user_no = #{user_no}
+		                   order by admin_no) a
 		 )
 		WHERE  rn  >= #{start} 
  		and    rn  <= #{end}    
@@ -21,10 +23,10 @@
    </select>
    
    <update id="yhsAskUpdate" parameterType="Ask">
-		 UPDATE ask SET col=#{col}, admin_title=#{admin_title},
+		 UPDATE BOARD_ADMIN SET admin_no=#{admin_no}, admin_title=#{admin_title},
 					    user_id=#{user_id}, 
 					    admin_start=#{admin_start},
-		                ADMIN_REPLY_CHK=#{ADMIN_REPLY_CHK} 
+		                ADMIN_REPLY_CHK=#{ADMIN_REPLY_CHK}
    </update>
     
 </mapper>

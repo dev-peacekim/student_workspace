@@ -194,6 +194,14 @@
     					<h5 class="card-title">여러분의 질문은 Blueberry를 성장시키는 자양분입니다!</h5>
     						<p></p>
     					<div class="search-bar d-flex justify-content-end">
+    						<div class="col-md-2">
+    						<select id="dropdownSelect"
+								onchange="changeDropdownItem(this.value)">
+								<option value="전체">전체</option>
+								<option value="아이디">아이디</option>
+								<option value="제목+내용">제목+내용</option>
+							</select>   						
+    						</div>   						
     						<div class="col-md-3">
    							<form class="search-form d-flex align-items-center" 
    								method="POST" action="#">
@@ -213,7 +221,7 @@
                   				<tr>
                     				<th>문의번호</th>
                     				<th>제목</th>
-                    				<th>사용자번호</th>
+                    				<th>내용</th>
                     				<th>작성일시</th>
                     				<th>답변여부</th>
                     				<th></th>
@@ -228,9 +236,9 @@
 								
 								<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 								<tr>
-									<td>${BOARD_ADMIN.col }</td>
+									<td>${BOARD_ADMIN.admin_no }</td>
 									<td>${BOARD_ADMIN.admin_title }</td>						
-									<td>${BOARD_ADMIN.user_no }</td>
+									<td><a href="detailAsk?admin_content=${BOARD_ADMIN.admin_content}">${BOARD_ADMIN.admin_content}</a>${BOARD_ADMIN.admin_content}</td>
 									<td>${BOARD_ADMIN.admin_start }</td>
 									<td>${BOARD_ADMIN.admin_reply_chk }</td>
 								</tr>
