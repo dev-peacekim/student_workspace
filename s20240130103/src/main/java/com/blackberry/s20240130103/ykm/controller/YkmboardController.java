@@ -28,6 +28,7 @@ public class YkmboardController {
 		return "ykm/boardStudy";
 	}
 	
+	
 	@GetMapping(value="boardContest")
 	public String boardContest() {
 		return "ykm/boardContest";
@@ -44,7 +45,10 @@ public class YkmboardController {
 	}
 	
 	@GetMapping(value="boardDetail")
-	public String boardDetail() {
+	public String boardDetail(HttpServletRequest request, Model model) {
+		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		List<YkmBoardComm> renderPostContent = ykmService.renderPostContent(cboard_no);
+		model.addAttribute("renderPostContent", renderPostContent);
 		return "ykm/boardDetail";
 	}
 	
@@ -69,6 +73,8 @@ public class YkmboardController {
 
 		return "redirect:/boardStudy";
 	}
+	
+	
 	
 
 	@GetMapping(value="boardUpdatesubmit")
