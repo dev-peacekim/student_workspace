@@ -1,7 +1,5 @@
 package com.blackberry.s20240130103.ykm.service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -40,19 +38,20 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public List<YkmBoardComm> renderPostContent(int cboard_no) {
 		List<YkmBoardComm> renderPostContent = ykmBoardDao.renderPostContent(cboard_no);
-		 for (YkmBoardComm ykmBoardComm : renderPostContent) {
+		 
+		for (YkmBoardComm ykmBoardComm : renderPostContent) {
 		        String cboard_date = ykmBoardComm.getCboard_date();
 		        StringTokenizer tokenizer = new StringTokenizer(cboard_date, " ");
+		      
 		        String dateToken = tokenizer.nextToken();
 		        String timeToken = tokenizer.nextToken();
-		      
-		        int hour = Integer.parseInt(new StringTokenizer(timeToken, ":").nextToken());
-		        String amPm = (hour >= 12) ? "오후" : "오전";
-		        hour = (hour > 12) ? hour - 12 : hour;
 		        
-		        String formattedTime = amPm + " " + hour + ":" + tokenizer.nextToken() + ":" + tokenizer.nextToken();
-		        ykmBoardComm.setCboard_date(dateToken + " " + formattedTime);
+		        String[] timeTokens = timeToken.split(":");
+		        int hour = Integer.parseInt(timeTokens[0]);
+		        String amPm = (hour >= 12)? "오후":"오전";
+		        
 		}
+		
 		return renderPostContent;
 	}
 

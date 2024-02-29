@@ -28,7 +28,7 @@ public class YkmBoardComm {
 //	private String user_nic;
 //	private String user_email;
 //	private String user_phone;
-//	private String user_profile;
+	private String user_profile;
 	
 	// 댓글
 	int reply_cnt;

@@ -77,9 +77,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${boardStudyList}" var="bslist">
+							<c:forEach items="${boardStudyList}" var="bslist" varStatus="loop">
 								<tr>
-									<th scope="row">1</th>
+									<th scope="row">${loop.index+1 }</th>
 									<td><span class="recruiting">모집중</span>	
 										<a href="boardDetail?cboard_no=${bslist.cboard_no}">${bslist.cboard_title}</a></td>						
 									<td>${bslist.user_id}</td>
