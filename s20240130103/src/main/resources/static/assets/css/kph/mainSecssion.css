@@ -105,6 +105,11 @@
 	overflow-y: auto;
 }
 
+.all-project-report-detail div p a {
+	text-decoration: none;
+	color: white;
+}
+
 .all-project-report-detail>div:first-child {
 	width: 78%
 }
@@ -278,6 +283,15 @@
 	justify-content: initial;
 	align-items: center;
 	width: 60%;
+}
+
+.address .address-list-card .address-list-card-detail .user-id {
+	margin-bottom: 0;
+	margin-left: 10px;
+	font-weight: 400;
+	font-size: small;
+	color: rgba(255, 255, 255, 0.678);
+	margin-top: -3px;
 }
 
 .address .address-list-card .address-list-card-detail .address-list-profile-img {
