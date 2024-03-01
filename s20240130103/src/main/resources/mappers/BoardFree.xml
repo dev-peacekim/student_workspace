@@ -3,8 +3,10 @@
 <mapper
 	namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
 	<insert id="lslFreeBoardWrite" parameterType="LslBoardComm">
-		INSERT INTO BOARD_COMM 
-		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content},#{cboard_viewcnt} , sysdate, #{user_no}, 0, 300, 20, NULL,NULL,sysdate)
+		INSERT INTO BOARD_COMM
+		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title},
+		#{cboard_content},#{cboard_viewcnt} , sysdate, #{user_no}, 0, 300, 20,
+		NULL,NULL,sysdate)
 	</insert>
 
 	<select id="sltotalBoardFreeList" resultType="int">
@@ -19,7 +21,7 @@ SELECT *
 		from
 			(SELECT rownum rn ,a.*
 			from
-				(SELECT bc.*, nvl(cnt,0) creply_cnt,u.user_name
+				(SELECT bc.*, nvl(cnt,0) creply_cnt,u.user_name, u.user_nic
 				FROM BOARD_COMM bc,
 						(SELECT CBOARD_NO, count(*) cnt 
 						FROM BOARD_COMM_REPLY 
@@ -34,19 +36,30 @@ SELECT *
 		 and		rn <=#{end}
  		]]>
 	</select>
-	<select id="slboardFreeSearch" parameterType="LslBoardComm"	resultType="LslBoardComm">
-			SELECT *
-			FROM (
-			    SELECT rownum rn, a.*
-			    FROM (
-			        SELECT bc.*
-					FROM BOARD_COMM bc
-					WHERE bc.COMM_BIG = 300
-					    AND bc.COMM_MID = 20
-					    AND (CBOARD_TITLE  LIKE '%' || #{keyword} || '%' 
-					    OR CBOARD_CONTENT  LIKE '%' || #{keyword} || '%')
-			    ) a
-			)
-			WHERE rn BETWEEN #{start} AND #{end}
+	<select id="slboardFreeSearch" parameterType="LslBoardComm"
+		resultType="LslBoardComm">
+		SELECT *
+		FROM (
+		SELECT rownum rn, a.*
+		FROM (
+		SELECT bc.*, u.user_nic
+		FROM BOARD_COMM bc, users u
+		WHERE bc.USER_NO = u.USER_NO
+		AND bc.COMM_BIG = 300
+		AND bc.COMM_MID = 20
+		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
+		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%')
+		) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
+
+	<select id="slboardFreeContents" parameterType="int" resultType="LslBoardComm">
+		SELECT bc.*, u.USER_ID
+		FROM BOARD_COMM bc
+		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
+		WHERE bc.CBOARD_NO = #{cboard_no}
+</select>
+
+
 </mapper>

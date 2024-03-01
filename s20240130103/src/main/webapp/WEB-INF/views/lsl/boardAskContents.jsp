@@ -59,27 +59,24 @@
     <section class="community-post-detail">
         <div class="row card main-card card-body">
             <div class="card-header community-post-header">
-                <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
+        <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" alt="${boardFreeContents.user_profile}"></i>
+                    <i class="bi bi-person-circle post-user-profile" alt="${boardAskContents.user_profile}"></i>
                     <div class="card-title-header">
-                        <h5 class="card-title post-user-name">
-                            <a href="#">${boardFreeContents.user_nic}</a>
+                        <h5 class="card-title post-user-name"> 
+                            <a href="#">${boardAskContents.user_nic}</a>
+                            <fmt:formatDate value="${boardAskContents.cboard_date}"
+										pattern="yyyy.MM.dd a hh:mm" />
                         </h5>
                         <div class="card-subtitle post-subtitle">
-                            <p class="post-updated-at">
-                                <fmt:formatDate value="${boardFreeContents.cboard_date}"
-										pattern="yyyy.MM.dd a hh:mm" />
-                            </p>
-                            <p class="post-veiw-count">조회수 
-                                ${boardFreeContents.cboard_viewcnt}
-                            </p>
+                            <p class="post-updated-at">작성일</p>
+                            <p class="post-veiw-count">조회수 </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="community-post-header-body">
-                <span class="post-content">${boardFreeContents.cboard_content}</span>
+                <span class="post-content"></span>
             </div>
             <section class="community-post-answer">
                 <div class="answer-info-header">
@@ -87,9 +84,9 @@
                         댓글 <span class="answer-info-title-count">23</span>
                     </div>
                     <div class="comment-editor">
-                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                        <i class="bi bi-person-circle comment-user-profile" alt="${boardAskContents.user_profile}"></i>
                         <input type="text" name="comment" id="inputField"
-                            placeholder="id님, 댓글을 작성해보세요." class="form-control" required="">
+                        placeholder="${boardAskContents.user_nic} 님, 댓글을 작성해보세요." class="form-control" required="">
                     </div>
                     <div class="btn-container is-editor-open">
                         <form action="boardCommentreset" method="get">

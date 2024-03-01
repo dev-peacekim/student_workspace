@@ -111,7 +111,7 @@
 									<tr>
 										<td>${boardAsk.cboard_no}</td>
 										<td><a href="boardFreeContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
-										<td>${boardAsk.user_name}</td>
+										<td>${boardAsk.user_nic}</td>
 										<td>${boardAsk.cboard_date}</td>
 										<td>${boardAsk.cboard_viewcnt}</td>
 										<td>${boardAsk.creply_cnt}</td> 

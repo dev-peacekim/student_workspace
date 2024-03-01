@@ -43,7 +43,13 @@ public class LslBoardComm {
 	// 댓글 조회용
 	private Long creply_no;
 	private int creply_cnt;
-	// 회원 이름 조회용
-
+	
+	// 회원 조회
+	private String user_nic;
+	private String user_id;
 	private String user_name;
+	private String user_profile;
+	
+	//test
+	private String boardType;
 }

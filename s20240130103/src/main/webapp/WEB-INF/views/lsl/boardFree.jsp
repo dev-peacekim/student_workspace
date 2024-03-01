@@ -97,8 +97,8 @@
 										<tr>
 											<td>${boardFree.cboard_no}</td>
 											<td><a
-												href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
-											<td>${boardFree.user_name}</td>
+												td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
+											<td>${boardFree.user_nic}</td>
 											<td>${boardFree.cboard_date}</td>
 											<td>${boardFree.cboard_viewcnt}</td>
 											<td>${boardFree.creply_cnt}</td>

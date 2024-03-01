@@ -21,4 +21,11 @@ public interface LslService {
 	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
 
 
+
+
+	LslBoardComm boardFreeContents(int cboard_no);
+
+	LslBoardComm boardAskContents(int cboard_no);
+
+
 }

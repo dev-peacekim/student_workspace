@@ -83,6 +83,26 @@ public class LslServiceImpl implements LslService {
 		 return boardAskSearch;
 	}
 
+	@Override
+	public LslBoardComm boardAskContents(int cboard_no) {
+		System.out.println("LslServiceImpl boardAskContents Start...");
+		LslBoardComm boardAskContents = ld.boardAskContents(cboard_no);
+		
+		System.out.println("EmpServiceImpl boardAskContents -> " + boardAskContents);
+		
+		return boardAskContents;
+	}
+
+	@Override
+	public LslBoardComm boardFreeContents(int cboard_no) {
+		System.out.println("LslServiceImpl boardAskContents Start...");
+		LslBoardComm boardFreeContents = ld.boardFreeContents(cboard_no);
+		
+		System.out.println("EmpServiceImpl boardAskContents -> " + boardFreeContents);
+		
+		return boardFreeContents;
+	}
+
 	
 
 }

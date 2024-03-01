@@ -27,6 +27,12 @@ public interface LslDao {
 	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
 
 
+	LslBoardComm boardAskContents(int cboard_no);
+
+
+	LslBoardComm boardFreeContents(int cboard_no);
+
+
 
 
 

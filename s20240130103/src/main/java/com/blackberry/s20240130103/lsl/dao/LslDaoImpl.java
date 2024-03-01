@@ -118,6 +118,23 @@ public class LslDaoImpl implements LslDao {
 		return boardAskSearch;
 	}
 
+	@Override
+	public LslBoardComm boardAskContents(int cboard_no) {
+		System.out.println("LslDaoImpl boardAskContents Start...");
+		LslBoardComm boardAskContents = session.selectOne("slboardAskContents", cboard_no);
+		System.out.println("LslDaoImpl boardAskContents -> " + boardAskContents);
+		return boardAskContents;
+	}
+
+	@Override
+	public LslBoardComm boardFreeContents(int cboard_no) {
+		System.out.println("LslDaoImpl boardAskContents Start...");
+		
+		LslBoardComm boardFreeContents = session.selectOne("slboardFreeContents", cboard_no);
+		System.out.println("LslDaoImpl boardAskContents -> " + boardFreeContents);
+		return boardFreeContents;
+	}
+
 
 	
 
