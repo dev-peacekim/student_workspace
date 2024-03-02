@@ -83,31 +83,21 @@
                     <div class="answer-info-title">
                         댓글 <span class="answer-info-title-count">23</span>
                     </div>
-                    <div class="comment-editor">
-                        <i class="bi bi-person-circle comment-user-profile" alt="${boardAskContents.user_profile}"></i>
-                        <input type="text" name="comment" id="inputField"
-                        placeholder="${boardAskContents.user_nic} 님, 댓글을 작성해보세요." class="form-control" required="">
-                    </div>
-                    <div class="btn-container is-editor-open">
-                        <form action="boardCommentreset" method="get">
-                            <button id="resetBtn" class="hidden btn btn-secondary">취소</button>
-                        </form>
-                        <form action="boardCommentsubmit" method="get">
-                            <button id="submitBtn" class="hidden btn btn-primary">등록</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-            <div class="re-comment-body">
-                <div class="comment-card">
+
+
+                       <!-- 댓글 시작 -->
+            <div id="reply" class="re-comment-body">
+                <div id="replyBoardAskList" class="comment-card">
+                    <c:forEach items="${replyBoardAskList}" var="replyBoardAskList">
                     <div class="comment-header">
                         <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
                         <div class="comment-user-container">
                             <p class="card-title comment-user-name">
-                                <a href="#">이새잎</a>
+                                <a href="#">${replyBoardAskList.USER_NIC}</a>
                             </p>
-                            <p class="card-subtitle comment-updated-at">작성일 2024.02.24
-                                오후 2:24</p>
+                            <p class="card-subtitle comment-updated-at">작성일
+                                 <fmt:formatDate value="${replyBoardAskList.creply_date}"
+                                pattern="yyyy.MM.dd a hh:mm" /></p>
                         </div>
                         <div class="re-btn-container">
                             <form action="/boardFreeCommentRepl" method="GET">
@@ -118,26 +108,31 @@
                         </div>
                     </div>
                     <div class="card-body comment-body">
-                        <p class="markdown-body">언니 이거 내가 뽀려가용ㅎㅎ</p>
+                        <p class="markdown-body">${replyBoardAskList.creply_content}</p>
                     </div>
-                </div>
+                
+                    
                 <div class="reply-comment">
 					<form action="ref-reply" method="get">
-						<input type="hidden" name="user-profile" value="${profile}">
-						<input type="hidden" name="user-name" value="${user-name}">
-						<input type="hidden" name="group" value="${group}"> <input
-							type="hidden" name="level" value="${level}"> <input
-							type="hidden" name="indent" value="${indent}">
+						<input type="hidden" name="user-profile" value="${replyBoardAskList.USER_PROFILE}">
+						<input type="hidden" name="user-name" value="${replyBoardAskList.USER_NIC}">
+						<input type="hidden" name="group" value="${replyBoardAskList.creply_group}"> <input
+							type="hidden" name="level" value="${replyBoardAskList.creply_level}"> <input
+							type="hidden" name="indent" value="${replyBoardAskList.creply_indent}">
 						<div class="reply-header">
 							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
-							<span class="reply-user-name">유경미</span> <span
-								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
+							<span class="reply-user-name">${replyBoardAskList.USER_NIC}</span> <span
+								class="reply-updated-at">작성일 
+                                <fmt:formatDate value="${replyBoardAskList.creply_date}"
+                                pattern="yyyy.MM.dd a hh:mm" /></span>
 						</div>
 						<div class="reply-body">
-							<span class="reply-content">구랩!!!</span><i class="bi bi-reply-fill"></i>
+							<span class="reply-content">${replyBoardAskList.creply_content}</span><i class="bi bi-reply-fill"></i>
 						</div>
 					</form>
 				</div>
+            </c:forEach>
+            </div>
 			</div>
 			
 			<script>

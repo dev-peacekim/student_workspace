@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +82,6 @@
 
 
 						<!-- 게시판 테이블 -->
-						<div class="table-body">
 							<table class="table table-hover">
 								<thead>
 									<tr>
@@ -99,20 +100,19 @@
 											<td><a
 												td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
 											<td>${boardFree.user_nic}</td>
-											<td>${boardFree.cboard_date}</td>
+											<td><fmt:formatDate value="${boardFree.cboard_date}" pattern="yyyy-MM-dd"/></td>
 											<td>${boardFree.cboard_viewcnt}</td>
 											<td>${boardFree.creply_cnt}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-						</div>
-
-
+			
 							<!-- 글쓰기 버튼  -->
 							<div class="text-end">
-								<button type="button" class="btn bfWrite"
-									onclick="window.location.href='boardFreeWrite'">글쓰기</button>
+								<a href="boardFreeWrite?boardtype=Free">
+									<button type="button" class="btn bfWrite">글쓰기</button>
+								</a>
 							</div>
 							<!-- 글쓰기 버튼 끝  -->
 

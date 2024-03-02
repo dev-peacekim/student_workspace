@@ -48,18 +48,27 @@ SELECT *
 		AND bc.COMM_BIG = 300
 		AND bc.COMM_MID = 20
 		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
-		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%')
+		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
+		OR user_nic LIKE '%' || #{keyword} || '%')
 		) a
 		)
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="slboardFreeContents" parameterType="int" resultType="LslBoardComm">
-		SELECT bc.*, u.USER_ID
+	<select id="slboardFreeContents" parameterType="int"
+		resultType="LslBoardComm">
+		SELECT bc.*, u.USER_NIC
 		FROM BOARD_COMM bc
 		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
 		WHERE bc.CBOARD_NO = #{cboard_no}
 </select>
 
+
+	<select id="slreplyBoardFreeList" parameterType="int" resultType="LslCommReply">
+		SELECT bcr.* , u.*
+		FROM BOARD_COMM_REPLY bcr , USERS u
+		WHERE bcr.USER_NO = u.USER_NO
+		AND cboard_no = #{cboard_no}
+	</select>
 
 </mapper>

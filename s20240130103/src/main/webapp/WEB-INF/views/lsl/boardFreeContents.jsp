@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,13 +62,15 @@
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" alt="${boardFreeContents.user_profile}"></i>
+                    <i class="bi bi-person-circle post-user-profile" 
+                    alt="${boardFreeContents.user_profile}"></i>
                     <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardFreeContents.user_nic}</a>
                         </h5>
                         <div class="card-subtitle post-subtitle">
                             <p class="post-updated-at">
+                                작성일
                                 <fmt:formatDate value="${boardFreeContents.cboard_date}"
 										pattern="yyyy.MM.dd a hh:mm" />
                             </p>
@@ -81,6 +84,8 @@
             <div class="community-post-header-body">
                 <span class="post-content">${boardFreeContents.cboard_content}</span>
             </div>
+
+
             <section class="community-post-answer">
                 <div class="answer-info-header">
                     <div class="answer-info-title">
@@ -101,16 +106,20 @@
                     </div>
                 </div>
             </section>
-            <div class="re-comment-body">
-                <div class="comment-card">
+
+            <!-- 댓글 시작 -->
+            <div id="reply" class="re-comment-body">
+                <div id="replyBoardFreeList" class="comment-card">
+                    <c:forEach items="${replyBoardFreeList}" var="replyBoardFreeList">
                     <div class="comment-header">
                         <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
                         <div class="comment-user-container">
                             <p class="card-title comment-user-name">
-                                <a href="#">이새잎</a>
+                                <a href="#">${replyBoardFreeList.USER_NIC}</a>
                             </p>
-                            <p class="card-subtitle comment-updated-at">작성일 2024.02.24
-                                오후 2:24</p>
+                            <p class="card-subtitle comment-updated-at">작성일
+                                 <fmt:formatDate value="${replyBoardFreeList.creply_date}"
+                                pattern="yyyy.MM.dd a hh:mm" /></p>
                         </div>
                         <div class="re-btn-container">
                             <form action="/boardFreeCommentRepl" method="GET">
@@ -121,26 +130,31 @@
                         </div>
                     </div>
                     <div class="card-body comment-body">
-                        <p class="markdown-body">언니 이거 내가 뽀려가용ㅎㅎ</p>
+                        <p class="markdown-body">${replyBoardFreeList.creply_content}</p>
                     </div>
-                </div>
+                
+                    
                 <div class="reply-comment">
 					<form action="ref-reply" method="get">
-						<input type="hidden" name="user-profile" value="${profile}">
-						<input type="hidden" name="user-name" value="${user-name}">
-						<input type="hidden" name="group" value="${group}"> <input
-							type="hidden" name="level" value="${level}"> <input
-							type="hidden" name="indent" value="${indent}">
+						<input type="hidden" name="user-profile" value="${replyBoardFreeList.USER_PROFILE}">
+						<input type="hidden" name="user-name" value="${replyBoardFreeList.USER_NIC}">
+						<input type="hidden" name="group" value="${replyBoardFreeList.creply_group}"> <input
+							type="hidden" name="level" value="${replyBoardFreeList.creply_level}"> <input
+							type="hidden" name="indent" value="${replyBoardFreeList.creply_indent}">
 						<div class="reply-header">
 							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
-							<span class="reply-user-name">유경미</span> <span
-								class="reply-updated-at">작성일 2024.02.24 오후 11:20</span>
+							<span class="reply-user-name">${replyBoardFreeList.USER_NIC}</span> <span
+								class="reply-updated-at">작성일 
+                                <fmt:formatDate value="${replyBoardFreeList.creply_date}"
+                                pattern="yyyy.MM.dd a hh:mm" /></span>
 						</div>
 						<div class="reply-body">
-							<span class="reply-content">구랩!!!</span><i class="bi bi-reply-fill"></i>
+							<span class="reply-content">${replyBoardFreeList.creply_content}</span><i class="bi bi-reply-fill"></i>
 						</div>
 					</form>
 				</div>
+            </c:forEach>
+            </div>
 			</div>
 			
 			<script>
@@ -154,7 +168,7 @@
 							        // 수정 버튼 표시
 							        document.querySelector('.bfcModify').removeAttribute('hidden');
 							</script>
-							<c:if test="${session.getAttribute('user_no') == user.user_no }">
+							<c:if test="${session.getAttribute('user_no') == users.user_no}">
 								<button type="hidden" class="btn bfcDelete">삭제</button>
                                 <button type="hidden" class="btn bfcModify">수정</button>
                             </c:if>

@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.lsl.model;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -9,7 +11,8 @@ public class LslBoardComm {
 	private String cboard_title;
 	private String cboard_content;
 	private int cboard_viewcnt;
-	private String cboard_date;
+	//private String cboard_date;
+	private Date cboard_date;
 	private Long user_no;
 	private int cboard_delete_chk;
 	private int comm_big;
@@ -51,5 +54,5 @@ public class LslBoardComm {
 	private String user_profile;
 	
 	//test
-	private String boardType;
+	private String boardtype;
 }

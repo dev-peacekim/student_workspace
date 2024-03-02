@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,27 +17,7 @@ public class LslDaoImpl implements LslDao {
 
 	private final SqlSession session;
 
-	@Override
-	public int boardAskWrite(LslBoardComm lslBoardComm, Long user_no) {
-	    System.out.println("LslDaoImpl freeBoardWrite Start...");
-	    
-	    // 게시글 삽입
-	    int insertResult = session.insert("lslAskBoardWrite", lslBoardComm);
-	    
-	    // 파일 정보 삽입
-	    if (insertResult > 0) {
-	        // 게시글이 성공적으로 삽입되었을 때만 파일 정보를 삽입
-	        int fileInsertResult = session.insert("lslAskBoardFile", lslBoardComm);
-	        if (fileInsertResult <= 0) {
-	            // 파일 정보 삽입 실패 처리
-	           
-	        }
-	    } else {
-	       
-	    }
-	    
-	    return insertResult;
-	}
+	
 
 	@Override
 	public int totalBoardFree() {
@@ -133,6 +114,30 @@ public class LslDaoImpl implements LslDao {
 		LslBoardComm boardFreeContents = session.selectOne("slboardFreeContents", cboard_no);
 		System.out.println("LslDaoImpl boardAskContents -> " + boardFreeContents);
 		return boardFreeContents;
+	}
+
+	@Override
+	public int askBoardWrite(String boardtype) {
+		System.out.println("LslDaoImpl askBoardWrite Start...");
+		
+		int askBoardWrite = session.insert("slaskBoardWrite", boardtype);
+
+		
+		return askBoardWrite;
+	}
+
+	@Override
+	public List<LslCommReply> replyBoardFreeList(int cboard_no) {
+		List<LslCommReply> replyBoardFreeList = session.selectList("slreplyBoardFreeList", cboard_no);
+		
+		return replyBoardFreeList;
+	}
+
+	@Override
+	public List<LslCommReply> replyBoardAskList(int cboard_no) {
+		List<LslCommReply> replyBoardAskList = session.selectList("slreplyBoardAskList", cboard_no);		
+		
+		return replyBoardAskList;
 	}
 
 

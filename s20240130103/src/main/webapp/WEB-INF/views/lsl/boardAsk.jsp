@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,7 +114,7 @@
 										<td>${boardAsk.cboard_no}</td>
 										<td><a href="boardFreeContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
 										<td>${boardAsk.user_nic}</td>
-										<td>${boardAsk.cboard_date}</td>
+										<td><fmt:formatDate value="${boardAsk.cboard_date}" pattern="yyyy-MM-dd"/></td>
 										<td>${boardAsk.cboard_viewcnt}</td>
 										<td>${boardAsk.creply_cnt}</td> 
 								</tr>

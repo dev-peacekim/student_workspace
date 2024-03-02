@@ -42,7 +42,8 @@ SELECT *
 		AND bc.COMM_BIG = 300
 		AND bc.COMM_MID = 10
 		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
-		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%')
+		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
+		OR user_nic LIKE '%' || #{keyword} || '%')
 		) a
 		)
 		WHERE rn BETWEEN #{start} AND #{end}
@@ -50,20 +51,47 @@ SELECT *
 
 	</select>
 
-	<insert id="lslAskBoardWrite" parameterType="LslBoardComm">
-		INSERT INTO BOARD_COMM (CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT,
-		CBOARD_VIEWCNT, CBOARD_DATE, USER_NO, CBOARD_DELETE_CHK, COMM_BIG,
-		COMM_MID, COMM_BIG2, COMM_MID2, COMM_UPDATE_DATE)
-		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title},
-		#{cboard_content},#{cboard_viewcnt} , sysdate, #{user_no}, 0, 300, 10,
-		NULL, NULL, sysdate)
-	</insert>
+	<insert id="slaskBoardWrite" parameterType="String">
+		INSERT INTO
+    <choose>
+        <when test="boardtype == 'Ask'">
+            BOARD_COMM (
+        </when>
+    </choose>
+        CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT,
+        CBOARD_VIEWCNT, CBOARD_DATE, USER_NO, CBOARD_DELETE_CHK, COMM_BIG,
+        COMM_MID, COMM_BIG2, COMM_MID2, COMM_UPDATE_DATE
+    ) VALUES (
+        SEQ_BOARD_COMM.nextval, 
+        #{cboard_title}, 
+        #{cboard_content}, 
+        11, 
+        sysdate, 
+        #{user_no}, 
+        0, 
+        300, 
+        10, 
+        NULL, 
+        NULL, 
+        sysdate
+    )
+</insert>
+	
 
-	<select id="slboardAskContents" parameterType="int" resultType="LslBoardComm">
-    SELECT bc.*, u.USER_ID
-    FROM BOARD_COMM bc
-    INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
-    WHERE bc.CBOARD_NO = #{cboard_no}
+	<select id="slboardAskContents" parameterType="int"
+		resultType="LslBoardComm">
+		SELECT bc.*, u.USER_NIC
+		FROM BOARD_COMM bc
+		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
+		WHERE bc.CBOARD_NO = #{cboard_no}
 </select>
+<select id="slreplyBoardAskList" parameterType="int" resultType="LslCommReply">
+		SELECT bcr.* , u.*
+		FROM BOARD_COMM_REPLY bcr , USERS u
+		WHERE bcr.USER_NO = u.USER_NO
+		AND cboard_no = #{cboard_no}
+	</select>
+	 
+
 
 </mapper>

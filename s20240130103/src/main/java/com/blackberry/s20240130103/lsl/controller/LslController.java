@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.blackberry.s20240130103.lsl.Service.BoardFreeAskPaging;
 import com.blackberry.s20240130103.lsl.Service.LslService;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +73,11 @@ public class LslController {
 	public String boardFreeContents(HttpServletRequest request, Model model) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
-
+		
+		System.out.println("LslController replyList Start..");
+		List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
+		
+		model.addAttribute("replyBoardFreeList",replyBoardFreeList);
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
@@ -131,6 +136,11 @@ public class LslController {
 	public String boardAskContents(HttpServletRequest request, Model model) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardAskContents = ls.boardAskContents(cboard_no);
+		
+		System.out.println("LslController replyList Start..");
+		List<LslCommReply> replyBoardAskList = ls.replyBoardAskList(cboard_no);
+		
+		model.addAttribute("replyBoardAskList",replyBoardAskList);
 
 		model.addAttribute("boardAskContents", boardAskContents);
 		return "lsl/boardAskContents";
@@ -138,13 +148,33 @@ public class LslController {
 
 	// 질문 게시판 글 폼(board type)
 	@GetMapping(value = "boardFreeWrite")
-	public String freeBoardWrite(Model model, @RequestParam(name = "boardtype") String boardtype) {
+	public String askBoardWrite(Model model, @RequestParam(name = "boardtype") String boardtype) {
 		System.out.println(boardtype);
-
+		
+		int askBoardWrite = ls.askBoardWrite(boardtype);
+		
+	
 		model.addAttribute("board_type", boardtype);
-		return "lsl/boardFreeWrite";
+		if (askBoardWrite > 0) {
+			return "redirect:boardAsk";
+		} else {
+			model.addAttribute("msg","입력 실패 확인해 보세요");
+			return "forward:boardFreeWrite";
+		}
+		
+		
 	}
 
+	// Reply 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 게시글 수정
 	@GetMapping(value = "boardFreeModify")
@@ -153,5 +183,11 @@ public class LslController {
 		return "lsl/boardFreeModify";
 	}
 
+	
+	
+	
+	
+	
+	
 
 }

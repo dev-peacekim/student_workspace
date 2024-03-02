@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.blackberry.s20240130103.lsl.dao.LslDao;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,13 +17,7 @@ public class LslServiceImpl implements LslService {
 
 	private final LslDao ld;
 
-	@Override
-	public int boardAskWrite(LslBoardComm lslBoardComm, Long user_no) {
-		int insertResult = 0;
-		System.out.println("LslServiceImpl freeBoardWrite Start...");
-		insertResult = ld.boardAskWrite(lslBoardComm, user_no);
-		return insertResult;
-	}
+
 
 	@Override
 	public int totalBoardFree() {
@@ -101,6 +96,35 @@ public class LslServiceImpl implements LslService {
 		System.out.println("EmpServiceImpl boardAskContents -> " + boardFreeContents);
 		
 		return boardFreeContents;
+	}
+
+	@Override
+	public int askBoardWrite(String boardtype) {
+		System.out.println("LslServiceImpl askBoardWrite Start...");
+		int askBoardWrite = ld.askBoardWrite(boardtype);
+		
+		System.out.println("LslServiceImpl askBoardWrite -> " + askBoardWrite);
+		return askBoardWrite;
+	}
+
+	@Override
+	public List<LslCommReply> replyBoardFreeList(int cboard_no) {
+		System.out.println("LslServiceImpl replyBoardFreeList Start...");
+		List<LslCommReply> replyBoardFreeList = ld.replyBoardFreeList(cboard_no);
+		
+		System.out.println("LslServiceImpl replyBoardFreeList.size() ->" + replyBoardFreeList.size());
+		
+		return replyBoardFreeList;
+	}
+
+	@Override
+	public List<LslCommReply> replyBoardAskList(int cboard_no) {
+		System.out.println("LslServiceImpl replyBoardAskList Start...");
+		List<LslCommReply> replyBoardAskList = ld.replyBoardAskList(cboard_no);
+		
+		System.out.println("LslServiceImpl replyBoardAskList.size() ->" + replyBoardAskList.size());
+		
+		return replyBoardAskList;
 	}
 
 	
