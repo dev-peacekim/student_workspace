@@ -58,12 +58,12 @@
 	            <ul class="nav nav-tabs nav-tabs-bordered">
 	              <li class="nav-item flex-fill" role="presentation">
 	                <a href="address">
-	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true">추가된 목록</button>
+	                  <button class="nav-link w-100" data-bs-toggle="tab" type="button" aria-selected="false" role="tab" tabindex="-1">추가된 목록</button>
 	                </a>
 	              </li>
 	              <li class="nav-item flex-fill" role="presentation">
 	                <a href="addresswait">
-	                  <button class="nav-link w-100" type="button" data-bs-toggle="tab"  aria-selected="false" >대기중인 목록</button>
+	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true" role="tab">대기중인 목록</button>
 	                </a>
 	              </li>
 	            </ul>

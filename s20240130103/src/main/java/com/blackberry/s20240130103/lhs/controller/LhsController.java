@@ -277,7 +277,10 @@ public class LhsController {
 	
 	@GetMapping("address")
 	public String addressForm() {
-		System.out.println("왜 안나와");
 		return "lhs/address";
+	}
+	@GetMapping("addresswait")
+	public String addresswaitForm() {
+		return "lhs/addresswait";
 	}
 }
