@@ -1,6 +1,5 @@
 package com.blackberry.s20240130103.lhs.model;
 
-import java.util.Date;
 
 import lombok.Data;
 
@@ -15,5 +14,6 @@ public class User {
 	private String user_phone;
 	private String user_profile;
 	private int user_delete_chk;
-	private Date user_date;
+	private String user_date;
+	
 }

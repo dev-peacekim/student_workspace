@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="assets/js/lhs/lhsaddressaddForm.js" defer="defer"></script>
+  	
     <title>Blueberry</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -50,59 +51,25 @@
     <!-- End Sidebar-->
 
 	<main id="main" class="main">
-	<section>
+		<section>
 		<h1>주소록</h1>
 		<div class="maindiv card-body">
 			<div class="d-flex align-items-center address-top">
 	          <div class="d-flex align-items-center ">
-	            <ul class="nav nav-tabs nav-tabs-bordered">
-	              <li class="nav-item flex-fill" role="presentation">
-	                <a href="address">
-	                  <button class="nav-link w-100" data-bs-toggle="tab" type="button" aria-selected="false" role="tab" tabindex="-1">추가된 목록</button>
-	                </a>
-	              </li>
-	              <li class="nav-item flex-fill" role="presentation">
-	                <a href="addresswait">
-	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true" role="tab">대기중인 목록</button>
-	                </a>
-	              </li>
-	            </ul>
-	            <form action="" class="d-flex">
-	                <input type="text" class="form-control width300 mr-2" placeholder="이름으로 검색">
-	                <input type="submit" value="검색" class="btn btn-outline-secondary">
-	            </form>
+	            <h3>주소록 추가</h3>
 	          </div>
-	          <div>
-	            <button class="btn btn-info">
-	              <i class="bi bi-plus"></i>
-	            </button>
-	          </div>
-			</div>
-	        <div class="address-main">
-	
-	          <div class="address-main-inner">
-	            <div class="address-list-card-detail">
-	              <div class="profile-img-user-name">
-	                <img src="upload/userImg/id1.png" alt="Profile" class="rounded-circle address-list-profile-img">
-	                <div>
-	                  <p class="user-name">이름</p>
-	                  <p class="user-id">#아이디</p>
-	                </div>
-	              </div>
-	              <div class="score-message">
-	                <div class="user-score rounded-circle">4.5</div> <!-- 점수-->
-	                <form action="" method="get"> 
-	                  <input type="hidden" name="user_no" value="${addressUser.user_no }">
-	                  <button type="submit" class="rounded-circle message">
-	                    <i class="bi bi-envelope-fill"></i>
-	                  </button>
-	                </form>
-	              </div>
-	            </div>
+	          <div class="d-flex">
+	            <input type="text" id="inputid" class="form-control width300 mr-2" placeholder="아이디를 입력해주세요">
+	            <input type="button" id="searchbtn" value="검색" class="btn btn-outline-secondary">
 	          </div>
 	        </div>
+	        <div class="address-main">
+	
+	          
+	          
+	        </div>
 		</div>
-	</section>
+		</section>
     </main>
     <!-- End #main -->
 

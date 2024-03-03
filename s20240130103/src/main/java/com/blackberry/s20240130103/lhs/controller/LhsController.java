@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.domain.User;
+import com.blackberry.s20240130103.lhs.model.Address;
+import com.blackberry.s20240130103.lhs.service.AddressService;
 import com.blackberry.s20240130103.lhs.service.EvalService;
 import com.blackberry.s20240130103.lhs.service.UserService;
 
@@ -33,6 +38,8 @@ public class LhsController {
 	private final JavaMailSender mailSender;
 	private final UserService userService;
 	private final EvalService evalService;
+	private final KphProjectService kphProjectService;
+	private final AddressService addressService;
 	
 	@GetMapping(value = "loginForm")
 	public String loginForm() {
@@ -276,11 +283,39 @@ public class LhsController {
 	}
 	
 	@GetMapping("address")
-	public String addressForm() {
+	public String addressForm(HttpServletRequest request,Model model) {
+		List<KphUsers> addressUserList = kphProjectService.addressUserList(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
+		model.addAttribute("addressUserList", addressUserList);
 		return "lhs/address";
 	}
+	
 	@GetMapping("addresswait")
 	public String addresswaitForm() {
 		return "lhs/addresswait";
+	}
+	
+	@GetMapping("addressaddForm")
+	public String addressaddForm() {
+		return "lhs/addressaddForm";
+	}
+	
+	@ResponseBody
+	@PostMapping("addressIdSearch")
+	public User addressIdSearch(HttpServletRequest request,
+								@RequestParam(name = "user_id")String userId) {
+		Long loginuserId = (Long) request.getSession().getAttribute("user_id");
+		Optional<User> user = userService.findUserById(userId);
+		if(user.isPresent()) {
+			double scoreavg = evalService.avgScoreByNo(user.get().getUser_no().toString());
+			user.get().setEval_score(scoreavg);
+			Address address = new Address();
+			address.setUser_no(loginuserId);
+			address.setRe_user_no(user.get().getUser_no());
+			int addresschk = addressService.addresschkcnt(address);
+			return user.get();
+		}else {
+			return null;
+		}
+		
 	}
 }
