@@ -119,10 +119,11 @@ thead th:nth-child(6) {
 	margin-top: 3px; /* 체크박스와 텍스트 사이에 여백 추가 */
 }
 
-.list-item .readStatus {
+/* 읽음 아이콘 스타일 */
+.list-item .readStatus img{
 	position: absolute;
 	margin-left: 5px;
-	margin-top: 2px;
+	margin-top: 1px;
 }
 
 
@@ -142,6 +143,7 @@ thead th:nth-child(6) {
     text-align: center;
     line-height: 2.2;
     z-index: 3;
+    cursor: pointer;
 }
 
 .msg-create .msg-create-btn:active,
@@ -176,12 +178,24 @@ thead th:nth-child(6) {
 .btn-container {
     position: absolute;
     display: flex;
-    right: 30px;
+    right: 20px;
     bottom: 10px;
     font-size: 14px;
 }
 
-.btn-msg-storebox,
+.btn-msg-storebox{
+	margin-left: -130px;
+    color: #0d6efd;
+    background-color: white;
+    border: 1px solid #0D6DFD;
+    padding: 1px 15px;
+    transition: background-color 0.3s ease; /* 부드러운 전환을 위한 트랜지션*/
+    font-weight: bold;
+    height: 35px;
+    width: 65px;
+    font-size: 16px;
+    font-weight: 800;
+}
 .btn-msg-trashbox {
     margin-left: 0;
     color: #0d6efd;

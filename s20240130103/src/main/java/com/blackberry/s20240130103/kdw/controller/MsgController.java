@@ -1,17 +1,27 @@
 package com.blackberry.s20240130103.kdw.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.Message;
 import com.blackberry.s20240130103.kdw.service.MsgPaging;
 import com.blackberry.s20240130103.kdw.service.MsgService;
+import com.blackberry.s20240130103.lhs.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MsgController {
 	
+	@Autowired
 	private final MsgService msgService;
 
 
@@ -47,12 +58,14 @@ public class MsgController {
 	    List<Message> receivedMessages = msgService.getReceivedMessages(msgReceiver, page.getStart(), page.getEnd());
 
 	    // 'Model'에 받은 쪽지 목록과 페이징 정보를 담아서 전달
+	    model.addAttribute("msgReceiver", msgReceiver);
 	    model.addAttribute("totalMsgReceive", totReceiveMsgCnt);
 	    model.addAttribute("receivedMessages", receivedMessages);
 	    model.addAttribute("page", page);
 
 	    return "kdw/msgReceivebox";
 	}
+	
 	/* ========== 보낸 쪽지함 리스트 불러오기 ========== */
 	@GetMapping(value = "msgSendbox")
 	public String getSendMessages(HttpServletRequest request, Model model,
@@ -126,38 +139,123 @@ public class MsgController {
 
         return "kdw/msgTrashbox";
     }
-	
-    // 쪽지 읽음 표시 기능
-    @GetMapping(value = "readMessage")
-    public String readMessage(@RequestParam(name = "msgNo") Long msgNo) {
-        log.info("MsgController readMessage start...");
+    
+    // ========== 받은 쪽지 읽기 & 보낸 쪽지 읽기  ========== 
+    
+    // 받은쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
+    @GetMapping(value = "msgReadReceived")
+    public String readReceivedMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
+        log.info("MsgController readReceivedMessage start...");
 
-        // 쪽지를 읽음으로 표시
-        msgService.markMessageAsRead(msgNo);
+        // msgNo를 사용하여 해당 쪽지 정보 가져오기 및 읽은 시간 업데이트
+        Message receivedMessageInfo = msgService.getReceivedMessageByInfo(msgNo);
 
-        // 읽은 쪽지로 이동 또는 다른 로직 추가
-        return "redirect:/msgReceivebox";
+        model.addAttribute("receivedMessageInfo", receivedMessageInfo);
+        log.info("MsgController readSentMessage receivedMessageInfo => " + receivedMessageInfo);
+        // 쪽지 읽기 페이지로 이동
+        return "kdw/msgReadReceived";
     }
-	
+    
+    // 보낸쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
+    @GetMapping(value = "msgReadSent")
+    public String readSentMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
+        log.info("MsgController readSentMessage start...");
 
-	
-    // 쪽지쓰기 버튼 클릭시 쪽지쓰기 view 이동
+        // msgNo를 사용하여 해당 쪽지 정보 가져오기 및 읽은 시간 업데이트
+        Message sentMessageInfo = msgService.getSentMessageByInfo(msgNo);
+
+        model.addAttribute("sentMessageInfo", sentMessageInfo);
+        log.info("MsgController readSentMessage sentMessageInfo => " + sentMessageInfo);
+        // 쪽지 읽기 페이지로 이동
+        return "kdw/msgReadSent";
+    }
+    
+    
+    /* ========== 버튼 기능 구현 =========== */
+    
+    
+    // 쪽지쓰기 페이지로 이동
     @GetMapping(value = "msgWrite")
-    public String kdwWriteMessagePage() {
-        return "kdw/msgWrite"; 
+    public String msgWritePage(HttpServletRequest request, Model model) {
+        // 세션에서 보내는 사람의 아이디 가져오기
+        Long senderId = (Long) request.getSession().getAttribute("user_no");
+
+        // 유저 테이블에서 모든 사용자 목록 가져오기
+        List<User> userList = msgService.getAllUsers();
+        
+        // 모델에 데이터 추가 (세션ID, 유저리스트)
+        model.addAttribute("senderId", senderId);
+        model.addAttribute("userList", userList);
+
+        // JSP 페이지 이름 반환
+        return "kdw/msgWrite";
+    }
+    
+    // 쪽지 보내기
+    @PostMapping("/msgSent")
+    public ResponseEntity<String> sendMsg(
+            @RequestParam("receiverInput") String receiverInput,
+            @RequestParam("msgTitle") String msgTitle,
+            @RequestParam("msgContent") String msgContent,
+            HttpServletRequest request) {
+        try {
+            // HttpSession에서 로그인한 사용자 정보 가져오기 (쪽지 보내는 사람)
+            Long msgSender = (Long) request.getSession().getAttribute("user_no");
+
+            // 쪽지 전송 로직 추가 (예시로 현재 날짜를 메시지에 추가)
+            Message message = new Message();
+            message.setMsg_sender(msgSender);
+            message.setMsg_receiver(Long.parseLong(receiverInput));
+            message.setMsg_title(msgTitle);
+            message.setMsg_content(msgContent);
+            message.setMsg_createdate(LocalDateTime.now().toString()); // LocalDateTime을 String으로 변환
+
+            msgService.sendMsg(message);
+
+            return ResponseEntity.ok("쪽지가 성공적으로 전송되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("쪽지 전송에 실패했습니다.");
+        }
+    }
+    
+    // 답장 쓰기 버튼 -> 답장쓰기 View 이동
+    @GetMapping(value = "msgReply")
+    public String msgReplyPage(Model model) {
+    log.info("MsgController msgReplyPage start...");
+    return "kdw/msgReply";
+    }
+    
+    // '보관' 버튼 클릭 시 msg_store_chk를 1로 업데이트
+    @PostMapping(value = "updateMsgStoreStatus")
+    public ResponseEntity<String> updateMsgStoreStatus(@RequestBody Map<String, List<Long>> requestData) {
+        List<Long> msgNos = requestData.get("msgNos");
+        log.info("MsgController updateMsgStoreStatus start...");
+        System.out.println("MsgController updateMsgStoreStatus start...");
+        msgService.updateMsgStoreStatus(msgNos);
+        return ResponseEntity.ok("쪽지가 성공적으로 보관되었습니다.");
+    }
+    
+    // '삭제' 버튼 클릭 시 msg_delete_chk를 1로 업데이트
+    @PostMapping(value = "updateMsgDeleteStatus")
+    public ResponseEntity<String> updateMsgDeleteStatus(@RequestBody Map<String, List<Long>> requestData) {
+        List<Long> msgNos = requestData.get("msgNos");
+        log.info("MsgController updateMsgDeleteStatus start...");
+        System.out.println("MsgController updateMsgDeleteStatus start...");
+        msgService.updateMsgDeleteStatus(msgNos);
+        return ResponseEntity.ok("쪽지가 성공적으로 삭제되었습니다.");
     }
     
     
-    /* ========== 받은편지함 버튼 기능 구현 =========== */
-    
-    // 쪽지 보내기 메서드
-    @PostMapping(value = "msgSent")
-    public String kdwSendMessage(Message message) {
-    	log.info("MsgController sendMessage start...");
-        msgService.sendMessage(message);
-        return "kdw/msgSent";
+    // '영구 삭제' 버튼 클릭 시 쪽지 영구 삭제
+    @PostMapping(value = "/permanentDeleteMessages")
+    public ResponseEntity<String> permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData) {
+        List<Long> msgNos = requestData.get("msgNos");
+        log.info("MsgController permanentDeleteMessages start...");
+        System.out.println("MsgController permanentDeleteMessages start...");
+        msgService.permanentDeleteMessages(msgNos);
+        return ResponseEntity.ok("쪽지가 성공적으로 영구 삭제되었습니다.");
     }
-    
     /* ========== 받은편지함 버튼 기능 구현 END =========== */
     
 	
