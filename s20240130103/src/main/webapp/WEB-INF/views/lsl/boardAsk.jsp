@@ -112,7 +112,7 @@
 								<c:forEach var="boardAsk" items="${boardAskList}">
 									<tr>
 										<td>${boardAsk.cboard_no}</td>
-										<td><a href="boardFreeContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
+										<td><a href="boardAskContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
 										<td>${boardAsk.user_nic}</td>
 										<td><fmt:formatDate value="${boardAsk.cboard_date}" pattern="yyyy-MM-dd"/></td>
 										<td>${boardAsk.cboard_viewcnt}</td>
@@ -128,6 +128,7 @@
 									<button type="button" class="btn baWrite">글쓰기</button>
 								</a>
 							</div>
+
 						<!-- 페이지 표시 -->
 
 						<c:if test="${bapage.startPage > bapage.pageBlock}">

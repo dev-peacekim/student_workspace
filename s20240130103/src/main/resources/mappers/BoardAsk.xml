@@ -17,11 +17,13 @@ SELECT *
 				FROM BOARD_COMM bc,
 						(SELECT CBOARD_NO, count(*) cnt 
 						FROM BOARD_COMM_REPLY 
+						WHERE CREPLY_DELETE_CHK = 0
 						GROUP BY CBOARD_NO) bcr,
 						users u
 				WHERE bc.CBOARD_NO =bcr.CBOARD_NO(+)
 				AND comm_big=300
 				AND comm_mid=10
+				AND	bc.CBOARD_DELETE_CHK = 0
 				AND bc.user_no = u.user_no
 				order by cboard_date DESC) a)
 		WHERE  rn >= #{start}
@@ -41,6 +43,7 @@ SELECT *
 		WHERE bc.user_no = u.user_no
 		AND bc.COMM_BIG = 300
 		AND bc.COMM_MID = 10
+		AND bc.CBOARD_DELETE_CHK = 0
 		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
 		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
 		OR user_nic LIKE '%' || #{keyword} || '%')
@@ -51,32 +54,24 @@ SELECT *
 
 	</select>
 
-	<insert id="slaskBoardWrite" parameterType="String">
-		INSERT INTO
-    <choose>
-        <when test="boardtype == 'Ask'">
-            BOARD_COMM (
-        </when>
-    </choose>
-        CBOARD_NO, CBOARD_TITLE, CBOARD_CONTENT,
-        CBOARD_VIEWCNT, CBOARD_DATE, USER_NO, CBOARD_DELETE_CHK, COMM_BIG,
-        COMM_MID, COMM_BIG2, COMM_MID2, COMM_UPDATE_DATE
-    ) VALUES (
-        SEQ_BOARD_COMM.nextval, 
-        #{cboard_title}, 
-        #{cboard_content}, 
-        11, 
-        sysdate, 
-        #{user_no}, 
-        0, 
-        300, 
-        10, 
-        NULL, 
-        NULL, 
-        sysdate
-    )
-</insert>
-	
+	<insert id="slaskBoardWrite" parameterType="String"> 
+			INSERT  INTO BOARD_COMM bc VALUES
+	(
+	seq_board_comm.nextval,
+	#{CBOARD_TITLE},
+	#{CBOARD_CONTENT},
+	0,
+	sysdate,
+	#{USER_NO}
+	0,
+	300,
+	20,
+	NULL,
+	NULL,
+	sysdate
+	)		
+	</insert>
+
 
 	<select id="slboardAskContents" parameterType="int"
 		resultType="LslBoardComm">
@@ -85,13 +80,14 @@ SELECT *
 		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
 		WHERE bc.CBOARD_NO = #{cboard_no}
 </select>
-<select id="slreplyBoardAskList" parameterType="int" resultType="LslCommReply">
+	<select id="slreplyBoardAskList" parameterType="int"
+		resultType="LslCommReply">
 		SELECT bcr.* , u.*
 		FROM BOARD_COMM_REPLY bcr , USERS u
 		WHERE bcr.USER_NO = u.USER_NO
+		AND bcr.CREPLY_DELETE_CHK = 0
 		AND cboard_no = #{cboard_no}
 	</select>
-	 
 
 
 </mapper>

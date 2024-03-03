@@ -74,12 +74,16 @@
                                 <input class="form-control" type="file" id="formFile">
                             </div>
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">내용</label>
                                 <textarea class="form-control" style="height: 550px;"></textarea>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn bfmCancle">취소</button>
-                                <button type="submit" class="btn bfmModify">수정</button>
+                                <button type="button" class="btn bfmCancle" onclick="goBack()">취소</button>
+                                <script>
+                                    function goBack() {
+                                        window.history.back();
+                                    }
+                                </script>
+                                <button type="submit" class="btn bfmModify">저장</button>
                             </div>
                         </form><!-- End General Form Elements -->
 

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
-	<insert id="lslFreeBoardWrite" parameterType="LslBoardComm">
+	<insert id="slfreeBoardWrite" parameterType="LslBoardComm">
 		INSERT INTO BOARD_COMM
 		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title},
-		#{cboard_content},#{cboard_viewcnt} , sysdate, #{user_no}, 0, 300, 20,
+		#{cboard_content}, 0 , sysdate, #{user_no}, 0, 300, 20,
 		NULL,NULL,sysdate)
 	</insert>
 
@@ -21,15 +21,17 @@ SELECT *
 		from
 			(SELECT rownum rn ,a.*
 			from
-				(SELECT bc.*, nvl(cnt,0) creply_cnt,u.user_name, u.user_nic
+				(SELECT bc.*, nvl(cnt,0) creply_cnt, u.user_name, u.user_nic
 				FROM BOARD_COMM bc,
 						(SELECT CBOARD_NO, count(*) cnt 
 						FROM BOARD_COMM_REPLY 
+						WHERE CREPLY_DELETE_CHK = 0
 						GROUP BY CBOARD_NO) bcr,
 						users u
 				WHERE bc.CBOARD_NO =bcr.CBOARD_NO(+)
 				AND comm_big=300
 				AND comm_mid=20
+				AND	bc.CBOARD_DELETE_CHK = 0
 				AND bc.user_no = u.user_no
 				order by cboard_date DESC) a)
 		WHERE  rn >= #{start}
@@ -45,8 +47,8 @@ SELECT *
 		SELECT bc.*, u.user_nic
 		FROM BOARD_COMM bc, users u
 		WHERE bc.USER_NO = u.USER_NO
-		AND bc.COMM_BIG = 300
 		AND bc.COMM_MID = 20
+		AND	bc.CBOARD_DELETE_CHK = 0
 		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
 		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
 		OR user_nic LIKE '%' || #{keyword} || '%')
@@ -56,7 +58,7 @@ SELECT *
 	</select>
 
 	<select id="slboardFreeContents" parameterType="int"
-		resultType="LslBoardComm">
+        resultType="LslBoardComm">
 		SELECT bc.*, u.USER_NIC
 		FROM BOARD_COMM bc
 		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
@@ -68,7 +70,12 @@ SELECT *
 		SELECT bcr.* , u.*
 		FROM BOARD_COMM_REPLY bcr , USERS u
 		WHERE bcr.USER_NO = u.USER_NO
+		AND bcr.CREPLY_DELETE_CHK = 0
 		AND cboard_no = #{cboard_no}
 	</select>
+	
+	<update id="slboardFreeViewCnt" parameterType="LslCommReply">
+		update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where cboard_no=#{cboard_no}
+	</update>
 
 </mapper>

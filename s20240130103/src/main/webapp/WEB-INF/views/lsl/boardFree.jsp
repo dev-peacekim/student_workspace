@@ -97,8 +97,7 @@
 									<c:forEach var="boardFree" items="${boardFreeList}">
 										<tr>
 											<td>${boardFree.cboard_no}</td>
-											<td><a
-												td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
+											<td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
 											<td>${boardFree.user_nic}</td>
 											<td><fmt:formatDate value="${boardFree.cboard_date}" pattern="yyyy-MM-dd"/></td>
 											<td>${boardFree.cboard_viewcnt}</td>

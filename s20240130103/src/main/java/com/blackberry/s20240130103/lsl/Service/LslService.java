@@ -32,5 +32,9 @@ public interface LslService {
 
 	List<LslCommReply> replyBoardAskList(int cboard_no);
 
+	int freeBoardWrite(String boardtype);
+
+	int boardFreeViewCnt(LslBoardComm lslBoardComm);
+
 
 }

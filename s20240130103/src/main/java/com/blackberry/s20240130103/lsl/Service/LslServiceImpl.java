@@ -127,6 +127,21 @@ public class LslServiceImpl implements LslService {
 		return replyBoardAskList;
 	}
 
+	@Override
+	public int freeBoardWrite(String boardtype) {
+		System.out.println("LslServiceImpl freeBoardWrite Start...");
+		int freeBoardWrite = ld.freeBoardWrite(boardtype);
+		
+		System.out.println("LslServiceImpl freeBoardWrite -> " + freeBoardWrite);
+		return freeBoardWrite;
+	}
+
+	@Override
+	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
+		int boardFreeViewCnt = ld.boardFreeViewCnt(lslBoardComm);
+		return boardFreeViewCnt;
+	}
+
 	
 
 }

@@ -42,6 +42,12 @@ public interface LslDao {
 	List<LslCommReply> replyBoardAskList(int cboard_no);
 
 
+	int freeBoardWrite(String boardtype);
+
+
+	int boardFreeViewCnt(LslBoardComm lslBoardComm);
+
+
 
 
 

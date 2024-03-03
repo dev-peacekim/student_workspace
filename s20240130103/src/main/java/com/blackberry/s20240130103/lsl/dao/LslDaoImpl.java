@@ -110,7 +110,7 @@ public class LslDaoImpl implements LslDao {
 	@Override
 	public LslBoardComm boardFreeContents(int cboard_no) {
 		System.out.println("LslDaoImpl boardAskContents Start...");
-		
+		    
 		LslBoardComm boardFreeContents = session.selectOne("slboardFreeContents", cboard_no);
 		System.out.println("LslDaoImpl boardAskContents -> " + boardFreeContents);
 		return boardFreeContents;
@@ -138,6 +138,24 @@ public class LslDaoImpl implements LslDao {
 		List<LslCommReply> replyBoardAskList = session.selectList("slreplyBoardAskList", cboard_no);		
 		
 		return replyBoardAskList;
+	}
+
+	@Override
+	public int freeBoardWrite(String boardtype) {
+		System.out.println("LslDaoImpl freeBoardWrite Start...");
+		
+		int freeBoardWrite = session.insert("slfreeBoardWrite", boardtype);
+
+		
+		return freeBoardWrite;
+	}
+
+	@Override
+	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
+		
+		int boardFreeViewCnt = session.update("slboardFreeViewCnt", lslBoardComm);
+		
+		return boardFreeViewCnt;
 	}
 
 

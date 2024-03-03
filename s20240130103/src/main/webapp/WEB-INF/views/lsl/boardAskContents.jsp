@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,35 +60,52 @@
     <section class="community-post-detail">
         <div class="row card main-card card-body">
             <div class="card-header community-post-header">
-        <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
+                <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" alt="${boardAskContents.user_profile}"></i>
+                    <i class="bi bi-person-circle post-user-profile" 
+                    alt="${boardAskContents.user_profile}"></i>
                     <div class="card-title-header">
-                        <h5 class="card-title post-user-name"> 
+                        <h5 class="card-title post-user-name">
                             <a href="#">${boardAskContents.user_nic}</a>
-                            <fmt:formatDate value="${boardAskContents.cboard_date}"
-										pattern="yyyy.MM.dd a hh:mm" />
                         </h5>
                         <div class="card-subtitle post-subtitle">
-                            <p class="post-updated-at">작성일</p>
-                            <p class="post-veiw-count">조회수 </p>
+                            <p class="post-updated-at">
+                                작성일
+                                <fmt:formatDate value="${boardAskContents.cboard_date}"
+										pattern="yyyy.MM.dd a hh:mm" />
+                            </p>
+                            <p class="post-veiw-count">조회수 
+                                ${boardAskContents.cboard_viewcnt}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="community-post-header-body">
-                <span class="post-content"></span>
+                <span class="post-content">${boardAskContents.cboard_content}</span>
             </div>
-            <section class="community-post-answer">
-                <div class="answer-info-header">
-                    <div class="answer-info-title">
-                        댓글 <span class="answer-info-title-count">23</span>
-                    </div>
 
+          <section class="community-post-answer">
+            <div class="answer-info-header">
+                <div class="answer-info-title">
+                    댓글 <span class="answer-info-title-count">23</span>
+                </div>
+                <div class="comment-editor">
+                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                    <input type="text" name="comment" id="inputField"
+                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
+                </div>
+                <div class="btn-container is-editor-open">
+                    <form action="boardCommentsubmit" method="get">
+                        <button id="submitBtn" class="btn submitBtn">등록</button>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-                       <!-- 댓글 시작 -->
+            <!-- 댓글 시작 -->
             <div id="reply" class="re-comment-body">
-                <div id="replyBoardAskList" class="comment-card">
+                <div id="replyBoardFreeList" class="comment-card">
                     <c:forEach items="${replyBoardAskList}" var="replyBoardAskList">
                     <div class="comment-header">
                         <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
@@ -110,52 +128,23 @@
                     <div class="card-body comment-body">
                         <p class="markdown-body">${replyBoardAskList.creply_content}</p>
                     </div>
-                
-                    
-                <div class="reply-comment">
-					<form action="ref-reply" method="get">
-						<input type="hidden" name="user-profile" value="${replyBoardAskList.USER_PROFILE}">
-						<input type="hidden" name="user-name" value="${replyBoardAskList.USER_NIC}">
-						<input type="hidden" name="group" value="${replyBoardAskList.creply_group}"> <input
-							type="hidden" name="level" value="${replyBoardAskList.creply_level}"> <input
-							type="hidden" name="indent" value="${replyBoardAskList.creply_indent}">
-						<div class="reply-header">
-							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
-							<span class="reply-user-name">${replyBoardAskList.USER_NIC}</span> <span
-								class="reply-updated-at">작성일 
-                                <fmt:formatDate value="${replyBoardAskList.creply_date}"
-                                pattern="yyyy.MM.dd a hh:mm" /></span>
-						</div>
-						<div class="reply-body">
-							<span class="reply-content">${replyBoardAskList.creply_content}</span><i class="bi bi-reply-fill"></i>
-						</div>
-					</form>
-				</div>
-            </c:forEach>
+                </c:forEach>
             </div>
-			</div>
-			
-			<script>
-								// 사용자 ID를 가져오는 함수 (예: 세션에서)
-								var currentUserId = '<%= session.getAttribute("user_id") %>'; 
+        </div>
+			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">
+                        <button type="hidden" class="btn bacDelete">삭제</button>
+                        <a href="boardFreeModify">
+                            <button class="btn bacModify">수정</button>
+                        </a>
+                    </c:if>
 
-								// 현재 사용자와 글쓴 사용자의 ID가 같을 때만 버튼을 표시합니다.
-								if (currentUserId !== null && currentUserId === postAuthorId) 
-							        // 삭제 버튼 표시
-							        document.querySelector('.bfcDelete').removeAttribute('hidden');
-							        // 수정 버튼 표시
-							        document.querySelector('.bfcModify').removeAttribute('hidden');
-							</script>
-							<c:if test="${session.getAttribute('user_no') == user.user_no }">
-								<button type="hidden" class="btn bfcDelete">삭제</button>
-                                <button type="hidden" class="btn bfcModify">수정</button>
-                            </c:if>
-                                <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
-                                <script>
-                                    function goBack() {
-                                      window.history.back();
-                                    }
-                                    </script>
+                        <button type="button" class="btn bacList" onclick="goBack()">목록</button>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
+                    
             </div>
             </section>
 </main>

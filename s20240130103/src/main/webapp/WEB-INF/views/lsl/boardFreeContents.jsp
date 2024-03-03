@@ -85,28 +85,23 @@
                 <span class="post-content">${boardFreeContents.cboard_content}</span>
             </div>
 
-
-            <section class="community-post-answer">
-                <div class="answer-info-header">
-                    <div class="answer-info-title">
-                        댓글 <span class="answer-info-title-count">23</span>
-                    </div>
-                    <div class="comment-editor">
-                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-                        <input type="text" name="comment" id="inputField"
-                            placeholder="id님, 댓글을 작성해보세요." class="form-control" required="">
-                    </div>
-                    <div class="btn-container is-editor-open">
-                        <form action="boardCommentreset" method="get">
-                            <button id="resetBtn" class="hidden btn btn-secondary">취소</button>
-                        </form>
-                        <form action="boardCommentsubmit" method="get">
-                            <button id="submitBtn" class="hidden btn btn-primary">등록</button>
-                        </form>
-                    </div>
+          <section class="community-post-answer">
+            <div class="answer-info-header">
+                <div class="answer-info-title">
+                    댓글 <span class="answer-info-title-count">23</span>
                 </div>
-            </section>
-
+                <div class="comment-editor">
+                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                    <input type="text" name="comment" id="inputField" 
+                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
+                </div>
+                <div class="btn-container is-editor-open">
+                    <form action="boardCommentsubmit" method="get">
+                        <button id="submitBtn" class="btn submitBtn">등록</button>
+                    </form>
+                </div>
+            </div>
+        </section>
             <!-- 댓글 시작 -->
             <div id="reply" class="re-comment-body">
                 <div id="replyBoardFreeList" class="comment-card">
@@ -133,51 +128,24 @@
                         <p class="markdown-body">${replyBoardFreeList.creply_content}</p>
                     </div>
                 
-                    
-                <div class="reply-comment">
-					<form action="ref-reply" method="get">
-						<input type="hidden" name="user-profile" value="${replyBoardFreeList.USER_PROFILE}">
-						<input type="hidden" name="user-name" value="${replyBoardFreeList.USER_NIC}">
-						<input type="hidden" name="group" value="${replyBoardFreeList.creply_group}"> <input
-							type="hidden" name="level" value="${replyBoardFreeList.creply_level}"> <input
-							type="hidden" name="indent" value="${replyBoardFreeList.creply_indent}">
-						<div class="reply-header">
-							<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
-							<span class="reply-user-name">${replyBoardFreeList.USER_NIC}</span> <span
-								class="reply-updated-at">작성일 
-                                <fmt:formatDate value="${replyBoardFreeList.creply_date}"
-                                pattern="yyyy.MM.dd a hh:mm" /></span>
-						</div>
-						<div class="reply-body">
-							<span class="reply-content">${replyBoardFreeList.creply_content}</span><i class="bi bi-reply-fill"></i>
-						</div>
-					</form>
-				</div>
-            </c:forEach>
+                </c:forEach>
             </div>
-			</div>
-			
-			<script>
-								// 사용자 ID를 가져오는 함수 (예: 세션에서)
-								var currentUserId = '<%= session.getAttribute("user_id") %>'; 
+        </div>
+           
+			  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
+                        <button type="hidden" class="btn bfcDelete">삭제</button>
+                        <a href="boardFreeModify">
+                            <button class="btn bfcModify">수정</button>
+                        </a>
+                    </c:if>
 
-								// 현재 사용자와 글쓴 사용자의 ID가 같을 때만 버튼을 표시합니다.
-								if (currentUserId !== null && currentUserId === postAuthorId) 
-							        // 삭제 버튼 표시
-							        document.querySelector('.bfcDelete').removeAttribute('hidden');
-							        // 수정 버튼 표시
-							        document.querySelector('.bfcModify').removeAttribute('hidden');
-							</script>
-							<c:if test="${session.getAttribute('user_no') == users.user_no}">
-								<button type="hidden" class="btn bfcDelete">삭제</button>
-                                <button type="hidden" class="btn bfcModify">수정</button>
-                            </c:if>
-                                <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
-                                <script>
-                                    function goBack() {
-                                      window.history.back();
-                                    }
-                                    </script>
+                        <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
+                    <script>
+                        function goBack() {
+                            window.history.back();
+                        }
+                    </script>
+                    
             </div>
             </section>
 </main>
