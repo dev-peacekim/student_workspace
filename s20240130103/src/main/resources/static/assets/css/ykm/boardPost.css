@@ -80,12 +80,32 @@
 	margin-bottom: 0px;
 }
 
-.modify-container {
+.modify-delete-container {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	margin-left: auto;
 	font-size: 1.2rem;
+	
+}
+.modify-delete-container button {
+	border: none;
+	margin-left: 10px;
+}
+.comment-body input[type="text"][disabled] {
+	background-color: #f8f9fa;
+	border: none;
+}
+
+.comment-body {
+	align-items: center;
+	justify-content: center;
+}
+
+.comment-card > comment-body {
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 20px;
 }
 
 /*--------------------------------------------------------------
@@ -106,7 +126,7 @@
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
-.answer-form {
+.reply-form {
 	height: 27px;
 	letter-spacing: -.3px;
 	color: #495057;
@@ -143,7 +163,7 @@
 	min-height: calc(2em + 1rem + 2px);
 }
 
-.btn-container form {
+#replySubmitBtn {
 	margin-left: 10px;
 }
 
@@ -190,6 +210,20 @@
 	font-size: 13px;
 }
 
+#replyContainer {	
+ 	padding-right: 0px;
+    padding-left: 0px;
+}
+
+.btnContainer {
+	justify-content: flex-end;
+	align-items: center;
+	cursor: pointer;
+	margin-left: auto;
+}
+.btnContainer button {
+	border: none;
+}
 /*--------------------------------------------------------------
 # ref-comment
 --------------------------------------------------------------*/
@@ -199,56 +233,54 @@
 }
 
 .replyBtn {
-	font-size: 1rem;
-	justify-content: flex-end;
-	margin-left: auto;
+	font-size: 1rem;	
 }
 /*--------------------------------------------------------------
 # reply
 --------------------------------------------------------------*/
-.reply-comment {
+.re-reply {
 	padding: 8px 32px 8px 60px;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
 
-.reply-header {
+.re-reply-header {
 	display: flex;
 	align-items: center;
 }
 
-.reply-user-profile {
+.re-reply-user-profile {
 	margin-right: 10px;
 	font-size: 2em;
 }
 
-.reply-user-container {
+.re-reply-user-container {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
 }
 
-.reply-updated-at {
+.re-reply-updated-at {
 	font-size: 13px;
 	margin-left: 10px;
 	justify-content: flex-end;
 	margin-left: auto;
 }
 
-.reply-body {
+.re-reply-body {
 	padding: 8px;
 	display: flex;
 	align-items: center;
 }
 
-.reply-body>.bi-reply-fill {
+.re-reply-body>.bi-reply-fill {
 	font-size: 1.2rem;
 	margin-left: 10px;
 	justify-content: flex-end;
 	margin-left: auto;
 }
 
-.reply-body>.bi-reply-fill:hover {
+.re-reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
 }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.BoardPostMapper">
+	<select id="ykmRednerReplyList" resultType="YkmBoardCommReply" parameterType="int">
+		SELECT BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, U.USER_ID
+		FROM BOARD_COMM_REPLY BCR
+		JOIN USERS U ON bcr.USER_NO = U.USER_NO
+		WHERE CBOARD_NO = #{cboard_no}
+		ORDER BY CREPLY_DATE ASC
+	</select>
+	
+	<insert id="YkminsertComment" parameterType="YkmBoardCommReply">
+		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
+		VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, 1, 1, 1, #{cboard_no}, #{user_no}, 0, sysdate)
+	</insert>
+
+	<delete id="YkmdeleteComment" parameterType="int">
+		DELETE
+		FROM BOARD_COMM_REPLY
+		WHERE CREPLY_NO = #{creply_no}
+	</delete>
+	
+	<update id="YkmupdateComment" parameterType="int">
+		UPDATE BOARD_COMM_REPLY
+		SET CREPLY_CONTENT = #{creply_content}, COMM_UPDATE_DATE = sysdate
+		WHERE creply_no = #{creply_no}
+	</update>
+	
+	<update id="YkmUpdatePost" parameterType="int">
+		UPDATE BOARD_COMM
+		SET CBOARD_TITLE = #{cboard_title}, CBOARD_CONTENT = #{cboard_content}, COMM_UPDATE_DATE = sysdate
+		WHERE CBOARD_NO = #{cboard_no};
+	</update>
+</mapper>

@@ -105,7 +105,6 @@ $('#search-btn').on("click", () => {
   const user_name = $("#search-text").val();
 
   $(".address-list").empty();
-
     $.ajax({
       type: "post",
       url: "projectAddressSearch",

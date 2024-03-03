@@ -13,6 +13,7 @@
       <typeAlias alias="KdwMessage" type="com.blackberry.s20240130103.kdw.model.Message"/>
       <typeAlias alias="KdwMessageFile" type="com.blackberry.s20240130103.kdw.model.MessageFile"/>
       <typeAlias alias="YkmBoardComm" type="com.blackberry.s20240130103.ykm.model.YkmBoardComm"/>
+      <typeAlias alias="YkmBoardCommReply" type="com.blackberry.s20240130103.ykm.model.YkmBoardCommReply"/>
       <typeAlias alias="Ask" type="com.blackberry.s20240130103.yhs.model.Ask"/>
    </typeAliases>
 </configuration>

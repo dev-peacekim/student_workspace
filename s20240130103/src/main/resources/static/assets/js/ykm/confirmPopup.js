@@ -1,5 +1,8 @@
+/* 삭제 확인 팝업 */
+
+// 변수 선언
 var confirmPopup = document.querySelector('.confirmPopup');
-var delBtn = document.getElementById('delBtn');
+var delBtn = document.querySelector('#delBtn');
 var cancelButton = confirmPopup.querySelector('#cancelButton');
 var confirmButton = confirmPopup.querySelector('#confirmButton');
 
@@ -22,7 +25,10 @@ confirmButton.addEventListener('click', function() {
 	// 여기에 확인 버튼을 클릭했을 때의 동작 추가
 });
 
-delBtn.addEventListener("click", function(e) {
-	e.preventDefault();
-	showPopup();
-});
+
+if (delBtn!==null) {
+	delBtn.addEventListener("click", function(e) {
+		e.preventDefault();
+		showPopup();
+	});
+}

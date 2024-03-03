@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,34 +24,24 @@
 		</div>
 		<!-- End Page Title -->
 		<section class="section">
-			<div class="row">
-				<div class="card">
-					<div class="card-body">
-						<div class="title-input">
-							<label for="boradTitle" class="form-label"></label><input
-								type="text" id="boardTitle" class="form-control"
-								aria-describedby="titleHelpBlock"
-								placeholder="제목에 핵심 내용을 요약해보세요.">
-						</div>
-						<div class="content-input">
-							<label for="boardContent" class="form-label"></label>
-							<textarea class="form-control" id="boardContent" rows="15"
-								placeholder="수정할 내용이 와야함"></textarea>
-						</div>
+			<div class="row card card-body">
+				<c:forEach items="${getPost}" var="updateform" >
+					<div class="title-input">
+						<label for="boradTitle" class="form-label"></label>
+						<input type="text" id="boardTitle" class="form-control" ${getPost.cboard_title}/>
 					</div>
-					<!-- End Quill Editor Default -->
-					<div class="btn-container">
-						<form action="boardUpdatesubmit" method="get">
-							<input type="submit" class="btn btn-primary" value="확인">
-						</form>
-						<form action="boardUpdateDelete" method="get">
-							<input type="submit" class="btn btn-danger" value="삭제">
-						</form>
-						<form action="boardUpdatereset" method="get">
-							<input type="submit" class="btn btn-secondary" value="취소">
-						</form>
+					<div class="content-input">
+						<label for="boardContent" class="form-label"></label>
+						<textarea class="form-control" id="boardContent" rows="15"
+									${getPost.cboard_content}></textarea>
 					</div>
-				</div>
+				</c:forEach>
+			</div>
+			<!-- End Quill Editor Default -->
+			<div class="btn-container">
+				<input type="submit" class="btn btn-primary" value="확인">
+				<input type="submit" class="btn btn-danger" value="삭제">
+				<input type="submit" class="btn btn-secondary" value="취소">
 			</div>
 		</section>
 
