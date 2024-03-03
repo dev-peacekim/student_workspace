@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.lhs.Address">
+    <select id="lhsAddresschkcnt" parameterType="LhsAddress" resultType="int">
+		SELECT count(*)
+		FROM address 
+		WHERE (user_no = #{user_no} AND re_user_no = #{re_user_no}) 
+		OR (user_no = #{re_user_no} AND re_user_no = #{user_no})
+	</select>
+	<insert id="lhsAddressAdd" parameterType="LhsAddress">
+		insert into address values(#{user_no},#{re_user_no},0)
+	</insert>
+</mapper>

@@ -6,4 +6,6 @@ public interface AddressDao {
 
 	int addresschkcnt(Address address);
 
+	int addressAdd(Address address);
+
 }

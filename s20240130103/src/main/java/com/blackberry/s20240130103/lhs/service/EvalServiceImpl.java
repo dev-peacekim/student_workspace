@@ -15,7 +15,6 @@ public class EvalServiceImpl implements EvalService {
 	
 	@Override
 	public double avgScoreByNo(String userNo) {
-		System.out.println("evalservice userNo : " + userNo);
 		double score = evalRepository.avgScoreByNo(userNo);
 		return score;
 	}

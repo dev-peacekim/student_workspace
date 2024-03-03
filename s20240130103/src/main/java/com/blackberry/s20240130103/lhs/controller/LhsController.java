@@ -303,19 +303,34 @@ public class LhsController {
 	@PostMapping("addressIdSearch")
 	public User addressIdSearch(HttpServletRequest request,
 								@RequestParam(name = "user_id")String userId) {
-		Long loginuserId = (Long) request.getSession().getAttribute("user_id");
+		Long loginuserNo = (Long) request.getSession().getAttribute("user_no");
 		Optional<User> user = userService.findUserById(userId);
-		if(user.isPresent()) {
+		if(user.isPresent() && user.get().getUser_no() != loginuserNo) {
 			double scoreavg = evalService.avgScoreByNo(user.get().getUser_no().toString());
 			user.get().setEval_score(scoreavg);
 			Address address = new Address();
-			address.setUser_no(loginuserId);
+			address.setUser_no(loginuserNo);
 			address.setRe_user_no(user.get().getUser_no());
 			int addresschk = addressService.addresschkcnt(address);
+			user.get().setAddress_chk(addresschk);
 			return user.get();
 		}else {
 			return null;
 		}
-		
+	}
+	
+	@GetMapping("addressAdd")
+	public String addressAdd(@RequestParam("re_user_no")String re_user_no,
+							HttpServletRequest request) {
+		Long loginuserNo = (Long) request.getSession().getAttribute("user_no");
+		Address address = new Address();
+		address.setUser_no(loginuserNo);
+		address.setRe_user_no(Long.parseLong(re_user_no));
+		int result = addressService.addressAdd(address);
+		if(result == 0) {
+			return "redirect:/addressaddForm";
+		}else {
+			return "redirect:/address";
+		}
 	}
 }

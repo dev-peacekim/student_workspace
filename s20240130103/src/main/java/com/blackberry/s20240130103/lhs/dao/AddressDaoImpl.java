@@ -15,7 +15,17 @@ public class AddressDaoImpl implements AddressDao {
 
 	@Override
 	public int addresschkcnt(Address address) {
-		return 0;
+		System.out.println("AddressDaoImpl addresschkcnt address : " + address);
+		int result = session.selectOne("lhsAddresschkcnt", address);
+		System.out.println("AddressDaoImpl addresschkcnt result : " + result);
+		return result;
+	}
+	
+	@Override
+	public int addressAdd(Address address) {
+		System.out.println("AddressDaoImpl addressAdd address : " + address);
+		int result = session.insert("lhsAddressAdd", address);
+		return result;
 	}
 
 }

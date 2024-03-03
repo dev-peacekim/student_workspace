@@ -16,7 +16,13 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public int addresschkcnt(Address address) {
 		int result = addressDao.addresschkcnt(address);
-		return 0;
+		return result;
+	}
+	
+	@Override
+	public int addressAdd(Address address) {
+		int result = addressDao.addressAdd(address);
+		return result;
 	}
 
 }

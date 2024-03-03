@@ -6,4 +6,6 @@ public interface AddressService {
 
 	int addresschkcnt(Address address);
 
+	int addressAdd(Address address);
+
 }
