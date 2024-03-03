@@ -65,7 +65,6 @@ function enableInput() {
 	var inputElement = document.querySelector('.comment-body input[type="text"]');
 	var checkElement = document.querySelector('.comment-body .check');
 	inputElement.removeAttribute('disabled');
-	checkElement.removeAttribute('disabled');
 }
 
 // 댓글 등록 이벤트
