@@ -43,26 +43,81 @@
 
 <!-- 검색바&드롭박스 JS -->
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
 	function changeDropdownItem(value) {
 		var dropdown = document.getElementById('dropdownSelect');
 		dropdown.value = value;
 	}
 
-	document.addEventListener('DOMContentLoaded', function() {
-		var dropdown = document.getElementById('dropdownSelect');
+	var dropdown = document.getElementById('dropdownSelect');
 
-		dropdown.addEventListener('click', function(event) {
-			event.stopPropagation();
-			dropdown.classList.toggle('active');
-		});
-
-		document.addEventListener('click', function(event) {
-			if (!dropdown.contains(event.target)) {
-				dropdown.classList.remove('active');
-			}
-		});
+	dropdown.addEventListener('click', function(event) {
+		event.stopPropagation();
+		dropdown.classList.toggle('active');
 	});
 
+	document.addEventListener('click', function(event) {
+		if (!dropdown.contains(event.target)) {
+			dropdown.classList.remove('active');
+		}
+	});
+
+	// 체크박스
+	var selectAllCheckbox = document.getElementById("select-all-checkbox");
+
+	selectAllCheckbox.addEventListener("click", function() {
+		var messageCheckboxes = document
+				.querySelectorAll(".message-checkbox");
+
+		for (var i = 0; i < messageCheckboxes.length; i++) {
+			messageCheckboxes[i].checked = selectAllCheckbox.checked;
+		}
+	});
+
+	//휴지통으로 보내기
+	//삭제 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
+	var btnMsgTrashbox = document.querySelector(".btn-msg-trashbox");
+	btnMsgTrashbox.addEventListener("click", function() {
+	    // selectedMessageNos를 정의
+	    var selectedMessageNos = Array.from(document.querySelectorAll(".message-checkbox:checked")).map(function(checkbox) {
+	        return checkbox.getAttribute("data-msg-no");
+	    });
+
+	    // 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
+	    console.log("Selected Message Nos to Delete:", selectedMessageNos);
+
+	    // 선택된 메시지들의 번호를 서버로 보내어 삭제하는 함수 호출
+	    deleteMessages(selectedMessageNos);
+	});
+
+	function deleteMessages(selectedMessages) {
+	    // AJAX를 사용하여 서버에 삭제 요청을 보냅니다.
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/updateMsgDeleteStatus', true);
+	    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4) {
+	            console.log("Server Response:", xhr.status, xhr.responseText);  // 응답 상태 콘솔에 출력
+
+	            if (xhr.status === 200) {
+	                // 성공적으로 삭제된 경우의 처리를 여기에 추가합니다.
+	                alert('쪽지가 성공적으로 삭제되었습니다.');
+	                // 알림창 확인 시 화면을 새로고침
+	                location.reload();
+	            } else {
+	                alert('쪽지 삭제에 실패했습니다.');
+	            }
+	        }
+	    };
+	    
+	    var data = {
+	        msgNos: selectedMessages.map(Number)
+	    };
+
+	    xhr.send(JSON.stringify(data));
+	}
+});
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -136,18 +191,20 @@
 						<!-- 테이블 내용 부분 -->
 						<tbody id="mailList">
 						    <c:forEach var="message" items="${storedMessages}">
-						        <tr class="list-item">
-						            <td><input type="checkbox"></td>
-						            <td class="readStatus">
-						                <c:choose>
-						                    <c:when test="${message.msg_readdate ne null}">
-						                        <img src="assets/img/kdw/read-icon.png" width="17" height="17">
-						                    </c:when>
-						                    <c:otherwise>
-						                        <img src="assets/img/kdw/unread-icon.png" width="17" height="14">
-						                    </c:otherwise>
-						                </c:choose>
-						            </td>
+						    	<!-- msg_readdate(읽음여부)가 'null'이라면 굵기 800 아니면 500 -->
+						        <tr class="list-item" style="font-weight: ${empty message.msg_readdate ? '800' : '500'};">
+									<td><input type="checkbox" class="message-checkbox"
+										data-msg-no="${message.msg_no}"></td>
+								    <td class="readStatus">
+								        <c:choose>
+								            <c:when test="${message.msg_readdate ne null}">
+								                <img src="assets/img/kdw/msg-read-icon.png" width="15" height="15">
+								            </c:when>
+								            <c:otherwise>
+								                <img src="assets/img/kdw/msg-unread-icon.png" width="15" height="16">
+								            </c:otherwise>
+								        </c:choose>
+								    </td>
 						            <td class="attachment">
 						                <img src="" alt="첨부 여부">
 						            </td>
@@ -173,9 +230,18 @@
 									        </c:otherwise>
 									    </c:choose>
 									</td>
-						            <td class="subject" onclick="markAsRead(${message.msg_no})">
-						                ${message.msg_title}
-						            </td>
+								    <!-- 제목 -->
+									<td class="subject" 
+									    <c:choose>
+									        <c:when test="${message.msg_sender == storeboxUserNo}">
+									            onclick="location.href='/msgReadSent?msg_no=${message.msg_no}'"
+									        </c:when>
+									        <c:otherwise>
+									            onclick="location.href='/msgReadReceived?msg_no=${message.msg_no}'"
+									        </c:otherwise>
+									    </c:choose>>
+									    ${message.msg_title}
+									</td>
 						            <td class="date">${message.msg_createdate}</td>
 						        </tr>
 						    </c:forEach>
@@ -199,17 +265,20 @@
 			<nav aria-label="Page navigation"
 				class="msgStorebox-pagination-container">
 				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.startPage - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
+
+					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+						<li class="page-item ${i eq page.currentPage ? 'active' : ''}">
+							<a class="page-link" href="?currentPage=${i}">${i}</a>
+						</li>
+					</c:forEach>
+
+					<li class="page-item"><a class="page-link"
+						href="?currentPage=${page.endPage + 1}" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span></a></li>
 				</ul>
 			</nav>
 		</div> <!-- card END -->

@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.kdw.model.Message;
+import com.blackberry.s20240130103.kdw.model.MessageFile;
+import com.blackberry.s20240130103.lhs.model.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,69 +21,78 @@ public class MsgDaoImpl implements MsgDao {
 	
 	private final SqlSession session;
 	
+	
+    // 전체 유저 리스트 (나중에 주소록가져와야함)
+	@Override
+	public List<User> getAllUsers() {
+	    log.info("MsgDaoImpl getAllUsers start...");
+	    try {
+	        return session.selectList("kdwGetAllUsers");
+	    } catch (Exception e) {
+	        log.error("Error occurred while retrieving all users: {}", e.getMessage());
+	        throw new RuntimeException("Failed to retrieve all users", e);
+	    }
+	}
+	
+	// =========== 각 쪽지함 개수 가져오기 ============
 	// 받은 쪽지 개수
-	@Override
-	public int totReceiveMsgCnt(Long msgReceiver) {
-	    int totReceiveMsgCnt = 0;
-	    try {
-	        Map<String, Long> parameterMap = new HashMap<>();
-	        parameterMap.put("msgReceiver", msgReceiver);
-	        totReceiveMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totReceiveMsgCnt", parameterMap);
-	        System.out.println("MsgServiceImpl totMsgCnt totReceiveMsgCnt->" + totReceiveMsgCnt);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
-	    }
-	    return totReceiveMsgCnt;
-	}
-	// 보낸 쪽지 개수
-	@Override
-	public int totSentMsgCnt(Long msgSender) {
-	    int totSentMsgCnt = 0;
-	    try {
-	        Map<String, Long> parameterMap = new HashMap<>();
-	        parameterMap.put("msgSender", msgSender);
-	        totSentMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totSentMsgCnt", parameterMap);
-	        System.out.println("MsgServiceImpl totSentMsgCnt->" + totSentMsgCnt);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("MsgServiceImpl totSentMsgCnt Exception ->" + e.getMessage());
-	    }
-	    return totSentMsgCnt;
-	}
-	// 보관함 쪽지 개수
+    @Override
+    public int totReceiveMsgCnt(Long msgReceiver) {
+        int totReceiveMsgCnt = 0;
+        try {
+            totReceiveMsgCnt = session.selectOne("totReceiveMsgCnt", msgReceiver);
+            System.out.println("MsgServiceImpl totMsgCnt totReceiveMsgCnt->" + totReceiveMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+        }
+        return totReceiveMsgCnt;
+    }
+
+    // 보낸 쪽지 개수
+    @Override
+    public int totSentMsgCnt(Long msgSender) {
+        int totSentMsgCnt = 0;
+        try {
+            totSentMsgCnt = session.selectOne("totSentMsgCnt", msgSender);
+            System.out.println("MsgServiceImpl totSentMsgCnt->" + totSentMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totSentMsgCnt Exception ->" + e.getMessage());
+        }
+        return totSentMsgCnt;
+    }
+
+    // 보관함 쪽지 개수
     @Override
     public int totStoredMsgCnt(Long storeboxUserNo) {
-	    int totStoredMsgCnt = 0;
-	    try {
-	        Map<String, Long> parameterMap = new HashMap<>();
-	        parameterMap.put("storeboxUserNo", storeboxUserNo);
-	        totStoredMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totStoredMsgCnt", parameterMap);
-	        System.out.println("MsgServiceImpl totStoredMsgCnt->" + totStoredMsgCnt);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("MsgServiceImpl totStoredMsgCnt Exception ->" + e.getMessage());
-	    }
-	    return totStoredMsgCnt;
+        int totStoredMsgCnt = 0;
+        try {
+            totStoredMsgCnt = session.selectOne("totStoredMsgCnt", storeboxUserNo);
+            System.out.println("MsgServiceImpl totStoredMsgCnt->" + totStoredMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totStoredMsgCnt Exception ->" + e.getMessage());
+        }
+        return totStoredMsgCnt;
+    }
+
+    // 휴지통 쪽지 개수
+    @Override
+    public int totTrashMsgCnt(Long trashboxUserNo) {
+        int totTrashMsgCnt = 0;
+        try {
+            totTrashMsgCnt = session.selectOne("totTrashMsgCnt", trashboxUserNo);
+            System.out.println("MsgServiceImpl totTrashMsgCnt->" + totTrashMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totTrashMsgCnt Exception ->" + e.getMessage());
+        }
+        return totTrashMsgCnt;
     }
     
-	@Override
-	public int totTrashMsgCnt(Long trashboxUserNo) {
-	    int totTrashMsgCnt = 0;
-	    try {
-	        Map<String, Long> parameterMap = new HashMap<>();
-	        parameterMap.put("trashboxUserNo", trashboxUserNo);
-	        totTrashMsgCnt = session.selectOne("com.blackberry.s20240130103.MessageMapper.totStoredMsgCnt", parameterMap);
-	        System.out.println("MsgServiceImpl totTrashMsgCnt->" + totTrashMsgCnt);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("MsgServiceImpl totTrashMsgCnt Exception ->" + e.getMessage());
-	    }
-	    return totTrashMsgCnt;
-	}
     
-    
-    
+	// =========== 각 쪽지함 리스트 가져오기 ============
 	// 받은 쪽지 리스트 가져오기
 	@Override
 	public List<Message> getReceivedMessages(Long msgReceiver, int start, int end) {
@@ -95,7 +107,7 @@ public class MsgDaoImpl implements MsgDao {
 
 	        receivedMessages = session.selectList("kdwReceivedMessagesAll", paramMap);
 	        System.out.println("MsgDaoImpl getReceivedMessages receivedMessages.size()->" + receivedMessages.size());
-	        System.out.println("MsgDaoImpl getReceivedMessages start&end" + start + end);
+	        System.out.println("MsgDaoImpl getReceivedMessages start&end" + + start +", "+ end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getReceivedMessages e.getMessage()->" + e.getMessage());
@@ -118,7 +130,7 @@ public class MsgDaoImpl implements MsgDao {
 
 	        sentMessages = session.selectList("kdwSentMessagesAll", paramMap);
 	        System.out.println("MsgDaoImpl getSentMessages SentMessages.size()->" + sentMessages.size());
-	        System.out.println("MsgDaoImpl getSentMessages start&end" + start + end);
+	        System.out.println("MsgDaoImpl getSentMessages start&end" + start +", "+ end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getSentMessages e.getMessage()->" + e.getMessage());
@@ -141,7 +153,7 @@ public class MsgDaoImpl implements MsgDao {
 
 	        storedMessages = session.selectList("kdwStoredMessagesAll", paramMap);
 	        System.out.println("MsgDaoImpl getSentMessages storedMessages.size()->" + storedMessages.size());
-	        System.out.println("MsgDaoImpl getSentMessages start&end" + start + end);
+	        System.out.println("MsgDaoImpl getSentMessages start&end" + start +", "+ end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getSentMessages e.getMessage()->" + e.getMessage());
@@ -163,7 +175,7 @@ public class MsgDaoImpl implements MsgDao {
 
 	        trashMessages = session.selectList("kdwTrashMessagesAll", paramMap);
 	        System.out.println("MsgDaoImpl getTrashMessages trashMessages.size()->" + trashMessages.size());
-	        System.out.println("MsgDaoImpl getTrashMessages start&end" + start + end);
+	        System.out.println("MsgDaoImpl getTrashMessages start&end" + start +", "+ end);
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 에러 상세 내용 출력
 	        System.out.println("MsgDaoImpl getTrashMessages e.getMessage()->" + e.getMessage());
@@ -171,36 +183,110 @@ public class MsgDaoImpl implements MsgDao {
 	    return trashMessages;
 	}
     
-	// 쪽지 읽음여부
-    @Override
-    public int updateReadDate(Long storeboxUserNo, String currentDateStr) {
-        log.info("MsgDaoImpl updateReadDate start...");
-
-        try {
-            Map<String, Object> paramMap = new HashMap<>();
-            paramMap.put("msgNo", storeboxUserNo);
-            paramMap.put("currentDateStr", currentDateStr);
-
-            // MyBatis의 update 쿼리 실행
-            int updatedRows = session.update("kdwUpdateReadDate", paramMap);
-
-            log.info("MsgDaoImpl updateReadDate updatedRows -> " + updatedRows);
-            return updatedRows;
-        } catch (Exception e) {
-            log.error("MsgDaoImpl updateReadDate Exception -> " + e.getMessage());
-            return 0;
-        }
-    }
 	
+	// =========== 쪽지 읽기 ============
+	// 받은 & 보낸 쪽지 정보 가져오기
 	@Override
-	public void saveMessage(Message message) {
-		try {
-	        session.insert("saveMessage", message); // 쪽지 정보 삽입
-	        log.info("MsgDaoImpl saveMessage start successful");
+	public Message getMessageByInfo(Long msgNo) {
+	    System.out.println("MsgDaoImpl getReceivedMessageById start...");
+	    Message messageInfo = null;
+
+	    try {
+	        // 메시지 가져오기
+	        messageInfo = session.selectOne("kdwGetMessageById", msgNo);
+	        System.out.println("MsgDaoImpl getReceivedMessageById messageInfo->" + messageInfo);
+	        System.out.println("MsgDaoImpl getReceivedMessageById msgNo->" + msgNo);
 	    } catch (Exception e) {
-	        System.out.println("MsgDaoImpl saveMessage Exception: " + e.getMessage());
+	        e.printStackTrace(); // 에러 상세 내용 출력
+	        System.out.println("MsgDaoImpl getReceivedMessageById e.getMessage()->" + e.getMessage());
+	    }
+	    return messageInfo;
+	}
+	// 받은쪽지 read_date 업데이트 메소드
+	public void updateReadDate(Long msgNo) {
+	    try {
+	        // 메시지를 읽은 시간 업데이트
+	        session.update("kdwUpdateReadDate", msgNo);
+	        System.out.println("MsgDaoImpl updateReadDate success msgNo" + msgNo);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgDaoImpl updateReadDate Exception ->" + e.getMessage());
 	    }
 	}
+	
+    // 파일 저장 메서드
+    @Override
+    public void saveMessageFile(MessageFile messageFile) {
+    	System.out.println("MsgDaoImpl saveMessageFile start...");
+        try {
+            session.insert("kdwSaveMessageFile", messageFile);
+            System.out.println("MsgDaoImpl saveMessageFile success messageFile" + messageFile);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save message file", e);
+        }
+    }
+    
+    // 보관 버튼 클릭시 msg_store_chk = 1업데이트
+    @Override
+    public void updateMsgStoreStatus(List<Long> msgNos) {
+    	System.out.println("MsgDaoImpl updateMsgStoreStatus start...");
+    	try {
+			session.update("kdwUpdateMsgStoreStatus", msgNos);
+			System.out.println("MsgDaoImpl updateMsgStoreStatus success msgNos" + msgNos);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    // 삭제 버튼 클릭시 msg_delete_chk = 1 업데이트
+	@Override
+	public void updateMsgDeleteStatus(List<Long> msgNos) {
+    	System.out.println("MsgDaoImpl updateMsgDeleteStatus start...");
+    	try {
+			session.update("kdwUpdateMsgDeleteStatus", msgNos);
+			System.out.println("MsgDaoImpl updateMsgDeleteStatus success msgNos" + msgNos);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// 쪽지 영구 삭제 구현
+	@Override
+	public void permanentDeleteMessages(List<Long> msgNos) {
+	    System.out.println("MsgDaoImpl permanentDeleteMessages start...");
+	    try {
+	        session.delete("kdwPermanentDeleteMessages", msgNos);
+	        System.out.println("MsgDaoImpl permanentDeleteMessages success msgNos" + msgNos);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+    @Override
+    public void sendMsg(Message message) {
+    	System.out.println("MsgDaoImpl sendMsg start...");
+        try {
+			session.insert("kdwSentMsg", message);
+			System.out.println("MsgDaoImpl sendMsg success msgNos" + message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+
+
+
+
+
+
+
+    
+
+	
+
+
+
+	
+	
+	
+
 
 
 

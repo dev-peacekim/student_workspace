@@ -1,0 +1,216 @@
+@charset "UTF-8";
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+body {
+    font-family: 'NanumSquare', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 5px 20px 0 rgba(82, 63, 105, 0.2);
+}
+
+/* Card */
+.card {
+    width: 100%;
+    min-width: 800px;
+    height: 800px;
+    min-height: 500px;
+    margin-bottom: 0;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 25px 20px;
+}
+
+/* 안쪽 섹션 */
+.reply-section {
+    width: 100%;
+    height: 800px;
+    min-width: 800px;
+    min-height: 500px;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* 보내기 버튼 */
+.reply-section .msg-Sent-Btn {
+    position: absolute;
+    margin-top: -20px;
+    width: 100px;
+    height: 35px;
+    border: 1px solid #0D6DFD;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #0D6DFD;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 2;
+    z-index: 3;
+}
+
+.reply-section .msg-Sent-Btn:active, .reply-section .msg-Sent-Btn:hover {
+    background-color: #0D6DFD; 
+    color: #ffffff; 
+    border: #0D6DFD;
+    line-height: 2.2;
+}
+
+/* 취소 버튼 */
+.reply-section .msg-cancel-btn {
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+    width: 100px;
+    height: 35px;
+    border: 1px solid #0D6DFD;
+    border-radius: 5px;
+    color: #0D6DFD;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 2;
+    z-index: 3;
+}
+
+
+.reply-section .msg-cancel-btn:active, .reply-section .msg-cancel-btn:hover {
+    background-color: #0D6DFD; 
+    color: #ffffff; 
+    border: #0D6DFD;
+    line-height: 2.2;
+}
+
+/* 받는사람 */
+.input-group {
+    position: absolute;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* 인풋창 앞에 텍스트 "받는사람:" */
+.input-group-text {
+    font-weight: 700;
+    border: none;
+    text-align: left;
+}
+
+/* 받는사람 인풋창 */
+.input-group .form-control {
+    border: none;
+    border-bottom: 1px solid #ced4da;
+}
+
+.input-group .form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* 드롭다운 토글 버튼 */
+.input-group .receiver-dropdown .btn.btn-outline-secondary,
+.input-group .receiver-dropdown .btn.btn-outline-secondary:focus,
+.input-group .receiver-dropdown .btn.btn-outline-secondary:hover {
+    border: none;
+    color: #546270;
+    background-color: transparent;
+}
+
+/* 드랍다운 리스트 */
+.input-group .receiver-dropdown .dropdown-menu {
+    width: 100%;
+    min-width: initial !important;
+}
+
+.input-group .receiver-dropdown .dropdown-menu {
+    width: 1350px;
+    min-width: initial !important;
+    left: 0;
+}
+
+/* 드랍다운 기존 보더 제거 */
+.input-group .receiver-dropdown .btn.btn-outline-secondary {
+    height: 35px;
+}
+
+.input-group .receiver-dropdown .btn.btn-outline-secondary .visually-hidden {
+    border: none;
+}
+
+.input-group .receiver-addressBtn .btn.btn-outline-secondary {
+    border-radius: 5px;
+}
+
+/* 주소록 버튼 */
+.input-group .receiver-addressBtn .btn.btn-outline-secondary {
+    border: 1px solid #ced4da;
+}
+
+/* 제목 */
+.subject-group {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 80px;
+}
+
+/* 인풋창 앞에 텍스트 "제목:" */
+.subject-group .subject-group-prepend {
+    width: 95px;
+    height: 35px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    padding-left: 12px;
+    line-height: 2;
+}
+
+/* 제목 인풋 창 */
+.subject-group .form-control {
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    margin-left: -13px;
+}
+
+.subject-group .form-control:focus {
+    outline: none;
+    box-shadow: none;
+    padding-left: 15px;
+}
+
+/* 첨부파일 */
+.mb-3 {
+    position: absolute;
+    width: 100%;
+    margin-top: 150px;
+}
+
+.file-form-control {
+    display: flex;
+    align-items: center;
+}
+
+.file-form-control .form-control {
+    border-color: #ced4da;
+}
+
+.file-form-control .fa-file-circle-plus {
+    margin-right: 10px;
+}
+
+/* 내용 */
+.form-group .content-group {
+    position: absolute;
+    top: 230px;
+    left: 0;
+    width: 100%;
+}
+
+.form-group .content-group textarea {
+    width: 100%;
+    height: 480px;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    resize: none;
+}

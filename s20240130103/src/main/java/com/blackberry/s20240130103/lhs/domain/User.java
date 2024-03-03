@@ -51,5 +51,7 @@ public class User {
 	//-----------조회용 컬럼-------------
 	@Transient
 	private double eval_score;
+	@Transient
+	private int address_chk; //address테이블에 추가된 목록이 있는지 확인
 	
 }

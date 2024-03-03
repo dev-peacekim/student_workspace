@@ -126,6 +126,12 @@ thead th:nth-child(7) {
 	margin-top: 3px; /* 체크박스와 텍스트 사이에 여백 추가 */
 }
 
+/* 읽음 아이콘 스타일 */
+.list-item .readStatus img{
+	position: absolute;
+	margin-left: 5px;
+	margin-top: 1px;
+}
 
 /* 쪽지 쓰기 버튼 */
 .msg-create .msg-create-btn {
@@ -177,7 +183,7 @@ thead th:nth-child(7) {
 .btn-container {
     position: absolute;
     display: flex;
-    right: 30px;
+    right: 20px;
     bottom: 10px;
     font-size: 14px;
 }

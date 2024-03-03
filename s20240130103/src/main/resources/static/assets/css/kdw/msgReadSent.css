@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+body {
+    font-family: 'NanumSquare', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 5px 20px 0 rgba(82, 63, 105, 0.2);
+}
+
+/* Card */
+.card {
+    width: 100%;
+    min-width: 800px;
+    height: 800px;
+    min-height: 500px;
+    margin-bottom: 0;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 25px 20px;
+}
+
+/* Section */
+.read-message-section {
+    width: 100%;
+    height: 800px;
+    min-width: 800px;
+    min-height: 500px;
+    position: relative;
+}
+
+/* 답장 하기 Button */
+#readMessage-form .msgWrite-btn {
+    position: absolute;
+    margin-top: -50px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    width: 100px;
+    height: 35px;
+    border: 1px solid #0D6DFD;
+    border-radius: 5px;
+    color: #0D6DFD;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 0.9;
+    z-index: 3;
+    cursor: pointer;
+}
+
+#readMessage-form .msgWrite-btn:hover {
+	background-color: #0D6DFD;
+    color: #ffffff;
+    border: 1px solid #0D6DFD;
+}
+
+/* 취소 Button */
+#readMessage-form .cancel-btn {
+    position: absolute;
+    bottom: -8px;
+    right: 0px;
+    width: 100px;
+    height: 35px;
+    border: 1px solid #0D6DFD;
+    border-radius: 5px;
+    color: #0D6DFD;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 2.2;
+    z-index: 3;
+    cursor: pointer;
+}
+
+#readMessage-form .cancel-btn:hover {
+	background-color: #0D6DFD;
+    color: #ffffff;
+    border: 1px solid #0D6DFD;
+}
+
+/* 제목 */
+.message-title-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 45px;
+}
+
+.message-title-group .message-title-prepend {
+    width: 95px;
+    height: 35px;
+    font-size: 18;
+    font-weight: 900;
+    border: none;
+    border-radius: 5px;
+    padding-left: 12px;
+    line-height: 2;
+}
+
+.message-title-group .message-info {
+    border: none;
+    margin-left: -13px;
+    font-size: 18;
+    font-weight: 900;
+    padding-left: 25px;
+}
+
+/* Info Group Style */
+.message-info-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: -16px;
+    font-size: 14px;
+}
+
+/* 보낸사람 & 받은사람 */
+.message-info-group .message-info-prepend {
+    width: 95px;
+    height: 35px;
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+    padding-left: 12px;
+    line-height: 2;
+}
+
+/* 보낸사람 받는사람 가져온 값 스타일 */
+.message-info-group .message-info {
+	margin-top: -5px;
+    border: none;
+    border-radius: 15px;
+    margin-left: -13px;
+    background-color: #e5f1fc;
+    padding: 3px 10px;
+}
+
+.time-group {
+	margin-top: 20px;
+}
+
+.time-form-group {
+	margin-top : -30px;
+}
+
+/* 읽은시간 받은시간 앞쪽 텍스트 */
+.message-info-group .message-time-info-prepend {
+	margin-top: 12px;
+	width: 95px;
+    height: 35px;
+    font-size: 12px;
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+    color: #767678;
+    padding-left: 12px;
+    line-height: 2;
+}
+
+/* 읽은시간 받은시간 가져온 값 */
+.message-info-group .message-time-info {
+	font-size: 12px;
+	border: none;
+    border-bottom: 1px solid #ced4da;
+    margin-left: -13px;
+    color: #767678;
+}
+.message-info-group .message-time-info:focus {
+    outline: none;
+    box-shadow: none;
+    padding-left: 15px;
+}
+
+/* File Attachment Style */
+.mb-3 {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.file-attachment {
+    display: flex;
+    align-items: center;
+}
+
+.file-attachment .form-control {
+    border-color: #ced4da;
+}
+
+.file-attachment .fa-file-circle-plus {
+    margin-right: 10px;
+}
+
+/* Content Group Style */
+.form-group .content-group {
+    width: 100%;
+    height: 415px;
+    margin-top: 25px;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    resize: none;
+}

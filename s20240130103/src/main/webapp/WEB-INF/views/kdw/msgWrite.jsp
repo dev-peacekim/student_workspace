@@ -44,7 +44,96 @@
 <link href="assets/css/kdw/msgWrite.css" rel="stylesheet">
 
 <script type="text/javascript">
-	
+	document.addEventListener('DOMContentLoaded', function() {
+		var receiverInput = document.getElementById('receiverInput');
+		var toggleButton = document.getElementById('toggleButton');
+		var userListDropdown = document.getElementById('userListDropdown');
+
+		var isToggleButtonClicked = false;
+
+		receiverInput.addEventListener('click', function(event) {
+			// receiverInput을 클릭하면 클릭 상태를 토글합니다.
+			isToggleButtonClicked = !isToggleButtonClicked;
+
+			// 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
+			toggleButton.classList.toggle('active', isToggleButtonClicked);
+
+			// 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+			userListDropdown.style.display = isToggleButtonClicked ? 'block'
+					: 'none';
+
+			// 이벤트 전파를 막기 위해 추가합니다.
+			event.stopPropagation();
+		});
+
+		toggleButton.addEventListener('click', function() {
+			// toggleButton을 클릭하면 클릭 상태를 토글합니다.
+			isToggleButtonClicked = !isToggleButtonClicked;
+
+			// 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
+			receiverInput.classList.toggle('active', isToggleButtonClicked);
+
+			// 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+			userListDropdown.style.display = isToggleButtonClicked ? 'block'
+					: 'none';
+		});
+
+		// document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
+		document.addEventListener('click', function() {
+			isToggleButtonClicked = false;
+			toggleButton.classList.remove('active');
+			userListDropdown.style.display = 'none';
+		});
+
+		/* =========== 쪽지 보내기 ========== */
+		// 쪽지쓰기 페이지에서 보내기 버튼 클릭 시 이벤트
+		document.getElementById('write-form').addEventListener('submit', function (event) {
+		    event.preventDefault(); // 폼의 기본 동작 방지
+
+		    // 필요한 데이터 수집
+		    var receiverInput = document.getElementById('receiverInput').value;
+		    var msgTitle = document.getElementById('msg_title').value;
+		    var msgContent = document.getElementById('message').value;
+
+		    // Ajax를 사용하여 서버에 데이터 전송
+		    var xhr = new XMLHttpRequest();
+		    xhr.open('POST', '/msgSent', true);
+
+		    // 서버로 전송할 데이터 설정
+		    var jsonData = {
+		        receiverInput: receiverInput,
+		        msgTitle: msgTitle,
+		        msgContent: msgContent
+		    };
+
+		    // Ajax 헤더 설정
+		    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+		    xhr.onreadystatechange = function () {
+		        if (xhr.readyState === 4) {
+		            console.log("Server Response:", xhr.status, xhr.responseText); // 응답 상태 콘솔에 출력
+
+		            if (xhr.status === 200) {
+		                // 성공적으로 쪽지가 전송된 경우의 처리
+		                alert('쪽지가 성공적으로 전송되었습니다.');
+		                // msgSent 페이지로 이동
+		                window.location.href = '/msgSent';
+		            } else {
+		                // 쪽지 전송에 실패한 경우의 처리
+		                alert('쪽지 전송에 실패했습니다.');
+		            }
+		        }
+		    };
+
+		    // 서버로 JSON 데이터 전송
+		    xhr.send(JSON.stringify(jsonData));
+		});
+	});
+	// 선택한 유저 인풋창에 박기
+	function selectReceiver(userNo, userNic, userName) {
+		var selectedUserInfo = userNo + ' ' + userNic + '(' + userName + ')';
+		document.getElementById('receiverInput').value = selectedUserInfo;
+	}
 </script>
 
 </head>
@@ -71,10 +160,55 @@
 			<!-- 쪽지쓰기 세션 부분 -->
 			<section class="msgWrite-section">
 				<div class="form-container">
-					<form id="write-form">
+					<!-- 파일을 보내려면 form에서 encType = "multipart/form-data" 를 이용해서 보내야 한다 -->
+					<!-- 그리고 하단에 <input type="file" name="fileName">로 파일을 보낼 수 있게 넣어준다 -->
+					<form id="write-form" action="/msgSent" method="post">
 						<!-- 보내기 버튼 -->
 						<div class="form-group">
-							<a href="/msgSent" class="msgSentBtn">보내기</a>
+							<button type="submit" class="msg-Sent-Btn">보내기</button>
+						</div>
+						<!-- 취소 Button : 이전 페이지로 돌아가기 -->
+						<!-- Referer 헤더는 사용자가 현재 요청을 보내기 전에 어떤 페이지에서 왔는지를 식별 -->
+						<div class="form-group">
+							<a href="<%=request.getHeader("Referer")%>"
+								class="msg-cancel-btn">취소</a>
+						</div>
+
+						<!-- 받는사람 -->
+						<div class="form-group">
+							<div class="input-group">
+								<!-- 받는사람 텍스트 -->
+								<div class="input-group-prepend-received">
+									<span class="input-group-text">받는사람</span>
+								</div>
+
+								<!-- 인풋 -->
+								<input id="receiverInput" type="text" class="form-control"
+									aria-label="Text input with segmented dropdown button">
+
+								<div class="receiver-dropdown">
+									<!-- 드롭다운 토글 버튼 -->
+									<button type="button" id="toggleButton"
+										class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+										data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="visually-hidden">주소록 드롭다운</span>
+									</button>
+
+									<!-- 드롭다운 주소록 리스트 -->
+									<ul class="dropdown-menu dropdown-menu-end"
+										id="userListDropdown">
+										<c:forEach var="user" items="${userList}">
+											<li><a class="dropdown-item" href="#"
+												onclick="selectReceiver('${user.user_no}', '${user.user_nic}', '${user.user_name}')">
+													${user.user_no} ${user.user_nic}(${user.user_name}) </a></li>
+										</c:forEach>
+									</ul>
+								</div>
+								<!-- 주소록 버튼 -->
+								<div class="receiver-addressBtn">
+									<button type="button" class="btn btn-outline-secondary">주소록</button>
+								</div>
+							</div>
 						</div>
 						<!-- 제목 -->
 						<div class="form-group">
@@ -84,60 +218,27 @@
 									<span class="subject-group-text">제목</span>
 								</div>
 								<!-- 인풋 -->
-								<input type="text" class="form-control"
-								aria-label="Text input with segmented dropdown button">
-							</div>
-						</div>
-						<!-- 받는사람 -->
-						<div class="form-group">
-							<div class="input-group">
-								<!-- 받는사람 텍스트 -->
-								<div class="input-group-prepend">
-									<span class="input-group-text">받는사람</span>
-								</div>
-								<!-- 인풋 -->
-								<input type="text" class="form-control"
+								<input type="text" id="msg_title" name="msg_title"
+									class="form-control"
 									aria-label="Text input with segmented dropdown button">
-								<div class="receiver-dropdown">
-									<!-- 드롭다운 토글 버튼 -->
-									<button type="button"
-										class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										<span class="visually-hidden">주소록 드롭다운</span>
-									</button>
-									<!-- 드롭다운 주소록 리스트 -->
-									<ul class="dropdown-menu dropdown-menu-end">
-										<li><a class="dropdown-item" href="#">userAddressList1</a></li>
-										<li><a class="dropdown-item" href="#">userAddressList2</a></li>
-										<li><a class="dropdown-item" href="#">userAddressList3</a></li>
-										<li><a class="dropdown-item" href="#">userAddressList4</a></li>
-									</ul>
-								</div>
-								<!-- 주소록 버튼 -->
-								<div class="receiver-addressBtn">
-									<button type="button" class="btn btn-outline-secondary">주소록</button>
-								</div>
 							</div>
-
 						</div>
 						<!-- 첨부파일 -->
-							<div class="form-group">
-								<div class="mb-3">
-									<div class="file-form-control">
-										<input class="form-control" type="file" id="formFileMultiple"
-											multiple>
-										<!-- 아직 안되는 부분 -->
-										<!-- <span class="fas fa-file-circle-plus"></span>
-									<span id="customFileText">파일을 마우스로 끌어 오세요</span> -->
-									</div>
+						<div class="form-group">
+							<div class="mb-3">
+								<div class="file-form-control">
+									<!-- 여러 개의 파일을 선택할 수 있는 input -->
+									<input class="form-control" type="file" id="formFileMultiple"
+										name="files" multiple>
 								</div>
 							</div>
-							<!-- 내용 -->
-							<div class="form-group">
-								<div class="content-group">
-									<textarea id="message" name="message" rows="5" required></textarea>
-								</div>
+						</div>
+						<!-- 내용 -->
+						<div class="form-group">
+							<div class="content-group">
+								<textarea id="message" name="msg_content" rows="5" required></textarea>
 							</div>
+						</div>
 					</form>
 				</div>
 			</section>

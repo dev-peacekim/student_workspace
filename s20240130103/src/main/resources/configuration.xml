@@ -15,5 +15,6 @@
       <typeAlias alias="YkmBoardComm" type="com.blackberry.s20240130103.ykm.model.YkmBoardComm"/>
       <typeAlias alias="YkmBoardCommReply" type="com.blackberry.s20240130103.ykm.model.YkmBoardCommReply"/>
       <typeAlias alias="Ask" type="com.blackberry.s20240130103.yhs.model.Ask"/>
+      <typeAlias alias="LhsAddress" type="com.blackberry.s20240130103.lhs.model.Address"/>
    </typeAliases>
 </configuration>

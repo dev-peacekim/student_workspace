@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -57,14 +56,19 @@
 	          <div class="d-flex align-items-center ">
 	            <ul class="nav nav-tabs nav-tabs-bordered">
 	              <li class="nav-item flex-fill" role="presentation">
-	                <a href="address">
-	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true">추가된 목록</button>
-	                </a>
+	                
+	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true">주소록 목록</button>
+	                
 	              </li>
 	              <li class="nav-item flex-fill" role="presentation">
-	                <a href="addresswait">
-	                  <button class="nav-link w-100" type="button" data-bs-toggle="tab"  aria-selected="false" >대기중인 목록</button>
-	                </a>
+	                
+	                  <button class="nav-link w-100" id="addressrequest" type="button" data-bs-toggle="tab"  aria-selected="false" >수락신청 대기목록</button>
+	                
+	              </li>
+	              <li class="nav-item flex-fill" role="presentation">
+	                
+	                  <button class="nav-link w-100" id="addressresponse" type="button" data-bs-toggle="tab"  aria-selected="false" >수락요청 대기목록</button>
+	                
 	              </li>
 	            </ul>
 	            <form action="" class="d-flex">
@@ -73,24 +77,27 @@
 	            </form>
 	          </div>
 	          <div>
-	            <button class="btn btn-info">
-	              <i class="bi bi-plus"></i>
-	            </button>
+	          	<a href="addressaddForm">
+		            <button class="btn btn-info">
+		              <i class="bi bi-plus"></i>
+		            </button>
+	            </a>
 	          </div>
 			</div>
 	        <div class="address-main">
-	
+	        
+			<c:forEach items="${addressUserList }" var="user">
 	          <div class="address-main-inner">
 	            <div class="address-list-card-detail">
 	              <div class="profile-img-user-name">
-	                <img src="upload/userImg/id1.png" alt="Profile" class="rounded-circle address-list-profile-img">
+	                <img src="upload/userImg/${user.user_profile }" alt="Profile" class="rounded-circle address-list-profile-img">
 	                <div>
-	                  <p class="user-name">이름</p>
-	                  <p class="user-id">#아이디</p>
+	                  <p class="user-name">${user.user_name }</p>
+	                  <p class="user-id">#${user.user_id }</p>
 	                </div>
 	              </div>
 	              <div class="score-message">
-	                <div class="user-score rounded-circle">4.5</div> <!-- 점수-->
+	                <div class="user-score rounded-circle">${user.user_score }</div> 
 	                <form action="" method="get"> 
 	                  <input type="hidden" name="user_no" value="${addressUser.user_no }">
 	                  <button type="submit" class="rounded-circle message">
@@ -100,6 +107,8 @@
 	              </div>
 	            </div>
 	          </div>
+	         </c:forEach>
+	          
 	        </div>
 		</div>
 	</section>

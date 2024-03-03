@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public class MessageFile {
-	private int msg_no;
-	private int msg_file_cnt;
-	private String msg_file_name;
-	private String msg_file_user_name;
+	private Long msg_no; // 쪽지번호
+	private int msg_file_cnt; // 쪽지 순서번호 (MAX)
+	private String msg_file_name; // 첨부파일 저장명
+	private String msg_file_user_name; // 첨부파일 유저명
 	
 }
 
