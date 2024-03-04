@@ -117,10 +117,10 @@
 								<c:forEach var="projectTask" items="${totalProjectTaskList}">
 									<tr>
 										<th>${num}</th>
-										<td>${projectTask.project_title}</td>
+										<td><a href="#">${projectTask.project_title}</a></td>
 										<td>${projectTask.task_title}</td>
-										<td><fmt:parseDate value="${projectTask.task_start}" pattern="yyyy-MM-dd"/></td>
-										<td><fmt:parseDate value="${projectTask.task_end}" pattern="yyyy-MM-dd"/></td>
+										<td>${projectTask.task_start.substring(0, projectTask.task_start.indexOf(" "))}</td>
+										<td>${projectTask.task_end.substring(0, projectTask.task_end.indexOf(" "))}</td>
 									</tr>
 									<c:set var="num" value="${num + 1 }"></c:set>
 								</c:forEach>
@@ -129,17 +129,13 @@
 						<nav class="page-navigation">
 							<ul class="pagination">
 								<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }"><span>&laquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }"><span>&laquo;</span></a></li>
 								</c:if>
-								<c:forEach var="i" begin="${kphPaging.startPage }"
-									end="${kphPaging.endPage }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${i}">${i}</a></li>
+								<c:forEach var="i" begin="${kphPaging.startPage }" end="${kphPaging.endPage }">
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }"><span>&raquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }"><span>&raquo;</span></a></li>
 								</c:if>
 							</ul>
 						</nav>

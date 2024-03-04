@@ -27,5 +27,7 @@ public class KphProjectTask {
 	private String currentPage;
 	private int start;
 	private int end;
+	private String keyword;
+	private String searchFilter;
 	
 }

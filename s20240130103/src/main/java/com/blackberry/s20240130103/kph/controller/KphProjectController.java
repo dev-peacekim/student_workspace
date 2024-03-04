@@ -1,7 +1,10 @@
 package com.blackberry.s20240130103.kph.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,5 +186,39 @@ public class KphProjectController {
 		
 		return "kph/totalTaskList";
 	}
+	
+//	@PostMapping("taskSearch")
+//	@ResponseBody
+//	public Map<String, Object> taskSearch(@RequestBody KphProjectTask kphProjectTask, HttpServletRequest request) {
+//		
+//		System.out.println("KphProjectController taskSearch start...");
+//		
+//		String keyword = kphProjectTask.getKeyword();
+//		String searchFilter = kphProjectTask.getSearchFilter();
+//		
+//		Long user_no = (Long)request.getSession().getAttribute("user_no");
+//		int totalTaskCount = kphProjectService.totalTaskCountByUserNo(user_no);
+//		System.out.println("KphProjectController totalTaskList totalTaskCount=>" + totalTaskCount);
+//		
+//		KphPaging kphPaging = new KphPaging(totalTaskCount, kphProjectTask.getCurrentPage());
+//		
+//		kphProjectTask.setStart(kphPaging.getStart());
+//		kphProjectTask.setEnd(kphPaging.getEnd());
+//		kphProjectTask.setUser_no(user_no);
+//		
+//		List<KphProjectTask> totalProjectTaskListByKeyword = null; 
+//		
+//		if (searchFilter.equals("전체")) {
+//			totalProjectTaskListByKeyword = null;
+//		} else if (searchFilter.equals("프로젝트명")) {
+//			
+//		} else if (searchFilter.equals("과업명")) {
+//			
+//		}
+//		
+//		return entity;
+//	}
+	
+	
 	
 }
