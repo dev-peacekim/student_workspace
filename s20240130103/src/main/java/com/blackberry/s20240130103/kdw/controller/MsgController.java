@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.Message;
+import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.kdw.service.MsgPaging;
 import com.blackberry.s20240130103.kdw.service.MsgService;
 import com.blackberry.s20240130103.lhs.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -193,30 +195,21 @@ public class MsgController {
     
     // 쪽지 보내기
     @PostMapping("/msgSent")
-    public ResponseEntity<String> sendMsg(
-            @RequestParam("receiverInput") String receiverInput,
-            @RequestParam("msgTitle") String msgTitle,
-            @RequestParam("msgContent") String msgContent,
-            HttpServletRequest request) {
+    public String sendMsg (Message message, @RequestParam("files") MultipartFile[] files, HttpServletRequest request) {
+    	System.out.println("MsgController sendMsg message : " + message);
         try {
             // HttpSession에서 로그인한 사용자 정보 가져오기 (쪽지 보내는 사람)
             Long msgSender = (Long) request.getSession().getAttribute("user_no");
+            // 업로드 경로 설정
+            String path = request.getSession().getServletContext().getRealPath("/upload/msgFile/");
 
-            // 쪽지 전송 로직 추가 (예시로 현재 날짜를 메시지에 추가)
-            Message message = new Message();
             message.setMsg_sender(msgSender);
-            message.setMsg_receiver(Long.parseLong(receiverInput));
-            message.setMsg_title(msgTitle);
-            message.setMsg_content(msgContent);
-            message.setMsg_createdate(LocalDateTime.now().toString()); // LocalDateTime을 String으로 변환
-
-            msgService.sendMsg(message);
-
-            return ResponseEntity.ok("쪽지가 성공적으로 전송되었습니다.");
+            msgService.sendMsg(message, files, path);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("쪽지 전송에 실패했습니다.");
+            System.out.println("MsgController sendMsg Exception ->" + e.getMessage());
         }
+        return "kdw/msgSent";
     }
     
     // 답장 쓰기 버튼 -> 답장쓰기 View 이동
@@ -228,33 +221,50 @@ public class MsgController {
     
     // '보관' 버튼 클릭 시 msg_store_chk를 1로 업데이트
     @PostMapping(value = "updateMsgStoreStatus")
-    public ResponseEntity<String> updateMsgStoreStatus(@RequestBody Map<String, List<Long>> requestData) {
+    public void updateMsgStoreStatus(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
         List<Long> msgNos = requestData.get("msgNos");
-        log.info("MsgController updateMsgStoreStatus start...");
-        System.out.println("MsgController updateMsgStoreStatus start...");
-        msgService.updateMsgStoreStatus(msgNos);
-        return ResponseEntity.ok("쪽지가 성공적으로 보관되었습니다.");
+        log.info("MsgController updateMsgStoreStatus 시작...");
+        try {
+            msgService.updateMsgStoreStatus(msgNos);
+            System.out.println("쪽지 보관 성공");
+        } catch (Exception e) {
+            log.error("쪽지 보관에 실패했습니다.", e);
+            e.printStackTrace();
+            System.out.println("MsgController updateMsgStoreStatus Exception ->" + e.getMessage());
+        }
     }
     
     // '삭제' 버튼 클릭 시 msg_delete_chk를 1로 업데이트
     @PostMapping(value = "updateMsgDeleteStatus")
-    public ResponseEntity<String> updateMsgDeleteStatus(@RequestBody Map<String, List<Long>> requestData) {
+    public void updateMsgDeleteStatus(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
         List<Long> msgNos = requestData.get("msgNos");
         log.info("MsgController updateMsgDeleteStatus start...");
-        System.out.println("MsgController updateMsgDeleteStatus start...");
-        msgService.updateMsgDeleteStatus(msgNos);
-        return ResponseEntity.ok("쪽지가 성공적으로 삭제되었습니다.");
+        
+        try {
+            msgService.updateMsgDeleteStatus(msgNos);
+            System.out.println("쪽지 삭제 성공");
+        } catch (Exception e) {
+            log.error("쪽지 삭제에 실패했습니다.", e);
+            e.printStackTrace();
+            System.out.println("MsgController updateMsgDeleteStatus Exception ->" + e.getMessage());
+        }
     }
     
     
     // '영구 삭제' 버튼 클릭 시 쪽지 영구 삭제
     @PostMapping(value = "/permanentDeleteMessages")
-    public ResponseEntity<String> permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData) {
+    public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
         List<Long> msgNos = requestData.get("msgNos");
         log.info("MsgController permanentDeleteMessages start...");
-        System.out.println("MsgController permanentDeleteMessages start...");
-        msgService.permanentDeleteMessages(msgNos);
-        return ResponseEntity.ok("쪽지가 성공적으로 영구 삭제되었습니다.");
+        
+        try {
+            msgService.permanentDeleteMessages(msgNos);
+            System.out.println("쪽지 영구 삭제 성공");
+        } catch (Exception e) {
+            log.error("쪽지 영구 삭제에 실패했습니다.", e);
+            e.printStackTrace();
+            System.out.println("MsgController permanentDeleteMessages Exception ->" + e.getMessage());
+        }
     }
     /* ========== 받은편지함 버튼 기능 구현 END =========== */
     

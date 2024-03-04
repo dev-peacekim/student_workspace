@@ -128,13 +128,6 @@
 	    SET msg_readdate = SYSTIMESTAMP
 	    WHERE msg_no = #{msgNo}
 	</update>
-
-
-    <!-- 파일 저장 메서드 -->
-    <insert id="kdwSaveMessageFile" parameterType="KdwMessageFile">
-        INSERT INTO message_file (msg_no, msg_file_cnt, msg_file_name, msg_file_user_name)
-        VALUES (#{msg_no}, #{msg_file_cnt}, #{msg_file_name}, #{msg_file_user_name})
-    </insert>
     
     <!-- 보관 버튼 클릭시 msg_store_chk 업데이트 -->
 	<update id="kdwUpdateMsgStoreStatus" parameterType="java.util.List">
@@ -166,8 +159,26 @@
 	</delete>
 	
 	<!-- 쪽지 등록 -->
-	<insert id="kdwSentMsg" parameterType="KdwMessage">
+	<insert 
+	id="kdwSentMsg" 
+	parameterType="KdwMessage" 
+	useGeneratedKeys="true" 
+	keyColumn="msg_no" 
+    keyProperty="msg_no" >
 	    INSERT INTO message (msg_no, msg_title, msg_content, msg_createdate, msg_readdate, msg_sender, msg_receiver, msg_delete_chk, msg_store_chk)
 	    VALUES (SEQ_MSG.nextval, #{msg_title}, #{msg_content}, SYSDATE, null, #{msg_sender}, #{msg_receiver}, 0, 0)
+	</insert>
+	
+	<!-- 파일 등록 -->
+	<insert id="kdwSaveMessageFile" parameterType="KdwMessageFile">
+    INSERT INTO message_File (msg_no, msg_file_name, msg_file_user_name, msg_file_cnt)
+	    VALUES (
+	        #{msg_no},
+	        #{msg_file_name},
+	        #{msg_file_user_name},
+	        (SELECT NVL(MAX(msg_file_cnt), 0) + 1 
+	         FROM message_File
+	         WHERE msg_no = #{msg_no})
+	    )
 	</insert>
 </mapper>

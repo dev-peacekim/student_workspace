@@ -39,99 +39,149 @@
   ======================================================== -->
 
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/msgWrite.css" rel="stylesheet">
 
 <script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() {
-		var receiverInput = document.getElementById('receiverInput');
-		var toggleButton = document.getElementById('toggleButton');
-		var userListDropdown = document.getElementById('userListDropdown');
+document.addEventListener('DOMContentLoaded', function() {
+    var receiverInput = document.getElementById('receiverInput');
+    var toggleButton = document.getElementById('toggleButton');
+    var userListDropdown = document.getElementById('userListDropdown');
 
-		var isToggleButtonClicked = false;
+    var isToggleButtonClicked = false;
 
-		receiverInput.addEventListener('click', function(event) {
-			// receiverInput을 클릭하면 클릭 상태를 토글합니다.
-			isToggleButtonClicked = !isToggleButtonClicked;
+    receiverInput.addEventListener('click', function(event) {
+        // receiverInput을 클릭하면 클릭 상태를 토글합니다.
+        isToggleButtonClicked = !isToggleButtonClicked;
 
-			// 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
-			toggleButton.classList.toggle('active', isToggleButtonClicked);
+        // 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
+        toggleButton.classList.toggle('active', isToggleButtonClicked);
 
-			// 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-			userListDropdown.style.display = isToggleButtonClicked ? 'block'
-					: 'none';
+        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+        userListDropdown.style.display = isToggleButtonClicked ? 'block' : 'none';
 
-			// 이벤트 전파를 막기 위해 추가합니다.
-			event.stopPropagation();
-		});
+        // 이벤트 전파를 막기 위해 추가합니다.
+        event.stopPropagation();
+    });
 
-		toggleButton.addEventListener('click', function() {
-			// toggleButton을 클릭하면 클릭 상태를 토글합니다.
-			isToggleButtonClicked = !isToggleButtonClicked;
+    toggleButton.addEventListener('click', function() {
+        // toggleButton을 클릭하면 클릭 상태를 토글합니다.
+        isToggleButtonClicked = !isToggleButtonClicked;
 
-			// 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
-			receiverInput.classList.toggle('active', isToggleButtonClicked);
+        // 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
+        receiverInput.classList.toggle('active', isToggleButtonClicked);
 
-			// 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-			userListDropdown.style.display = isToggleButtonClicked ? 'block'
-					: 'none';
-		});
+        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+        userListDropdown.style.display = isToggleButtonClicked ? 'block' : 'none';
+    });
 
-		// document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
-		document.addEventListener('click', function() {
-			isToggleButtonClicked = false;
-			toggleButton.classList.remove('active');
-			userListDropdown.style.display = 'none';
-		});
+    // document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
+    document.addEventListener('click', function() {
+        isToggleButtonClicked = false;
+        toggleButton.classList.remove('active');
+        userListDropdown.style.display = 'none';
+    });
+    
+    
+	// 파일 저장
+    const dataTransfer = new DataTransfer();
+    let total_file_size = 0;
 
-		/* =========== 쪽지 보내기 ========== */
-		// 쪽지쓰기 페이지에서 보내기 버튼 클릭 시 이벤트
-		document.getElementById('write-form').addEventListener('submit', function (event) {
-		    event.preventDefault(); // 폼의 기본 동작 방지
+    $("#files").change(function () {
+        let fileArr = document.getElementById("files").files;
 
-		    // 필요한 데이터 수집
-		    var receiverInput = document.getElementById('receiverInput').value;
-		    var msgTitle = document.getElementById('msg_title').value;
-		    var msgContent = document.getElementById('message').value;
+        if (fileArr != null && fileArr.length > 0) {
+            // =====DataTransfer 파일 관리========
+            for (var i = 0; i < fileArr.length; i++) {
+                dataTransfer.items.add(fileArr[i]);
+                total_file_size += fileArr[i].size; // 파일 추가될 때 용량 더하기
+            }
+            document.getElementById("files").files = dataTransfer.files;
 
-		    // Ajax를 사용하여 서버에 데이터 전송
-		    var xhr = new XMLHttpRequest();
-		    xhr.open('POST', '/msgSent', true);
+            // 파일 목록 업데이트
+            updateFileList();
+        }
+    });
 
-		    // 서버로 전송할 데이터 설정
-		    var jsonData = {
-		        receiverInput: receiverInput,
-		        msgTitle: msgTitle,
-		        msgContent: msgContent
-		    };
+    $("#fileList").click(function (event) {
+        let fileArr = document.getElementById("files").files;
+        if (event.target.className == 'remove_button') {
+            targetFile = event.target.dataset.index;
 
-		    // Ajax 헤더 설정
-		    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            // ============DataTransfer================
+            for (var i = 0; i < dataTransfer.files.length; i++) {
+                if (dataTransfer.files[i].lastModified == targetFile) {
+                    // 총용량에서 삭제
+                    total_file_size -= dataTransfer.files[i].size;
 
-		    xhr.onreadystatechange = function () {
-		        if (xhr.readyState === 4) {
-		            console.log("Server Response:", xhr.status, xhr.responseText); // 응답 상태 콘솔에 출력
+                    dataTransfer.items.remove(i);
+                    break;
+                }
+            }
+            document.getElementById("files").files = dataTransfer.files;
 
-		            if (xhr.status === 200) {
-		                // 성공적으로 쪽지가 전송된 경우의 처리
-		                alert('쪽지가 성공적으로 전송되었습니다.');
-		                // msgSent 페이지로 이동
-		                window.location.href = '/msgSent';
-		            } else {
-		                // 쪽지 전송에 실패한 경우의 처리
-		                alert('쪽지 전송에 실패했습니다.');
-		            }
-		        }
-		    };
+            const removeTarget = document.getElementById(targetFile);
+            removeTarget.remove();
 
-		    // 서버로 JSON 데이터 전송
-		    xhr.send(JSON.stringify(jsonData));
-		});
-	});
+            // 파일 목록 업데이트
+            updateFileList();
+        }
+    });
+
+    function updateFileList() {
+        const fileListElement = document.getElementById("fileList");
+        fileListElement.innerHTML = ""; // 목록 초기화
+
+        for (var i = 0; i < dataTransfer.files.length; i++) {
+            const fileItem = document.createElement("li");
+            fileItem.id = dataTransfer.files[i].lastModified;
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.className = "remove_button";
+            removeButton.dataset.index = dataTransfer.files[i].lastModified;
+            removeButton.innerText = "삭제";
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.innerText = dataTransfer.files[i].name;
+
+            const fileSizeSpan = document.createElement("span");
+            fileSizeSpan.innerText = formatFileSize(dataTransfer.files[i].size);
+
+            fileItem.appendChild(removeButton);
+            fileItem.appendChild(fileNameSpan);
+            fileItem.appendChild(fileSizeSpan);
+
+            fileListElement.appendChild(fileItem);
+        }
+
+        document.getElementById("fileSize").innerText = formatFileSize(total_file_size);
+    }
+
+    function clearFileList() {
+        dataTransfer.items.clear();
+        document.getElementById("files").files = dataTransfer.files;
+        document.getElementById("fileList").innerHTML = "";
+        total_file_size = 0;
+        document.getElementById("fileSize").innerText = "0";
+    }
+
+    function formatFileSize(size) {
+        if (size < 1024) {
+            return size + " B";
+        } else if (size < 1024 * 1024) {
+            return (size / 1024).toFixed(2) + " KB";
+        } else if (size < 1024 * 1024 * 1024) {
+            return (size / (1024 * 1024)).toFixed(2) + " MB";
+        } else {
+            return (size / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+        }
+    }
+}); // 건들지말것
 	// 선택한 유저 인풋창에 박기
 	function selectReceiver(userNo, userNic, userName) {
-		var selectedUserInfo = userNo + ' ' + userNic + '(' + userName + ')';
+		var selectedUserInfo = userNo;
 		document.getElementById('receiverInput').value = selectedUserInfo;
 	}
 </script>
@@ -162,7 +212,8 @@
 				<div class="form-container">
 					<!-- 파일을 보내려면 form에서 encType = "multipart/form-data" 를 이용해서 보내야 한다 -->
 					<!-- 그리고 하단에 <input type="file" name="fileName">로 파일을 보낼 수 있게 넣어준다 -->
-					<form id="write-form" action="/msgSent" method="post">
+					<form id="write-form" action="/msgSent" method="post"
+						enctype="multipart/form-data">
 						<!-- 보내기 버튼 -->
 						<div class="form-group">
 							<button type="submit" class="msg-Sent-Btn">보내기</button>
@@ -184,7 +235,8 @@
 
 								<!-- 인풋 -->
 								<input id="receiverInput" type="text" class="form-control"
-									aria-label="Text input with segmented dropdown button">
+									aria-label="Text input with segmented dropdown button"
+									name="msg_receiver">
 
 								<div class="receiver-dropdown">
 									<!-- 드롭다운 토글 버튼 -->
@@ -225,13 +277,27 @@
 						</div>
 						<!-- 첨부파일 -->
 						<div class="form-group">
-							<div class="mb-3">
-								<div class="file-form-control">
-									<!-- 여러 개의 파일을 선택할 수 있는 input -->
-									<input class="form-control" type="file" id="formFileMultiple"
-										name="files" multiple>
-								</div>
-							</div>
+						    <div class="mb-3">
+						        <div class="file-form-control">
+						            <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
+						        </div>
+						        <div class="file_drag">
+						            <div class="file_list_header">
+						                <div class="file_list_header_task">
+						                    <button type="button" class="button_svg_delete" onclick="clearFileList()">
+						                        <span class="blind">전체 삭제</span>
+						                    </button>
+						                </div>
+						                <div class="file_list_header_title">
+						                    <span class="text">파일명</span>
+						                </div>
+						                <div class="file_list_header_volume">
+						                    <span class="text">용량</span><span id="fileSize">0</span>
+						                </div>
+						            </div>
+						            <ul id="fileList"></ul>
+						        </div>
+						    </div>
 						</div>
 						<!-- 내용 -->
 						<div class="form-group">

@@ -44,7 +44,7 @@ public interface MsgService {
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
 	// 쪽지 보내기
-	void sendMsg(Message message);
+	void sendMsg(Message message, MultipartFile[] files, String path);
 
 
 
