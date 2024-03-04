@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
+import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.service.KphPaging;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.domain.User;
 
@@ -158,5 +160,28 @@ public class KphProjectController {
 		return userList;
 	}
 	
+	@GetMapping("totalTaskList")
+	public String totalTaskList(KphProjectTask kphProjectTask, HttpServletRequest request, Model model) {
+		
+		System.out.println("KphProjectController totalTaskList start...");
+		
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		int totalTaskCount = kphProjectService.totalTaskCountByUserNo(user_no);
+		System.out.println("KphProjectController totalTaskList totalTaskCount=>" + totalTaskCount);
+		
+		KphPaging kphPaging = new KphPaging(totalTaskCount, kphProjectTask.getCurrentPage());
+		
+		kphProjectTask.setStart(kphPaging.getStart());
+		kphProjectTask.setEnd(kphPaging.getEnd());
+		kphProjectTask.setUser_no(user_no);
+		
+		List<KphProjectTask> totalProjectTaskList = kphProjectService.totalTaskList(kphProjectTask);
+		System.out.println("KphProjectController totalTaskList totalProjectTaskList.size=>"+ totalProjectTaskList.size());
+		
+		model.addAttribute("totalProjectTaskList", totalProjectTaskList);
+		model.addAttribute("kphPaging", kphPaging);
+		
+		return "kph/totalTaskList";
+	}
 	
 }

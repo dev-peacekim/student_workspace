@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.ProjectTaskMapper">
+
+	<select id="kphTotalTaskList" parameterType="KphProjectTask" resultType="KphProjectTask">
+		SELECT p.PROJECT_NO, t.TASK_NO, p.PROJECT_TITLE , t.TASK_TITLE , t.TASK_START , t.TASK_END 
+		FROM PROJECT p , TASK t , (SELECT ROWNUM rn, PROJECT_NO , TASK_NO 
+												FROM USER_TASK_MANY
+												WHERE USER_NO = #{user_no}) utm
+		WHERE p.PROJECT_NO = utm.PROJECT_NO
+			AND t.TASK_NO = utm.TASK_NO
+			AND p.PROJECT_DELETE_CHK = 0
+			AND rn BETWEEN #{start} AND #{end}
+		ORDER BY TASK_END
+	</select>
+	
+</mapper>

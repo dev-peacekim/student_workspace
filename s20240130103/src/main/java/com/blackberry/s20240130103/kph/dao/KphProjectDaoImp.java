@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
+import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
@@ -71,6 +72,18 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public List<KphUsers> addressUserListByName(KphUsers user) {
 		System.out.println("KphProjectDaoImp addressUserListByName start...");
 		return session.selectList("kphAddressUserListByName", user);
+	}
+
+	@Override
+	public List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask) {
+		System.out.println("KphProjectDaoImp addressUserListByName start...");
+		return session.selectList("kphTotalTaskList", kphProjectTask);
+	}
+
+	@Override
+	public int totalTaskCountByUserNo(Long user_no) {
+		System.out.println("KphProjectDaoImp totalTaskCount start...");
+		return session.selectOne("kphTotalTaskCountByUserNo", user_no);
 	}
 	
 }
