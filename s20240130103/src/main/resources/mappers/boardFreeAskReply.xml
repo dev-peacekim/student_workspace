@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.boardFreeAskReplyMapper">
+
+<select id="slreplyBoardFreeList" parameterType="int" resultType="LslCommReply">
+		SELECT bcr.* , u.*
+		FROM BOARD_COMM_REPLY bcr , USERS u
+		WHERE bcr.USER_NO = u.USER_NO
+		AND bcr.CREPLY_DELETE_CHK = 0
+		AND cboard_no = #{cboard_no}
+		ORDER BY CREPLY_DATE ASC
+	</select>
+
+
+<insert id="slinsertBoardReply" parameterType="LslCommReply">
+	INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
+	VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, 1, 1, 1, #{cboard_no}, #{user_no}, 0, sysdate)
+</insert>
+
+</mapper>

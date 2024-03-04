@@ -126,12 +126,7 @@ public class LslDaoImpl implements LslDao {
 		return askBoardWrite;
 	}
 
-	@Override
-	public List<LslCommReply> replyBoardFreeList(int cboard_no) {
-		List<LslCommReply> replyBoardFreeList = session.selectList("slreplyBoardFreeList", cboard_no);
-		
-		return replyBoardFreeList;
-	}
+	
 
 	@Override
 	public List<LslCommReply> replyBoardAskList(int cboard_no) {
@@ -158,7 +153,29 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeViewCnt;
 	}
 
+	@Override
+	public int insertBoardReply(LslCommReply lslCommReply) {
+		int boardFreeAskResult = session.insert("slinsertBoardReply",lslCommReply);
+		
+		return boardFreeAskResult;
+	}
+
 
 	
-
+// Rest API 
+	
+	// 상세내역 댓글 리스트 
+	@Override
+	public List<LslCommReply> replyBoardFreeList(int cboard_no) {
+		List<LslCommReply> replyBoardFreeList = session.selectList("slreplyBoardFreeList", cboard_no);
+		
+		return replyBoardFreeList;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

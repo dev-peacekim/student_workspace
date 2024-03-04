@@ -54,22 +54,22 @@ SELECT *
 
 	</select>
 
-	<insert id="slaskBoardWrite" parameterType="String"> 
-			INSERT  INTO BOARD_COMM bc VALUES
-	(
-	seq_board_comm.nextval,
-	#{CBOARD_TITLE},
-	#{CBOARD_CONTENT},
-	0,
-	sysdate,
-	#{USER_NO}
-	0,
-	300,
-	20,
-	NULL,
-	NULL,
-	sysdate
-	)		
+	<insert id="slaskBoardWrite" parameterType="String">
+		INSERT INTO BOARD_COMM bc VALUES
+		(
+		seq_board_comm.nextval,
+		#{CBOARD_TITLE},
+		#{CBOARD_CONTENT},
+		0,
+		sysdate,
+		#{USER_NO}
+		0,
+		300,
+		20,
+		NULL,
+		NULL,
+		sysdate
+		)
 	</insert>
 
 
@@ -87,7 +87,7 @@ SELECT *
 		WHERE bcr.USER_NO = u.USER_NO
 		AND bcr.CREPLY_DELETE_CHK = 0
 		AND cboard_no = #{cboard_no}
-	</select>
+</select>
 
 
 </mapper>

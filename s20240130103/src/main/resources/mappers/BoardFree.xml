@@ -66,13 +66,7 @@ SELECT *
 </select>
 
 
-	<select id="slreplyBoardFreeList" parameterType="int" resultType="LslCommReply">
-		SELECT bcr.* , u.*
-		FROM BOARD_COMM_REPLY bcr , USERS u
-		WHERE bcr.USER_NO = u.USER_NO
-		AND bcr.CREPLY_DELETE_CHK = 0
-		AND cboard_no = #{cboard_no}
-	</select>
+	
 	
 	<update id="slboardFreeViewCnt" parameterType="LslCommReply">
 		update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where cboard_no=#{cboard_no}

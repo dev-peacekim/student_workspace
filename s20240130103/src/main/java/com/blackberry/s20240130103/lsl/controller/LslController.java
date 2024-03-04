@@ -21,6 +21,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LslController {
 	private final LslService ls;
+	
+	
+	
+/* 자유 게시판  */
 
 	// 자유 게시판 리스트 및 Paging
 	@RequestMapping(value = "boardFree")
@@ -35,16 +39,14 @@ public class LslController {
 		lslBoardComm.setEnd(bfpage.getEnd());
 		System.out.println(lslBoardComm);
 
-		// 자유게시판 리스트
 		List<LslBoardComm> boardFreeList = ls.boardFreeList(lslBoardComm);
 		System.out.println("LslController boardFreeList.size() ->" + boardFreeList.size());
-
 		// 자유게시판 조회수 
 		int boardFreeViewCnt = ls.boardFreeViewCnt(lslBoardComm);
 		
+		model.addAttribute("boardFreeList",boardFreeList);
 		model.addAttribute("boardFreeViewCnt",boardFreeViewCnt);
 		model.addAttribute("totalBoardFree", totalBoardFree);
-		model.addAttribute("boardFreeList", boardFreeList);
 		model.addAttribute("bfpage", bfpage);
 
 		return "lsl/boardFree";
@@ -62,6 +64,7 @@ public class LslController {
 		lslBoardComm.setStart(bfpage.getStart());
 		lslBoardComm.setEnd(bfpage.getEnd());
 		System.out.println(lslBoardComm);
+		
 
 		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm);
 		System.out.println("LslController boardFreeList boardFreeSearch.size() ->" + boardFreeList.size());
@@ -73,17 +76,16 @@ public class LslController {
 		return "lsl/boardFree";
 	}
 
-	// 자유 게시판 상세내용
-	// 세션이 필요할 때 - >
+	// 자유 게시판 상세내용 
 	@GetMapping(value = "boardFreeContents")
 	public String boardFreeContents(HttpServletRequest request, Model model) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
-
-		System.out.println("LslController replyList Start..");
+		System.out.println("LslController replyBoardFreeList Start..");
 		List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
-
-		model.addAttribute("replyBoardFreeList", replyBoardFreeList);
+		System.out.println("LslController replyBoardFreeList.size() ->" + replyBoardFreeList.size());
+		
+		model.addAttribute("replyBoardFreeList",replyBoardFreeList);
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
@@ -104,6 +106,13 @@ public class LslController {
 		}
 
 	}
+	
+	
+	
+	
+
+	
+	/* 질문 게시판 */
 
 	// 질문 게시판 리스트 및 페이징
 	@RequestMapping(value = "boardAsk")
@@ -167,24 +176,26 @@ public class LslController {
 		model.addAttribute("boardAskContents", boardAskContents);
 		return "lsl/boardAskContents";
 	}
+	
 
 	// 질문 게시판 글 폼(board type)
 	@PostMapping(value = "boardFreeWrite")
 	public String askBoardWrite(Model model, @RequestParam(name = "boardtype") String boardtype) {
 		System.out.println(boardtype);
 
+		
 		int askBoardWrite = ls.askBoardWrite(boardtype);
 
 		model.addAttribute("board_type", boardtype);
 		model.addAttribute("askBoardWrite",askBoardWrite);
 		
-		
 		return "redirect:boardAsk";
 		
 
 	}
+	
+	
 
-	// Reply
 
 	// 게시글 수정
 	@GetMapping(value = "boardFreeModify")

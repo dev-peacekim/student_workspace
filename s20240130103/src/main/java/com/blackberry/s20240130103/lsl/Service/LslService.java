@@ -37,4 +37,8 @@ public interface LslService {
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
 
 
+
+	int insertBoardReply(LslCommReply lslCommReply);
+
+
 }

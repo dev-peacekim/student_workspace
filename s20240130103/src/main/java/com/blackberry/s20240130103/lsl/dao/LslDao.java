@@ -49,6 +49,10 @@ public interface LslDao {
 
 
 
+	int insertBoardReply(LslCommReply lslCommReply);
+
+
+
 
 
 

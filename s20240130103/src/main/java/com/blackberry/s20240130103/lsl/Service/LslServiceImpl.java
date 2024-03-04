@@ -18,7 +18,7 @@ public class LslServiceImpl implements LslService {
 	private final LslDao ld;
 
 
-
+	// 지유 게시판 토탈 카운트 
 	@Override
 	public int totalBoardFree() {
 		System.out.println("LslServiceImpl totalBoardFree Start...");
@@ -27,7 +27,7 @@ public class LslServiceImpl implements LslService {
 	
 		return totalBoardFreeCnt;
 	}
-
+	// 자유 게시판 리스트 
 	@Override
 	public List<LslBoardComm> boardFreeList(LslBoardComm lslBoardComm) {
 		List<LslBoardComm> boardFreeList = null;
@@ -37,6 +37,7 @@ public class LslServiceImpl implements LslService {
 		return boardFreeList;
 	}
 	
+	// 지유 게시판 리스트 검색 
 	@Override
 	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
 	 List<LslBoardComm> boardFreeSearch = null;
@@ -48,7 +49,7 @@ public class LslServiceImpl implements LslService {
 
 
 	
-
+	// 질문 게시판 토탈 카운트 
 	@Override
 	public int totalBoardAsk() {
 		System.out.println("LslServiceImpl totalBoardAsk Start...");
@@ -58,7 +59,7 @@ public class LslServiceImpl implements LslService {
 		
 		return totalBoardAskCnt;
 	}
-
+	// 질문 게시판 리스트 
 	@Override
 	public List<LslBoardComm> boardAskList(LslBoardComm lslBoardComm) {
 	 List<LslBoardComm> boardAskList = null;
@@ -69,6 +70,7 @@ public class LslServiceImpl implements LslService {
 		return boardAskList;
 	}
 
+	// 질문 게시판 리스트 검색 
 	@Override
 	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
 		 List<LslBoardComm> boardAskSearch = null;
@@ -78,6 +80,7 @@ public class LslServiceImpl implements LslService {
 		 return boardAskSearch;
 	}
 
+	// 질문 게시판 글 상세 내역 
 	@Override
 	public LslBoardComm boardAskContents(int cboard_no) {
 		System.out.println("LslServiceImpl boardAskContents Start...");
@@ -88,6 +91,7 @@ public class LslServiceImpl implements LslService {
 		return boardAskContents;
 	}
 
+	// 자유 게시판 글 상세 내역 
 	@Override
 	public LslBoardComm boardFreeContents(int cboard_no) {
 		System.out.println("LslServiceImpl boardAskContents Start...");
@@ -98,6 +102,7 @@ public class LslServiceImpl implements LslService {
 		return boardFreeContents;
 	}
 
+	// 질문 게시판 글쓰기 
 	@Override
 	public int askBoardWrite(String boardtype) {
 		System.out.println("LslServiceImpl askBoardWrite Start...");
@@ -107,16 +112,9 @@ public class LslServiceImpl implements LslService {
 		return askBoardWrite;
 	}
 
-	@Override
-	public List<LslCommReply> replyBoardFreeList(int cboard_no) {
-		System.out.println("LslServiceImpl replyBoardFreeList Start...");
-		List<LslCommReply> replyBoardFreeList = ld.replyBoardFreeList(cboard_no);
-		
-		System.out.println("LslServiceImpl replyBoardFreeList.size() ->" + replyBoardFreeList.size());
-		
-		return replyBoardFreeList;
-	}
+	
 
+	// 질문 게시판 댓글 리스트 
 	@Override
 	public List<LslCommReply> replyBoardAskList(int cboard_no) {
 		System.out.println("LslServiceImpl replyBoardAskList Start...");
@@ -127,6 +125,7 @@ public class LslServiceImpl implements LslService {
 		return replyBoardAskList;
 	}
 
+	// 자유 게시판 글 쓰
 	@Override
 	public int freeBoardWrite(String boardtype) {
 		System.out.println("LslServiceImpl freeBoardWrite Start...");
@@ -136,12 +135,42 @@ public class LslServiceImpl implements LslService {
 		return freeBoardWrite;
 	}
 
+	// 자유 게시판 리스트 조회수 
 	@Override
 	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
 		int boardFreeViewCnt = ld.boardFreeViewCnt(lslBoardComm);
 		return boardFreeViewCnt;
 	}
-
 	
 
+	// 댓글 등록 
+	
+	@Override
+	public int insertBoardReply(LslCommReply lslCommReply) {
+		int boardFreeAskResult = ld.insertBoardReply(lslCommReply);
+		return boardFreeAskResult;
+	}
+	
+
+	
+	
+	// Rest API
+	
+	//자유 게시판 댓글 리스트 
+		@Override
+		public List<LslCommReply> replyBoardFreeList(int cboard_no) {
+			System.out.println("LslServiceImpl replyBoardFreeList Start...");
+			List<LslCommReply> replyBoardFreeList = ld.replyBoardFreeList(cboard_no);
+			
+			System.out.println("LslServiceImpl replyBoardFreeList.size() ->" + replyBoardFreeList.size());
+			
+			return replyBoardFreeList;
+		}
+	
+	
+	
+	
+	
+	
+	
 }
