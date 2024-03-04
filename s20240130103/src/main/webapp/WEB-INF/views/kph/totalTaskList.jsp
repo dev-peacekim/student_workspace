@@ -113,7 +113,7 @@
 						</thead>
 						<c:set var="num" value="${kphPaging.start }"></c:set>
 						<tbody>
-							<c:forEach var="projectTask" items="totalProjectTaskList">
+							<c:forEach var="projectTask" items="${totalProjectTaskList}">
 								<tr>
 									<th>${num}</th>
 									<td>${projectTask.project_title}</td>

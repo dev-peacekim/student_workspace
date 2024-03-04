@@ -20,7 +20,7 @@ spring:
       max-request-size: 10MB
       
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@13.125.91.195:1521/xe
     username: s20240130103
     password: tiger
