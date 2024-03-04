@@ -213,18 +213,6 @@ public class MsgDaoImpl implements MsgDao {
 	        System.out.println("MsgDaoImpl updateReadDate Exception ->" + e.getMessage());
 	    }
 	}
-	
-    // 파일 저장 메서드
-    @Override
-    public void saveMessageFile(MessageFile messageFile) {
-    	System.out.println("MsgDaoImpl saveMessageFile start...");
-        try {
-            session.insert("kdwSaveMessageFile", messageFile);
-            System.out.println("MsgDaoImpl saveMessageFile success messageFile" + messageFile);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to save message file", e);
-        }
-    }
     
     // 보관 버튼 클릭시 msg_store_chk = 1업데이트
     @Override
@@ -259,7 +247,7 @@ public class MsgDaoImpl implements MsgDao {
 	        e.printStackTrace();
 	    }
 	}
-
+	// 쪽지 보내기
     @Override
     public void sendMsg(Message message) {
     	System.out.println("MsgDaoImpl sendMsg start...");
@@ -269,6 +257,16 @@ public class MsgDaoImpl implements MsgDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+    // 파일 저장
+    @Override
+    public void saveMessageFile(MessageFile messageFile) {
+        try {
+            session.insert("kdwSaveMessageFile", messageFile);
+            System.out.println("MsgDaoImpl saveMessageFile success: " + messageFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

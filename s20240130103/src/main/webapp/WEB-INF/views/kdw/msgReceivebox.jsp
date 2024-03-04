@@ -94,35 +94,31 @@
 		});
 
 		function updateMsgStoreStatus(selectedMessages) {
-			// AJAX를 사용하여 서버에 업데이트 요청을 보냅니다.
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/updateMsgStoreStatus', true);
-			xhr.setRequestHeader('Content-Type',
-					'application/json;charset=UTF-8');
+		    var xhr = new XMLHttpRequest();
+		    xhr.open('POST', '/updateMsgStoreStatus', true);
+		    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4) {
-					console.log("Server Response:", xhr.status,
-							xhr.responseText); // 응답 상태 콘솔에 출력
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4) {
+		            console.log("Server Response:", xhr.status, xhr.responseText); // 응답 상태 콘솔에 출력
 
-					if (xhr.status === 200) {
-						// 성공적으로 업데이트된 경우의 처리를 여기에 추가합니다.
-						alert('쪽지가 성공적으로 보관되었습니다.');
-						// 알림창 확인 시 화면을 새로고침
-						location.reload();
-					} else {
-						alert('쪽지 보관에 실패했습니다.');
-					}
-				}
-			};
+		            if (xhr.status === 200) {
+		                // 성공적으로 업데이트된 경우의 처리를 여기에 추가합니다.
+		                alert('쪽지가 성공적으로 보관되었습니다.');
+		                // 알림창 확인 시 화면을 새로고침
+		                location.reload();
+		            } else {
+		                alert('쪽지 보관에 실패했습니다.');
+		            }
+		        }
+		    };
 
-			var data = {
-				msgNos : selectedMessageNos.map(Number)
-			};
+		    var data = {
+		        msgNos : selectedMessages.map(Number)
+		    };
 
-			xhr.send(JSON.stringify(data));
+		    xhr.send(JSON.stringify(data));
 		}
-
 		//휴지통으로 보내기
 		//삭제 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 		var btnMsgTrashbox = document.querySelector(".btn-msg-trashbox");
