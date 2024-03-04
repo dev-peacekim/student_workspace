@@ -238,7 +238,7 @@
 								<tr>
 									<td>${BOARD_ADMIN.admin_no }</td>
 									<td>${BOARD_ADMIN.user_no }</td>						
-									<td><a href="detailAsk?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
+									<td><a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
 									<td>${BOARD_ADMIN.admin_start }</td>
 									<td>${BOARD_ADMIN.admin_reply_chk }</td>	
 								</tr>

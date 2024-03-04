@@ -10,28 +10,48 @@
      <![CDATA[
 		SELECT *
 		FROM
-		(
-		        SELECT rownum rn , a.*
-		        FROM
-		                   (select * from BOARD_ADMIN 
-		                   where user_no = #{user_no}
-		                   order by admin_no) a
-		 )
+		(				
+				SELECT rownum rn, a.*
+				FROM ( SELECT ba.*, u.user_name, u.user_nic
+  				FROM BOARD_ADMIN ba
+  				INNER JOIN users u ON ba.user_no = u.user_no
+  				WHERE ba.ADMIN_REPLY_CHK = 0
+  				AND (ba.user_no = #{user_no} OR ba.user_no = #{user_no})
+  				ORDER BY ADMIN_date DESC
+		) a
+						 
+		)
 		WHERE  rn  >= #{start} 
  		and    rn  <= #{end}    
  	 ]]>		
    </select>
    
-   <update id="yhsAskUpdate" parameterType="Ask">
-		 UPDATE BOARD_ADMIN SET admin_no=#{admin_no}, admin_title=#{admin_title},
-					    user_id=#{user_id}, 
-					    admin_start=#{admin_start},
-		                ADMIN_REPLY_CHK=#{ADMIN_REPLY_CHK}
-   </update>
    
-   <select id="yhsAskSelOne"  parameterType="long"  resultType="Ask" >
-        SELECT * FROM  BOARD_ADMIN WHERE user_no = #{user_no}   
-   </select> 
-   
+   <select id="yhsAskContent" parameterType="String"
+		resultType="Ask">
+		SELECT ba.*, u.USER_NIC
+		FROM BOARD_ADMIN ba
+		INNER JOIN USERS u ON ba.USER_NO = u.USER_NO
+		WHERE ba.admin_title = #{admin_title}
+	</select>
+	
+	
+	<insert id="yhsaskForm" parameterType="String"> 
+			INSERT  INTO BOARD_COMM bc VALUES
+	(
+	seq_board_comm.nextval,
+	#{CBOARD_TITLE},
+	#{CBOARD_CONTENT},
+	0,
+	sysdate,
+	#{USER_NO}
+	0,
+	300,
+	20,
+	NULL,
+	NULL,
+	sysdate
+	)		
+	</insert>
     
 </mapper>

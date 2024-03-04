@@ -11,7 +11,7 @@ public interface AskService {
 	
 	List<Ask> listAsk(Ask ask);
 	
-	Ask detailAsk(int user_no);
+	Ask askContent(String admin_title);
 	
 	
 	

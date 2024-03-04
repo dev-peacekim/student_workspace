@@ -32,7 +32,7 @@ public class AskDaoImpl implements AskDao {
 	@Override
 	public List<Ask> listAsk(Ask ask) {
 		List<Ask> askList = null;
-		System.out.println("AskDaoImpl listEmp Start ..." );
+		System.out.println("AskDaoImpl listAsk Start ..." );
 		try {
 			//                             Map ID        parameter
 			askList = session.selectList("yhsAskListAll", ask);
@@ -42,24 +42,27 @@ public class AskDaoImpl implements AskDao {
 		}
 		return askList;
 	}
+	
+	
+	 @Override 
+	 public Ask askContent(String admin_title) {
+	 System.out.println("AskDaoImpl askContent Start..."); 
+	 System.out.println("AskDaoImpl askConten admin_title->"+admin_title);
+
+	 Ask askContent = session.selectOne("yhsAskContent", admin_title);
+	 System.out.println("AskDaoImpl askContent -> " + askContent); 
+	 return askContent; 
+	 }
 
 	@Override
-	public Ask detailAsk(long user_no) {
-		System.out.println("EmpDaoImpl detail start..");
-		//Emp emp = null;
-		Ask ask = new Ask();
-		try {
-			//                       mapper ID   ,    Parameter
-			ask = session.selectOne("tkEmpSelOne",    user_no);
-			System.out.println("AskDaoImpl detail getEname->"+ask.getAdmin_no());
-		} catch (Exception e) {
-			System.out.println("AskDaoImpl detail Exception->"+e.getMessage());
-		}
-		return ask;
-	}
+	public int askForm(String boardtype) {
+		System.out.println("AskDaoImpl AskForm Start...");
+		
+		int askForm = session.insert("askForm", boardtype);
 	
-
-
+		return askForm;
+	}
+	 
 		
 
 }

@@ -2,17 +2,16 @@ package com.blackberry.s20240130103.yhs.model;
 
 import java.util.Date;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
 public class Ask {
 	private long user_no;
-	private long admin_no;
-	private String admin_date;
+	private int admin_no;
+	private Date admin_date;
 	private String admin_title;
 	private String admin_content;
-	private String admin_start;
+	private Date admin_start;
 	private long admin_reply_group;
 	private long admin_reply_chk;
 	
@@ -26,4 +25,11 @@ public class Ask {
 	//Page 정보
 	private String currentPage;
 
+	// 회원 조회
+	private String user_nic;
+	private String user_id;
+	private String user_name;
+	
+	// Test
+	private String boardtype;
 }
