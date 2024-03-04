@@ -7,13 +7,15 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="assets/js/lhs/lhsadd.js"></script>
+  	
     <title>Blueberry</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/blueberry-logo.png" rel="icon">
+    <link href="assets/img/blueberry-favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     
     <!-- Google Fonts -->
@@ -56,19 +58,13 @@
 	          <div class="d-flex align-items-center ">
 	            <ul class="nav nav-tabs nav-tabs-bordered">
 	              <li class="nav-item flex-fill" role="presentation">
-	                
 	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true">주소록 목록</button>
-	                
 	              </li>
 	              <li class="nav-item flex-fill" role="presentation">
-	                
-	                  <button class="nav-link w-100" id="addressrequest" type="button" data-bs-toggle="tab"  aria-selected="false" >수락신청 대기목록</button>
-	                
+	                  <button class="nav-link w-100" id="addressrequest" type="button" data-bs-toggle="tab"  aria-selected="false" >보낸 요청</button>
 	              </li>
 	              <li class="nav-item flex-fill" role="presentation">
-	                
-	                  <button class="nav-link w-100" id="addressresponse" type="button" data-bs-toggle="tab"  aria-selected="false" >수락요청 대기목록</button>
-	                
+	                  <button class="nav-link w-100" id="addressresponse" type="button" data-bs-toggle="tab"  aria-selected="false" >받은 요청</button>
 	              </li>
 	            </ul>
 	            <form action="" class="d-flex">

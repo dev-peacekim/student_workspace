@@ -15,7 +15,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/blueberry-logo.png" rel="icon">
+    <link href="assets/img/blueberry-favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     
     <!-- Google Fonts -->
