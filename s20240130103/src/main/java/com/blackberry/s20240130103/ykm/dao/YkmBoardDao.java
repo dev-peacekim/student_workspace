@@ -6,21 +6,29 @@ import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 
 public interface YkmBoardDao {
-	int insertBoardStudyPost(YkmBoardComm ykmBoardComm);
+	int writePost(YkmBoardComm ykmBoardComm);
 
-	List<YkmBoardComm> renderBoardList();
+	List<YkmBoardComm> getPostList();
 
-	YkmBoardComm renderPostContent(int cboard_no);
-	
 	YkmBoardComm getPost(int cboard_no);
 
+	int updatePost(YkmBoardComm ykmBoardComm);
+	
+	int deletePost(int cboard_no);
+	
+	
+	
 	// 댓글
-	List<YkmBoardCommReply> renderReplyList(int cboard_no);
+	List<YkmBoardCommReply> getCommentList(int cboard_no);
 
-	int insertComment(YkmBoardCommReply ykmBoardCommReply);
+	int writeComment(YkmBoardCommReply ykmBoardCommReply);
 
 	int deleteComment(int creply_no);
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
+
+	
+	
+
 
 }

@@ -8,6 +8,11 @@
 <link href="assets/css/ykm/boardUpdateForm.css" rel="stylesheet">
 </head>
 <body>
+<script>
+    function back() {
+        window.history.back();
+    }
+</script>
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
 
@@ -25,26 +30,33 @@
 		<!-- End Page Title -->
 		<section class="section">
 			<div class="row card card-body">
-				<c:forEach items="${getPost}" var="updateform" >
-					<div class="title-input">
-						<label for="boradTitle" class="form-label"></label>
-						<input type="text" id="boardTitle" class="form-control" ${getPost.cboard_title}/>
+				<form action="updatePost" method="post">
+					<input type="hidden" name="cboard_no" value="${getPost.cboard_no}">
+					<div class="community-header">
+						<p>글 수정</p>
 					</div>
-					<div class="content-input">
-						<label for="boardContent" class="form-label"></label>
-						<textarea class="form-control" id="boardContent" rows="15"
-									${getPost.cboard_content}></textarea>
-					</div>
-				</c:forEach>
-			</div>
-			<!-- End Quill Editor Default -->
-			<div class="btn-container">
-				<input type="submit" class="btn btn-primary" value="확인">
-				<input type="submit" class="btn btn-danger" value="삭제">
-				<input type="submit" class="btn btn-secondary" value="취소">
+						<div class="title-input">
+							<label for="boradTitle" class="form-label"></label>
+							<input type="text" name="cboard_title" id="boardTitle" class="form-control" value="${getPost.cboard_title}"/>
+						</div>
+						<!-- 파일 첨부 -->
+						<div class="upload-files">
+							<label for="inputNumber" class="form-label">
+								<span class="upload-file-title">파일 첨부</span>
+							</label> 
+							<input class="form-control" type="file" id="formFile" name="cboard_file_name" >
+						</div>
+						<div class="content-input">
+							<label for="boardContent" class="form-label"></label>
+							<textarea class="form-control" id="boardContent" name="cboard_content" rows="15">${getPost.cboard_content}</textarea>
+						</div>
+						<div class="btn-container">
+							<input type="submit" class="btn btn-primary" value="확인">
+							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>			
+						</div>
+				</form>
 			</div>
 		</section>
-
 
 		<!-- ======= aSidebar ======= -->
 		<%@ include file="../asidebar.jsp"%>

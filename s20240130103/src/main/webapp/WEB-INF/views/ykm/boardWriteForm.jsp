@@ -32,7 +32,7 @@
 				<div class="community-header">
 					<p>글쓰기</p>
 				</div>
-				<form action="submitPostToBoard" method="post">
+				<form action="writePost" method="post">
 					<div class="community-body">
 						<!-- 제목 -->
 						<div class="title-input">

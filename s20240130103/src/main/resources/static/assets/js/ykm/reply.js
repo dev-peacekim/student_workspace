@@ -1,10 +1,13 @@
 /* 댓글 */
 // REST API
-
+let cboardNo = null;
 
 // 댓글리스트 API 호출
 function getCommentList(cboard_no) {
-	console.log('cboard_no');
+	if(cboardNo === null){
+		cboardNo = cboard_no;
+	}
+	console.log('cboard_no 1 -> '+cboard_no);
 	fetch("board/post?cboard_no=" + cboard_no)
 		.then(response => response.json())
 		.then(data => {
@@ -55,6 +58,7 @@ function updateReplyView(data) {
 			<input type="text" value ="${comment.creply_content}" class="form-control" required="required" disabled >
  			<span class="check" disabled><i class="bi bi-check-circle"></i> 확인</span>
 		</div>
+		</div>
 
 	`;
 	});
@@ -68,9 +72,9 @@ function enableInput() {
 }
 
 // 댓글 등록 이벤트
-const replySubmitBtn = document.getElementById("replySubmitBtn"); // 변수 선언
+const commentSubmitBtn = document.getElementById("commentSubmitBtn"); // 변수 선언
 
-replySubmitBtn.addEventListener("click", function() {
+commentSubmitBtn.addEventListener("click", function() {
 	const creply_content = document.getElementById('creply_content').value;
     const cboardNo = document.querySelector('input[name="cboard_no"]').value;
     const userNo = document.querySelector('input[name="user_no"]').value;
@@ -99,7 +103,6 @@ function addComment(commentData) {
 	.then(response => response.json())
 	.then(data => {
 		console.log(data);
-				// updateReplyView(data);
 				getCommentList(cboard_no);
 	})
 	.catch(error => {
@@ -109,20 +112,25 @@ function addComment(commentData) {
 
 
 
-
 // 댓글 삭제
 function deleteComment(cboard_no, creply_no) {
 	fetch("/comment?creply_no="+creply_no, {
 		method: "DELETE"
 	})
 	.then(() => {
-		getCommentList(cboard_no);
+		console.log('cboard_no 2 -> '+cboard_no);
+		getCommentList(cboardNo);
 	})
 	.catch(error => {
 		console.log('댓글 삭제 오류!', error);
 	});
 }
+
+
 // 삭제 후 업데이트
+
+
+
 
 // 댓글 수정
 function updateComment(commentData) {
@@ -143,3 +151,5 @@ function updateComment(commentData) {
 		console.log('댓글 수정 오류!', error);
 	});
 }
+
+

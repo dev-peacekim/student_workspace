@@ -79,15 +79,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${boardStudyList}" var="bslist" varStatus="loop">
+							<c:forEach items="${getPostList}" var="PostList" varStatus="loop">
 								<tr>
 									<th scope="row">${loop.index+1 }</th>
 									<td><span class="recruiting">모집중</span>	
-										<a href="boardPost?cboard_no=${bslist.cboard_no}">${bslist.cboard_title}</a></td>						
-									<td>${bslist.user_id}</td>
-									<td><fmt:formatDate value="${bslist.cboard_date}" pattern="yyyy-MM-dd"/></td>
-									<td>${bslist.reply_cnt}</td>
-									<td>${bslist.cboard_viewcnt}</td>
+										<a href="post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>						
+									<td>${PostList.user_id}</td>
+									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
+									<td>${PostList.reply_cnt}</td>
+									<td>${PostList.cboard_viewcnt}</td>
 								</tr>
 								<!-- <span class="recruited"></span> -->
 							</c:forEach>
@@ -97,7 +97,7 @@
 				<!-- End Table -->
 				<div class="community-bottom">
 					<div class="btn-container">
-						<a href="/boardWriteForm"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+						<a href="/writeForm"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
 					</div>
 
 					<!-- ======= Pagination ======= -->

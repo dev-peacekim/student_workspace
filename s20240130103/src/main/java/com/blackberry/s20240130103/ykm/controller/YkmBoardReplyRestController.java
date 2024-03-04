@@ -44,21 +44,22 @@ public class YkmBoardReplyRestController {
 	
 	
 	@GetMapping("/board/post")
-	public List<YkmBoardCommReply> renderReplyList(@RequestParam("cboard_no") int cboard_no) {
-		System.out.println("YkmBoardReplyRestController renderReplyList start ---*");
-		List<YkmBoardCommReply> renderReplyList = ykmService.renderReplyList(cboard_no);
-		System.out.println("YkmBoardReplyRestController renderReplyList --> " + renderReplyList.size());
-		return renderReplyList;
+	public List<YkmBoardCommReply> getCommentList(@RequestParam("cboard_no") int cboard_no) {
+		System.out.println("YkmBoardReplyRestController getCommentList start ---*");
+		List<YkmBoardCommReply> getCommentList = ykmService.getCommentList(cboard_no);
+		System.out.println("YkmBoardReplyRestController getCommentList --> " + getCommentList.size());
+		return getCommentList;
 	}
 
 	@PostMapping("/comment")
-	public int insertComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmService.insertComment(ykmBoardCommReply);
+	public int writeComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmService.writeComment(ykmBoardCommReply);
 		return result;
 	}
 
 	@DeleteMapping("/comment")
 	public int deleteComment(@RequestParam("creply_no") int creply_no) {
+		System.out.println("deletemapping creply_no : " + creply_no);
 		int result = ykmService.deleteComment(creply_no);
 		return result;
 	}

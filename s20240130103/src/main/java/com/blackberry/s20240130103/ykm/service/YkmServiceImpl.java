@@ -19,46 +19,64 @@ public class YkmServiceImpl implements YkmService {
 
 	// 스터디 게시판
 	@Override
-	public int insertBoardStudyPost(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl insertBoardStudyPost start---*");
-		int result = ykmBoardDao.insertBoardStudyPost(ykmBoardComm);
+	public int writePost(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl writePost start---*");
+		int result = ykmBoardDao.writePost(ykmBoardComm);
 		return result;
 	}
 
 	@Override
-	public List<YkmBoardComm> renderBoardList() {
-		List<YkmBoardComm> renderBoardList = ykmBoardDao.renderBoardList();
-		Iterator<YkmBoardComm> boardIter = renderBoardList.iterator();
+	public List<YkmBoardComm> getPostList() {
+		System.out.println("YkmServiceImpl getPostList start---*");
+		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList();
+		Iterator<YkmBoardComm> boardIter = getPostList.iterator();
 		while (boardIter.hasNext()) {
 			YkmBoardComm ykmBoardComm = boardIter.next();
 			// ykmBoardComm.setCboard_date(ykmBoardComm.getCboard_date().substring(0, 10));
 		}
-		return renderBoardList;
-	}
-
-	@Override
-	public YkmBoardComm renderPostContent(int cboard_no) {
-		YkmBoardComm renderPostContent = ykmBoardDao.renderPostContent(cboard_no);
-		return renderPostContent;
+		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
+		return getPostList;
 	}
 
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
-		return ykmBoardDao.getPost(cboard_no);
+		YkmBoardComm getPost = ykmBoardDao.getPost(cboard_no);
+		return getPost;
 	}
 
+	@Override
+	public int updatePost(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl updatePost start---*");
+		int updatePost = ykmBoardDao.updatePost(ykmBoardComm);
+		System.out.println("YkmServiceImpl updatePost ykmBoardComm --> "+ ykmBoardComm);
+		System.out.println("YkmServiceImpl updatePost -->" +  updatePost);
+		return updatePost;
+	}
+
+	@Override
+	public int deletePost(int cboard_no) {
+		System.out.println("YkmServiceImpl deletePost start---*");
+		int deletePost = ykmBoardDao.deletePost(cboard_no);
+		System.out.println("YkmServiceImpl deletePost --> "+deletePost);
+		return deletePost;
+	}
+
+
+
+	
+	
 	// Reply RESTful API
 
 	@Override
-	public List<YkmBoardCommReply> renderReplyList(int cboard_no) {
-		List<YkmBoardCommReply> renderReplyList = ykmBoardDao.renderReplyList(cboard_no);
-		System.err.println("YkmServiceImpl renderReplyList --> " + renderReplyList.size());
-		return renderReplyList;
+	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
+		List<YkmBoardCommReply> getCommentList = ykmBoardDao.getCommentList(cboard_no);
+		System.err.println("YkmServiceImpl getCommentList result --> " + getCommentList.size());
+		return getCommentList;
 	}
 
 	@Override
-	public int insertComment(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.insertComment(ykmBoardCommReply);
+	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmBoardDao.writeComment(ykmBoardCommReply);
 		return result;
 	}
 
@@ -73,5 +91,7 @@ public class YkmServiceImpl implements YkmService {
 		int result = ykmBoardDao.updateComment(ykmBoardCommReply);
 		return result;
 	}
+
+
 
 }

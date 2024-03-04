@@ -12,7 +12,6 @@ public class YkmBoardComm {
 	private String cboard_title;
 	private String cboard_content;
 	private int cboard_viewcnt;
-	//private String cboard_date;
 	private Date cboard_date;
 	private Long user_no;
 	private int cboard_delete_chk;
@@ -20,6 +19,7 @@ public class YkmBoardComm {
 	private int comm_mid;
 	private int comm_big2;
 	private int comm_mid2;
+	private Date comm_update_date;
 	
 	// BoardCommFile
 	private int cboard_file_cnt;
@@ -35,5 +35,4 @@ public class YkmBoardComm {
 	
 	// 댓글
 	int reply_cnt;
-	
 }
