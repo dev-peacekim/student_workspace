@@ -98,12 +98,16 @@
 	line-height: 40px;
 }
 
+.score-message div {
+	margin-left: 5px;
+	display: flex;
+	align-items: center;
+}
 .address-list-card-detail form {
 	margin-left: 5px;
 	display: flex;
 	align-items: center;
 }
-
 .address-list-card-detail .message {
 	width: 40px;
 	height: 40px;

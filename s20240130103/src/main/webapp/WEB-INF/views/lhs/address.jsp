@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  	<script type="text/javascript" src="assets/js/lhs/lhsadd.js"></script>
+  	<script type="text/javascript" src="assets/js/lhs/lhsaddress.js"></script>
   	
     <title>Blueberry</title>
     <meta content="" name="description">
@@ -58,7 +58,7 @@
 	          <div class="d-flex align-items-center ">
 	            <ul class="nav nav-tabs nav-tabs-bordered">
 	              <li class="nav-item flex-fill" role="presentation">
-	                  <button class="nav-link w-100 active" data-bs-toggle="tab" type="button" aria-selected="true">주소록 목록</button>
+	                  <button class="nav-link w-100 active" id = "addressList" data-bs-toggle="tab" type="button" aria-selected="true">주소록 목록</button>
 	              </li>
 	              <li class="nav-item flex-fill" role="presentation">
 	                  <button class="nav-link w-100" id="addressrequest" type="button" data-bs-toggle="tab"  aria-selected="false" >보낸 요청</button>
@@ -82,7 +82,7 @@
 			</div>
 	        <div class="address-main">
 	        
-			<c:forEach items="${addressUserList }" var="user">
+			<%-- <c:forEach items="${addressUserList }" var="user">
 	          <div class="address-main-inner">
 	            <div class="address-list-card-detail">
 	              <div class="profile-img-user-name">
@@ -103,7 +103,7 @@
 	              </div>
 	            </div>
 	          </div>
-	         </c:forEach>
+	         </c:forEach> --%>
 	          
 	        </div>
 		</div>

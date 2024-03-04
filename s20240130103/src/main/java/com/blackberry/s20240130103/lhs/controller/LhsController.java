@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -283,15 +284,29 @@ public class LhsController {
 	}
 	
 	@GetMapping("address")
-	public String addressForm(HttpServletRequest request,Model model) {
-		List<KphUsers> addressUserList = kphProjectService.addressUserList(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
-		model.addAttribute("addressUserList", addressUserList);
+	public String addressForm() {	
 		return "lhs/address";
 	}
 	
-	@GetMapping("addresswait")
-	public String addresswaitForm() {
-		return "lhs/addresswait";
+	@ResponseBody
+	@GetMapping("addressList")
+	public List<KphUsers> addressList(HttpServletRequest request){
+		List<KphUsers> addressUserList = kphProjectService.addressUserList(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
+		return addressUserList;
+	}
+	
+	@ResponseBody
+	@GetMapping("addressRequestList")
+	public List<KphUsers> addressRequestList(HttpServletRequest request){
+		List<KphUsers> addressRequestList = addressService.addressRequestList(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
+		return addressRequestList;
+	}
+	
+	@ResponseBody
+	@GetMapping("addressResponseList")
+	public List<KphUsers> addressResponseList(HttpServletRequest request){
+		List<KphUsers> addressResponseList = addressService.addressResponseList(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
+		return addressResponseList;
 	}
 	
 	@GetMapping("addressaddForm")
@@ -305,7 +320,8 @@ public class LhsController {
 								@RequestParam(name = "user_id")String userId) {
 		Long loginuserNo = (Long) request.getSession().getAttribute("user_no");
 		Optional<User> user = userService.findUserById(userId);
-		if(user.isPresent() && user.get().getUser_no() != loginuserNo) {
+		//Long Long 비교는 equals 써야한다?
+		if(user.isPresent() && !(user.get().getUser_no().equals(loginuserNo))) {
 			double scoreavg = evalService.avgScoreByNo(user.get().getUser_no().toString());
 			user.get().setEval_score(scoreavg);
 			Address address = new Address();
@@ -332,5 +348,36 @@ public class LhsController {
 		}else {
 			return "redirect:/address";
 		}
+	}
+	
+	@GetMapping("addressResponsePermit")
+	public String addressResponsePermit(@RequestParam("user_no")String user_no,HttpServletRequest request) {
+		Long re_user_no = (Long) request.getSession().getAttribute("user_no");
+		Address address = new Address();
+		address.setRe_user_no(re_user_no);
+		address.setUser_no(Long.parseLong(user_no));
+		int result = addressService.addressResponsePermit(address);
+		return "redirect:/address";
+	}
+	
+	@GetMapping("addressResponseDeny")
+	public String addressResponseDeny(@RequestParam("user_no")String user_no,HttpServletRequest request) {
+		Long re_user_no = (Long) request.getSession().getAttribute("user_no");
+		Address address = new Address();
+		address.setRe_user_no(re_user_no);
+		address.setUser_no(Long.parseLong(user_no));
+		int result = addressService.addressResponseDeny(address);
+		return "redirect:/address";
+	}
+	
+	@GetMapping("addressRequestDelete")
+	public String addressRequestDelete(@RequestParam("re_user_no")String re_user_no,HttpServletRequest request) {
+		Long user_no = (Long) request.getSession().getAttribute("user_no");
+		Address address = new Address();
+		address.setRe_user_no(Long.parseLong(re_user_no));
+		address.setUser_no(user_no);
+		System.out.println("addressRequestDelete address : " + address);
+		int result = addressService.addressRequestDelete(address);
+		return "redirect:/address";
 	}
 }

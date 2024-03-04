@@ -20,7 +20,7 @@ document.getElementById("searchbtn").addEventListener("click",function(){
 		                </div>
 		              </div>
 		              <div class="score-message">
-		              	<div class="user-score rounded-circle">${result.eval_score}</div> 
+		              	<div class="user-score rounded-circle justify-content-center">${result.eval_score}</div> 
 		              </div>
 		            </div>
 		          </div>
@@ -37,12 +37,14 @@ document.getElementById("searchbtn").addEventListener("click",function(){
 		                </div>
 		              </div>
 		              <div class="score-message">
-		              	<div class="user-score rounded-circle">${result.eval_score}</div> 
-		              	<a href="/addressAdd?re_user_no=${result.user_no}" style="color:white;">
-			                <div class="user-score rounded-circle">
-			                  <i class="bi bi-plus"></i>
-			                </div> 
-			            </a>
+		              	<div class="user-score rounded-circle justify-content-center">${result.eval_score}</div> 
+		              	<div>
+			              	<a href="/addressAdd?re_user_no=${result.user_no}" style="color:white;">
+				                <div class="user-score rounded-circle justify-content-center" >
+				                  <i class="bi bi-plus"></i>
+				                </div> 
+				            </a>
+			            </div>
 		              </div>
 		            </div>
 		          </div>
