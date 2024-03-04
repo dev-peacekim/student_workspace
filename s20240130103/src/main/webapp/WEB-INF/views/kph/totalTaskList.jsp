@@ -101,43 +101,49 @@
 							<option value="task_title">sorted by task</option>
 						</select>
 					</div>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>프로젝트명</th>
-								<th>과업명</th>
-								<th>시작일</th>
-								<th>종료일</th>
-							</tr>
-						</thead>
-						<c:set var="num" value="${kphPaging.start }"></c:set>
-						<tbody>
-							<c:forEach var="projectTask" items="${totalProjectTaskList}">
+					<div class="table-nav">
+						<table class="table table-hover">
+							<thead>
 								<tr>
-									<th>${num}</th>
-									<td>${projectTask.project_title}</td>
-									<td>${projectTask.task_title}</td>
-									<td>${projectTask.task_start}</td>
-									<td>${projectTask.task_end}</td>
+									<th>#</th>
+									<th>프로젝트명</th>
+									<th>과업명</th>
+									<th>시작일</th>
+									<th>종료일</th>
 								</tr>
-								<c:set var="num" value="${num + 1 }"></c:set>
-							</c:forEach>
-						</tbody>
-					</table>
-					<nav class="page-navigation">
-						<ul class="pagination">
-							<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
-								<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }"><span>&laquo;</span></a></li>
-							</c:if>
-							<c:forEach var="i" begin="${kphPaging.startPage }" end="${kphPaging.endPage }">
-								<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
-								<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }"><span>&raquo;</span></a></li>
-							</c:if>
-						</ul>
-					</nav>
+							</thead>
+							<c:set var="num" value="${kphPaging.start }"></c:set>
+							<tbody>
+								<c:forEach var="projectTask" items="${totalProjectTaskList}">
+									<tr>
+										<th>${num}</th>
+										<td>${projectTask.project_title}</td>
+										<td>${projectTask.task_title}</td>
+										<td><fmt:parseDate value="${projectTask.task_start}" pattern="yyyy-MM-dd"/></td>
+										<td><fmt:parseDate value="${projectTask.task_end}" pattern="yyyy-MM-dd"/></td>
+									</tr>
+									<c:set var="num" value="${num + 1 }"></c:set>
+								</c:forEach>
+							</tbody>
+						</table>
+						<nav class="page-navigation">
+							<ul class="pagination">
+								<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
+									<li class="page-item"><a class="page-link"
+										href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }"><span>&laquo;</span></a></li>
+								</c:if>
+								<c:forEach var="i" begin="${kphPaging.startPage }"
+									end="${kphPaging.endPage }">
+									<li class="page-item"><a class="page-link"
+										href="totalTaskList?currentPage=${i}">${i}</a></li>
+								</c:forEach>
+								<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
+									<li class="page-item"><a class="page-link"
+										href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }"><span>&raquo;</span></a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</section>

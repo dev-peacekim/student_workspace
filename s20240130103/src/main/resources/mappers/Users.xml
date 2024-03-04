@@ -14,17 +14,21 @@
 	</select>
 	
 	<select id="kphAddressUserList" parameterType="Long" resultType="KphUsers">
-		SELECT u.*, e.USER_SCORE 
-		FROM USERS u, (SELECT PUSER,  AVG(EVAL_SCORE) USER_SCORE 
-                     			FROM EVAL, (SELECT USER_NO, RE_USER_NO 
-													FROM ADDRESS 
-													WHERE AGREE_CHK = 1
-													AND (USER_NO = #{user_no} OR RE_USER_NO =#{user_no})) a  
-                    			WHERE PUSER  = a.RE_USER_NO
-                     				OR PUSER = a.USER_NO
-                     			GROUP BY PUSER ) e
-		WHERE u.USER_NO = e.PUSER
-			AND u.USER_NO != #{user_no}
+		SELECT u2.*,a.user_score
+		FROM USERS u2,(SELECT u.user_no,nvl(avg(e.eval_score),0) user_score
+					            FROM USERS u,EVAL e 
+					            WHERE u.USER_NO IN (SELECT re_user_no user_no
+									                           FROM address a
+									                           WHERE agree_chk = 1
+									                           AND user_no = #{user_no}
+									                           UNION 
+									                           SELECT user_no user_no
+									                           FROM address a
+									                           WHERE agree_chk = 1
+									                           AND re_user_no = #{user_no})
+					            AND u.USER_NO = e.PUSER(+) 
+					            GROUP BY u.user_no) a
+		WHERE u2.user_no = a.user_no
 	</select>
 	
 	<select id="kphAddressUserListByName" parameterType="KphUsers" resultType="KphUsers">
