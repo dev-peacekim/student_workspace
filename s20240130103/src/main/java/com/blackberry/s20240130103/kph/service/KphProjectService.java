@@ -31,6 +31,6 @@ public interface KphProjectService {
 
 	List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask);
 
-	int totalTaskCountByUserNo(Long user_no);
+	int totalTaskCountByKeyword(KphProjectTask kphProjectTask);
 
 }

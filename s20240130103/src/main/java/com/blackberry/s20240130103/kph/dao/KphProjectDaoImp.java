@@ -81,9 +81,9 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public int totalTaskCountByUserNo(Long user_no) {
-		System.out.println("KphProjectDaoImp totalTaskCount start...");
-		return session.selectOne("kphTotalTaskCountByUserNo", user_no);
+	public int totalTaskCountByKeyword(KphProjectTask kphProjectTask) {
+		System.out.println("KphProjectDaoImp totalTaskCountByKeyword start...");
+		return session.selectOne("kphTotalTaskCountByKeyword", kphProjectTask);
 	}
 	
 }

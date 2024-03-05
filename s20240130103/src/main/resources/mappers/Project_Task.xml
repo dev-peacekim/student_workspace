@@ -7,11 +7,41 @@
 		FROM PROJECT p , TASK t , (SELECT ROWNUM rn, PROJECT_NO , TASK_NO 
 												FROM USER_TASK_MANY
 												WHERE USER_NO = #{user_no}) utm
-		WHERE p.PROJECT_NO = utm.PROJECT_NO
-			AND t.TASK_NO = utm.TASK_NO
+		WHERE utm.PROJECT_NO = p.PROJECT_NO
+			AND utm.TASK_NO = t.TASK_NO
 			AND p.PROJECT_DELETE_CHK = 0
+			<choose>
+				<when test="searchFilter=='all'">
+					AND (p.PROJECT_TITLE LIKE  '%' || #{keyword} || '%' OR t.TASK_TITLE LIKE  '%' || #{keyword} || '%')
+				</when>
+				<when test="searchFilter=='project_title'">
+					AND p.PROJECT_TITLE LIKE  '%' || #{keyword} || '%'
+				</when>
+				<when test="searchFilter=='task_title'">
+					AND t.TASK_TITLE LIKE  '%' || #{keyword} || '%'
+				</when>
+			</choose>
 			AND rn BETWEEN #{start} AND #{end}
 		ORDER BY TASK_END
+	</select>
+	
+	<select id="kphTotalTaskCountByKeyword" parameterType="KphProjectTask" resultType="int">
+		SELECT COUNT(t.TASK_NO) 
+		FROM USER_TASK_MANY utm, PROJECT p , TASK t 
+		WHERE utm.PROJECT_NO = p.PROJECT_NO 
+			AND utm.TASK_NO = t.TASK_NO 
+			AND utm.USER_NO = #{user_no}
+			<choose>
+				<when test="searchFilter=='all'">
+					AND (p.PROJECT_TITLE LIKE  '%' || #{keyword} || '%' OR t.TASK_TITLE LIKE  '%' || #{keyword} || '%')
+				</when>
+				<when test="searchFilter=='project_title'">
+					AND p.PROJECT_TITLE LIKE  '%' || #{keyword} || '%'
+				</when>
+				<when test="searchFilter=='task_title'">
+					AND t.TASK_TITLE LIKE  '%' || #{keyword} || '%'
+				</when>
+			</choose>
 	</select>
 	
 </mapper>
