@@ -70,6 +70,10 @@ public interface MsgService {
 	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
 	// 검색한 리스트
 	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
+	
+	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
+	// 파일이 첨부된 쪽지 목록 리스트 불러오기
+	List<Message> getMessagesWithFiles(Message message);
 
 	
 

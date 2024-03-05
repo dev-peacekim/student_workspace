@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.kdw.model;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -17,9 +19,10 @@ public class Message {
     private int msg_delete_chk;
     private int msg_store_chk;
     
-    // 멀티 파일 저장용 
+    // 멀티 파일 업로드 저장용 
     private MultipartFile[] files;
-    
+    // 멀티 파일 다운로드 정보용
+    private List<MessageFile> fileMsgs;
     // 검색용
 	private String keyword; // 검색 키워드
 	private String type; // 검색 타입

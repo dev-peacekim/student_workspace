@@ -291,4 +291,15 @@ public class MsgServiceImpl implements MsgService {
 	}
 	
 	
+	// =========== 첨부 파일 다운로드 ============
+	// 파일 첨부된 쪽지들 리스트 불러오기
+    @Override
+    public List<Message> getMessagesWithFiles(Message message) {
+        log.info("MsgServiceImpl getMessagesWithFiles start...");
+        List<Message> messagesWithFiles = msgDao.getMessagesWithFiles(message);
+        log.info("MsgServiceImpl getMessagesWithFiles messagesWithFiles size: " + messagesWithFiles.size());
+        return messagesWithFiles;
+    }
+	
+	
 }

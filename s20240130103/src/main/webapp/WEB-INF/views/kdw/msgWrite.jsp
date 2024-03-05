@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						        <div class="file_drag">
 						            <div class="file_list_header">
 						                <div class="file_list_header_task">
-						                    <button type="button" class="button_svg_delete" onclick="clearFileList()">
+						                    <button type="button" class="button_svg_delete">
 						                        <span class="blind">전체 삭제</span>
 						                    </button>
 						                </div>

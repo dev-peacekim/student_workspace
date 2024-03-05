@@ -427,6 +427,20 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultMessages;
 	}
+	// 파일이 첨부된 쪽지리스트 불러오기
+	@Override
+	public List<Message> getMessagesWithFiles(Message message) {
+	    log.info("MsgDaoImpl getMessagesWithFiles start...");
+	    List<Message> getMessagesWithFiles = null;
+
+	    try {
+	        getMessagesWithFiles = session.selectList("kdwGetMessagesWithFiles", message);
+	    } catch (Exception e) {
+	        log.error("Error getting messages with files: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return getMessagesWithFiles;
+	}
 
 
 
