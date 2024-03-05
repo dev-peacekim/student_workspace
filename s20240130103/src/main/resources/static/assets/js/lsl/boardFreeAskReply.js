@@ -1,13 +1,13 @@
 
 let cboard_no = null;
-
-
+const userNo = document.getElementById('userNo').value;
 // 게시판 댓글 리스트
-function replyBoardFreeList(cboard_no) {
+function replyBoardFreeList(cboard_no,userNo) {
     fetch("/reply/listAll?cboard_no=" + cboard_no)
         .then(response => response.json())
         .then(data => {
-            updateReplyList(data);
+            updateReplyList(data,userNo);
+            console.log(userNo)
         })
         .catch(error => {
             console.log('리스트 업데이트 오류', error);
@@ -15,7 +15,7 @@ function replyBoardFreeList(cboard_no) {
 }   
  
 // 게시판 댓글 리스트 갱신 
-function  updateReplyList(data) {
+function  updateReplyList(data,userNo) {
 	let boardReplyList = '';
 	data.forEach(function(lslCommReply){
 		console.log(lslCommReply);
@@ -27,10 +27,14 @@ function  updateReplyList(data) {
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatDate = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;	 
 
+        // 현재 로그인한 사용자의 userNo와 댓글을 작성한 사용자의 userNo를 비교하여 일치하는지 확인
+        const isCurrentUser = lslCommReply.user_no === userNo;
        
-       
-       
-       boardReplyList += `<div class="re-comment-body">
+       // 값 제대로 넘어오는데 안돼
+        console.log(lslCommReply.user_no);
+        console.log(userNo);
+        
+      boardReplyList += `<div class="re-comment-body">
     <div id="replyBoardFreeList" class="comment-card">
         <div class="comment-header">
             <img class="comment-user-profile" src="${lslCommReply.user_profile}">
@@ -40,9 +44,11 @@ function  updateReplyList(data) {
                 <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
             </div>
             <div class="re-btn-container">
-                <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');">수정</button>
-                <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>
-                <div class="replyBtn badge bg-light text-dark"><i class="bi bi-reply-fill"></i></div>
+                ${isCurrentUser ? 
+        			`<button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');">수정</button>
+         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>` 
+        			: ''}
+                <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
             </div>
         </div>
         <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">

@@ -30,9 +30,11 @@
    <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
  <script>
- let sessiontest = ${sessionScope.user_no};
+ //let sessiontest = ${sessionScope.user_no};
 window.onload = function() {
-	replyBoardFreeList(${boardAskContents.cboard_no});
+    const userNo = document.getElementById('userNo').value;
+	replyBoardFreeList(${boardAskContents.cboard_no} , userNo);
+   
 }
 </script>
   
@@ -55,7 +57,7 @@ window.onload = function() {
     <!-- ======= Main ======= -->
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>게시판</h1>
+        <h1>게시판</h1> 
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="main">Home</a></li>
@@ -64,7 +66,7 @@ window.onload = function() {
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
+    <input type="hidden" id="userNo" value="${sessionScope.user_no}">
     <section class="community-post-detail">
         <div class="row card main-card card-body">
             <div class="card-header community-post-header">
