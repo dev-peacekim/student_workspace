@@ -54,7 +54,7 @@ public class LslController {
 
 	// 자유 게시판 검색
 	@RequestMapping(value = "boardFreeSearch")
-	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model) {
+	public String boardFreeSearch( LslBoardComm lslBoardComm, Model model) {
 		System.out.println("LslController boardFreeList Start...");
 		int totalBoardFree = ls.totalBoardFree();
 		System.out.println("LslController totalBoardFreeList ->" + totalBoardFree);
@@ -82,10 +82,13 @@ public class LslController {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
 		System.out.println("LslController replyBoardFreeList Start..");
-		List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
-		System.out.println("LslController replyBoardFreeList.size() ->" + replyBoardFreeList.size());
-		
-		model.addAttribute("replyBoardFreeList",replyBoardFreeList);
+		/*
+		 * List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
+		 * System.out.println("LslController replyBoardFreeList.size() ->" +
+		 * replyBoardFreeList.size());
+		 * 
+		 * model.addAttribute("replyBoardFreeList",replyBoardFreeList);
+		 */
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
@@ -116,7 +119,7 @@ public class LslController {
 
 	// 질문 게시판 리스트 및 페이징
 	@RequestMapping(value = "boardAsk")
-	public String boardAskList(Model model, LslBoardComm lslBoardComm) {
+	public String boardAskList(HttpServletRequest request,   Model model, LslBoardComm lslBoardComm) {
 		System.out.println("LslController boardAskList Start...");
 		int totalBoardAsk = ls.totalBoardAsk();
 		System.out.println("LslController totalBoardAsk ->" + totalBoardAsk);

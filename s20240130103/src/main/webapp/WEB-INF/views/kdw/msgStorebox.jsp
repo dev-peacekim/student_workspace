@@ -156,18 +156,18 @@ document.addEventListener('DOMContentLoaded', function() {
 				<!-- 검색바&드롭박스 -->
 				<div class="search-container">
 					<div class="search-bar">
-						<form class="search-form d-flex align-items-center" method="POST"
-							action="#">
-							<select id="dropdownSelect"
-								onchange="changeDropdownItem(this.value)">
-								<option value="전체">전체</option>
-								<option value="아이디">아이디</option>
-								<option value="제목+내용">제목+내용</option>
-							</select> <input type="text" name="query" placeholder="Search"
-								title="Enter search keyword">
-							<button type="submit" title="Search">
-								<i class="bi bi-search"></i>
-							</button>
+				        <form class="search-form d-flex align-items-center" 
+				        	method="get" action="/msgStorebox">
+				            <select id="dropdownSelect" name="type">
+								<option value="all">전체</option>
+								<option value="sender">보낸사람</option>
+								<option value="receiver">받는사람</option>
+								<option value="titleContent">제목+내용</option>
+							</select>	
+							<input type="text" name="keyword" placeholder="Search" title="Enter search keyword">
+				            <button type="submit" title="Search">
+				                <i class="bi bi-search"></i>
+				            </button>
 						</form>
 					</div>
 				</div>

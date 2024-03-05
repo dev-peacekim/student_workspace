@@ -100,9 +100,9 @@ public class KphProjectServiceImp implements KphProjectService {
 
 
 	@Override
-	public int totalTaskCountByUserNo(Long user_no) {
-		System.out.println("KphProjectServiceImp totalTaskCount start...");
-		int totalTaskCount = kphProjectDao.totalTaskCountByUserNo(user_no);
+	public int totalTaskCountByKeyword(KphProjectTask kphProjectTask) {
+		System.out.println("KphProjectServiceImp totalTaskCountByKeyword start...");
+		int totalTaskCount = kphProjectDao.totalTaskCountByKeyword(kphProjectTask);
 		return totalTaskCount;
 	}
 	

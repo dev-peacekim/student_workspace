@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.BoardPostMapper">
 	<select id="ykmGetCommentList" resultType="YkmBoardCommReply" parameterType="int">
-		SELECT BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, U.USER_ID
+		SELECT BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, U.USER_ID, U.USER_NO
 		FROM BOARD_COMM_REPLY BCR
 		JOIN USERS U ON bcr.USER_NO = U.USER_NO
 		WHERE CBOARD_NO = #{cboard_no}
@@ -19,7 +19,6 @@
 		FROM BOARD_COMM_REPLY
 		WHERE CREPLY_NO = #{creply_no}
 	</delete>
-	
 	
 	<update id="YkmUpdateComment" parameterType="YkmBoardCommReply">
 		UPDATE BOARD_COMM_REPLY

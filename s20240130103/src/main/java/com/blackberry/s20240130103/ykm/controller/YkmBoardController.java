@@ -21,16 +21,6 @@ public class YkmBoardController {
 
 	private final YkmService ykmService;
 
-	/*
-	 게시물 : post 
-	 PostService, PostServiceImpl, PostDao, PostDaoImpl, PostController
-	 getPostList : 게시물 목록 가져오기 
-	 getPost : 게시물 한건 가져오기
-	 writePost : 게시물 등록
-	 deletePost : 게시물 삭제
-	 updatePost : 게시물 수정
-	 */
-
 	// 스터디 게시판
 	@RequestMapping(value = "boardStudy")
 	public String getPostList(YkmBoardComm ykmBoardComm, Model model) {
@@ -51,6 +41,7 @@ public class YkmBoardController {
 		return "ykm/boardPost";
 	}
 	
+
 	// mapping
 	@GetMapping(value = "/writeForm")
 	public String boardWriteForm() {
@@ -104,6 +95,17 @@ public class YkmBoardController {
 	
 	
 	
+	
+	/*
+	 게시물 : post 
+	 PostService, PostServiceImpl, PostDao, PostDaoImpl, PostController
+	 getPostList : 게시물 목록 가져오기 
+	 getPost : 게시물 한건 가져오기
+	 writePost : 게시물 등록
+	 deletePost : 게시물 삭제
+	 updatePost : 게시물 수정
+	 */
+
 	
 	
 	

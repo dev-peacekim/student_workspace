@@ -22,11 +22,19 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   
+  <!-- Reply Js -->
+  <script defer src="assets/js/lsl/boardFreeASkReply.js"></script>
   
   <!-- Template Main CSS File -->
   <link href="assets/css/lsl/lslboardFreeContents.css" rel="stylesheet"> 
    <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
+ <script>
+ let sessiontest = ${sessionScope.user_no};
+window.onload = function() {
+	replyBoardFreeList(${boardAskContents.cboard_no});
+}
+</script>
   
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -47,7 +55,7 @@
     <!-- ======= Main ======= -->
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>게시판 </h1>
+        <h1>게시판</h1>
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="main">Home</a></li>
@@ -90,21 +98,31 @@
                 <div class="answer-info-title">
                     댓글 <span class="answer-info-title-count">23</span>
                 </div>
+                
+                
+                <div class="boardPostComment">
+						<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}" /> 
+							<input type="hidden" name="user_no" value="${boarddAskContents.user_no}"> 
+							
                 <div class="comment-editor">
                     <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-                    <input type="text" name="comment" id="inputField"
+                    <input type="text" name="comment" id="creply_content"
                         placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
                 </div>
                 <div class="btn-container is-editor-open">
-                    <form action="boardCommentsubmit" method="get">
-                        <button id="submitBtn" class="btn submitBtn">등록</button>
-                    </form>
+                        <button type="button" id="submitBtn" class="btn submitBtn">등록</button>
                 </div>
+                </div>
+                </div>
+                 <!-- 댓글 리스트 -->
+				<div id="boardReplyForm">
+					<!-- ajax 비동기 갱신 -->
+				
             </div>
         </section>
 
             <!-- 댓글 시작 -->
-            <div id="reply" class="re-comment-body">
+          <%--   <div id="reply" class="re-comment-body">
                 <div id="replyBoardFreeList" class="comment-card">
                     <c:forEach items="${replyBoardAskList}" var="replyBoardAskList">
                     <div class="comment-header">
@@ -130,7 +148,8 @@
                     </div>
                 </c:forEach>
             </div>
-        </div>
+        </div> --%>
+        
 			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">
                         <button type="hidden" class="btn bacDelete">삭제</button>
                         <a href="boardFreeModify">
@@ -148,6 +167,8 @@
             </div>
             </section>
 </main>
+
+
 
 
     <!-- ======= End Main ======= -->

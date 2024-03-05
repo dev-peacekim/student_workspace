@@ -44,9 +44,9 @@
 	</update>
 	
 	<delete id="ykmDeletePost" parameterType="int">
-		DELETE 
+		DELETE
 		FROM BOARD_COMM
 		WHERE CBOARD_NO = #{cboard_no}
 	</delete>
-
+ 
 </mapper>

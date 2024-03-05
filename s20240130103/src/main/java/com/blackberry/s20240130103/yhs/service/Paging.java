@@ -1,10 +1,8 @@
 package com.blackberry.s20240130103.yhs.service;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Paging {
 	
 	private int currentPage = 1;	private int rowPage   = 10;

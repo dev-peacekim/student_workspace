@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
@@ -25,6 +26,9 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
+	
+	// 쌤! 카톡!!
+	
 	@Override
 	public List<YkmBoardComm> getPostList() {
 		System.out.println("YkmServiceImpl getPostList start---*");
@@ -91,7 +95,18 @@ public class YkmServiceImpl implements YkmService {
 		int result = ykmBoardDao.updateComment(ykmBoardCommReply);
 		return result;
 	}
+	
+	/*
+ 	1. 트랜잭션을 시작한다.
+ 	2. 댓글들을 삭제한다. (플래그 변경:0>1)
+ 	3. 게시글을 삭제한타. (플래그 변경:0>1)
+ 	4. 커밋한다.
+ 	5. 2~3 과정 중 오류가 발생하면 롤백한다.
 
+	@Transactional
+	public void deleteCommentAndChangeStatus(int creply_no) 
+	// 게시글 삭제될 때 게시글에 해당되는 댓글도 다 삭제가 되어야함
 
-
+	
+	*/
 }

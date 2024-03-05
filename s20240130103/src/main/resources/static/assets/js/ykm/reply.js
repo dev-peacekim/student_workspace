@@ -46,8 +46,13 @@ function updateReplyView(data) {
         const ampm = hour >= 12 ? '오후' : '오전';
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;		
+<<<<<<< HEAD
                         
 		replyList += `<div class="comment-card">
+=======
+		
+	replyList += `<div class="comment-card">
+>>>>>>> branch 'master' of https://github.com/dlgkstnrn/s20240130103_2.git
 		<div class="comment-header">
 			<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 			<div class="comment-user-container">

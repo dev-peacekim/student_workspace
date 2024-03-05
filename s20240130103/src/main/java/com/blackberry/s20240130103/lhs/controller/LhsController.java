@@ -380,4 +380,9 @@ public class LhsController {
 		int result = addressService.addressRequestDelete(address);
 		return "redirect:/address";
 	}
+	
+	@PostMapping("detailProject")
+	public String detailProjectForm() {
+		return "lhs/taskMain";
+	}
 }

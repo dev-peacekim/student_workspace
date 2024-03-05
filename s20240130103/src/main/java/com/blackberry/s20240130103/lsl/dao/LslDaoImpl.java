@@ -153,12 +153,6 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeViewCnt;
 	}
 
-	@Override
-	public int insertBoardReply(LslCommReply lslCommReply) {
-		int boardFreeAskResult = session.insert("slinsertBoardReply",lslCommReply);
-		
-		return boardFreeAskResult;
-	}
 
 
 	
@@ -172,7 +166,14 @@ public class LslDaoImpl implements LslDao {
 		return replyBoardFreeList;
 	}
 	
-	
+	// insert 
+	@Override
+	public int insertBoardReply(LslCommReply lslCommReply) {
+		int boardFreeAskResult = session.insert("slinsertBoardReply",lslCommReply);
+		
+		return boardFreeAskResult;
+	}
+
 	
 	
 	

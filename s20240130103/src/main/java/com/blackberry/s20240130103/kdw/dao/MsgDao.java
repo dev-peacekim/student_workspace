@@ -33,20 +33,48 @@ public interface MsgDao {
 	Message getMessageByInfo(Long msgNo);
 	// 받은쪽지 읽은시간 업데이트
 	void updateReadDate(Long msgNo);
-
+	// ========= !! 버튼 기능 !! ========
 	// 보관 버튼 클릭시 msg_store_chk = 1
 	void updateMsgStoreStatus(List<Long> msgNos);
 	// 삭제 버튼 클릭시 msg_delete_chk = 1
 	void updateMsgDeleteStatus(List<Long> msgNos);
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
-	
-	// 쪽지 보내기
+	// 쪽지 보내기 버튼 클릭스 쪽지 보내기 Insert
 	void sendMsg(Message message);
-	
-	// 파일 저장 처리
+	// !! 파일 업로드 !! 저장 처리
 	void saveMessageFile(MessageFile messageFile);
 	
+	// ========= !! 검색기능 !! ========
+	
+	// ========== 받은 쪽지함 검색기능 ===========
+	// 검색한 쪽지개수
+	int searchReceiveMsgCnt(Long msgReceiver, String keyword, String type);
+	// 검색한 쪽지리스트
+	List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end);
+	
+	// ========== 보낸 쪽지함 검색기능 ===========
+	// 검색한 쪽지개수
+	int searchSentMsgCnt(Long msgSender, String keyword, String type);
+	// 검색한 쪽지리스트
+	List<Message> searchSentMessages(Long msgSender, String keyword, String type, int start, int end);
+	
+	// ========== 쪽지 보관함 검색기능 ===========
+	// 검색한 쪽지개수
+	int searchStoredMsgCnt(Long storeboxUserNo, String keyword, String type);
+	// 검색한 쪽지리스트
+	List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end);
+	
+	// ========== 휴지통 검색기능 ===========
+	// 검색한 쪽지개수
+	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
+	// 검색한 쪽지리스트
+	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
+	
+	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
+	// 파일이 첨부된 쪽지 목록 리스트 불러오기
+	List<Message> getMessagesWithFiles(Message message);
+
 	
 
 

@@ -25,7 +25,8 @@
 
 <script>
 window.onload = function() {
-	getCommentList(${getPost.cboard_no});
+	getCommentList(${getPost.cboard_no}, ${getPost.user_no});
+	/* getUserNo(${getPost.user_no}); */
 }
 </script>
 
@@ -76,8 +77,10 @@ window.onload = function() {
 								<i class="bi bi-trash"></i> 삭제
 							</button>
 						</div>
+						
 					</div>
 				</div>
+				
 				<div class="community-post-body">
 					<span class="post-content">${getPost.cboard_content}</span>
 				</div>
@@ -89,11 +92,10 @@ window.onload = function() {
 					</div>
 					<!-- 댓글 REST API -->
 					<div class="boardPostComment">
-						<input type="hidden" name="cboard_no"
-							value="${getPost.cboard_no}" /> <input type="hidden"
-							name="user_no" value="${getPost.user_no}"> <input
-							type="hidden" name="creply_no" value="" />
-
+						<input type="hidden" name="cboard_no" value="${getPost.cboard_no}" /> 
+						<input type="hidden" name="user_no" value="${getPost.user_no}"> 
+						<input type="hidden" name="creply_no" value="" />
+						
 						<div class="comment-editor">
 							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 							<input type="text" id="creply_content"
@@ -117,13 +119,12 @@ window.onload = function() {
 			<!-- ======= 삭제 확인 pop up ======= -->
 			<div class="card card-body confirmPopup">
 				<div class="popup-container">
-					<i class="bi bi-exclamation-triangle popup-icon"></i> <span
-						class="popup1">정말로 삭제하시겠습니까?</span> <span class="popup2">확인을
-						누르면 글이 삭제됩니다.</span>
+					<i class="bi bi-exclamation-triangle popup-icon"></i> 
+					<span class="popup1">정말로 삭제하시겠습니까?</span> 
+					<span class="popup2">확인을 누르면 글이 삭제됩니다.</span>
 				</div>
 				<div class="confirm-deletion">
-					<button type="button" id="cancelButton"
-						class="btn btn-outline-dark">취소</button>
+					<button type="button" id="cancelButton" class="btn btn-outline-dark">취소</button>
 					<a href="/deletePost?cboard_no=${getPost.cboard_no}">
 						<button type="button" id="confirmButton" class="btn btn-primary">확인</button>
 					</a>
@@ -139,8 +140,8 @@ window.onload = function() {
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+	</a>
 </body>
 </html>

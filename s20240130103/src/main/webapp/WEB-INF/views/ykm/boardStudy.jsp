@@ -83,7 +83,7 @@
 								<tr>
 									<th scope="row">${loop.index+1 }</th>
 									<td><span class="recruiting">모집중</span>	
-										<a href="post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>						
+										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>					
 									<td>${PostList.user_id}</td>
 									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${PostList.reply_cnt}</td>

@@ -14,7 +14,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/blueberry-logo.png" rel="icon">
+    <link href="assets/img/blueberry-favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     
     <!-- Google Fonts -->
@@ -130,13 +130,13 @@
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>완료 과업</p>
-			            		<p><a href="compTaskList">${totalCompTaskCount }</a></p>
+			            		<p><a href="totalTaskList?clickedNav=comp">${totalCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>미완료 과업</p>
-			            		<p><a href="unCompTaskList">${totalUnCompTaskCount }</a></p>
+			            		<p><a href="totalTaskList?clickedNav=uncomp">${totalUnCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 	            	</div>

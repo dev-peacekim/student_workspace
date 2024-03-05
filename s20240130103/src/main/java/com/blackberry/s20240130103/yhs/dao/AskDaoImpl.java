@@ -62,7 +62,18 @@ public class AskDaoImpl implements AskDao {
 	
 		return askForm;
 	}
-	 
-		
 
+	@Override
+	public List<Ask> askListSearch(Ask ask) {
+		List<Ask> askListSearch = null;
+		System.out.println("AskDaoImpl askListSearch Start...");
+		
+		try {
+			askListSearch = session.selectList("yhsAskListSearch", ask);
+		} catch (Exception e) {
+			System.out.println("AskDaoImpl askListSearch Exception ->" + e.getMessage());
+		}
+		return askListSearch;
+	}
+	 
 }

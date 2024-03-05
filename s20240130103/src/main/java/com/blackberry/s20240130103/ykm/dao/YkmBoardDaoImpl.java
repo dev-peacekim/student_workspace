@@ -70,10 +70,13 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return getCommentList;
 	}
 
+	// 오류!!!!!!
 	@Override
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
-		System.out.println("YkmBoardDaoImpl insertComment start ---*");
+		System.out.println("YkmBoardDaoImpl writeComment start ---*");
 		int result = session.insert("YkmWriteComment", ykmBoardCommReply);
+		System.out.println("YkmBoardDaoImpl writeComment --> " + result);
+		System.out.println("YkmBoardDaoImpl writeComment finish ---*");
 		return result;
 	}
 
@@ -90,6 +93,5 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
-	
 
 }

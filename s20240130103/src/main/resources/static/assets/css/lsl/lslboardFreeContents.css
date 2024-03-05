@@ -323,3 +323,48 @@
     margin-top: -10px;
 }
 
+/*--------------------------------------------------------------
+# Reply Style
+--------------------------------------------------------------*/
+#replyuser_id {
+	position:absolute;
+	left: 150px;
+	bottom: 183px;
+	font-size: 0.9rem;
+	
+}
+
+#replyuser_name {
+	font-weight: bold;
+}
+.re-btn-container {
+	position: relative;
+	margin-left: -55px;
+	width: 10%;
+	height: 10%;
+}
+.re-btn-container .btn.brDelete {
+    position: absolute;
+    margin-top: 5px;
+    margin-bottom: -190px;
+    margin-left: -100px;
+    width: 50px;
+    font-size: 0.8rem;
+    right: 50px;
+
+}
+
+.re-btn-container .btn.brModify {
+    position: absolute;
+    margin-top: 5px;
+    margin-bottom: -190px;
+    margin-right: 10px;
+    width: 50px;
+    font-size: 0.8rem;
+    right: 100px;
+
+}
+
+.re-btn-container .btn.brBtn {
+	margin-top : 15px;
+} 

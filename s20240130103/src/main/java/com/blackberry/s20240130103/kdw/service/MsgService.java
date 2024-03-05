@@ -43,8 +43,39 @@ public interface MsgService {
 	void updateMsgDeleteStatus(List<Long> msgNos);
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
-	// 쪽지 보내기
+	// 쪽지 보내기 (파일 업로드 포함)
 	void sendMsg(Message message, MultipartFile[] files, String path);
+
+	// ========= !! 검색기능 !! ========
+
+	// ======= 받은쪽지함 검색 =======
+	// 검색한 쪽지 개수
+	int searchReceiveMsgCnt(Long msgReceiver, String keyword, String type);
+	// 검색한 리스트
+	List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end);
+	
+	// ======= 보낸쪽지함 검색 =======
+	// 검색한 쪽지 개수
+	int searchSentMsgCnt(Long msgSender, String keyword, String type);
+	// 검색한 리스트
+	List<Message> searchSentMessages(Long msgSender, String keyword, String type, int start, int end);
+	
+	// ======= 쪽지보관함 검색 =======
+	// 검색한 쪽지 개수
+	int searchStoredMsgCnt(Long storeboxUserNo, String keyword, String type);
+	// 검색한 리스트
+	List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end);
+	// ======= 휴지통 검색 =======
+	// 검색한 쪽지 개수
+	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
+	// 검색한 리스트
+	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
+	
+	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
+	// 파일이 첨부된 쪽지 목록 리스트 불러오기
+	List<Message> getMessagesWithFiles(Message message);
+
+	
 
 
 

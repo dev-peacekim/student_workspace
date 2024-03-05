@@ -27,6 +27,7 @@ public interface YkmBoardDao {
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
 
+
 	
 	
 

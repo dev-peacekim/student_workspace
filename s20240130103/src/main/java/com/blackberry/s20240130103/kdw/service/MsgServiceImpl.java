@@ -2,13 +2,7 @@ package com.blackberry.s20240130103.kdw.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -224,5 +218,88 @@ public class MsgServiceImpl implements MsgService {
 
 		return fileName;
 	}
-
+	
+	
+	// ======== 받은 쪽지함 검색기능 ========
+	// 받은 쪽지함 검색기능
+	// 검색 결과 개수
+	@Override
+	public int searchReceiveMsgCnt(Long msgReceiver, String keyword, String type) {
+	    log.info("MsgServiceImpl searchReceiveMsgCnt start...");
+	    int searchReceivedMsgCount = msgDao.searchReceiveMsgCnt(msgReceiver, keyword, type);
+	    System.out.println("MsgServiceImpl searchReceivedMsgCount: " + searchReceivedMsgCount);
+	    return searchReceivedMsgCount;
+	}
+	// 검색 결과 리스트
+	@Override
+	public List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end) {
+	    log.info("MsgServiceImpl searchReceivedMessages start...");
+	    List<Message> searchReceivedMsgList = msgDao.searchReceivedMessages(msgReceiver, keyword, type, start, end);
+	    System.out.println("MsgServiceImpl searchReceivedMsgList.size(): " + searchReceivedMsgList.size());
+	    return searchReceivedMsgList;
+	}
+	// ======== 보낸 쪽지함 검색기능 ========
+	// 검색 결과 개수
+	@Override
+	public int searchSentMsgCnt(Long msgSender, String keyword, String type) {
+	    log.info("MsgServiceImpl searchSentMsgCnt start...");
+	    int searchSentMsgCount = msgDao.searchSentMsgCnt(msgSender, keyword, type);
+	    System.out.println("MsgServiceImpl searchSentMsgCount: " + searchSentMsgCount);
+	    return searchSentMsgCount;
+	}
+	// 검색 결과 리스트
+	@Override
+	public List<Message> searchSentMessages(Long msgSender, String keyword, String type, int start, int end) {
+	    log.info("MsgServiceImpl searchSentMessages start...");
+	    List<Message> searchSentMsgList = msgDao.searchSentMessages(msgSender, keyword, type, start, end);
+	    System.out.println("MsgServiceImpl searchSentMsgList.size(): " + searchSentMsgList.size());
+	    return searchSentMsgList;
+	}
+	// ======== 쪽지 보관함 검색기능 ========
+	// 검색 결과 개수
+	@Override
+	public int searchStoredMsgCnt(Long storeboxUserNo, String keyword, String type) {
+	    log.info("MsgServiceImpl searchStoredMsgCnt start...");
+	    int searchStoredMsgCount = msgDao.searchStoredMsgCnt(storeboxUserNo, keyword, type);
+	    System.out.println("MsgServiceImpl searchStoredMsgCount: " + searchStoredMsgCount);
+	    return searchStoredMsgCount;
+	}
+	// 검색 결과 리스트
+	@Override
+	public List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end) {
+	    log.info("MsgServiceImpl searchStoredMessages start...");
+	    List<Message> searchStoredMsgList = msgDao.searchStoredMessages(storeboxUserNo, keyword, type, start, end);
+	    System.out.println("MsgServiceImpl searchStoredMsgList.size(): " + searchStoredMsgList.size());
+	    return searchStoredMsgList;
+	}
+	// ======== 휴지통 검색기능 ========
+	// 검색 결과 개수
+	@Override
+	public int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type) {
+	    log.info("MsgServiceImpl searchTrashMsgCnt start...");
+	    int searchTrashMsgCount = msgDao.searchTrashMsgCnt(trashboxUserNo, keyword, type);
+	    System.out.println("MsgServiceImpl searchTrashMsgCount: " + searchTrashMsgCount);
+	    return searchTrashMsgCount;
+	}
+	// 검색 결과 리스트
+	@Override
+	public List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end) {
+	    log.info("MsgServiceImpl searchTrashMessages start...");
+	    List<Message> searchTrashMsgList = msgDao.searchTrashMessages(trashboxUserNo, keyword, type, start, end);
+	    System.out.println("MsgServiceImpl searchTrashMsgList.size(): " + searchTrashMsgList.size());
+	    return searchTrashMsgList;
+	}
+	
+	
+	// =========== 첨부 파일 다운로드 ============
+	// 파일 첨부된 쪽지들 리스트 불러오기
+    @Override
+    public List<Message> getMessagesWithFiles(Message message) {
+        log.info("MsgServiceImpl getMessagesWithFiles start...");
+        List<Message> messagesWithFiles = msgDao.getMessagesWithFiles(message);
+        log.info("MsgServiceImpl getMessagesWithFiles messagesWithFiles size: " + messagesWithFiles.size());
+        return messagesWithFiles;
+    }
+	
+	
 }
