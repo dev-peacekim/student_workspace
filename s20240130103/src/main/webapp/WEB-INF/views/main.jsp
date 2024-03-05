@@ -159,7 +159,14 @@
 								<div class="address-list-card">
 									<div class="address-list-card-detail">
 										<div class="profile-img-user-name">
-											<img src="${pageContext.request.contextPath}/upload/userImg/${addressUser.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+										<!-- 여기 수정함 회원 기본프로필 띄우는거 -->
+											<c:if test="${empty addressUser.user_profile }">
+												<img src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle address-list-profile-img">
+											</c:if>
+											<c:if test="${not empty addressUser.user_profile }">
+												<img src="${pageContext.request.contextPath}/upload/userImg/${addressUser.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+											</c:if>
+										<!-- 여기 수정함 회원 기본프로필 띄우는거 -->
 											<div>
 												<p class="user-name">${addressUser.user_name }</p>
 												<p class="user-id">#${addressUser.user_id }</p>
