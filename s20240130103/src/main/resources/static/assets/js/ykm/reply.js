@@ -1,14 +1,29 @@
-/* 댓글 */
-// REST API
-let cboardNo = null;
+/* 댓글 REST API */
+
+// 로그인 한 유저 정보
+let currentUserNo;
+
+function getUserNo() {
+	fetch("/userNo")
+	.then(response => response.json())
+	.then(data => {
+		currentUserNo = data.user_no;
+		console.log('currentUserNo : ' + currentUserNo);
+	})
+	.catch(error => {
+		console.log('사용자 정보를 가져오는 중 오류 발생:', error);
+	})
+}
 
 // 댓글리스트 API 호출
+let cboardNo = null;
+
 function getCommentList(cboard_no) {
 	if(cboardNo === null){
 		cboardNo = cboard_no;
 	}
 	console.log('cboard_no 1 -> '+cboard_no);
-	fetch("board/post?cboard_no=" + cboard_no)
+	fetch("/comment?cboard_no=" + cboard_no)
 		.then(response => response.json())
 		.then(data => {
 			updateReplyView(data);
@@ -18,7 +33,6 @@ function getCommentList(cboard_no) {
 		});
 }
 
-
 // 댓글리스트 갱신
 function updateReplyView(data) {
 	let replyList = '';
@@ -26,15 +40,13 @@ function updateReplyView(data) {
 		
 		console.log(comment);
 		
-		// const dateFormat = require('dateformat');
-
 		const originalDate = new Date(comment.comm_update_date);
 		
 		let hour = originalDate.getHours();
         const ampm = hour >= 12 ? '오후' : '오전';
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;		
-		
+                        
 		replyList += `<div class="comment-card">
 		<div class="comment-header">
 			<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
@@ -63,7 +75,23 @@ function updateReplyView(data) {
 	`;
 	});
 	document.querySelector('#replyContainer').innerHTML = replyList;
+	
 }
+
+// 수정 및 삭제 버튼 상태 변경
+function buttonStatus(commentData) {
+    const modifyButton = document.querySelector('.modifyComment');
+    const deleteButton = document.querySelector('.deleteComment');
+
+    if (commentData.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
+        modifyButton.style.display = 'inline'; // 수정 버튼 표시
+        deleteButton.style.display = 'inline'; // 삭제 버튼 표시
+    } else {
+        modifyButton.style.display = 'none'; // 수정 버튼 숨김
+        deleteButton.style.display = 'none'; // 삭제 버튼 숨김
+    }
+}
+
 // 수정 이벤트
 function enableInput() {
 	var inputElement = document.querySelector('.comment-body input[type="text"]');
@@ -71,7 +99,10 @@ function enableInput() {
 	inputElement.removeAttribute('disabled');
 }
 
+
 // 댓글 등록 이벤트
+var commentData;
+
 const commentSubmitBtn = document.getElementById("commentSubmitBtn"); // 변수 선언
 
 commentSubmitBtn.addEventListener("click", function() {
@@ -79,17 +110,17 @@ commentSubmitBtn.addEventListener("click", function() {
     const cboardNo = document.querySelector('input[name="cboard_no"]').value;
     const userNo = document.querySelector('input[name="user_no"]').value;
 
-    const commentData = {
+    commentData = {
         cboard_no: cboardNo,
         user_no: userNo,
         creply_content: creply_content
     };
     
-    addComment(commentData);
+    writeComment(commentData);
 });
 
 // 댓글 등록
-function addComment(commentData) {
+function writeComment(commentData) {
 	const cboard_no = commentData.cboard_no;
 	console.log(cboard_no);
 	fetch("/comment", {
@@ -103,34 +134,12 @@ function addComment(commentData) {
 	.then(response => response.json())
 	.then(data => {
 		console.log(data);
-				getCommentList(cboard_no);
+				getCommentList(cboard_no); 
 	})
 	.catch(error => {
 			console.log('댓글 등록 오류 발생!', error);
 		});
 }
-
-
-
-// 댓글 삭제
-function deleteComment(cboard_no, creply_no) {
-	fetch("/comment?creply_no="+creply_no, {
-		method: "DELETE"
-	})
-	.then(() => {
-		console.log('cboard_no 2 -> '+cboard_no);
-		getCommentList(cboardNo);
-	})
-	.catch(error => {
-		console.log('댓글 삭제 오류!', error);
-	});
-}
-
-
-// 삭제 후 업데이트
-
-
-
 
 // 댓글 수정
 function updateComment(commentData) {
@@ -152,4 +161,17 @@ function updateComment(commentData) {
 	});
 }
 
+// 댓글 삭제
+function deleteComment(cboard_no, creply_no) {
+	fetch("/comment?creply_no="+creply_no, {
+		method: "DELETE"
+	})
+	.then(() => {
+		console.log('cboard_no 2 -> '+cboard_no);
+		getCommentList(cboardNo);
+	})
+	.catch(error => {
+		console.log('댓글 삭제 오류!', error);
+	});
+}
 
