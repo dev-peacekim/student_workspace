@@ -35,7 +35,7 @@ function updateReplyView(data) {
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;		
 		
-		replyList += `<div class="comment-card">
+	replyList += `<div class="comment-card">
 		<div class="comment-header">
 			<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 			<div class="comment-user-container">

@@ -21,13 +21,14 @@ public class LslCommReply {
 	
 	
 	// 글번호 FK
-	private int cboard_no; // 글번
+	private int cboard_no; // 글번호 
 	
 	// 작성자 번호 FK
-	private int user_no;
+	private int user_no;   // 작성자 user_no
+	private String user_id;
+	private String user_name;
 	private String USER_NIC; 
-	private String USER_PROFILE;
+	private String user_profile;
 	private int creply_delete_chk;
-
 
 }

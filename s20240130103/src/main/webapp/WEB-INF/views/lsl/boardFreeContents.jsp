@@ -27,6 +27,8 @@
   <link href="assets/css/lsl/lslboardFreeContents.css" rel="stylesheet"> 
    <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
+  <!-- Reply Js -->
+  <script defer src="assets/js/lsl/boardFreeASkReply.js"></script>
   
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -35,6 +37,13 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script>
+window.onload = function() {
+	replyBoardFreeList(${boardFreeContents.cboard_no});
+}
+</script>
+
+
 </head>
 <body>
     <!-- ======= Header ======= -->
@@ -90,20 +99,32 @@
                 <div class="answer-info-title">
                     댓글 <span class="answer-info-title-count">23</span>
                 </div>
-                <div class="comment-editor">
-                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-                    <input type="text" name="comment" id="inputField" 
-                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
-                </div>
-                <div class="btn-container is-editor-open">
-                    <form action="boardCommentsubmit" method="get">
-                        <button id="submitBtn" class="btn submitBtn">등록</button>
-                    </form>
-                </div>
+                
+               
+                <div class="boardPostComment">
+						<input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}" /> 
+							<input type="hidden" name="user_no" value="${boardFreeContents.user_no}"> 
+							
+                
+	                <div class="comment-editor">
+	            		<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+	                    <input type="text" name="comment" id="creply_content" 
+	                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
+	                </div>
+	                <div class="btn-container is-editor-open">
+                    	<button type="button" id="submitBtn" class="btn submitBtn">등록</button>
+                    </div>
+           
             </div>
+            </div>
+            <!-- 댓글 리스트 -->
+				<div id="boardReplyForm">
+					<!-- ajax 비동기 갱신 -->
+				
+			</div>
         </section>
             <!-- 댓글 시작 -->
-            <div id="reply" class="re-comment-body">
+           <%--  <div id="reply" class="re-comment-body">
                 <div id="replyBoardFreeList" class="comment-card">
                     <c:forEach items="${replyBoardFreeList}" var="replyBoardFreeList">
                     <div class="comment-header">
@@ -130,7 +151,7 @@
                 
                 </c:forEach>
             </div>
-        </div>
+        </div> --%>
            
 			  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
                         <button type="hidden" class="btn bfcDelete">삭제</button>
