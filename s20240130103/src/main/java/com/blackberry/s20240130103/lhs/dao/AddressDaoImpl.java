@@ -49,6 +49,9 @@ public class AddressDaoImpl implements AddressDao {
 	@Override
 	public int addressDelete(Address address) {
 		int result = session.delete("lhsAddressDelete", address);
+		if(result == 0) {
+			result = session.delete("lhsAddressDelete2", address);
+		}
 		return result;
 	}
 

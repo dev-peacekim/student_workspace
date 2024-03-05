@@ -45,4 +45,8 @@
 		delete from address where re_user_no = #{re_user_no} and user_no = #{user_no}
 	</delete>
 	
+	<delete id="lhsAddressDelete2" parameterType="LhsAddress">
+		delete from address where re_user_no = #{user_no} and user_no = #{re_user_no}
+	</delete>
+	
 </mapper>

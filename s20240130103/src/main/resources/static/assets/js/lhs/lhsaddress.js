@@ -33,13 +33,20 @@ function addressList(){
 			                </div>
 			              </div>
 			              <div class="score-message">
-			                <div class="user-score rounded-circle justify-content-center">${content.user_score }</div> 
+			              	<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
 			                <form action="" method="get"> 
 			                  <input type="hidden" name="user_no" value="${content.user_no }">
 			                  <button type="submit" class="rounded-circle message">
 			                    <i class="bi bi-envelope-fill"></i>
 			                  </button>
 			                </form>
+			                <div> 
+				                <a href="/addressRequestDelete?re_user_no=${content.user_no}" style="color:white;">
+				                  <button type="button" class="rounded-circle message">
+				                    <i class="bi bi-trash-fill"></i>
+				                  </button>
+				                </a>
+			                </div>
 			              </div>
 			            </div>
 			          </div>
@@ -84,7 +91,7 @@ function requestList(){
 				                    <i class="bi bi-trash-fill"></i>
 				                  </button>
 				                </a>
-			                <div>
+			                </div>
 			              </div>
 			            </div>
 			          </div>
@@ -119,24 +126,26 @@ function responseList(){
 			                  <p class="user-name">${content.user_name }</p>
 			                  <p class="user-id">#${content.user_id }</p>
 			                </div>
-			                <div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
+			                
 			              </div>
 			              <div class="score-message">
-			                
+			              	<div> 
+			              		<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
+			                </div>
 			                <div> 
 				                <a href="/addressResponsePermit?user_no=${content.user_no}" style="color:white;">
 				                  <button type="button" class="rounded-circle message" style="background-color: rgb(23, 255, 162); color: white;">
 				                    <i class="bi bi-check-lg"></i>
 				                  </button>
 				                </a>
-			                <div>
+			                </div>
 			                <div> 
 				                <a href="/addressResponseDeny?user_no=${content.user_no}" style="color:white;">
 				                  <button type="button" class="rounded-circle message" style="background-color: rgb(255, 6, 126); color: white;">
                                 	<i class="ri-close-fill"></i>
 				                  </button>
 				                </a>
-			                <div>
+			                </div>
 			              </div>
 			            </div>
 			          </div>
