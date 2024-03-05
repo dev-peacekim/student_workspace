@@ -45,7 +45,10 @@
 
 <!-- 검색바&드롭박스 JS -->
 <script type="text/javascript">
+	
 	document.addEventListener('DOMContentLoaded', function() {
+		
+		// 검색 기능
 		function changeDropdownItem(value) {
 			var dropdown = document.getElementById('dropdownSelect');
 			dropdown.value = value;
@@ -64,7 +67,9 @@
 			}
 		});
 
-		// 체크박스
+		
+		
+		// ================ 체크박스 ===================
 		var selectAllCheckbox = document.getElementById("select-all-checkbox");
 
 		selectAllCheckbox.addEventListener("click", function() {
@@ -163,6 +168,7 @@
 		    xhr.send(JSON.stringify(data));
 		}
 	});
+	
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -201,21 +207,19 @@
 				</div>
 				<!-- 검색바&드롭박스 -->
 				<div class="search-container">
-					<div class="search-bar">
-						<form class="search-form d-flex align-items-center" method="POST"
-							action="#">
-							<select id="dropdownSelect"
-								onchange="changeDropdownItem(this.value)">
-								<option value="전체">전체</option>
-								<option value="아이디">아이디</option>
-								<option value="제목+내용">제목+내용</option>
-							</select> <input type="text" name="query" placeholder="Search"
-								title="Enter search keyword">
-							<button type="submit" title="Search">
-								<i class="bi bi-search"></i>
-							</button>
-						</form>
-					</div>
+				    <div class="search-bar">
+				        <form class="search-form d-flex align-items-center" method="get" action="/msgReceivebox">
+				            <select id="dropdownSelect" name="type">
+				                <option value="all">전체</option>
+				                <option value="sender">보낸사람</option>
+				                <option value="titleContent">제목+내용</option>
+				            </select>
+				            <input type="text" name="keyword" placeholder="Search" title="Enter search keyword">
+				            <button type="submit" title="Search">
+				                <i class="bi bi-search"></i>
+				            </button>
+				        </form>
+				    </div>
 				</div>
 				<!-- 검색바&드롭박스 END -->
 				<!-- 툴바와 테이블 -->

@@ -17,7 +17,10 @@ public class Message {
     private int msg_delete_chk;
     private int msg_store_chk;
     
-    // 파일 저장용
+    // 멀티 파일 저장용 
     private MultipartFile[] files;
     
+    // 검색용
+	private String keyword; // 검색 키워드
+	private String type; // 검색 타입
 }

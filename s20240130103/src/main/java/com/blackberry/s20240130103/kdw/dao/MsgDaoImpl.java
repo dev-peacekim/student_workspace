@@ -268,6 +268,165 @@ public class MsgDaoImpl implements MsgDao {
             e.printStackTrace();
         }
     }
+    
+    
+    // ========== 검색 기능 구현 ==========
+    // ======= 받은 쪽지함 검색기능 ======
+    // 검색된 쪽지 개수
+    @Override
+    public int searchReceiveMsgCnt(Long msgReceiver, String keyword, String type) {
+        log.info("MsgDaoImpl searchReceiveMsgCnt start...");
+        int searchResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgReceiver", msgReceiver);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchResultCount = session.selectOne("kdwSearchReceiveMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching received messages count: {}", e.getMessage());
+        }
+        return searchResultCount;
+    }
+    // 검색 리스트 가져오기
+    @Override
+    public List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end) {
+        log.info("MsgDaoImpl searchReceivedMessages start...");
+        List<Message> searchResultMessages = null;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgReceiver", msgReceiver);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+            paramMap.put("start", start);
+            paramMap.put("end", end);
+
+            searchResultMessages = session.selectList("kdwSearchReceivedMessages", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching received messages: {}", e.getMessage());
+        }
+        return searchResultMessages;
+    }
+    // ======= 보낸 쪽지함 검색기능 ======
+    // 검색된 쪽지 개수
+	@Override
+	public int searchSentMsgCnt(Long msgSender, String keyword, String type) {
+        log.info("MsgDaoImpl searchSentMsgCnt start...");
+        int searchResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgSender", msgSender);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchResultCount = session.selectOne("kdwSearchSentMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching sent messages count: {}", e.getMessage());
+        }
+        return searchResultCount;
+	}
+	// 검색 리스트 가져오기
+	@Override
+	public List<Message> searchSentMessages(Long msgSender, String keyword, String type, int start, int end) {
+        log.info("MsgDaoImpl searchSentMessages start...");
+        List<Message> searchResultMessages = null;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgSender", msgSender);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+            paramMap.put("start", start);
+            paramMap.put("end", end);
+
+            searchResultMessages = session.selectList("kdwSearchSentMessages", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching sent messages: {}", e.getMessage());
+        }
+        return searchResultMessages;
+	}
+    // ======= 쪽지 보관함 검색기능 ======
+    // 검색된 쪽지 개수
+	@Override
+	public int searchStoredMsgCnt(Long storeboxUserNo, String keyword, String type) {
+        log.info("MsgDaoImpl searchStoredMsgCnt start...");
+        int searchResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("storeboxUserNo", storeboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchResultCount = session.selectOne("kdwSearchStoredMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Stored messages count: {}", e.getMessage());
+        }
+        return searchResultCount;
+	}
+	// 검색 리스트 가져오기
+	@Override
+	public List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end) {
+        log.info("MsgDaoImpl searchStoredMessages start...");
+        List<Message> searchResultMessages = null;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("storeboxUserNo", storeboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+            paramMap.put("start", start);
+            paramMap.put("end", end);
+
+            searchResultMessages = session.selectList("kdwSearchStoredMessages", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Stored messages: {}", e.getMessage());
+        }
+        return searchResultMessages;
+	}
+    // ======= 쪽지 보관함 검색기능 ======
+    // 검색된 쪽지 개수
+	@Override
+	public int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type) {
+        log.info("MsgDaoImpl searchTrashMsgCnt start...");
+        int searchResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("trashboxUserNo", trashboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchResultCount = session.selectOne("kdwSearchTrashMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Trash messages count: {}", e.getMessage());
+        }
+        return searchResultCount;
+	}
+	// 검색 리스트 가져오기
+	@Override
+	public List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end) {
+        log.info("MsgDaoImpl searchTrashMessages start...");
+        List<Message> searchResultMessages = null;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("trashboxUserNo", trashboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+            paramMap.put("start", start);
+            paramMap.put("end", end);
+
+            searchResultMessages = session.selectList("kdwSearchTrashMessages", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Trash messages: {}", e.getMessage());
+        }
+        return searchResultMessages;
+	}
 
 
 
