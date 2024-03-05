@@ -1,6 +1,9 @@
+let clickedNav = $('#borderedTab .nav-link.active').val();
+
 $("#task-search-btn").on("click", () => {
 	const keyword = $("#task-search-text").val();
 	const searchFilter = $(".search-filter").val();
+	const sortFilter = $(".sort-filter").val();
 
 	$(".table-nav .table tbody").empty();
 	$(".table-nav .page-navigation .pagination").empty();
@@ -10,7 +13,9 @@ $("#task-search-btn").on("click", () => {
 		url: "taskSearch",
 		data: JSON.stringify({
 			keyword: keyword,
-			searchFilter: searchFilter
+			searchFilter: searchFilter,
+			sortFilter: sortFilter,
+			clickedNav: clickedNav
 		}),
 		contentType: "application/json",
 		dataType: 'json',
@@ -35,19 +40,19 @@ $("#task-search-btn").on("click", () => {
 
 			if (kphPaging.startPage > kphPaging.pageBlock) {
 				$(".pagination").append(`
-                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${response.kphPaging.startPage - response.kphPaging.pageBlock}&keyword=${keyword}&searchFilter=${searchFilter}"><span>&laquo;</span></a></li>
+                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${response.kphPaging.startPage - response.kphPaging.pageBlock}&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&laquo;</span></a></li>
             `);
 			}
 
 			for (let i = kphPaging.startPage; i <= kphPaging.endPage; i++) {
 				$(".pagination").append(`
-                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}">${i}</a></li>
+                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}">${i}</a></li>
             `);
 			}
 
 			if (kphPaging.endPage < kphPaging.totalPage) {
 				$(".pagination").append(`
-                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage + kphPaging.pageBlock}&keyword=${keyword}&searchFilter=${searchFilter}"><span>&raquo;</span></a></li>
+                <li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage + kphPaging.pageBlock}&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&raquo;</span></a></li>
             `);
 			}
 		}
@@ -59,4 +64,23 @@ $('#task-search-text').on('keyup', (event) => {
 	if (event.keyCode === 13) {
 		$('#task-search-btn').click();
 	}
+});
+
+$('.sort-filter').on('change', () => {
+	$('#task-search-btn').click();
+});
+
+$('#all-tab').on('click', () => {
+	clickedNav = $('#all-tab').val();
+	$('#task-search-btn').click();
+});
+
+$('#comp-tab').on('click', () => {
+	clickedNav = $('#comp-tab').val();
+	$('#task-search-btn').click();
+});
+
+$('#uncomp-tab').on('click', () => {
+	clickedNav = $('#uncomp-tab').val();
+	$('#task-search-btn').click();
 });

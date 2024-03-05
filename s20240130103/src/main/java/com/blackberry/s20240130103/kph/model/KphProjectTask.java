@@ -29,5 +29,7 @@ public class KphProjectTask {
 	private int end;
 	private String keyword;
 	private String searchFilter;
+	private String sortFilter;
+	private String clickedNav; // 클릭된 탭
 	
 }

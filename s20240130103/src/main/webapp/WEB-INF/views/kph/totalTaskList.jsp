@@ -57,7 +57,7 @@
 			<h1>워크 스페이스</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">워크 스페이스</a></li>
+					<li class="breadcrumb-item"><a href="main">워크 스페이스</a></li>
 					<li class="breadcrumb-item active">나의 과업</li>
 				</ol>
 			</nav>
@@ -69,18 +69,50 @@
 				<div class="card-body">
 					<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
 						role="tablist">
-						<li class="nav-item">
-							<button class="nav-link active" id="home-tab"
-								data-bs-toggle="tab" type="button" role="tab">전체</button>
-						</li>
-						<li class="nav-item">
-							<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-								type="button" role="tab">완료</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-								type="button" role="tab">미완료</button>
-						</li>
+						<c:choose>
+							<c:when test="${clickedNav == 'comp'}">
+								<li class="nav-item">
+									<button class="nav-link" id="all-tab"
+										data-bs-toggle="tab" type="button" role="tab" value="all">전체</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link active" id="comp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="comp">완료</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="uncomp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="uncomp">미완료</button>
+								</li>
+							</c:when>
+							<c:when test="${clickedNav == 'uncomp'}">
+								<li class="nav-item">
+									<button class="nav-link" id="all-tab"
+										data-bs-toggle="tab" type="button" role="tab" value="all">전체</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" id="comp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="comp">완료</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link active" id="uncomp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="uncomp">미완료</button>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="nav-item">
+									<button class="nav-link active" id="all-tab"
+										data-bs-toggle="tab" type="button" role="tab" value="all">전체</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" id="comp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="comp">완료</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="uncomp-tab" data-bs-toggle="tab"
+										type="button" role="tab" value="uncomp">미완료</button>
+								</li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 					<div class="controller">
 						<div class="search-bar">
@@ -91,15 +123,44 @@
 								</button>
 							</div>
 							<select name="search-filter" class="search-filter form-select">
-								<option value="all" selected>전체</option>
-								<option value="project_title">프로젝트명</option>
-								<option value="task_title">과업명</option>
+								<c:choose>
+									<c:when test="${searchFilter == 'project_title'}">
+										<option value="all">전체</option>
+										<option value="project_title" selected>프로젝트명</option>
+										<option value="task_title">과업명</option>
+									</c:when>
+									<c:when test="${searchFilter == 'task_title'}">
+										<option value="all">전체</option>
+										<option value="project_title">프로젝트명</option>
+										<option value="task_title" selected>과업명</option>
+									</c:when>
+									<c:otherwise>
+										<option value="all"  selected>전체</option>
+										<option value="project_title">프로젝트명</option>
+										<option value="task_title">과업명</option>
+									</c:otherwise>
+								</c:choose>
 							</select>
 						</div>
 						<select name="sort-filter" class="sort-filter form-select">
-							<option value="all" selected>default</option>
-							<option value="project_title">sorted by project</option>
-							<option value="task_title">sorted by task</option>
+							<c:choose>
+								<c:when test="${sortFilter == 'sort_project'}">
+									<option value="sort_deadline">sorted by deadline</option>
+									<option value="sort_project" selected>sorted by project</option>
+									<option value="sort_task">sorted by task</option>
+								</c:when>
+								<c:when test="${sortFilter == 'sort_task'}">
+									<option value="sort_deadline">sorted by deadline</option>
+									<option value="sort_project">sorted by project</option>
+									<option value="sort_task" selected>sorted by task</option>
+								</c:when>
+								<c:otherwise>
+									<option value="sort_deadline" selected>sorted by deadline</option>
+									<option value="sort_project">sorted by project</option>
+									<option value="sort_task">sorted by task</option>
+								</c:otherwise>
+							</c:choose>
+							
 						</select>
 					</div>
 					<div class="table-nav">
@@ -130,13 +191,13 @@
 						<nav class="page-navigation">
 							<ul class="pagination">
 								<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}"><span>&laquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&laquo;</span></a></li>
 								</c:if>
 								<c:forEach var="i" begin="${kphPaging.startPage }" end="${kphPaging.endPage }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}">${i}</a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}"><span>&raquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&raquo;</span></a></li>
 								</c:if>
 							</ul>
 						</nav>

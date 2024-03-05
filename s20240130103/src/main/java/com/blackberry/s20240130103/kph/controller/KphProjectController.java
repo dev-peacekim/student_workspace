@@ -188,14 +188,9 @@ public class KphProjectController {
 		model.addAttribute("kphPaging", kphPaging);
 		model.addAttribute("keyword", kphProjectTask.getKeyword());
 		model.addAttribute("searchFilter", kphProjectTask.getSearchFilter());
-		
-		String searchKeyword = null;
-		
-		if(kphProjectTask.getKeyword() != null) {
-			searchKeyword = kphProjectTask.getKeyword();
-		}
-		
-		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("sortFilter", kphProjectTask.getSortFilter());
+		model.addAttribute("searchKeyword", kphProjectTask.getKeyword());
+		model.addAttribute("clickedNav", kphProjectTask.getClickedNav());
 		
 		return "kph/totalTaskList";
 	}

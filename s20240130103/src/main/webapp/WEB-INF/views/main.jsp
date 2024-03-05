@@ -130,13 +130,13 @@
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>완료 과업</p>
-			            		<p><a href="compTaskList">${totalCompTaskCount }</a></p>
+			            		<p><a href="totalTaskList?clickedNav=comp">${totalCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 				        <div class="all-project-report-detail card-body">
 			            	<div>
 			            		<p>미완료 과업</p>
-			            		<p><a href="unCompTaskList">${totalUnCompTaskCount }</a></p>
+			            		<p><a href="totalTaskList?clickedNav=uncomp">${totalUnCompTaskCount }</a></p>
 			            	</div>
 				        </div>
 	            	</div>
