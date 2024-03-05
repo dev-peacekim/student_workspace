@@ -53,5 +53,13 @@ public class AskServiceImpl implements AskService {
 		return askForm;
 	}
 
+	public List<Ask> askListSearch(Ask ask) {	
+		 List<Ask> askListSearch = null;
+		 System.out.println("LslServiceImpl boardFreeSearch Start...");
+		  askListSearch = askDao.askListSearch(ask);
+		  System.out.println("EmpServiceImpl boardFreeSearch.size() ->"+askListSearch.size());
+		 return askListSearch;
+	}
+
 	}
 

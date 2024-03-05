@@ -26,6 +26,22 @@
  	 ]]>		
    </select>
    
+   <select id="yhsAskListSearch" parameterType="Ask"
+		resultType="Ask">
+		SELECT *
+		FROM (
+		SELECT rownum rn, a.*
+		FROM (
+		SELECT ba.*, u.user_nic
+		FROM BOARD_ADMIN ba, users u
+		WHERE ba.user_no = u.user_no
+		AND (ADMIN_TITLE LIKE '%' || #{keyword} || '%'
+ 		AND ADMIN_CONTENT LIKE '%' || #{keyword} || '%'
+ 		OR user_nic LIKE '%' || #{keyword} || '%' )
+		) a
+		)
+<!-- 		WHERE rn BETWEEN #{start} AND #{end} -->
+	</select>
    
    <select id="yhsAskContent" parameterType="String"
 		resultType="Ask">

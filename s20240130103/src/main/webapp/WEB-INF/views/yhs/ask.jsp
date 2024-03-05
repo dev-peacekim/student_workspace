@@ -53,37 +53,41 @@
 
 .search-bar {
 	min-width: 360px;
-	padding: 0 20px;
+	padding-top: 10px;
+	font-family: 'NanumSquare', sans-serif;
+	position: absolute; /* 절대 위치로 설정 */
+    top: 30px; /* 상단에 배치 */
+    right: -40px; /* 우측 여백 설정 */
+    margin-bottom: 40px; /* 서치바 아래 여백 설정 */
+    
 }
 
-
-@media ( max-width : 1199px) {
-	.search-bar {
-		position: fixed;
-		top: 50px;
-		left: 0;
-		right: 0;
-		padding: 20px;
-		padding-top: 2px;
-		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
-		background: white;
-		z-index: 9999;
-		transition: 0.3s;
-		visibility: hidden;
-		opacity: 0;
+@media (max-width : 1199px) {
+.search-bar {
+	position: fixed;
+	top: 50px;
+	left: 0;
+	right: 0;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
+	background: white;
+	z-index: 9999;
+	transition: 0.3s;
+	visibility: hidden;
+	opacity: 0;
 	}
-	.search-bar-show {
-		top: 60px;
-		visibility: visible;
-		opacity: 1;
+
+.search-bar-show {
+	top: 60px;
+	visibility: visible;
+	opacity: 1;
 	}
 }
-
 
 .search-form {
 	width: 100%;
 }
-
 
 .search-form input {
 	border: 0;
@@ -93,16 +97,15 @@
 	padding: 7px 38px 7px 8px;
 	border-radius: 3px;
 	transition: 0.3s;
-	width: 100%;
+	width: 300px;
 }
 
-
-.search-form input:focus, .search-form input:hover {
+.search-form input:focus,
+.search-form input:hover {
 	outline: none;
 	box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
 	border: 1px solid rgba(1, 41, 112, 0.3);
 }
-
 
 .search-form button {
 	border: 0;
@@ -111,11 +114,9 @@
 	background: none;
 }
 
-
 .search-form button i {
 	color: #012970;
 }
-
 
 /*--------------------------------------------------------------
 # Search Bar
@@ -193,15 +194,30 @@
     				<div class="card-body">
     					<h5 class="card-title">여러분의 질문은 Blueberry를 성장시키는 자양분입니다!</h5>
     						<p></p>
-    					<div class="search-bar d-flex justify-content-end">
-    						<div class="col-md-2">
-    						<select id="dropdownSelect"
+    						
+    						<!-- Search Bar -->
+						
+					
+							<form action="askListSearch" class="search-form d-flex align-items-center">
+								<div class="search-bar" >
+								<input type="text" name="keyword" placeholder="키워드를 입력하세요" title="Enter search keyword">
+								<button type="submit" title="Search">
+									<i class="bi bi-search"></i>
+								</button>
+						</div>
+						</form>
+						<!-- End Search Bar -->
+						
+						
+    					<!-- <div class="search-bar d-flex justify-content-end">
+    						<div class="col-md-2"> -->
+    						<!-- <select id="dropdownSelect"
 								onchange="changeDropdownItem(this.value)">
 								<option value="전체">전체</option>
 								<option value="아이디">아이디</option>
 								<option value="제목+내용">제목+내용</option>
-							</select>   						
-    						</div>   						
+							</select>   		 -->				
+    					<!-- 	</div>   						
     						<div class="col-md-3">
    							<form class="search-form d-flex align-items-center" 
    								method="POST" action="#">
@@ -212,7 +228,7 @@
     						</button>
     						</form>
     						</div>
-    					</div>
+    					</div> -->
     					
 	<!-- Table with stripped rows -->
 	

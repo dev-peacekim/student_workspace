@@ -55,6 +55,30 @@ public class AskController {
 		return "yhs/ask";
 	}
 	
+	// 자유 게시판 검색
+		@RequestMapping(value = "askListSearch")
+		public String boardFreeSearch(Ask ask, Model model) {
+			System.out.println("AskController askList Start...");
+			int totalAsk = askService.totalAsk();
+			System.out.println("AskController totalAsk ->" + totalAsk);
+
+			// paging 작업
+			Paging bfpage = new Paging(totalAsk, ask.getCurrentPage());
+			ask.setStart(bfpage.getStart());
+			ask.setEnd(bfpage.getEnd());
+			System.out.println(ask);
+			
+
+			List<Ask> listAsk = askService.askListSearch(ask);
+			System.out.println("AskController askList askListSearch.size() ->" + listAsk.size());
+
+			model.addAttribute("totalBoardFree", totalAsk);
+			model.addAttribute("bfpage", bfpage);
+			model.addAttribute("askList", listAsk);
+
+			return "yhs/ask";
+		}
+	
 	// 자유 게시판 상세내용
 	// 세션이 필요할 때 - >
 	@GetMapping(value = "askContent")
