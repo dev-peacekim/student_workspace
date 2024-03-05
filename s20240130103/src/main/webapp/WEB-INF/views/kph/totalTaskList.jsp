@@ -28,6 +28,7 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/kph/totalTaskList.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
+    <script defer src="/assets/js/kph/totalTaskList.js"></script>
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -83,9 +84,9 @@
 					</ul>
 					<div class="controller">
 						<div class="search-bar">
-							<div class="search-form" action="projectAddressSearch">
-								<input id="search-text" type="text" placeholder="검색어를 입력하세요">
-								<button id="search-btn">
+							<div class="search-form">
+								<input id="task-search-text" type="text" placeholder="검색어를 입력하세요" value="${searchKeyword }">
+								<button id="task-search-btn">
 									<i class="bi bi-search"></i>
 								</button>
 							</div>
@@ -129,13 +130,13 @@
 						<nav class="page-navigation">
 							<ul class="pagination">
 								<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }"><span>&laquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}"><span>&laquo;</span></a></li>
 								</c:if>
 								<c:forEach var="i" begin="${kphPaging.startPage }" end="${kphPaging.endPage }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}">${i}</a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
-									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }"><span>&raquo;</span></a></li>
+									<li class="page-item"><a class="page-link" href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}"><span>&raquo;</span></a></li>
 								</c:if>
 							</ul>
 						</nav>
