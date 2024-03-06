@@ -96,11 +96,24 @@
 	background-color: #f8f9fa;
 	border: none;
 }
-
+.comment-body button[type="button"][disabled] {
+	background-color: #f8f9fa;
+	border: none;
+	color: #f8f9fa;
+}
 .comment-body {
 	align-items: center;
 	justify-content: center;
+	display: flex;
+	padding: 0px 16px 0px 16px;
 }
+.comment-body button {
+	color: black;
+	border: none;
+	background-color: #f8f9fa;
+	min-width: 65px;
+}
+
 
 .comment-card > comment-body {
 	padding-top: 0px;

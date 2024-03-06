@@ -57,6 +57,7 @@ public class YkmCommentRestController {
 	public int updateComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
 		int result = ykmService.updateComment(ykmBoardCommReply);
 		return result;
+		
 	}
 	
 	

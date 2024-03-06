@@ -70,7 +70,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return getCommentList;
 	}
 
-	// 오류!!!!!!
 	@Override
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmBoardDaoImpl writeComment start ---*");

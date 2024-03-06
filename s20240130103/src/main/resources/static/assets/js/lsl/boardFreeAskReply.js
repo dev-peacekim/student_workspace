@@ -19,7 +19,7 @@ function  updateReplyList(data,userNo) {
 	let boardReplyList = '';
 	data.forEach(function(lslCommReply){
 		console.log(lslCommReply);
-		
+		console.log(lslCommReply.user_id);
 		const originalDate = new Date(lslCommReply.creply_date);
 
 		let hour = originalDate.getHours();

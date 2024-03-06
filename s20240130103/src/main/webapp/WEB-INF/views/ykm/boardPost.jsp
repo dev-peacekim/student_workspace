@@ -25,7 +25,7 @@
 
 <script>
 window.onload = function() {
-	getCommentList(${getPost.cboard_no}, ${getPost.user_no});
+	getCommentList(${getPost.cboard_no});
 	/* getUserNo(${getPost.user_no}); */
 }
 </script>
