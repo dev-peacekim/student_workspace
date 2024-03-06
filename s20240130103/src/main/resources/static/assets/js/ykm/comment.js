@@ -151,14 +151,7 @@ function enableUpdate(creply_no) {
 	checkButton.removeAttribute('disabled');
 }
 
-/* 여기서부터 문제!! 입니다!  
-이 함수 호출은 하나?
-이 함수 호출은 위에서 innerHtml생성하는 함수에 있어요 버튼 클릭하면 이 함수 실행이 됩니다..! 아마도)
-프로그래밍에 아마도가 어딨어~ (취소)
 
-
-
- */
 // 댓글 수정
 function updateComment(creply_no, creply_content) {
 	

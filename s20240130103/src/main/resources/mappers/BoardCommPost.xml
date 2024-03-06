@@ -55,11 +55,5 @@
 		WHERE CBOARD_NO = #{cboard_no}
 	</update>
  
- 	<!-- 
- 	<update id="ykmGetViewCount" parameterType="int">
- 		UPDATE BOARD_COMM
- 		SET CBOARD_VIEWCNT = CBOARD_VIEWCNT + 1
- 		WHERE CBOARD_NO = #{cboard_no}
- 	</update>
- 	-->
+
 </mapper>

@@ -32,7 +32,6 @@ public interface YkmService {
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
 
-	// int getViewCount(int cboard_no);
 	
 
 

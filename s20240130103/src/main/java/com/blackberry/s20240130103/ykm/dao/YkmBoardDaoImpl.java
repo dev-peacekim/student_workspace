@@ -29,7 +29,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public YkmBoardComm getPost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getPost start ---*");
 		YkmBoardComm getPost = session.selectOne("ykmGetPost", cboard_no);
-		// System.out.println("renderPostContent result --> "+renderPostContent);
+		// System.out.println("getPost result --> "+getPost);
 		return getPost;
 	}
 
@@ -61,12 +61,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return session.update("ykmIncreseViewCount", cboard_no);
 	}
 
-	/*
-	 * @Override public int getViewCount(int cboard_no) {
-	 * System.out.println("YkmBoardDaoImpl getViewCount start ---*"); int
-	 * getViewCount = session.update("ykmGetViewCount", cboard_no); return
-	 * getViewCount; }
-	 */
 
 	// 댓글
 	@Override

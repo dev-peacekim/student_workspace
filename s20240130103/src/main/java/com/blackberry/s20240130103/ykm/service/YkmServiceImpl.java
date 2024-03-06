@@ -1,10 +1,8 @@
 package com.blackberry.s20240130103.ykm.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
@@ -73,16 +71,7 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.increseViewcount(cboard_no);
 	}
 
-	/* 이건 왜 있는지 나는 모르겠음
-	@Override
-	public int getViewCount(int cboard_no) {
-		System.out.println("YkmServiceImpl getViewCount start---*");
-		int getViewCount = ykmBoardDao.getViewCount(cboard_no);
-		System.out.println("YkmServiceImpl getViewCount --> "+ getViewCount);
-		return getViewCount;
-	}
-	*/
-	
+
 	
 	
 	
