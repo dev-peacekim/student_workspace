@@ -89,6 +89,7 @@ public class LslController {
 		 * 
 		 * model.addAttribute("replyBoardFreeList",replyBoardFreeList);
 		 */
+		
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
@@ -171,11 +172,12 @@ public class LslController {
 	public String boardAskContents(HttpServletRequest request, Model model) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardAskContents = ls.boardAskContents(cboard_no);
-
-		System.out.println("LslController replyList Start..");
-		List<LslCommReply> replyBoardAskList = ls.replyBoardAskList(cboard_no);
-
-		model.addAttribute("replyBoardAskList", replyBoardAskList);
+		/*
+		 * System.out.println("LslController replyList Start.."); List<LslCommReply>
+		 * replyBoardAskList = ls.replyBoardAskList(cboard_no);
+		 * 
+		 * model.addAttribute("replyBoardAskList", replyBoardAskList);
+		 */
 		model.addAttribute("boardAskContents", boardAskContents);
 		return "lsl/boardAskContents";
 	}

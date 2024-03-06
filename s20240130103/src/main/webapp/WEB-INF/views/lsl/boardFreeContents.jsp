@@ -39,7 +39,7 @@
   ======================================================== -->
 <script>
 window.onload = function() {
-	replyBoardFreeList(${boardFreeContents.cboard_no});
+	replyBoardFreeAskList(${boardFreeContents.cboard_no});
 }
 </script>
 
@@ -104,12 +104,12 @@ window.onload = function() {
                 <div class="boardPostComment">
 						<input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}" /> 
 							<input type="hidden" name="user_no" value="${boardFreeContents.user_no}"> 
-							
+							<input type="hidden" name="creply_no" value="" />
                 
 	                <div class="comment-editor">
 	            		<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 	                    <input type="text" name="comment" id="creply_content" 
-	                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
+	                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="required">
 	                </div>
 	                <div class="btn-container is-editor-open">
                     	<button type="button" id="submitBtn" class="btn submitBtn">등록</button>
@@ -123,38 +123,9 @@ window.onload = function() {
 				
 			</div>
         </section>
-            <!-- 댓글 시작 -->
-           <%--  <div id="reply" class="re-comment-body">
-                <div id="replyBoardFreeList" class="comment-card">
-                    <c:forEach items="${replyBoardFreeList}" var="replyBoardFreeList">
-                    <div class="comment-header">
-                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-                        <div class="comment-user-container">
-                            <p class="card-title comment-user-name">
-                                <a href="#">${replyBoardFreeList.USER_NIC}</a>
-                            </p>
-                            <p class="card-subtitle comment-updated-at">작성일
-                                 <fmt:formatDate value="${replyBoardFreeList.creply_date}"
-                                pattern="yyyy.MM.dd a hh:mm" /></p>
-                        </div>
-                        <div class="re-btn-container">
-                            <form action="/boardFreeCommentRepl" method="GET">
-                                <button type="submit" class="btn btn-outline-primary">
-                                    <i class="bi bi-reply-fill">Replay</i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card-body comment-body">
-                        <p class="markdown-body">${replyBoardFreeList.creply_content}</p>
-                    </div>
-                
-                </c:forEach>
-            </div>
-        </div> --%>
-           
+         
 			  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
-                        <button type="hidden" class="btn bfcDelete">삭제</button>
+                        <button class="btn bfcDelete">삭제</button>
                         <a href="boardFreeModify">
                             <button class="btn bfcModify">수정</button>
                         </a>

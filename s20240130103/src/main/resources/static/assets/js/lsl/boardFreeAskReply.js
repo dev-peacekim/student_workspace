@@ -1,13 +1,31 @@
 
-let cboard_no = null;
-const userNo = document.getElementById('userNo').value;
+let currentuser_no;
+
+// 유저 정보 가져오기 
+function getUserNo() {
+	fetch("/userno")
+	.then(response => response.json())
+	.then(data => {
+		currentuser_no = data.user_no;
+		console.log('currentuser_no : ' + currentuser_no);
+	})
+	.catch(error => {
+		console.log('사용자 정보를 가져오는 중 오류 발생:', error);
+	})
+}
+
 // 게시판 댓글 리스트
-function replyBoardFreeList(cboard_no,userNo) {
-    fetch("/reply/listAll?cboard_no=" + cboard_no)
+let cboardNo = null;
+
+function replyBoardFreeAskList(cboard_no) {
+	if(cboardNo === null){
+		cboardNo = cboard_no;
+	}
+    fetch("/reply?cboard_no=" + cboard_no)
         .then(response => response.json())
         .then(data => {
-            updateReplyList(data,userNo);
-            console.log(userNo)
+			console.log(data);
+            updateReplyList(data);
         })
         .catch(error => {
             console.log('리스트 업데이트 오류', error);
@@ -15,11 +33,12 @@ function replyBoardFreeList(cboard_no,userNo) {
 }   
  
 // 게시판 댓글 리스트 갱신 
-function  updateReplyList(data,userNo) {
+function  updateReplyList(data) {
 	let boardReplyList = '';
-	data.forEach(function(lslCommReply){
+		data.forEach(function(lslCommReply){
+		
 		console.log(lslCommReply);
-		console.log(lslCommReply.user_id);
+		
 		const originalDate = new Date(lslCommReply.creply_date);
 
 		let hour = originalDate.getHours();
@@ -27,28 +46,18 @@ function  updateReplyList(data,userNo) {
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatDate = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;	 
 
-        // 현재 로그인한 사용자의 userNo와 댓글을 작성한 사용자의 userNo를 비교하여 일치하는지 확인
-        const isCurrentUser = lslCommReply.user_no === userNo;
-       
-       // 값 제대로 넘어오는데 안돼
-        console.log(lslCommReply.user_no);
-        console.log(userNo);
-        
       boardReplyList += `<div class="re-comment-body">
     <div id="replyBoardFreeList" class="comment-card">
         <div class="comment-header">
             <img class="comment-user-profile" src="${lslCommReply.user_profile}">
             <div class="comment-user-container">
                 <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_name}</p>
-                <p id ="replyuser_id" class="card-title comment-user-id">#${lslCommReply.user_id}</p>
                 <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
             </div>
             <div class="re-btn-container">
-                ${isCurrentUser ? 
-        			`<button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');">수정</button>
-         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>` 
-        			: ''}
-                <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
+             <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">수정</button>
+         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>    		
+               <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
             </div>
         </div>
         <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
@@ -71,19 +80,22 @@ function  updateReplyList(data,userNo) {
 const submitBtn = document.getElementById("submitBtn");
 submitBtn.addEventListener("click", function() {
 	const creply_content = document.getElementById('creply_content').value;
-    const cboardNo = document.querySelector('input[name="cboard_no"]').value;
-    const userNo = document.querySelector('input[name="user_no"]').value;
+    const cboard_no = document.querySelector('input[name="cboard_no"]').value;
+    const user_No = document.querySelector('input[name="user_no"]').value;
+    
     
     const replyData = {
-		cboard_no: cboardNo,
-        user_no: userNo,
-        creply_content: creply_content
+		cboard_no: cboard_no,
+        user_no: user_No,
+        creply_content: creply_content,
+     
        
 	};
 	 console.log(replyData);
 	addComment(replyData);
 });
 
+// 댓글 등록 
 function addComment(replyData) {
     fetch("/replys", {
         method: "POST",
@@ -97,7 +109,7 @@ function addComment(replyData) {
     .then(data => {
         console.log(data);
         if (data > 0) {
-            replyBoardFreeList(replyData.cboard_no);
+            replyBoardFreeAskList(replyData.cboard_no);
         } else {
             console.log('댓글 등록에 실패했습니다!');
            
@@ -105,5 +117,26 @@ function addComment(replyData) {
     })
     .catch(error => {
         console.log('댓글 등록 오류 발생!', error);
+    });
+}
+
+
+// 댓글 삭제
+function deleteComment(replyData) {
+    fetch("/replys", {
+        method: "PUT",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(replyData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        replyBoardFreeAskList(replyData); 
+    })
+    .catch(error => {
+        console.log('댓글 삭제 오류 발생!', error);
     });
 }

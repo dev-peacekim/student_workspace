@@ -30,10 +30,10 @@
    <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
  <script>
- //let sessiontest = ${sessionScope.user_no};
 window.onload = function() {
-    const userNo = document.getElementById('userNo').value;
-	replyBoardFreeList(${boardAskContents.cboard_no} , userNo);
+	//replyBoardFreeAskList(${boardAskContents.cboard_no},  ${boardAskContents.user_no});
+	replyBoardFreeAskList(${boardAskContents.cboard_no});
+	   
    
 }
 </script>
@@ -66,7 +66,6 @@ window.onload = function() {
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <input type="hidden" id="userNo" value="${sessionScope.user_no}">
     <section class="community-post-detail">
         <div class="row card main-card card-body">
             <div class="card-header community-post-header">
@@ -105,11 +104,11 @@ window.onload = function() {
                 <div class="boardPostComment">
 						<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}" /> 
 							<input type="hidden" name="user_no" value="${boarddAskContents.user_no}"> 
-							
+							<input type="hidden" name="creply_no" value="" />
                 <div class="comment-editor">
                     <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
                     <input type="text" name="comment" id="creply_content"
-                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="">
+                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="required">
                 </div>
                 <div class="btn-container is-editor-open">
                         <button type="button" id="submitBtn" class="btn submitBtn">등록</button>
@@ -122,38 +121,9 @@ window.onload = function() {
 				
             </div>
         </section>
-
-            <!-- 댓글 시작 -->
-          <%--   <div id="reply" class="re-comment-body">
-                <div id="replyBoardFreeList" class="comment-card">
-                    <c:forEach items="${replyBoardAskList}" var="replyBoardAskList">
-                    <div class="comment-header">
-                        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-                        <div class="comment-user-container">
-                            <p class="card-title comment-user-name">
-                                <a href="#">${replyBoardAskList.USER_NIC}</a>
-                            </p>
-                            <p class="card-subtitle comment-updated-at">작성일
-                                 <fmt:formatDate value="${replyBoardAskList.creply_date}"
-                                pattern="yyyy.MM.dd a hh:mm" /></p>
-                        </div>
-                        <div class="re-btn-container">
-                            <form action="/boardFreeCommentRepl" method="GET">
-                                <button type="submit" class="btn btn-outline-primary">
-                                    <i class="bi bi-reply-fill">Replay</i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card-body comment-body">
-                        <p class="markdown-body">${replyBoardAskList.creply_content}</p>
-                    </div>
-                </c:forEach>
-            </div>
-        </div> --%>
         
 			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">
-                        <button type="hidden" class="btn bacDelete">삭제</button>
+                        <button  class="btn bacDelete">삭제</button>
                         <a href="boardFreeModify">
                             <button class="btn bacModify">수정</button>
                         </a>

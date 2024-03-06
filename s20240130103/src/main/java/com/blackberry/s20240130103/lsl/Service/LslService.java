@@ -14,6 +14,8 @@ public interface LslService {
 	int totalBoardAsk();
 
 	List<LslBoardComm> boardAskList(LslBoardComm lslBoardComm);
+	
+
 
 	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm);
 
@@ -25,20 +27,32 @@ public interface LslService {
 	LslBoardComm boardFreeContents(int cboard_no);
 
 	LslBoardComm boardAskContents(int cboard_no);
+	
+	
 
 	int askBoardWrite(String boardtype);
-
-	List<LslCommReply> replyBoardFreeList(int cboard_no);
-
-	List<LslCommReply> replyBoardAskList(int cboard_no);
-
 	int freeBoardWrite(String boardtype);
+	
+	
+	
+
 
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
+	
 
+	
+	// 댓글 
+	
+	// 댓글 리스트 
+	List<LslCommReply> replyBoardFreeAskList(int cboard_no);
 
-
+	// 댓글 등록
 	int insertBoardReply(LslCommReply lslCommReply);
+	// 댓글 삭제 
+	int deleteBoardReply(int creply_no);
+
+
+
 
 
 }

@@ -36,10 +36,7 @@ public interface LslDao {
 	int askBoardWrite(String boardtype);
 
 
-	List<LslCommReply> replyBoardFreeList(int cboard_no);
-
-
-	List<LslCommReply> replyBoardAskList(int cboard_no);
+	
 
 
 	int freeBoardWrite(String boardtype);
@@ -48,8 +45,20 @@ public interface LslDao {
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
 
 
-
+	
+	// 댓글  
+	
+	// 댓글 리스트 
+	List<LslCommReply> replyBoardFreeAskList(int cboard_no);
+	
+	// 댓글 등록 
 	int insertBoardReply(LslCommReply lslCommReply);
+
+	// 댓글 삭제 
+	int deleteBoardReply(int creply_no);
+
+
+
 
 
 

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class LslCommReply {
 	// 댓글 번호 Seq
-	private Long creply_no; // 댓글 번호 
+	private int creply_no; // 댓글 번호 
 	private String creply_content;
 	//private String creply_date;
 	private Date creply_date;
@@ -24,7 +24,7 @@ public class LslCommReply {
 	private int cboard_no; // 글번호 
 	
 	// 작성자 번호 FK
-	private int user_no;   // 작성자 user_no
+	private Long  user_no;   // 작성자 user_no
 	private String user_id;
 	private String user_name;
 	private String USER_NIC; 

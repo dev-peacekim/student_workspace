@@ -80,14 +80,6 @@ SELECT *
 		INNER JOIN USERS u ON bc.USER_NO = u.USER_NO
 		WHERE bc.CBOARD_NO = #{cboard_no}
 </select>
-	<select id="slreplyBoardAskList" parameterType="int"
-		resultType="LslCommReply">
-		SELECT bcr.* , u.*
-		FROM BOARD_COMM_REPLY bcr , USERS u
-		WHERE bcr.USER_NO = u.USER_NO
-		AND bcr.CREPLY_DELETE_CHK = 0
-		AND cboard_no = #{cboard_no}
-</select>
 
 
 </mapper>
