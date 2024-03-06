@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blackberry.s20240130103.yhs.model.Ask;
 import com.blackberry.s20240130103.yhs.service.AskServiceImpl;
 import com.blackberry.s20240130103.yhs.service.Paging;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -95,21 +94,26 @@ public class AskController {
 		model.addAttribute("askContent", askContent);
 		return "yhs/askContent";
 	}
-
-	@GetMapping(value = "askForm")
-	public String askForm(Model model, @RequestParam(name = "boardtype") String boardtype) {
-		System.out.println(boardtype);
-
-		int askForm = askService.askForm(boardtype);
-
-		model.addAttribute("board_type", boardtype);
-		if (askForm > 0) {
-			return "redirect:ask";
-		} else {
-			model.addAttribute("msg", "입력 실패 확인해 보세요");
-		return "forward:askFrom";
-	}
 	
-	}	
+	@GetMapping(value = "askForm")
+	public String askForm() {
+		System.out.println("AskController Start askForm...");
+		return "yhs/askForm";
+	}
 
+	@PostMapping(value = "askWrite")
+	public String askWrite(Ask ask ,Model model,HttpServletRequest request ) {
+		System.out.println("AskController Start askWrite..." );
+		System.out.println("AskController askWrite ask->" + ask);
+
+		Long userNo = (Long) request.getSession().getAttribute("user_no");
+		int insertResult = askService.insertAsk(ask);
+		System.out.println("AskController insertResult insertResult->"+insertResult );
+		
+		model.addAttribute("userNo", userNo);
+		model.addAttribute("ask", ask);
+		return "redirect:ask";
+
+	}
 }
+

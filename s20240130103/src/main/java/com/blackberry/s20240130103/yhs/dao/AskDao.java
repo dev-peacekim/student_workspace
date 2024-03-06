@@ -13,9 +13,9 @@ public interface AskDao {
 
 	Ask askContent(String admin_title);
 
-	int askForm(String boardtype);
-
 	List<Ask> askListSearch(Ask ask);
+
+	int insertAsk(Ask ask);
 	
 	
 }

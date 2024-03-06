@@ -32,7 +32,7 @@
 		FROM (
 		SELECT rownum rn, a.*
 		FROM (
-		SELECT ba.*, u.user_nic
+		SELECT ba.*
 		FROM BOARD_ADMIN ba, users u
 		WHERE ba.user_no = u.user_no
 		AND (ADMIN_TITLE LIKE '%' || #{keyword} || '%'
@@ -40,8 +40,9 @@
  		OR user_nic LIKE '%' || #{keyword} || '%' )
 		) a
 		)
-<!-- 		WHERE rn BETWEEN #{start} AND #{end} -->
-	</select>
+ 		WHERE rn BETWEEN #{start} AND #{end}
+ 		
+ 		</select>
    
    <select id="yhsAskContent" parameterType="String"
 		resultType="Ask">
@@ -51,23 +52,18 @@
 		WHERE ba.admin_title = #{admin_title}
 	</select>
 	
-	
-	<insert id="yhsaskForm" parameterType="String"> 
-			INSERT  INTO BOARD_COMM bc VALUES
-	(
-	seq_board_comm.nextval,
-	#{CBOARD_TITLE},
-	#{CBOARD_CONTENT},
-	0,
-	sysdate,
-	#{USER_NO}
-	0,
-	300,
-	20,
-	NULL,
-	NULL,
-	sysdate
-	)		
-	</insert>
+
+	<insert id="yhsInsertAsk" parameterType="Ask">
+		INSERT INTO BOARD_ADMIN (USER_NO,
+								ADMIN_NO,
+								ADMIN_DATE,
+								ADMIN_TITLE,
+								ADMIN_CONTENT,
+								ADMIN_START,
+								admin_reply_group,					
+								ADMIN_REPLY_CHK)
+		VALUES (#{userNo},SEQ_ASK.NEXTVAL, sysdate,#{ADMIN_TITLE},#{ADMIN_CONTENT},sysdate,0,0)
+		 </insert>
+
     
 </mapper>

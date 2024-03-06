@@ -45,20 +45,19 @@ public class AskServiceImpl implements AskService {
 		return askContent;
 	}
 
-	public int askForm(String boardtype) {
-		System.out.println("AskServiceImpl askForm Start...");
-		int askForm = askDao.askForm(boardtype);
-		
-		System.out.println("AskServiceImpl askForm -> " + askForm);
-		return askForm;
-	}
-
 	public List<Ask> askListSearch(Ask ask) {	
 		 List<Ask> askListSearch = null;
 		 System.out.println("LslServiceImpl boardFreeSearch Start...");
 		  askListSearch = askDao.askListSearch(ask);
 		  System.out.println("EmpServiceImpl boardFreeSearch.size() ->"+askListSearch.size());
 		 return askListSearch;
+	}
+
+	public int insertAsk(Ask ask) {
+		int result = 0;
+		System.out.println("AskServiceImpl insertAsk start...");
+		result = askDao.insertAsk(ask);
+		return result;
 	}
 
 	}

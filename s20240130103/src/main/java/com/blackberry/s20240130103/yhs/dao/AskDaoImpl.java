@@ -53,16 +53,7 @@ public class AskDaoImpl implements AskDao {
 	 System.out.println("AskDaoImpl askContent -> " + askContent); 
 	 return askContent; 
 	 }
-
-	@Override
-	public int askForm(String boardtype) {
-		System.out.println("AskDaoImpl AskForm Start...");
-		
-		int askForm = session.insert("askForm", boardtype);
-	
-		return askForm;
-	}
-
+	 
 	@Override
 	public List<Ask> askListSearch(Ask ask) {
 		List<Ask> askListSearch = null;
@@ -74,6 +65,19 @@ public class AskDaoImpl implements AskDao {
 			System.out.println("AskDaoImpl askListSearch Exception ->" + e.getMessage());
 		}
 		return askListSearch;
+	}
+
+	@Override
+	public int insertAsk(Ask ask) {
+		int result = 0;
+		System.out.println("AskDaoImpl insert Start..." );
+		System.out.println("AskDaoImpl insert ask->" + ask);
+		try {
+			result = session.insert("yhsInsertAsk",ask);
+		} catch (Exception e) {
+			System.out.println("AskDaoImpl insert Exception->"+e.getMessage());
+		}
+		return result;
 	}
 	 
 }

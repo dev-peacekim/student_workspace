@@ -94,40 +94,55 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">문의사항 작성하기</h5>
-
+              <c:if test="${msg!=null}">${msg}</c:if>
               <!-- General Form Elements -->
-              <form>
-                <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">제목</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">첨부파일</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
-                  </div>	
-                </div>
-                <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 453px"></textarea>
-                  </div>
-                </div>             
-                  	<div class="floatright">
-                  		<button type="submit" class="btn btn-primary">
-                    <a href="ask">등록</a></button>
-                  	</div>
+						<form action="askWrite" method="post" name="frm">
+							<!--             
+        <input tag hidden Ask(user_no=0, admin_no=0, admin_date=null, admin_title=12, admin_content=null, admin_start=null, admin_reply_group=0, admin_reply_chk=0, search=null, keyword=null, pageNum=null, start=0, end=0, currentPage=null, user_nic=null, user_id=null, user_name=null, boardtype=null)
+         -->
 
-              </form><!-- End General Form Elements -->
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">제목</label>
+								<div class="col-sm-10">
+									<!-- <input type="text" class="form-control"> -->
+									<input type="text" class="form-control" name="admin_title"
+										value="${BOARD_ADMIN.admin_title}" required="required"
+										onclick="chk()">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" name="admin_content"
+										value="${BOARD_ADMIN.admin_content}" style="height: 453px"></textarea>
+								</div>
+							</div>
+							<div class="floatright">
+								<button type="submit" class="btn btn-primary">글작성</button>
+								<!-- 	<a href="ask">글작성 kkk</a></button>     -->
+							</div>
 
-            </div>
+						</form>
+						<!-- End General Form Elements -->
+
+					</div>
           </div>
 
         </div>
     </section>
 	</main>
+	
+	<!-- <script type="text/javascript">
+	function chk() {
+		alert('chk Start...');
+		if (!frm.admin_title.value) {
+			alert("제목을 입력한 후에 확인하세요");
+			frm.admin_title.focus();
+			return false;
+		} else location.href="confirm?admin_title="+frm.admin_title.value;
+	} -->
+
+</script>
     
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>

@@ -13,7 +13,6 @@ public interface AskService {
 	
 	Ask askContent(String admin_title);
 	
+	int insertAsk(Ask ask);
 	
-	
-
 }
