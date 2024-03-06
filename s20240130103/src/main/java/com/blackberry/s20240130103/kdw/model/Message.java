@@ -23,6 +23,7 @@ public class Message {
     private MultipartFile[] files;
     // 멀티 파일 다운로드 정보용
     private List<MessageFile> fileMsgs;
+    
     // 검색용
 	private String keyword; // 검색 키워드
 	private String type; // 검색 타입

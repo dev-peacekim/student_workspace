@@ -45,6 +45,12 @@ public interface MsgDao {
 	// !! 파일 업로드 !! 저장 처리
 	void saveMessageFile(MessageFile messageFile);
 	
+	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
+	// 파일이 첨부된 쪽지 목록 리스트 불러오기
+	Message getMessagesWithFiles(Message message);
+	// 첨부파일 상세정보
+	MessageFile getFileDetail(MessageFile messageFile);
+	
 	// ========= !! 검색기능 !! ========
 	
 	// ========== 받은 쪽지함 검색기능 ===========
@@ -70,10 +76,10 @@ public interface MsgDao {
 	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
 	// 검색한 쪽지리스트
 	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
+
+
 	
-	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
-	// 파일이 첨부된 쪽지 목록 리스트 불러오기
-	List<Message> getMessagesWithFiles(Message message);
+
 
 	
 

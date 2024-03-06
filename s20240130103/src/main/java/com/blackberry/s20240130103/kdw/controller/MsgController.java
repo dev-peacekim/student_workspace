@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.Message;
+import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.kdw.service.MsgPaging;
 import com.blackberry.s20240130103.kdw.service.MsgService;
 import com.blackberry.s20240130103.lhs.model.User;
@@ -247,11 +249,35 @@ public class MsgController {
         // 쪽지 읽기 페이지로 이동
         return "kdw/msgReadSent";
     }
-    
-    
+    /* ========== 다운로드 기능 =========== */
+    // 파일첨부가된 쪽지 리스트(Message 모델에 List<MessageFile> fileMsgs에 저장
+	@GetMapping(value = "getMessagesWithFiles")
+	public String getMessagesWithFiles(Message message, Model model) {
+		log.info("MsgController getMessagesWithFiles start...");
+	    
+		message = msgService.getMessagesWithFiles(message);
+	    log.info("MsgController getMessagesWithFiles message => " + message);
+	    model.addAttribute("message", message);
+	    
+	    return "kdw/msgReadReceived";
+	}
+	// 파일 다운을 관리메서드
+	@GetMapping("/fileDown/{path}")
+	public String fileDown(@PathVariable("path") String path, Model model) throws Exception {
+	    log.info("=====================================");
+	    log.info("path => {}", path);
+
+	    MessageFile getFileDetail = msgService.getFileDetail(new MessageFile());
+	    log.info("noticeFIleVO =>{}", getFileDetail);
+
+	    model.addAttribute("getFileDetail", getFileDetail);
+	    model.addAttribute("path", path);
+
+	    return "FileManager";
+	}
+	
+	
     /* ========== 버튼 기능 구현 =========== */
-    
-    
     // 쪽지쓰기 페이지로 이동(쪽지쓰기 버튼)
     @GetMapping(value = "msgWrite")
     public String msgWritePage(HttpServletRequest request, Model model) {
@@ -289,24 +315,6 @@ public class MsgController {
     }
     
     
-	/*
-	 * // 멀티 파일 다운로드
-	 * 
-	 * @GetMapping("/download") public String downloadFile(@PathVariable("fileId")
-	 * Long fileId, Model model, HttpServletRequest request) { // 파일이 첨부되어있는 쪽지리스트
-	 * 불러오기 String fileName = msgService.getFileNameByFileNo(fileId);
-	 * 
-	 * // 파일 경로 설정 String filePath =
-	 * request.getSession().getServletContext().getRealPath("/upload/msgFile/"); //
-	 * 실제 파일이 저장된 경로로 변경
-	 * 
-	 * File file = new File(filePath, fileName);
-	 * 
-	 * // 모델에 파일 정보 추가 model.addAttribute("file", file);
-	 * model.addAttribute("originalFileName", fileName);
-	 * 
-	 * // 다운로드 뷰로 리다이렉트 return "kdw/msgReadReceived"; }
-	 */
     
     // 답장쓰기 버튼 -> 답장쓰기 View 이동
     @GetMapping(value = "msgReply")

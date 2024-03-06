@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.Message;
+import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.lhs.model.User;
 
 public interface MsgService {
@@ -45,7 +46,13 @@ public interface MsgService {
 	void permanentDeleteMessages(List<Long> msgNos);
 	// 쪽지 보내기 (파일 업로드 포함)
 	void sendMsg(Message message, MultipartFile[] files, String path);
-
+	
+	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
+	// 파일이 첨부된 쪽지 목록 리스트 불러오기
+	Message getMessagesWithFiles(Message message);
+	// 파일 상세 
+	MessageFile getFileDetail(MessageFile messageFile);
+	
 	// ========= !! 검색기능 !! ========
 
 	// ======= 받은쪽지함 검색 =======
@@ -70,10 +77,10 @@ public interface MsgService {
 	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
 	// 검색한 리스트
 	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
+
+
 	
-	// ======== 쪽지에 첨부된 파일 다운로드 기능 ========
-	// 파일이 첨부된 쪽지 목록 리스트 불러오기
-	List<Message> getMessagesWithFiles(Message message);
+
 
 	
 

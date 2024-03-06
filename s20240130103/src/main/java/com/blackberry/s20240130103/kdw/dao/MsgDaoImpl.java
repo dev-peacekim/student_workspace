@@ -268,8 +268,34 @@ public class MsgDaoImpl implements MsgDao {
             e.printStackTrace();
         }
     }
-    
-    
+	// 파일이 첨부된 쪽지리스트 불러오기
+	@Override
+	public Message getMessagesWithFiles(Message message) {
+	    log.info("MsgDaoImpl getMessagesWithFiles start...");
+	    Message getMessagesWithFiles = null;
+	    try {
+	        getMessagesWithFiles = session.selectOne("kdwGetMessagesWithFiles", message);
+	    } catch (Exception e) {
+	        log.error("Error getting messages with files: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return getMessagesWithFiles;
+	}
+	// 첨부 파일 상세 정보
+	@Override
+	public MessageFile getFileDetail(MessageFile messageFile) {
+	    log.info("MsgDaoImpl getFileDetail start...");
+	    MessageFile getFileDetail = null;
+	    try {
+	    	getFileDetail = session.selectOne("kdwGetFileDetail", messageFile);
+	    	System.out.println("MsgDaoImpl getFileDetail success: " + messageFile);
+	    } catch (Exception e) {
+	        log.error("Error getting messages with files: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return getFileDetail;
+	}
+	
     // ========== 검색 기능 구현 ==========
     // ======= 받은 쪽지함 검색기능 ======
     // 검색된 쪽지 개수
@@ -427,20 +453,9 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultMessages;
 	}
-	// 파일이 첨부된 쪽지리스트 불러오기
-	@Override
-	public List<Message> getMessagesWithFiles(Message message) {
-	    log.info("MsgDaoImpl getMessagesWithFiles start...");
-	    List<Message> getMessagesWithFiles = null;
 
-	    try {
-	        getMessagesWithFiles = session.selectList("kdwGetMessagesWithFiles", message);
-	    } catch (Exception e) {
-	        log.error("Error getting messages with files: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-	    return getMessagesWithFiles;
-	}
+
+
 
 
 

@@ -219,6 +219,23 @@ public class MsgServiceImpl implements MsgService {
 		return fileName;
 	}
 	
+	// =========== 첨부 파일 다운로드 ============
+	// 파일 첨부된 쪽지들 리스트 불러오기
+    @Override
+    public Message getMessagesWithFiles(Message message) {
+        log.info("MsgServiceImpl getMessagesWithFiles start...");
+        Message messagesWithFiles = msgDao.getMessagesWithFiles(message);
+        log.info("MsgServiceImpl getMessagesWithFiles messagesWithFiles size: " + messagesWithFiles);
+        return messagesWithFiles;
+    }
+	// 첨부파일 상세정보
+	@Override
+	public MessageFile getFileDetail(MessageFile messageFile) {
+        log.info("MsgServiceImpl getFileDetail start...");
+        MessageFile fileDetail = msgDao.getFileDetail(messageFile);
+        log.info("MsgServiceImpl getFileDetail fileDetail: " + fileDetail);
+        return fileDetail;
+	}
 	
 	// ======== 받은 쪽지함 검색기능 ========
 	// 받은 쪽지함 검색기능
@@ -289,17 +306,10 @@ public class MsgServiceImpl implements MsgService {
 	    System.out.println("MsgServiceImpl searchTrashMsgList.size(): " + searchTrashMsgList.size());
 	    return searchTrashMsgList;
 	}
+
+
 	
 	
-	// =========== 첨부 파일 다운로드 ============
-	// 파일 첨부된 쪽지들 리스트 불러오기
-    @Override
-    public List<Message> getMessagesWithFiles(Message message) {
-        log.info("MsgServiceImpl getMessagesWithFiles start...");
-        List<Message> messagesWithFiles = msgDao.getMessagesWithFiles(message);
-        log.info("MsgServiceImpl getMessagesWithFiles messagesWithFiles size: " + messagesWithFiles.size());
-        return messagesWithFiles;
-    }
-	
+
 	
 }

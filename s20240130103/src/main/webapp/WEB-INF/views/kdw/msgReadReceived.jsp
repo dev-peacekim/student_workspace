@@ -47,40 +47,6 @@
 
 <script type="text/javascript">
 
-	// 파일 다운로드 링크를 클릭할 때의 동작을 설정하는 함수
-	function downloadFile(fileId) {
-	    window.location.href = `/download/${fileId}`;
-	}
-	
-	// 서버에서 받은 응답(response)를 기반으로 파일 목록을 동적으로 생성하는 함수
-	function renderFileList(response) {
-	    let fileHtml = '<div class="file-attachment"><ul class="list-unstyled">';
-	    response.forEach(row => {
-	        fileHtml += `<li onclick="downloadFile(${row.id})"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</li>`;
-	    });
-	    fileHtml += '</ul></div>';
-	
-	    // 생성된 HTML을 files 요소에 추가
-	    document.getElementById('files').innerHTML = fileHtml;
-	}
-	
-	// 서버로부터 파일 목록을 가져오는 비동기 함수
-	async function fetchFileList(postId) {
-	    try {
-	        const response = await fetch(`/posts/${postId}/files`);
-	        const data = await response.json();
-	
-	        // 파일 목록을 화면에 표시
-	        renderFileList(data);
-	    } catch (error) {
-	        console.error('Error fetching file list:', error);
-	    }
-	}
-	
-	// 페이지 로딩 시 파일 목록을 불러오도록 설정
-	const postId = /* 여기에 해당 게시물의 ID를 동적으로 설정 */;
-	fetchFileList(postId);
-	
 </script>
 </head>
 
@@ -170,12 +136,14 @@
 						<!-- Attachments 파일첨부 -->
 						<div class="form-group">
 						    <div class="mb-3">
-						        <div class="file-attachment">
-						            <ul id="files" class="list-unstyled">
-						                <!-- 여기에 첨부 파일 정보가 동적으로 추가될 것입니다. -->
-						            </ul>
-						        </div>
-						    </div>
+								<div class="file-attachment">
+									<div id="files">
+									    <c:forEach items="${message.fileMsgs}" var="fileMsg">
+									        <a href="/fileDown/upload/msgFile?msg_file_cnt=${fileMsg.msg_file_cnt}">${fileMsg.msg_file_user_name}</a>
+									    </c:forEach>
+									</div>
+								</div>
+							</div>
 						</div>
 						<!-- Content -->
 						<div class="form-group">
