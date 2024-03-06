@@ -261,7 +261,7 @@ public class MsgController {
     
     
     /* ========== 다운로드 기능 =========== */
-	// 파일 상세정보 조회
+	// 파일 상세정보 조회와 다운로드
 	@GetMapping("/downloadFile")
 	public void downloadFile(@RequestParam("msgNo") Long msgNo, @RequestParam("fileCnt") int fileCnt, HttpServletRequest request, HttpServletResponse response) {
 		

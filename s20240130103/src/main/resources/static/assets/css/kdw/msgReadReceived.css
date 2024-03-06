@@ -185,7 +185,28 @@ body {
     display: flex;
     align-items: center;
 	}
+	
+/* 첨부파일 앞에 파일 아이콘 */
+.file_icon {
+    width: 26px; /* 아이콘의 너비 */
+    height: 30px; /* 아이콘의 높이 */
+    vertical-align: middle; /* 수직 정렬 */
+}
 
+.file-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.file-link {
+    flex: 0 0 calc(33.33% - 20px); /* 가로로 3개씩 나열 */
+    margin-right: 20px; /* 각 링크 사이의 간격 조절 */
+    margin-bottom: 10px; /* 다음 줄과의 간격 조절 */
+    text-decoration: none; /* 밑줄 제거 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 말줄임표 추가 */
+}
 
 
 

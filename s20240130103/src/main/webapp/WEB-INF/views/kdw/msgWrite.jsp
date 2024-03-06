@@ -85,11 +85,86 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
 }); // 건들지말것
+
 	// 선택한 유저 인풋창에 박기
 	function selectReceiver(userNo, userNic, userName) {
 		var selectedUserInfo = userNo;
 		document.getElementById('receiverInput').value = selectedUserInfo;
 	}
+	
+	document.addEventListener('DOMContentLoaded', function() {
+	    var dropZone = document.getElementById('drop_zone');
+	    var fileList = document.getElementById('fileList');
+	    var filesInput = document.getElementById('files');
+	    var initialMessage = document.getElementById('initial_message');
+	    var fileListBar = document.getElementById('file_list_bar');
+	    var deleteAllBtn = document.getElementById('delete_all');
+
+	    // 파일 목록을 관리하기 위한 배열
+	    var filesArray = [];
+
+	    function updateUIForFiles() {
+	        fileList.innerHTML = ''; // 기존 목록 초기화
+	        if (filesArray.length > 0) {
+	            initialMessage.style.display = 'none';
+	            fileListBar.style.display = 'flex';
+	            // 파일 목록 표시
+	            filesArray.forEach(file => {
+	                fileList.appendChild(createFileListItem(file));
+	            });
+	        } else {
+	            initialMessage.style.display = 'block';
+	            fileListBar.style.display = 'none';
+	        }
+	    }
+
+	    function createFileListItem(file) {
+	        var li = document.createElement('li');
+	        li.className = 'file-list-item';
+	        var fileNameSpan = document.createElement('span');
+	        fileNameSpan.textContent = file.name;
+	        var fileSizeSpan = document.createElement('span');
+	        fileSizeSpan.textContent = (file.size / 1024).toFixed(2) + ' KB';
+	        var deleteBtnSpan = document.createElement('span');
+	        deleteBtnSpan.textContent = 'X';
+	        deleteBtnSpan.style.cursor = 'pointer';
+	        deleteBtnSpan.onclick = function() {
+	            filesArray = filesArray.filter(f => f !== file); // 파일 배열에서 제거
+	            updateUIForFiles(); // UI 업데이트
+	        };
+
+	        li.appendChild(fileNameSpan);
+	        li.appendChild(fileSizeSpan);
+	        li.appendChild(deleteBtnSpan);
+	        return li;
+	    }
+
+	    function handleFiles(files) {
+	        Array.from(files).forEach(file => filesArray.push(file)); // 파일 배열에 추가
+	        updateUIForFiles(); // UI 업데이트
+	    }
+
+	    dropZone.addEventListener('dragover', function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        e.dataTransfer.dropEffect = 'copy';
+	    });
+
+	    dropZone.addEventListener('drop', function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        handleFiles(e.dataTransfer.files);
+	    });
+
+	    filesInput.addEventListener('change', function(e) {
+	        handleFiles(e.target.files);
+	    });
+
+	    deleteAllBtn.addEventListener('click', function() {
+	        filesArray = []; // 파일 배열 초기화
+	        updateUIForFiles(); // UI 업데이트
+	    });
+	});
 </script>
 
 </head>
@@ -183,27 +258,28 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 						<!-- 첨부파일 -->
 						<div class="form-group">
-						    <div class="mb-3">
-						        <div class="file-form-control">
-						            <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
-						        </div>
-						        <div class="file_drag">
-						            <div class="file_list_header">
-						                <div class="file_list_header_task">
-						                    <button type="button" class="button_svg_delete">
-						                        <span class="blind">전체 삭제</span>
-						                    </button>
-						                </div>
-						                <div class="file_list_header_title">
-						                    <span class="text">파일명</span>
-						                </div>
-						                <div class="file_list_header_volume">
-						                    <span class="text">용량</span><span id="fileSize">0</span>
-						                </div>
-						            </div>
-						            <ul id="fileList"></ul>
-						        </div>
-						    </div>
+							<div class="mb-3">
+								<div class="file-form-control">
+									<!-- 파일 선택 input, 다중 선택 가능 -->
+									<input type="file" name="files" id="files"
+										class="files form-control form-control-sm" multiple>
+								</div>
+								<!-- 드래그 앤 드롭 영역 -->
+								<div id="drop_zone" class="file_drag"
+									style="min-height: 145px; overflow: auto;">
+									<!-- 초기 안내 문구 -->
+									<div id="initial_message" style="margin-top: 45px;">여기에
+										파일을 드래그하세요.</div>
+									<!-- 파일 목록 상단 바, 초기에는 숨김 처리 -->
+									<div id="file_list_bar" class="file-list-bar"
+										style="display: none;">
+										<span>파일명</span> <span>용량</span> <span id="delete_all"
+											style="cursor: pointer;">X</span>
+									</div>
+									<!-- 업로드된 파일 목록 -->
+									<ul id="fileList" class="file-list" ></ul>
+								</div>
+							</div>
 						</div>
 						<!-- 내용 -->
 						<div class="form-group">
