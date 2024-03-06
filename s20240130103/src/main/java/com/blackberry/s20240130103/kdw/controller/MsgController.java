@@ -288,19 +288,6 @@ public class MsgController {
         return "kdw/msgSent";
     }
     
-    // 파일이 첨부된 쪽지 목록 조회
-    @GetMapping(value = "msgReadReceived")
-    public String getMessagesWithFiles(Message message, Model model) {
-        System.out.println("MsgController getMessagesWithFiles Start");
-        
-        List<Message> messagesWithFiles = msgService.getMessagesWithFiles(message);
-        
-        System.out.println("MsgController getMessagesWithFiles messagesWithFiles.size() : " + messagesWithFiles.size());
-        model.addAttribute("messagesWithFiles", messagesWithFiles);
-        
-        return "kdw/msgReadReceived";
-    }
-    
     
 	/*
 	 * // 멀티 파일 다운로드
