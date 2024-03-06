@@ -19,7 +19,9 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
@@ -35,11 +37,14 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet" type="text/css">
-<link href="assets/css/lhs/taskMain.css" rel="stylesheet" type="text/css">
+<link href="assets/css/lhs/taskMain.css" rel="stylesheet"
+	type="text/css">
 <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
 
-<script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/0b22ed6a9d.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -57,17 +62,18 @@
 			<div class="main-mindiv">
 				<div class="main-top">
 					<div class="top-btnsdiv">
-						<button type="button" class="btn wid150 bg-blue fnt-nanum cl-white">
-							프로젝트 홈
-						</button>
-						<button type="button" class="btn wid150 bg-blue fnt-nanum cl-white">
-							프로젝트 게시판
-						</button>
+						<button type="button"
+							class="btn top-btn bg-blue fnt-nanum cl-white">
+							프로젝트 홈</button>
+						<button type="button"
+							class="btn top-btn bg-blue fnt-nanum cl-white">
+							프로젝트 게시판</button>
 					</div>
 					<div class="main-top-right">
-						<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							팀원목록
-						</button>
+						<button type="button"
+							class="btn btn-outline-secondary dropdown-toggle border0"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							팀원목록</button>
 						<ul class="dropdown-menu">
 							<li class="dropdown-item">이한수</li>
 							<li class="dropdown-item">김평화</li>
@@ -77,7 +83,8 @@
 							<li class="dropdown-item">유경미</li>
 						</ul>
 						<a href="#">
-							<button type="button" class="btn btn-outline-dark fl-right">
+							<button type="button"
+								class="btn btn-outline-dark fl-right bordergray">
 								<i class="bi bi-gear-fill"></i>
 							</button>
 						</a>
@@ -89,7 +96,7 @@
 							<div class="main-side-top-title fnt-nanum">과업목록</div>
 							<div class="main-side-top-btn">
 								<a href="#">
-									<button type="button" class="btn bg-blue cl-white plus-btn">
+									<button type="button" class="btn bg-realblue cl-white plus-btn">
 										<i class="bi bi-plus"></i>
 									</button>
 								</a>
@@ -102,13 +109,14 @@
 									<div class="fnt-nanum mid-content-title">[시장조사]온라인 자료 조사
 										및 취합</div>
 									<div>
-										<button class="btn btn-outline-secondary border0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-										</button>
+										<button
+											class="btn btn-outline-secondary border0 dropdown-toggle"
+											data-bs-toggle="dropdown" aria-expanded="false"></button>
 										<ul class="dropdown-menu">
-											<a href="#">
+											<a href="">
 												<li class="dropdown-item">더보기리그</li>
 											</a>
-											<a href="#">
+											<a href="">
 												<li class="dropdown-item">1등첼시</li>
 											</a>
 										</ul>
