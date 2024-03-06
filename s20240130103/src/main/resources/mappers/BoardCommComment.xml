@@ -14,11 +14,11 @@
 		VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, 1, 1, 1, #{cboard_no}, #{user_no}, 0, sysdate)
 	</insert>
 
-	<delete id="YkmDeleteComment" parameterType="int">
-		DELETE
-		FROM BOARD_COMM_REPLY
+	<update id="YkmDeleteComment" parameterType="int">
+		UPDATE BOARD_COMM_REPLY
+		SET CREPLY_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
 		WHERE CREPLY_NO = #{creply_no}
-	</delete>
+	</update>
 	
 	<update id="YkmUpdateComment" parameterType="YkmBoardCommReply">
 		UPDATE BOARD_COMM_REPLY

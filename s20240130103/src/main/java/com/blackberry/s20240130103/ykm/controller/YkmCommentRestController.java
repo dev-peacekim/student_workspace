@@ -20,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class YkmBoardReplyRestController {
+public class YkmCommentRestController {
 
 	private final YkmService ykmService;
 	
+	// 로그인 한 유저 정보
 	@GetMapping("/userNo")
 	public Long getUserNo(HttpServletRequest request) {
 		return (Long)request.getSession().getAttribute("user_no");
@@ -58,15 +59,9 @@ public class YkmBoardReplyRestController {
 		return result;
 	}
 	
+	
+	
 	/*
-	 게시물 : post 
-	 PostService, PostServiceImpl, PostDao, PostDaoImpl, PostController
-	 getPostList : 게시물 목록 가져오기 
-	 getPost : 게시물 한건 가져오기
-	 writePost : 게시물 등록
-	 deletePost : 게시물 삭제
-	 updatePost : 게시물 수정
-	 
 	 댓글 : comment
 	 CommentService, CommentServiceImpl, CommentDao, CommentDaoImpl, CommentController
 	 getCommentList
@@ -74,7 +69,6 @@ public class YkmBoardReplyRestController {
 	 writeComment
 	 deleteComment
 	 updateComment
-	 
 	 */
 
 }

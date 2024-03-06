@@ -18,7 +18,7 @@
 <script defer src="assets/js/main.js"></script>
 
 <!-- Reply JS File -->
-<script defer src="assets/js/ykm/reply.js"></script>
+<script defer src="assets/js/ykm/comment.js"></script>
 
 <!-- Confirm Pop-up JS File -->
 <script defer src="assets/js/ykm/confirmPopup.js"></script>

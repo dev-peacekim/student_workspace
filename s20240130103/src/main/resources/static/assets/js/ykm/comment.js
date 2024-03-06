@@ -46,13 +46,8 @@ function updateReplyView(data) {
         const ampm = hour >= 12 ? '오후' : '오전';
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;		
-<<<<<<< HEAD
                         
 		replyList += `<div class="comment-card">
-=======
-		
-	replyList += `<div class="comment-card">
->>>>>>> branch 'master' of https://github.com/dlgkstnrn/s20240130103_2.git
 		<div class="comment-header">
 			<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 			<div class="comment-user-container">
@@ -68,7 +63,7 @@ function updateReplyView(data) {
 				</button>
 				<div class="replyBtn badge bg-light text-dark">
 					<i class="bi bi-reply-fill"></i>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<div class="comment-body input-group">
@@ -79,29 +74,11 @@ function updateReplyView(data) {
 
 	`;
 	});
+	
+	// 추가된 부분: 버튼 상태 업데이트
+    buttonStatus(commentData);
 	document.querySelector('#replyContainer').innerHTML = replyList;
 	
-}
-
-// 수정 및 삭제 버튼 상태 변경
-function buttonStatus(commentData) {
-    const modifyButton = document.querySelector('.modifyComment');
-    const deleteButton = document.querySelector('.deleteComment');
-
-    if (commentData.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
-        modifyButton.style.display = 'inline'; // 수정 버튼 표시
-        deleteButton.style.display = 'inline'; // 삭제 버튼 표시
-    } else {
-        modifyButton.style.display = 'none'; // 수정 버튼 숨김
-        deleteButton.style.display = 'none'; // 삭제 버튼 숨김
-    }
-}
-
-// 수정 이벤트
-function enableInput() {
-	var inputElement = document.querySelector('.comment-body input[type="text"]');
-	var checkElement = document.querySelector('.comment-body .check');
-	inputElement.removeAttribute('disabled');
 }
 
 
@@ -144,6 +121,28 @@ function writeComment(commentData) {
 	.catch(error => {
 			console.log('댓글 등록 오류 발생!', error);
 		});
+}
+
+
+// 수정 및 삭제 버튼 상태 변경
+function buttonStatus(commentData) {
+    const modifyButton = document.querySelector('.modifyComment');
+    const deleteButton = document.querySelector('.deleteComment');
+
+    if (commentData.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
+        modifyButton.style.display = 'inline'; // 수정 버튼 표시
+        deleteButton.style.display = 'inline'; // 삭제 버튼 표시
+    } else {
+        modifyButton.style.display = 'none'; // 수정 버튼 숨김
+        deleteButton.style.display = 'none'; // 삭제 버튼 숨김
+    }
+}
+
+// 수정 이벤트
+function enableInput() {
+	var inputElement = document.querySelector('.comment-body input[type="text"]');
+	var checkElement = document.querySelector('.comment-body .check');
+	inputElement.removeAttribute('disabled');
 }
 
 // 댓글 수정
