@@ -137,11 +137,12 @@
 						<div class="form-group">
 						    <div class="mb-3">
 								<div class="file-attachment">
-									<div id="files">
-									    <c:forEach items="${message.fileMsgs}" var="fileMsg">
-									        <a href="/fileDown/upload/msgFile?msg_file_cnt=${fileMsg.msg_file_cnt}">${fileMsg.msg_file_user_name}</a>
-									    </c:forEach>
-									</div>
+						            <div id="files">
+						                <c:forEach items="${fileMsgs}" var="fileMsgs">
+						                    <a href="/downloadFile?msgNo=${fileMsgs.msg_no}&fileCnt=${fileMsgs.msg_file_cnt}" 
+						                    	target="_blank">${fileMsgs.msg_file_user_name}</a><br/>
+						                </c:forEach>
+						            </div>
 								</div>
 							</div>
 						</div>

@@ -268,30 +268,32 @@ public class MsgDaoImpl implements MsgDao {
             e.printStackTrace();
         }
     }
-	// 파일이 첨부된 쪽지리스트 불러오기
-	@Override
-	public Message getMessagesWithFiles(Message message) {
-	    log.info("MsgDaoImpl getMessagesWithFiles start...");
-	    Message getMessagesWithFiles = null;
-	    try {
-	        getMessagesWithFiles = session.selectOne("kdwGetMessagesWithFiles", message);
-	    } catch (Exception e) {
-	        log.error("Error getting messages with files: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-	    return getMessagesWithFiles;
-	}
+    // 쪽지에 첨부된 모든 파일 정보 가져오기
+    @Override
+    public List<MessageFile> getMessageFiles(Long msgNo) {
+        log.info("MsgDaoImpl getMessageFiles start...");
+        List<MessageFile> files = null;
+        try {
+            files = session.selectList("kdwGetMessagesWithFiles", msgNo);
+        } catch (Exception e) {
+            log.error("Error getting messages with files: {}", e.getMessage());
+            e.printStackTrace();
+        }
+        return files;
+    }
 	// 첨부 파일 상세 정보
 	@Override
-	public MessageFile getFileDetail(MessageFile messageFile) {
+	public MessageFile getFileDetail(Long msgNo, int fileCnt) {
 	    log.info("MsgDaoImpl getFileDetail start...");
 	    MessageFile getFileDetail = null;
 	    try {
-	    	getFileDetail = session.selectOne("kdwGetFileDetail", messageFile);
-	    	System.out.println("MsgDaoImpl getFileDetail success: " + messageFile);
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("msgNo", msgNo);
+	        params.put("fileCnt", fileCnt);
+	        getFileDetail = session.selectOne("kdwGetFileDetail", params);
+	        log.info("MsgDaoImpl getFileDetail success: {}", getFileDetail);
 	    } catch (Exception e) {
-	        log.error("Error getting messages with files: " + e.getMessage());
-	        e.printStackTrace();
+	        log.error("Error getting file detail: {}", e.getMessage(), e);
 	    }
 	    return getFileDetail;
 	}

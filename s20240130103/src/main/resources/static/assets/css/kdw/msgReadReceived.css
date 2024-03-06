@@ -178,20 +178,16 @@ body {
 .mb-3 {
     width: 100%;
     margin-top: 20px;
-}
+    border: 1px solid red;
+    }
 
 .file-attachment {
     display: flex;
     align-items: center;
-}
+	}
 
-.file-attachment .form-control {
-    border-color: #ced4da;
-}
 
-.file-attachment .fa-file-circle-plus {
-    margin-right: 10px;
-}
+
 
 /* Content Group Style */
 .form-group .content-group {

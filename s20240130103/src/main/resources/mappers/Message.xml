@@ -206,19 +206,22 @@
 		WHERE msg_no = #{msg_no})
 		)
 	</insert>
+	
+	
 	<!-- !! 파일 다운로드 기능 !! -->
-	<!-- 파일첨부된 쪽지목록 -->
-    <select id="kdwGetMessagesWithFiles" resultType="KdwMessage">
-        SELECT m.*, mf.msg_file_cnt, mf.msg_file_name, mf.msg_file_user_name
-        FROM message m, message_file mf
-        WHERE m.msg_no = mf.msg_no(+)
-        AND m.msg_no = #{msg_no}
-    </select>
-	<select id="kdwGetFileDetail" resultType="KdwMessageFile">
-        SELECT *
-        FROM message_file
-        WHERE msg_no = #{msg_no}
-    </select>
+    <!-- 파일첨부된 쪽지의 모든 파일 정보 가져오기 -->
+	<select id="kdwGetMessagesWithFiles" resultType="KdwMessageFile">
+	    SELECT msg_no, msg_file_cnt, msg_file_name, msg_file_user_name
+	    FROM message_file
+	    WHERE msg_no = #{msg_no}
+	</select>
+
+	<!-- 파일 상세 정보 조회 -->
+	<select id="kdwGetFileDetail" parameterType="KdwMessageFile" resultType="KdwMessageFile">
+	    SELECT msg_no, msg_file_cnt, msg_file_name, msg_file_user_name
+	    FROM message_file
+	    WHERE msg_no = #{msgNo} AND msg_file_cnt = #{fileCnt}
+	</select>
     
     
     

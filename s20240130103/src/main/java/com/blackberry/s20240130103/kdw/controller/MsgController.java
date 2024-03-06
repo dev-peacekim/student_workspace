@@ -1,13 +1,19 @@
 package com.blackberry.s20240130103.kdw.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -222,20 +228,23 @@ public class MsgController {
     
     // ========== 받은 쪽지 읽기 & 보낸 쪽지 읽기  ========== 
     
-    // 받은쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
+    // 받은 쪽지 읽기 및 첨부 파일 정보 불러오기
     @GetMapping(value = "msgReadReceived")
     public String readReceivedMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
         log.info("MsgController readReceivedMessage start...");
 
-        // msgNo를 사용하여 해당 쪽지 정보 가져오기 및 읽은 시간 업데이트
+        // msgNo를 사용하여 해당 쪽지 정보 및 첨부 파일 정보 가져오기
         Message receivedMessageInfo = msgService.getReceivedMessageByInfo(msgNo);
+        // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
+        List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo); 
 
         model.addAttribute("receivedMessageInfo", receivedMessageInfo);
-        log.info("MsgController readSentMessage receivedMessageInfo => " + receivedMessageInfo);
-        // 쪽지 읽기 페이지로 이동
+        model.addAttribute("fileMsgs", fileMsgs); // 첨부 파일 정보 모델에 추가
+
+        log.info("MsgController readReceivedMessage receivedMessageInfo => {}", receivedMessageInfo);
+        log.info("MsgController readReceivedMessage fileMsgs.size() => {}", fileMsgs.size());
         return "kdw/msgReadReceived";
     }
-    
     // 보낸쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
     @GetMapping(value = "msgReadSent")
     public String readSentMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
@@ -249,31 +258,40 @@ public class MsgController {
         // 쪽지 읽기 페이지로 이동
         return "kdw/msgReadSent";
     }
+    
+    
     /* ========== 다운로드 기능 =========== */
-    // 파일첨부가된 쪽지 리스트(Message 모델에 List<MessageFile> fileMsgs에 저장
-	@GetMapping(value = "getMessagesWithFiles")
-	public String getMessagesWithFiles(Message message, Model model) {
-		log.info("MsgController getMessagesWithFiles start...");
-	    
-		message = msgService.getMessagesWithFiles(message);
-	    log.info("MsgController getMessagesWithFiles message => " + message);
-	    model.addAttribute("message", message);
-	    
-	    return "kdw/msgReadReceived";
-	}
-	// 파일 다운을 관리메서드
-	@GetMapping("/fileDown/{path}")
-	public String fileDown(@PathVariable("path") String path, Model model) throws Exception {
-	    log.info("=====================================");
-	    log.info("path => {}", path);
+	// 파일 상세정보 조회
+	@GetMapping("/downloadFile")
+	public void downloadFile(@RequestParam("msgNo") Long msgNo, @RequestParam("fileCnt") int fileCnt, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("MsgController downloadFile msgNo: " + msgNo);
+		System.out.println("MsgController downloadFile fileCnt: " + fileCnt);
+		System.out.println("MsgController downloadFile request: " + request);
+		System.out.println("MsgController downloadFile response: " + response);
+	    try {
+	        MessageFile messageFile = msgService.getFileDetail(msgNo, fileCnt);
+	        if (messageFile != null) {
+	            // 파일의 실제 경로 설정
+	            String filePath = request.getSession().getServletContext().getRealPath("/upload/msgFile/") + messageFile.getMsg_file_name();
+	            File file = new File(filePath);
+	            if (file.exists()) {
+	                String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+	                if (mimeType == null) {
+	                    mimeType = "application/octet-stream";
+	                }
+	                
+	                response.setContentType(mimeType);
+	                response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(messageFile.getMsg_file_user_name(), "UTF-8") + "\"");
+	                response.setContentLength((int) file.length());
 
-	    MessageFile getFileDetail = msgService.getFileDetail(new MessageFile());
-	    log.info("noticeFIleVO =>{}", getFileDetail);
-
-	    model.addAttribute("getFileDetail", getFileDetail);
-	    model.addAttribute("path", path);
-
-	    return "FileManager";
+	                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+	                FileCopyUtils.copy(inputStream, response.getOutputStream());
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	
