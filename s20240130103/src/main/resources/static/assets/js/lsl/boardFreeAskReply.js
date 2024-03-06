@@ -24,7 +24,9 @@ function replyBoardFreeAskList(cboard_no) {
     fetch("/reply?cboard_no=" + cboard_no)
         .then(response => response.json())
         .then(data => {
-			console.log(data);
+			 data.forEach(comment => {
+                comment.creply_no = comment.creply_no; // 이 부분은 서버 응답에 따라 수정해야 함
+            });
             updateReplyList(data);
         })
         .catch(error => {
@@ -56,7 +58,7 @@ function  updateReplyList(data) {
             </div>
             <div class="re-btn-container">
              <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">수정</button>
-         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>    		
+         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}',  '${lslCommReply.creply_no}');">삭제</button>    		
                <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
             </div>
         </div>
@@ -82,18 +84,20 @@ submitBtn.addEventListener("click", function() {
 	const creply_content = document.getElementById('creply_content').value;
     const cboard_no = document.querySelector('input[name="cboard_no"]').value;
     const user_No = document.querySelector('input[name="user_no"]').value;
-    
-    
+	const creply_no = document.querySelector('input[name="creply_no"]').value;
+	 
     const replyData = {
 		cboard_no: cboard_no,
         user_no: user_No,
         creply_content: creply_content,
-     
+     	creply_no : creply_no
        
 	};
 	 console.log(replyData);
 	addComment(replyData);
 });
+
+
 
 // 댓글 등록 
 function addComment(replyData) {
@@ -122,19 +126,20 @@ function addComment(replyData) {
 
 
 // 댓글 삭제
-function deleteComment(replyData) {
-    fetch("/replys", {
-        method: "PUT",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(replyData)
+function deleteComment(cboard_no, creply_no) {
+    // AJAX 요청을 통해 댓글 삭제 API 호출
+    fetch(`/replys?cboard_no=${cboard_no}&creply_no=${creply_no}`, {
+        method: "PUT"
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        replyBoardFreeAskList(replyData); 
+        // 댓글 삭제 성공 여부에 따라 처리
+        if (data > 0) {
+            // 삭제 성공 시, 다시 댓글 리스트를 업데이트
+            replyBoardFreeAskList(cboard_no);
+        } else {
+            console.log('댓글 삭제에 실패했습니다!');
+        }
     })
     .catch(error => {
         console.log('댓글 삭제 오류 발생!', error);

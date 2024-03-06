@@ -40,10 +40,13 @@ public class LslRestController {
     	System.out.println("LslRestController replyBoardFreeList Start..");
 		List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
 		System.out.println("LslRestController replyBoardFreeList.size() ->" + replyBoardFreeAskList.size());
-		
-	
-	return replyBoardFreeAskList;
-   }
+		 // 댓글 목록에 댓글 번호를 추가
+        for (LslCommReply reply : replyBoardFreeAskList) {
+            reply.setCreply_no(reply.getCreply_no()); // 댓글 번호를 가져와서 설정
+        }
+        
+        return replyBoardFreeAskList;
+	   }
    
     
    //  게시판 댓글 등록 

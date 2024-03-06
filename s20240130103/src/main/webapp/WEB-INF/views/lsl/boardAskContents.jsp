@@ -103,8 +103,8 @@ window.onload = function() {
                 
                 <div class="boardPostComment">
 						<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}" /> 
-							<input type="hidden" name="user_no" value="${boarddAskContents.user_no}"> 
-							<input type="hidden" name="creply_no" value="" />
+							<input type="hidden" name="user_no" value="${boardAskContents.user_no}"> 
+							<input type="hidden" name="creply_no" value="${boardAskContents.creply_no}" />
                 <div class="comment-editor">
                     <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
                     <input type="text" name="comment" id="creply_content"
