@@ -16,6 +16,10 @@ public interface YkmBoardDao {
 	
 	int deletePost(int cboard_no);
 	
+	// int getViewCount(int cboard_no);
+	
+	int increseViewcount(int cboard_no);
+	
 	
 	
 	// 댓글
@@ -26,6 +30,9 @@ public interface YkmBoardDao {
 	int deleteComment(int creply_no);
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
+
+	
+
 
 
 	

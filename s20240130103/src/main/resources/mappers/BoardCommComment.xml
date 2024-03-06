@@ -11,22 +11,21 @@
 		ORDER BY BCR.CREPLY_DATE ASC
 	</select>
 	
-	<insert id="YkmWriteComment" parameterType="YkmBoardCommReply">
+	<insert id="ykmWriteComment" parameterType="YkmBoardCommReply">
 		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
 		VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, 1, 1, 1, #{cboard_no}, #{user_no}, 0, sysdate)
 	</insert>
 
-	<update id="YkmDeleteComment" parameterType="int">
+	<update id="ykmDeleteComment" parameterType="int">
 		UPDATE BOARD_COMM_REPLY
 		SET CREPLY_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
 		WHERE CREPLY_NO = #{creply_no}
 	</update>
 	
-	<update id="YkmUpdateComment" parameterType="YkmBoardCommReply">
+	<update id="ykmUpdateComment" parameterType="YkmBoardCommReply">
 		UPDATE BOARD_COMM_REPLY
 		SET CREPLY_CONTENT = #{creply_content}, COMM_UPDATE_DATE = sysdate
 		WHERE creply_no = #{creply_no}
 	</update>
-	
 
 </mapper>

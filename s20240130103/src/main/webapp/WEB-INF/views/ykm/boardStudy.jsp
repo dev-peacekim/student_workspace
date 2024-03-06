@@ -86,8 +86,8 @@
 										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>					
 									<td>${PostList.user_id}</td>
 									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
-									<td>${PostList.reply_cnt}</td>
 									<td>${PostList.cboard_viewcnt}</td>
+									<td>${PostList.reply_cnt}</td>
 								</tr>
 								<!-- <span class="recruited"></span> -->
 							</c:forEach>

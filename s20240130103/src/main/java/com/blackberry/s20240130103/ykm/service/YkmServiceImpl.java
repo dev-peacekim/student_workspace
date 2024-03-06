@@ -26,18 +26,19 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	
-	// 쌤! 카톡!!
-	
 	@Override
 	public List<YkmBoardComm> getPostList() {
 		System.out.println("YkmServiceImpl getPostList start---*");
 		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList();
+		
+		
+		/*
 		Iterator<YkmBoardComm> boardIter = getPostList.iterator();
 		while (boardIter.hasNext()) {
 			YkmBoardComm ykmBoardComm = boardIter.next();
-			// ykmBoardComm.setCboard_date(ykmBoardComm.getCboard_date().substring(0, 10));
 		}
+		*/
+		
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
@@ -47,6 +48,8 @@ public class YkmServiceImpl implements YkmService {
 		YkmBoardComm getPost = ykmBoardDao.getPost(cboard_no);
 		return getPost;
 	}
+	
+
 
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
@@ -64,8 +67,25 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl deletePost --> "+deletePost);
 		return deletePost;
 	}
+	
+	@Override
+	public int increseViewCount(int cboard_no) {
+		return ykmBoardDao.increseViewcount(cboard_no);
+	}
 
-
+	/* 이건 왜 있는지 나는 모르겠음
+	@Override
+	public int getViewCount(int cboard_no) {
+		System.out.println("YkmServiceImpl getViewCount start---*");
+		int getViewCount = ykmBoardDao.getViewCount(cboard_no);
+		System.out.println("YkmServiceImpl getViewCount --> "+ getViewCount);
+		return getViewCount;
+	}
+	*/
+	
+	
+	
+	
 
 	
 	
@@ -92,9 +112,10 @@ public class YkmServiceImpl implements YkmService {
 
 	@Override
 	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.updateComment(ykmBoardCommReply);
-		return result;
+		return ykmBoardDao.updateComment(ykmBoardCommReply);
 	}
+
+
 	
 	/*
  	1. 트랜잭션을 시작한다.

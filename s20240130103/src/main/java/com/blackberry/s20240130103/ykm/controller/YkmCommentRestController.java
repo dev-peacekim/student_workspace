@@ -55,9 +55,7 @@ public class YkmCommentRestController {
 
 	@PutMapping("/comment")
 	public int updateComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmService.updateComment(ykmBoardCommReply);
-		return result;
-		
+		return ykmService.updateComment(ykmBoardCommReply);
 	}
 	
 	

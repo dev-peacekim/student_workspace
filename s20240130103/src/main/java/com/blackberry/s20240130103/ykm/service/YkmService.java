@@ -17,6 +17,9 @@ public interface YkmService {
 	int updatePost(YkmBoardComm ykmBoardComm);
 
 	int deletePost(int cboard_no);
+	
+	// 조회수 증가 서비스 (게시물번호를 받아서 게시물번호에 해당하는 게시물의 조회수를 증가시킨다)
+	int increseViewCount(int cboard_no);
 
 	
 	
@@ -28,6 +31,10 @@ public interface YkmService {
 	int deleteComment(int creply_no);
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
+
+	// int getViewCount(int cboard_no);
+	
+
 
 
 	

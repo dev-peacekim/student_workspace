@@ -48,5 +48,18 @@
 		SET CBOARD_DELETE_CHK = 1, COMM_UPDATE_DATE = SYSDATE
 		WHERE CBOARD_NO = #{cboard_no}
 	</update>
+	
+	<update id="ykmIncreseViewCount" parameterType="int">
+		UPDATE BOARD_COMM
+		SET CBOARD_VIEWCNT = CBOARD_VIEWCNT + 1
+		WHERE CBOARD_NO = #{cboard_no}
+	</update>
  
+ 	<!-- 
+ 	<update id="ykmGetViewCount" parameterType="int">
+ 		UPDATE BOARD_COMM
+ 		SET CBOARD_VIEWCNT = CBOARD_VIEWCNT + 1
+ 		WHERE CBOARD_NO = #{cboard_no}
+ 	</update>
+ 	-->
 </mapper>

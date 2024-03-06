@@ -36,11 +36,21 @@ public class YkmBoardController {
 		// System.out.println("YkmController getPost start ---*");
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
+		
+		// 여기서 increseViewCount 호출 안했넹~
+		ykmService.increseViewCount(cboard_no); // 다시 해보삼
+		
+		// int getViewCount = ykmService.getViewCount(cboard_no); // ??? 이해 안가는 코드임 그.. getpost를 할때 조회수를 증가시키는거 아닌가요..
+		// 아니지 여기서는 게시물을 가져오는거야 즉 게시물 보기 화면이지 그러니까 여기서 조회수를 증가시켜야지
 		model.addAttribute("getPost", getPost);
+		// model.addAttribute("getViewCount", getViewCount); // 이건 필요없는 코드고
+		
+		// 서비스부터 하나씩 볼께~
+		
+		// model.addAttribute("getViewCount", getViewCount);
 		// System.out.println("YkmController getPost finish ---*");
 		return "ykm/boardPost";
 	}
-	
 
 	// mapping
 	@GetMapping(value = "/writeForm")

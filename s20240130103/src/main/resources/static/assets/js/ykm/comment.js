@@ -54,7 +54,7 @@ function updateReplyView(data) {
 				<p class="card-subtitle comment-updated-at">작성일 ${formatted}</p>
 			</div>
 			<div class="btnContainer">
-				<button type="button" class="modifyComment badge bg-light text-dark" value="${comment.creply_no}" onclick="enableInput('${comment.creply_no}')">
+				<button type="button" class="modifyComment badge bg-light text-dark" value="${comment.creply_no}" onclick="enableUpdate('${comment.creply_no}')">
 					<i class="bi bi-pencil-fill"></i> 수정
 				</button>
 				<button type="button" class="deleteComment badge bg-light text-dark" onclick="deleteComment('${comment.cboard_no}','${comment.creply_no}')">
@@ -67,7 +67,7 @@ function updateReplyView(data) {
 		</div>
 		<div class="comment-body">
 			<input type="text" id="inputField_${comment.creply_no}" value ="${comment.creply_content}" class="form-control" required="required" disabled >
- 			<button type="button" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_content}', '${comment.creply_no}','${comment.cboard_no}')" disabled><i class="bi bi-check-circle"></i> 확인</button>
+ 			<button type="button" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)"><i class="bi bi-check-circle"></i> 확인</button>
 		</div>
 		</div>
 
@@ -141,25 +141,33 @@ function buttonStatus(comment) {
 }
 
 // 수정 이벤트
-function enableInput(creply_no) {
+function enableUpdate(creply_no) {
 	console.log('enableInput creply_no : ' + creply_no);
 	
-	var inputElement = document.querySelector(`#inputField_`+creply_no);
-	var checkElement = document.querySelector(`#checkButton_`+creply_no);
+	let inputField = document.querySelector(`#inputField_`+creply_no);
+	let checkButton = document.querySelector(`#checkButton_`+creply_no);
 	
-	inputElement.removeAttribute('disabled');
-	checkElement.removeAttribute('disabled');
+	inputField.removeAttribute('disabled');
+	checkButton.removeAttribute('disabled');
 }
 
+/* 여기서부터 문제!! 입니다!  
+이 함수 호출은 하나?
+이 함수 호출은 위에서 innerHtml생성하는 함수에 있어요 버튼 클릭하면 이 함수 실행이 됩니다..! 아마도)
+프로그래밍에 아마도가 어딨어~ (취소)
 
+
+
+ */
 // 댓글 수정
-function updateComment(creply_content, creply_no, cboard_no) {
+function updateComment(creply_no, creply_content) {
 	
 	var commentData = {
-		creply_content: creply_content,
-		creply_no: creply_no,
-		cboard_no: cboard_no
-	}
+		creply_no: creply_no,			// 댓글번호
+		creply_content: creply_content 	// 수정된 댓글내용
+	};
+	
+	console.log("commentData.creply_content ===> " + commentData.creply_content);
 
 	fetch("/comment", {
 		method: "PUT",
@@ -172,7 +180,6 @@ function updateComment(creply_content, creply_no, cboard_no) {
 	.then(response => response.json())
 	.then(data => {
 		console.log(data);
-		getCommentList(cboard_no);
 	})
 	.catch(error => {
 		console.log('댓글 수정 오류!', error);

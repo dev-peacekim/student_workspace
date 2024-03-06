@@ -13,26 +13,26 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class YkmBoardDaoImpl implements YkmBoardDao {
-	
+
 	private final SqlSession session;
 
 	@Override
 	public List<YkmBoardComm> getPostList() {
 		System.out.println("YkmBoardDaoImpl getPostList start ---*");
 		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList");
-		System.out.println("YkmBoardDaoImpl getPostList result --> " +getPostList.size());
+		System.out.println("YkmBoardDaoImpl getPostList result --> " + getPostList.size());
 
 		return getPostList;
 	}
 
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl renderPostContent start ---*");
+		System.out.println("YkmBoardDaoImpl getPost start ---*");
 		YkmBoardComm getPost = session.selectOne("ykmGetPost", cboard_no);
 		// System.out.println("renderPostContent result --> "+renderPostContent);
 		return getPost;
 	}
-	
+
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl writePost start---*");
@@ -40,26 +40,33 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		System.out.println("YkmBoardDaoImpl writePost result=>" + result);
 		return result;
 	}
-	
-	
+
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl updatePost start ---*");
 		int updatePost = session.update("ykmUpdatePost", ykmBoardComm);
 		return updatePost;
 	}
-	
+
 	@Override
 	public int deletePost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl deletePost start ---*");
 		int deletePost = session.delete("ykmDeletePost", cboard_no);
-		System.out.println("YkmBoardDaoImpl deletePost deletePost --> "+ deletePost);
+		System.out.println("YkmBoardDaoImpl deletePost deletePost --> " + deletePost);
 		return deletePost;
 	}
 
-	
+	@Override
+	public int increseViewcount(int cboard_no) {
+		return session.update("ykmIncreseViewCount", cboard_no);
+	}
 
-
+	/*
+	 * @Override public int getViewCount(int cboard_no) {
+	 * System.out.println("YkmBoardDaoImpl getViewCount start ---*"); int
+	 * getViewCount = session.update("ykmGetViewCount", cboard_no); return
+	 * getViewCount; }
+	 */
 
 	// 댓글
 	@Override
@@ -73,7 +80,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmBoardDaoImpl writeComment start ---*");
-		int result = session.insert("YkmWriteComment", ykmBoardCommReply);
+		int result = session.insert("ykmWriteComment", ykmBoardCommReply);
 		System.out.println("YkmBoardDaoImpl writeComment --> " + result);
 		System.out.println("YkmBoardDaoImpl writeComment finish ---*");
 		return result;
@@ -81,16 +88,14 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 
 	@Override
 	public int deleteComment(int creply_no) {
-		System.out.println("YkmBoardDaoImpl deleteComment start ---*");
+		System.out.println("ykmBoardDaoImpl deleteComment start ---*");
 		int result = session.delete("YkmDeleteComment", creply_no);
 		return result;
 	}
 
 	@Override
 	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
-		int result = session.update("YkmUpdateComment", ykmBoardCommReply);
-		return result;
+		return session.update("ykmUpdateComment", ykmBoardCommReply);
 	}
-
 
 }
