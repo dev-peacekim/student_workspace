@@ -32,7 +32,6 @@ function getCommentList(cboard_no) {
 			console.log('리스트 오류 발생!', error);
 		});
 }
-
 // 댓글리스트 갱신
 function updateReplyView(data) {
 	let replyList = '';
@@ -68,22 +67,23 @@ function updateReplyView(data) {
 		</div>
 		<div class="comment-body input-group">
 			<input type="text" value ="${comment.creply_content}" class="form-control" required="required" disabled >
- 			<span class="check" disabled><i class="bi bi-check-circle"></i> 확인</span>
+ 			<button type="button" class="checkComment" disabled><i class="bi bi-check-circle"></i> 확인</button>
 		</div>
 		</div>
 
 	`;
 	});
-	
-	// 추가된 부분: 버튼 상태 업데이트
-    buttonStatus(commentData);
 	document.querySelector('#replyContainer').innerHTML = replyList;
+	
+	// 댓글 리스트 갱신하면서 버튼 상태 값 변경
+	data.forEach(function(comment) {
+		buttonStatus(comment);
+	})
 	
 }
 
 
 // 댓글 등록 이벤트
-var commentData;
 
 const commentSubmitBtn = document.getElementById("commentSubmitBtn"); // 변수 선언
 
@@ -92,7 +92,7 @@ commentSubmitBtn.addEventListener("click", function() {
     const cboardNo = document.querySelector('input[name="cboard_no"]').value;
     const userNo = document.querySelector('input[name="user_no"]').value;
 
-    commentData = {
+   var commentData = {
         cboard_no: cboardNo,
         user_no: userNo,
         creply_content: creply_content
@@ -125,18 +125,22 @@ function writeComment(commentData) {
 
 
 // 수정 및 삭제 버튼 상태 변경
-function buttonStatus(commentData) {
+function buttonStatus(comment) {
     const modifyButton = document.querySelector('.modifyComment');
     const deleteButton = document.querySelector('.deleteComment');
+    const checkButton = document.querySelector('.checkComment');
 
-    if (commentData.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
+    if (comment.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
         modifyButton.style.display = 'inline'; // 수정 버튼 표시
         deleteButton.style.display = 'inline'; // 삭제 버튼 표시
+        checkButton.style.display = 'inline';
     } else {
         modifyButton.style.display = 'none'; // 수정 버튼 숨김
         deleteButton.style.display = 'none'; // 삭제 버튼 숨김
+        checkButton.styke.display = 'none';
     }
 }
+
 
 // 수정 이벤트
 function enableInput() {
