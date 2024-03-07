@@ -168,7 +168,7 @@ public class LhsController {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user_no", user.getUser_no());
 			session.setAttribute("user_name", user.getUser_name());
-			return "admin/main";
+			return "admin/admin_main";
 		}else {
 			request.setAttribute("islogin", 0);
 			return "lhs/loginForm";

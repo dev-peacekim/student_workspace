@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.blackberry.s20240130103.lhs.domain.Comm;
 import com.blackberry.s20240130103.lhs.domain.User;
 
 import jakarta.persistence.EntityManager;
@@ -107,6 +108,25 @@ public class UserRepositoryImpl implements UserRepository {
 	    } catch (Exception e) {
 	        System.out.println("UserRepositoryImpl findIdByemail exception : " + e.getMessage());
 	        return Optional.empty();
+	    }
+	}
+	
+	@Override
+	public Comm findCommByBigMid(int user_rank_big, int user_rank_mid) {
+		String findComm = "select c from Comm c where comm_big=:big and comm_mid=:mid";
+		try {
+			Comm comm = (Comm) entityManager.createQuery(findComm).setParameter("big", user_rank_big).setParameter("mid", user_rank_mid).getSingleResult();
+			System.out.println(comm);
+			return comm;
+		}catch (NoResultException e) {
+			System.out.println("noresultException");
+	        return null;
+	    } catch (NonUniqueResultException e) {
+	    	System.out.println("NonUniqueResultException");
+	        return null;
+	    } catch (Exception e) {
+	        System.out.println("UserRepositoryImpl findIdByemail exception : " + e.getMessage());
+	        return null;
 	    }
 	}
 

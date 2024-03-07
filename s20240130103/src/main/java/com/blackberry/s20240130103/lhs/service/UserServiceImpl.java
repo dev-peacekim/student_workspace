@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.blackberry.s20240130103.lhs.domain.Comm;
 import com.blackberry.s20240130103.lhs.domain.User;
 import com.blackberry.s20240130103.lhs.repository.UserRepository;
 
@@ -48,13 +49,16 @@ public class UserServiceImpl implements UserService {
 			if(bCryptPasswordEncoder.matches(user.getUser_pw(), userOp.get().getUser_pw())) { //찾은 유저의 암호화된 비밀번호가 입력한 비밀번호와 일치하는지
 				User user2 = userOp.get();
 				if(user2.getUser_delete_chk()==0) { //찾은 유저의 삭제 상태가 0(삭제X)인지
-					System.out.println(user2);
+					Comm comm = userRepository.findCommByBigMid(user2.getUser_rank_big(),user2.getUser_rank_mid());
 					user.setUser_no(user2.getUser_no());
 					user.setUser_profile(user2.getUser_profile());
 					user.setUser_name(user2.getUser_name());
 					user.setUser_nic(user2.getUser_nic());
-					System.out.println("UserServiceImpl 로그인 성공");
+					user.setComm_content(comm.getComm_content());
 					result = 1;
+					if(user.getComm_content().equals("관리자")) {
+						result = 2;
+					}
 				}
 			}else {
 				System.out.println("UserServiceImpl 로그인 실패");

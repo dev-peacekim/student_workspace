@@ -2,6 +2,7 @@ package com.blackberry.s20240130103.lhs.repository;
 
 import java.util.Optional;
 
+import com.blackberry.s20240130103.lhs.domain.Comm;
 import com.blackberry.s20240130103.lhs.domain.User;
 
 public interface UserRepository {
@@ -20,5 +21,7 @@ public interface UserRepository {
 	Optional<User> findIdByemail(String email);
 
 	Optional<User> findPassByIdEmail(User user);
+
+	Comm findCommByBigMid(int user_rank_big, int user_rank_mid);
 
 }

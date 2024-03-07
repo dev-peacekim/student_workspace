@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -53,18 +54,15 @@ public class User {
 	@UpdateTimestamp
 	@Column(insertable = false)
 	private LocalDateTime user_update_date;
-//	@Column(name = "user_rank_big")
-//	private int userRankBig;
-//	@Column(name = "user_rank_big")
-//	private int userRankMig;
+    private int user_rank_big;
+    private int user_rank_mid;
 	
-	//@JoinTable(name = "comm")
-	//private Comm comm;
 	//-----------조회용 컬럼-------------
 	@Transient
 	private double eval_score;
 	@Transient
 	private int address_chk; //address테이블에 추가된 목록이 있는지 확인
-	
+	@Transient
+	private String comm_content;
 	
 }
