@@ -1,19 +1,21 @@
 /* 댓글 REST API */
 
-// 로그인 한 유저 정보
-let currentUserNo = null;
+// 로그인 유저 정보
+let userInfo;
 
 function getUserNo() {
 	fetch("/userNo")
-	.then(response => response.json())
-	.then(data => {
-		currentUserNo = data.user_no;
-		console.log('currentUserNo : ' + currentUserNo);
-	})
-	.catch(error => {
-		console.log('사용자 정보를 가져오는 중 오류 발생:', error);
-	})
+		.then(response => response.json())
+		.then(data => {
+			console.log('getUserNo data :' + data);
+			userInfo = data
+			console.log('getUserNo : '+ userInfo );
+		})
+		.catch(error => {
+			console.log('사용자 정보를 가져오는 중 오류 발생:', error);
+		})
 }
+
 
 // 댓글리스트 API 호출
 let cboardNo = null;
@@ -32,6 +34,9 @@ function getCommentList(cboard_no) {
 			console.log('리스트 오류 발생!', error);
 		});
 }
+
+// 댓글 작성자와 로그인한 유저 정보가 같을 경우에만 수정, 삭제 버튼을 활성화 시킨다
+
 // 댓글리스트 갱신
 function updateReplyView(data) {
 	let replyList = '';
@@ -45,7 +50,17 @@ function updateReplyView(data) {
         const ampm = hour >= 12 ? '오후' : '오전';
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;		
-                        
+ 
+ 		// 댓글 작성자
+ 		const commentWriter = comment.user_no // commentWriter 댓글 작성자, userInfo 로그인 한 유저정보
+  		
+ 		console.log('updateReplyView userInfo : ' + userInfo);
+ 		console.log('updateReplyView comment.user_no : ' + comment.user_no);
+ 		console.log('updateReplyView commentWriter : ' + commentWriter);
+ 		
+ 		
+ 		// 로그인 유저 정보 댓글 작성자 
+ 		                       
 		replyList += `<div class="comment-card">
 		<div class="comment-header">
 			<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
@@ -54,10 +69,10 @@ function updateReplyView(data) {
 				<p class="card-subtitle comment-updated-at">작성일 ${formatted}</p>
 			</div>
 			<div class="btnContainer">
-				<button type="button" class="modifyComment badge bg-light text-dark" value="${comment.creply_no}" onclick="enableUpdate('${comment.creply_no}')">
+				<button type="button" class="modifyComment_${comment.creply_no} badge bg-light text-dark" value="${comment.creply_no}" onclick="buttonStatus('${comment.creply_no}')" style="display: ${userInfo && commentWriter && userInfo === commentWriter ? 'inline' : 'none'}">
 					<i class="bi bi-pencil-fill"></i> 수정
 				</button>
-				<button type="button" class="deleteComment badge bg-light text-dark" onclick="deleteComment('${comment.cboard_no}','${comment.creply_no}')">
+				<button type="button" class="deleteComment badge bg-light text-dark" onclick="deleteComment('${comment.cboard_no}','${comment.creply_no}')" style="display: ${userInfo && commentWriter && userInfo === commentWriter ? 'inline' : 'none'}">
 					<i class="bi bi-trash"></i> 삭제
 				</button>
 				<div class="replyBtn badge bg-light text-dark">
@@ -67,7 +82,7 @@ function updateReplyView(data) {
 		</div>
 		<div class="comment-body">
 			<input type="text" id="inputField_${comment.creply_no}" value ="${comment.creply_content}" class="form-control" required="required" disabled >
- 			<button type="button" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)"><i class="bi bi-check-circle"></i> 확인</button>
+ 			<button type="button" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" style="display : none"><i class="bi bi-check-circle"></i> 확인</button>
 		</div>
 		</div>
 
@@ -75,12 +90,7 @@ function updateReplyView(data) {
 	});
 	
 	document.querySelector('#replyContainer').innerHTML = replyList;
-	
-	// 댓글 리스트 갱신하면서 버튼 상태 값 변경
-	data.forEach(function(comment) {
-		buttonStatus(comment);
-	})
-	
+
 }
 
 // 댓글 등록 이벤트
@@ -125,30 +135,17 @@ function writeComment(commentData) {
 }
 
 
-// 수정 및 삭제 버튼 상태 변경
-function buttonStatus(comment) {
-    const modifyButton = document.querySelector('.modifyComment');
-    const deleteButton = document.querySelector('.deleteComment');
+// 수정을 누르면 확인 버튼이 생긴다
+// 확인을 누른 수정 inputfield는 disable된다
+// 버튼 이벤트
+function buttonStatus(creply_no) {
+	console.log('buttonStatus creply_no : ' + creply_no);
 
-    if (comment.user_no === currentUserNo) { // 댓글 작성자와 로그인한 사용자가 일치하는 경우
-        modifyButton.style.display = 'inline'; // 수정 버튼 표시
-        deleteButton.style.display = 'inline'; // 삭제 버튼 표시
-    } else {
-        modifyButton.style.display = 'none'; // 수정 버튼 숨김
-        deleteButton.style.display = 'none'; // 삭제 버튼 숨김
-    }
-    
-}
-
-// 수정 이벤트
-function enableUpdate(creply_no) {
-	console.log('enableInput creply_no : ' + creply_no);
-	
-	let inputField = document.querySelector(`#inputField_`+creply_no);
-	let checkButton = document.querySelector(`#checkButton_`+creply_no);
+	let inputField = document.querySelector(`#inputField_` + creply_no);
+	let checkButton = document.querySelector(`#checkButton_` + creply_no);
 	
 	inputField.removeAttribute('disabled');
-	checkButton.removeAttribute('disabled');
+	checkButton.style.display ='inline';
 }
 
 
@@ -156,8 +153,8 @@ function enableUpdate(creply_no) {
 function updateComment(creply_no, creply_content) {
 	
 	var commentData = {
-		creply_no: creply_no,			// 댓글번호
-		creply_content: creply_content 	// 수정된 댓글내용
+		creply_no: creply_no,			// 댓글 번호
+		creply_content: creply_content 	// 수정 된 댓글 내용
 	};
 	
 	console.log("commentData.creply_content ===> " + commentData.creply_content);
@@ -173,27 +170,43 @@ function updateComment(creply_no, creply_content) {
 	.then(response => response.json())
 	.then(data => {
 		console.log(data);
+		document.querySelector(`#inputField_${creply_no}`).value = commentData.creply_content;
+		// getUpdateView(data); 하는중 ...
 	})
 	.catch(error => {
 		console.log('댓글 수정 오류!', error);
 	});
+	
+	// 확인 누르면 화면에서 갱신됨
+	document.querySelector(`#inputField_${creply_no}`).disabled = true;
+	
 }
 
 
 // 댓글 삭제
+// 댓글 삭제 버튼 클릭하면 삭제상태 값을 0 > 1 변경 (관리자 페이지에서 최종 삭제)
 function deleteComment(cboard_no, creply_no) {
 	fetch("/comment?creply_no="+creply_no, {
-		method: "DELETE"
+		method: "PATCH"
 	})
 	.then(() => {
 		console.log('cboard_no 2 -> '+cboard_no);
-		getCommentList(cboardNo);
+		updateReplyView(cboardNo, creply_no);
 	})
 	.catch(error => {
 		console.log('댓글 삭제 오류!', error);
 	});
 }
 
-// 댓글 삭제하면 데이터베이스에는 남기고 delete_chk() 0 > 1 업데이트
-// 화면에선 안보이게 
+/*
+// 삭제되면 화면에서 없애라
+function getUpdateView() {
+	getUpdateView(data); 하는중 ...
+}
+*/
 
+
+// 목록(리스트)으로 돌아가기
+// 모집중, 모집완료
+// 페이징 
+// 검색

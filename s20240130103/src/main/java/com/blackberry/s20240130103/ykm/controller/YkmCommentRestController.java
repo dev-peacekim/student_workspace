@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
@@ -27,8 +29,12 @@ public class YkmCommentRestController {
 	// 로그인 한 유저 정보
 	@GetMapping("/userNo")
 	public Long getUserNo(HttpServletRequest request) {
-		return (Long)request.getSession().getAttribute("user_no");
+		System.out.println("YkmCommentRestController getUserNo start ---*");
+		Long result = (Long)request.getSession().getAttribute("user_no"); 
+		System.out.println("YkmCommentRestController result -->" +result);
+		return result;
 	}
+	
 	
 	@GetMapping("/comment")
 	public List<YkmBoardCommReply> getCommentList(@RequestParam("cboard_no") int cboard_no) {
@@ -46,7 +52,7 @@ public class YkmCommentRestController {
 		return result;
 	}
 
-	@DeleteMapping("/comment")
+	@PatchMapping("/comment")
 	public int deleteComment(@RequestParam("creply_no") int creply_no) {
 		System.out.println("deletemapping creply_no : " + creply_no);
 		int result = ykmService.deleteComment(creply_no);
@@ -57,6 +63,7 @@ public class YkmCommentRestController {
 	public int updateComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
 		return ykmService.updateComment(ykmBoardCommReply);
 	}
+	
 	
 	
 	

@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.service.YkmService;
@@ -37,13 +35,16 @@ public class YkmBoardController {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
 		
-		ykmService.increseViewCount(cboard_no); 
+		ykmService.increseViewCount(cboard_no); // 조회수 카운트 메서드
+		int countComment = ykmService.countComment(cboard_no); // 댓글 개수 카운트 메서드
 		
+		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
 		// System.out.println("YkmController getPost finish ---*");
 		return "ykm/boardPost";
 	}
 
+	
 	// mapping
 	@GetMapping(value = "/writeForm")
 	public String boardWriteForm() {

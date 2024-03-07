@@ -87,7 +87,7 @@
 									<td>${PostList.user_id}</td>
 									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${PostList.cboard_viewcnt}</td>
-									<td>${PostList.reply_cnt}</td>
+									<td>${PostList.reply_count}</td>
 								</tr>
 								<!-- <span class="recruited"></span> -->
 							</c:forEach>

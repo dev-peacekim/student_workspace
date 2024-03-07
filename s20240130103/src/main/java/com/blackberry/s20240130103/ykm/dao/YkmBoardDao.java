@@ -29,6 +29,8 @@ public interface YkmBoardDao {
 
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
 
+	int countComment(int cboard_no);
+
 	
 
 

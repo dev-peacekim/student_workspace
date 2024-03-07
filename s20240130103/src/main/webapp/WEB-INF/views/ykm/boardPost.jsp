@@ -24,12 +24,14 @@
 <script defer src="assets/js/ykm/confirmPopup.js"></script>
 
 <script>
-window.onload = function() {
-	getCommentList(${getPost.cboard_no});
-	/* getUserNo(${getPost.user_no}); */
-}
-</script>
 
+window.onload = function() {
+	getUserNo();
+	getCommentList(${getPost.cboard_no});
+};
+
+</script>
+ 
 </head>
 <body>
 
@@ -88,7 +90,7 @@ window.onload = function() {
 
 				<div class="community-post-answer">
 					<div class="comment-form">
-						댓글 <span class="answer-count">23</span>
+						댓글 <span class="answer-count">${countComment}</span>
 					</div>
 					<!-- 댓글 REST API -->
 					<div class="boardPostComment">

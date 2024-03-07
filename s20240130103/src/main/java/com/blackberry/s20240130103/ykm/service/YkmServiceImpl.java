@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.ykm.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -29,52 +30,41 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getPostList start---*");
 		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList();
 		
-		
-		/*
-		Iterator<YkmBoardComm> boardIter = getPostList.iterator();
-		while (boardIter.hasNext()) {
-			YkmBoardComm ykmBoardComm = boardIter.next();
-		}
-		*/
-		
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
 
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
-		YkmBoardComm getPost = ykmBoardDao.getPost(cboard_no);
-		return getPost;
+		return ykmBoardDao.getPost(cboard_no);
 	}
 	
-
-
+	/*
+	Iterator<YkmBoardComm> boardCommIt = getPostList.iterator();
+	
+	while(boardCommIt.hasNext()) {
+		YkmBoardComm board = boardCommIt.next();
+		board.setCountComment(ykmBoardDao.countComment(board.getCboard_no()));
+	}
+	*/
+	
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl updatePost start---*");
-		int updatePost = ykmBoardDao.updatePost(ykmBoardComm);
 		System.out.println("YkmServiceImpl updatePost ykmBoardComm --> "+ ykmBoardComm);
-		System.out.println("YkmServiceImpl updatePost -->" +  updatePost);
-		return updatePost;
+		return ykmBoardDao.updatePost(ykmBoardComm);	
 	}
 
 	@Override
 	public int deletePost(int cboard_no) {
 		System.out.println("YkmServiceImpl deletePost start---*");
-		int deletePost = ykmBoardDao.deletePost(cboard_no);
-		System.out.println("YkmServiceImpl deletePost --> "+deletePost);
-		return deletePost;
+		return ykmBoardDao.deletePost(cboard_no);
 	}
 	
 	@Override
 	public int increseViewCount(int cboard_no) {
 		return ykmBoardDao.increseViewcount(cboard_no);
 	}
-
-
-	
-	
-	
 
 	
 	
@@ -89,14 +79,12 @@ public class YkmServiceImpl implements YkmService {
 
 	@Override
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.writeComment(ykmBoardCommReply);
-		return result;
+		return ykmBoardDao.writeComment(ykmBoardCommReply);
 	}
 
 	@Override
 	public int deleteComment(int creply_no) {
-		int result = ykmBoardDao.deleteComment(creply_no);
-		return result;
+		return ykmBoardDao.deleteComment(creply_no);
 	}
 
 	@Override
@@ -104,7 +92,12 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updateComment(ykmBoardCommReply);
 	}
 
+	@Override
+	public int countComment(int cboard_no) {
+		return ykmBoardDao.countComment(cboard_no);
+	}
 
+	
 	
 	/*
  	1. 트랜잭션을 시작한다.
@@ -115,7 +108,7 @@ public class YkmServiceImpl implements YkmService {
 
 	@Transactional
 	public void deleteCommentAndChangeStatus(int creply_no) 
-	// 게시글 삭제될 때 게시글에 해당되는 댓글도 다 삭제가 되어야함
+	// 게시글 삭제될 때 게시글에 해당되는 댓글도 다 삭제가 되어야함?
 
 	
 	*/

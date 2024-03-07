@@ -20,7 +20,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public List<YkmBoardComm> getPostList() {
 		System.out.println("YkmBoardDaoImpl getPostList start ---*");
 		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList");
-		System.out.println("YkmBoardDaoImpl getPostList result --> " + getPostList.size());
+		//System.out.println("YkmBoardDaoImpl getPostList result --> " + getPostList.size());
 
 		return getPostList;
 	}
@@ -52,7 +52,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public int deletePost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl deletePost start ---*");
 		int deletePost = session.delete("ykmDeletePost", cboard_no);
-		System.out.println("YkmBoardDaoImpl deletePost deletePost --> " + deletePost);
+		//System.out.println("YkmBoardDaoImpl deletePost deletePost --> " + deletePost);
 		return deletePost;
 	}
 
@@ -75,8 +75,8 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmBoardDaoImpl writeComment start ---*");
 		int result = session.insert("ykmWriteComment", ykmBoardCommReply);
-		System.out.println("YkmBoardDaoImpl writeComment --> " + result);
-		System.out.println("YkmBoardDaoImpl writeComment finish ---*");
+		//System.out.println("YkmBoardDaoImpl writeComment --> " + result);
+		//System.out.println("YkmBoardDaoImpl writeComment finish ---*");
 		return result;
 	}
 
@@ -90,6 +90,12 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
 		return session.update("ykmUpdateComment", ykmBoardCommReply);
+	}
+
+	@Override
+	public int countComment(int cboard_no) {
+		System.out.println("cBoard_no: "+cboard_no);
+		return session.selectOne("ykmCountComment", cboard_no);
 	}
 
 }
