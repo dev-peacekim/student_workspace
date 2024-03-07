@@ -9,9 +9,9 @@ public class Ask {
 	private long user_no;
 	private int admin_no;
 	private Date admin_date;
-	private String admin_title;
+	private String admin_title;	
 	private String admin_content;
-	private Date admin_start;
+	private String admin_start;
 	private long admin_reply_group;
 	private long admin_reply_chk;
 	

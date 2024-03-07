@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.yhs.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ public class AskController {
 	private final AskServiceImpl askService;
 	
 	
-	@RequestMapping(value = "askList") 
+	@GetMapping("askList") 
 	public String askList(HttpServletRequest request , Model model, Ask ask) {
 		System.out.println("AskController askList start...");
 		HttpSession session = request.getSession();
@@ -31,7 +33,7 @@ public class AskController {
 		if (ask.getCurrentPage() == null ) ask.setCurrentPage("1");
 		// Ask 전체 Count  15
 	    int totalAsk =  askService.totalAsk();
-		System.out.println("AskController Start totalEmp->"+totalAsk );
+		System.out.println("AskController Start totalAsk->"+totalAsk );
 //		
 		// Paging 작업
 		Paging page = new Paging(totalAsk, ask.getCurrentPage());
@@ -46,7 +48,7 @@ public class AskController {
 		System.out.println("AskController  listAsk.size()=>" + listAsk.size());
 		
 		
-		model.addAttribute("totalEmp", totalAsk);
+		model.addAttribute("totalAsk", totalAsk);
 		model.addAttribute("listAsk" , listAsk);
 		model.addAttribute("page"    , page);
 
@@ -96,23 +98,32 @@ public class AskController {
 	}
 	
 	@GetMapping(value = "askForm")
-	public String askForm() {
+	public String askForm(HttpServletRequest request, Model model) {
 		System.out.println("AskController Start askForm...");
+		String adminStart = request.getParameter("admin_start");
+		// 세션에서 보내는 사람의 아이디 가져오기
+        Long userNo = (Long) request.getSession().getAttribute("user_no");
+        
+     // 모델에 데이터 추가 (세션ID, 유저리스트)
+        model.addAttribute("userNo", userNo);
+
 		return "yhs/askForm";
 	}
 
 	@PostMapping(value = "askWrite")
 	public String askWrite(Ask ask ,Model model,HttpServletRequest request ) {
 		System.out.println("AskController Start askWrite..." );
-		System.out.println("AskController askWrite ask->" + ask);
+		
 
 		Long userNo = (Long) request.getSession().getAttribute("user_no");
+		ask.setUser_no(userNo);
+		System.out.println("AskController askWrite ask->" + ask);
 		int insertResult = askService.insertAsk(ask);
 		System.out.println("AskController insertResult insertResult->"+insertResult );
 		
 		model.addAttribute("userNo", userNo);
 		model.addAttribute("ask", ask);
-		return "redirect:ask";
+		return "redirect:/askList";
 
 	}
 }

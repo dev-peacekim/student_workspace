@@ -80,9 +80,9 @@
       <h1>글작성</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">문의사항</li>
-          <li class="breadcrumb-item active">글작성</li>
+          <li class="breadcrumb-item"><a href="main">Home</a></li>
+		  <li class="breadcrumb-item"><a href="askList">문의하기</a></li>
+	      <li class="breadcrumb-item"><a href="askForm">글쓰기</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -94,22 +94,24 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">문의사항 작성하기</h5>
-              <c:if test="${msg!=null}">${msg}</c:if>
+             <%--  <c:if test="${msg!=null}">${msg}</c:if> --%>
               <!-- General Form Elements -->
 						<form action="askWrite" method="post" name="frm">
-							<!--             
-        <input tag hidden Ask(user_no=0, admin_no=0, admin_date=null, admin_title=12, admin_content=null, admin_start=null, admin_reply_group=0, admin_reply_chk=0, search=null, keyword=null, pageNum=null, start=0, end=0, currentPage=null, user_nic=null, user_id=null, user_name=null, boardtype=null)
-         -->
 
 							<div class="row mb-3">
 								<label for="inputText" class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
 									<!-- <input type="text" class="form-control"> -->
 									<input type="text" class="form-control" name="admin_title"
-										value="${BOARD_ADMIN.admin_title}" required="required"
-										onclick="chk()">
+										value="${BOARD_ADMIN.admin_title}" required="required">
 								</div>
 							</div>
+							<div class="row mb-3">
+                  				<label for="inputDate" class="col-sm-2 col-form-label">문의내용 발생일시</label>
+                  				<div class="col-sm-10">
+                    				<input type="date" name="admin_start" value="${BOARD_ADMIN.admin_start}" class="form-control">
+                  				</div>
+                			</div> 
 							<div class="row mb-3">
 								<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
@@ -140,9 +142,8 @@
 			frm.admin_title.focus();
 			return false;
 		} else location.href="confirm?admin_title="+frm.admin_title.value;
-	} -->
-
-</script>
+	} 
+</script>-->
     
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>

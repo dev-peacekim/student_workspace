@@ -331,8 +331,8 @@
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="main">Home</a></li>
-                <li class="breadcrumb-item"><a href="boardFree">문의하기</a></li>
-                <li class="breadcrumb-item"><a href="boardAsk">글쓰기</a></li>
+                <li class="breadcrumb-item"><a href="askList">문의하기</a></li>
+                <li class="breadcrumb-item"><a href="askForm">글쓰기</a></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

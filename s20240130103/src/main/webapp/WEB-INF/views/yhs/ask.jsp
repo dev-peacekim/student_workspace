@@ -179,8 +179,8 @@
       <h1>문의사항</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-          <li class="breadcrumb-item">문의사항</li>
+          <li class="breadcrumb-item"><a href="main">Home</a></li>
+		  <li class="breadcrumb-item"><a href="askList">문의사항</a></li>
         </ol>
       </nav>
     </div>
@@ -239,8 +239,8 @@
                     				<th>사용자번호</th>
                     				<th>제목</th>
                     				<th>작성일시</th>
+                    				<th>발생일시</th>
                     				<th>답변여부</th>
-                    				<th></th>
                   				</tr>
                 			</thead>
                 			<tbody>
@@ -252,11 +252,12 @@
 								
 								<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 								<tr>
-									<td>${BOARD_ADMIN.admin_no }</td>
-									<td>${BOARD_ADMIN.user_no }</td>						
+									<td>${BOARD_ADMIN.admin_no}</td>
+									<td>${BOARD_ADMIN.user_no}</td>						
 									<td><a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
-									<td>${BOARD_ADMIN.admin_start }</td>
-									<td>${BOARD_ADMIN.admin_reply_chk }</td>	
+									<td>${BOARD_ADMIN.admin_date}</td>
+									<td>${BOARD_ADMIN.admin_start}</td>
+									<td>${BOARD_ADMIN.admin_reply_chk}</td>	
 								</tr>
 								</c:forEach>
                 			</tbody>

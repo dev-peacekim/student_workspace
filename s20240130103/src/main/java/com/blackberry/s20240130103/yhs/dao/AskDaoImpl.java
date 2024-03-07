@@ -21,7 +21,7 @@ public class AskDaoImpl implements AskDao {
 		System.out.println("AskDaoImpl Start total..." );
 
 		try {
-			totAskCount = session.selectOne("com.blackberry.s20240130103.yhs.AskMapper");
+			totAskCount = session.selectOne("com.blackberry.s20240130103.yhs.AskMapper.askTotal");
 			System.out.println("AskDaoImpl totalAsk totAskCount->" +totAskCount);
 		} catch (Exception e) {
 			System.out.println("AskDaoImpl totalAsk Exception->"+e.getMessage());
@@ -71,9 +71,9 @@ public class AskDaoImpl implements AskDao {
 	public int insertAsk(Ask ask) {
 		int result = 0;
 		System.out.println("AskDaoImpl insert Start..." );
-		System.out.println("AskDaoImpl insert ask->" + ask);
 		try {
 			result = session.insert("yhsInsertAsk",ask);
+			System.out.println("AskDaoImpl insert ask->" + ask);
 		} catch (Exception e) {
 			System.out.println("AskDaoImpl insert Exception->"+e.getMessage());
 		}
