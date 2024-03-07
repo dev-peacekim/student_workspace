@@ -16,11 +16,13 @@ import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequiredArgsConstructor
 public class LslController {
 	private final LslService ls;
+	
 	
 	
 	
@@ -41,11 +43,8 @@ public class LslController {
 
 		List<LslBoardComm> boardFreeList = ls.boardFreeList(lslBoardComm);
 		System.out.println("LslController boardFreeList.size() ->" + boardFreeList.size());
-		// 자유게시판 조회수 
-		int boardFreeViewCnt = ls.boardFreeViewCnt(lslBoardComm);
 		
 		model.addAttribute("boardFreeList",boardFreeList);
-		model.addAttribute("boardFreeViewCnt",boardFreeViewCnt);
 		model.addAttribute("totalBoardFree", totalBoardFree);
 		model.addAttribute("bfpage", bfpage);
 
@@ -78,37 +77,38 @@ public class LslController {
 
 	// 자유 게시판 상세내용 
 	@GetMapping(value = "boardFreeContents")
-	public String boardFreeContents(HttpServletRequest request, Model model) {
+	public String boardFreeContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
 		System.out.println("LslController replyBoardFreeList Start..");
-		/*
-		 * List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
-		 * System.out.println("LslController replyBoardFreeList.size() ->" +
-		 * replyBoardFreeList.size());
-		 * 
-		 * model.addAttribute("replyBoardFreeList",replyBoardFreeList);
-		 */
+		 
+		//자유게시판 조회수 
+		int boardFreeViewCnt = ls.boardFreeViewCnt(lslBoardComm);
 		
+	
+		model.addAttribute("boardFreeViewCnt",boardFreeViewCnt);
+
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
 
-	// 자유 게시판 글 작성
-	@RequestMapping(value = "boardFreeWrite")
-	public String freeBoardWrite(Model model, @RequestParam(name = "boardtype") String boardtype) {
-		System.out.println(boardtype);
+	
+	
+	
+	// 자유 게시판 글 작성 페이지 
+	@GetMapping(value = "/boardFreeWrite")
+	public String boardFreeWrite() {
+		System.out.println("LslController boardFreeWrite Start...");
+		return "lsl/boardFreeWrite";
+	}
 
-		int freeBoardWrite = ls.freeBoardWrite(boardtype);
-
-		model.addAttribute("board_type", boardtype);
-		if (freeBoardWrite > 0) {
-			return "redirect:boardFree";
-		} else {
-			model.addAttribute("msg", "입력 실패 확인해 보세요");
-			return "forward:boardFreeWrite";
-		}
-
+	@PostMapping(value = "boardFreeWrite")
+	public String freeWrite(HttpServletRequest request) {
+		System.out.println("LslController freeWrite Start...");
+		Long user_no =  (Long)request.getSession().getAttribute("user_no");
+		int boardFreeWriteInsert = ls.boardFreeWriteInsert(user_no);
+		
+		return "lsl/boardFree";
 	}
 	
 	
@@ -169,35 +169,20 @@ public class LslController {
 
 	// 질문 게시판 상세내용
 	@GetMapping(value = "boardAskContents")
-	public String boardAskContents(HttpServletRequest request, Model model) {
+	public String boardAskContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardAskContents = ls.boardAskContents(cboard_no);
-		/*
-		 * System.out.println("LslController replyList Start.."); List<LslCommReply>
-		 * replyBoardAskList = ls.replyBoardAskList(cboard_no);
-		 * 
-		 * model.addAttribute("replyBoardAskList", replyBoardAskList);
-		 */
+	//질문 게시판 조회수 
+		int boardAskViewCnt = ls.boardAskViewCnt(lslBoardComm);
+				
+		model.addAttribute("boardAskViewCnt",boardAskViewCnt);
 		model.addAttribute("boardAskContents", boardAskContents);
 		return "lsl/boardAskContents";
 	}
 	
 
 	// 질문 게시판 글 폼(board type)
-	@PostMapping(value = "boardFreeWrite")
-	public String askBoardWrite(Model model, @RequestParam(name = "boardtype") String boardtype) {
-		System.out.println(boardtype);
-
-		
-		int askBoardWrite = ls.askBoardWrite(boardtype);
-
-		model.addAttribute("board_type", boardtype);
-		model.addAttribute("askBoardWrite",askBoardWrite);
-		
-		return "redirect:boardAsk";
-		
-
-	}
+	
 	
 	
 

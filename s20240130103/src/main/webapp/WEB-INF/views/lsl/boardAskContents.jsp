@@ -33,8 +33,6 @@
 window.onload = function() {
 	//replyBoardFreeAskList(${boardAskContents.cboard_no},  ${boardAskContents.user_no});
 	replyBoardFreeAskList(${boardAskContents.cboard_no});
-	   
-   
 }
 </script>
   

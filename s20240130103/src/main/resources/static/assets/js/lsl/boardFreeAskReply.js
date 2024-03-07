@@ -48,7 +48,7 @@ function  updateReplyList(data) {
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatDate = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;	 
 
-      boardReplyList += `<div class="re-comment-body">
+     boardReplyList += `<div class="re-comment-body">
     <div id="replyBoardFreeList" class="comment-card">
         <div class="comment-header">
             <img class="comment-user-profile" src="${lslCommReply.user_profile}">
@@ -57,19 +57,17 @@ function  updateReplyList(data) {
                 <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
             </div>
             <div class="re-btn-container">
-             <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">수정</button>
-         			<button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}',  '${lslCommReply.creply_no}');">삭제</button>    		
-               <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
+                <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');">수정</button>
+                <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>
+                <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
             </div>
         </div>
         <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
-            <form action="/boardFreeCommentRepl" method="POST">
-                <textarea id="editCommentText_${lslCommReply.creply_no}" class="form-control">${lslCommReply.creply_content}</textarea>
-                <button type="button" class="btn btn-primary" onclick="updateComment('${lslCommReply.creply_no}', 'editCommentText_${lslCommReply.creply_no}');">저장</button>
-            </form>
+            <textarea id="editCommentText_${lslCommReply.creply_no}" class="form-control">${lslCommReply.creply_content}</textarea>
+            <button type="button" class="btn brSave" onclick="modifyComment('${lslCommReply.creply_no}');">저장</button>
         </div>
         <div id="viewComment_${lslCommReply.creply_no}" class="card-body comment-body">
-            <p class="markdown-body">${lslCommReply.creply_content}</p>
+            <p class="markdown-body" id="creply_content${lslCommReply.creply_no}">${lslCommReply.creply_content}</p>
         </div>
     </div>
 </div>`;
@@ -101,7 +99,7 @@ submitBtn.addEventListener("click", function() {
 
 // 댓글 등록 
 function addComment(replyData) {
-    fetch("/replys", {
+    fetch("/replys/insert", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -113,6 +111,7 @@ function addComment(replyData) {
     .then(data => {
         console.log(data);
         if (data > 0) {
+            document.getElementById('creply_content').value = '';
             replyBoardFreeAskList(replyData.cboard_no);
         } else {
             console.log('댓글 등록에 실패했습니다!');
@@ -128,8 +127,8 @@ function addComment(replyData) {
 // 댓글 삭제
 function deleteComment(cboard_no, creply_no) {
     // AJAX 요청을 통해 댓글 삭제 API 호출
-    fetch(`/replys?cboard_no=${cboard_no}&creply_no=${creply_no}`, {
-        method: "PUT"
+    fetch(`/replys/delete?cboard_no=${cboard_no}&creply_no=${creply_no}`, {
+        method: "DELETE"
     })
     .then(response => response.json())
     .then(data => {
@@ -145,3 +144,59 @@ function deleteComment(cboard_no, creply_no) {
         console.log('댓글 삭제 오류 발생!', error);
     });
 }
+
+
+// 수정 창을 토글하는 함수
+function toggleEdit(creply_no) {
+    // 수정 창의 display 속성을 토글
+    const editComment = document.getElementById(`editComment_${creply_no}`);
+    if (editComment.style.display === "none") {
+        editComment.style.display = "block";
+    } else {
+        editComment.style.display = "none";
+    }
+    
+    // 뷰 창의 display 속성도 토글
+    const viewComment = document.getElementById(`viewComment_${creply_no}`);
+    if (viewComment.style.display === "none") {
+        viewComment.style.display = "block";
+    } else {
+        viewComment.style.display = "none";
+    }
+}
+
+// 댓글 수정
+function modifyComment(creply_no) {
+	const creply_content = document.getElementById('editCommentText_'+creply_no);
+	const modifyData = {
+		creply_no : creply_no,
+		creply_content : creply_content.value
+	}
+	console.log('modifyData -> '+ JSON.stringify(modifyData));
+	
+	fetch("/replys/modify", {
+    method: "PUT",
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(modifyData)
+})
+.then(response => response.json())
+.then(data => {
+    if (data > 0) {
+        // 수정 성공 시, 다시 댓글 리스트를 업데이트
+        document.querySelector('#creply_content'+creply_no).innerHTML = modifyData.creply_content;
+        toggleEdit(modifyData.creply_no);
+    } else {
+        console.log('댓글 수정에 실패했습니다!');
+    }
+})
+.catch(error => {
+    console.log('댓글 수정 오류 발생!', error);
+});
+
+}
+
+
+

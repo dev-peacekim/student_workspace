@@ -116,36 +116,29 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeContents;
 	}
 
+	
+	
+	// 게시판 글쓰기 
 	@Override
-	public int askBoardWrite(String boardtype) {
-		System.out.println("LslDaoImpl askBoardWrite Start...");
-		
-		int askBoardWrite = session.insert("slaskBoardWrite", boardtype);
-
-		
-		return askBoardWrite;
+	public int boardFreeWriteInsert(Long user_no) {
+		int boardFreeWriteInsert = session.insert("slboardFreeWriteInsert",user_no);
+		return boardFreeWriteInsert;
 	}
 
 
 
-	@Override
-	public int freeBoardWrite(String boardtype) {
-		System.out.println("LslDaoImpl freeBoardWrite Start...");
-		
-		int freeBoardWrite = session.insert("slfreeBoardWrite", boardtype);
-
-		
-		return freeBoardWrite;
-	}
-
+	// 게시판 조회수 
 	@Override
 	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
-		
 		int boardFreeViewCnt = session.update("slboardFreeViewCnt", lslBoardComm);
-		
 		return boardFreeViewCnt;
 	}
 
+	@Override
+	public int boardAskViewCnt(LslBoardComm lslBoardComm) {
+		int boardAskViewCnt = session.update("slboardAskViewCnt", lslBoardComm);
+		return boardAskViewCnt;
+	}
 
 
 	
@@ -158,7 +151,6 @@ public class LslDaoImpl implements LslDao {
 		
 		return replyBoardFreeAskList;
 	}
-	
 	
 	
 	// 게시판 댓글 등록  
@@ -175,6 +167,17 @@ public class LslDaoImpl implements LslDao {
 		int boardFreeAskResult = session.update("slDeleteBoardReply", creply_no);
 		return boardFreeAskResult;
 	}
+
+	// 게시판 댓글 수정 
+	@Override
+	public int modifyBoardReply(LslCommReply lslCommReply) {
+		System.out.println("modifyBoardReply lslCommReply : " + lslCommReply);
+		int boardFreeAskResult = session.update("slmodifyBoardReply", lslCommReply);
+		return boardFreeAskResult;
+	}
+
+	
+
 
 	
 	

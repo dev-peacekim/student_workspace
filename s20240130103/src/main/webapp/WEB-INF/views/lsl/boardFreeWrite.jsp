@@ -66,8 +66,7 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form id="boardForm" method="post">
-                            <input type="hidden" name="boardType" id="boardTypeInput" value="">
+                        <form id="freeWrite" method="post">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
@@ -81,7 +80,7 @@
                             </div>
                             <div class="mb-3">
                                 <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>
-                                <button type="submit" class="btn bwComple">완료</button>
+                                <button type="submit" class="btn bwComple" onclick = "goFreeContent()">완료</button>
                             </div>
                         </form>
                         
@@ -89,12 +88,14 @@
                             function goBack() {
                                 window.history.back();
                             }
-                        
-                            // JavaScript를 사용하여 boardType을 설정하고 form의 action을 변경하는 함수
-                            function setBoardTypeAndAction(boardType) {
-                                document.getElementById('boardTypeInput').value = boardType;
-                                document.getElementById('boardForm').action = boardType === 'boardAsk' ? 'boardAsk' : 'boardFree';
-                            }
+                           
+                            /* function goFreeContent() {
+                                if (userBoardNo) {
+                                    window.location.href = `/boardFreeContents?cboard_no=${userBoardNo}`;
+                                } else {
+                                    console.log('게시판 번호가 없습니다.'); // 게시판 번호가 없을 경우 처리 방법
+                                }
+                            } */
                         </script>
                         
                     </div>

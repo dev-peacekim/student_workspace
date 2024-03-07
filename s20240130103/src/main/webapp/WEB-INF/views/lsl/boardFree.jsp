@@ -109,7 +109,7 @@
 			
 							<!-- 글쓰기 버튼  -->
 							<div class="text-end">
-								<a href="boardFreeWrite?boardtype=Free">
+								<a href="boardFreeWrite">
 									<button type="button" class="btn bfWrite">글쓰기</button>
 								</a>
 							</div>
