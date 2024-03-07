@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -236,9 +237,11 @@ public class KphProjectController {
 		return "kph/detailProject";
 	}
 	
-	@GetMapping("taskFilter")
+	@CrossOrigin(origins = "http://127.0.0.1:5500")
+	@PostMapping("taskFilter")
 	@ResponseBody
-	public List<KphTask> taskFilter(@RequestParam("project_no") Long project_no, @RequestParam("keyword") String keyword) {
+	public List<KphTask> taskFilter(@RequestBody Map<String, Object> requestMap) {
+		System.out.println(requestMap);
 		return null;
 	}
 	
