@@ -61,7 +61,7 @@
                   회원<span class="small-title">(신규 가입자)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-green">
+                  0&nbsp;<span class="small-title cl-pupple">
                     (0)<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
@@ -71,7 +71,7 @@
                   프로젝트<span class="small-title">(신규 프로젝트)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-green">
+                  0&nbsp;<span class="small-title cl-pupple">
                     (0)<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
@@ -81,7 +81,7 @@
                   댓글<span class="small-title">(신규 댓글)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-green">
+                  0&nbsp;<span class="small-title cl-pupple">
                     (0)<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
@@ -91,7 +91,7 @@
                   게시글<span class="small-title">(신규 게시글)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-green">
+                  0&nbsp;<span class="small-title cl-pupple">
                     (0)<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
