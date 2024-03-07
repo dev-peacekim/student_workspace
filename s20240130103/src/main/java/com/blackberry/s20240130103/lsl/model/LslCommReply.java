@@ -9,7 +9,6 @@ public class LslCommReply {
 	// 댓글 번호 Seq
 	private int creply_no; // 댓글 번호 
 	private String creply_content;
-	//private String creply_date;
 	private Date creply_date;
 	private int creply_group;  // 댓글 그룹번호 
 	private int creply_level;  // 댓글 레벨 

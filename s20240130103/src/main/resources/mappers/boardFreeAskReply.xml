@@ -20,7 +20,14 @@
 
 <update id="slDeleteBoardReply" parameterType="int">
 	UPDATE BOARD_COMM_REPLY
-	SET CREPLY_DELETE_CHK = 1
+	SET CREPLY_DELETE_CHK = 1,  COMM_UPDATE_DATE = SYSDATE
 	WHERE CREPLY_NO = #{CREPLY_NO}
 </update>
+
+ <update id="slmodifyBoardReply" parameterType="LslCommReply">
+ 	UPDATE BOARD_COMM_REPLY
+ 	SET CREPLY_CONTENT = #{creply_content}, COMM_UPDATE_DATE = SYSDATE
+ 	WHERE CREPLY_NO = #{creply_no}
+</update>
+
 </mapper>

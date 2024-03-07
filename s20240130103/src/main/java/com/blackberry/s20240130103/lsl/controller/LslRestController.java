@@ -2,6 +2,7 @@ package com.blackberry.s20240130103.lsl.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,22 +36,22 @@ public class LslRestController {
 	
 	// 댓글
 	// 게시판 댓글 리스트
-   @GetMapping("/reply")
-	public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no) {
-    	System.out.println("LslRestController replyBoardFreeList Start..");
-		List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
-		System.out.println("LslRestController replyBoardFreeList.size() ->" + replyBoardFreeAskList.size());
-		 // 댓글 목록에 댓글 번호를 추가
-        for (LslCommReply reply : replyBoardFreeAskList) {
-            reply.setCreply_no(reply.getCreply_no()); // 댓글 번호를 가져와서 설정
-        }
-        
-        return replyBoardFreeAskList;
-	   }
+	   @GetMapping("/reply")
+		public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no) {
+	    	System.out.println("LslRestController replyBoardFreeList Start..");
+			List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
+			System.out.println("LslRestController replyBoardFreeList.size() ->" + replyBoardFreeAskList.size());
+			 // 댓글 목록에 댓글 번호를 추가
+	        for (LslCommReply reply : replyBoardFreeAskList) {
+	            reply.setCreply_no(reply.getCreply_no()); // 댓글 번호를 가져와서 설정
+	        }
+	        
+	        return replyBoardFreeAskList;
+		   }
    
     
    //  게시판 댓글 등록 
-	@PostMapping("/replys")
+	@PostMapping("/replys/insert")
 	public int insertBoardReply(@RequestBody LslCommReply lslCommReply, HttpServletRequest request) {
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
 		System.out.println("LslRestController insertBoardReply Start....");
@@ -61,7 +62,7 @@ public class LslRestController {
 	}
 	
 	// 게시판 댓글 삭제 
-	@PutMapping("/replys")
+	@DeleteMapping("/replys/delete")
 	public int deleteBoardReply(@RequestParam("creply_no") int creply_no ) {
 		System.out.println("LslRestController deleteBoardReply Start....");
 		int boardFreeAskResult = ls.deleteBoardReply(creply_no);
@@ -69,6 +70,18 @@ public class LslRestController {
 		return boardFreeAskResult;
 	}
 	
+	@PutMapping("/replys/modify")
+	public int modifyBoardReply(@RequestBody LslCommReply lslCommReply) {
+		System.out.println("modifyBoardReply : " + lslCommReply);
+		return ls.modifyBoardReply(lslCommReply);
+	}
+	
+	// 댓글 수정
+	
+	// 대댓글
+	// 게시판 글쓰기
+	// 게시글 수정 
+	// 파일 업로드
 	
 	
 	

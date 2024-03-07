@@ -81,5 +81,8 @@ SELECT *
 		WHERE bc.CBOARD_NO = #{cboard_no}
 </select>
 
+<update id="slboardAskViewCnt" parameterType="LslBoardComm">
+	update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where cboard_no=#{cboard_no}
+</update>
 
 </mapper>
