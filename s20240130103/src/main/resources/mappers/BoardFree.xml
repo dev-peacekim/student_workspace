@@ -4,8 +4,8 @@
 	namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
 	<insert id="slboardFreeWriteInsert" parameterType="LslBoardComm">
 		INSERT INTO BOARD_COMM
-		VALUES (SEQ_BOARD_COMM.nextval, #{CBOARD_TITLE}, #{CBOARD_CONTENT}, 0 ,
-		sysdate, #{USER_NO}, 0, 300, 20,NULL, NULL, sysdate)
+		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content}, 0 ,
+		sysdate, #{user_no}, 0, 300, 20,NULL, NULL, sysdate)
 	</insert>
 
 	<select id="sltotalBoardFreeList" resultType="int">
@@ -68,6 +68,7 @@ SELECT *
 		INNER JOIN USERS u
 		ON bc.USER_NO = u.USER_NO
 		WHERE bc.CBOARD_NO = #{cboard_no}
+		AND CBOARD_DELETE_CHK = 0
 	</select>
 
 
@@ -76,4 +77,9 @@ SELECT *
 		set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where cboard_no=#{cboard_no}
 	</update>
 
+	<update id="sldeleteFreeBoard" parameterType="int">
+		update board_comm
+		set CBOARD_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
+		where cboard_no = #{cboard_no}
+	</update>
 </mapper>

@@ -47,6 +47,14 @@ public class LslServiceImpl implements LslService {
 	 return boardFreeSearch;
 	}
 
+	// 자유 게시판 글 삭제
+	@Override
+	public int deleteFreeBoard(LslBoardComm lslBoardComm) {
+		int deleteFreeBoard = ld.deleteFreeBoard(lslBoardComm);
+		return deleteFreeBoard;
+	}
+	
+	
 
 	
 	// 질문 게시판 토탈 카운트 
@@ -79,6 +87,15 @@ public class LslServiceImpl implements LslService {
 		  System.out.println("EmpServiceImpl boardAskSearch.size() ->"+boardAskSearch.size());
 		 return boardAskSearch;
 	}
+	
+	// 질문 게시판 글 삭제 
+	@Override
+	public int deleteAskBoard(LslBoardComm lslBoardComm) {
+		int deleteAskBoard = ld.deleteAskBoard(lslBoardComm);
+		return deleteAskBoard;
+
+	}
+	
 
 	// 질문 게시판 글 상세 내역 
 	@Override
@@ -103,7 +120,11 @@ public class LslServiceImpl implements LslService {
 	}
 
 	// 질문 게시판 글쓰기 
-
+	@Override
+	public int boardAskWriteInsert(LslBoardComm lslBoardComm) {
+		int boardAskWriteInsert = ld.boardAskWriteInsert(lslBoardComm);
+		return boardAskWriteInsert;
+	}
 
 	
 	// 질문 게시판 조회수 
@@ -118,8 +139,8 @@ public class LslServiceImpl implements LslService {
 
 	// 자유 게시판 글 쓰기 
 	@Override
-	public int boardFreeWriteInsert(Long user_no) {
-		int boardFreeWriteInsert = ld.boardFreeWriteInsert(user_no);
+	public int boardFreeWriteInsert(LslBoardComm lslBoardComms) {
+		int boardFreeWriteInsert = ld.boardFreeWriteInsert(lslBoardComms);
 		return boardFreeWriteInsert;
 	}
 
@@ -170,7 +191,11 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
-	
+		
+		
+		
+		
+		
 	
 	
 	

@@ -121,9 +121,13 @@ window.onload = function() {
         </section>
         
 			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">
-                        <button  class="btn bacDelete">삭제</button>
+             <form id="deleteForm" action="/deleteAskBoard" method="post">
+			 	 	  	<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}">
+			   			 <input type="hidden" name="user_no" value="${boardAskContents.user_no}">
+			    		<button type="submit" class="btn bfcDelete">삭제</button>
+				</form>
                         <a href="boardFreeModify">
-                            <button class="btn bacModify">수정</button>
+                            <button class="btn bacModify"  id="bacModify">수정</button>
                         </a>
                     </c:if>
 

@@ -118,11 +118,32 @@ public class LslDaoImpl implements LslDao {
 
 	
 	
+	
 	// 게시판 글쓰기 
 	@Override
-	public int boardFreeWriteInsert(Long user_no) {
-		int boardFreeWriteInsert = session.insert("slboardFreeWriteInsert",user_no);
+	public int boardFreeWriteInsert(LslBoardComm lslBoardComms) {
+		int boardFreeWriteInsert = session.insert("slboardFreeWriteInsert",lslBoardComms);
 		return boardFreeWriteInsert;
+	}
+	
+	@Override
+	public int boardAskWriteInsert(LslBoardComm lslBoardComm) {
+		int boardAskWriteInsert = session.insert("slboardAskWriteInsert", lslBoardComm);
+		return boardAskWriteInsert;
+	}
+
+
+	// 게시판 글 삭제
+	@Override
+	public int deleteFreeBoard(LslBoardComm lslBoardComms) {
+		int deleteFreeBoard = session.update("sldeleteFreeBoard", lslBoardComms);
+		return deleteFreeBoard;
+	}
+	
+	@Override
+	public int deleteAskBoard(LslBoardComm lslBoardComm) {
+		int deleteAskBoard = session.update("sldeleteAskBoard", lslBoardComm);
+		return deleteAskBoard;
 	}
 
 
@@ -176,6 +197,11 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeAskResult;
 	}
 
+	
+
+
+
+	
 	
 
 

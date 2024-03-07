@@ -87,28 +87,42 @@ public class LslController {
 		
 	
 		model.addAttribute("boardFreeViewCnt",boardFreeViewCnt);
-
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
 	}
 
 	
-	
-	
 	// 자유 게시판 글 작성 페이지 
-	@GetMapping(value = "/boardFreeWrite")
+	@GetMapping(value = "boardFreeWrite")
 	public String boardFreeWrite() {
 		System.out.println("LslController boardFreeWrite Start...");
 		return "lsl/boardFreeWrite";
 	}
-
-	@PostMapping(value = "boardFreeWrite")
-	public String freeWrite(HttpServletRequest request) {
+	
+	// 자유 게시판 글쓰기 
+	@PostMapping(value = "freeWrite" )
+	public String freeWrite(HttpServletRequest request, LslBoardComm lslBoardComm) {
 		System.out.println("LslController freeWrite Start...");
 		Long user_no =  (Long)request.getSession().getAttribute("user_no");
-		int boardFreeWriteInsert = ls.boardFreeWriteInsert(user_no);
+		lslBoardComm.setUser_no(user_no);
+		// 넘어오는 값이 보드 번호가 0이라 바로 자기 글로 넘어갈 방법이 없을지 생각.
+		int boardFreeWriteInsert = ls.boardFreeWriteInsert(lslBoardComm);
 		
-		return "lsl/boardFree";
+		return "redirect:/boardFree";
+
+	}
+	
+	// 자유 게시판 글 삭제
+	@RequestMapping("/deleteFreeBoard")
+	public String deleteFreeBoard(HttpServletRequest request, LslBoardComm lslBoardComm) {
+		System.out.println("LslController deleteBoard Start...");
+		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		lslBoardComm.setCboard_no(cboard_no);
+		int deleteFreeBoard = ls.deleteFreeBoard(lslBoardComm);
+		
+		System.out.println("LslController deleteBoard ->" + deleteFreeBoard);
+		
+		return "forward:boardFree";
 	}
 	
 	
@@ -180,8 +194,41 @@ public class LslController {
 		return "lsl/boardAskContents";
 	}
 	
+	
+	// 질문 게시판 글 작성 페이지 
+	@GetMapping(value = "boardAskWrite")
+	public String boardAskWrite() {
+		System.out.println("LslController boardAskWrite Start...");
+		return "lsl/boardAskWrite";
+	}
+	
 
-	// 질문 게시판 글 폼(board type)
+	// 질문 게시판 글쓰기 
+		@PostMapping(value = "boardAskWrite" )
+		public String askWrite(HttpServletRequest request, LslBoardComm lslBoardComm) {
+			System.out.println("LslController askWrite Start...");
+			Long user_no =  (Long)request.getSession().getAttribute("user_no");
+			lslBoardComm.setUser_no(user_no);
+			// 넘어오는 값이 보드 번호가 0이라 바로 자기 글로 넘어갈 방법이 없을지 생각.
+			int boardAskWriteInsert = ls.boardAskWriteInsert(lslBoardComm);
+			
+			return "redirect:/boardAsk";
+
+		}
+		
+		// 질문 게시판 글 삭제
+		@RequestMapping("/deleteAskBoard")
+		public String deleteAskBoard(HttpServletRequest request, LslBoardComm lslBoardComm) {
+			System.out.println("LslController deleteAskBoard Start...");
+			int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+			lslBoardComm.setCboard_no(cboard_no);
+			int deleteAskBoard = ls.deleteAskBoard(lslBoardComm);
+			
+			System.out.println("LslController deleteAskBoard ->" + deleteAskBoard);
+			
+			return "forward:boardAsk";
+		}
+		
 	
 	
 	

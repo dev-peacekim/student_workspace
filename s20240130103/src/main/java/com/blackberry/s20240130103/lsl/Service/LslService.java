@@ -31,7 +31,12 @@ public interface LslService {
 	
 	
     // 게시판 글쓰기
-	int boardFreeWriteInsert(Long user_no);
+	int boardFreeWriteInsert(LslBoardComm lslBoardComm);
+	int boardAskWriteInsert(LslBoardComm lslBoardComm);
+	
+	// 게시판 글 삭제
+	int deleteFreeBoard(LslBoardComm lslBoardComm);
+	int deleteAskBoard(LslBoardComm lslBoardComm);
 
 	// 게시판 글 조회수 
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
@@ -54,6 +59,9 @@ public interface LslService {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+	
 
 	
 
