@@ -162,6 +162,13 @@ public class LhsController {
 			session.setAttribute("user_profile", user.getUser_profile());
 			System.out.println("LHSController session user no : " + session.getAttribute("user_no"));
 			return "redirect:/main";
+		}else if(result ==2){
+			System.out.println("관리자계정 로그인");
+			request.getSession().invalidate();
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user_no", user.getUser_no());
+			session.setAttribute("user_name", user.getUser_name());
+			return "admin/main";
 		}else {
 			request.setAttribute("islogin", 0);
 			return "lhs/loginForm";
@@ -381,8 +388,4 @@ public class LhsController {
 		return "redirect:/address";
 	}
 	
-	@PostMapping("detailProject")
-	public String detailProjectForm() {
-		return "lhs/taskMain";
-	}
 }

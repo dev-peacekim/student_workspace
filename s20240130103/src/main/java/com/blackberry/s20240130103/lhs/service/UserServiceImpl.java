@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 			if(bCryptPasswordEncoder.matches(user.getUser_pw(), userOp.get().getUser_pw())) { //찾은 유저의 암호화된 비밀번호가 입력한 비밀번호와 일치하는지
 				User user2 = userOp.get();
 				if(user2.getUser_delete_chk()==0) { //찾은 유저의 삭제 상태가 0(삭제X)인지
+					System.out.println(user2);
 					user.setUser_no(user2.getUser_no());
 					user.setUser_profile(user2.getUser_profile());
 					user.setUser_name(user2.getUser_name());

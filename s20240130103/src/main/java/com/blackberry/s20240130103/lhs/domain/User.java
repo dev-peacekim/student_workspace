@@ -10,6 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -48,10 +53,18 @@ public class User {
 	@UpdateTimestamp
 	@Column(insertable = false)
 	private LocalDateTime user_update_date;
+//	@Column(name = "user_rank_big")
+//	private int userRankBig;
+//	@Column(name = "user_rank_big")
+//	private int userRankMig;
+	
+	//@JoinTable(name = "comm")
+	//private Comm comm;
 	//-----------조회용 컬럼-------------
 	@Transient
 	private double eval_score;
 	@Transient
 	private int address_chk; //address테이블에 추가된 목록이 있는지 확인
+	
 	
 }
