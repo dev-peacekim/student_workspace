@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.kph.model;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -11,5 +12,8 @@ public class KphTask {
 	private String task_start;
 	private String task_end;
 	private int task_comp_chk;
+	
+	// 조회용
+	private List<KphUsers> users;
 	
 }

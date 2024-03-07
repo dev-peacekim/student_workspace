@@ -222,4 +222,25 @@ public class KphProjectController {
 		return response;
 	}
 	
+	@PostMapping("detailProject")
+	public String detailProject(KphTask kphTask, HttpServletRequest request, Model model) {
+		
+		System.out.println("KphProjectController detailProject start...");
+		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
+		
+		model.addAttribute("taskList", detailProject.get("taskList"));
+		model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
+		model.addAttribute("unCompTaskListCount", detailProject.get("unCompTaskListCount"));
+		model.addAttribute("compTaskListCount", detailProject.get("compTaskListCount"));
+		
+		return "kph/detailProject";
+	}
+	
+	@GetMapping("taskFilter")
+	@ResponseBody
+	public List<KphTask> taskFilter(@RequestParam("project_no") Long project_no, @RequestParam("keyword") String keyword) {
+		return null;
+	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.kph.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -104,6 +105,14 @@ public class KphProjectServiceImp implements KphProjectService {
 		System.out.println("KphProjectServiceImp totalTaskCountByKeyword start...");
 		int totalTaskCount = kphProjectDao.totalTaskCountByKeyword(kphProjectTask);
 		return totalTaskCount;
+	}
+
+
+	@Override
+	public Map<String, Object> detailProject(KphTask kphTask) {
+		System.out.println("KphProjectServiceImp detailProject start...");
+		Map<String, Object> detailProject = kphProjectDao.detailProject(kphTask);
+		return detailProject;
 	}
 	
 }

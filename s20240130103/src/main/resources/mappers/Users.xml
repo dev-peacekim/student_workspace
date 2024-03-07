@@ -50,4 +50,23 @@
 			AND u2.USER_NAME LIKE '%' || #{user_name} || '%'	
 	</select>
 	
+	<select id="kphUserListInTask" parameterType="KphTask" resultType="KphUsers">
+		SELECT *
+		FROM USERS u 
+		WHERE u.USER_NO IN (SELECT USER_NO 
+        						           FROM USER_TASK_MANY
+                    					 WHERE PROJECT_NO = #{project_no}
+                      						  AND TASK_NO = #{task_no})
+    	ORDER BY USER_NAME                  						  
+	</select>
+	
+	<select id="kphUserListInProject" parameterType="KphTask" resultType="KphUsers">
+		SELECT *
+		FROM USERS u
+		WHERE u.USER_NO IN (SELECT USER_NO
+										 FROM USER_PROJECT_MANY
+										 WHERE PROJECT_NO = #{project_no})
+		ORDER BY USER_NAME
+	</select>
+	
 </mapper>

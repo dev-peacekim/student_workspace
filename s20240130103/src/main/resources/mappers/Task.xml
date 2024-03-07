@@ -16,4 +16,11 @@
 		AND TASK_COMP_CHK = 1
 	</select>
 	
+	<select id="kphTaskListByProjectNo" parameterType="KphTask" resultType="KphTask">
+		SELECT * 
+		FROM TASK
+		WHERE PROJECT_NO = #{project_no}
+		ORDER BY TASK_END
+	</select>
+	
 </mapper>

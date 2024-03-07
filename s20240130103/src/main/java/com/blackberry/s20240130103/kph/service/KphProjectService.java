@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.kph.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -32,5 +33,7 @@ public interface KphProjectService {
 	List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask);
 
 	int totalTaskCountByKeyword(KphProjectTask kphProjectTask);
+
+	Map<String, Object> detailProject(KphTask kphTask);
 
 }
