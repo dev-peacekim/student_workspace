@@ -109,10 +109,10 @@
 			
 							<!-- 글쓰기 버튼  -->
 							<div class="text-end">
-								<a href="boardFreeWrite">
-									<button type="button" class="btn bfWrite">글쓰기</button>
-								</a>
-							</div>
+    								<a href="boardFreeWrite">
+       							 	<button type="button" class="btn bfWrite">글쓰기</button>
+							    	</a>
+								</div>
 							<!-- 글쓰기 버튼 끝  -->
 
 							<!-- 페이지 표시 -->

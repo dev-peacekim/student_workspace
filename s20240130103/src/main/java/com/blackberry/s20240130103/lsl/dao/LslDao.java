@@ -31,8 +31,12 @@ public interface LslDao {
 
 
 	// 게시판 글쓰기
-	int boardFreeWriteInsert(Long user_no);
+	int boardFreeWriteInsert(LslBoardComm lslBoardComms);
+	int boardAskWriteInsert(LslBoardComm lslBoardComm);
 
+	// 게시판 글 삭제
+	int deleteFreeBoard(LslBoardComm lslBoardComms);
+	int deleteAskBoard(LslBoardComm lslBoardComm);
 
 	// 게시판 조회수 
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
@@ -54,6 +58,11 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+
+
+
 
 
 

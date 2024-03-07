@@ -68,7 +68,7 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form id="freeWrite" method="post" action="/freeWrite">
+                        <form id="boardAskWrite" method="post" action="/boardAskWrite">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">

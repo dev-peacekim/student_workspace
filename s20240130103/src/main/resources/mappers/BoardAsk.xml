@@ -85,4 +85,16 @@ SELECT *
 	update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where cboard_no=#{cboard_no}
 </update>
 
+<insert id="slboardAskWriteInsert" parameterType="LslBoardComm">
+		INSERT INTO BOARD_COMM
+		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content}, 0 ,
+		sysdate, #{user_no}, 0, 300, 10,NULL, NULL, sysdate)
+</insert>
+
+<update id="sldeleteAskBoard" parameterType="LslBoardComm">
+	   	update board_comm
+		set CBOARD_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
+		where cboard_no = #{cboard_no}
+</update>
+
 </mapper>

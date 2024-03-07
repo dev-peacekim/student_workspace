@@ -124,10 +124,11 @@
 						<!-- 게시판 테이블 끝 -->
 
 							<div class="text-end">
-								<a href="boardFreeWrite?boardtype=Ask">
+								<a href="boardAskWrite">
 									<button type="button" class="btn baWrite">글쓰기</button>
 								</a>
 							</div>
+
 
 						<!-- 페이지 표시 -->
 
