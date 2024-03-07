@@ -44,125 +44,199 @@
 <link href="assets/css/kdw/msgWrite.css" rel="stylesheet">
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-    var receiverInput = document.getElementById('receiverInput');
-    var toggleButton = document.getElementById('toggleButton');
-    var userListDropdown = document.getElementById('userListDropdown');
+	//================ 주소록 ================
+	$(document).ready(function() {
+		var toggleButton = $('#toggleButton');
+		var userListDropdown = $('#userListDropdown');
+		var isToggleButtonClicked = false;
+	    // 받는 사람 인풋 클릭 시 드롭다운 업데이트
+	    $('#receiverInput').on('click', function(event) {
+	    	// receiverInput을 클릭하면 클릭 상태를 토글합니다.
+	        isToggleButtonClicked = !isToggleButtonClicked;
+	        // 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
+	        toggleButton.toggleClass('active', isToggleButtonClicked);
+	        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+	        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
+	     	// 이벤트 전파를 막기 위해 추가합니다.
+	        event.stopPropagation();
+	        loadAddressBookList(); // 주소록 리스트 로드 및 드롭다운 업데이트
+	        /* $('#userListDropdown').toggle(); */ // 드롭다운 토글
+	       /*  $('#toggleButton').trigger('click'); */
+	    });
+	    
+	    toggleButton.on('click', function() {
+	        // toggleButton을 클릭하면 클릭 상태를 토글합니다.
+	        isToggleButtonClicked = !isToggleButtonClicked;
 
-    var isToggleButtonClicked = false;
+	        // 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
+	        $('#receiverInput').toggleClass('active', isToggleButtonClicked);
 
-    receiverInput.addEventListener('click', function(event) {
-        // receiverInput을 클릭하면 클릭 상태를 토글합니다.
-        isToggleButtonClicked = !isToggleButtonClicked;
+	        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
+	        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
+	    });
+	    
+	    // 주소록 버튼 클릭 이벤트
+	    $('.receiver-addressBtn button').on('click', function() {
+	        $.ajax({
+	            url: '/getAddressBookList',
+	            type: 'GET',
+	            success: function(data) {
+	                updateAddressBookUI(data);
+	            },
+	            error: function(error) {
+	                console.log("Error loading address book: ", error);
+	            }
+	        });
+	    });
+	
+	 	// 주소록 UI 업데이트 함수 수정
+	    function updateAddressBookUI(addresses) {
+	        var addressList = $('#addressList');
+	        addressList.empty();
+	        $.each(addresses, function(index, user) {
+	            var listItem = $('<li>').addClass('list-group-item');
+	            var checkbox = $('<input>').attr('type', 'checkbox').addClass('address-checkbox').val(user.user_no);
+	            var label = $('<label>').text(user.user_nic + " (" + user.user_name + ")").prepend(checkbox);
 
-        // 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
-        toggleButton.classList.toggle('active', isToggleButtonClicked);
+	            listItem.append(label).on('change', '.address-checkbox', function() {
+		            // 체크박스 상태 변경 시 받는 사람 탭에 추가/제거 처리
+		            checkbox.change(function() {
+		                var checked = $(this).is(':checked');
+		                var label = $(this).data('label');
+		                var value = $(this).val();
+		                if(checked) {
+		                    // 체크 시 받는 사람 영역에 추가
+		                    var newItem = $('<li>').addClass('list-group-item selected-address').text(label).data('value', value);
+		                    $('#selectedAddresses').append(newItem);
+		                } else {
+		                    // 해제 시 받는 사람 영역에서 제거
+		                    $('#selectedAddresses').find(`li[data-value='${value}']`).remove();
+		                }
+		            });
+	            });
+	            addressList.append(listItem);
+	        });
+	     	// "모두 선택" 체크박스 동작 로직 추가
+	        $('#selectAllAddresses').on('change', function() {
+	            var isChecked = $(this).is(':checked');
+	            $('.address-checkbox').prop('checked', isChecked);
+	            // 선택 상태에 따라 받는 사람 탭에 추가/제거하는 로직 추가
+	        });
 
-        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-        userListDropdown.style.display = isToggleButtonClicked ? 'block' : 'none';
-
-        // 이벤트 전파를 막기 위해 추가합니다.
-        event.stopPropagation();
-    });
-
-    toggleButton.addEventListener('click', function() {
-        // toggleButton을 클릭하면 클릭 상태를 토글합니다.
-        isToggleButtonClicked = !isToggleButtonClicked;
-
-        // 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
-        receiverInput.classList.toggle('active', isToggleButtonClicked);
-
-        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-        userListDropdown.style.display = isToggleButtonClicked ? 'block' : 'none';
-    });
-
-    // document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
-    document.addEventListener('click', function() {
-        isToggleButtonClicked = false;
-        toggleButton.classList.remove('active');
-        userListDropdown.style.display = 'none';
-    });
-    
-    
-}); // 건들지말것
-
-	// 선택한 유저 인풋창에 박기
-	function selectReceiver(userNo, userNic, userName) {
-		var selectedUserInfo = userNo;
-		document.getElementById('receiverInput').value = selectedUserInfo;
+	        // 저장 버튼 클릭 이벤트 처리
+	        $('#saveSelectedAddresses').on('click', function() {
+	            var selectedAddresses = $('.address-checkbox:checked').map(function() {
+	                return $(this).val();
+	            }).get().join(', ');
+	            $('#receiverInput').val(selectedAddresses);
+	            $('#addressBookModal').modal('hide');
+	        });
+	    }
+	});
+	// 주소록 데이터 로드 및 드롭다운 리스트 업데이트
+	function loadAddressBookList() {
+	    $.ajax({
+	        url: '/getAddressBookList',
+	        type: 'GET',
+	        success: function(data) {
+	            var dropdownMenu = $('#userListDropdown');
+	            dropdownMenu.empty();
+	            $.each(data, function(index, user) {
+	                var listItem = $('<li>');
+	                var linkItem = $('<a>').addClass('dropdown-item')
+	                                       .attr('href', '#')
+	                                       .text(user.user_no + ' ' + user.user_nic + ' (' + user.user_name + ')')
+	                                       .click(function() {
+	                                           var receiverInput = $('#receiverInput');
+	                                           var currentValue = receiverInput.val();
+	                                           var newValue = currentValue ? currentValue + ', ' + user.user_no : user.user_no;
+	                                           receiverInput.val(newValue);
+	                                           dropdownMenu.hide();
+	                                       });
+	                listItem.append(linkItem);
+	                dropdownMenu.append(listItem);
+	            });
+	        },
+	        error: function(error) {
+	            console.log("Error loading address book: ", error);
+	        }
+	    });
+	    // document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
+	    $(document).on('click', function() {
+	        isToggleButtonClicked = false;
+	        toggleButton.removeClass('active');
+	        userListDropdown.css('display', 'none');
+	    });
 	}
 	
-	document.addEventListener('DOMContentLoaded', function() {
-	    var dropZone = document.getElementById('drop_zone');
-	    var fileList = document.getElementById('fileList');
-	    var filesInput = document.getElementById('files');
-	    var initialMessage = document.getElementById('initial_message');
-	    var fileListBar = document.getElementById('file_list_bar');
-	    var deleteAllBtn = document.getElementById('delete_all');
+	// ================ 드래그 앤 드롭 업로드================
+	$(document).ready(function() {
+	    var dropZone = $('#drop_zone');
+	    var fileList = $('#fileList');
+	    var filesInput = $('#files');
+	    var initialMessage = $('#initial_message');
+	    var fileListBar = $('#file_list_bar');
+	    var deleteAllBtn = $('#delete_all');
 
-	    // 파일 목록을 관리하기 위한 배열
 	    var filesArray = [];
 
 	    function updateUIForFiles() {
-	        fileList.innerHTML = ''; // 기존 목록 초기화
+	        fileList.html(''); // 기존 목록 초기화
 	        if (filesArray.length > 0) {
-	            initialMessage.style.display = 'none';
-	            fileListBar.style.display = 'flex';
+	            initialMessage.css('display', 'none');
+	            fileListBar.css('display', 'flex');
 	            // 파일 목록 표시
-	            filesArray.forEach(file => {
-	                fileList.appendChild(createFileListItem(file));
+	            $.each(filesArray, function(index, file) {
+	                fileList.append(createFileListItem(file));
 	            });
 	        } else {
-	            initialMessage.style.display = 'block';
-	            fileListBar.style.display = 'none';
+	            initialMessage.css('display', 'block');
+	            fileListBar.css('display', 'none');
 	        }
 	    }
 
 	    function createFileListItem(file) {
-	        var li = document.createElement('li');
-	        li.className = 'file-list-item';
-	        var fileNameSpan = document.createElement('span');
-	        fileNameSpan.textContent = file.name;
-	        var fileSizeSpan = document.createElement('span');
-	        fileSizeSpan.textContent = (file.size / 1024).toFixed(2) + ' KB';
-	        var deleteBtnSpan = document.createElement('span');
-	        deleteBtnSpan.textContent = 'X';
-	        deleteBtnSpan.style.cursor = 'pointer';
-	        deleteBtnSpan.onclick = function() {
-	            filesArray = filesArray.filter(f => f !== file); // 파일 배열에서 제거
-	            updateUIForFiles(); // UI 업데이트
-	        };
+	        var li = $('<li>').addClass('file-list-item');
+	        var fileNameSpan = $('<span>').text(file.name);
+	        var fileSizeSpan = $('<span>').text((file.size / 1024).toFixed(2) + ' KB');
+	        var deleteBtnSpan = $('<span>').text('X').css('cursor', 'pointer');
+	        deleteBtnSpan.on('click', function() {
+	            filesArray = $.grep(filesArray, function(value) {
+	                return value !== file;
+	            });
+	            updateUIForFiles();
+	        });
 
-	        li.appendChild(fileNameSpan);
-	        li.appendChild(fileSizeSpan);
-	        li.appendChild(deleteBtnSpan);
+	        li.append(fileNameSpan).append(fileSizeSpan).append(deleteBtnSpan);
 	        return li;
 	    }
 
 	    function handleFiles(files) {
-	        Array.from(files).forEach(file => filesArray.push(file)); // 파일 배열에 추가
-	        updateUIForFiles(); // UI 업데이트
+	        $.each(files, function(index, file) {
+	            filesArray.push(file);
+	        });
+	        updateUIForFiles();
 	    }
 
-	    dropZone.addEventListener('dragover', function(e) {
+	    dropZone.on('dragover', function(e) {
 	        e.stopPropagation();
 	        e.preventDefault();
-	        e.dataTransfer.dropEffect = 'copy';
+	        e.originalEvent.dataTransfer.dropEffect = 'copy';
 	    });
 
-	    dropZone.addEventListener('drop', function(e) {
+	    dropZone.on('drop', function(e) {
 	        e.stopPropagation();
 	        e.preventDefault();
-	        handleFiles(e.dataTransfer.files);
+	        handleFiles(e.originalEvent.dataTransfer.files);
 	    });
 
-	    filesInput.addEventListener('change', function(e) {
+	    filesInput.on('change', function(e) {
 	        handleFiles(e.target.files);
 	    });
 
-	    deleteAllBtn.addEventListener('click', function() {
-	        filesArray = []; // 파일 배열 초기화
-	        updateUIForFiles(); // UI 업데이트
+	    deleteAllBtn.on('click', function() {
+	        filesArray = [];
+	        updateUIForFiles();
 	    });
 	});
 </script>
@@ -220,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									name="msg_receiver">
 
 								<div class="receiver-dropdown">
-									<!-- 드롭다운 토글 버튼 -->
+									<!-- 드롭다운 토글 버튼 --><!-- 토글버튼을 JS로 따로 주고있어서그런거같음 -->
 									<button type="button" id="toggleButton"
 										class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
 										data-bs-toggle="dropdown" aria-expanded="false">
@@ -230,16 +304,43 @@ document.addEventListener('DOMContentLoaded', function() {
 									<!-- 드롭다운 주소록 리스트 -->
 									<ul class="dropdown-menu dropdown-menu-end"
 										id="userListDropdown">
-										<c:forEach var="user" items="${userList}">
-											<li><a class="dropdown-item" href="#"
-												onclick="selectReceiver('${user.user_no}', '${user.user_nic}', '${user.user_name}')">
-													${user.user_no} ${user.user_nic}(${user.user_name}) </a></li>
-										</c:forEach>
 									</ul>
 								</div>
 								<!-- 주소록 버튼 -->
 								<div class="receiver-addressBtn">
-									<button type="button" class="btn btn-outline-secondary">주소록</button>
+									<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addressBookModal">주소록</button>
+								</div>
+								<!-- 주소록 버튼 클릭시 OPEN : 주소록 모달 -->
+								<div class="modal fade" id="addressBookModal" tabindex="-1" aria-labelledby="addressBookModalLabel" aria-hidden="true">
+								  <div class="modal-dialog modal-lg">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="addressBookModalLabel" style="font-weight: 800;">쪽지 주소록</h5>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <div class="modal-body">
+								        <div class="row">
+								          <div class="col-6">
+								          	<!-- 주소록 리스트 전체 체크박스 -->					        	
+								            <h6><input type="checkbox" id="selectAllAddresses" />등록된 주소록</h6>
+								            <ul id="addressList" class="list-group">
+								              <!-- 주소록 리스트가 여기에 동적으로 로드됩니다 -->
+								            </ul>
+								          </div>
+								          <div class="col-6">
+								            <h6>받는사람</h6>
+								            <ul id="selectedAddresses" class="list-group">
+								              <!-- 선택된 주소록이 여기에 표시됩니다 -->
+								            </ul>
+								          </div>
+								        </div>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+								        <button type="button" class="btn btn-primary" id="saveSelectedAddresses">저장</button>
+								      </div>
+								    </div>
+								  </div>
 								</div>
 							</div>
 						</div>

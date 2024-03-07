@@ -41,10 +41,43 @@
   ======================================================== -->
 
 
-
+<!-- jQuery를 포함 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/msgReadSent.css" rel="stylesheet">
 
+<script type="text/javascript">
+$(document).ready(function() {
+    // 확장자에 따른 아이콘 이미지 매핑
+    var fileExtensionImages = {
+        'pdf': '/assets/img/kdw/pdf_icon.png',
+        'docx': '/assets/img/kdw/docx_icon.png',
+        'xlsx': '/assets/img/kdw/xlsx_icon.png',
+        'jpg': '/assets/img/kdw/jpg_icon.png',
+        'png': '/assets/img/kdw/png_icon.png',
+        'txt': '/assets/img/kdw/txt_icon.png',
+        'eps': '/assets/img/kdw/eps_icon.png',
+        'exe': '/assets/img/kdw/exe_icon.png',
+        'php': '/assets/img/kdw/php_icon.png',
+        'dwg': '/assets/img/kdw/dwg_icon.png',
+        'zip': '/assets/img/kdw/zip_icon.png',
+        'psg': '/assets/img/kdw/psg_icon.png',
+        // 추가 확장자 및 아이콘
+    };
+
+    // 파일 아이콘 업데이트 함수
+    function updateFileIcons() {
+        $('#files a').each(function() {
+            var fileName = $(this).text(); // 파일 이름 추출
+            var fileExtension = fileName.split('.').pop().toLowerCase(); // 확장자 추출
+            var iconPath = fileExtensionImages[fileExtension] || '/assets/img/kdw/default_icon.png'; // 매핑된 아이콘 경로
+            $(this).prepend('<img src="' + iconPath + '" class="file_icon" style="margin-right: 5px;">'); // 아이콘 삽입
+        });
+    }
+
+    updateFileIcons();
+});
+</script>
 </head>
 
 <body>
@@ -131,11 +164,14 @@
 						</div>
 						<!-- Attachments -->
 						<div class="form-group">
-							<div class="mb-3">
+						    <div class="mb-3">
 								<div class="file-attachment">
-									<!-- File Attachment Input -->
-									<input class="form-control" type="file" id="formFileMultiple"
-										name="attachments" multiple disabled>
+						            <div id="files">
+						                <c:forEach items="${fileMsgs}" var="fileMsgs">
+						                    <a href="/downloadFile?msgNo=${fileMsgs.msg_no}&fileCnt=${fileMsgs.msg_file_cnt}" 
+						                    	target="_blank" class="file-link">${fileMsgs.msg_file_user_name}</a><br/>
+						                </c:forEach>
+						            </div>
 								</div>
 							</div>
 						</div>

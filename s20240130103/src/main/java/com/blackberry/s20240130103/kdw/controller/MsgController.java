@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.Message;
 import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.kdw.service.MsgPaging;
 import com.blackberry.s20240130103.kdw.service.MsgService;
+import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,8 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MsgController {
 	
-	@Autowired
 	private final MsgService msgService;
+	private final KphProjectService kphProjectService;
 
 
 	/* ========== 쪽지함 ========== */
@@ -252,10 +255,14 @@ public class MsgController {
 
         // msgNo를 사용하여 해당 쪽지 정보 가져오기 및 읽은 시간 업데이트
         Message sentMessageInfo = msgService.getSentMessageByInfo(msgNo);
+        // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
+        List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo); 
 
         model.addAttribute("sentMessageInfo", sentMessageInfo);
+        model.addAttribute("fileMsgs", fileMsgs); // 첨부 파일 정보 모델에 추가
         log.info("MsgController readSentMessage sentMessageInfo => " + sentMessageInfo);
-        // 쪽지 읽기 페이지로 이동
+        log.info("MsgController readReceivedMessage fileMsgs.size() => {}", fileMsgs.size());
+        // 보낸쪽지 읽기 페이지로 이동
         return "kdw/msgReadSent";
     }
     
@@ -332,7 +339,17 @@ public class MsgController {
         return "kdw/msgSent";
     }
     
-    
+    // 주소록 버튼 클릭시 -> 주소록 모달 페이지 이동
+    @GetMapping("/getAddressBookList")
+    @ResponseBody
+    public List<KphUsers> getAddressBookList(HttpServletRequest request) {
+    	System.out.println("MsgController getAddressBookList start...");
+        Long userNo = Long.parseLong(request.getSession().getAttribute("user_no").toString());
+        System.out.println("MsgController getAddressBookList userNo: " + userNo);
+        List<KphUsers> addressUserList = kphProjectService.addressUserList(userNo);
+        System.out.println("MsgController getAddressBookList addressUserList.size(): " + addressUserList.size());
+        return addressUserList;
+    }
     
     // 답장쓰기 버튼 -> 답장쓰기 View 이동
     @GetMapping(value = "msgReply")

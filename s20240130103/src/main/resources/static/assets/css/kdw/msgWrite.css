@@ -115,14 +115,17 @@ body {
 /* 드롭다운 리스트 스타일 */
 .msgWrite-section .receiver-dropdown .dropdown-menu {
     position: absolute !important;
+    border: 1px solid #ced4da;
     width: 300px !important;
-    height: 300px !important;
+    height: 200px !important;
     min-width: 300px !important;
-    min-height: 300px !important;
-    left: 81px !important;
+    min-height: 150px !important;
+    left: 80px !important;
     margin-top: 3px !important;
     overflow-y: auto; /* 수직 스크롤 추가 */
+    overflow-x: auto;
 }
+
 /* 드랍다운 기존 보더 제거*/
 .msgWrite-section .input-group .receiver-dropdown .btn.btn-outline-secondary {
 	height: 35px;
