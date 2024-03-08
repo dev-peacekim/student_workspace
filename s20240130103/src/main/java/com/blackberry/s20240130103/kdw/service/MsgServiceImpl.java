@@ -2,6 +2,8 @@ package com.blackberry.s20240130103.kdw.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional // 마이바티스에서도 가능한가?
 @Slf4j
 public class MsgServiceImpl implements MsgService {
 	
@@ -179,7 +181,8 @@ public class MsgServiceImpl implements MsgService {
 		            try {
 		                // HDD에 저장
 		                String fileName = saveFile(f, path);
-
+		                File uploadedFile = new File(path, fileName); // 파일 저장 후 생성된 파일 객체
+		                
 		                // DB에 저장
 		                MessageFile messageFile = new MessageFile();
 		                messageFile.setMsg_no(message.getMsg_no()); // 쪽지 번호 설정
@@ -197,23 +200,37 @@ public class MsgServiceImpl implements MsgService {
 		}
 		log.info("MsgServiceImpl sendMsg end...");
 	}
-
-	// 파일 저장
+	// 파일 저장 : 다수의 유저에게 반복처리할때는 
 	public String saveFile(MultipartFile multipartFile, String path) throws IOException {
-		// 1. 중복되지 않는 파일명 생성(UUID, Date)
-		String fileName = UUID.randomUUID().toString();
+	    String originalFilename = multipartFile.getOriginalFilename();
+	    String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String fileName = UUID.randomUUID().toString() + fileExtension;
 
-		// 2. 확장자
-		String originalFilename = multipartFile.getOriginalFilename();
-		String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-		fileName += fileExtension;
+	    File targetFile = new File(path, fileName);
+	    // 파일 복사
+	    // MultipartFile.transferTo() 대신에 파일의 내용을 읽고 지정된 경로에 쓰는 방식으로 변경
+	    // 임시 파일 관리는 프레임워크 또는 서버가 담당 : 요청 처리가 완료되면 자동으로 이러한 임시 파일을 정리
+	    Files.copy(multipartFile.getInputStream(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-		// 3. 파일 저장
-		File file = new File(path, fileName);
-		multipartFile.transferTo(file);
-
-		return fileName;
+	    return fileName;
 	}
+	
+	/* // 단일 객체 할떄 사용하던 메서드
+	 * // 파일 저장 
+	 * public String saveFile(MultipartFile multipartFile, String path)
+	 * throws IOException { // 1. 중복되지 않는 파일명 생성(UUID, Date) String fileName =
+	 * UUID.randomUUID().toString();
+	 * 
+	 * // 2. 확장자 String originalFilename = multipartFile.getOriginalFilename();
+	 * String fileExtension =
+	 * originalFilename.substring(originalFilename.lastIndexOf(".")); fileName +=
+	 * fileExtension;
+	 * 
+	 * // 3. 파일 저장 File file = new File(path, fileName);
+	 * multipartFile.transferTo(file);
+	 * 
+	 * return fileName; }
+	 */
 	
 	// =========== 첨부 파일 다운로드 ============
 	// 파일 첨부된 쪽지들 리스트 불러오기

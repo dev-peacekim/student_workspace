@@ -65,6 +65,7 @@
 
     // "받는 사람" 인풋 필드 클릭 이벤트 핸들러 정의
     $('#receiverInput').on('click', function(event) {
+    	event.stopPropagation();
         // 위와 동일한 로직을 사용하여 드롭다운 표시 여부 토글
         isToggleButtonClicked = !isToggleButtonClicked;
         toggleButton.toggleClass('clicked', isToggleButtonClicked);
@@ -97,91 +98,138 @@
         });
     });
 
-    // 주소록 UI 업데이트 함수 정의
+ 	// 주소록 UI 업데이트 함수 수정
     function updateAddressBookUI(addresses) {
-        var addressList = $('#addressList'); // 주소록 리스트 요소 찾기
-        addressList.empty(); // 기존 내용을 비움
-        // 주소록 데이터를 반복하여 리스트 아이템 생성
+        var addressList = $('#addressList');
+        addressList.empty();
         $.each(addresses, function(index, user) {
+            var userText = user.user_nic + " (" + user.user_name + ")"; // 사용자 정보 텍스트
             var listItem = $('<li>').addClass('list-group-item');
             var checkbox = $('<input>').attr('type', 'checkbox').addClass('address-checkbox').val(user.user_no);
-            var label = $('<label>').text(user.user_nic + " (" + user.user_name + ")").prepend(checkbox);
+            var label = $('<label>').append(checkbox).append(document.createTextNode(" " + userText));
 
-            // 체크박스 변경 이벤트 핸들러 정의: 체크박스 상태에 따라 선택된 주소 추가 또는 제거
-            listItem.append(label).on('change', '.address-checkbox', function() {
-                var checked = $(this).is(':checked'); // 체크 상태 확인
-                var label = $(this).next().text(); // 체크박스 옆의 라벨 텍스트 가져오기
-                var value = $(this).val(); // 체크박스의 값을 가져오기
-                if(checked) {
-                    // 체크된 경우, 선택된 주소 목록에 추가
-                    var newItem = $('<li>').addClass('list-group-item selected-address').text(label).data('value', value);
-                    $('#selectedAddresses').append(newItem);
-                } else {
-                    // 체크 해제된 경우, 선택된 주소 목록에서 제거
-                    $('#selectedAddresses').find(`li[data-value='${value}']`).remove();
-                }
-            });
-            addressList.append(listItem); // 생성된 리스트 아이템을 주소록 리스트에 추가
+            listItem.append(label);
+            addressList.append(listItem);
         });
-        // "모두 선택" 체크박스 동작 로직: 모든 주소록 항목의 체크박스를 선택 또는 해제
-        $('#selectAllAddresses').on('change', function() {
-            var isChecked = $(this).is(':checked'); // "모두 선택" 체크박스의 상태 확인
-            $('.address-checkbox').prop('checked', isChecked); // 모든 체크박스 상태를 일치시킴
-            // 선택 상태에 따라 받는 사람 탭에 추가/제거하는 로직 필요
-        });
+    }
 
+	// 체크박스 상태 변경 시 이벤트 핸들러
+	$('#addressList').on('change', '.address-checkbox', function() {
+	    var checkbox = $(this);
+	    var userNo = checkbox.val(); // 사용자 번호(user_no)를 가져옵니다.
+	    var checked = checkbox.is(':checked');
+	    var userText = checkbox.parent().text().trim(); // 체크박스와 함께 있는 label 내의 텍스트를 가져옵니다.
+	
+	    if (checked) {
+	        // 체크된 경우, 해당 사용자 정보를 "받는사람" 목록에 추가합니다.
+	        var newItem = $('<li>').addClass('list-group-item selected-address').text(userText).attr('data-user-no', userNo);
+	        $('#selectedAddresses').append(newItem);
+	    } else {
+	        // 체크 해제된 경우, "받는사람" 목록에서 해당 user_no를 가진 항목을 제거합니다.
+	        // userText를 사용하는 대신, data-user-no 속성을 활용해 정확한 요소를 식별하고 제거합니다.
+	        $('#selectedAddresses li').filter(function() {
+	            return $(this).attr('data-user-no') === userNo;
+	        }).remove();
+	    }
+	});
+
+	    // "모두 선택" 체크박스의 동작을 처리합니다. 체크시 리스트 전체 체크 해제시 전체 해제
+	    $('#selectAllAddresses').change(function() {
+	        var isChecked = $(this).is(':checked');
+	        $('#addressList .address-checkbox').prop('checked', isChecked).trigger('change');
+	    });
         // 저장 버튼 클릭 이벤트 핸들러: 선택된 주소들을 "받는 사람" 입력 필드에 추가
         $('#saveSelectedAddresses').on('click', function() {
             var selectedAddresses = $('.address-checkbox:checked').map(function() {
                 return $(this).val(); // 선택된 체크박스의 값들을 배열로 수집
             }).get().join(', '); // 배열을 문자열로 변환하여 쉼표로 구분
-            $('#receiverInput').val(selectedAddresses); // "받는 사람" 입력 필드에 값 설정
-            $('#addressBookModal').modal('hide'); // 모달 창 숨김
+            // "전체 선택" 체크박스 초기화
+            $('#selectAllAddresses').prop('checked', false);
+            // "받는 사람" 목록에서 모든 체크박스의 선택 상태 해제
+            $('#addressList .address-checkbox').prop('checked', false);
+         	// "받는 사람" 입력 필드에 값 설정
+            $('#receiverInput').val(selectedAddresses); 
+            // 모달 창 숨김
+            $('#addressBookModal').modal('hide');
         });
-    }
+        $('#addressBookModal').on('hidden.bs.modal', function () {
+            // "전체 선택" 체크박스 초기화
+            $('#selectAllAddresses').prop('checked', false);
 
-    // 주소록 데이터 로드 및 드롭다운 리스트 업데이트 함수 정의
-    function loadAddressBookList() {
-        // AJAX를 사용하여 서버에서 주소록 데이터 가져오기
-        $.ajax({
-            url: '/getAddressBookList', // 데이터를 가져올 URL
-            type: 'GET', // HTTP 메소드 지정
-            success: function(data) {
-                // 데이터 로딩 성공 시 드롭다운 메뉴 업데이트
-                var dropdownMenu = $('#userListDropdown');
-                dropdownMenu.empty(); // 기존 내용 비우기
-                // 주소록 데이터를 반복하여 드롭다운 메뉴 항목 생성
-                $.each(data, function(index, user) {
-                    var listItem = $('<li>');
-                    var linkItem = $('<a>').addClass('dropdown-item')
-                                           .attr('href', '#')
-                                           .text(user.user_no + ' ' + user.user_nic + ' (' + user.user_name + ')')
-                                           .click(function() {
-                                               // 항목 클릭 시 "받는 사람" 입력 필드에 값 추가
-                                               var receiverInput = $('#receiverInput');
-                                               var currentValue = receiverInput.val();
-                                               var newValue = currentValue ? currentValue + ', ' + user.user_no : user.user_no;
-                                               receiverInput.val(newValue);
-                                               dropdownMenu.hide(); // 드롭다운 메뉴 숨김
-                                           });
-                    listItem.append(linkItem);
-                    dropdownMenu.append(listItem);
-                });
-            },
-            error: function(error) {
-                // 데이터 로딩 실패 시 오류 메시지 출력
-                console.log("Error loading address book: ", error);
-            }
+            // "받는 사람" 목록에서 모든 체크박스의 선택 상태 해제
+            $('#addressList .address-checkbox').prop('checked', false);
+
+            // 추가적으로 "받는사람" 목록도 비우고 싶다면
+            $('#selectedAddresses').empty();
         });
-    }
+
+		// 주소록 데이터 로드 및 드롭다운 리스트 업데이트 함수 정의
+		function loadAddressBookList() {
+		    // AJAX를 사용하여 서버에서 주소록 데이터 가져오기
+		    $.ajax({
+		        url: '/getAddressBookList', // 데이터를 가져올 URL
+		        type: 'GET', // HTTP 메소드 지정
+		        success: function(data) {
+		            // 데이터 로딩 성공 시 드롭다운 메뉴 업데이트
+		            var dropdownMenu = $('#userListDropdown');
+		            dropdownMenu.empty(); // 기존 내용 비우기
+		            // 주소록 데이터를 반복하여 드롭다운 메뉴 항목 생성
+		            $.each(data, function(index, user) {
+		                var listItem = $('<li>');
+		                var linkItem = $('<a>').addClass('dropdown-item')
+		                                       .attr('href', '#')
+		                                       .text(user.user_no + ' ' + user.user_nic + ' (' + user.user_name + ')')
+		                                       .click(function(event) {
+		                                           event.preventDefault(); // 기본 이벤트 방지
+		                                           var receiverInput = $('#receiverInput');
+		                                           var currentValues = receiverInput.val().split(', ').filter(Boolean); // 빈 값 제거
+		                                           var newUserNo = user.user_no.toString();
+		
+		                                           if (!currentValues.includes(newUserNo)) {
+		                                               if (currentValues.length > 0) {
+		                                                   receiverInput.val(currentValues.join(', ') + ', ' + newUserNo);
+		                                               } else {
+		                                                   receiverInput.val(newUserNo);
+		                                               }
+		                                           }
+		
+		                                           dropdownMenu.hide(); // 드롭다운 메뉴 숨김
+		                                       });
+		                listItem.append(linkItem);
+		                dropdownMenu.append(listItem);
+		            });
+		        },
+		        error: function(error) {
+		            // 데이터 로딩 실패 시 오류 메시지 출력
+		            console.log("Error loading address book: ", error);
+		        }
+		    });
+		}
 	    // 사용자 리스트 드롭다운 내부 항목 클릭 이벤트 핸들러
 	    $('#userListDropdown').on('click', 'li', function() {
+	    	event.stopPropagation();
 	        // 드롭다운을 닫고, 토글 버튼 상태 및 화살표 방향을 초기화
 	        isToggleButtonClicked = false; // 드롭다운 닫힘 상태로 변경
 	        toggleButton.removeClass('clicked');
 	        userListDropdown.css('display', 'none');
 	        toggleButton.find('.arrow').removeClass('down'); // 화살표 방향을 위로 변경
 	    });
+	    // 토글 버튼 클릭 시 이벤트 핸들러 정의
+	    $('#toggleButton').on('click', function(event) {
+	        event.stopPropagation(); // 문서 전체 클릭 이벤트 핸들러에서의 처리 방지
+	    });
+	    // 문서의 어디든 클릭했을 때의 이벤트 핸들러
+	    $(document).on('click', function(event) {
+	        // 클릭된 요소가 인풋 필드나 드롭다운 메뉴, 또는 토글 버튼이 아니라면 드롭다운을 숨김
+	        if (!$(event.target).closest('#receiverInput, #userListDropdown, #toggleButton').length) {
+	            // 드롭다운 메뉴 숨기기
+	            $('#userListDropdown').css('display', 'none');
+	            isToggleButtonClicked = false; // 토글 버튼 클릭 상태 업데이트
+	            toggleButton.removeClass('clicked');
+	            toggleButton.find('.arrow').removeClass('down');
+	        }
+	    });
+	    
 	});
 	
 	// ================ 드래그 앤 드롭 업로드================
@@ -313,7 +361,7 @@
 									<c:otherwise>
 										<input id="receiverInput" type="text" class="form-control"
 									aria-label="Text input with segmented dropdown button"
-									name="msg_receiver">
+									name="msg_receivers">
 									</c:otherwise>
 								</c:choose>
 								

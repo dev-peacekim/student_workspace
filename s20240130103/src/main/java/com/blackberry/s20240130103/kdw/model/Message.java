@@ -21,6 +21,7 @@ public class Message {
     
     // 멀티 파일 업로드 저장용 
     private MultipartFile[] files;
+    
     // 멀티 파일 다운로드 정보용
     private List<MessageFile> fileMsgs;
     

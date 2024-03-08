@@ -6,8 +6,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -315,7 +318,7 @@ public class MsgController {
         // 모델에 데이터 추가 (세션ID, 유저리스트)
         model.addAttribute("senderId", senderId);
         model.addAttribute("userList", userList);
-        
+        // 워크스페이스 페이지에서 주소록 메세지아이콘 넘버 받아옴
         model.addAttribute("receiverId", request.getParameter("user_no"));
 
         // JSP 페이지 이름 반환
@@ -325,15 +328,30 @@ public class MsgController {
     // 쪽지 보내기 - 멀티 업로드(보내기 버튼)
     @PostMapping(value = "msgSent")
     public String sendMsg (Message message, @RequestParam("files") MultipartFile[] files, HttpServletRequest request) {
+    	
+    	String msgReceivers = request.getParameter("msg_receivers");
+
+    	// 쉼표로 문자열을 분리하고, 공백을 제거한 후 Long 타입으로 변환합니다.
+    	List<Long> receiversList = Arrays.stream(msgReceivers.split(","))
+    	                                      .map(String::trim) // 배열들 한번에 공백 삭제
+    	                                      .map(Long::parseLong) // 타입'Long'으로 파싱
+    	                                      //변환된 Long 값들을 List<Long>으로 수집
+    	                                      .collect(Collectors.toList());  
+    	
     	System.out.println("MsgController sendMsg message : " + message);
         try {
             // HttpSession에서 로그인한 사용자 정보 가져오기 (쪽지 보내는 사람)
             Long msgSender = (Long) request.getSession().getAttribute("user_no");
             // 업로드 경로 설정
             String path = request.getSession().getServletContext().getRealPath("/upload/msgFile/");
-
+            
             message.setMsg_sender(msgSender);
-            msgService.sendMsg(message, files, path);
+            
+            // 각 수신자에 대해 메시지 전송 로직을 반복 실행합니다.
+            for(Long receiver : receiversList) {
+                message.setMsg_receiver(receiver); // 수신자 설정
+                msgService.sendMsg(message, files, path); // 메시지 전송 서비스 호출
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("MsgController sendMsg Exception ->" + e.getMessage());

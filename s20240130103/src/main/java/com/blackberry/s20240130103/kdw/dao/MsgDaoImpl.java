@@ -21,7 +21,6 @@ public class MsgDaoImpl implements MsgDao {
 	
 	private final SqlSession session;
 	
-	
     // 전체 유저 리스트 (나중에 주소록가져와야함)
 	@Override
 	public List<User> getAllUsers() {
