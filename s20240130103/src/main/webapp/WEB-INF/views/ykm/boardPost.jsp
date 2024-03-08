@@ -53,28 +53,30 @@ window.onload = function() {
 		<section class="community-post-detail">
 			<div class="row card card-body">
 				<div class="card-header community-post-header">
-					<h3 class="card-title post-title">${getPost.cboard_title}</h3>
+					<div class="sider-header">
+						<h3 class="card-title post-title">${getPost.cboard_title}</h3>
+						<div class="sider_right">
+							<button class="recruitBtn" name="comm_mid2" value="10">모집중</button>
+							<div class="tooltip">모집완료 상태로 바꾸려면 클릭</div>
+						</div>
+					</div>
 					<div class="card-subtitle post-user-container">
-						<i class="bi bi-person-circle post-user-profile"
-							alt="${getPost.user_profile}"></i>
+						<i class="bi bi-person-circle post-user-profile" alt="${getPost.user_profile}"></i>
 						<div class="card-title-header">
 							<h5 class="card-title post-user-info">
-								<a href="#">${getPost.user_id}</a>
+								<a href="#">${getPost.user_nic}</a>
 							</h5>
 							<div class="card-subtitle post-subtitle">
-								<p class="post-updated-at">
-									작성일
-									<fmt:formatDate value="${getPost.cboard_date}"
-										pattern="yyyy.MM.dd a hh:mm" />
+								<p class="post-updated-at"> 작성일
+									<fmt:formatDate value="${getPost.cboard_date}" pattern="yyyy.MM.dd a hh:mm" />
 								</p>
-								<p class="post-veiw-count">조회수
-									${getPost.cboard_viewcnt}</p>
+								<p class="post-veiw-count">조회수${getPost.cboard_viewcnt}</p>
 							</div>
 						</div>
 
 						<div class="modify-delete-container">
-							<a href="/updateForm?cboard_no=${getPost.cboard_no}" class="badge bg-light text-dark"> <i
-								class="bi bi-pencil-fill"></i> 수정</a>
+							<a href="/updateForm?cboard_no=${getPost.cboard_no}" class="badge bg-light text-dark"> 
+							<i class="bi bi-highlighter"></i> 수정</a>
 							<button type="button" id="postDeleteBtn" class="badge bg-light text-dark">
 								<i class="bi bi-trash"></i> 삭제
 							</button>
@@ -101,14 +103,12 @@ window.onload = function() {
 						<div class="comment-editor">
 							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 							<input type="text" id="creply_content"
-								placeholder="${getPost.user_id}님, 댓글을 작성해보세요."
+								placeholder="${getPost.user_nic}님, 댓글을 작성해보세요."
 								class="form-control commentEditor" required="required">
 						</div>
 						<div class="btn-container">
-							<button id="commentResetBtn" type="button"
-								class="hidden btn btn-secondary">취소</button>
-							<button id="commentSubmitBtn" type="submit"
-								class="hidden btn btn-primary">등록</button>
+							<button id="commentResetBtn" type="button" class="hidden btn btn-secondary">취소</button>
+							<button id="commentSubmitBtn" type="submit" class="hidden btn btn-primary">등록</button>
 						</div>
 					</div>
 				</div>

@@ -97,8 +97,6 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.countComment(cboard_no);
 	}
 
-	
-	
 	/*
  	1. 트랜잭션을 시작한다.
  	2. 댓글들을 삭제한다. (플래그 변경:0>1)

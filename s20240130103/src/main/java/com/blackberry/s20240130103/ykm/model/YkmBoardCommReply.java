@@ -23,5 +23,6 @@ public class YkmBoardCommReply {
 	// Users 조회용
 	private String user_id;
 	private String user_profile;
+	private String user_nic;
 	
 }

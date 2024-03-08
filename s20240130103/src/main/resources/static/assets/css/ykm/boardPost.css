@@ -5,13 +5,116 @@
 # community-post
 --------------------------------------------------------------*/
 
+section * {
+	font-family: 'NanumSquare', sans-serif !important;
+}
 .card-body {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	font-family: 'NanumSquare', sans-serif !important;
 }
 
-.community-post-detail  * {
-	font-family: 'NanumSquare', sans-serif;
+.sider-header {
+	display: flex;
+	align-items: center;
+}
+.post-title {
+	flex: 1;
+}
+
+.sider_right {
+	margin: 11px;
+	margin-left: auto;
+	position: relative;
+}
+
+.tooltip {
+	left: auto;
+    right: 0;
+    display: none;
+    position: absolute;
+    padding: 7px 12px;
+    border-radius: 5px;
+    background-color: #212529;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.38;
+    letter-spacing: -.3px;
+    white-space: nowrap;
+    z-index: 1; /* Ensure tooltip is displayed above other content */
+    opacity: initial;
+}
+
+.sider_right:hover .tooltip {
+    display: block;
+}
+
+.recruitBtn {
+    height: 50px;
+    width: 84px;
+    align-items: center;
+    font-size: 14px;
+    padding: 11px;
+    box-shadow: 0 3px 8px 0 rgba(33,37,41,.05);
+    color: #ced4da;
+    border-color: #ced4da;
+    background-color: #fff;
+    cursor: default;
+    pointer-events: unset;
+    border-radius: 8px;
+    border-image-slice: 100%;
+    margin-left: auto;
+    letter-spacing: -0.3px;
+    display: disable;
+}
+
+/*
+.tooltip {
+	left: auto;
+	right: 0;
+	position: absolute;
+	visibility: hidden;
+	padding: 7px 12px;
+	border-radius: 5px;
+	background-color: #212529;
+	color: #fff;
+	font-size: 13px;
+	line-height: 1.38;
+	letter-spacing: -.3px;
+	white-space: nowrap;
+
+}
+
+
+.recruitBtn:hover + .tooltip {
+	visibility: visible; 
+}
+
+.recruitBtn {
+	height: 50px;
+	width: 84px;
+	align-items: center;
+	font-size: 14px;
+	padding: 11px;
+    box-shadow: 0 3px 8px 0 rgba(33,37,41,.05);
+	color: #ced4da;
+	border-color: #ced4da;
+	background-color: #fff;
+	cursor: default;
+	pointer-events: unset;
+	border-radius: 8px;
+	border-image-slice: 100%;
+	margin-left: auto;
+	letter-spacing: -0.3px;
+}
+*/
+
+/*--------------------------------------------------------------
+# 
+--------------------------------------------------------------*/
+
+.community-post-body {
+	min-height: 350px;
 }
 
 .post-header .btn-container {

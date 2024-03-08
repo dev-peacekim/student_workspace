@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.BoardPostMapper">
 	<select id="ykmGetCommentList" resultType="YkmBoardCommReply" parameterType="int">
-		SELECT BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, U.USER_ID, U.USER_NO, BCR.CBOARD_NO, BC.COMM_BIG, BC.COMM_MID
+		SELECT 
+			BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, BCR.CBOARD_NO, BCR.CREPLY_DELETE_CHK, 
+			BC.COMM_BIG, BC.COMM_MID, 
+			U.USER_ID, U.USER_NO, U.USER_NIC
 		FROM BOARD_COMM_REPLY BCR
 		JOIN USERS U ON BCR.USER_NO = U.USER_NO
 		JOIN BOARD_COMM BC ON BCR.CBOARD_NO = BC.CBOARD_NO
@@ -28,7 +31,7 @@
 		SET CREPLY_CONTENT = #{creply_content}, COMM_UPDATE_DATE = sysdate
 		WHERE creply_no = #{creply_no}
 	</update>
-	
+
 	<select id="ykmCountComment" resultType="int" parameterType="int">
 		SELECT COUNT(BCR.CREPLY_NO) countComment, BCR.CBOARD_NO
 		FROM BOARD_COMM_REPLY BCR
@@ -38,6 +41,6 @@
 		AND B.COMM_MID = 20
 		AND BCR.CREPLY_DELETE_CHK =0
 		GROUP BY BCR.CBOARD_NO
-	</select>
+	</select>  
 
 </mapper>

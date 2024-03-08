@@ -52,10 +52,11 @@ public class YkmCommentRestController {
 		return result;
 	}
 
-	@PatchMapping("/comment")
-	public int deleteComment(@RequestParam("creply_no") int creply_no) {
+	@DeleteMapping("/comment/{creply_no}")
+	public int deleteComment(@PathVariable("creply_no") int creply_no) {
 		System.out.println("deletemapping creply_no : " + creply_no);
 		int result = ykmService.deleteComment(creply_no);
+		System.out.println("YkmBoardReplyRestController deleteComment ===> "+result);
 		return result;
 	}
 

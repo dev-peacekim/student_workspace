@@ -83,7 +83,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public int deleteComment(int creply_no) {
 		System.out.println("ykmBoardDaoImpl deleteComment start ---*");
-		int result = session.delete("YkmDeleteComment", creply_no);
+		int result = session.delete("ykmDeleteComment", creply_no);
 		return result;
 	}
 
@@ -92,10 +92,12 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return session.update("ykmUpdateComment", ykmBoardCommReply);
 	}
 
+	// null 값이 나온다...?
 	@Override
 	public int countComment(int cboard_no) {
 		System.out.println("cBoard_no: "+cboard_no);
-		return session.selectOne("ykmCountComment", cboard_no);
+		Integer result = session.selectOne("ykmCountComment", cboard_no);
+		return (result != null) ? result : 0;
 	}
 
 }
