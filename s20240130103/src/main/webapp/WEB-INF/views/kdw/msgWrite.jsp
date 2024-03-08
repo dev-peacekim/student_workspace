@@ -46,128 +46,143 @@
 <script type="text/javascript">
 	//================ 주소록 ================
 	$(document).ready(function() {
-		var toggleButton = $('#toggleButton');
-		var userListDropdown = $('#userListDropdown');
-		var isToggleButtonClicked = false;
-	    // 받는 사람 인풋 클릭 시 드롭다운 업데이트
-	    $('#receiverInput').on('click', function(event) {
-	    	// receiverInput을 클릭하면 클릭 상태를 토글합니다.
-	        isToggleButtonClicked = !isToggleButtonClicked;
-	        // 클릭 상태에 따라 toggleButton의 클릭 상태를 설정합니다.
-	        toggleButton.toggleClass('active', isToggleButtonClicked);
-	        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-	        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
-	     	// 이벤트 전파를 막기 위해 추가합니다.
-	        event.stopPropagation();
-	        loadAddressBookList(); // 주소록 리스트 로드 및 드롭다운 업데이트
-	        /* $('#userListDropdown').toggle(); */ // 드롭다운 토글
-	       /*  $('#toggleButton').trigger('click'); */
-	    });
-	    
-	    toggleButton.on('click', function() {
-	        // toggleButton을 클릭하면 클릭 상태를 토글합니다.
-	        isToggleButtonClicked = !isToggleButtonClicked;
+    // 토글 버튼과 사용자 리스트 드롭다운 요소를 찾아 변수에 저장
+    var toggleButton = $('#toggleButton');
+    var userListDropdown = $('#userListDropdown');
+    var isToggleButtonClicked = false; // 토글 버튼 클릭 상태를 추적하는 변수 초기화
 
-	        // 클릭 상태에 따라 receiverInput의 클릭 상태를 설정합니다.
-	        $('#receiverInput').toggleClass('active', isToggleButtonClicked);
+    // 토글 버튼 클릭 이벤트 핸들러 정의
+    toggleButton.click(function() {
+        // 클릭 상태를 토글
+        isToggleButtonClicked = !isToggleButtonClicked;
+        // 클릭 상태에 따라 버튼의 클래스 토글
+        toggleButton.toggleClass('clicked', isToggleButtonClicked);
+        // 드롭다운의 표시 여부를 클릭 상태에 따라 조절
+        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
+        // 화살표 클래스도 클릭 상태에 따라 토글하여 방향을 변경
+        toggleButton.find('.arrow').toggleClass('down', isToggleButtonClicked);
+    });
 
-	        // 클릭 상태에 따라 userListDropdown의 표시 상태를 설정합니다.
-	        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
-	    });
-	    
-	    // 주소록 버튼 클릭 이벤트
-	    $('.receiver-addressBtn button').on('click', function() {
-	        $.ajax({
-	            url: '/getAddressBookList',
-	            type: 'GET',
-	            success: function(data) {
-	                updateAddressBookUI(data);
-	            },
-	            error: function(error) {
-	                console.log("Error loading address book: ", error);
-	            }
-	        });
-	    });
-	
-	 	// 주소록 UI 업데이트 함수 수정
-	    function updateAddressBookUI(addresses) {
-	        var addressList = $('#addressList');
-	        addressList.empty();
-	        $.each(addresses, function(index, user) {
-	            var listItem = $('<li>').addClass('list-group-item');
-	            var checkbox = $('<input>').attr('type', 'checkbox').addClass('address-checkbox').val(user.user_no);
-	            var label = $('<label>').text(user.user_nic + " (" + user.user_name + ")").prepend(checkbox);
+    // "받는 사람" 인풋 필드 클릭 이벤트 핸들러 정의
+    $('#receiverInput').on('click', function(event) {
+        // 위와 동일한 로직을 사용하여 드롭다운 표시 여부 토글
+        isToggleButtonClicked = !isToggleButtonClicked;
+        toggleButton.toggleClass('clicked', isToggleButtonClicked);
+        userListDropdown.css('display', isToggleButtonClicked ? 'block' : 'none');
+        toggleButton.find('.arrow').toggleClass('down', isToggleButtonClicked);
+        event.stopPropagation(); // 이벤트 버블링 방지
+        loadAddressBookList(); // 주소록 데이터 로드 및 드롭다운 업데이트 함수 호출
+    });
 
-	            listItem.append(label).on('change', '.address-checkbox', function() {
-		            // 체크박스 상태 변경 시 받는 사람 탭에 추가/제거 처리
-		            checkbox.change(function() {
-		                var checked = $(this).is(':checked');
-		                var label = $(this).data('label');
-		                var value = $(this).val();
-		                if(checked) {
-		                    // 체크 시 받는 사람 영역에 추가
-		                    var newItem = $('<li>').addClass('list-group-item selected-address').text(label).data('value', value);
-		                    $('#selectedAddresses').append(newItem);
-		                } else {
-		                    // 해제 시 받는 사람 영역에서 제거
-		                    $('#selectedAddresses').find(`li[data-value='${value}']`).remove();
-		                }
-		            });
-	            });
-	            addressList.append(listItem);
-	        });
-	     	// "모두 선택" 체크박스 동작 로직 추가
-	        $('#selectAllAddresses').on('change', function() {
-	            var isChecked = $(this).is(':checked');
-	            $('.address-checkbox').prop('checked', isChecked);
-	            // 선택 상태에 따라 받는 사람 탭에 추가/제거하는 로직 추가
-	        });
+    // 토글 버튼 내 화살표 클릭 시 "받는 사람" 인풋 필드 클릭 이벤트 트리거
+    toggleButton.find('.arrow').on('click', function(event) {
+        $('#receiverInput').trigger('click');
+        event.stopPropagation(); // 이벤트 버블링 방지
+    });
 
-	        // 저장 버튼 클릭 이벤트 처리
-	        $('#saveSelectedAddresses').on('click', function() {
-	            var selectedAddresses = $('.address-checkbox:checked').map(function() {
-	                return $(this).val();
-	            }).get().join(', ');
-	            $('#receiverInput').val(selectedAddresses);
-	            $('#addressBookModal').modal('hide');
-	        });
-	    }
-	});
-	// 주소록 데이터 로드 및 드롭다운 리스트 업데이트
-	function loadAddressBookList() {
-	    $.ajax({
-	        url: '/getAddressBookList',
-	        type: 'GET',
-	        success: function(data) {
-	            var dropdownMenu = $('#userListDropdown');
-	            dropdownMenu.empty();
-	            $.each(data, function(index, user) {
-	                var listItem = $('<li>');
-	                var linkItem = $('<a>').addClass('dropdown-item')
-	                                       .attr('href', '#')
-	                                       .text(user.user_no + ' ' + user.user_nic + ' (' + user.user_name + ')')
-	                                       .click(function() {
-	                                           var receiverInput = $('#receiverInput');
-	                                           var currentValue = receiverInput.val();
-	                                           var newValue = currentValue ? currentValue + ', ' + user.user_no : user.user_no;
-	                                           receiverInput.val(newValue);
-	                                           dropdownMenu.hide();
-	                                       });
-	                listItem.append(linkItem);
-	                dropdownMenu.append(listItem);
-	            });
-	        },
-	        error: function(error) {
-	            console.log("Error loading address book: ", error);
-	        }
-	    });
-	    // document에 대한 클릭 이벤트 리스너를 추가하여 dropdown이 닫히도록 합니다.
-	    $(document).on('click', function() {
-	        isToggleButtonClicked = false;
-	        toggleButton.removeClass('active');
+    // 주소록 버튼 클릭 이벤트 핸들러 정의
+    $('.receiver-addressBtn button').on('click', function() {
+        // AJAX를 사용하여 서버에서 주소록 데이터 가져오기
+        $.ajax({
+            url: '/getAddressBookList', // 데이터를 가져올 URL
+            type: 'GET', // HTTP 메소드 지정
+            success: function(data) {
+                // 데이터 로딩 성공 시 UI 업데이트 함수 호출
+                updateAddressBookUI(data);
+            },
+            error: function(error) {
+                // 데이터 로딩 실패 시 오류 메시지 출력
+                console.log("Error loading address book: ", error);
+            }
+        });
+    });
+
+    // 주소록 UI 업데이트 함수 정의
+    function updateAddressBookUI(addresses) {
+        var addressList = $('#addressList'); // 주소록 리스트 요소 찾기
+        addressList.empty(); // 기존 내용을 비움
+        // 주소록 데이터를 반복하여 리스트 아이템 생성
+        $.each(addresses, function(index, user) {
+            var listItem = $('<li>').addClass('list-group-item');
+            var checkbox = $('<input>').attr('type', 'checkbox').addClass('address-checkbox').val(user.user_no);
+            var label = $('<label>').text(user.user_nic + " (" + user.user_name + ")").prepend(checkbox);
+
+            // 체크박스 변경 이벤트 핸들러 정의: 체크박스 상태에 따라 선택된 주소 추가 또는 제거
+            listItem.append(label).on('change', '.address-checkbox', function() {
+                var checked = $(this).is(':checked'); // 체크 상태 확인
+                var label = $(this).next().text(); // 체크박스 옆의 라벨 텍스트 가져오기
+                var value = $(this).val(); // 체크박스의 값을 가져오기
+                if(checked) {
+                    // 체크된 경우, 선택된 주소 목록에 추가
+                    var newItem = $('<li>').addClass('list-group-item selected-address').text(label).data('value', value);
+                    $('#selectedAddresses').append(newItem);
+                } else {
+                    // 체크 해제된 경우, 선택된 주소 목록에서 제거
+                    $('#selectedAddresses').find(`li[data-value='${value}']`).remove();
+                }
+            });
+            addressList.append(listItem); // 생성된 리스트 아이템을 주소록 리스트에 추가
+        });
+        // "모두 선택" 체크박스 동작 로직: 모든 주소록 항목의 체크박스를 선택 또는 해제
+        $('#selectAllAddresses').on('change', function() {
+            var isChecked = $(this).is(':checked'); // "모두 선택" 체크박스의 상태 확인
+            $('.address-checkbox').prop('checked', isChecked); // 모든 체크박스 상태를 일치시킴
+            // 선택 상태에 따라 받는 사람 탭에 추가/제거하는 로직 필요
+        });
+
+        // 저장 버튼 클릭 이벤트 핸들러: 선택된 주소들을 "받는 사람" 입력 필드에 추가
+        $('#saveSelectedAddresses').on('click', function() {
+            var selectedAddresses = $('.address-checkbox:checked').map(function() {
+                return $(this).val(); // 선택된 체크박스의 값들을 배열로 수집
+            }).get().join(', '); // 배열을 문자열로 변환하여 쉼표로 구분
+            $('#receiverInput').val(selectedAddresses); // "받는 사람" 입력 필드에 값 설정
+            $('#addressBookModal').modal('hide'); // 모달 창 숨김
+        });
+    }
+
+    // 주소록 데이터 로드 및 드롭다운 리스트 업데이트 함수 정의
+    function loadAddressBookList() {
+        // AJAX를 사용하여 서버에서 주소록 데이터 가져오기
+        $.ajax({
+            url: '/getAddressBookList', // 데이터를 가져올 URL
+            type: 'GET', // HTTP 메소드 지정
+            success: function(data) {
+                // 데이터 로딩 성공 시 드롭다운 메뉴 업데이트
+                var dropdownMenu = $('#userListDropdown');
+                dropdownMenu.empty(); // 기존 내용 비우기
+                // 주소록 데이터를 반복하여 드롭다운 메뉴 항목 생성
+                $.each(data, function(index, user) {
+                    var listItem = $('<li>');
+                    var linkItem = $('<a>').addClass('dropdown-item')
+                                           .attr('href', '#')
+                                           .text(user.user_no + ' ' + user.user_nic + ' (' + user.user_name + ')')
+                                           .click(function() {
+                                               // 항목 클릭 시 "받는 사람" 입력 필드에 값 추가
+                                               var receiverInput = $('#receiverInput');
+                                               var currentValue = receiverInput.val();
+                                               var newValue = currentValue ? currentValue + ', ' + user.user_no : user.user_no;
+                                               receiverInput.val(newValue);
+                                               dropdownMenu.hide(); // 드롭다운 메뉴 숨김
+                                           });
+                    listItem.append(linkItem);
+                    dropdownMenu.append(listItem);
+                });
+            },
+            error: function(error) {
+                // 데이터 로딩 실패 시 오류 메시지 출력
+                console.log("Error loading address book: ", error);
+            }
+        });
+    }
+	    // 사용자 리스트 드롭다운 내부 항목 클릭 이벤트 핸들러
+	    $('#userListDropdown').on('click', 'li', function() {
+	        // 드롭다운을 닫고, 토글 버튼 상태 및 화살표 방향을 초기화
+	        isToggleButtonClicked = false; // 드롭다운 닫힘 상태로 변경
+	        toggleButton.removeClass('clicked');
 	        userListDropdown.css('display', 'none');
+	        toggleButton.find('.arrow').removeClass('down'); // 화살표 방향을 위로 변경
 	    });
-	}
+	});
 	
 	// ================ 드래그 앤 드롭 업로드================
 	$(document).ready(function() {
@@ -287,18 +302,27 @@
 								<div class="input-group-prepend-received">
 									<span class="input-group-text">받는사람</span>
 								</div>
-
+								
 								<!-- 인풋 -->
-								<input id="receiverInput" type="text" class="form-control"
+								<c:choose>
+									<c:when test="${receiverId }">
+										<input id="receiverInput" type="text" class="form-control"
+											aria-label="Text input with segmented dropdown button"
+											name="msg_receiver" value="${receiverId }">
+									</c:when>
+									<c:otherwise>
+										<input id="receiverInput" type="text" class="form-control"
 									aria-label="Text input with segmented dropdown button"
 									name="msg_receiver">
-
+									</c:otherwise>
+								</c:choose>
+								
 								<div class="receiver-dropdown">
 									<!-- 드롭다운 토글 버튼 --><!-- 토글버튼을 JS로 따로 주고있어서그런거같음 -->
-									<button type="button" id="toggleButton"
-										class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-										data-bs-toggle="dropdown" aria-expanded="false">
-										<span class="visually-hidden">주소록 드롭다운</span>
+									<button type="button" id="toggleButton">
+									    <span class="visually-hidden">주소록 드롭다운</span>
+									    <!-- 토글버튼 -->
+									    <span class="arrow">&gt;</span>
 									</button>
 
 									<!-- 드롭다운 주소록 리스트 -->

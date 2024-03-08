@@ -97,6 +97,7 @@ body {
 .input-group .form-control {
     border: none; /* 기존의 보더 제거 */
     border-bottom: 1px solid #ced4da; /* 하단에만 선 추가 */
+    margin-left: -13px;
 }
 
 .input-group .form-control:focus {
@@ -104,42 +105,88 @@ body {
     box-shadow: none; /* 클릭 시 나타나는 그림자 제거 */
 }
 /* 드롭다운 토글 버튼 */
-.input-group .receiver-dropdown .btn.btn-outline-secondary,
-.input-group .receiver-dropdown .btn.btn-outline-secondary:focus,
-.input-group .receiver-dropdown .btn.btn-outline-secondary:hover {
+.msgWrite-section #toggleButton,
+.msgWrite-section #toggleButton:focus,
+.msgWrite-section #toggleButton:hover {
     border: none; /* 보더 제거 */
     color: #546270; /* 텍스트 컬러 변경 */
     background-color: transparent; /* 배경을 투명하게 만듦 */
 }
+#toggleButton {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* .triangle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 10px solid black; 역삼각형의 색상
+    margin-left: -15px;
+    z-index: 9999;
+} */
+.arrow {
+	position:absolute;
+    font-size: 16px; /* 화살표 크기 조절 */
+    color: gray; /* 화살표의 호버 색상 */
+    z-index: 9999;
+    margin-left: -20px;
+    transform: rotate(90deg);
+    margin-top: -10px;
+}
+
+
+#toggleButton.clicked .arrow {
+    transform: rotate(180deg); /* 화살표 회전 */
+}
+
+#toggleButton:hover .arrow {
+    color: gray; /* 화살표의 호버 색상 */
+}
+
+#toggleButton.clicked .arrow {
+    transform: rotate(-90deg); /* 화살표 회전 */
+}
 
 /* 드롭다운 리스트 스타일 */
-.msgWrite-section .receiver-dropdown .dropdown-menu {
-    position: absolute !important;
+.msgWrite-section #userListDropdown {
+    position: absolute ;
     border: 1px solid #ced4da;
-    width: 300px !important;
-    height: 200px !important;
-    min-width: 300px !important;
-    min-height: 150px !important;
-    left: 80px !important;
-    margin-top: 3px !important;
+    width: 300px ;
+    height: 200px ;
+    min-width: 300px ;
+    min-height: 150px ;
+    left: 80px ;
+    margin-top: 38px ;
     overflow-y: auto; /* 수직 스크롤 추가 */
     overflow-x: auto;
 }
 
+.msgWrite-section #toggleButton .visually-hidden {
+	border: 1px solid #ced4da;
+}
+
 /* 드랍다운 기존 보더 제거*/
-.msgWrite-section .input-group .receiver-dropdown .btn.btn-outline-secondary {
+.msgWrite-section #toggleButton {
 	height: 35px;
 }
-.msgWrite-section .input-group .receiver-dropdown .btn.btn-outline-secondary .visually-hidden {
-    border: none; /* 보더 제거 */
-}
-.msgWrite-section .input-group .receiver-addressBtn .btn.btn-outline-secondary{
+
+.msgWrite-section #toggleButton{
 	border-radius: 5px;
 }
 
 /* 주소록 버튼 */
 .msgWrite-section .input-group .receiver-addressBtn .btn.btn-outline-secondary {
     border: 1px solid #ced4da;
+    z-index: 100;
 }
 
 /* ========= 받는사람 END ========= */
