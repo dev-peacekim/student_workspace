@@ -1,7 +1,5 @@
 package com.blackberry.s20240130103.kph.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -22,13 +21,10 @@ import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphPaging;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
-import com.blackberry.s20240130103.lhs.domain.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -43,38 +39,13 @@ public class KphProjectController {
 		HttpSession session = request.getSession();
 		Long user_no = (Long)session.getAttribute("user_no");
 		
-		// 프로젝트 리스트 + 과업 설정
-		List<KphProject> projectList = kphProjectService.projectList(user_no);
-		Iterator<KphProject> projectIter = projectList.iterator();
-		
-		int totalCompTaskCount = 0;
-		int totalUnCompTaskCount = 0;
-		
-		while(projectIter.hasNext()) {
-			KphProject kphProject = projectIter.next(); 
-			kphProject.setUser_no(user_no);
-			List<KphTask> unComptaskList = kphProjectService.unCompTaskListByProjectNo(kphProject.getProject_no());
-			List<KphTask> compTaskList = kphProjectService.compTaskListByProjectNo(kphProject.getProject_no());
-			int isEvalByUser = kphProjectService.isEvalByUser(kphProject);
-			kphProject.setUncomp_task_count(unComptaskList.size());
-			kphProject.setComp_task_count(compTaskList.size());
-			kphProject.setIsEvalByUser(isEvalByUser);
-			totalCompTaskCount += compTaskList.size();
-			totalUnCompTaskCount += unComptaskList.size();
-		}
-		
-		int totalTaskCount = totalCompTaskCount+totalUnCompTaskCount;
-		
-		// 주소록 유저 리스트
+		Map<String, Object> mainLogic = kphProjectService.mainLogic(user_no);
 		List<KphUsers> addressUserList = kphProjectService.addressUserList(user_no);
 		
-		System.out.println("KphProjectController mainLogic projectList size=>" + projectList.size());
-		System.out.println("KphProjectController mainLogic addressUserList size=>" + addressUserList.size());
-		
-		model.addAttribute("projectList", projectList);
-		model.addAttribute("totalCompTaskCount", totalCompTaskCount);
-		model.addAttribute("totalUnCompTaskCount", totalUnCompTaskCount);
-		model.addAttribute("totalTaskCount", totalTaskCount);
+		model.addAttribute("projectList", mainLogic.get("projectList"));
+		model.addAttribute("totalCompTaskCount", mainLogic.get("totalCompTaskCount"));
+		model.addAttribute("totalUnCompTaskCount", mainLogic.get("totalUnCompTaskCount"));
+		model.addAttribute("totalTaskCount", mainLogic.get("totalTaskCount"));
 		model.addAttribute("addressUserList", addressUserList);
 		return "main";
 	}
@@ -173,16 +144,16 @@ public class KphProjectController {
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		kphProjectTask.setUser_no(user_no);
 		
-		int totalTaskCount = kphProjectService.totalTaskCountByKeyword(kphProjectTask);
-		System.out.println("KphProjectController totalTaskList totalTaskCount=>" + totalTaskCount);
+		int totaProjectlTaskCount = kphProjectService.totalProjectTaskCountByKeyword(kphProjectTask);
+		System.out.println("KphProjectController totalTaskList totalTaskCount=>" + totaProjectlTaskCount);
 		
-		KphPaging kphPaging = new KphPaging(totalTaskCount, kphProjectTask.getCurrentPage());
+		KphPaging kphPaging = new KphPaging(totaProjectlTaskCount, kphProjectTask.getCurrentPage());
 		
 		kphProjectTask.setStart(kphPaging.getStart());
 		kphProjectTask.setEnd(kphPaging.getEnd());
 		kphProjectTask.setUser_no(user_no);
 		
-		List<KphProjectTask> totalProjectTaskList = kphProjectService.totalTaskList(kphProjectTask);
+		List<KphProjectTask> totalProjectTaskList = kphProjectService.totalProjectTaskList(kphProjectTask);
 		System.out.println("KphProjectController totalTaskList totalProjectTaskList.size=>"+ totalProjectTaskList.size());
 		
 		model.addAttribute("totalProjectTaskList", totalProjectTaskList);
@@ -205,7 +176,7 @@ public class KphProjectController {
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		kphProjectTask.setUser_no(user_no);
 		
-		int totalTaskCount = kphProjectService.totalTaskCountByKeyword(kphProjectTask);
+		int totalTaskCount = kphProjectService.totalProjectTaskCountByKeyword(kphProjectTask);
 		System.out.println("KphProjectController taskSearch totalTaskCount=>" + totalTaskCount);
 		
 		KphPaging kphPaging = new KphPaging(totalTaskCount, kphProjectTask.getCurrentPage());
@@ -213,7 +184,7 @@ public class KphProjectController {
 		kphProjectTask.setStart(kphPaging.getStart());
 		kphProjectTask.setEnd(kphPaging.getEnd());
 		
-		List<KphProjectTask> projectTaskList = kphProjectService.totalTaskList(kphProjectTask);
+		List<KphProjectTask> projectTaskList = kphProjectService.totalProjectTaskList(kphProjectTask);
 		System.out.println("KphProjectController taskSearch projectTaskList.size=>"+ projectTaskList.size());
 		
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -229,10 +200,13 @@ public class KphProjectController {
 		System.out.println("KphProjectController detailProject start...");
 		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
 		
+		int unCompTaskListCount = ((List<KphTask>)detailProject.get("unCompTaskList")).size();
+		int compTaskListCount = ((List<KphTask>)detailProject.get("compTaskList")).size();
+		
 		model.addAttribute("taskList", detailProject.get("taskList"));
 		model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
-		model.addAttribute("unCompTaskListCount", detailProject.get("unCompTaskListCount"));
-		model.addAttribute("compTaskListCount", detailProject.get("compTaskListCount"));
+		model.addAttribute("unCompTaskListCount", unCompTaskListCount);
+		model.addAttribute("compTaskListCount", compTaskListCount);
 		
 		return "kph/detailProject";
 	}
@@ -241,8 +215,29 @@ public class KphProjectController {
 	@PostMapping("taskFilter")
 	@ResponseBody
 	public List<KphTask> taskFilter(@RequestBody Map<String, Object> requestMap) {
-		System.out.println(requestMap);
-		return null;
+		
+		System.out.println("KphProjectController taskFilter start...");
+		
+		String keyword = (String)requestMap.get("keyword");
+		Long  project_no = Long.parseLong((String)requestMap.get("project_no"));
+		
+		System.out.println(keyword);
+		System.out.println(project_no);
+		
+		List<KphTask> taskList = null;
+		KphTask kphTask = new KphTask();
+		kphTask.setProject_no(project_no);
+		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
+		
+		if(keyword.equals("미완료 과업")) {
+			taskList = (List<KphTask>)detailProject.get("unCompTaskList");
+		} else if(keyword.equals("완료 과업")) {
+			taskList = (List<KphTask>)detailProject.get("compTaskList");
+		} else {
+			taskList = (List<KphTask>)detailProject.get("taskList");
+		}
+		
+		return taskList;
 	}
 	
 	

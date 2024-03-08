@@ -174,7 +174,7 @@
 										</div>
 										<div class="score-message">
 											<div class="user-score rounded-circle">${addressUser.user_score }</div>
-											<form action="" method="get"> <!-- action은 쪽지 기능 완료 후 로직 구현 -->
+											<form action="msgWrite" method="get"> <!-- action은 쪽지 기능 완료 후 로직 구현 -->
 												<input type="hidden" name="user_no" value="${addressUser.user_no }">
 												<button type="submit" class="rounded-circle message">
 													<i class="bi bi-envelope-fill"></i>

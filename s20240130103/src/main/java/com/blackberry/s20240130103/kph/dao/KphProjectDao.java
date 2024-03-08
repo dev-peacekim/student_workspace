@@ -30,10 +30,12 @@ public interface KphProjectDao {
 
 	List<KphUsers> addressUserListByName(KphUsers user);
 
-	List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask);
+	List<KphProjectTask> totalProjectTaskList(KphProjectTask kphProjectTask);
 
-	int totalTaskCountByKeyword(KphProjectTask kphProjectTask);
+	int totalProjectTaskCountByKeyword(KphProjectTask kphProjectTask);
 
-	Map<String, Object> detailProject(KphTask kphTask);
+	List<KphTask> taskListIncludingUsers(KphTask kphTask);
+
+	List<KphUsers> projectMemberList(KphTask kphTask);
 	
 }

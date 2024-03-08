@@ -308,13 +308,15 @@ public class MsgController {
     public String msgWritePage(HttpServletRequest request, Model model) {
         // 세션에서 보내는 사람의 아이디 가져오기
         Long senderId = (Long) request.getSession().getAttribute("user_no");
-
+        
         // 유저 테이블에서 모든 사용자 목록 가져오기
         List<User> userList = msgService.getAllUsers();
         
         // 모델에 데이터 추가 (세션ID, 유저리스트)
         model.addAttribute("senderId", senderId);
         model.addAttribute("userList", userList);
+        
+        model.addAttribute("receiverId", request.getParameter("user_no"));
 
         // JSP 페이지 이름 반환
         return "kdw/msgWrite";

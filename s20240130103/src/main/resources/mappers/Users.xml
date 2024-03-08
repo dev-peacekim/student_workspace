@@ -3,7 +3,7 @@
 <mapper namespace="com.blackberry.s20240130103.UsersMapper">
 			
 	<select id="kphUserListByProjectNoExceptOwn" parameterType="KphUser_Project" resultType="KphUsers">
-		SELECT u.*
+		SELECT u.USER_NO, u.USER_ID, u.USER_NAME, u.USER_NIC, u.USER_EMAIL, u.USER_PROFILE
 		FROM USERS u , (
 								SELECT USER_NO  
 								FROM USER_PROJECT_MANY 
@@ -11,10 +11,11 @@
 									AND USER_NO NOT IN #{user_no}
 								) upm
 		WHERE u.USER_NO = upm.USER_NO
+			AND u.USER_DELETE_CHK = 0
 	</select>
 	
 	<select id="kphAddressUserList" parameterType="Long" resultType="KphUsers">
-		SELECT u2.*,a.USER_SCORE
+		SELECT u2.USER_NO, u2.USER_ID, u2.USER_NAME, u2.USER_NIC, u2.USER_EMAIL, u2.USER_PROFILE, a.USER_SCORE
 		FROM USERS u2,(SELECT u.USER_NO, NVL(AVG(e.EVAL_SCORE),0) USER_SCORE
 					            FROM USERS u,EVAL e 
 					            WHERE u.USER_NO IN (SELECT re_user_no user_no
@@ -29,10 +30,11 @@
 					            AND u.USER_NO = e.PUSER(+) 
 					            GROUP BY u.USER_NO) a
 		WHERE u2.USER_NO = a.USER_NO
+			AND u2.USER_DELETE_CHK = 0
 	</select>
 	
 	<select id="kphAddressUserListByName" parameterType="KphUsers" resultType="KphUsers">
-		SELECT u2.*,a.USER_SCORE
+		SELECT u2.USER_NO, u2.USER_ID, u2.USER_NAME, u2.USER_NIC, u2.USER_EMAIL, u2.USER_PROFILE, a.USER_SCORE
 		FROM USERS u2,(SELECT u.USER_NO, NVL(AVG(e.EVAL_SCORE),0) USER_SCORE
 					            FROM USERS u,EVAL e 
 					            WHERE u.USER_NO IN (SELECT re_user_no user_no
@@ -47,25 +49,28 @@
 					            AND u.USER_NO = e.PUSER(+) 
 					            GROUP BY u.USER_NO) a
 		WHERE u2.USER_NO = a.USER_NO
+			AND u2.USER_DELETE_CHK = 0
 			AND u2.USER_NAME LIKE '%' || #{user_name} || '%'	
 	</select>
 	
 	<select id="kphUserListInTask" parameterType="KphTask" resultType="KphUsers">
-		SELECT *
+		SELECT u.USER_NO, u.USER_ID, u.USER_NAME, u.USER_NIC, u.USER_EMAIL, u.USER_PROFILE
 		FROM USERS u 
 		WHERE u.USER_NO IN (SELECT USER_NO 
         						           FROM USER_TASK_MANY
                     					 WHERE PROJECT_NO = #{project_no}
                       						  AND TASK_NO = #{task_no})
+        	AND u.USER_DELETE_CHK = 0
     	ORDER BY USER_NAME                  						  
 	</select>
 	
 	<select id="kphUserListInProject" parameterType="KphTask" resultType="KphUsers">
-		SELECT *
+		SELECT u.USER_NO, u.USER_ID, u.USER_NAME, u.USER_NIC, u.USER_EMAIL, u.USER_PROFILE
 		FROM USERS u
 		WHERE u.USER_NO IN (SELECT USER_NO
 										 FROM USER_PROJECT_MANY
 										 WHERE PROJECT_NO = #{project_no})
+			AND u.USER_DELETE_CHK = 0
 		ORDER BY USER_NAME
 	</select>
 	

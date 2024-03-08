@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.kph.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -78,23 +79,21 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask) {
+	public List<KphProjectTask> totalProjectTaskList(KphProjectTask kphProjectTask) {
 		System.out.println("KphProjectDaoImp addressUserListByName start...");
 		return session.selectList("kphTotalTaskList", kphProjectTask);
 	}
 
 	@Override
-	public int totalTaskCountByKeyword(KphProjectTask kphProjectTask) {
+	public int totalProjectTaskCountByKeyword(KphProjectTask kphProjectTask) {
 		System.out.println("KphProjectDaoImp totalTaskCountByKeyword start...");
 		return session.selectOne("kphTotalTaskCountByKeyword", kphProjectTask);
 	}
 
 	@Override
-	public Map<String, Object> detailProject(KphTask kphTask) {
-		System.out.println("KphProjectDaoImp detailProject start...");
-		Map<String, Object> detailProject = new HashMap<String, Object>();
+	public List<KphTask> taskListIncludingUsers(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp taskListIncludingUsers start...");
 		
-		// 과업 리스트 세팅
 		List<KphTask> taskList = session.selectList("kphTaskListByProjectNo", kphTask);
 		Iterator<KphTask> taskIt = taskList.iterator();
 		
@@ -103,19 +102,13 @@ public class KphProjectDaoImp implements KphProjectDao {
 			task.setUsers(session.selectList("kphUserListInTask", task));
 		}
 		
-		detailProject.put("taskList", taskList);
-		
-		// 프로젝트 멤버 세팅
-		List<KphUsers> projectMemberList = session.selectList("kphUserListInProject", kphTask);
-		detailProject.put("projectMemberList", projectMemberList);
-		
-		// 완료/미완료 과업 개수 세팅
-		int unCompTaskListCount = session.selectList("kphUnCompTaskListByProjectNo", kphTask.getProject_no()).size();
-		int compTaskListCount = session.selectList("kphCompTaskListByProjectNo", kphTask.getProject_no()).size();
-		detailProject.put("unCompTaskListCount", unCompTaskListCount);
-		detailProject.put("compTaskListCount", compTaskListCount);
-		
-		return detailProject;
+		return taskList;
+	}
+
+	@Override
+	public List<KphUsers> projectMemberList(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp userListInProject start...");
+		return session.selectList("kphUserListInProject", kphTask);
 	}
 	
 }
