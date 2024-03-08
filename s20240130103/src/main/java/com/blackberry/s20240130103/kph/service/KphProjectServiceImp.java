@@ -1,5 +1,8 @@
 package com.blackberry.s20240130103.kph.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,41 @@ import lombok.RequiredArgsConstructor;
 public class KphProjectServiceImp implements KphProjectService {
 
 	private final KphProjectDao kphProjectDao;
+	
+	@Override
+	public Map<String, Object> mainLogic(Long user_no) {
+		System.out.println("KphProjectServiceImp mainLogic start...");
+		Map<String, Object> mainLogic = new HashMap<String, Object>();
+		
+		// 프로젝트 리스트 + 과업 설정
+		List<KphProject> projectList = kphProjectDao.projectList(user_no);
+		Iterator<KphProject> projectIter = projectList.iterator();
+		
+		int totalCompTaskCount = 0;
+		int totalUnCompTaskCount = 0;
+		
+		while(projectIter.hasNext()) {
+			KphProject kphProject = projectIter.next(); 
+			kphProject.setUser_no(user_no);
+			List<KphTask> unComptaskList = kphProjectDao.unCompTaskListByProjectNo(kphProject.getProject_no());
+			List<KphTask> compTaskList = kphProjectDao.compTaskListByProjectNo(kphProject.getProject_no());
+			int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
+			kphProject.setUncomp_task_count(unComptaskList.size());
+			kphProject.setComp_task_count(compTaskList.size());
+			kphProject.setIsEvalByUser(isEvalByUser);
+			totalCompTaskCount += compTaskList.size();
+			totalUnCompTaskCount += unComptaskList.size();
+		}
+		
+		int totalTaskCount = totalCompTaskCount+totalUnCompTaskCount;
+		
+		mainLogic.put("projectList", projectList);
+		mainLogic.put("totalCompTaskCount", totalCompTaskCount);
+		mainLogic.put("totalUnCompTaskCount", totalUnCompTaskCount);
+		mainLogic.put("totalTaskCount", totalTaskCount);
+		
+		return mainLogic;
+	}
 
 	@Override
 	public int projectAdd(KphProject project) {
@@ -28,37 +66,6 @@ public class KphProjectServiceImp implements KphProjectService {
 		System.out.println("KphProjectServiceImp projectAdd result => " + result);
 		return result;
 	}
-
-
-	@Override
-	public List<KphProject> projectList(Long user_no) {
-		System.out.println("KphProjectServiceImp projectList start...");
-		List<KphProject> projectList = kphProjectDao.projectList(user_no);
-		System.out.println("KphProjectServiceImp projectList projectList.size=>" + projectList.size());
-		return projectList;
-	}
-
-
-	@Override
-	public List<KphTask> unCompTaskListByProjectNo(Long project_no) {
-		List<KphTask> upCompTaskList = kphProjectDao.unCompTaskListByProjectNo(project_no);
-		return upCompTaskList;
-	}
-
-
-	@Override
-	public List<KphTask> compTaskListByProjectNo(Long project_no) {
-		List<KphTask> CompTaskList = kphProjectDao.compTaskListByProjectNo(project_no);
-		return CompTaskList;
-	}
-
-
-	@Override
-	public int isEvalByUser(KphProject kphProject) {
-		int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
-		return isEvalByUser;
-	}
-
 
 	@Override
 	public List<KphUsers> userListByProjectNoExceptOwn(KphUserProject kphUserProject) {
@@ -93,17 +100,17 @@ public class KphProjectServiceImp implements KphProjectService {
 
 
 	@Override
-	public List<KphProjectTask> totalTaskList(KphProjectTask kphProjectTask) {
+	public List<KphProjectTask> totalProjectTaskList(KphProjectTask kphProjectTask) {
 		System.out.println("KphProjectServiceImp totalTaskList start...");
-		List<KphProjectTask> totalProjectTaskList = kphProjectDao.totalTaskList(kphProjectTask);
+		List<KphProjectTask> totalProjectTaskList = kphProjectDao.totalProjectTaskList(kphProjectTask);
 		return totalProjectTaskList;
 	}
 
 
 	@Override
-	public int totalTaskCountByKeyword(KphProjectTask kphProjectTask) {
+	public int totalProjectTaskCountByKeyword(KphProjectTask kphProjectTask) {
 		System.out.println("KphProjectServiceImp totalTaskCountByKeyword start...");
-		int totalTaskCount = kphProjectDao.totalTaskCountByKeyword(kphProjectTask);
+		int totalTaskCount = kphProjectDao.totalProjectTaskCountByKeyword(kphProjectTask);
 		return totalTaskCount;
 	}
 
@@ -111,7 +118,23 @@ public class KphProjectServiceImp implements KphProjectService {
 	@Override
 	public Map<String, Object> detailProject(KphTask kphTask) {
 		System.out.println("KphProjectServiceImp detailProject start...");
-		Map<String, Object> detailProject = kphProjectDao.detailProject(kphTask);
+		Map<String, Object> detailProject = new HashMap<String, Object>();
+		
+		// 과업 리스트 세팅
+		List<KphTask> taskList = kphProjectDao.taskListIncludingUsers(kphTask);
+		detailProject.put("taskList", taskList);
+		
+		// 프로젝트 멤버 세팅
+		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(kphTask);
+		detailProject.put("projectMemberList", projectMemberList);
+		
+		// 완료/미완료 과업 세팅
+		List<KphTask> unCompTaskList = kphProjectDao.unCompTaskListByProjectNo(kphTask.getProject_no());
+		List<KphTask> compTaskList = kphProjectDao.compTaskListByProjectNo(kphTask.getProject_no());
+		
+		detailProject.put("unCompTaskList", unCompTaskList);
+		detailProject.put("compTaskList", compTaskList);
+	
 		return detailProject;
 	}
 	

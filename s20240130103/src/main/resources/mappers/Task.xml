@@ -7,6 +7,7 @@
 		FROM TASK
 		WHERE PROJECT_NO = #{project_no}
 		AND TASK_COMP_CHK = 0
+		ORDER BY TASK_END
 	</select>
 	
 	<select id="kphCompTaskListByProjectNo" parameterType="Long" resultType="KphTask">
@@ -14,6 +15,7 @@
 		FROM TASK
 		WHERE PROJECT_NO = #{project_no}
 		AND TASK_COMP_CHK = 1
+		ORDER BY TASK_END
 	</select>
 	
 	<select id="kphTaskListByProjectNo" parameterType="KphTask" resultType="KphTask">
