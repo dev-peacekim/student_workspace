@@ -164,20 +164,20 @@
 							<div class="project-report-card total-task">
 								<div>
 									<p>전체 과업</p>
-									<p id="totalTaskFilter">${unCompTaskListCount + compTaskListCount}</p>
+									<p class="taskFilter">${unCompTaskListCount + compTaskListCount}</p>
 								</div>
 								<div class="compPercent">8%</div>
 							</div>
 							<div class="project-report-card comp-task">
 								<div>
 									<p>완료 과업</p>
-									<p id="compTaskFilter">${compTaskListCount}</p>
+									<p class="taskFilter">${compTaskListCount}</p>
 								</div>
 							</div>
 							<div class="project-report-card uncomp-task">
 								<div>
 									<p>미완료 과업</p>
-									<p id="unCompTaskFilter">${unCompTaskListCount }</p>
+									<p class="taskFilter">${unCompTaskListCount }</p>
 								</div>
 							</div>
 						</div>

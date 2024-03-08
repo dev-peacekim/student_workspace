@@ -124,17 +124,27 @@ public class KphProjectServiceImp implements KphProjectService {
 		List<KphTask> taskList = kphProjectDao.taskListIncludingUsers(kphTask);
 		detailProject.put("taskList", taskList);
 		
+		// 완료/미완료 과업 세팅
+		List<KphTask> unCompTaskList = new ArrayList<KphTask>();
+		List<KphTask> compTaskList = new ArrayList<KphTask>();
+		Iterator<KphTask> taskListIt = taskList.iterator();
+		
+		while (taskListIt.hasNext()) {
+			KphTask task = taskListIt.next();
+			if(task.getTask_comp_chk() == 0) {
+				unCompTaskList.add(task);
+			} else {
+				compTaskList.add(task);
+			}
+		}
+		
+		detailProject.put("unCompTaskList", unCompTaskList);
+		detailProject.put("compTaskList", compTaskList);
+		
 		// 프로젝트 멤버 세팅
 		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(kphTask);
 		detailProject.put("projectMemberList", projectMemberList);
 		
-		// 완료/미완료 과업 세팅
-		List<KphTask> unCompTaskList = kphProjectDao.unCompTaskListByProjectNo(kphTask.getProject_no());
-		List<KphTask> compTaskList = kphProjectDao.compTaskListByProjectNo(kphTask.getProject_no());
-		
-		detailProject.put("unCompTaskList", unCompTaskList);
-		detailProject.put("compTaskList", compTaskList);
-	
 		return detailProject;
 	}
 	

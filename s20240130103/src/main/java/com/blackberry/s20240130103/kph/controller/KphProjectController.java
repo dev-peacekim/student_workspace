@@ -56,7 +56,6 @@ public class KphProjectController {
 		return "kph/projectAddForm";
 	}
 	
-	
 	@PostMapping("projectAdd")
 	public String projectAdd(KphProject project, HttpServletRequest request) {
 		System.out.println("KphProjectController projectAdd start...");
@@ -227,14 +226,14 @@ public class KphProjectController {
 		List<KphTask> taskList = null;
 		KphTask kphTask = new KphTask();
 		kphTask.setProject_no(project_no);
-		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
 		
 		if(keyword.equals("미완료 과업")) {
-			taskList = (List<KphTask>)detailProject.get("unCompTaskList");
+			taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("unCompTaskList");
 		} else if(keyword.equals("완료 과업")) {
-			taskList = (List<KphTask>)detailProject.get("compTaskList");
+			taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("compTaskList");
+			System.out.println(taskList);
 		} else {
-			taskList = (List<KphTask>)detailProject.get("taskList");
+			taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("taskList");
 		}
 		
 		return taskList;
