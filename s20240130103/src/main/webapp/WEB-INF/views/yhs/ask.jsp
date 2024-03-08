@@ -244,19 +244,14 @@
                   				</tr>
                 			</thead>
                 			<tbody>
-<%--                 				<tr th:each="ask : ${BOARD_ADMIN}">
-									<td th:text="${ask.id}"></td>
-									<td th:text="${ask.name}"></td>
-								</tr> --%>
-								
-								
 								<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 								<tr>
 									<td>${BOARD_ADMIN.admin_no}</td>
-									<td>${BOARD_ADMIN.user_no}</td>						
-									<td><a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
-									<td>${BOARD_ADMIN.admin_date}</td>
-									<td>${BOARD_ADMIN.admin_start}</td>
+									<td>${BOARD_ADMIN.user_no}</td>
+									<td><c:forEach begin="1" end="${BOARD_ADMIN.admin_reply_group}">-</c:forEach>							
+										<a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>	
+									<td><fmt:formatDate value="${BOARD_ADMIN.admin_date}" pattern="yyyy-MM-dd"/></td>
+									<td><fmt:formatDate value="${BOARD_ADMIN.admin_start}" pattern="yyyy-MM-dd"/></td>
 									<td>${BOARD_ADMIN.admin_reply_chk}</td>	
 								</tr>
 								</c:forEach>

@@ -83,6 +83,7 @@
           <li class="breadcrumb-item"><a href="main">Home</a></li>
 		  <li class="breadcrumb-item"><a href="askList">문의하기</a></li>
 	      <li class="breadcrumb-item"><a href="askForm">글작성</a></li>
+	      <li class="breadcrumb-item"><a href="askContentReply">답변작성</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -106,12 +107,6 @@
 										value="${BOARD_ADMIN.admin_title}" required="required">
 								</div>
 							</div>
-							<div class="row mb-3">
-                  				<label for="inputDate" class="col-sm-2 col-form-label">문의내용 발생일</label>
-                  				<div class="col-sm-10">
-                    				<input type="date" name="admin_start" value="${BOARD_ADMIN.admin_start}" class="form-control">
-                  				</div>
-                			</div> 
 							<div class="row mb-3">
 								<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">

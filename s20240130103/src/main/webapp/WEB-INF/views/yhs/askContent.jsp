@@ -280,6 +280,13 @@
 	bottom: 10px;
 	
 }
+.btn.bacReply{
+	position: absolute;
+	margin-top: 10px;
+	width: 100px;
+	left: 20px;
+	bottom: 10px;
+}
 
 .btn.bacDelete {
 	position: absolute;
@@ -360,16 +367,14 @@
                 <span class="post-content">${askContent.admin_content}</span>
             </div>
                        
-                       
-			  <c:if test="${sessionScope.user_no eq askContents.user_no}">
-                        <button type="hidden" class="btn bacDelete">삭제</button>
-                        <a href="askModify">
-                            <button class="btn bacModify">수정</button>
-                        </a>
-                    </c:if>
-
-                        <button type="button" class="btn bacList" onclick="goBack()">목록</button>
-                    <script>
+                    	<button type="button" class="btn bacDelete" onclick="goBack()">삭제</button>
+						<button type="button" class="btn bacModify" onclick="goBack()">수정</button>
+						<button type="button" class="btn bacList" onclick="goBack()">목록</button>
+						<button type="button" class="btn bacReply"><a href="askContentReply">답변</button>
+                        
+                        
+                        
+                     <script>
                         function goBack() {
                             window.history.back();
                         }

@@ -2,6 +2,8 @@ package com.blackberry.s20240130103.yhs.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -11,7 +13,8 @@ public class Ask {
 	private Date admin_date;
 	private String admin_title;	
 	private String admin_content;
-	private String admin_start;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date admin_start;
 	private long admin_reply_group;
 	private long admin_reply_chk;
 	

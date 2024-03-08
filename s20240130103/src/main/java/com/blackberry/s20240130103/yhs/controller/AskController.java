@@ -1,7 +1,5 @@
 package com.blackberry.s20240130103.yhs.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -100,6 +98,7 @@ public class AskController {
 	@GetMapping(value = "askForm")
 	public String askForm(HttpServletRequest request, Model model) {
 		System.out.println("AskController Start askForm...");
+		
 		String adminStart = request.getParameter("admin_start");
 		// 세션에서 보내는 사람의 아이디 가져오기
         Long userNo = (Long) request.getSession().getAttribute("user_no");
@@ -126,5 +125,11 @@ public class AskController {
 		return "redirect:/askList";
 
 	}
+	@GetMapping(value = "askContentReply")
+	public String askContentReply() {
+		System.out.println("askContentReply");
+		return "yhs/askContentReply";
+	}
+	
 }
 

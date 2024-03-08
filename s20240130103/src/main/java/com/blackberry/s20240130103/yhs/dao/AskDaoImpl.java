@@ -58,7 +58,7 @@ public class AskDaoImpl implements AskDao {
 	public List<Ask> askListSearch(Ask ask) {
 		List<Ask> askListSearch = null;
 		System.out.println("AskDaoImpl askListSearch Start...");
-		
+			
 		try {
 			askListSearch = session.selectList("yhsAskListSearch", ask);
 		} catch (Exception e) {
