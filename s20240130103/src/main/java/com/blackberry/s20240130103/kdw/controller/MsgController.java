@@ -305,7 +305,7 @@ public class MsgController {
     /* ========== 버튼 기능 구현 =========== */
     // 쪽지쓰기 페이지로 이동(쪽지쓰기 버튼)
     @GetMapping(value = "msgWrite")
-    public String msgWritePage(HttpServletRequest request, Model model, Long user_no) {
+    public String msgWritePage(HttpServletRequest request, Model model) {
         // 세션에서 보내는 사람의 아이디 가져오기
         Long senderId = (Long) request.getSession().getAttribute("user_no");
         
@@ -315,7 +315,8 @@ public class MsgController {
         // 모델에 데이터 추가 (세션ID, 유저리스트)
         model.addAttribute("senderId", senderId);
         model.addAttribute("userList", userList);
-        model.addAttribute("receiverId", user_no);
+        
+        model.addAttribute("receiverId", request.getParameter("user_no"));
 
         // JSP 페이지 이름 반환
         return "kdw/msgWrite";

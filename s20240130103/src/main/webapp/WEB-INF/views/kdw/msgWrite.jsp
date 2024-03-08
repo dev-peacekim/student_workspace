@@ -305,10 +305,10 @@
 								
 								<!-- 인풋 -->
 								<c:choose>
-									<c:when test="${receiverId }">
+									<c:when test="${receiverId != null}">
 										<input id="receiverInput" type="text" class="form-control"
 											aria-label="Text input with segmented dropdown button"
-											name="msg_receiver" value="${receiverId }">
+											name="msg_receiver" value="${receiverId}">
 									</c:when>
 									<c:otherwise>
 										<input id="receiverInput" type="text" class="form-control"
