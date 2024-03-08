@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.blackberry.s20240130103.lhs.model.BoardAdmin;
+import com.blackberry.s20240130103.lhs.model.User;
+
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -39,6 +42,19 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		System.out.println("===AdminDaoImpl selectUserJoinCnt List map end===");
 		return userJoinCntList;
+	}
+	
+	@Override
+	public List<User> selectUsersDeleteRequest() {
+		List<User> deleteUserList = session.selectList("LhsAdminDeleteUserList");
+		System.out.println("deleteUserList size : " + deleteUserList.size());
+		return deleteUserList;
+	}
+	
+	@Override
+	public List<BoardAdmin> selectBoardAdminList() {
+		List<BoardAdmin> boardAdminList = session.selectList("LhsAdminBoardAdminList");
+		return boardAdminList;
 	}
 
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -135,37 +137,23 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th scope="col">번호</th>
+                            <th scope="col">아이디</th>
                             <th scope="col">제목</th>
                             <th scope="col">작성일</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Brandon Jacob</td>
-                            <td>2016-05-25</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Bridie Kessler</td>
-                            <td>2014-12-05</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Ashleigh Langosh</td>
-                            <td>2011-08-12</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>Angus Grady</td>
-                            <td>2012-06-11</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">5</th>
-                            <td>Raheem Lehner</td>
-                            <td>2011-04-19</td>
-                          </tr>
+	                       <c:forEach items="${boardAdminList }" var="boardAdmin">
+		                        <tr>
+		                          <th>${boardAdmin.user_id }</th>
+		                          <td>
+		                          	<a href="/adminDetailBoardAdmin?user_no=${boardAdmin.user_no }&admin_no=${boardAdmin.admin_no}">${boardAdmin.admin_title }</a>
+		                          </td>
+		                          <td>
+		                          	<fmt:formatDate value="${boardAdmin.admin_date }" type="both"/>
+		                          </td>
+		                        </tr>
+	                        </c:forEach> 
                         </tbody>
                       </table>
                       <!-- End Default Table Example -->
@@ -182,27 +170,23 @@
                       <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th scope="col">번호</th>
+                            <th scope="col">회원번호</th>
                             <th scope="col">이름</th>
                             <th scope="col">신청일</th>
                           </tr>
                         </thead>
                         <tbody>
+                        <c:forEach items="${deleteUserList }" var="user">
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Brandon Jacob</td>
-                            <td>2016-05-25</td>
+                            <th>${user.user_no }</th>
+                            <td>
+                            	<a href="/adminDetailUser?user_no=${user.user_no }">${user.user_name }</a>
+                            </td>
+                            <td>
+                            	<fmt:formatDate value="${user.user_update_date }" type="both"/> 
+                            </td>
                           </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>Angus Grady</td>
-                            <td>2012-06-11</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">5</th>
-                            <td>Raheem Lehner</td>
-                            <td>2011-04-19</td>
-                          </tr>
+                        </c:forEach>
                         </tbody>
                       </table>
                       <!-- End Table with hoverable rows -->

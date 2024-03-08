@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.blackberry.s20240130103.lhs.model.BoardAdmin;
+import com.blackberry.s20240130103.lhs.model.User;
 import com.blackberry.s20240130103.lhs.service.AdminService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +25,11 @@ public class LhsAdminController {
 	@GetMapping("/adminMain")
 	public String adminMain(Model model) {
 		Map<String, Long> tableCntMap = adminService.selectTablesCnt();
+		List<User> deleteRequestUserList = adminService.selectUsersDeleteRequest();
+		List<BoardAdmin> boardAdminList = adminService.selectBoardAdminList();
 		model.addAttribute("cntMap",tableCntMap);
+		model.addAttribute("deleteUserList", deleteRequestUserList);
+		model.addAttribute("boardAdminList", boardAdminList);
 		return "admin/admin_main";
 	}
 	

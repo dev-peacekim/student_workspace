@@ -7,15 +7,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -56,6 +51,12 @@ public class User {
 	private LocalDateTime user_update_date;
     private int user_rank_big;
     private int user_rank_mid;
+    
+    @PrePersist
+    public void prePersist() {
+    	this.user_rank_big = (this.user_rank_big == 0) ? 500 : this.user_rank_big;
+    	this.user_rank_mid = (this.user_rank_mid == 0) ? 10 : this.user_rank_mid;
+    }
 	
 	//-----------조회용 컬럼-------------
 	@Transient

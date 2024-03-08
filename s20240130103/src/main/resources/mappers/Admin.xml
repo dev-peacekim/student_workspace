@@ -22,4 +22,27 @@
 	    ]]>
 	</select>
 	
+	<select id="LhsAdminDeleteUserList" resultType="LhsUser">
+		<![CDATA[
+	    SELECT u.*,c.COMM_CONTENT 
+		FROM USERS u,COMM c 
+		WHERE u.USER_DELETE_CHK = 1 
+		AND u.USER_RANK_BIG = c.COMM_BIG 
+		AND u.USER_RANK_MID = c.COMM_MID 
+		AND rownum <= 3
+		ORDER BY u.USER_UPDATE_DATE
+	    ]]>
+	</select>
+	
+	<select id="LhsAdminBoardAdminList" resultType="LhsBoardAdmin">
+		<![CDATA[
+	    SELECT ba.*,u.USER_NAME,u.user_id
+		FROM BOARD_ADMIN ba,USERS u
+		WHERE ba.ADMIN_REPLY_CHK = 0
+		AND ba.USER_NO = u.USER_NO
+		AND rownum <= 5
+		ORDER BY admin_date
+	    ]]>
+	</select>
+	
 </mapper>

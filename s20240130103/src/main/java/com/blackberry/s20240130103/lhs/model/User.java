@@ -1,6 +1,8 @@
 package com.blackberry.s20240130103.lhs.model;
 
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,12 @@ public class User {
 	private String user_phone;
 	private String user_profile;
 	private int user_delete_chk;
-	private String user_date;
+	private Date user_date;
+	private Date user_update_date;
+	private int user_rank_big;
+	private int user_rank_mid;
 	
+	
+	//---------조회용----------
+	private String comm_content;
 }
