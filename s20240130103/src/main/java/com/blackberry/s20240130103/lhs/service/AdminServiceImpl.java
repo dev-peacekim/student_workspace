@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lhs.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Long> selectTablesCnt() {
 		Map<String, Long> tableCntMap = adminDao.selectTablesCnt();
-		return null;
+		return tableCntMap;
+	}
+	
+	@Override
+	public List<Map<String, Long>> selectUserJoinCnt() {
+		List<Map<String, Long>> userJoinCntList = adminDao.selectUserJoinCnt();
+		return userJoinCntList;
 	}
 }

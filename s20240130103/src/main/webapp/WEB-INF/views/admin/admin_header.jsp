@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
         <a href="main" class="logo d-flex align-items-center">
@@ -20,19 +21,18 @@
             >
               <!-- 로그인 성공 시 세션으로 인해 화면이 변하는 부분 -->
               <img
-                src="assets/img/profile-img.jpg"
+                src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
                 alt="Profile"
                 class="rounded-circle"
               />
               <span class="d-none d-md-block dropdown-toggle ps-2">관리자</span>
-              <!-- 로그인 성공 시 세션으로 인해 화면이 변하는 부분 --> </a
-            ><!-- End Profile Iamge Icon -->
+              </a><!-- End Profile Iamge Icon -->
 
             <ul
               class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
             >
               <li class="dropdown-header">
-                <h6>관리자</h6>
+                <h6>${sessionScope.user_name }</h6>
                 <span>관리자</span>
               </li>
               <li>

@@ -36,6 +36,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/lhs/lhsadmin.js"></script>
 
 </head>
 
@@ -61,8 +62,8 @@
                   회원<span class="small-title">(신규 가입자)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-pupple">
-                    (0)<i class="bi bi-arrow-up-short fnt-20"></i>
+                  ${cntMap.ALL_USER_CNT }&nbsp;<span class="small-title cl-pupple">
+                    (${cntMap.TODAY_USER_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
               </div>
@@ -71,8 +72,8 @@
                   프로젝트<span class="small-title">(신규 프로젝트)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-pupple">
-                    (0)<i class="bi bi-arrow-up-short fnt-20"></i>
+                  ${cntMap.ALL_PROJECT_CNT }&nbsp;<span class="small-title cl-pupple">
+                    (${cntMap.TODAY_PROJECT_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
               </div>
@@ -81,8 +82,8 @@
                   댓글<span class="small-title">(신규 댓글)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-pupple">
-                    (0)<i class="bi bi-arrow-up-short fnt-20"></i>
+                  ${cntMap.ALL_COMENT_CNT }&nbsp;<span class="small-title cl-pupple">
+                    (${cntMap.TODAY_COMENT_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
               </div>
@@ -91,8 +92,8 @@
                   게시글<span class="small-title">(신규 게시글)</span>
                 </div>
                 <div class="content-detail">
-                  0&nbsp;<span class="small-title cl-pupple">
-                    (0)<i class="bi bi-arrow-up-short fnt-20"></i>
+                  ${cntMap.ALL_BOARD_CNT }&nbsp;<span class="small-title cl-pupple">
+                    (${cntMap.TODAY_BOARD_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
               </div>
@@ -119,56 +120,7 @@
                   width="446"
                   height="223"
                 ></canvas>
-                <script>
-                  document.addEventListener("DOMContentLoaded", () => {
-                    new Chart(document.querySelector("#barChart"), {
-                      type: "bar",
-                      data: {
-                        labels: [
-                          "January",
-                          "February",
-                          "March",
-                          "April",
-                          "May",
-                          "June",
-                          "July",
-                        ],
-                        datasets: [
-                          {
-                            label: "Bar Chart",
-                            data: [65, 59, 80, 81, 56, 55, 40],
-                            backgroundColor: [
-                              "rgba(255, 99, 132, 0.2)",
-                              "rgba(255, 159, 64, 0.2)",
-                              "rgba(255, 205, 86, 0.2)",
-                              "rgba(75, 192, 192, 0.2)",
-                              "rgba(54, 162, 235, 0.2)",
-                              "rgba(153, 102, 255, 0.2)",
-                              "rgba(201, 203, 207, 0.2)",
-                            ],
-                            borderColor: [
-                              "rgb(255, 99, 132)",
-                              "rgb(255, 159, 64)",
-                              "rgb(255, 205, 86)",
-                              "rgb(75, 192, 192)",
-                              "rgb(54, 162, 235)",
-                              "rgb(153, 102, 255)",
-                              "rgb(201, 203, 207)",
-                            ],
-                            borderWidth: 1,
-                          },
-                        ],
-                      },
-                      options: {
-                        scales: {
-                          y: {
-                            beginAtZero: true,
-                          },
-                        },
-                      },
-                    });
-                  });
-                </script>
+
                 <!-- End Bar CHart -->
               </div>
               <!-- 그래프 영역 끝-->
