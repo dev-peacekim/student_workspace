@@ -31,11 +31,13 @@
   
  <script>
 window.onload = function() {
-	//replyBoardFreeAskList(${boardAskContents.cboard_no},  ${boardAskContents.user_no});
+	 getUserNo();
 	replyBoardFreeAskList(${boardAskContents.cboard_no});
+
 }
+
+
 </script>
-  
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -95,7 +97,7 @@ window.onload = function() {
           <section class="community-post-answer">
             <div class="answer-info-header">
                 <div class="answer-info-title">
-                    댓글 <span class="answer-info-title-count">23</span>
+                    댓글 <span class="answer-info-title-count">${boardReplyCnt}</span>
                 </div>
                 
                 
@@ -126,9 +128,9 @@ window.onload = function() {
 			   			 <input type="hidden" name="user_no" value="${boardAskContents.user_no}">
 			    		<button type="submit" class="btn bfcDelete">삭제</button>
 				</form>
-                        <a href="boardFreeModify">
-                            <button class="btn bacModify"  id="bacModify">수정</button>
-                        </a>
+                        <a href="boardFreeModify?boardType=ask&cboard_no=${boardAskContents.cboard_no}">
+						    <button class="btn bacModify" id="bacModify">수정</button>
+						</a>
                     </c:if>
 
                         <button type="button" class="btn bacList" onclick="goBack()">목록</button>

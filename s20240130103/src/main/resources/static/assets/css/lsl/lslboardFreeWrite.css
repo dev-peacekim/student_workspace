@@ -88,3 +88,19 @@
 	right: 20px;
 	bottom: 10px;
 }
+
+
+/*--------------------------------------------------------------
+# file box
+--------------------------------------------------------------*/
+#formFile-box {
+	width: 100%;
+	height: 80px !important;
+	overflow-y: auto; 
+}
+
+#cboard_content {
+	height: 460px;
+}
+
+

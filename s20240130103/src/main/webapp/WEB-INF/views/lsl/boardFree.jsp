@@ -30,6 +30,7 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/lsl/lslboardFree.css" rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
+
 <!-- 헤더, 푸터, 사이드바 css -->
 <!-- =======================================================
   * Template Name: NiceAdmin
@@ -116,43 +117,30 @@
 							<!-- 글쓰기 버튼 끝  -->
 
 							<!-- 페이지 표시 -->
-							<c:if test="${bfpage.startPage > bfpage.pageBlock}">
-								<section>
-									<nav aria-label="Page navigation example">
-										<ul class="pagination justify-content-center">
-											<li class="page-item"><a class="page-link"
-												href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}"
-												aria-label="Previous"> <span aria-hidden="true">«</span>
-											</a></li>
-										</ul>
-									</nav>
-								</section>
-							</c:if>
-
-							<c:forEach var="i" begin="${bfpage.startPage}"
-								end="${bfpage.endPage}">
-								<section>
-									<nav aria-label="Page navigation example">
-										<ul class="pagination justify-content-center">
-											<li class="page-item"><a class="page-link"
-												href="boardFree?currentPage=${i}">${i}</a></li>
-										</ul>
-									</nav>
-								</section>
-							</c:forEach>
-
-							<c:if test="${bfpage.endPage < bfpage.totalPage}">
-								<section>
-									<nav aria-label="Page navigation example">
-										<ul class="pagination justify-content-center">
-											<li class="page-item"><a class="page-link"
-												href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}"
-												aria-label="Next"> <span aria-hidden="true">»</span>
-											</a></li>
-										</ul>
-									</nav>
-								</section>
-							</c:if>
+				<nav aria-label="Page navigation example">
+    				<ul class="pagination justify-content-center">
+        				<c:if test="${bfpage.startPage > bfpage.pageBlock}"><li class="page-item">
+               				 <a class="page-link" href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}" aria-label="Previous">
+                    			<span aria-hidden="true">«</span>
+                			</a>
+           			 	</li>
+        				</c:if>
+        
+        			<c:forEach var="i" begin="${bfpage.startPage}" end="${bfpage.endPage}">
+           				 <li class="page-item">
+               				 <a class="page-link" href="boardFree?currentPage=${i}">${i}</a>
+           				 </li>
+        			</c:forEach>
+        
+        			<c:if test="${bfpage.endPage < bfpage.totalPage}">
+            			<li class="page-item">
+                			<a class="page-link" href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}" aria-label="Next">
+                    			<span aria-hidden="true">»</span>
+                			</a>
+          		 		</li>
+        			</c:if>
+   			 </ul>
+	</nav>
 
 							<!-- 페이지 표시 끝 -->
 						</div>

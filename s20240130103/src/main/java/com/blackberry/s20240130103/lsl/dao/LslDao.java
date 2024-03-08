@@ -10,7 +10,6 @@ public interface LslDao {
 
 	/* 게시판 */  
 	
-	
 	// 자유 게시판 리스트 
 	int totalBoardFree();
 	List<LslBoardComm> boardFreeList(LslBoardComm lslBoardComm);
@@ -28,6 +27,9 @@ public interface LslDao {
 	// 게시판 상세 페이지
 	LslBoardComm boardAskContents(int cboard_no);
 	LslBoardComm boardFreeContents(int cboard_no);
+	
+	// 게시판 상세 페이지 댓글 카운트
+	int boardReplyCnt(int cboard_no);
 
 
 	// 게시판 글쓰기
@@ -42,8 +44,17 @@ public interface LslDao {
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
 	int boardAskViewCnt(LslBoardComm lslBoardComm);
 
-	
+	// 게시판 글 수정 페이지
+	LslBoardComm boardFreeModify(int cboard_no);
+	LslBoardComm boardAskModify(int cboard_no);
 
+	
+	// 게시판 글 수정
+	int  boardFreeUpdate(LslBoardComm lslBoardComm);
+	int boardAskUpdate(LslBoardComm lslBoardComm);
+	
+	// 게시판 파일 업로드
+	
 	
 	/* 댓글 */  
 	
@@ -58,6 +69,12 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+
+	
+
+	
+	
 	
 	
 

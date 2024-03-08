@@ -132,43 +132,31 @@
 
 						<!-- 페이지 표시 -->
 
-						<c:if test="${bapage.startPage > bapage.pageBlock}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardAskList?currentPage=${bapage.startPage-bapage.pageBlock}"
-											aria-label="Previous"> <span aria-hidden="true">«</span>
-										</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:if>
+						<nav aria-label="Page navigation example">
+    				<ul class="pagination justify-content-center">
+        				<c:if test="${bapage.startPage > bapage.pageBlock}"><li class="page-item">
+               				 <a class="page-link" href="boardAsk?currentPage=${bapage.startPage-bapage.pageBlock}" aria-label="Previous">
+                    			<span aria-hidden="true">«</span>
+                			</a>
+           			 	</li>
+        				</c:if>
+        
+        			<c:forEach var="i" begin="${bapage.startPage}" end="${bapage.endPage}">
+           				 <li class="page-item">
+               				 <a class="page-link" href="boardAsk?currentPage=${i}">${i}</a>
+           				 </li>
+        			</c:forEach>
+        
+        			<c:if test="${bapage.endPage < bapage.totalPage}">
+            			<li class="page-item">
+                			<a class="page-link" href="boardAsk?currentPage=${bapage.startPage+bapage.pageBlock}" aria-label="Next">
+                    			<span aria-hidden="true">»</span>
+                			</a>
+          		 		</li>
+        			</c:if>
+   			 </ul>
+	</nav>
 
-						<c:forEach var="i" begin="${bapage.startPage}"
-							end="${bapage.endPage}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardAsk?currentPage=${i}">${i}</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:forEach>
-
-						<c:if test="${bapage.endPage < bapage.totalPage}">
-							<section>
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a class="page-link"
-											href="boardAsk?currentPage=${bapage.startPage+page.pageBlock}"
-											aria-label="Next"> <span aria-hidden="true">»</span>
-										</a></li>
-									</ul>
-								</nav>
-							</section>
-						</c:if>
 		<!-- 페이지 표시 끝 -->
 
 					</div>

@@ -9,8 +9,11 @@
 	</insert>
 
 	<select id="sltotalBoardFreeList" resultType="int">
-		select count(*)
-		from board_comm
+	select count(*)
+	from board_comm
+	where CBOARD_DELETE_CHK = 0
+	AND comm_big=300
+	AND comm_mid=20
 	</select>
 
 	<select id="slBoardFreeListAll" parameterType="LslBoardComm"
@@ -80,6 +83,18 @@ SELECT *
 	<update id="sldeleteFreeBoard" parameterType="int">
 		update board_comm
 		set CBOARD_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
+		where cboard_no = #{cboard_no}
+	</update>
+	
+	<select id="slboardFreeModify" parameterType="int" resultType="LslBoardComm">
+	select bc.*
+	from board_comm bc
+	where bc.cboard_no = #{cboard_no}
+	</select>
+	
+	<update id="slboardFreeUpdate" parameterType="LslBoardComm">
+		update board_comm
+		set cboard_title =#{cboard_title}, cboard_content = #{cboard_content},  COMM_UPDATE_DATE = sysdate
 		where cboard_no = #{cboard_no}
 	</update>
 </mapper>

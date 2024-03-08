@@ -6,7 +6,7 @@ function getUserNo() {
 	fetch("/userno")
 	.then(response => response.json())
 	.then(data => {
-		currentuser_no = data.user_no;
+		currentuser_no = data;
 		console.log('currentuser_no : ' + currentuser_no);
 	})
 	.catch(error => {
@@ -48,6 +48,14 @@ function  updateReplyList(data) {
         hour = hour % 12 || 12; // 0시일 때 12시로 변경
  		const formatDate = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;	 
 
+	let ReplyUser = lslCommReply.user_no;
+
+        console.log(currentuser_no);
+        console.log(ReplyUser);
+
+     // 현재 세션 사용자와 댓글 작성자가 동일한 경우에만 수정 및 삭제 버튼 표시
+     const showButtons = currentuser_no === ReplyUser;
+			
      boardReplyList += `<div class="re-comment-body">
     <div id="replyBoardFreeList" class="comment-card">
         <div class="comment-header">
@@ -57,8 +65,8 @@ function  updateReplyList(data) {
                 <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
             </div>
             <div class="re-btn-container">
-                <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');">수정</button>
-                <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');">삭제</button>
+                <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
+                        <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
                 <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
             </div>
         </div>
@@ -150,10 +158,17 @@ function deleteComment(cboard_no, creply_no) {
 function toggleEdit(creply_no) {
     // 수정 창의 display 속성을 토글
     const editComment = document.getElementById(`editComment_${creply_no}`);
+    const brModify = document.querySelector('.brModify');
+    const brDelete = document.querySelector('.brDelete');
+    
     if (editComment.style.display === "none") {
         editComment.style.display = "block";
+        brModify.style.display = "none";
+        brDelete.style.display = "none";
     } else {
         editComment.style.display = "none";
+          brModify.style.display = "block";
+        brDelete.style.display = "block";
     }
     
     // 뷰 창의 display 속성도 토글

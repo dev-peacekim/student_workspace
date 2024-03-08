@@ -64,29 +64,31 @@
                         <h5 class="card-title">글 수정</h5>
 
                         <!-- General Form Elements -->
-                        <form>
-                            <div class="mb-3">
-                                <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputNumber" class="form-label">파일</label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" style="height: 550px;"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <button type="button" class="btn bfmCancle" onclick="goBack()">취소</button>
-                                <script>
-                                    function goBack() {
-                                        window.history.back();
-                                    }
-                                </script>
-                                <button type="submit" class="btn bfmModify">저장</button>
-                            </div>
-                        </form><!-- End General Form Elements -->
-
+                     
+                        <form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate">
+   						 <input type="hidden" name="cboard_no" value="${boardModifyContents.cboard_no}" />
+    					<input type="hidden" name="boardType" value="${boardModifyContents.boardType}" />
+						    <div class="mb-3">
+						        <label for="inputText" class="form-label">제목</label>
+						        <input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
+						    </div>
+						    <div class="mb-3">
+						        <label for="inputNumber" class="form-label">파일</label>
+						        <input class="form-control" type="file" id="formFile">
+						    </div>
+						    <div class="mb-3">
+						        <textarea class="form-control" style="height: 550px;" name="cboard_content">${boardModifyContents.cboard_content}</textarea>
+						    </div>
+						    <div class="mb-3">
+						        <button type="button" class="btn bfmCancle" onclick="goBack()">취소</button>
+						        <script>
+						            function goBack() {
+						                window.history.back();
+						            }
+						        </script>
+						        <button type="submit" class="btn bfmModify">저장</button>
+						    </div>
+						</form><!-- End General Form Elements -->
                     </div>
                 </div>
             </div>

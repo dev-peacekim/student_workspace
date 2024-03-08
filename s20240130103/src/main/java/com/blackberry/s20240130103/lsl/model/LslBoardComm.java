@@ -54,5 +54,5 @@ public class LslBoardComm {
 	private String user_profile;
 	
 	//test
-	private String boardtype;
+	private String boardType;
 }

@@ -18,7 +18,7 @@ public class LslDaoImpl implements LslDao {
 	private final SqlSession session;
 
 	
-
+	// 자유 게시판 토탈 카운트 및 페이징 
 	@Override
 	public int totalBoardFree() {
 		int totalBoardFreeCnt  = 0;
@@ -47,6 +47,8 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeList;
 	}
 
+	
+	// 질문 게시판 토탈 카운트 및 페이징 
 	@Override
 	public int totalBoardAsk() {
 		int totalBoardAskCnt = 0;
@@ -72,7 +74,9 @@ public class LslDaoImpl implements LslDao {
 		}
 		return boardAskList;
 	}
-
+	
+	
+	// 게시판 검색
 	@Override
 	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
 		List<LslBoardComm> boardFreeSearch = null;
@@ -99,6 +103,8 @@ public class LslDaoImpl implements LslDao {
 		return boardAskSearch;
 	}
 
+	
+	// 게시판 글 상세 페이지 
 	@Override
 	public LslBoardComm boardAskContents(int cboard_no) {
 		System.out.println("LslDaoImpl boardAskContents Start...");
@@ -114,6 +120,17 @@ public class LslDaoImpl implements LslDao {
 		LslBoardComm boardFreeContents = session.selectOne("slboardFreeContents", cboard_no);
 		System.out.println("LslDaoImpl boardAskContents -> " + boardFreeContents);
 		return boardFreeContents;
+	}
+	
+	// 게시판 파일 업로드 
+
+
+
+	// 게시판 글 상세 페이지 댓글 카운트
+	@Override
+	public int boardReplyCnt(int cboard_no) {
+		int boardReplyCnt = session.selectOne("slboardReplyCnt", cboard_no);
+		return boardReplyCnt;
 	}
 
 	
@@ -161,7 +178,36 @@ public class LslDaoImpl implements LslDao {
 		return boardAskViewCnt;
 	}
 
+	
+	// 게시판 글 수정 페이지
+	@Override
+	public LslBoardComm boardFreeModify(int cboard_no) {
+		LslBoardComm boardFreeModify = session.selectOne("slboardFreeModify",cboard_no);
+		return boardFreeModify;
+	}
+	
+	@Override
+	public LslBoardComm boardAskModify(int cboard_no) {
+		LslBoardComm boardAskModify = session.selectOne("slboardAskModify", cboard_no);
+		return boardAskModify;
+	}
 
+	// 게시판 글 수정 
+	@Override
+	public int  boardFreeUpdate(LslBoardComm lslBoardComm) {
+		int boardFreeUpdate = session.update("slboardFreeUpdate", lslBoardComm);
+		return boardFreeUpdate;
+	}
+	
+	@Override
+	public int boardAskUpdate(LslBoardComm lslBoardComm) {
+		int boardAskUpdate = session.update("slboardAskUpdate", lslBoardComm);
+		return boardAskUpdate;
+	}
+	
+	
+	
+	
 	
 // Rest API  댓글 
 	
@@ -196,6 +242,14 @@ public class LslDaoImpl implements LslDao {
 		int boardFreeAskResult = session.update("slmodifyBoardReply", lslCommReply);
 		return boardFreeAskResult;
 	}
+
+	
+	
+	
+
+	
+
+
 
 	
 

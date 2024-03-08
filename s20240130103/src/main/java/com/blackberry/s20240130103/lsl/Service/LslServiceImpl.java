@@ -1,9 +1,12 @@
 package com.blackberry.s20240130103.lsl.Service;
 
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.blackberry.s20240130103.lsl.dao.LslDao;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
@@ -55,7 +58,39 @@ public class LslServiceImpl implements LslService {
 	}
 	
 	
-
+	
+	
+	
+	// 게시판 글 수정 페이지 
+	@Override
+	public LslBoardComm boardFreeModify(int cboard_no) {
+		LslBoardComm boardFreeModify = ld.boardFreeModify(cboard_no);
+		
+		return boardFreeModify;
+	}
+	@Override
+	public LslBoardComm boardAskModify(int cboard_no) {
+		LslBoardComm boardAskModify = ld.boardAskModify(cboard_no);
+		return boardAskModify;
+	}
+	
+	
+	// 게시판 글 수정 
+	@Override
+	public int boardFreeUpdate(LslBoardComm lslBoardComm) {
+		 int boardFreeUpdate = ld.boardFreeUpdate(lslBoardComm);
+		
+		return boardFreeUpdate;
+	}
+	
+	@Override
+	public int boardAskUpdate(LslBoardComm lslBoardComm) {
+		int boardAskUpdate = ld.boardAskUpdate(lslBoardComm);
+		return boardAskUpdate;
+	}
+	
+	
+	
 	
 	// 질문 게시판 토탈 카운트 
 	@Override
@@ -73,8 +108,7 @@ public class LslServiceImpl implements LslService {
 	 List<LslBoardComm> boardAskList = null;
 	 boardAskList = ld.boardAskList(lslBoardComm);
 	 System.out.println("LslServiceImpl boardAskList.size() ->" + boardAskList.size());
-	 
-	
+
 		return boardAskList;
 	}
 
@@ -97,6 +131,7 @@ public class LslServiceImpl implements LslService {
 	}
 	
 
+	
 	// 질문 게시판 글 상세 내역 
 	@Override
 	public LslBoardComm boardAskContents(int cboard_no) {
@@ -118,6 +153,19 @@ public class LslServiceImpl implements LslService {
 		
 		return boardFreeContents;
 	}
+	
+	
+	
+	
+	
+	// 게시판 글 상세 페이지 댓글 카운트 
+	@Override
+	public int boardReplyCnt(int cboard_no) {
+		int boardReplyCnt = ld.boardReplyCnt(cboard_no);
+		return boardReplyCnt;
+	}
+
+	
 
 	// 질문 게시판 글쓰기 
 	@Override
@@ -153,7 +201,7 @@ public class LslServiceImpl implements LslService {
 	}
 	
 
-	
+
 
 	
 	
@@ -191,6 +239,7 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
+	
 		
 		
 		

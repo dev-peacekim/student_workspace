@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lsl.controller;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -8,19 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.lsl.Service.BoardFreeAskPaging;
 import com.blackberry.s20240130103.lsl.Service.LslService;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
-import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import oracle.jdbc.proxy.annotation.Post;
+
 
 @Controller
 @RequiredArgsConstructor
 public class LslController {
+	
 	private final LslService ls;
 	
 	
@@ -85,7 +87,11 @@ public class LslController {
 		//자유게시판 조회수 
 		int boardFreeViewCnt = ls.boardFreeViewCnt(lslBoardComm);
 		
-	
+		
+		
+		// 질문 게시판 댓글수 
+		int boardReplyCnt = ls.boardReplyCnt(cboard_no);
+		model.addAttribute("boardReplyCnt",boardReplyCnt);
 		model.addAttribute("boardFreeViewCnt",boardFreeViewCnt);
 		model.addAttribute("boardFreeContents", boardFreeContents);
 		return "lsl/boardFreeContents";
@@ -105,13 +111,13 @@ public class LslController {
 		System.out.println("LslController freeWrite Start...");
 		Long user_no =  (Long)request.getSession().getAttribute("user_no");
 		lslBoardComm.setUser_no(user_no);
-		// 넘어오는 값이 보드 번호가 0이라 바로 자기 글로 넘어갈 방법이 없을지 생각.
 		int boardFreeWriteInsert = ls.boardFreeWriteInsert(lslBoardComm);
 		
 		return "redirect:/boardFree";
 
 	}
 	
+
 	// 자유 게시판 글 삭제
 	@RequestMapping("/deleteFreeBoard")
 	public String deleteFreeBoard(HttpServletRequest request, LslBoardComm lslBoardComm) {
@@ -125,10 +131,6 @@ public class LslController {
 		return "forward:boardFree";
 	}
 	
-	
-	
-	
-
 	
 	/* 질문 게시판 */
 
@@ -186,9 +188,14 @@ public class LslController {
 	public String boardAskContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		LslBoardComm boardAskContents = ls.boardAskContents(cboard_no);
+	
 	//질문 게시판 조회수 
 		int boardAskViewCnt = ls.boardAskViewCnt(lslBoardComm);
+		
+	// 질문 게시판 댓글수 
+		int boardReplyCnt = ls.boardReplyCnt(cboard_no);
 				
+		model.addAttribute("boardReplyCnt",boardReplyCnt);
 		model.addAttribute("boardAskViewCnt",boardAskViewCnt);
 		model.addAttribute("boardAskContents", boardAskContents);
 		return "lsl/boardAskContents";
@@ -209,7 +216,6 @@ public class LslController {
 			System.out.println("LslController askWrite Start...");
 			Long user_no =  (Long)request.getSession().getAttribute("user_no");
 			lslBoardComm.setUser_no(user_no);
-			// 넘어오는 값이 보드 번호가 0이라 바로 자기 글로 넘어갈 방법이 없을지 생각.
 			int boardAskWriteInsert = ls.boardAskWriteInsert(lslBoardComm);
 			
 			return "redirect:/boardAsk";
@@ -229,16 +235,50 @@ public class LslController {
 			return "forward:boardAsk";
 		}
 		
-	
+		
+		
+			/* 공통 사용 */
+		
+		 // 게시판 글 수정 페이지 요청
+	    @GetMapping(value = "boardFreeModify")
+	    public String boardFreeAskModify(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
+	        int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+	        String boardType = request.getParameter("boardType");
+	        LslBoardComm boardModifyContents;
+	        if (request.getParameter("boardType").equals("free")) {
+	            boardModifyContents = ls.boardFreeModify(cboard_no);
+	        } else {
+	            boardModifyContents = ls.boardAskModify(cboard_no);
+	        }
+	        model.addAttribute("boardType", boardType);
+	        model.addAttribute("boardModifyContents", boardModifyContents);
+	        return "lsl/boardFreeModify";
+	    }
+
+	    // 게시판 글 수정 처리
+	    @PostMapping(value = "boardFreeAskUpdate")
+	    public String boardFreeAskUpdate(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
+	        int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+	        lslBoardComm.setCboard_no(cboard_no);
+	        String boardType = request.getParameter("boardType");
+	        int boardUpdate;
+	        if (request.getParameter("boardType").equals("free")) {
+	            boardUpdate = ls.boardFreeUpdate(lslBoardComm);
+	        } else {
+	            boardUpdate = ls.boardAskUpdate(lslBoardComm);
+	        }
+	        model.addAttribute("boardUpdate", boardUpdate);
+	        
+	     // 보드 타입 따라 페이지 이동
+	        if ("free".equals(boardType)) {
+	            return "redirect:/boardFree";
+	        } else {
+	            return "redirect:/boardAsk";
+	        }
+	    }
 	
 	
 
 
-	// 게시글 수정
-	@GetMapping(value = "boardFreeModify")
-	public String boardFreeModify() {
-
-		return "lsl/boardFreeModify";
-	}
 
 }

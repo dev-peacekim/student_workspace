@@ -76,6 +76,7 @@
                             <div class="mb-3">
                                 <label for="inputNumber" class="form-label">파일 첨부</label>
                                 <input class="form-control" type="file" id="formFile" name="cboard_file_name">
+                                <input class="form-control" type="checkbox" id="formFile-box" name="cboard_file_box">
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>

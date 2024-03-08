@@ -2,6 +2,9 @@ package com.blackberry.s20240130103.lsl.Service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
 
@@ -30,6 +33,10 @@ public interface LslService {
 	LslBoardComm boardAskContents(int cboard_no);
 	
 	
+	// 게시판 상세 페이지 댓글 카운트
+	int boardReplyCnt(int cboard_no);
+	
+	
     // 게시판 글쓰기
 	int boardFreeWriteInsert(LslBoardComm lslBoardComm);
 	int boardAskWriteInsert(LslBoardComm lslBoardComm);
@@ -42,6 +49,16 @@ public interface LslService {
 	int boardFreeViewCnt(LslBoardComm lslBoardComm);
 	int boardAskViewCnt(LslBoardComm lslBoardComm);
 
+	// 게시판 수정 페이지
+	LslBoardComm boardFreeModify(int cboard_no);
+	LslBoardComm boardAskModify(int cboard_no);
+	
+	// 게시판 글 수정 
+	int boardFreeUpdate(LslBoardComm lslBoardComm);
+	int boardAskUpdate(LslBoardComm lslBoardComm);
+	
+	
+	// 게시판 파일 업로드 
 	
 	
 	
@@ -59,6 +76,12 @@ public interface LslService {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+	
+
+
+	
 	
 	
 	

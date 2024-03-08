@@ -23,6 +23,9 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   
+    <!-- File Js -->
+  <script defer src="assets/js/lsl/boardFile.js"></script>
+  
   
   <!-- Template Main CSS File -->
   <link href="assets/css/lsl/lslboardFreeWrite.css" rel="stylesheet"> 
@@ -75,10 +78,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inputNumber" class="form-label">파일 첨부</label>
-                                <input class="form-control" type="file" id="formFile" name="cboard_file_name">
+                                <input class="form-control" type="file" id="formFile" name="file" multiple="multiple">
+                                 <input class="form-control" type="checkbox" id="formFile-box" name="cboard_file_box" >
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>
+                                <textarea class="form-control" id="cboard_content" name="cboard_content" ></textarea>
                             </div>
                             <div class="mb-3">
                                 <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>

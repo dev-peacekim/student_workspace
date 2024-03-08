@@ -22,14 +22,13 @@ public class LslRestController {
 	
 	private final LslService ls;
 	
+	
 	@GetMapping("/userno")
-	public int boardUserNo(HttpServletRequest request) {
-		return (int)request.getSession().getAttribute("user_no");
+	public Long boardUserNo(HttpServletRequest request) {
+	    Long user_no = (Long) request.getSession().getAttribute("user_no");
+	    System.out.println("sessionUseNo ->" + user_no);
+	    return user_no;
 	}
-	
-	// 게시글 
-	
-	
 	
 	
 	
@@ -76,11 +75,8 @@ public class LslRestController {
 		return ls.modifyBoardReply(lslCommReply);
 	}
 	
-	// 댓글 수정
 	
-	// 대댓글
-	// 게시판 글쓰기
-	// 게시글 수정 
+	// 대댓글 
 	// 파일 업로드
 	
 	

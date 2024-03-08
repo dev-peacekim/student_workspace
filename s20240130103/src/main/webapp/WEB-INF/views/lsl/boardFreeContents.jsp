@@ -39,6 +39,7 @@
   ======================================================== -->
 <script>
 window.onload = function() {
+	 getUserNo();
 	replyBoardFreeAskList(${boardFreeContents.cboard_no});
 }
 </script>
@@ -97,7 +98,7 @@ window.onload = function() {
           <section class="community-post-answer">
             <div class="answer-info-header">
                 <div class="answer-info-title">
-                    댓글 <span class="answer-info-title-count">23</span>
+                    댓글 <span class="answer-info-title-count">${boardReplyCnt}</span>
                 </div>
                 
                
@@ -130,10 +131,9 @@ window.onload = function() {
 			   		 <input type="hidden" name="user_no" value="${boardFreeContents.user_no}">
 			    	<button type="submit" class="btn bfcDelete">삭제</button>
 			</form>
-			                     
-                        <a href="boardFreeModify">
-                            <button class="btn bfcModify" id="bfcModify">수정</button>
-                        </a>
+			           <a href="boardFreeModify?boardType=free&cboard_no=${boardFreeContents.cboard_no}">
+						    <button class="btn bfcModify" id="bfcModify">수정</button>
+						</a>
                     </c:if>
 
                         <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
