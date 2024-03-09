@@ -44,4 +44,9 @@ public class LhsAdminController {
 		return jsonstr;
 	}
 	
+	@GetMapping("admin_boardList")
+	public String adminBoardList() {
+		return "admin/admin_boardList";
+	}
+	
 }

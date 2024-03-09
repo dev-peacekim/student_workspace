@@ -71,11 +71,11 @@
               </div>
               <div class="main-top-content">
                 <div class="content-title fnt-nanum fnt-size20 cl-gray">
-                  프로젝트<span class="small-title">(신규 프로젝트)</span>
+                  문의글<span class="small-title">(신규 문의글)</span>
                 </div>
                 <div class="content-detail">
-                  ${cntMap.ALL_PROJECT_CNT }&nbsp;<span class="small-title cl-pupple">
-                    (${cntMap.TODAY_PROJECT_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
+                  ${cntMap.ALL_BOARDADMIN_CNT }&nbsp;<span class="small-title cl-pupple">
+                    (${cntMap.TODAY_BOARDADMIN_CNT })<i class="bi bi-arrow-up-short fnt-20"></i>
                   </span>
                 </div>
               </div>
@@ -102,7 +102,7 @@
             </div>
           </div>
           <div class="main-mid d-flex justify-content-between">
-            <div class="mid-left border-radius10">
+            <div class="mid-left border-radius10 bg-white">
               <!-- 그래프 영역 시작-->
               <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -128,7 +128,7 @@
               <!-- 그래프 영역 끝-->
             </div>
             <div class="mid-right">
-              <div class="mid-right-top">
+              <div class="mid-right-top bg-white">
                 <div class="right-title fnt-nanum">신규 문의글</div>
                 <div>
                   <div class="card border-none">
@@ -161,7 +161,7 @@
                   </div>
                 </div>
               </div>
-              <div class="mid-right-bottom">
+              <div class="mid-right-bottom bg-white">
                 <div class="right-title fnt-nanum">회원 탈퇴 신청</div>
                 <div>
                   <div class="card border-none">

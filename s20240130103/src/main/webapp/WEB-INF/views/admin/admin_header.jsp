@@ -3,7 +3,7 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
-        <a href="main" class="logo d-flex align-items-center">
+        <a href="adminMain" class="logo d-flex align-items-center">
           <img src="assets/img/blueberry-logo.png" alt="" />
           <span class="d-none d-lg-block">Blueberry</span>
         </a>

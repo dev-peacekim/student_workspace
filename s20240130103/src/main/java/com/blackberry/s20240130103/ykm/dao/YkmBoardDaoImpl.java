@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public abstract class YkmBoardDaoImpl implements YkmBoardDao {
+public class YkmBoardDaoImpl implements YkmBoardDao {
 
 	private final SqlSession session;
 
