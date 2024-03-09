@@ -18,6 +18,7 @@
       <typeAlias alias="LhsAddress" type="com.blackberry.s20240130103.lhs.model.Address"/>
       <typeAlias alias="LhsUser" type="com.blackberry.s20240130103.lhs.model.User"/>
       <typeAlias alias="LhsBoardAdmin" type="com.blackberry.s20240130103.lhs.model.BoardAdmin"/>
+      <typeAlias alias="LhsBoardComm" type="com.blackberry.s20240130103.lhs.model.BoardComm"/>
       <typeAlias alias="KphProjectTask" type="com.blackberry.s20240130103.kph.model.KphProjectTask"/>
       
    </typeAliases>

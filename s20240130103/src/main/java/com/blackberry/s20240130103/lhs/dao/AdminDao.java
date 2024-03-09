@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
+import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.User;
 
 public interface AdminDao {
@@ -15,5 +16,9 @@ public interface AdminDao {
 	List<User> selectUsersDeleteRequest();
 
 	List<BoardAdmin> selectBoardAdminList();
+
+	int selectBoardCommCnt(BoardComm board);
+
+	List<BoardComm> selectBoardCommList(BoardComm board);
 
 }

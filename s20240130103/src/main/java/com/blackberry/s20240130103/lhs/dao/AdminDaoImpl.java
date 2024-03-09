@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
+import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -56,10 +57,17 @@ public class AdminDaoImpl implements AdminDao {
 		List<BoardAdmin> boardAdminList = session.selectList("LhsAdminBoardAdminList");
 		return boardAdminList;
 	}
+	
+	@Override
+	public int selectBoardCommCnt(BoardComm board) {
+		int boardCommCnt = session.selectOne("LhsAdminBoardCommCnt",board);
+		return boardCommCnt;
+	}
+	
+	@Override
+	public List<BoardComm> selectBoardCommList(BoardComm board) {
+		List<BoardComm> boardCommList = session.selectList("LhsAdminBoardCommList", board);
+		return boardCommList;
+	}
 
 }
-/*
- * 
-쿼리문
-
- * */

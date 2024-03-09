@@ -4,13 +4,13 @@
     <select id="LhsAdminCntMapget"  resultType="java.util.HashMap">
 		SELECT u.all_user_cnt,ba.all_boardadmin_cnt,bcr.all_coment_cnt,bc.all_board_cnt,tu.today_user_cnt,tba.today_boardadmin_cnt,tbcr.today_coment_cnt,tbc.today_board_cnt
 				FROM (SELECT count(*) all_boardadmin_cnt FROM BOARD_ADMIN ba) ba,
-				(SELECT count(*) all_user_cnt FROM users u WHERE u.USER_DELETE_CHK = 0) u,
-				(SELECT count(*) all_coment_cnt FROM BOARD_COMM_REPLY bcr WHERE BCR.CREPLY_DELETE_CHK = 0) bcr,
-				(SELECT count(*) all_board_cnt FROM BOARD_COMM bc WHERE bc.CBOARD_DELETE_CHK = 0) bc,
-			    (select count(*) today_user_cnt from users u where u.user_delete_chk=0 and TRUNC(u.user_date) = TRUNC(SYSDATE)) tu,
+				(SELECT count(*) all_user_cnt FROM users u ) u,
+				(SELECT count(*) all_coment_cnt FROM BOARD_COMM_REPLY bcr ) bcr,
+				(SELECT count(*) all_board_cnt FROM BOARD_COMM bc ) bc,
+			    (select count(*) today_user_cnt from users u where TRUNC(u.user_date) = TRUNC(SYSDATE)) tu,
 			    (select count(*) today_boardadmin_cnt from BOARD_ADMIN ba where TRUNC(ba.admin_date) = TRUNC(SYSDATE)) tba,
-			    (select count(*) today_coment_cnt from BOARD_COMM_REPLY bcr where bcr.creply_delete_chk=0 and TRUNC(bcr.creply_date) = TRUNC(SYSDATE)) tbcr,
-			    (select count(*) today_board_cnt FROM BOARD_COMM bc where bc.cboard_delete_chk=0 and TRUNC(bc.cboard_date) = TRUNC(SYSDATE)) tbc
+			    (select count(*) today_coment_cnt from BOARD_COMM_REPLY bcr where TRUNC(bcr.creply_date) = TRUNC(SYSDATE)) tbcr,
+			    (select count(*) today_board_cnt FROM BOARD_COMM bc where TRUNC(bc.cboard_date) = TRUNC(SYSDATE)) tbc
 	</select>
 	<select id="LhsAdminJoinUserCnt5day" resultType="java.util.HashMap">
 		<![CDATA[
@@ -43,6 +43,46 @@
 		AND rownum <= 5
 		ORDER BY admin_date
 	    ]]>
+	</select>
+	
+	<select id="LhsAdminBoardCommCnt" parameterType="LhsBoardComm" resultType="int">
+		select count(*)
+		from board_comm b,USERS u
+		WHERE
+		<choose>
+			<when test="searchkind=='id'">
+				u.user_id like '%'||#{searchValue}||'%' AND
+			</when>
+			<when test="searchkind=='title'">
+				b.cboard_title like '%'||#{searchValue}||'%' AND
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		b.USER_NO = u.USER_NO
+	</select>
+	
+	<select id="LhsAdminBoardCommList" parameterType="LhsBoardComm" resultType="LhsBoardComm">
+		SELECT a2.*
+		from(SELECT rownum rn, a.*
+			FROM (SELECT u.USER_NAME ,u.USER_ID ,c.COMM_CONTENT ,bc.*
+					FROM BOARD_COMM bc ,USERS u,COMM c 
+					WHERE 
+					<choose>
+						<when test="searchkind=='id'">
+							u.user_id like '%'||#{searchValue}||'%' AND
+						</when>
+						<when test="searchkind=='title'">
+							bc.cboard_title like '%'||#{searchValue}||'%' AND
+						</when>
+						<otherwise>
+						</otherwise>
+					</choose>
+					bc.USER_NO = u.USER_NO 
+					AND bc.COMM_BIG = c.COMM_BIG 
+					AND bc.COMM_MID = c.COMM_MID 
+					ORDER BY bc.CBOARD_DELETE_CHK DESC) a) a2
+		WHERE a2.rn BETWEEN #{start} AND #{end}
 	</select>
 	
 </mapper>

@@ -64,12 +64,20 @@
 				<div class="main-mid bg-white">
 					<div class="card-body">
 						<div class="card-top">
-							<form action="#" class="d-flex">
+							<form action="admin_boardList" class="d-flex" method="get">
 								<select class="form-select searchSelete"
-									aria-label="Default select example">
-									<option selected="">제목</option>
-									<option value="1">작성자</option>
-								</select> <input type="text" class="form-control searchInput">
+									aria-label="Default select example"
+									name="searchkind">
+									<c:if test="${searchkind ne 'id' }">
+										<option value="title" selected="selected">제목</option>
+										<option value="id">작성자id</option>
+									</c:if>
+									<c:if test="${searchkind eq 'id' }">
+										<option value="title">제목</option>
+										<option value="id" selected="selected">작성자id</option>
+									</c:if>
+								</select> 
+								<input type="text" class="form-control searchInput" name="searchValue" value=${searchValue }>
 								<button class="btn btn-primary" type="submit">검색</button>
 							</form>
 
@@ -78,7 +86,7 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col" style="width: 5%;">NO</th>
+									<th scope="col" style="width: 5%;">글번호</th>
 									<th scope="col" style="width: 10%;">게시판</th>
 									<th scope="col" style="width: 30%;">제목</th>
 									<th scope="col" style="width: 15%;">작성자</th>
@@ -87,15 +95,22 @@
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach items="${boardList }" var="board">
 								<tr>
-									<th>1</th>
-									<td>자유</td>
-									<td>대충 긴 제목 입니다</td>
-									<td>이한수<span class="span-smallId">#dlgkstnrn</span></td>
-									<td>2016-05-25 06:55:55</td>
-									<td>삭제 대기중</td>
+									<th>${board.cboard_no }</th>
+									<td>${board.comm_content }</td>
+									<td>
+										<a href="admin_cboard_detail?cboard_no=${board.cboard_no }">${board.cboard_title }</a>
+									</td>
+									<td>${board.user_name }<span class="span-smallId">#${board.user_id }</span></td>
+									<td>
+										<fmt:formatDate value="${board.cboard_date }" type="both"/>
+									</td>
+									<td>
+										<c:if test="${board.cboard_delete_chk eq 1 }">삭제대기중</c:if>
+									</td>
 								</tr>
-
+							</c:forEach>
 							</tbody>
 						</table>
 						<!-- End Default Table Example -->
@@ -103,17 +118,21 @@
 					<div class="mid-bottom justify-content-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"><</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">6</a></li>
-								<li class="page-item"><a class="page-link" href="#">7</a></li>
-								<li class="page-item"><a class="page-link" href="#">8</a></li>
-								<li class="page-item"><a class="page-link" href="#">9</a></li>
-								<li class="page-item"><a class="page-link" href="#">></a></li>
+							<c:if test="${paging.startPage>paging.pageBlock }">
+								<li class="page-item">
+									<a class="page-link" href="admin_boardList?currentPage=${paging.startPage-paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}"><</a>
+								</li>
+							</c:if>
+							<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
+								<li class="page-item">
+									<a class="page-link" href="admin_boardList?currentPage=${i }&searchkind=${searchkind}&searchValue=${searchValue}">${i }</a>
+								</li>
+							</c:forEach>
+							<c:if test="${paging.endPage < paging.totalPage }">
+								<li class="page-item">
+									<a class="page-link" href="admin_boardList?currentPage=${paging.startPage+paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}">></a>
+								</li>
+							</c:if>
 							</ul>
 						</nav>
 					</div>
