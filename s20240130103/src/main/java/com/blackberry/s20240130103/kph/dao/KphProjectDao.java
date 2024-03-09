@@ -36,6 +36,6 @@ public interface KphProjectDao {
 
 	List<KphTask> taskListIncludingUsers(KphTask kphTask);
 
-	List<KphUsers> projectMemberList(KphTask kphTask);
-	
+	List<KphUsers> projectMemberList(Long project_no);
+
 }

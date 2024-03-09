@@ -397,6 +397,10 @@
 	text-decoration: underline;
 }
 
+.project-report-card p:last-child:hover {
+	cursor: pointer;
+}
+
 .project-report-card .compPercent {
     width: 60px;
     height: 60px;

@@ -25,6 +25,8 @@ import com.blackberry.s20240130103.kph.service.KphProjectService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -210,7 +212,6 @@ public class KphProjectController {
 		return "kph/detailProject";
 	}
 	
-	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@PostMapping("taskFilter")
 	@ResponseBody
 	public List<KphTask> taskFilter(@RequestBody Map<String, Object> requestMap) {
@@ -237,6 +238,26 @@ public class KphProjectController {
 		}
 		
 		return taskList;
+	}
+	
+	@PostMapping("taskAddForm")
+	public String taskAddForm(@RequestParam("project_no") Long project_no, HttpServletRequest request, Model model) {
+		
+		List<KphUsers> projectMemberList = kphProjectService.projectMemberList(project_no);
+		
+		model.addAttribute("project_no", project_no);
+		model.addAttribute("projectMemberList", projectMemberList);
+		return "kph/taskAddForm";
+	}
+	
+	@PostMapping("taskAdd")
+	public String taskAdd(KphTask task, HttpServletRequest request) {
+		System.out.println("KphProjectController taskAdd start...");
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		
+		
+		
+		return "redirect:/kph/detailProject";
 	}
 	
 	

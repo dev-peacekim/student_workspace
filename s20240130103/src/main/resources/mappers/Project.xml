@@ -9,4 +9,10 @@
 			AND p.PROJECT_DELETE_CHK =0
 	</select>
 	
+	<select id="kphProjectTitleByProjectNo" parameterType="Long" resultType="string">
+		SELECT PROJECT_TITLE
+		FROM PROJECT
+		WHERE PROJECT_NO = #{project_no}
+	</select>
+	
 </mapper>

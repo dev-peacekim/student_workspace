@@ -64,8 +64,8 @@
 			<h1>워크 스페이스</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">프로젝트</a></li>
-					<li class="breadcrumb-item active">프로젝트 명</li>
+					<li class="breadcrumb-item"><a href="main">워크 스페이스</a></li>
+					<li class="breadcrumb-item active">프로젝트 홈</li>
 				</ol>
 			</nav>
 		</div>
@@ -108,7 +108,10 @@
 				<div class="card task-card">
 					<div class="task-card-head">
 						<h5 class="card-title">과업 목록</h5>
-						<a href="#"><button type="submit" class="plus-btn">+</button></a>
+						<form action="taskAddForm" method="post">
+							<input type="hidden" name="project_no" value="${taskList.get(0).project_no }" />
+							<input type="submit" class="plus-btn" value="+" />
+						</form>
 					</div>
 					<div class="task-list">
 						<c:forEach var="task" items="${taskList}">

@@ -30,4 +30,6 @@ public interface KphProjectService {
 
 	Map<String, Object> detailProject(KphTask kphTask);
 
+	List<KphUsers> projectMemberList(Long project_no);
+
 }

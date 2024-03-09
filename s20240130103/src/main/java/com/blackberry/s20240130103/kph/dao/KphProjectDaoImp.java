@@ -106,9 +106,9 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public List<KphUsers> projectMemberList(KphTask kphTask) {
+	public List<KphUsers> projectMemberList(Long project_no) {
 		System.out.println("KphProjectDaoImp userListInProject start...");
-		return session.selectList("kphUserListInProject", kphTask);
+		return session.selectList("kphUserListByProjectNo", project_no);
 	}
 	
 }

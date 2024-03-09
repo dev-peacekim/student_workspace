@@ -64,7 +64,7 @@
     	ORDER BY USER_NAME                  						  
 	</select>
 	
-	<select id="kphUserListInProject" parameterType="KphTask" resultType="KphUsers">
+	<select id="kphUserListByProjectNo" parameterType="Long" resultType="KphUsers">
 		SELECT u.USER_NO, u.USER_ID, u.USER_NAME, u.USER_NIC, u.USER_EMAIL, u.USER_PROFILE
 		FROM USERS u
 		WHERE u.USER_NO IN (SELECT USER_NO

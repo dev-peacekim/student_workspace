@@ -142,10 +142,17 @@ public class KphProjectServiceImp implements KphProjectService {
 		detailProject.put("compTaskList", compTaskList);
 		
 		// 프로젝트 멤버 세팅
-		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(kphTask);
+		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(kphTask.getProject_no());
 		detailProject.put("projectMemberList", projectMemberList);
 		
 		return detailProject;
+	}
+
+	@Override
+	public List<KphUsers> projectMemberList(Long project_no) {
+		System.out.println("KphProjectServiceImp detailProject start...");
+		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(project_no);
+		return projectMemberList;
 	}
 	
 }
