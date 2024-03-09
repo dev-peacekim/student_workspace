@@ -28,6 +28,8 @@
 window.onload = function() {
 	getUserNo();
 	getCommentList(${getPost.cboard_no});
+	getPostWriter(${getPost.cboard_no});
+	getRecruitment(${getPost.comm_mid2});
 };
 
 </script>
@@ -56,7 +58,7 @@ window.onload = function() {
 					<div class="sider-header">
 						<h3 class="card-title post-title">${getPost.cboard_title}</h3>
 						<div class="sider_right">
-							<button class="recruitBtn" name="comm_mid2" value="10">모집중</button>
+							<button class="recruitBtn" name="comm_mid2" onclick="getPostWriter('${getPost.cboard_no}')" disabled>모집중</button>
 							<div class="tooltip">모집완료 상태로 바꾸려면 클릭</div>
 						</div>
 					</div>
@@ -70,7 +72,7 @@ window.onload = function() {
 								<p class="post-updated-at"> 작성일
 									<fmt:formatDate value="${getPost.cboard_date}" pattern="yyyy.MM.dd a hh:mm" />
 								</p>
-								<p class="post-veiw-count">조회수${getPost.cboard_viewcnt}</p>
+								<p class="post-veiw-count">조회수 ${getPost.cboard_viewcnt}</p>
 							</div>
 						</div>
 

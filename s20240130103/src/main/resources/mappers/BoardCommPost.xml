@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.BoardStudyMapper">
 	<select id="ykmGetPostList" resultType="YkmBoardComm">
-		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, U.USER_ID, U.USER_NIC,
+		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
 		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
 		FROM BOARD_COMM B
 		JOIN USERS U ON U.USER_NO = B.USER_NO
@@ -50,6 +50,12 @@
 		SET CBOARD_VIEWCNT = CBOARD_VIEWCNT + 1
 		WHERE CBOARD_NO = #{cboard_no}
 	</update>
- 
+	
+ 	<update id="ykmUpdateRecruitment" parameterType="YkmBoardComm">
+ 		UPDATE BOARD_COMM
+		SET COMM_MID2 = 20
+		WHERE CBOARD_NO = #{cboard_no}
+ 	</update>
 
+	
 </mapper>

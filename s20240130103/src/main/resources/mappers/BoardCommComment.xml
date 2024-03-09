@@ -42,5 +42,13 @@
 		AND BCR.CREPLY_DELETE_CHK =0
 		GROUP BY BCR.CBOARD_NO
 	</select>  
-
+	
+	<select id="ykmGetPostWriter" resultType="int" parameterType="int">
+		SELECT b.user_no
+		FROM BOARD_COMM b
+		WHERE b.CBOARD_NO = #{cboard_no}
+		AND b.COMM_BIG = 200
+		AND b.COMM_MID = 20
+	</select>
+	
 </mapper>

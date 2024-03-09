@@ -10,7 +10,7 @@ function getUserNo() {
 		success: function(data) {
 			console.log('getUserNo data :' + data);
 			userInfo = data
-			console.log('getUserNo : '+ userInfo );
+			console.log('getUserNo : '+ userInfo);
 		},
 		error: function(error) {
 			console.log('사용자 정보를 가져오는 중 오류 발생:', error);
@@ -20,14 +20,37 @@ function getUserNo() {
 }
 
 
-// 댓글리스트 API 호출
-let cboardNo = null;
+
+// 글 작성자 정보
+let postWriter;
+
+// 글 작성자 정보 요청
+function getPostWriter(cboard_no) {
+	$.ajax({
+		url: "/postWriter/"+cboard_no,
+		type: "GET",
+		success: function(data) {
+			postWriter = data;
+			console.log('postWriter : ' + postWriter)
+			recruteButtonState();
+		},
+		error: function(error) {
+			console.log('getPostWriter 정보를 가져오는 중 오류 발생!',error);
+		}
+	});
+	
+}
+
+
+
+// 댓글 리스트
+/*let cboardNo = null;*/
 
 function getCommentList(cboard_no) {
-	if(cboardNo === null){
+	/*if(cboardNo === null){
 		cboardNo = cboard_no;
-	}
-	console.log('cboard_no 1 -> '+cboard_no);
+	}*/
+	console.log('cboard_no -> '+cboard_no);
 	
 	$.ajax({
 		url: "/comment?cboard_no="+ cboard_no,
@@ -124,7 +147,7 @@ function submitComment() {
     
     writeComment(commentData);
     
-    document.getElementById('creply_content').value = ''; // 입력 필드 비우기
+    $('#creply_content').val() = ''; // 입력 필드 비우기
 }
 
 
@@ -221,6 +244,120 @@ function deleteComment(creply_no) {
 
 
 
+/* (모집중 & 모집완료) 카테고리 분류*/
+
+// 로그인 유저(userInfo), 글 작성자(postWriter) 비교
+// 글 작성자만 (모집중 버튼) 이용 가능
+function recruteButtonState() {
+	if (userInfo === postWriter) { 
+		$(this).text('모집중');
+		$('.recruitBtn').prop('disabled', false);
+	} else {
+        $('.recruitBtn').prop('disabled', true);
+	}
+}
+
+// 모집중 버튼을 누르면 모집 완료로 변경
+$('.recruitBtn').on("click", function() {
+	if (userInfo === postWriter) {
+	    $(this).text('모집완료');
+    	$(this).prop('disabled', true);
+	}
+});
+
+
+// 모집완료가 되면 값 변경
+function updateRecruitment() {
+	$.ajax({
+		url: "/recruitment",
+		type: "PUT",
+		contentType: "application/json",
+		data: JSON.stringify({ comm_mid_2: 20 }),
+		success: function(data) {
+			console.log('모집완료 상태로 변경되었습니다. : '+data);
+		},
+		error: function(error) {
+			console.log('모집완료 변경 오류!', error);
+		}
+	});
+}
+
+// 글을 클릭해서 들어오면 모집중 모집완료의 상태를 확인해서 화면에 표시한다
+// 모집중 모집완료 상태 가져오기
+function getRecruitment(cboard_no) {
+	$.ajax({
+		url: "/recruitment/"+cboard_no,
+		type: "GET",
+		success: function(data) {
+			console.log('getRecruitment : ' + typeof data);
+			if(data === 20) {
+				 $('.recruitBtn').prop('disabled', true);
+                $('.tooltip').text('모집완료 상태입니다.');
+            } else {
+                $('.recruitBtn').prop('disabled', false);
+                $('.tooltip').text('모집완료 상태로 바꾸려면 클릭');
+            }
+		},
+		error: function(error) {
+			console.log('모집 상태 확인 중 오류 발생!', error);
+		} 		
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 게시글 리스트 불러오면서 게시글 번호들 가져오기
+/*
+function getBoardNo() {
+	$.ajax({
+		url: "/boardNo",
+		type: "GET",
+		success: function(data) {
+			const postNo = $("#recruitment_") + data.cboard_no;
+			if (data.recruitment == 20) {
+				$(postNo).removeClass('recruiting').addClass('recruited').text('모집 완료'); // 클래스 변경, 텍스트 변경
+			}
+		},
+		error: function(error) {
+			console.log('모집여부 카테고리 변경 오류!', error);
+		}
+	});
+}
+
+*/
+
+
+
+
+
+
+
+// 모집중 카테고리로 분류시킨다
+
+
 // 대댓글
 
 // 댓글 등록이 완료되었습니다 아님 댓글 달린 쪽으로 화면 포인트주기...?
@@ -229,25 +366,23 @@ function deleteComment(creply_no) {
 // 검색
 
 
-/* 모집중 모집완료 카테고리 분류*/
 
-// 버튼 이벤트 처리
-// 작성자랑 로그인한유저랑 같다면 모집중 버튼을 활성화 시킨다 userInfo 
-const recruitBtn = $('.recruitBtn');
-recruitBtn.on("click", function() {
-		
-});
+/*
 
+// 현재 글 상세페이지 번호
+let currentPostNo;
 
-
-
-// 모집 완료 버튼을 누르면 상태를 변경한다 (값이 바뀐다)
-
-
-
-// 모집중 카테고리로 분류시킨다
-
-
-
-
-
+function getPostNo() {
+	$.ajax({
+		url: "/postNo",
+		type: "GET",
+		success: function(data) {
+			currentPostNo === data;
+			console.log("currentPostNo : " + currentPostNo);
+		},
+		error: function(error) {
+			console.log('글 번호 가져오는 중 오류 발생!', error);
+		}	
+	}); 
+}
+*/

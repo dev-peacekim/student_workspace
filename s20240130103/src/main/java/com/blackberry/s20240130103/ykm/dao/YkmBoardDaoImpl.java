@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class YkmBoardDaoImpl implements YkmBoardDao {
+public abstract class YkmBoardDaoImpl implements YkmBoardDao {
 
 	private final SqlSession session;
 
@@ -95,9 +95,27 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	// null 값이 나온다...?
 	@Override
 	public int countComment(int cboard_no) {
-		System.out.println("cBoard_no: "+cboard_no);
+		System.out.println("YkmBoardDaoImpl countComment result ==> "+cboard_no);
 		Integer result = session.selectOne("ykmCountComment", cboard_no);
 		return (result != null) ? result : 0;
+	}
+
+	@Override
+	public int getPostWriter(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getPostWriter start ---*");
+		return session.selectOne("ykmGetPostWriter", cboard_no);
+	}
+
+	@Override
+	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl updateRecruitment start ---*");
+		return session.update("ykmUpdateRecruitment", ykmBoardComm);
+	}
+	
+	@Override
+	public int getRecruitment(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getRecruitment start ---*");
+		return session.selectOne("ykmGetRecruitment" ,cboard_no);
 	}
 
 }

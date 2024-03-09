@@ -108,9 +108,6 @@ public class YkmBoardController {
 	 deletePost : 게시물 삭제
 	 updatePost : 게시물 수정
 	 */
-
-	
-	
 	
 	// 공모전 게시판
 	@GetMapping(value = "boardContest")

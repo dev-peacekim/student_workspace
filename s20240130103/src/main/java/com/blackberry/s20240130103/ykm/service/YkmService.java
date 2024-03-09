@@ -20,6 +20,7 @@ public interface YkmService {
 	
 	int increseViewCount(int cboard_no); // 조회수
 
+	int updateRecruitment(YkmBoardComm ykmBoardComm); // 모집여부 값 변경
 	
 	
 	// 댓글 
@@ -32,18 +33,11 @@ public interface YkmService {
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
 
 	int countComment(int cboard_no); // 댓글 개수 카운트
-	
 
-	
+	int getPostWriter(int cboard_no); // 글 작성자 정보
 
-	
+	int getRecruitment(int cboard_no); // 모집여부 조회
 
-
-
-
-
-	
-	
 
 
 }

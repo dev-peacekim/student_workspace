@@ -82,14 +82,14 @@
 							<c:forEach items="${getPostList}" var="PostList" varStatus="loop">
 								<tr>
 									<th scope="row">${loop.index+1 }</th>
-									<td><span class="recruiting">모집중</span>	
+									<td><span id="recruitment_${PostList.cboard_no}" class="recruiting">모집중</span>	
 										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>					
 									<td>${PostList.user_nic}</td>
 									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${PostList.cboard_viewcnt}</td>
 									<td>${PostList.reply_count}</td>
 								</tr>
-								<!-- <span class="recruited"></span> -->
+								<!-- <span class="recruited">모집완료</span> -->
 							</c:forEach>
 						</tbody>
 					</table>
