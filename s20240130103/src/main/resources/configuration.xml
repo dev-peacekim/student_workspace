@@ -9,6 +9,7 @@
       <typeAlias alias="KphUsers" type="com.blackberry.s20240130103.kph.model.KphUsers"/>
       <typeAlias alias="LslBoardComm" type="com.blackberry.s20240130103.lsl.model.LslBoardComm"/>
       <typeAlias alias="LslCommReply" type="com.blackberry.s20240130103.lsl.model.LslCommReply"/>
+      <typeAlias alias="LslboardFile" type="com.blackberry.s20240130103.lsl.model.LslboardFile"/>
       <typeAlias alias="LslUser" type="com.blackberry.s20240130103.lsl.model.LslUser"/>
       <typeAlias alias="KdwMessage" type="com.blackberry.s20240130103.kdw.model.Message"/>
       <typeAlias alias="KdwMessageFile" type="com.blackberry.s20240130103.kdw.model.MessageFile"/>

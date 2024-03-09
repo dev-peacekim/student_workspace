@@ -95,13 +95,45 @@ SELECT *
 		cboard_no=#{cboard_no}
 	</update>
 
-	<insert id="slboardAskWriteInsert" parameterType="LslBoardComm">
+	<insert id="slboardAskWriteInsert" parameterType="LslBoardComm" 
+	useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
 		INSERT INTO
-		BOARD_COMM
+		BOARD_COMM(cboard_no,
+		cboard_title,
+		cboard_content,
+		cboard_viewcnt,
+		cboard_date,
+		user_no,
+		cboard_delete_chk,
+		comm_big,
+		comm_mid,
+		comm_big2,
+		comm_mid2,
+		comm_update_date)
 		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title},
 		#{cboard_content}, 0 ,
 		sysdate, #{user_no}, 0, 300, 10,NULL, NULL,
 		sysdate)
+	</insert>
+	
+	
+	<insert id="slSaveBoarAskdFile" parameterType = "LslboardFile">
+		INSERT INTO BOARD_COMM_FILE
+		(cboard_no,
+		cboard_file_name,
+		cboard_file_user_name,
+		cboard_file_cnt
+		)
+		VALUES(
+		#{cboard_no},
+		#{cboard_file_name},
+		#{cboard_file_user_name},
+		(SELECT
+		NVL(MAX(cboard_file_cnt), 0) + 1
+		FROM BOARD_COMM_FILE
+		WHERE cboard_no = #{cboard_no})
+		)
+		
 	</insert>
 
 	<update id="sldeleteAskBoard" parameterType="LslBoardComm">

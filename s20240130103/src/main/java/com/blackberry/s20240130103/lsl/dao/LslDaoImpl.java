@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -123,7 +124,18 @@ public class LslDaoImpl implements LslDao {
 	}
 	
 	// 게시판 파일 업로드 
-
+	@Override
+	public void saveBoardFile(LslboardFile lslboardFile) {
+			try {
+				session.insert("slSaveBoarAskdFile", lslboardFile);
+				session.insert("slsaveBoardFreeFile", lslboardFile);
+				System.out.println("LslDaoImpl saveBoardFile Start ->" + lslboardFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("파일 DB 저장 오류 ->" + e.getMessage());
+			}
+		
+	}
 
 
 	// 게시판 글 상세 페이지 댓글 카운트
@@ -242,6 +254,8 @@ public class LslDaoImpl implements LslDao {
 		int boardFreeAskResult = session.update("slmodifyBoardReply", lslCommReply);
 		return boardFreeAskResult;
 	}
+
+	
 
 	
 	

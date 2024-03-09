@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 
 public interface LslDao {
 
@@ -54,7 +55,7 @@ public interface LslDao {
 	int boardAskUpdate(LslBoardComm lslBoardComm);
 	
 	// 게시판 파일 업로드
-	
+	void saveBoardFile(LslboardFile lslboardFile);
 	
 	/* 댓글 */  
 	
@@ -69,6 +70,7 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
 	
 
 	

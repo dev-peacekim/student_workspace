@@ -2,20 +2,25 @@ package com.blackberry.s20240130103.lsl.Service;
 
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.blackberry.s20240130103.lsl.dao.LslDao;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class LslServiceImpl implements LslService {
 
 	private final LslDao ld;
@@ -169,11 +174,87 @@ public class LslServiceImpl implements LslService {
 
 	// 질문 게시판 글쓰기 
 	@Override
-	public int boardAskWriteInsert(LslBoardComm lslBoardComm) {
-		int boardAskWriteInsert = ld.boardAskWriteInsert(lslBoardComm);
-		return boardAskWriteInsert;
+	public void boardAskWriteInsert(LslBoardComm lslBoardComm, MultipartFile[] multipartFile, String boardfilePath) {
+
+		ld.boardAskWriteInsert(lslBoardComm);
+
+		if (multipartFile != null && multipartFile.length > 0) {
+			File file = new File(boardfilePath);
+
+			if (!file.exists()) {
+				boolean check = file.mkdirs();
+
+				if(!check) {
+					System.out.println("디렉토리 생성 실패 ->" + boardfilePath);
+					
+				}
+			}
+			for(MultipartFile files : multipartFile) {
+				if(!files.isEmpty()) {
+					System.out.println("files => " +files.getOriginalFilename());
+					
+					try {
+						String boardFileName = boardFileSave(files, boardfilePath);
+						//File baordFile = new File(boardfilePath, boardFileName);
+						
+						//DB 저장
+						LslboardFile lslboardFile = new LslboardFile();
+						
+						
+						lslboardFile.setCboard_no(lslBoardComm.getCboard_no());
+						System.out.println("file cboard_no ->" + lslBoardComm.getCboard_no());
+						lslboardFile.setCboard_file_name(boardFileName);
+						lslboardFile.setCboard_file_user_name(files.getOriginalFilename());
+					
+						
+						
+						ld.saveBoardFile(lslboardFile);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("파일 저장 오류  ->" + e.getMessage());
+					}
+				}
+			}
+		}
+
+	}
+	
+	public String boardFileSave(MultipartFile multipartFile, String boardfilePath) throws Exception {
+		
+		String orignalFileName = multipartFile.getOriginalFilename();
+		String fileEx = orignalFileName.substring(orignalFileName.lastIndexOf("."));
+	    //  중복되지 않는 파일명 생성(UUID, Date)
+	    String fileName = UUID.randomUUID().toString()+fileEx;
+	   
+	    // 2. 확장자
+	    /*
+	    StringBuilder builder = new StringBuilder();
+	    builder.append(fileName);
+	    builder.append("_");
+	    builder.append(multipartFile.getOriginalFilename());
+	    */
+	    
+	    // 3. 파일 저장
+	    File boardFile = new File(boardfilePath, fileName);
+	   /* try {
+	        multipartFile.transferTo(file);
+	        
+	    } catch (IllegalStateException e) {
+	        e.printStackTrace();
+	        System.out.println("multipartFile IllegalStateException : " + e.getMessage() );
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        System.out.println("multipartFile IOException : " + e.getMessage());
+	    }
+	    */
+	    Files.copy(multipartFile.getInputStream(), boardFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	    
+	    return fileName;
 	}
 
+	
+	
 	
 	// 질문 게시판 조회수 
 	@Override
@@ -187,9 +268,49 @@ public class LslServiceImpl implements LslService {
 
 	// 자유 게시판 글 쓰기 
 	@Override
-	public int boardFreeWriteInsert(LslBoardComm lslBoardComms) {
-		int boardFreeWriteInsert = ld.boardFreeWriteInsert(lslBoardComms);
-		return boardFreeWriteInsert;
+	public void boardFreeWriteInsert(LslBoardComm lslBoardComm, MultipartFile[] multipartFile, String boardfilePath) {
+		ld.boardFreeWriteInsert(lslBoardComm);
+
+		if (multipartFile != null && multipartFile.length > 0) {
+			File file = new File(boardfilePath);
+
+			if (!file.exists()) {
+				boolean check = file.mkdirs();
+
+				if(!check) {
+					System.out.println("디렉토리 생성 실패 ->" + boardfilePath);
+					
+				}
+			}
+			for(MultipartFile files : multipartFile) {
+				if(!files.isEmpty()) {
+					System.out.println("files => " +files.getOriginalFilename());
+					
+					try {
+						String boardFileName = boardFileSave(files, boardfilePath);
+						//File baordFile = new File(boardfilePath, boardFileName);
+						
+						//DB 저장
+						LslboardFile lslboardFile = new LslboardFile();
+						
+						
+						lslboardFile.setCboard_no(lslBoardComm.getCboard_no());
+						System.out.println("file cboard_no ->" + lslBoardComm.getCboard_no());
+						lslboardFile.setCboard_file_name(boardFileName);
+						lslboardFile.setCboard_file_user_name(files.getOriginalFilename());
+					
+						
+						
+						ld.saveBoardFile(lslboardFile);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("파일 저장 오류  ->" + e.getMessage());
+					}
+				}
+			}
+		}
+		
 	}
 
 
@@ -239,6 +360,7 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
+		
 	
 		
 		

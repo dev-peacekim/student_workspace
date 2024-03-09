@@ -68,15 +68,26 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form id="boardAskWrite" method="post" action="/boardAskWrite">
+                        <form id="boardAskWrite" method="post" action="/boardAskWrite" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div class="mb-3">
-                                <label for="inputNumber" class="form-label">파일 첨부</label>
-                                <input class="form-control" type="file" id="formFile" name="cboard_file_name">
-                                <input class="form-control" type="checkbox" id="formFile-box" name="cboard_file_box">
+                            <div>
+                                <label for="files" class="form-label">파일 첨부</label>
+                                <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
+                            </div>
+                            
+                            <div class="file_drag" id="file_drag">
+                                <div id="plz_drag">파일을 마우스로 끌어 오세요</div>
+                                <div class="file_list_header" style="display: none;">
+                                    <div class="file_list_header_task">
+                                        <button type="button" id="removeAll_button"><span class="blind">X</span></button>
+                                    </div>
+                                    <div class="file_list_header_title"><span class="text">파일명</span></div>
+                                    <div class="file_list_header_volume"><span class="text">총용량 </span><span id="fileSize">0</span></div>
+                                </div>
+                                <ul id="fileList"></ul>
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>

@@ -3,7 +3,6 @@ package com.blackberry.s20240130103.lsl.Service;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
@@ -38,8 +37,9 @@ public interface LslService {
 	
 	
     // 게시판 글쓰기
-	int boardFreeWriteInsert(LslBoardComm lslBoardComm);
-	int boardAskWriteInsert(LslBoardComm lslBoardComm);
+	void boardAskWriteInsert(LslBoardComm lslBoardComm, MultipartFile[] multipartFile, String boardfilePath);
+	void boardFreeWriteInsert(LslBoardComm lslBoardComm, MultipartFile[] multipartFile, String boardfilePath);
+
 	
 	// 게시판 글 삭제
 	int deleteFreeBoard(LslBoardComm lslBoardComm);

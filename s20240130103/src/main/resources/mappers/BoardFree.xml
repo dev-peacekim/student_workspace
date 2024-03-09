@@ -2,10 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
-	<insert id="slboardFreeWriteInsert" parameterType="LslBoardComm">
+	<insert id="slboardFreeWriteInsert" parameterType="LslBoardComm"
+	useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
 		INSERT INTO BOARD_COMM
 		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content}, 0 ,
 		sysdate, #{user_no}, 0, 300, 20,NULL, NULL, sysdate)
+	</insert>
+	
+	<insert id="slSaveBoarFreedFile" parameterType = "LslboardFile">
+		INSERT INTO BOARD_COMM_FILE
+		(cboard_no,
+		cboard_file_name,
+		cboard_file_user_name,
+		cboard_file_cnt
+		)
+		VALUES(
+		#{cboard_no},
+		#{cboard_file_name},
+		#{cboard_file_user_name},
+		(SELECT
+		NVL(MAX(cboard_file_cnt), 0) + 1
+		FROM BOARD_COMM_FILE
+		WHERE cboard_no = #{cboard_no})
+		)
 	</insert>
 
 	<select id="sltotalBoardFreeList" resultType="int">

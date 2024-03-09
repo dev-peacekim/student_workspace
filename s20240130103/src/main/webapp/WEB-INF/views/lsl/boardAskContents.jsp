@@ -32,8 +32,9 @@
  <script>
 window.onload = function() {
 	 getUserNo();
+     getUserNic();
 	replyBoardFreeAskList(${boardAskContents.cboard_no});
-
+    
 }
 
 
@@ -71,9 +72,15 @@ window.onload = function() {
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" 
-                    alt="${boardAskContents.user_profile}"></i>
-                    <div class="card-title-header">
+                    <c:choose>
+                        <c:when test="${user_profile !=null&& boardAskContent.user_no == user_no}">
+                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
+                        </c:when>
+                    <c:otherwise>
+                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
+                        </c:otherwise>
+                    </c:choose>
+                            <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardAskContents.user_nic}</a>
                         </h5>
@@ -105,10 +112,18 @@ window.onload = function() {
 						<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}" /> 
 							<input type="hidden" name="user_no" value="${boardAskContents.user_no}"> 
 							<input type="hidden" name="creply_no" value="${boardAskContents.creply_no}" />
+                            <input type="hidden" name="boardType" value="${boardAskContents.boardType}" />
                 <div class="comment-editor">
-                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                    <c:choose>
+                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
+                        </c:when>
+                    <c:otherwise>
+                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
+                        </c:otherwise>
+                    </c:choose>
                     <input type="text" name="comment" id="creply_content"
-                        placeholder="회원님, 댓글을 작성해보세요." class="form-control" required="required">
+                        placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
                 </div>
                 <div class="btn-container is-editor-open">
                         <button type="button" id="submitBtn" class="btn submitBtn">등록</button>

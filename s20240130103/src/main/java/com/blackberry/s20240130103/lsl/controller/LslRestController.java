@@ -32,6 +32,12 @@ public class LslRestController {
 	
 	
 	
+	@GetMapping("/getUserInfo")
+	public String getUserNic(HttpServletRequest request) {
+		String user_nic = (String)request.getSession().getAttribute("user_nic");
+		return user_nic;
+		
+	}
 	
 	// 댓글
 	// 게시판 댓글 리스트

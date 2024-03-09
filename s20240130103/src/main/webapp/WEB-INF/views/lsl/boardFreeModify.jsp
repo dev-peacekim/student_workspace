@@ -67,7 +67,7 @@
                      
                         <form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate">
    						 <input type="hidden" name="cboard_no" value="${boardModifyContents.cboard_no}" />
-    					<input type="hidden" name="boardType" value="${boardModifyContents.boardType}" />
+    					<input type="hidden" name="boardType" value="${boardType}" />
 						    <div class="mb-3">
 						        <label for="inputText" class="form-label">제목</label>
 						        <input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">

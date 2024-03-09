@@ -71,15 +71,14 @@
                         <h5 class="card-title">글쓰기</h5>
 
                         <!-- General Form Elements -->
-                        <form id="freeWrite" method="post" action="/freeWrite">
+                        <form id="freeWrite" method="post" action="/freeWrite" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div class="mb-3">
-                                <label for="inputNumber" class="form-label">파일 첨부</label>
-                                <input class="form-control" type="file" id="formFile" name="file" multiple="multiple">
-                                 <input class="form-control" type="checkbox" id="formFile-box" name="cboard_file_box" >
+                            <div>
+                                <label for="files" class="form-label">파일 첨부</label>
+                                <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" id="cboard_content" name="cboard_content" ></textarea>
