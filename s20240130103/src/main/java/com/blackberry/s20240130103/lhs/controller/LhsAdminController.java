@@ -73,9 +73,17 @@ public class LhsAdminController {
 	}
 	
 	@GetMapping("admin_users")
-	public String adminUserList(Model model) {
-		LhsPaging paging = new LhsPaging(50, "1");
+	public String adminUserList(User user,Model model) {
+		System.out.println(user);
+		int userCnt = adminService.selectUsersCnt(user);
+		LhsPaging paging = new LhsPaging(userCnt, user.getCurrentPage());
+		user.setStart(paging.getStart());
+		user.setEnd(paging.getEnd());
+		List<User> userList = adminService.selectUsersList(user);
 		model.addAttribute("paging", paging);
+		model.addAttribute("userList", userList);
+		model.addAttribute("searchkind", user.getSearchkind());
+		model.addAttribute("searchValue", user.getSearchValue());
 		return "admin/admin_userList";
 	}
 }

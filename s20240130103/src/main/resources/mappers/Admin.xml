@@ -102,4 +102,40 @@
 		delete from board_comm bc where bc.cboard_no = #{cboard_no}
 	</delete>
 	
+	<select id="LhsUsersCnt" parameterType="LhsUser" resultType="int">
+		select count(*)
+		from USERS u
+		<choose>
+			<when test="searchkind=='id'">
+				WHERE u.user_id like '%'||#{searchValue}||'%'
+			</when>
+			<when test="searchkind=='name'">
+				WHERE u.user_name like '%'||#{searchValue}||'%'
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="LhsUsersList" parameterType="LhsUser" resultType="LhsUser">
+		SELECT a.*
+		FROM (SELECT rownum rn, a.*
+				FROM (SELECT u.*,c.COMM_CONTENT 
+				FROM USERS u ,COMM c 
+				WHERE u.USER_RANK_BIG = c.COMM_BIG 
+				AND u.USER_RANK_MID =c.COMM_MID
+				<choose>
+					<when test="searchkind=='id'">
+						AND u.user_id like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchkind=='name'">
+						AND u.user_name like '%'||#{searchValue}||'%'
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				ORDER BY u.USER_DELETE_CHK desc,u.USER_DATE) a) a
+		WHERE a.rn BETWEEN #{start} AND #{end}
+	</select>
+	
 </mapper>

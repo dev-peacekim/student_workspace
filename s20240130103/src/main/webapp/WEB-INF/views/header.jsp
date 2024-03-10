@@ -171,7 +171,7 @@
                         		<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         		<span class="d-none d-md-block dropdown-toggle ps-2">로그인안됨</span>
                         		<script type="text/javascript">
-                        		 location.href="loginForm.jsp";
+                        		 	location.href="loginForm";
                         		</script>
                         	</c:when>
                         	<c:otherwise>

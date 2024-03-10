@@ -82,5 +82,17 @@ public class AdminDaoImpl implements AdminDao {
 		int result = session.delete("LhsAdminBoardDelete", board);
 		return result;
 	}
+	
+	@Override
+	public int selectUsersCnt(User user) {
+		int result = session.selectOne("LhsUsersCnt",user);
+		return result;
+	}
+	
+	@Override
+	public List<User> selectUsersList(User user) {
+		List<User> userList = session.selectList("LhsUsersList", user);
+		return userList;
+	}
 
 }

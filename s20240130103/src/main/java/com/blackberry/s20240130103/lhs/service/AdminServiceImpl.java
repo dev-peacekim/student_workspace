@@ -64,4 +64,16 @@ public class AdminServiceImpl implements AdminService{
 		int result = adminDao.deleteBoard(board);
 		return result;
 	}
+	
+	@Override
+	public int selectUsersCnt(User user) {
+		int result = adminDao.selectUsersCnt(user);
+		return result;
+	}
+	
+	@Override
+	public List<User> selectUsersList(User user) {
+		List<User> userList = adminDao.selectUsersList(user);
+		return userList;
+	}
 }

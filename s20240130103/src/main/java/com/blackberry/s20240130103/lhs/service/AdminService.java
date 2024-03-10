@@ -25,4 +25,8 @@ public interface AdminService {
 
 	int deleteBoard(BoardComm board);
 
+	int selectUsersCnt(User user);
+
+	List<User> selectUsersList(User user);
+
 }

@@ -59,25 +59,25 @@
 			<div class="main-div ">
 				<div class="main-top">
 					<div class="pagetitle">
-						<h1>게시판 관리</h1>
+						<h1>유저 관리</h1>
 					</div>
 				</div>
 				<div class="main-mid bg-white">
 					<div class="card-body">
 						<div class="card-top">
-							<form action="admin_boardList" class="d-flex" method="get">
+							<form action="admin_users" class="d-flex" method="get">
 								<select class="form-select searchSelete"
 									aria-label="Default select example" name="searchkind">
 									<c:if test="${searchkind ne 'id' }">
-										<option value="title" selected="selected">제목</option>
-										<option value="id">작성자id</option>
+										<option value="name" selected="selected">이름</option>
+										<option value="id">아이디</option>
 									</c:if>
 									<c:if test="${searchkind eq 'id' }">
-										<option value="title">제목</option>
-										<option value="id" selected="selected">작성자id</option>
+										<option value="name">이름</option>
+										<option value="id" selected="selected">아이디</option>
 									</c:if>
-								</select> <input type="text" class="form-control searchInput"
-									name="searchValue" value=${searchValue }>
+								</select> 
+								<input type="text" class="form-control searchInput" name="searchValue" value=${searchValue }>
 								<button class="btn btn-primary" type="submit">검색</button>
 							</form>
 
@@ -97,18 +97,24 @@
 								</tr>
 							</thead>
 							<tbody>
-
-								<tr>
-									<th>50</th>
-									<td><a href="#">대충아이디</a></td>
-									<td>dlgkstnrn@naver.com</td>
-									<td>이한수</td>
-									<td>010-0000-0000</td>
-									<td>2024-03-10 00:00:00</td>
-									<td>일반유저</td>
-									<td>삭제대기중</td>
-								</tr>
-
+								<c:forEach items="${userList }" var="user">
+									<tr>
+										<th>${user.user_no }</th>
+										<td>
+											<a href="admin_user_detail?user_no=?${user.user_no }">${user.user_id }</a>
+										</td>
+										<td>${user.user_email }</td>
+										<td>${user.user_name }</td>
+										<td>${user.user_phone }</td>
+										<td>
+											<fmt:formatDate value="${user.user_date }" type="both"/>
+										</td>
+										<td>${user.comm_content }</td>
+										<td>
+											<c:if test="${user.user_delete_chk eq 1 }">삭제대기중</c:if>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 						<!-- End Default Table Example -->
@@ -118,18 +124,18 @@
 							<ul class="pagination">
 								<c:if test="${paging.startPage>paging.pageBlock }">
 									<li class="page-item"><a class="page-link"
-										href="admin_boardList?currentPage=${paging.startPage-paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}"><</a>
+										href="admin_users?currentPage=${paging.startPage-paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}"><</a>
 									</li>
 								</c:if>
 								<c:forEach var="i" begin="${paging.startPage }"
 									end="${paging.endPage }">
 									<li class="page-item"><a class="page-link"
-										href="admin_boardList?currentPage=${i }&searchkind=${searchkind}&searchValue=${searchValue}">${i }</a>
+										href="admin_users?currentPage=${i }&searchkind=${searchkind}&searchValue=${searchValue}">${i }</a>
 									</li>
 								</c:forEach>
 								<c:if test="${paging.endPage < paging.totalPage }">
 									<li class="page-item"><a class="page-link"
-										href="admin_boardList?currentPage=${paging.startPage+paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}">></a>
+										href="admin_users?currentPage=${paging.startPage+paging.pageBlock }&searchkind=${searchkind}&searchValue=${searchValue}">></a>
 									</li>
 								</c:if>
 							</ul>
