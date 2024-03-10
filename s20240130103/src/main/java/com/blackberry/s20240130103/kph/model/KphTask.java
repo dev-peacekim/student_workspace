@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.kph.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Data;
@@ -16,5 +17,8 @@ public class KphTask {
 	
 	// 조회용
 	private List<KphUsers> users;
+	
+	// insert용
+	private LocalDateTime task_end2;
 	
 }

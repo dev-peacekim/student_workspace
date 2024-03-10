@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.kph.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -257,7 +259,8 @@ public class KphProjectController {
 		
 		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
 		System.out.println(task_end);
-		kphTask.setTask_end(task_end);
+		LocalDateTime datetime = LocalDateTime.parse(task_end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		kphTask.setTask_end2(datetime);
 		
 		int result = kphProjectService.taskAdd(userNoList, kphTask);
 		System.out.println("KphProjectController taskAdd result=> " + result);
