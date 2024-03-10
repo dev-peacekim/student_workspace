@@ -72,10 +72,10 @@
 						        <label for="inputText" class="form-label">제목</label>
 						        <input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
 						    </div>
-						    <div class="mb-3">
-						        <label for="inputNumber" class="form-label">파일</label>
-						        <input class="form-control" type="file" id="formFile">
-						    </div>
+                            <div class="upload-files">
+                                <label for="files" class="form-label">파일 첨부</label>
+                                <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
+                            </div>
 						    <div class="mb-3">
 						        <textarea class="form-control" style="height: 550px;" name="cboard_content">${boardModifyContents.cboard_content}</textarea>
 						    </div>

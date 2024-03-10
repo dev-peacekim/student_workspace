@@ -57,6 +57,9 @@ public interface LslDao {
 	// 게시판 파일 업로드
 	void saveBoardFile(LslboardFile lslboardFile);
 	
+	// 게시판 파일 상세 내역
+	List<LslboardFile> boardAskFiles(int cboard_no);
+	
 	/* 댓글 */  
 	
 	// 댓글 리스트 
@@ -70,6 +73,7 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
 	
 	
 

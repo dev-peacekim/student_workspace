@@ -72,14 +72,8 @@ window.onload = function() {
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <c:choose>
-                        <c:when test="${user_profile !=null&& boardAskContent.user_no == user_no}">
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
-                        </c:when>
-                    <c:otherwise>
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
-                        </c:otherwise>
-                    </c:choose>
+                    <i class="bi bi-person-circle post-user-profile" 
+                    alt="${boardFreeContents.user_profile}"></i>
                             <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardAskContents.user_nic}</a>
@@ -99,6 +93,14 @@ window.onload = function() {
             </div>
             <div class="community-post-header-body">
                 <span class="post-content">${boardAskContents.cboard_content}</span>
+                <div class="file-attachment">
+                    <div id="files">
+                        <c:forEach items="${boardAskFile}" var="boardAskFile">
+                            <a href="/boardAskContents?cboard_no=${boardAskFile.cboard_no}" 
+                                target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a><br/>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
 
           <section class="community-post-answer">

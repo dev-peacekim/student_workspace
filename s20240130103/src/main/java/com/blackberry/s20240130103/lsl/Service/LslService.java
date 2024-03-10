@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.lsl.model.LslCommReply;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 
 public interface LslService {
 
@@ -58,7 +59,8 @@ public interface LslService {
 	int boardAskUpdate(LslBoardComm lslBoardComm);
 	
 	
-	// 게시판 파일 업로드 
+	// 게시판 상세페이지 파일 조회
+	List<LslboardFile> boardAskFile(int cboard_no);
 	
 	
 	
@@ -76,6 +78,8 @@ public interface LslService {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
 	
 	
 	

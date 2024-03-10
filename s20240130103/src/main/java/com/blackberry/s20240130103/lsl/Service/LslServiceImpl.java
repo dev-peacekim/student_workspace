@@ -147,6 +147,15 @@ public class LslServiceImpl implements LslService {
 		
 		return boardAskContents;
 	}
+	
+	
+	// 질문 게시판 파일 상세 내역 
+
+	@Override
+	public List<LslboardFile> boardAskFile(int cboard_no) {
+		List<LslboardFile> boardAskFiles = ld.boardAskFiles(cboard_no);
+		return boardAskFiles;
+	}
 
 	// 자유 게시판 글 상세 내역 
 	@Override
@@ -251,9 +260,7 @@ public class LslServiceImpl implements LslService {
 	    Files.copy(multipartFile.getInputStream(), boardFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	    
 	    return fileName;
-	}
-
-	
+	}	
 	
 	
 	// 질문 게시판 조회수 
@@ -360,6 +367,7 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
+		
 		
 	
 		

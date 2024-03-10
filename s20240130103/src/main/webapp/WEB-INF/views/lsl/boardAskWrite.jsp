@@ -28,7 +28,13 @@
   <link href="assets/css/lsl/lslboardFreeWrite.css" rel="stylesheet"> 
   <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
-  
+
+  <!-- Dropzone 소스 로드 -->
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+<script defer src="assets/js/lsl/boardFile.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -36,6 +42,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+
+
 
 
 </head>
@@ -71,33 +80,20 @@
                         <form id="boardAskWrite" method="post" action="/boardAskWrite" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText" name="cboard_title">
+                                    <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div>
+                            <div class="upload-files">
                                 <label for="files" class="form-label">파일 첨부</label>
                                 <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
-                            </div>
-                            
-                            <div class="file_drag" id="file_drag">
-                                <div id="plz_drag">파일을 마우스로 끌어 오세요</div>
-                                <div class="file_list_header" style="display: none;">
-                                    <div class="file_list_header_task">
-                                        <button type="button" id="removeAll_button"><span class="blind">X</span></button>
-                                    </div>
-                                    <div class="file_list_header_title"><span class="text">파일명</span></div>
-                                    <div class="file_list_header_volume"><span class="text">총용량 </span><span id="fileSize">0</span></div>
-                                </div>
-                                <ul id="fileList"></ul>
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>
                             </div>
                             <div class="mb-3">
                                 <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>
-                                <button type="submit" class="btn bwComple">완료</button>
+                                <button type="submit" class="btn bwComple" id="bwComple">완료</button>
                             </div>
                         </form>
-                        
                         <script>
                             function goBack() {
                                 window.history.back();

@@ -138,6 +138,20 @@ public class LslDaoImpl implements LslDao {
 	}
 
 
+	// 게시판 글 파일 상세 내역 
+	@Override
+	public List<LslboardFile> boardAskFiles(int cboard_no) {
+		List<LslboardFile> boardAskFiles = null;
+		try {
+			boardAskFiles = session.selectList("slboardAskFiles", cboard_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("LslDaoImpl boardAskFiles Exception : " + e.getMessage());
+		}
+		return boardAskFiles;
+	}
+	
+	
 	// 게시판 글 상세 페이지 댓글 카운트
 	@Override
 	public int boardReplyCnt(int cboard_no) {
@@ -254,6 +268,7 @@ public class LslDaoImpl implements LslDao {
 		int boardFreeAskResult = session.update("slmodifyBoardReply", lslCommReply);
 		return boardFreeAskResult;
 	}
+
 
 	
 

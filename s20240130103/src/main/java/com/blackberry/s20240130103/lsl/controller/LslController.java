@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.blackberry.s20240130103.lsl.Service.BoardFreeAskPaging;
 import com.blackberry.s20240130103.lsl.Service.LslService;
 import com.blackberry.s20240130103.lsl.model.LslBoardComm;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -184,7 +185,7 @@ public class LslController {
 		return "lsl/boardAsk";
 	}
 
-	// 질문 게시판 상세내용
+	// 질문 게시판 상세내용 // 파일 불러오기 
 	@GetMapping(value = "boardAskContents")
 	public String boardAskContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
@@ -195,6 +196,12 @@ public class LslController {
 
 		// 질문 게시판 댓글수
 		int boardReplyCnt = ls.boardReplyCnt(cboard_no);
+		
+		// 파일 첨부 된 글 
+		List<LslboardFile> boardAskFile = ls.boardAskFile(cboard_no);
+		
+		model.addAttribute("boardAskFile",boardAskFile);
+		
 
 		model.addAttribute("boardReplyCnt", boardReplyCnt);
 		model.addAttribute("boardAskViewCnt", boardAskViewCnt);
@@ -290,6 +297,5 @@ public class LslController {
 		}
 	}
 
-	/* 게시판 파일 업로드 */
 
 }

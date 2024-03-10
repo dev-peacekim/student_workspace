@@ -76,7 +76,7 @@
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div>
+                            <div class="upload-files">
                                 <label for="files" class="form-label">파일 첨부</label>
                                 <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
                             </div>

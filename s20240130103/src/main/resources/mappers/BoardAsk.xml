@@ -156,7 +156,11 @@ SELECT *
 		COMM_UPDATE_DATE = sysdate
 		where cboard_no = #{cboard_no}
 	</update>
-
+<select id="slboardAskFiles" resultType="LslboardFile">
+	SELECT cboard_no, cboard_file_name, cboard_file_user_name, cboard_file_cnt
+	FROM BOARD_COMM_FILE
+	WHERE cboard_no = #{cboard_no} 
+</select>
 
 	
 </mapper>
