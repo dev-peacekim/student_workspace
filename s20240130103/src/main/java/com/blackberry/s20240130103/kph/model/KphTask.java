@@ -18,7 +18,4 @@ public class KphTask {
 	// 조회용
 	private List<KphUsers> users;
 	
-	// insert용
-	private LocalDateTime task_end2;
-	
 }

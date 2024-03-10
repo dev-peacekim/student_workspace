@@ -259,8 +259,7 @@ public class KphProjectController {
 		
 		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
 		System.out.println(task_end);
-		LocalDateTime datetime = LocalDateTime.parse(task_end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		kphTask.setTask_end2(datetime);
+		kphTask.setTask_end(task_end);
 		
 		int result = kphProjectService.taskAdd(userNoList, kphTask);
 		System.out.println("KphProjectController taskAdd result=> " + result);
