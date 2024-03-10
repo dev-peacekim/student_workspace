@@ -64,7 +64,7 @@
 				<div class="main-mid bg-white">
 					<div class="card-body">
 						<div class="card-top">
-							<form action="admin_boardList" class="d-flex" method="get">
+							<form action="admin_boardList" class="d-flex" method="get" accept-charset="UTF-8">
 								<select class="form-select searchSelete"
 									aria-label="Default select example"
 									name="searchkind">

@@ -74,7 +74,6 @@ public class LhsAdminController {
 	
 	@GetMapping("admin_users")
 	public String adminUserList(User user,Model model) {
-		System.out.println(user);
 		int userCnt = adminService.selectUsersCnt(user);
 		LhsPaging paging = new LhsPaging(userCnt, user.getCurrentPage());
 		user.setStart(paging.getStart());

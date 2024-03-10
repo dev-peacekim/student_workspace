@@ -59,13 +59,13 @@
 			<div class="main-div ">
 				<div class="main-top">
 					<div class="pagetitle">
-						<h1>蜡历 包府</h1>
+						<h1>雀盔 包府</h1>
 					</div>
 				</div>
 				<div class="main-mid bg-white">
 					<div class="card-body">
 						<div class="card-top">
-							<form action="admin_users" class="d-flex" method="get">
+							<form action="admin_users" class="d-flex" method="get" accept-charset="UTF-8">
 								<select class="form-select searchSelete"
 									aria-label="Default select example" name="searchkind">
 									<c:if test="${searchkind ne 'id' }">
