@@ -32,7 +32,7 @@ public class YkmCommentRestController {
 	
 	
 	/* 댓글 comment */
-	// 로그인 한 유저 정보
+	// 로그인한 사용자의 번호는 ${sessionScope.user_no}로 jsp에서 찾을 수 있음
 	@GetMapping("/userNo")
 	public Long getUserNo(HttpServletRequest request) {
 		System.out.println("YkmCommentRestController getUserNo start ---*");
@@ -73,31 +73,14 @@ public class YkmCommentRestController {
 	
 	
 	/* study post */
-	
-	@GetMapping(value = "/postWriter/{cboard_no}")
-	public int getPostWriter(@PathVariable("cboard_no") int cboard_no) {
-		System.out.println("YkmRestController getPostWriter start---*");
-		return ykmService.getPostWriter(cboard_no);
-	}
-	
+
 	@PutMapping(value = "/recruitment")
 	public int updateRecruitment(@RequestBody YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmRestController updateRecruitment start---*");
-		return ykmService.updateRecruitment(ykmBoardComm);
+		int result = ykmService.updateRecruitment(ykmBoardComm);
+		System.out.println("YkmRestController updateRecruitment result : " + result);
+		return result;
 	}
-	
-	@GetMapping(value="/recruitment/{cboard_no}")
-	public Map<String, Integer> getRecruitment(@PathVariable("cboard_no") int cboard_no) {
-		System.out.println("YkmRestController getRecruitment start---*");
-		int getRecruitment = ykmService.getRecruitment(cboard_no);
-
-        Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("cboard_no", cboard_no);
-        resultMap.put("comm_mid2", getRecruitment);
-
-        return resultMap;
-	}
-	
 	
 	/*
 	 댓글 : comment

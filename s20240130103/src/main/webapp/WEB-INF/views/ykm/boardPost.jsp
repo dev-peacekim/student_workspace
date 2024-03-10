@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +9,7 @@
 <link href="assets/css/ykm/boardPost.css" rel="stylesheet">
 
 <!-- jQuery -->
-<script defer
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <!-- Vendor JS Files -->
 <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -26,10 +26,7 @@
 <script>
 
 window.onload = function() {
-	getUserNo();
 	getCommentList(${getPost.cboard_no});
-	getPostWriter(${getPost.cboard_no});
-	getRecruitment(${getPost.comm_mid2});
 };
 
 </script>
@@ -58,8 +55,15 @@ window.onload = function() {
 					<div class="sider-header">
 						<h3 class="card-title post-title">${getPost.cboard_title}</h3>
 						<div class="sider_right">
-							<button class="recruitBtn" name="comm_mid2" onclick="getPostWriter('${getPost.cboard_no}')" disabled>모집중</button>
-							<div class="tooltip">모집완료 상태로 바꾸려면 클릭</div>
+							<button class="recruitBtn" name="comm_mid2"
+							<c:if test="${sessionScope.user_no == getPost.user_no}">
+								onclick="updateRecruitment(${getPost.cboard_no}, ${getPost.comm_mid2})"
+							</c:if>>
+								${getPost.comm_mid2 == 10 ? '모집 중' : '모집 완료'}
+							</button>
+							<c:if test="${sessionScope.user_no == getPost.user_no}">							
+								<div class="tooltip">모집완료 상태로 바꾸려면 클릭</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="card-subtitle post-user-container">
@@ -76,13 +80,15 @@ window.onload = function() {
 							</div>
 						</div>
 
-						<div class="modify-delete-container">
-							<a href="/updateForm?cboard_no=${getPost.cboard_no}" class="badge bg-light text-dark"> 
-							<i class="bi bi-highlighter"></i> 수정</a>
-							<button type="button" id="postDeleteBtn" class="badge bg-light text-dark">
-								<i class="bi bi-trash"></i> 삭제
-							</button>
-						</div>
+						<c:if test="${sessionScope.user_no == getPost.user_no}">
+							<div class="modify-delete-container">
+								<a href="/updateForm?cboard_no=${getPost.cboard_no}" class="badge bg-light text-dark"> 
+								<i class="bi bi-highlighter"></i> 수정</a>
+								<button type="button" id="postDeleteBtn" class="badge bg-light text-dark">
+									<i class="bi bi-trash"></i> 삭제
+								</button>
+							</div>
+						</c:if>
 						
 					</div>
 				</div>

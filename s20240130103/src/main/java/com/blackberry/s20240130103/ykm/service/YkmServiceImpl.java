@@ -25,14 +25,14 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 	@Override
-	public List<YkmBoardComm> getPostList() {
+	public List<YkmBoardComm> getPostList(int comm_mid2) {
 		System.out.println("YkmServiceImpl getPostList start---*");
-		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList();
+		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList(comm_mid2);
 		
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
-
+	
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
 		return ykmBoardDao.getPost(cboard_no);
@@ -64,6 +64,15 @@ public class YkmServiceImpl implements YkmService {
 	public int increseViewCount(int cboard_no) {
 		return ykmBoardDao.increseViewcount(cboard_no);
 	}
+	
+	@Override
+	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl updateRecruitment start---*");
+		return ykmBoardDao.updateRecruitment(ykmBoardComm);
+	}
+
+	
+	
 
 	
 	
@@ -96,36 +105,6 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.countComment(cboard_no);
 	}
 
-	@Override
-	public int getPostWriter(int cboard_no) {
-		System.out.println("YkmServiceImpl getPostWriter start---*");
-		return ykmBoardDao.getPostWriter(cboard_no);
-	}
-	
-	// 모집여부 업데이트
-	@Override
-	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl updateRecruitment start---*");
-		return ykmBoardDao.updateRecruitment(ykmBoardComm);
-	}
 
-	@Override
-	public int getRecruitment(int cboard_no) {
-		System.out.println("YkmServiceImpl getRecruitment start---*");
-		return ykmBoardDao.getRecruitment(cboard_no);
-	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

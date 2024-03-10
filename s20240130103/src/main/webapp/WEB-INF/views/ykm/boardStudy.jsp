@@ -6,7 +6,19 @@
 <html lang="en">
 <head>
 <%@ include file="boardConfig.jsp"%>
+
 <link href="assets/css/ykm/boardStudy.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Vendor JS Files -->
+<script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script defer src="assets/js/main.js"></script>
+
+<script defer src="assets/js/ykm/comment.js"></script>
+
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -35,19 +47,22 @@
 				<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
 					role="tablist">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+						<button class="nav-link ${comm_mid2=='0' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
 							data-bs-target="#bordered-home" type="button" role="tab"
-							aria-controls="home" aria-selected="true">전체</button>
+							aria-controls="home" aria-selected="${comm_mid2=='0' ? 'true' : 'false'}"
+							onclick="location.href='/boardStudy';">전체</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+						<button class="nav-link ${comm_mid2=='10' ? 'active' : ''}" id="recruiting-tab" data-bs-toggle="tab"
 							data-bs-target="#bordered-profile" type="button" role="tab"
-							aria-controls="profile" aria-selected="false">모집중</button>
+							aria-controls="profile" aria-selected="${comm_mid2=='10' ? 'true' : 'false'}"
+							onclick="location.href='/boardStudy?comm_mid2=10';">모집중</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+						<button class="nav-link ${comm_mid2=='20' ? 'active' : ''}" id="recruited-tab" data-bs-toggle="tab"
 							data-bs-target="#bordered-contact" type="button" role="tab"
-							aria-controls="contact" aria-selected="false">모집완료</button>
+							aria-controls="contact" aria-selected="false"
+							onclick="location.href='/boardStudy?comm_mid2=20';">모집완료</button>
 					</li>
 					<!-- End Nav-Tab -->
 
@@ -80,10 +95,19 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${getPostList}" var="PostList" varStatus="loop">
-								<tr>
+								<tr id="postTable">
 									<th scope="row">${loop.index+1 }</th>
-									<td><span id="recruitment_${PostList.cboard_no}" class="recruiting">모집중</span>	
-										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a></td>					
+									<td>
+										<c:choose>
+											<c:when test="${PostList.comm_mid2 == 10}">
+											<span id="recruitment_${PostList.cboard_no}" class="recruiting">모집중</span>
+											</c:when>
+											<c:when test="${PostList.comm_mid2 == 20}">
+											<span id="recruitment_${PostList.cboard_no}" class="recruited">모집완료</span>
+											</c:when>
+										</c:choose>
+										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a>
+									</td>					
 									<td>${PostList.user_nic}</td>
 									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${PostList.cboard_viewcnt}</td>
@@ -91,6 +115,7 @@
 								</tr>
 								<!-- <span class="recruited">모집완료</span> -->
 							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>
@@ -127,15 +152,9 @@
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+	<i class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Vendor JS Files -->
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Template Main JS File -->
-	<script src="assets/js/main.js"></script>
 
 </body>
 </html>

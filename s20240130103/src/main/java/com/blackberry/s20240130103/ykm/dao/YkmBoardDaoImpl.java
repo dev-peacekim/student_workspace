@@ -16,15 +16,17 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 
 	private final SqlSession session;
 
+
 	@Override
-	public List<YkmBoardComm> getPostList() {
+	public List<YkmBoardComm> getPostList(int comm_mid2) {
 		System.out.println("YkmBoardDaoImpl getPostList start ---*");
-		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList");
+		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList", comm_mid2);
 		//System.out.println("YkmBoardDaoImpl getPostList result --> " + getPostList.size());
 
 		return getPostList;
 	}
 
+	
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getPost start ---*");
@@ -92,7 +94,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return session.update("ykmUpdateComment", ykmBoardCommReply);
 	}
 
-	// null 값이 나온다...?
+	// null 처리
 	@Override
 	public int countComment(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl countComment result ==> "+cboard_no);
@@ -101,21 +103,10 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 
 	@Override
-	public int getPostWriter(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl getPostWriter start ---*");
-		return session.selectOne("ykmGetPostWriter", cboard_no);
-	}
-
-	@Override
 	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl updateRecruitment start ---*");
 		return session.update("ykmUpdateRecruitment", ykmBoardComm);
 	}
 	
-	@Override
-	public int getRecruitment(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl getRecruitment start ---*");
-		return session.selectOne("ykmGetRecruitment" ,cboard_no);
-	}
 
 }
