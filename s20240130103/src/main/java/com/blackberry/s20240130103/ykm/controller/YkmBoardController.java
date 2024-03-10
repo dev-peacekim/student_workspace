@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.service.YkmService;
@@ -19,16 +20,21 @@ public class YkmBoardController {
 
 	private final YkmService ykmService;
 
+
 	// 스터디 게시판
-	@RequestMapping(value = "boardStudy")
-	public String getPostList(YkmBoardComm ykmBoardComm, Model model) {
-		// System.out.println("YkmController getPostList start ---*");
-		List<YkmBoardComm> getPostList = ykmService.getPostList();
+	@GetMapping(value = "boardStudy")
+	public String boardStudy(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
+
+		int comm_mid2 = request.getParameter("comm_mid2")==null ? 0 : Integer.parseInt(request.getParameter("comm_mid2")); 
+		
+		System.out.println("YkmController boardStudy start ---*");
+		List<YkmBoardComm> getPostList = ykmService.getPostList(comm_mid2);
 		model.addAttribute("getPostList", getPostList);
-		// System.out.println("YkmController getPostList result --> "+ getPostList.size());
+		model.addAttribute("comm_mid2", comm_mid2);
+		//System.out.println("YkmController getPostList result --> "+ getPostList.size());
 		return "ykm/boardStudy";
 	}
-	
+
 	@GetMapping(value = "post")
 	public String getPost(HttpServletRequest request, Model model) {
 		// System.out.println("YkmController getPost start ---*");
@@ -74,7 +80,7 @@ public class YkmBoardController {
 	}
 	
 	
-	@RequestMapping(value = "updatePost") // 게시글 수정 버튼을 누르면 수정이 되어야함
+	@RequestMapping(value = "updatePost")  
 	public String updatePost(HttpServletRequest request, Model model, YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmController updatePost start---*");
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
@@ -96,6 +102,7 @@ public class YkmBoardController {
 		return "forward:boardStudy";
 	}
 	
+	// 파일 업로드
 	
 	
 	

@@ -4,8 +4,13 @@
 var postDeleteBtn = document.querySelector('#postDeleteBtn');
 var confirmPopup = document.querySelector('.confirmPopup');
 var cancelButton = confirmPopup.querySelector('#cancelButton');
-// var confirmButton = confirmPopup.querySelector('#confirmButton');
 
+if (postDeleteBtn!==null) {
+	postDeleteBtn.addEventListener("click", function(e) {
+		e.preventDefault();
+		showPopup();
+	});
+}
 
 postDeleteBtn.addEventListener("click", function() {
 	showPopup();
@@ -25,18 +30,4 @@ function hidePopup() {
 	confirmPopup.style.display = 'none';
 }
 
-/*
-// 확인 버튼 클릭 시 팝업을 숨김
-confirmButton.addEventListener('click', function() {
-	hidePopup();
-	// 여기에 확인 버튼을 클릭했을 때의 동작 추가
-});
-*/
 
-
-if (postDeleteBtn!==null) {
-	postDeleteBtn.addEventListener("click", function(e) {
-		e.preventDefault();
-		showPopup();
-	});
-}
