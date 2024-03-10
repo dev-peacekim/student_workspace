@@ -52,4 +52,16 @@ public class AdminServiceImpl implements AdminService{
 		List<BoardComm> boardCommList = adminDao.selectBoardCommList(board);
 		return boardCommList;
 	}
+	
+	@Override
+	public BoardComm selectBoard(BoardComm board) {
+		BoardComm detailBoard = adminDao.selectBoard(board);
+		return detailBoard;
+	}
+	
+	@Override
+	public int deleteBoard(BoardComm board) {
+		int result = adminDao.deleteBoard(board);
+		return result;
+	}
 }

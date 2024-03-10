@@ -24,6 +24,7 @@ public class BoardComm {
 	private String user_name;
 	private String user_profile;
 	private String comm_content;
+	private int reply_cnt;
 	
 	private String searchkind;
 	private String searchValue;

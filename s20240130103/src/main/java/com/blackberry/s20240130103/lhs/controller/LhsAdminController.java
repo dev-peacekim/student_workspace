@@ -38,7 +38,6 @@ public class LhsAdminController {
 	@GetMapping("userCntListAjax")
 	@ResponseBody
 	public String listMapUserCnt(){
-		System.out.println("여기옴");
 		List<Map<String, Long>> userJoinCntList = adminService.selectUserJoinCnt();
 		Gson gson = new GsonBuilder().setDateFormat("MM-dd").create();
 		String jsonstr = gson.toJson(userJoinCntList);
@@ -48,7 +47,6 @@ public class LhsAdminController {
 	
 	@GetMapping("admin_boardList")
 	public String adminBoardList(BoardComm board,Model model) {
-		System.out.println(board);
 		int cboardCnt = adminService.selectBoardCommCnt(board);
 		LhsPaging paging = new LhsPaging(cboardCnt, board.getCurrentPage());
 		board.setStart(paging.getStart());
@@ -59,6 +57,19 @@ public class LhsAdminController {
 		model.addAttribute("searchkind", board.getSearchkind());
 		model.addAttribute("searchValue", board.getSearchValue());
 		return "admin/admin_boardList";
+	}
+	
+	@GetMapping("admin_cboard_detail")
+	public String adminBoardDetail(BoardComm board,Model model) {
+		BoardComm detailBoard = adminService.selectBoard(board);
+		model.addAttribute("board", detailBoard);
+		return "admin/admin_boardDetail";
+	}
+	
+	@GetMapping("admin_boardDelete")
+	public String adminBoardDelete(BoardComm board) {
+		int result = adminService.deleteBoard(board);
+		return "redirect:/admin_boardList";
 	}
 	
 }

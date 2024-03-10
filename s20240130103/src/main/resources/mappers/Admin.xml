@@ -85,4 +85,21 @@
 		WHERE a2.rn BETWEEN #{start} AND #{end}
 	</select>
 	
+	<select id="LhsAdminBoardOne" resultType="LhsBoardComm" parameterType="LhsBoardComm">
+		SELECT bc.*,a.reply_cnt,c.COMM_CONTENT,u.USER_NAME,u.user_id
+		FROM BOARD_COMM bc,COMM c,USERS u ,(SELECT bc.cboard_no,count(bcr.CBOARD_NO) reply_cnt
+							FROM BOARD_COMM bc,BOARD_COMM_REPLY bcr
+							WHERE bc.CBOARD_NO = #{cboard_no}
+							AND bc.CBOARD_NO = bcr.CBOARD_NO(+) 
+							GROUP BY bc.CBOARD_NO) a
+		WHERE bc.CBOARD_NO = a.cboard_no
+		AND bc.USER_NO = u.USER_NO
+		AND bc.COMM_BIG = c.COMM_BIG 
+		AND bc.COMM_MID = c.COMM_MID 
+	</select>
+	
+	<delete id="LhsAdminBoardDelete" parameterType="LhsBoardComm">
+		delete from board_comm bc where bc.cboard_no = #{cboard_no}
+	</delete>
+	
 </mapper>

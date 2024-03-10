@@ -21,4 +21,8 @@ public interface AdminDao {
 
 	List<BoardComm> selectBoardCommList(BoardComm board);
 
+	BoardComm selectBoard(BoardComm board);
+
+	int deleteBoard(BoardComm board);
+
 }

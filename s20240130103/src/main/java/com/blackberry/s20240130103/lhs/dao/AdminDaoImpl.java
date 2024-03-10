@@ -69,5 +69,18 @@ public class AdminDaoImpl implements AdminDao {
 		List<BoardComm> boardCommList = session.selectList("LhsAdminBoardCommList", board);
 		return boardCommList;
 	}
+	
+	@Override
+	public BoardComm selectBoard(BoardComm board) {
+		BoardComm detailBoard = session.selectOne("LhsAdminBoardOne", board);
+		System.out.println(detailBoard);
+		return detailBoard;
+	}
+	
+	@Override
+	public int deleteBoard(BoardComm board) {
+		int result = session.delete("LhsAdminBoardDelete", board);
+		return result;
+	}
 
 }
