@@ -72,4 +72,10 @@ public class LhsAdminController {
 		return "redirect:/admin_boardList";
 	}
 	
+	@GetMapping("admin_users")
+	public String adminUserList(Model model) {
+		LhsPaging paging = new LhsPaging(50, "1");
+		model.addAttribute("paging", paging);
+		return "admin/admin_userList";
+	}
 }

@@ -24,4 +24,12 @@ public class User {
 	
 	//---------조회용----------
 	private String comm_content;
+	
+	private String searchkind;
+	private String searchValue;
+	//----------페이징용----------
+	private String pageNum;
+	private int start;
+	private int end;
+	private String currentPage;
 }

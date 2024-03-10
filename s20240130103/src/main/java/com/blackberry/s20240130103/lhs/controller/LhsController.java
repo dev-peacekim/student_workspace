@@ -160,7 +160,11 @@ public class LhsController {
 			session.setAttribute("user_no", user.getUser_no());
 			session.setAttribute("user_name", user.getUser_name());
 			session.setAttribute("user_profile", user.getUser_profile());
+			session.setAttribute("user_nic", user.getUser_nic());
 			System.out.println("LHSController session user no : " + session.getAttribute("user_no"));
+			System.out.println("LHSController session user name : " + session.getAttribute("user_name"));
+			System.out.println("LHSController session user profile : " + session.getAttribute("user_profile"));
+			System.out.println("LHSController session user nic : " + session.getAttribute("user_nic"));
 			return "redirect:/main";
 		}else if(result ==2){
 			System.out.println("관리자계정 로그인");
