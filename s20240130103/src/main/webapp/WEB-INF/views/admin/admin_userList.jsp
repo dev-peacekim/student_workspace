@@ -101,7 +101,7 @@
 									<tr>
 										<th>${user.user_no }</th>
 										<td>
-											<a href="admin_user_detail?user_no=?${user.user_no }">${user.user_id }</a>
+											<a href="admin_user_detail?user_no=${user.user_no }">${user.user_id }</a>
 										</td>
 										<td>${user.user_email }</td>
 										<td>${user.user_name }</td>

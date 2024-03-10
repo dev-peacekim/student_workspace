@@ -76,4 +76,10 @@ public class AdminServiceImpl implements AdminService{
 		List<User> userList = adminDao.selectUsersList(user);
 		return userList;
 	}
+	
+	@Override
+	public User selectUserDetail(User user) {
+		User userDetail = adminDao.selectUserDetail(user);
+		return userDetail;
+	}
 }

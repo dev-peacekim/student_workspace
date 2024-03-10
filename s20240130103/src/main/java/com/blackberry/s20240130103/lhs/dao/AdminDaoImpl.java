@@ -91,8 +91,14 @@ public class AdminDaoImpl implements AdminDao {
 	
 	@Override
 	public List<User> selectUsersList(User user) {
-		List<User> userList = session.selectList("LhsUsersList", user);
+		List<User> userList = session.selectList("LhsAdminUserList", user);
 		return userList;
+	}
+	
+	@Override
+	public User selectUserDetail(User user) {
+		User userdetail = session.selectOne("LhsAdminUserOne", user);
+		return userdetail;
 	}
 
 }

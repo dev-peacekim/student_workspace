@@ -29,4 +29,6 @@ public interface AdminService {
 
 	List<User> selectUsersList(User user);
 
+	User selectUserDetail(User user);
+
 }

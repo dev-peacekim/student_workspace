@@ -29,4 +29,6 @@ public interface AdminDao {
 
 	List<User> selectUsersList(User user);
 
+	User selectUserDetail(User user);
+
 }

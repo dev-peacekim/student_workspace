@@ -117,7 +117,7 @@
 		</choose>
 	</select>
 	
-	<select id="LhsUsersList" parameterType="LhsUser" resultType="LhsUser">
+	<select id="LhsAdminUserList" parameterType="LhsUser" resultType="LhsUser">
 		SELECT a.*
 		FROM (SELECT rownum rn, a.*
 				FROM (SELECT u.*,c.COMM_CONTENT 
@@ -136,6 +136,14 @@
 				</choose>
 				ORDER BY u.USER_DELETE_CHK desc,u.USER_DATE) a) a
 		WHERE a.rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="LhsAdminUserOne" parameterType="LhsUser" resultType="LhsUser">
+		select u.*,c.comm_content
+		from users u,comm c
+		where u.user_no = #{user_no}
+		and u.user_rank_big = c.comm_big
+		and u.user_rank_mid = c.comm_mid
 	</select>
 	
 </mapper>

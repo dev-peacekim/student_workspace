@@ -85,4 +85,11 @@ public class LhsAdminController {
 		model.addAttribute("searchValue", user.getSearchValue());
 		return "admin/admin_userList";
 	}
+	
+	@GetMapping("admin_user_detail")
+	public String adminUserDetail(User user,Model model) {
+		User userdetail = adminService.selectUserDetail(user);
+		model.addAttribute("user", userdetail);
+		return "admin/admin_userDetail";
+	}
 }
