@@ -256,6 +256,7 @@ public class KphProjectController {
 		System.out.println("KphProjectController taskAdd start...");
 		
 		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
+		System.out.println(task_end);
 		kphTask.setTask_end(task_end);
 		
 		int result = kphProjectService.taskAdd(userNoList, kphTask);

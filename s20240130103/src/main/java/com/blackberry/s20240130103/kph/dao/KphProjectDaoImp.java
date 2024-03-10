@@ -141,7 +141,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {
 			result = -1;
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			transactionManager.rollback(txStatus);
 		}
 		
