@@ -454,6 +454,22 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultMessages;
 	}
+	
+	
+	// 유저넘버로 닉네임+id 가져오기
+	@Override
+	public User getUserNicUserId(Long receiverId) {
+	    log.info("MsgDaoImpl getUserNicUserId start...");
+	    User getUserNicUserId = null;
+	    try {
+	    	getUserNicUserId = session.selectOne("kdwGetUserNicUserId", receiverId);
+	    	log.info("MsgDaoImpl getUserNicUserId getUserNicUserId : " + getUserNicUserId);
+	    } catch (Exception e) {
+	        log.error("Error occurred while retrieving user nic and user ID for receiver ID: {}", receiverId, e);
+	        throw new RuntimeException("Unable to retrieve user details for receiver ID: " + receiverId, e);
+	    }
+	    return getUserNicUserId;
+	}
 
 
 

@@ -78,6 +78,12 @@ public interface MsgDao {
 	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
 
 	
+	
+	// 워크스패이스 쪽지 아이콘 누르면 인풋창에 해당유저 아이디(히든인풋) 닉네임 박히기
+	// 유저넘버로 닉네임 가져오기
+	User getUserNicUserId(Long receiverId);
+
+	
 
 	
 

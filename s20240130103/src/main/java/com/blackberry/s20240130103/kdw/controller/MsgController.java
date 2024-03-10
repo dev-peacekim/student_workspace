@@ -6,13 +6,12 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -47,6 +46,7 @@ public class MsgController {
 
 
 	/* ========== 쪽지함 ========== */
+	// 받은 쪽지함 리스트
 	@GetMapping(value = "msgReceivebox")
 	public String getReceivedMessages(HttpServletRequest request, Model model,
 	        @RequestParam(name = "currentPage", defaultValue = "1") String currentPage,
@@ -80,7 +80,7 @@ public class MsgController {
 	    } else {
 	        receivedMessages = msgService.getReceivedMessages(msgReceiver, page.getStart(), page.getEnd());
 	    }
-
+	    
 	    // 'Model'에 받은 쪽지 목록과 페이징 정보를 담아서 전달
 	    model.addAttribute("msgReceiver", msgReceiver);
 	    model.addAttribute("totReceiveMsgCnt", totReceiveMsgCnt);
@@ -306,24 +306,59 @@ public class MsgController {
 	
 	
     /* ========== 버튼 기능 구현 =========== */
-    // 쪽지쓰기 페이지로 이동(쪽지쓰기 버튼)
-    @GetMapping(value = "msgWrite")
-    public String msgWritePage(HttpServletRequest request, Model model) {
-        // 세션에서 보내는 사람의 아이디 가져오기
-        Long senderId = (Long) request.getSession().getAttribute("user_no");
-        
-        // 유저 테이블에서 모든 사용자 목록 가져오기
-        List<User> userList = msgService.getAllUsers();
-        
-        // 모델에 데이터 추가 (세션ID, 유저리스트)
-        model.addAttribute("senderId", senderId);
-        model.addAttribute("userList", userList);
-        // 워크스페이스 페이지에서 주소록 메세지아이콘 넘버 받아옴
-        model.addAttribute("receiverId", request.getParameter("user_no"));
-
-        // JSP 페이지 이름 반환
-        return "kdw/msgWrite";
+	
+    // 답장쓰기 버튼 -> 답장쓰기 View 이동
+    @GetMapping(value = "msgReply")
+    public String msgReplyPage(HttpServletRequest request, Model model) {
+    log.info("MsgController msgReplyPage start...");
+    // 세션에서 보내는 사람의 아이디 가져오기
+    Long senderId = (Long) request.getSession().getAttribute("user_no");
+    // 유저 테이블에서 모든 사용자 목록 가져오기
+    List<User> userList = msgService.getAllUsers();
+    
+    
+    model.addAttribute("senderId", senderId);
+    model.addAttribute("userList", userList);
+    
+    return "kdw/msgReply";
     }
+	
+    // 쪽지쓰기 페이지로 이동(쪽지쓰기 버튼)
+	@GetMapping(value = "msgWrite")
+	public String msgWritePage(HttpServletRequest request, Model model) {
+	    System.out.println("MsgController msgWritePage Start...");
+	    // 세션에서 보내는 사람의 아이디 가져오기
+	    Long senderId = (Long) request.getSession().getAttribute("user_no");
+	    
+	    // 유저 테이블에서 모든 사용자 목록 가져오기
+	    List<User> userList = msgService.getAllUsers();
+	    
+	    // 워크스페이스 페이지에서 요청하는 받는사람(닉네임+아이디로 인풋 입력)
+	    String userNoParam = request.getParameter("user_no");
+	    Long userNo = null;
+	    User userNicId = null;
+
+	    System.out.println("MsgController msgWritePage userNoParam: " + userNoParam);
+	    
+	    if (userNoParam != null && !userNoParam.isEmpty()) {
+	        try {
+	            userNo = Long.parseLong(userNoParam);
+	            userNicId = msgService.findUserDetailsById(userNo);
+	            model.addAttribute("receiverNick", userNicId.getUser_nic());
+	            model.addAttribute("receiverUserId", userNicId.getUser_id());
+	        } catch (NumberFormatException e) {
+	        	e.printStackTrace();
+	        }
+	    }
+
+	    // 모델에 데이터 추가 (세션 유저no, 유저리스트, receiverId)
+	    model.addAttribute("senderId", senderId);
+	    model.addAttribute("userList", userList);
+	    // 워크스페이스 페이지에서 요청하는 받는사람
+	    model.addAttribute("userNo", userNo);
+
+	    return "kdw/msgWrite";
+	}
     
     // 쪽지 보내기 - 멀티 업로드(보내기 버튼)
     @PostMapping(value = "msgSent")
@@ -371,12 +406,6 @@ public class MsgController {
         return addressUserList;
     }
     
-    // 답장쓰기 버튼 -> 답장쓰기 View 이동
-    @GetMapping(value = "msgReply")
-    public String msgReplyPage(Model model) {
-    log.info("MsgController msgReplyPage start...");
-    return "kdw/msgReply";
-    }
     
     // '보관' 버튼 클릭 시 msg_store_chk를 1로 업데이트
     @PostMapping(value = "updateMsgStoreStatus")

@@ -256,7 +256,8 @@ document.addEventListener('DOMContentLoaded', function() {
 									<td class="subject"
 										onclick="location.href='/msgReadSent?msg_no=${message.msg_no}'"
 										style="cursor: pointer;">${message.msg_title}</td>
-									<td class="author">${message.msg_receiver}</td>
+									<!-- 받는사람 -->
+									<td class="author">${message.receiverNic}</td>
 									<td class="date">${message.msg_createdate}</td>
 								</tr>
 							</c:forEach>

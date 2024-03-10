@@ -263,7 +263,7 @@
 										onclick="location.href='/msgReadReceived?msg_no=${message.msg_no}'"
 										style="cursor: pointer;">${message.msg_title}</td>
 									<!-- 보낸사람 -->
-									<td class="author">${message.msg_sender}</td>
+									<td class="author">${message.senderNic}</td>
 									<!-- 기간 -->
 									<td class="date">${message.msg_createdate}</td>
 								</tr>

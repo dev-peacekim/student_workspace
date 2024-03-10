@@ -319,6 +319,14 @@ public class MsgServiceImpl implements MsgService {
 	    System.out.println("MsgServiceImpl searchTrashMsgList.size(): " + searchTrashMsgList.size());
 	    return searchTrashMsgList;
 	}
+	
+	// ======= 유저넘버로 닉네임 가져오기 닉네임 가져오기 =======
+	// 워크스패이스 쪽지 아이콘 누르면 인풋창에 해당유저 아이디(히든인풋) 닉네임 박히기
+	@Override
+	public User findUserDetailsById(Long userNo) {
+		User getUserNicUserId = msgDao.getUserNicUserId(userNo);
+		return getUserNicUserId;
+	}
 
 
 	

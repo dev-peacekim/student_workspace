@@ -225,10 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
 										<!-- 로그인유저와 보낸사람이(user_no = msg_sender) 같다면 -->
 									    <c:choose>
 									        <c:when test="${message.msg_sender == trashboxUserNo}">
-									            ${message.msg_receiver}
+									            ${message.trashedNic}
 									        </c:when>
 									        <c:otherwise>
-									            ${message.msg_sender}
+									            ${message.trashedNic}
 									        </c:otherwise>
 									    </c:choose>
 									</td>

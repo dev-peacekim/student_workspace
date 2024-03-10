@@ -28,4 +28,9 @@ public class Message {
     // 검색용
 	private String keyword; // 검색 키워드
 	private String type; // 검색 타입
+	
+	private String senderNic; // 보낸 사람의 닉네임
+	private String receiverNic; // 받는 사람 닉네임
+	private String storedNic; // 보관함 닉네임
+	private String trashedNic; // 휴지통 닉네임
 }

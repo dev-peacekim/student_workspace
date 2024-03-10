@@ -223,10 +223,10 @@ document.addEventListener('DOMContentLoaded', function() {
 										<!-- 로그인유저와 보낸사람이(user_no = msg_sender) 같다면 -->
 									    <c:choose>
 									        <c:when test="${message.msg_sender == storeboxUserNo}">
-									            ${message.msg_receiver}
+									            ${message.storedNic}
 									        </c:when>
 									        <c:otherwise>
-									            ${message.msg_sender}
+									            ${message.storedNic}
 									        </c:otherwise>
 									    </c:choose>
 									</td>
