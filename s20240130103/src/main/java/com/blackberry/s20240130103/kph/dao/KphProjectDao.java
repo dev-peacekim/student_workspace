@@ -38,4 +38,6 @@ public interface KphProjectDao {
 
 	List<KphUsers> projectMemberList(Long project_no);
 
+	int taskAdd(List<Long> userNoList, KphTask kphTask);
+
 }

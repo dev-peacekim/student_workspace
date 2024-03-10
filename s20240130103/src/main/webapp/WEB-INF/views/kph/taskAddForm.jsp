@@ -67,7 +67,7 @@
 			<div class="card">
 				<p>과업 정보 입력</p>
 				<form action="taskAdd" method="post">
-					<input type="hidden" name="project_no" value="13" />
+					<input type="hidden" id="project_no" name="project_no" value="${project_no }" />
 					<div>
 						<p>과업 제목</p>
 						<input name="task_title" type="text" class="form-control">
@@ -88,6 +88,7 @@
 								</div>
 							</c:forEach>
 						</div>
+						<p class="task-alert task-member-alert">과업 참여자를 한 명 이상 선택하세요</p>
 					</div>
 					<div>
 						<p>시작일</p>
@@ -97,11 +98,10 @@
 					<div>
 						<p>종료일</p>
 						<div class="task-end-day-box">
-							<input name="task_end_day" type="date"
-								class="task-end-day form-control" /> <input
-								name="task_end_time" type="time" class="form-control">
+							<input name="task_end_day" type="date"	class="task-end-day form-control" /> 
+							<input name="task_end_time" type="time" class="form-control">
 						</div>
-						<p class="task-alert project-end-alert">과업 종료일을 입력하세요</p>
+						<p class="task-alert task-end-alert">과업 종료일을 입력하세요</p>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>

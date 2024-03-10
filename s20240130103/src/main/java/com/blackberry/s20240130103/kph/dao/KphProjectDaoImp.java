@@ -8,12 +8,16 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
+import com.blackberry.s20240130103.kph.model.KphUserTask;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class KphProjectDaoImp implements KphProjectDao {
 
 	private final SqlSession session;
+	private final PlatformTransactionManager transactionManager;
 
 	@Override
 	public int projectAdd(KphProject project) {
@@ -109,6 +114,38 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public List<KphUsers> projectMemberList(Long project_no) {
 		System.out.println("KphProjectDaoImp userListInProject start...");
 		return session.selectList("kphUserListByProjectNo", project_no);
+	}
+
+	@Override
+	public int taskAdd(List<Long> userNoList, KphTask kphTask) {
+		System.out.println("KphProjectDaoImp taskAdd start...");
+		
+		int result = 0;
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			
+			session.insert("kphTaskInsert", kphTask);
+			System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + kphTask.getTask_no());
+			
+			for (int i = 0; i < userNoList.size(); i++) {
+				KphUserTask kphUserTask = new KphUserTask();
+				kphUserTask.setProject_no(kphTask.getProject_no());
+				kphUserTask.setTask_no(kphTask.getTask_no());
+				kphUserTask.setUser_no(userNoList.get(i));
+				int userTaskInsertResult = session.insert("kphUserTaskInsert", kphUserTask);
+				System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + userTaskInsertResult);
+			}
+			
+			result = 1;
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			result = -1;
+			System.out.println(e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		return result;
 	}
 	
 }

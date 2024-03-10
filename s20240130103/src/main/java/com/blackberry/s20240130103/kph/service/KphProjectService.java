@@ -32,4 +32,6 @@ public interface KphProjectService {
 
 	List<KphUsers> projectMemberList(Long project_no);
 
+	int taskAdd(List<Long> userNoList, KphTask kphTask);
+
 }

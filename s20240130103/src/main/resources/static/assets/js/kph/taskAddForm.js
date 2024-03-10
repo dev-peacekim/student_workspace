@@ -1,10 +1,20 @@
 $(".btn-secondary").on("click", function () {
-    window.location.href = 'main';
+    let form = document.createElement('form');
+	form.setAttribute('action', 'detailProject');
+	form.setAttribute('method', 'post');
+
+	let input = document.createElement('input');
+	input.setAttribute('type', 'hidden'); 
+	input.setAttribute('name', 'project_no');
+	input.setAttribute('value', $('#project_no').val());
+	form.appendChild(input);
+	document.body.appendChild(form);
+	form.submit();
 });
 
 $(".btn-primary").on("click", function (event) {
 	const task_title = $(".form-control[name='task_title']").val();
-	const task_content = $(".form-control[name='task_content']").val();
+	const task_member = $(".form-check-input[name='user_no']").is(":checked");
 	const task_start = $(".form-control[name='task_start']").val();
 	const task_end_day = $(".form-control[name='task_end_day']").val();
 	const task_end_time = $(".form-control[name='task_end_time']").val();
@@ -13,11 +23,11 @@ $(".btn-primary").on("click", function (event) {
 		$(".task-title-alert").css("display", "block");
 		event.preventDefault();
 	} 
-	
-	if(task_content == '') {
-		$(".task-content-alert").css("display", "block");
+
+	if (!task_member) {
+		$(".task-member-alert").css("display", "block");
 		event.preventDefault();
-	} 
+	}
 
 	if(task_start == '') {
 		$(".task-start-alert").css("display", "block");
@@ -30,9 +40,9 @@ $(".btn-primary").on("click", function (event) {
 	}
 });
 
-$(".form-control").on("input", function (event) {
+$(".form-control, .form-check-input").on("input", function (event) {
 	const task_title = $(".form-control[name='task_title']").val();
-	const task_content = $(".form-control[name='task_content']").val();
+	const task_member = $(".form-check-input[name='user_no']").is(":checked");
 	const task_start = $(".form-control[name='task_start']").val();
 	const task_end_day = $(".form-control[name='task_end_day']").val();
 	const task_end_time = $(".form-control[name='task_end_time']").val();
@@ -41,8 +51,8 @@ $(".form-control").on("input", function (event) {
 		$(".task-title-alert").css("display", "none");
 	} 
 	
-	if(task_content != '') {
-		$(".task-content-alert").css("display", "none");
+	if(task_member) {
+		$(".task-member-alert").css("display", "none");
 	} 
 	
 	if(task_start != '') {

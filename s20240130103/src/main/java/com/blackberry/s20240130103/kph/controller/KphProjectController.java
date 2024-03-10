@@ -199,6 +199,7 @@ public class KphProjectController {
 	public String detailProject(KphTask kphTask, HttpServletRequest request, Model model) {
 		
 		System.out.println("KphProjectController detailProject start...");
+		
 		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
 		
 		int unCompTaskListCount = ((List<KphTask>)detailProject.get("unCompTaskList")).size();
@@ -251,14 +252,16 @@ public class KphProjectController {
 	}
 	
 	@PostMapping("taskAdd")
-	public String taskAdd(KphTask task, HttpServletRequest request) {
+	public String taskAdd(@RequestParam("user_no") List<Long> userNoList, KphTask kphTask, HttpServletRequest request, Model model) {
 		System.out.println("KphProjectController taskAdd start...");
-		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		
+		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
+		kphTask.setTask_end(task_end);
 		
+		int result = kphProjectService.taskAdd(userNoList, kphTask);
+		System.out.println("KphProjectController taskAdd result=> " + result);
 		
-		return "redirect:/kph/detailProject";
+		return "forward:/detailProject";
 	}
-	
 	
 }

@@ -154,5 +154,12 @@ public class KphProjectServiceImp implements KphProjectService {
 		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(project_no);
 		return projectMemberList;
 	}
+
+	@Override
+	public int taskAdd(List<Long> userNoList, KphTask kphTask) {
+		System.out.println("KphProjectServiceImp taskAdd start...");
+		int result = kphProjectDao.taskAdd(userNoList, kphTask);
+		return result;
+	}
 	
 }
