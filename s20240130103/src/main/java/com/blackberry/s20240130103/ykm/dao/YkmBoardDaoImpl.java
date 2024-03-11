@@ -114,6 +114,8 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getSearchList start ---*");
 		List<YkmBoardComm> getSearchList = session.selectList("ykmGetSearchList",ykmBoardComm);
+		System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList);
+		System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList.size());
 		return getSearchList;
 	}
 

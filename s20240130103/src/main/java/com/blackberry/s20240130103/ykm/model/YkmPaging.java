@@ -20,7 +20,7 @@ public class YkmPaging {
 		
 		this.total = total;
 		
-		if(currentPage1 != null) {
+		if(currentPage1 != null && !currentPage1.isEmpty()) {
 			this.currentPage = Integer.parseInt(currentPage1);
 		}
 		// 2 5

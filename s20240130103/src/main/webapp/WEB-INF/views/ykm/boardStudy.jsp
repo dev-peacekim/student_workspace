@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -31,10 +31,10 @@
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" >
 
-    <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -47,8 +47,8 @@
 
 <!-- ******************************************************** -->
 
-<link href="assets/css/ykm/boardStudy.css" rel="stylesheet">
 <script defer src="assets/js/ykm/comment.js"></script>
+<link href="assets/css/ykm/boardStudy.css" rel="stylesheet">
 
 </head>
 <body>
@@ -101,7 +101,7 @@
 					<!-- 검색 시작  -->
 					<li class="nav-item ms-auto" role="presentation">
 						<div class="search-bar d-flex justify-content-end">
-							<form action="/board/search" method="POST" class="search-form d-flex align-items-center">
+							<form action="/boardSearch" method="POST" class="search-form d-flex align-items-center">
 								<select class="form-select" name="type" aria-label="Default select example" required="required">
 								    <option selected="">검색 기준</option>
 								    <option value="TC">제목+내용</option>
@@ -130,6 +130,32 @@
 							</tr>
 						</thead>
 						<tbody>
+					<c:choose>
+					<c:when test="${not empty searchResult}">
+							<c:forEach items="${searchResult}" var="search" varStatus="loop">
+								<tr id="postTable">
+									<th scope="row">${loop.index+1}</th>
+									<td>
+										<c:choose>
+											<c:when test="${search.comm_mid2 == 10}">
+											<span id="recruitment_${search.cboard_no}" class="recruiting">모집중</span>
+											</c:when>
+											<c:when test="${search.comm_mid2 == 20}">
+											<span id="recruitment_${search.cboard_no}" class="recruited">모집완료</span>
+											</c:when>
+										</c:choose>
+										<a href="/post?cboard_no=${search.cboard_no}">${search.cboard_title}</a>
+									</td>					
+									<td>${search.user_nic}</td>
+									<td><fmt:formatDate value="${search.cboard_date}" pattern="yyyy-MM-dd"/></td>
+									<td>${search.cboard_viewcnt}</td>
+									<td>${search.reply_count}</td>
+								</tr>
+								<!-- <span class="recruited">모집완료</span> -->
+							</c:forEach>
+					</c:when>
+							
+					<c:otherwise>
 							<c:forEach items="${getPostList}" var="PostList" varStatus="loop">
 								<tr id="postTable">
 									<th scope="row">${loop.index+1}</th>
@@ -151,28 +177,9 @@
 								</tr>
 								<!-- <span class="recruited">모집완료</span> -->
 							</c:forEach>
-
-					        <c:forEach items="${searchResult}" var="post" varStatus="loop">
-					            <tr id="postTable">
-					                <th scope="row">${loop.index+1}</th>
-					                <td>
-					                    <c:choose>
-					                        <c:when test="${post.comm_mid2 == 10}">
-					                            <span id="recruitment_${post.cboard_no}" class="recruiting">모집중</span>
-					                        </c:when>
-					                        <c:when test="${post.comm_mid2 == 20}">
-					                            <span id="recruitment_${post.cboard_no}" class="recruited">모집완료</span>
-					                        </c:when>
-					                    </c:choose>
-					                    <a href="/post?cboard_no=${post.cboard_no}">${post.cboard_title}</a>
-					                </td>                    
-					                <td>${post.user_nic}</td>
-					                <td><fmt:formatDate value="${post.cboard_date}" pattern="yyyy-MM-dd"/></td>
-					                <td>${post.cboard_viewcnt}</td>
-					                <td>${post.reply_count}</td>
-					            </tr>
-					        </c:forEach>
-			
+					</c:otherwise>		
+				</c:choose>			
+							
 						</tbody>
 					</table>
 				</div>
@@ -189,7 +196,7 @@
 							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${stuPage.startPage - stuPage.pageBlock}"><span aria-hidden="true">«</span></a></li>
 						</c:if>
 						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
-							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${i}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${i}&comm_mid2=${comm_mid2}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
 							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${stuPage.startPage + stuPage.pageBlock}"><span aria-hidden="true">»</span></a></li>
@@ -203,13 +210,24 @@
 	</main>
 
 	<!-- ======= Footer ======= -->
-	<%@ include file="../footer.jsp"%>
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-	<i class="bi bi-arrow-up-short"></i></a>
-	
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Template Main JS File -->
+	  <%@ include file="../footer.jsp" %>
+    <!-- End Footer -->
+   
+   
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+   
+   
+    <!-- Vendor JS Files -->
+    <!-- <script defer src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
+    <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script defer src="assets/vendor/chart.js/chart.umd.js"></script> -->
+    <!-- <script defer src="assets/vendor/echarts/echarts.min.js"></script> -->
+    <script defer src="assets/vendor/quill/quill.min.js"></script>
+    <script defer src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script defer src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script defer src="assets/vendor/php-email-form/validate.js"></script>
+    
+        <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
 </body>
 </html>

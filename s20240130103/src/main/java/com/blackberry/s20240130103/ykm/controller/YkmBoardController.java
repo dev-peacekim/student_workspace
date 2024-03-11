@@ -23,7 +23,6 @@ public class YkmBoardController {
 
 	private final YkmService ykmService;
 
-
 	// 스터디 게시판
 	@GetMapping(value = "boardStudy")
 	public String boardStudy(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
@@ -103,7 +102,7 @@ public class YkmBoardController {
 	
 	@RequestMapping(value="/deletePost")
 	public String deletePost(HttpServletRequest request, Model model, YkmBoardComm ykmBoardComm) {
-		System.out.println("controller deletePost cboard_no : " + request.getParameter("cboard_no"));
+		System.out.println("YkmController deletePost cboard_no : " + request.getParameter("cboard_no"));
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		ykmBoardComm.setCboard_no(cboard_no);
 		int deletePost = ykmService.deletePost(cboard_no);
@@ -115,11 +114,15 @@ public class YkmBoardController {
 	
 
 	// 검색
-	@PostMapping(value="/board/search")
+	@RequestMapping(value="/boardSearch")
 	public String getSearchList(YkmBoardComm ykmBoardComm, Model model) {
+		System.out.println("YkmController getSearchList start---*");
+		System.out.println("YkmController getSearchList ykmBoardComm : "+ykmBoardComm);
 		List<YkmBoardComm> searchResult = ykmService.getSearchList(ykmBoardComm);
-		model.addAttribute("searchResult", searchResult);
-		return "ykm/boardStudy";
+
+		System.out.println("YkmController getSearchList searchResult : "+searchResult);
+		model.addAttribute("getPostList", searchResult);
+		return "forward:boardStudy";
 	}
 
 	
