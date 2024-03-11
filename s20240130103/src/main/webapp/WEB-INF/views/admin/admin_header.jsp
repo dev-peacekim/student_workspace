@@ -42,7 +42,7 @@
               <li>
                 <a
                   class="dropdown-item d-flex align-items-center"
-                  href="adminRegister"
+                  href="adminRegisterForm"
                 >
                   <i class="bi bi-person-plus"></i>
                   <span>신규 관리자 등록</span>

@@ -21,6 +21,10 @@ import lombok.RequiredArgsConstructor;
 public class AskController {
 	private final AskServiceImpl askService;
 	
+	@GetMapping("askMain")
+	public String askMain() {
+		return "yhs/askMain";
+	}
 	
 	@GetMapping("askList") 
 	public String askList(HttpServletRequest request , Model model, Ask ask) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
+import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -104,6 +105,24 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int deleteUser(User user) {
 		int result = session.delete("LhsAdminUserDelete", user);
+		return result;
+	}
+	
+	@Override
+	public int selectReplyCnt(Reply reply) {
+		int replyCnt = session.selectOne("LhsAdminReplyCnt", reply);
+		return replyCnt;
+	}
+	
+	@Override
+	public List<Reply> selectReplyList(Reply reply) {
+		List<Reply> replyList = session.selectList("LhsAdminReplyList", reply);
+		return replyList;
+	}
+	
+	@Override
+	public int deleteReply(Reply reply) {
+		int result = session.delete("LhsAdminReplyDelete", reply);
 		return result;
 	}
 
