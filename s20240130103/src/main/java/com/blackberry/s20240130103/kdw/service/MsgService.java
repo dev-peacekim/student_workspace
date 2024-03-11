@@ -24,12 +24,22 @@ public interface MsgService {
 	
 	// 받은쪽지 개수
 	int totReceiveMsgCnt(Long msgReceiver);
+	// 받은쪽지중 읽지 않은 쪽지 개수 
+	int totUnreadReceiveMsgCnt(Long msgReceiver);
+	
 	// 보낸쪽지 개수
 	int totSentMsgCnt(Long msgSender);
+	// 보낸쪽지중 읽지 않은 쪽지 개수 
+	int totUnreadSentMsgCnt(Long msgSender);
+	
 	// 쪽지보관함 쪽지 개수
 	int totStoredMsgCnt(Long storeboxUserNo);
+	// 쪽지보관함중 읽지 않은 쪽지 개수
+	int totUnreadStoredMsgCnt(Long storeboxUserNo);
 	// 휴지통 쪽지 개수
 	int totTrashMsgCnt(Long trashboxUserNo);
+	// 휴지통중 읽지 않은 쪽지 개수
+	int totUnreadTrashMsgCnt(Long trashboxUserNo);
 	
 	// 받은쪽지함 쪽지 정보
 	Message getReceivedMessageByInfo(Long msgNo);

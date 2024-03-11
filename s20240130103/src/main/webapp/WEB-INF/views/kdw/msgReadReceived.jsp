@@ -118,7 +118,7 @@ $(document).ready(function() {
 								<div class="message-info">${receivedMessageInfo.msg_title}</div>
 							</div>
 						</div>
-						<!-- Sender -->
+						<!-- 보낸사람 -->
 						<div class="form-group">
 							<div class="message-info-group">
 								<!-- Sender Text -->
@@ -126,10 +126,10 @@ $(document).ready(function() {
 									<span class="message-info-text">보낸사람</span>
 								</div>
 								<!-- Sender Display -->
-								<div class="message-info" id="senderText">${receivedMessageInfo.msg_sender}</div>
+								<div class="message-info" id="senderText">${senderUser.user_nic} (${senderUser.user_id})</div>
 							</div>
 						</div>
-						<!-- Receiver -->
+						<!-- 받는사람 -->
 						<div class="form-group">
 							<div class="message-info-group">
 								<!-- Receiver Text -->
@@ -137,7 +137,7 @@ $(document).ready(function() {
 									<span class="message-info-text">받는사람</span>
 								</div>
 								<!-- Receiver Display -->
-								<div class="message-info">${receivedMessageInfo.msg_receiver}</div>
+								<div class="message-info">${receiverUser.user_nic} (${receiverUser.user_id})</div>
 							</div>
 						</div>
 						<!-- Sent Time -->
@@ -168,12 +168,19 @@ $(document).ready(function() {
 						<div class="form-group">
 						    <div class="mb-3">
 								<div class="file-attachment">
-						            <div id="files">
-						                <c:forEach items="${fileMsgs}" var="fileMsgs">
-						                    <a href="/downloadFile?msgNo=${fileMsgs.msg_no}&fileCnt=${fileMsgs.msg_file_cnt}" 
-						                    	target="_blank" class="file-link">${fileMsgs.msg_file_user_name}</a><br/>
-						                </c:forEach>
-						            </div>
+								    <div id="files">
+								        <c:choose>
+								            <c:when test="${not empty fileMsgs}">
+								                <c:forEach items="${fileMsgs}" var="fileMsg">
+								                    <a href="/downloadFile?msgNo=${fileMsg.msg_no}&fileCnt=${fileMsg.msg_file_cnt}" 
+								                       target="_blank" class="file-link">${fileMsg.msg_file_user_name}</a><br/>
+								                </c:forEach>
+								            </c:when>
+								            <c:otherwise>
+								                <span style="color: #808080;">첨부된 파일이 없습니다.</span>
+								            </c:otherwise>
+								        </c:choose>
+								    </div>
 								</div>
 							</div>
 						</div>

@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				</div>
 				<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 				<div id="noteCount" class="note-count">
-					전체쪽지&nbsp;&nbsp;<span id="readCount">3</span>/<span id="totalCount">15</span>
+					전체쪽지&nbsp;&nbsp;<span id="readCount">${totUnreadSentMsgCnt }</span>/<span id="totalCount">${totSentMsgCnt }</span>
 				</div>
 				<!-- 검색바&드롭박스 -->
 				<div class="search-container">
@@ -251,7 +251,12 @@ document.addEventListener('DOMContentLoaded', function() {
 													height="16">
 											</c:otherwise>
 										</c:choose></td>
-									<td class="attachment"><img src=""></td>
+									<!-- 파일 첨부 이미지 표시 -->
+							        <td class="attachment">
+							            <c:if test="${not empty message.first_file_name}">
+							                <img src="assets/img/kdw/attachments.png" width="16" height="16">
+							            </c:if>
+							        </td>
 									<!-- 제목 -->
 									<td class="subject"
 										onclick="location.href='/msgReadSent?msg_no=${message.msg_no}'"

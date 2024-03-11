@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				</div>
 				<!-- 읽은 쪽지 개수와 전체 받은 쪽지 개수를 표시하는 영역 -->
 				<div id="noteCount" class="note-count">
-				    전체쪽지&nbsp;&nbsp;<span id="readCount">3</span>/<span id="totalCount">15</span>
+				    전체쪽지&nbsp;&nbsp;<span id="readCount">${totUnreadStoredMsgCnt }</span>/<span id="totalCount">${totStoredMsgCnt}</span>
 				</div>
 				<!-- 검색바&드롭박스 -->
 				<div class="search-container">
@@ -205,9 +205,12 @@ document.addEventListener('DOMContentLoaded', function() {
 								            </c:otherwise>
 								        </c:choose>
 								    </td>
-						            <td class="attachment">
-						                <img src="" alt="첨부 여부">
-						            </td>
+									<!-- 파일 첨부 이미지 표시 -->
+							        <td class="attachment">
+							            <c:if test="${not empty message.first_file_name}">
+							                <img src="assets/img/kdw/attachments.png" width="16" height="16">
+							            </c:if>
+							        </td>
 									<td class="mailType">
 										<!-- 로그인유저와 보낸사람이(user_no = msg_sender) 같다면 -->
 									    <c:choose>

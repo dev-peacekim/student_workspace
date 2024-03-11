@@ -62,14 +62,15 @@ public class MsgController {
 
 	    // 받은 쪽지 수 가져오기
 	    int totReceiveMsgCnt = 0;
-
+	    int totUnreadReceiveMsgCnt = 0;
 	    // 검색 결과를 가져오는 로직 추가
 	    if (keyword != null && !keyword.isEmpty()) {
 	        totReceiveMsgCnt = msgService.searchReceiveMsgCnt(msgReceiver, keyword, type);
 	    } else {
 	        totReceiveMsgCnt = msgService.totReceiveMsgCnt(msgReceiver);
 	    }
-
+	    totUnreadReceiveMsgCnt = msgService.totUnreadReceiveMsgCnt(msgReceiver);
+	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totReceiveMsgCnt, currentPage);
 
@@ -81,9 +82,12 @@ public class MsgController {
 	        receivedMessages = msgService.getReceivedMessages(msgReceiver, page.getStart(), page.getEnd());
 	    }
 	    
+	    System.out.println("MsgController getReceivedMessages 전체쪽지" + totReceiveMsgCnt);
+	    System.out.println("MsgController getReceivedMessages 읽지않은쪽지" + totUnreadReceiveMsgCnt);
 	    // 'Model'에 받은 쪽지 목록과 페이징 정보를 담아서 전달
 	    model.addAttribute("msgReceiver", msgReceiver);
 	    model.addAttribute("totReceiveMsgCnt", totReceiveMsgCnt);
+	    model.addAttribute("totUnreadReceiveMsgCnt", totUnreadReceiveMsgCnt);
 	    model.addAttribute("receivedMessages", receivedMessages);
 	    model.addAttribute("page", page);
 	    model.addAttribute("keyword", keyword);
@@ -108,6 +112,7 @@ public class MsgController {
 
 	    // 보낸 쪽지 수 가져오기 (totMsgCnt 메서드를 이용)
 	    int totSentMsgCnt = 0;
+	    int totUnreadSentMsgCnt = 0;
 	    
 	    // 검색 결과를 가져오는 로직 추가
 	    if (keyword != null && !keyword.isEmpty()) {
@@ -115,6 +120,7 @@ public class MsgController {
 	    } else {
 	    	totSentMsgCnt = msgService.totSentMsgCnt(msgSender);
 	    }
+	    totUnreadSentMsgCnt = msgService.totUnreadSentMsgCnt(msgSender);
 	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totSentMsgCnt, currentPage);
@@ -128,9 +134,13 @@ public class MsgController {
 	    	sentMessages = msgService.getSentMessages(msgSender, page.getStart(), page.getEnd());
 	    }
 	    
+	    System.out.println("MsgController getSendMessages 전체쪽지" + totSentMsgCnt);
+	    System.out.println("MsgController getSendMessages 읽지않은쪽지" + totUnreadSentMsgCnt);
+	    
 	    // 'Model'에 보낸 쪽지 목록과 페이징 정보를 담아서 전달
 	    model.addAttribute("msgSender", msgSender);
 	    model.addAttribute("totSentMsgCnt", totSentMsgCnt);
+	    model.addAttribute("totUnreadSentMsgCnt", totUnreadSentMsgCnt);
 	    model.addAttribute("sentMessages", sentMessages);
 	    model.addAttribute("page", page);
 	    model.addAttribute("keyword", keyword);
@@ -155,6 +165,7 @@ public class MsgController {
 	    
 	    // msg_store_chk 값이 1인 쪽지들만 가져오기
 	    int totStoredMsgCnt = 0;
+	    int totUnreadStoredMsgCnt = 0;
 	    
 	    // 검색 결과를 가져오는 로직 추가
 	    if (keyword != null && !keyword.isEmpty()) {
@@ -162,6 +173,7 @@ public class MsgController {
 	    } else {
 	    	totStoredMsgCnt = msgService.totStoredMsgCnt(storeboxUserNo);
 	    }
+	    totUnreadStoredMsgCnt = msgService.totUnreadStoredMsgCnt(storeboxUserNo);
 	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totStoredMsgCnt, currentPage);
@@ -176,6 +188,7 @@ public class MsgController {
 	    
 	    // 'Model'에 보관된 쪽지 목록과 페이징 정보를 담아서 전달
 	    model.addAttribute("totStoredMsgCnt", totStoredMsgCnt);
+	    model.addAttribute("totUnreadStoredMsgCnt", totUnreadStoredMsgCnt);
 	    model.addAttribute("storedMessages", storedMessages);
 	    model.addAttribute("page", page);
 	    model.addAttribute("storeboxUserNo", storeboxUserNo);
@@ -201,6 +214,7 @@ public class MsgController {
 
         // msg_trash_chk 값이 1인 쪽지들만 가져오기
         int totTrashMsgCnt = 0;
+        int totUnreadTrashMsgCnt = 0;
         
 	    // 검색 결과를 가져오는 로직 추가
 	    if (keyword != null && !keyword.isEmpty()) {
@@ -208,6 +222,7 @@ public class MsgController {
 	    } else {
 	    	totTrashMsgCnt = msgService.totTrashMsgCnt(trashboxUserNo);
 	    }
+	    totUnreadTrashMsgCnt = msgService.totUnreadTrashMsgCnt(trashboxUserNo);
 	    
         // 페이징 처리
         MsgPaging page = new MsgPaging(totTrashMsgCnt, currentPage);
@@ -223,6 +238,7 @@ public class MsgController {
         
         // 'Model'에 보관된 휴지통 쪽지 목록과 페이징 정보를 담아서 전달
         model.addAttribute("totTrashMsgCnt", totTrashMsgCnt);
+        model.addAttribute("totUnreadTrashMsgCnt", totUnreadTrashMsgCnt);
         model.addAttribute("trashMessages", trashMessages);
         model.addAttribute("page", page);
         model.addAttribute("trashboxUserNo", trashboxUserNo);
@@ -242,8 +258,18 @@ public class MsgController {
         // msgNo를 사용하여 해당 쪽지 정보 및 첨부 파일 정보 가져오기
         Message receivedMessageInfo = msgService.getReceivedMessageByInfo(msgNo);
         // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
-        List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo); 
-
+        List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo);
+        // 보낸사람,받는사람 번호로 닉네임, 아이디 가져오기
+        Long senderNo = receivedMessageInfo.getMsg_sender();
+        Long receiverNo =  receivedMessageInfo.getMsg_receiver();
+        User senderUser = msgService.findUserDetailsById(senderNo);
+        User receiverUser = msgService.findUserDetailsById(receiverNo);
+        
+        // 보낸사람 닉네임,아이디 정보
+        model.addAttribute("senderUser", senderUser);
+        // 받은사람 닉네임,아이디 정보;
+        model.addAttribute("receiverUser", receiverUser);
+        // 쪽지에 대한 정보
         model.addAttribute("receivedMessageInfo", receivedMessageInfo);
         model.addAttribute("fileMsgs", fileMsgs); // 첨부 파일 정보 모델에 추가
 
@@ -261,7 +287,18 @@ public class MsgController {
         Message sentMessageInfo = msgService.getSentMessageByInfo(msgNo);
         // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
         List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo); 
-
+        
+        // 보낸사람,받는사람 번호로 닉네임, 아이디 가져오기
+        Long senderNo = sentMessageInfo.getMsg_sender();
+        Long receiverNo =  sentMessageInfo.getMsg_receiver();
+        User senderUser = msgService.findUserDetailsById(senderNo);
+        User receiverUser = msgService.findUserDetailsById(receiverNo);
+        
+        // 보낸사람 닉네임,아이디 정보
+        model.addAttribute("senderUser", senderUser);
+        // 받은사람 닉네임,아이디 정보;
+        model.addAttribute("receiverUser", receiverUser);
+        
         model.addAttribute("sentMessageInfo", sentMessageInfo);
         model.addAttribute("fileMsgs", fileMsgs); // 첨부 파일 정보 모델에 추가
         log.info("MsgController readSentMessage sentMessageInfo => " + sentMessageInfo);
@@ -311,18 +348,20 @@ public class MsgController {
     // 답장쓰기 버튼 -> 답장쓰기 View 이동
     @GetMapping(value = "msgReply")
     public String msgReplyPage(HttpServletRequest request, Model model, 
-    			@RequestParam(value = "sender", required = false) Long userNo) {
+    			@RequestParam(value = "sender", required = false) Long senderUserNo) {
     log.info("MsgController msgReplyPage start...");
     // 세션에서 보내는 사람의 아이디 가져오기
     Long senderId = (Long) request.getSession().getAttribute("user_no");
     // 유저 테이블에서 모든 사용자 목록 가져오기
     List<User> userList = msgService.getAllUsers();
     
-    if (userNo != null) {
-        User senderUser = msgService.findUserDetailsById(userNo);
+    if (senderUserNo != null) {
+        User senderUser = msgService.findUserDetailsById(senderUserNo);
+        System.out.println("MsgController msgReplyPage userNo: " + senderUserNo);
+        System.out.println("MsgController msgReplyPage senderUser: " + senderUser);
         // 읽기 페이지에서 받은 보낸 사람 정보 -> 답장쓰기 받는사람
         model.addAttribute("receiverUser", senderUser);
-        model.addAttribute("senderUserNo", userNo);
+        model.addAttribute("senderUserNo", senderUserNo);
     }
     
     model.addAttribute("senderId", senderId);

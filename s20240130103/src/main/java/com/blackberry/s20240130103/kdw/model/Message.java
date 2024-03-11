@@ -19,6 +19,9 @@ public class Message {
     private int msg_delete_chk;
     private int msg_store_chk;
     
+    // 첨부파일 여부 확인용
+    private String first_file_name;
+    
     // 멀티 파일 업로드 저장용 
     private MultipartFile[] files;
     

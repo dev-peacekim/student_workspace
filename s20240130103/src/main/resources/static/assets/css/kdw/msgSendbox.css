@@ -16,9 +16,10 @@ body {
 	position:relative;
 	width: 100%;
 	min-width: 800px;
-	height: 800px;
+	height: 770px;
 	min-height: 500px;
 	margin-bottom: 0;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 	border: none;
 	border-radius: 5px;
 }
@@ -54,7 +55,7 @@ body {
 }
 
 .mailList-whiteSpace td {
-  height: 60px; /* 원하는 높이로 조절 */
+  height: 30px; /* 원하는 높이로 조절 */
 }
 
 /* 메일 상단 툴바의 스타일 */

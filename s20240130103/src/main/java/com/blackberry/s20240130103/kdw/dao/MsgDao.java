@@ -22,12 +22,22 @@ public interface MsgDao {
 	
 	// 받은쪽지 쪽지 개수
 	int totReceiveMsgCnt(Long msgReceiver);
+	// 받은쪽지 읽지 않은 개수
+	int totUnreadReceiveMsgCnt(Long msgReceiver); 
+	
 	// 보낸쪽지 쪽지 개수
 	int totSentMsgCnt(Long msgSender);
+	int totUnreadSentMsgCnt(Long msgSender);
+	
 	// 쪽지보관함 쪽지 개수
 	int totStoredMsgCnt(Long storeboxUserNo);
+	int totUnreadStoredMsgCnt(Long storeboxUserNo);
+	
 	// 휴지통 쪽지 개수
 	int totTrashMsgCnt(Long trashboxUserNo);
+	int totUnreadTrashMsgCnt(Long trashboxUserNo);
+	
+	
 	
 	// 받은쪽지 & 보낸쪽지 쪽지정보 가져오기
 	Message getMessageByInfo(Long msgNo);

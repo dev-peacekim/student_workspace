@@ -85,33 +85,30 @@
 	previousValue = $(this).val();
 	});
 	
-	//keydown 이벤트를 사용하여 키 입력 처리
+	// keydown 이벤트를 사용하여 키 입력 처리
 	$('#receiverInput').on('keydown', function(e) {
-	const currentValue = $(this).val();
-	
-	if (e.key === "Backspace") {
-	    let users = currentValue.split(', ');
-	
-	    if (users.length > 0 && currentValue.slice(-1) !== ',') {
-	        users.pop(); // 마지막 요소 제거
-	        let newValue = users.join(', ') + (users.length > 0 ? ', ' : '');
-	        if (newValue !== currentValue) { // 변경 사항이 있을 때만 업데이트
-	            previousValue = newValue;
-	            $(this).val(newValue);
+	    const currentValue = e.key;
+	    if (e.key === "Backspace") {
+	        let users = currentValue.split(', ');
+	        if (users.length > 0 && currentValue.slice(-1) !== ',') {
+	            users.pop(); // 마지막 요소 제거
+	            let newValue = users.join(', ') + (users.length > 0 ? ', ' : '');
+	            if (newValue !== currentValue) { // 변경 사항이 있을 때만 업데이트
+	                previousValue = newValue;
+	                $(this).val(newValue);
+	            }
+	            e.preventDefault(); // 기본 동작 방지
 	        }
-	
+	    } else {
+	        // 백스페이스 이외의 키 입력 시, DOM 업데이트 최소화
+	        setTimeout(() => {
+	            if (currentValue !== previousValue) {
+	                $(this).val(previousValue); // 값을 이전 상태로 되돌림
+	                showCustomAlert(); // 커스텀 알림 표시
+	            }
+	        }, 0);
 	        e.preventDefault(); // 기본 동작 방지
 	    }
-	} else {
-	    // 백스페이스 이외의 키 입력 시, DOM 업데이트 최소화
-	    setTimeout(() => {
-	        if ($(this).val() !== previousValue) {
-	            $(this).val(previousValue); // 값을 이전 상태로 되돌림
-	            showCustomAlert(); // 커스텀 알림 표시
-	        }
-	    }, 0);
-	    e.preventDefault(); // 기본 동작 방지
-	}
 	});
 	
 	//커스텀 알림을 표시하는 함수
@@ -451,12 +448,12 @@
 								
 								<!-- 인풋 -->
 								<c:choose>
-									<c:when test="${not empty userNo}">
+									<c:when test="${senderUserNo != null}">
 								        <input id="receiverInput" type="text" class="form-control"
 								               aria-label="Text input with segmented dropdown button"
 								               name="msg_receivers_display" value="${receiverUser.user_nic} (${receiverUser.user_id})">
 									    <!-- 사용자 번호를 서버로 보낼 히든 인풋 -->
-									    <input type="hidden" id="receiverUserNos" name="msg_receivers" value="${userNo}">
+									    <input type="hidden" id="receiverUserNos" name="msg_receivers" value="${senderUserNo}">
 									</c:when>
 									<c:otherwise>
 										<!-- 사용자에게 보여지는 입력 필드: 사용자 닉네임(user_nic)과 아이디(user_id)을 표시합니다. -->

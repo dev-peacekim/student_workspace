@@ -43,7 +43,17 @@ public class MsgServiceImpl implements MsgService {
 		log.info("MsgServiceImpl totReceiveMsgCnt totMsgCnt->" + totReceiveMsgCnt);
 		return totReceiveMsgCnt;
 	}
+	// 받은 쪽지중 읽지 않은 쪽지 개수 
+	@Override
+	public int totUnreadReceiveMsgCnt(Long msgReceiver) {
+		log.info("MsgServiceImpl totReceiveMsgCnt start...");
+		int totUnreadReceiveMsgCnt = msgDao.totUnreadReceiveMsgCnt(msgReceiver);
+		log.info("MsgServiceImpl totReceiveMsgCnt totMsgCnt->" + totUnreadReceiveMsgCnt);
+		return totUnreadReceiveMsgCnt;
+	}
 
+	
+	
 	// 보낸 쪽지 개수
 	@Override
 	public int totSentMsgCnt(Long msgSender) {
@@ -52,7 +62,15 @@ public class MsgServiceImpl implements MsgService {
 		log.info("MsgServiceImpl totSendMsgCnt totMsgCnt->" + totSentMsgCnt);
 		return totSentMsgCnt;
 	}
-
+	// 보낸 쪽지중 읽지 않은 쪽지 개수 
+	@Override
+	public int totUnreadSentMsgCnt(Long msgSender) {
+		log.info("MsgServiceImpl totUnreadSentMsgCnt start...");
+		int totUnreadSentMsgCnt = msgDao.totUnreadSentMsgCnt(msgSender);
+		log.info("MsgServiceImpl totUnreadSentMsgCnt totMsgCnt->" + totUnreadSentMsgCnt);
+		return totUnreadSentMsgCnt;
+	}
+	
 	// 보관함 쪽지 개수
 	@Override
 	public int totStoredMsgCnt(Long storeboxUserNo) {
@@ -61,7 +79,15 @@ public class MsgServiceImpl implements MsgService {
 		log.info("MsgServiceImpl totStoredMsgCnt totMsgCnt->" + totStoredMsgCnt);
 		return totStoredMsgCnt;
 	}
-
+	// 보낸 쪽지중 읽지 않은 쪽지 개수 
+	@Override
+	public int totUnreadStoredMsgCnt(Long msgSender) {
+		log.info("MsgServiceImpl totUnreadStoredMsgCnt start...");
+		int totUnreadStoredMsgCnt = msgDao.totUnreadStoredMsgCnt(msgSender);
+		log.info("MsgServiceImpl totUnreadStoredMsgCnt totMsgCnt->" + totUnreadStoredMsgCnt);
+		return totUnreadStoredMsgCnt;
+	}
+	
 	// 휴지통 쪽지 개수
 	@Override
 	public int totTrashMsgCnt(Long trashboxUserNo) {
@@ -70,7 +96,15 @@ public class MsgServiceImpl implements MsgService {
 		log.info("MsgServiceImpl totTrashMsgCnt totMsgCnt->" + totTrashMsgCnt);
 		return totTrashMsgCnt;
 	}
-
+	// 보낸 쪽지중 읽지 않은 쪽지 개수 
+	@Override
+	public int totUnreadTrashMsgCnt(Long msgSender) {
+		log.info("MsgServiceImpl totUnreadTrashMsgCnt start...");
+		int totUnreadTrashMsgCnt = msgDao.totUnreadTrashMsgCnt(msgSender);
+		log.info("MsgServiceImpl totUnreadTrashMsgCnt totMsgCnt->" + totUnreadTrashMsgCnt);
+		return totUnreadTrashMsgCnt;
+	}
+	
 	// ========== 각 쪽지함 리스트 가져오기 ============
 	// 받은 쪽지 리스트
 	@Override

@@ -17,6 +17,15 @@
 		AND msg_store_chk = 0
 		AND msg_delete_chk = 0
 	</select>
+	<!-- 받은 쪽지중 읽지 않은 쪽지 개수 -->
+	<select id="totUnreadReceiveMsgCnt" resultType="int" parameterType="java.lang.Long">
+	    SELECT COUNT(*) FROM message
+	    WHERE msg_receiver = #{msgReceiver}
+	    AND msg_store_chk = 0
+	    AND msg_delete_chk = 0
+	    AND msg_readdate IS NULL
+	</select>
+	
 	<!-- 보낸 쪽지 개수 -->
 	<select id="totSentMsgCnt" resultType="int"
 		parameterType="java.lang.Long">
@@ -25,6 +34,15 @@
 		AND msg_store_chk = 0
 		AND msg_delete_chk = 0
 	</select>
+	<!-- 받은 쪽지중 읽지 않은 쪽지 개수 -->
+	<select id="totUnreadSentMsgCnt" resultType="int" parameterType="java.lang.Long">
+	    SELECT COUNT(*) FROM message
+	    WHERE msg_sender = #{msgSender}
+	    AND msg_store_chk = 0
+	    AND msg_delete_chk = 0
+	    AND msg_readdate IS NULL
+	</select>
+	
 	<!-- 쪽지보관함 개수 -->
 	<select id="totStoredMsgCnt" resultType="int"
 		parameterType="java.lang.Long">
@@ -34,6 +52,15 @@
 		AND msg_store_chk = 1
 		AND msg_delete_chk = 0
 	</select>
+	<select id="totUnreadStoredMsgCnt" resultType="int" parameterType="java.lang.Long">
+	    SELECT COUNT(*) FROM message
+		WHERE (msg_receiver = #{storeboxUserNo} 
+		   OR msg_sender = #{storeboxUserNo})
+	    AND msg_store_chk = 1
+	    AND msg_delete_chk = 0
+	    AND msg_readdate IS NULL
+	</select>
+	
 	<!-- 휴지통 개수 -->
 	<select id="totTrashMsgCnt" resultType="int"
 		parameterType="java.lang.Long">
@@ -42,34 +69,44 @@
 		#{trashboxUserNo} OR msg_sender = #{trashboxUserNo})
 		AND msg_delete_chk = 1
 	</select>
-
+	<select id="totUnreadTrashMsgCnt" resultType="int" parameterType="java.lang.Long">
+	    SELECT COUNT(*) FROM message
+		WHERE (msg_receiver = #{trashboxUserNo} 
+		   OR msg_sender = #{trashboxUserNo})
+	    AND msg_delete_chk = 1
+	    AND msg_readdate IS NULL
+	</select>
 
 
 	<!-- =========== 각 쪽지함 리스트 가져오기 ========== -->
 	<!-- 받은 쪽지 리스트 가져오기 -->
 	<select id="kdwReceivedMessagesAll" parameterType="KdwMessage"
 		resultType="KdwMessage">
-    <![CDATA[
-   		SELECT *
-   		FROM (
-		    SELECT
-		        a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		        a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		        a.msg_delete_chk, u.user_nic AS senderNic
-		    FROM
-		        (SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		        m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		         FROM message m
-		         WHERE m.msg_receiver = #{msgReceiver}
-		         AND m.msg_store_chk = 0
-		         AND m.msg_delete_chk = 0
-		         ) a, users u
-		    WHERE a.msg_sender = u.user_no
-		    AND a.rn >= #{start}
-		    AND a.rn <= #{end}
+	<![CDATA[
+	    SELECT *
+	    FROM (
+	        SELECT
+	            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
+	            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
+	            a.msg_delete_chk, u.user_nic AS senderNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
+	        FROM
+	            (SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
+	            m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
+	             FROM message m
+	             WHERE m.msg_receiver = #{msgReceiver}
+	             AND m.msg_store_chk = 0
+	             AND m.msg_delete_chk = 0
+	             ) a, users u
+	        WHERE a.msg_sender = u.user_no
+	        AND a.rn >= #{start}
+	        AND a.rn <= #{end}
 	    )
 	    ORDER BY msg_no DESC
-    ]]>
+	]]>
 	</select>
 	<!-- 보낸 쪽지 리스트 가져오기 -->
 	<select id="kdwSentMessagesAll" parameterType="KdwMessage"
@@ -80,7 +117,11 @@
 		    SELECT
 		        a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
 		        a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		        a.msg_delete_chk, u.user_nic AS receiverNic
+		        a.msg_delete_chk, u.user_nic AS receiverNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 		    FROM
 		        (SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
 		        m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
@@ -108,7 +149,11 @@
 		            CASE 
 		                WHEN a.msg_sender = #{storeboxUserNo} THEN u1.user_nic 
 		                ELSE u2.user_nic 
-		            END AS storedNic
+		            END AS storedNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 		        FROM
 		            (
 		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
@@ -140,7 +185,11 @@
 		            CASE 
 		                WHEN a.msg_sender = #{trashboxUserNo} THEN u1.user_nic 
 		                ELSE u2.user_nic 
-		            END AS trashedNic
+		            END AS trashedNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 		        FROM
 		            (
 		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
@@ -268,7 +317,11 @@
 		        SELECT
 		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
 		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, u.user_nic AS senderNic
+		            a.msg_delete_chk, u.user_nic AS senderNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 		        FROM
 		            (
 		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
@@ -323,7 +376,11 @@
 		  	    SELECT
 		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
 		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, u.user_nic AS receiverNic
+		            a.msg_delete_chk, u.user_nic AS receiverNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 		        FROM
 		            (
 		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
@@ -383,7 +440,11 @@
 			        CASE 
 			            WHEN a.msg_sender = #{storeboxUserNo} THEN u1.user_nic 
 			            ELSE u2.user_nic 
-			        END AS storedNic
+			        END AS storedNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 			    FROM
 			        (
 			            SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
@@ -452,7 +513,11 @@
 			        CASE 
 			            WHEN a.msg_sender = #{trashboxUserNo} THEN u1.user_nic 
 			            ELSE u2.user_nic 
-			        END AS trashedNic
+			        END AS trashedNic,
+	            (SELECT mf.msg_file_name 
+	             FROM message_file mf
+	             WHERE mf.msg_no = a.msg_no
+	             AND ROWNUM = 1) AS first_file_name
 			    FROM
 			        (
 			            SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 

@@ -16,7 +16,7 @@ body {
 	position:relative;
 	width: 100%;
 	min-width: 800px;
-	height: 800px;
+	height: 770px;
 	min-height: 500px;
 	margin-bottom: 0;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
@@ -52,10 +52,11 @@ body {
 .mailList-whiteSpace {
   border-bottom: 1px solid #c9c9c9; /* 원하는 경계선 스타일 및 색상으로 설정 */
   margin-bottom: -2px; /* 아래 여백을 제거하여 총적으로 길이를 줄임 */
+
 }
 
 .mailList-whiteSpace td {
-  height: 60px; /* 원하는 높이로 조절 */
+  height: 30px; /* 원하는 높이로 조절 */
 }
 
 /* 메일 상단 툴바의 스타일 */
@@ -184,7 +185,7 @@ thead th:nth-child(7) {
     position: absolute;
     display: flex;
     right: 20px;
-    bottom: 10px;
+    bottom: 12px;
     font-size: 14px;
 }
 

@@ -47,7 +47,19 @@ public class MsgDaoImpl implements MsgDao {
         }
         return totReceiveMsgCnt;
     }
-
+    // 받은 쪽지중 읽지 않은 쪽지 개수 
+    @Override
+    public int totUnreadReceiveMsgCnt(Long msgReceiver) {
+        int totUnreadReceiveMsgCnt = 0;
+        try {
+        	totUnreadReceiveMsgCnt = session.selectOne("totUnreadReceiveMsgCnt", msgReceiver);
+            System.out.println("MsgServiceImpl totMsgCnt totReceiveMsgCnt->" + totUnreadReceiveMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+        }
+        return totUnreadReceiveMsgCnt;
+    }
     // 보낸 쪽지 개수
     @Override
     public int totSentMsgCnt(Long msgSender) {
@@ -61,7 +73,20 @@ public class MsgDaoImpl implements MsgDao {
         }
         return totSentMsgCnt;
     }
-
+    // 보낸 쪽지중 읽지 않은 쪽지 개수 
+    @Override
+    public int totUnreadSentMsgCnt(Long msgSender) {
+        int totUnreadSentMsgCnt = 0;
+        try {
+        	totUnreadSentMsgCnt = session.selectOne("totUnreadSentMsgCnt", msgSender);
+            System.out.println("MsgServiceImpl totMsgCnt totUnreadSentMsgCnt->" + totUnreadSentMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+        }
+        return totUnreadSentMsgCnt;
+    }
+    
     // 보관함 쪽지 개수
     @Override
     public int totStoredMsgCnt(Long storeboxUserNo) {
@@ -75,7 +100,20 @@ public class MsgDaoImpl implements MsgDao {
         }
         return totStoredMsgCnt;
     }
-
+    // 보관함 쪽지중 읽지 않은 쪽지 개수
+    @Override
+    public int totUnreadStoredMsgCnt(Long storeboxUserNo) {
+        int totUnreadStoredMsgCnt = 0;
+        try {
+        	totUnreadStoredMsgCnt = session.selectOne("totUnreadStoredMsgCnt", storeboxUserNo);
+            System.out.println("MsgServiceImpl totMsgCnt totUnreadStoredMsgCnt->" + totUnreadStoredMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+        }
+        return totUnreadStoredMsgCnt;
+    }
+    
     // 휴지통 쪽지 개수
     @Override
     public int totTrashMsgCnt(Long trashboxUserNo) {
@@ -89,7 +127,19 @@ public class MsgDaoImpl implements MsgDao {
         }
         return totTrashMsgCnt;
     }
-    
+    // 휴지통 쪽지중 읽지 않은 쪽지 개수
+    @Override
+    public int totUnreadTrashMsgCnt(Long trashboxUserNo) {
+        int totUnreadTrashMsgCnt = 0;
+        try {
+        	totUnreadTrashMsgCnt = session.selectOne("totUnreadTrashMsgCnt", trashboxUserNo);
+            System.out.println("MsgServiceImpl totMsgCnt totUnreadTrashMsgCnt->" + totUnreadTrashMsgCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("MsgServiceImpl totMsgCnt Exception ->" + e.getMessage());
+        }
+        return totUnreadTrashMsgCnt;
+    }
     
 	// =========== 각 쪽지함 리스트 가져오기 ============
 	// 받은 쪽지 리스트 가져오기
