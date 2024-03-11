@@ -135,3 +135,11 @@ $(".taskFilter").on("click", function () {
     },
   });
 });
+
+$("#team-member-add-btn").on("click", function () { 
+  $(".team-member-add-box-no-authority").css('display', 'flex');
+});
+
+$(".authority-cancle").on('click', function () {  
+  $(".team-member-add-box-no-authority").css('display', 'none');
+})

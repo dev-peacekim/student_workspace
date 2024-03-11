@@ -290,4 +290,11 @@ public class KphProjectController {
 		return "redirect:/detailProject";
 	}
 	
+	@GetMapping("teamMemberAddForm")
+	public String teamMemberAddForm() {
+		
+		return "teamMemberAddForm";
+	}
+	
+	
 }

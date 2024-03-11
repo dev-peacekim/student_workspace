@@ -97,9 +97,9 @@
 					<div class="setting">
 						<i id="setting-btn" class="bi bi-gear-fill"></i>
 						<ul id="setting-content" class="setting-content team-list-content">
-							<li>팀원 추가</li>
-							<li>프로젝트 수정</li>
-							<li>프로젝트 삭제</li>
+							<li id="team-member-add-btn">팀원 추가</li>
+							<a href="projectUpdate"><li>프로젝트 수정</li></a>
+							<a href="projectDelete"><li>프로젝트 삭제</li></a>
 						</ul>
 					</div>
 				</div>
@@ -190,6 +190,14 @@
 							<h5 class="card-title">프로젝트 일정</h5>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="team-member-add-box-no-authority">
+				<div>
+					<div class="team-member-add-box-no-authority-title">
+						권한이 없습니다
+					</div>
+					<button type="button" class="btn btn-primary authority-cancle">확인</button>
 				</div>
 			</div>
 		</section>
