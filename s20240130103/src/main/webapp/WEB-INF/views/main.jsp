@@ -103,7 +103,7 @@
 					                    </c:otherwise>
 					                </c:choose>
 				            		</div>
-				            		<form action="detailProject" method="post">
+				            		<form action="detailProject" method="get">
 		            					<input name="project_no" value="${project.project_no }" hidden="true" />
 		            					<input type="submit" class="enter-btn" value="입장하기" />
 		            				</form>

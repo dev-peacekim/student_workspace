@@ -114,6 +114,11 @@ public class KphProjectServiceImp implements KphProjectService {
 		return totalTaskCount;
 	}
 
+	@Override
+	public int isUserInProject(KphUserProject kphUserProject) {
+		int result = kphProjectDao.isUserInProject(kphUserProject);
+		return result;
+	}
 
 	@Override
 	public Map<String, Object> detailProject(KphTask kphTask) {
@@ -161,5 +166,5 @@ public class KphProjectServiceImp implements KphProjectService {
 		int result = kphProjectDao.taskAdd(userNoList, kphTask);
 		return result;
 	}
-	
+
 }
