@@ -11,8 +11,10 @@ public interface AskService {
 	
 	List<Ask> listAsk(Ask ask);
 	
-	Ask askContent(String admin_title);
+	Ask askContent(Ask ask);
 	
 	int insertAsk(Ask ask);
+	
+	int deleteAsk(int admin_no);
 	
 }

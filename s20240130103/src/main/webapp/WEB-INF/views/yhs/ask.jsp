@@ -196,7 +196,7 @@
 										<tr>
 											<td>${BOARD_ADMIN.admin_no}</td>
 											<td> 
-												<a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a>
+												<a href="askContent?admin_no=${BOARD_ADMIN.admin_no}">${BOARD_ADMIN.admin_title}</a>
 											</td>
 											<td><fmt:formatDate value="${BOARD_ADMIN.admin_date}"
 													pattern="yyyy-MM-dd" /></td>

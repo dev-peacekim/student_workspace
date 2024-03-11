@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blackberry.s20240130103.lhs.service.LhsPaging;
 import com.blackberry.s20240130103.yhs.model.Ask;
+import com.blackberry.s20240130103.yhs.service.AskService;
 import com.blackberry.s20240130103.yhs.service.AskServiceImpl;
 import com.blackberry.s20240130103.yhs.service.Paging;
 
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class AskController {
-	private final AskServiceImpl askService;
+	private final AskService askService;
 	
 	@GetMapping("askMain")
 	public String askMain() {
@@ -58,10 +59,12 @@ public class AskController {
 	// 세션이 필요할 때 - >
 	@GetMapping(value = "askContent")
 	public String askContent(HttpServletRequest request, Model model) {
-		String admin_title = request.getParameter("admin_title");
-		System.out.println("AskController askContent admin_title->"+admin_title);
-
-		Ask askContent = askService.askContent(admin_title);
+		String admin_no = request.getParameter("admin_no");
+		Ask ask = new Ask();
+		ask.setUser_no((Long)request.getSession().getAttribute("user_no"));
+		ask.setAdmin_no(Integer.parseInt(admin_no));
+		System.out.println("AskController askContent ask->"+ask);
+		Ask askContent = askService.askContent(ask);
 
 		System.out.println("AskController askContent askContent->"+askContent);
 //		List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
@@ -88,7 +91,6 @@ public class AskController {
 	@PostMapping(value = "askWrite")
 	public String askWrite(Ask ask ,Model model,HttpServletRequest request ) {
 		System.out.println("AskController Start askWrite..." );
-		int askCnt = askService.selectAskCnt(ask);
 		Long userNo = (Long) request.getSession().getAttribute("user_no");
 		ask.setUser_no(userNo);
 		System.out.println("AskController askWrite ask->" + ask);

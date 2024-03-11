@@ -11,14 +11,12 @@ public interface AskDao {
 	
 	List<Ask> listAsk(Ask ask);
 
-	Ask askContent(String admin_title);
+	Ask askContent(Ask ask);
 
 	List<Ask> askListSearch(Ask ask);
 
 	int insertAsk(Ask ask);
 
 	int deleteAsk(int admin_no);
-
-	int selectAskCnt(Ask ask);
 		
 }

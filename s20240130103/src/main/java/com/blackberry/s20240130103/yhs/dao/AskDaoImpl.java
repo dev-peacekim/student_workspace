@@ -45,11 +45,11 @@ public class AskDaoImpl implements AskDao {
 	
 	
 	 @Override 
-	 public Ask askContent(String admin_title) {
+	 public Ask askContent(Ask ask) {
 	 System.out.println("AskDaoImpl askContent Start..."); 
-	 System.out.println("AskDaoImpl askConten admin_title->"+admin_title);
+	 System.out.println("AskDaoImpl askConten ask->"+ask);
 
-	 Ask askContent = session.selectOne("yhsAskContent", admin_title);
+	 Ask askContent = session.selectOne("yhsAskContent", ask);
 	 System.out.println("AskDaoImpl askContent -> " + askContent); 
 	 return askContent; 
 	 }
@@ -92,12 +92,6 @@ public class AskDaoImpl implements AskDao {
 			System.out.println("AskDaoImpl delete Exception->"+e.getMessage());
 		}
 		return result;
-	}
-	
-	@Override
-	public int selectAskCnt(Ask ask) {
-		int askCnt = session.selectOne("yhsSelectAskCnt",ask);
-		return askCnt;
 	}
 	 
 }

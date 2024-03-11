@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class AskServiceImpl implements AskService {
 	
 	private final AskDao askDao;
-	
+
 	@Override
 	public int totalAsk(Ask ask) {
 		System.out.println("AskServiceImpl Start total...");
@@ -35,9 +35,9 @@ public class AskServiceImpl implements AskService {
 	}
 	
 	@Override
-	public Ask askContent(String admin_title) {
+	public Ask askContent(Ask ask) {
 		System.out.println("AskServiceImpl askContent Start...");
-		Ask askContent = askDao.askContent(admin_title);
+		Ask askContent = askDao.askContent(ask);
 		
 		System.out.println("AskServiceImpl askContent -> " + askContent);
 		
@@ -67,13 +67,8 @@ public class AskServiceImpl implements AskService {
 	}
 
 	public Ask askUpdateForm(String admin_title) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public int selectAskCnt(Ask ask) {
-		int askCnt = askDao.selectAskCnt(ask);
-		return askCnt;
-	}
 }
 
