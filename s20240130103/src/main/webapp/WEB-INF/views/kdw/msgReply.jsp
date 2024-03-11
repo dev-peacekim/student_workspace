@@ -38,8 +38,8 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-
-
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/msgReply.css" rel="stylesheet">
 
@@ -454,7 +454,7 @@
 									<c:when test="${not empty userNo}">
 								        <input id="receiverInput" type="text" class="form-control"
 								               aria-label="Text input with segmented dropdown button"
-								               name="msg_receivers_display" value="${receiverNick} (${receiverUserId})" readonly>
+								               name="msg_receivers_display" value="${receiverUser.user_nic} (${receiverUser.user_id})">
 									    <!-- 사용자 번호를 서버로 보낼 히든 인풋 -->
 									    <input type="hidden" id="receiverUserNos" name="msg_receivers" value="${userNo}">
 									</c:when>

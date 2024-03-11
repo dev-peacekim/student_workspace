@@ -107,9 +107,9 @@ body {
     box-shadow: none; /* 클릭 시 나타나는 그림자 제거 */
 }
 /* 드롭다운 토글 버튼 */
-.msgWrite-section #toggleButton,
-.msgWrite-section #toggleButton:focus,
-.msgWrite-section #toggleButton:hover {
+.reply-section #toggleButton,
+.reply-section #toggleButton:focus,
+.reply-section #toggleButton:hover {
     border: none; /* 보더 제거 */
     color: #546270; /* 텍스트 컬러 변경 */
     background-color: transparent; /* 배경을 투명하게 만듦 */
@@ -146,7 +146,7 @@ body {
 }
 
 /* 드롭다운 리스트 스타일 */
-.msgWrite-section #userListDropdown {
+.reply-section #userListDropdown {
     position: absolute ;
     border: 1px solid #ced4da;
     width: 300px ;
@@ -159,23 +159,23 @@ body {
     overflow-x: auto;
 }
 
-.msgWrite-section #toggleButton .visually-hidden {
+.reply-section #toggleButton .visually-hidden {
 	border: 1px solid #ced4da;
 }
 
 /* 드랍다운 기존 보더 제거*/
-.msgWrite-section #toggleButton {
+.reply-section #toggleButton {
 	height: 35px;
 }
 
-.msgWrite-section #toggleButton{
+.reply-section #toggleButton{
 	border-radius: 5px;
 }
 
 /* 주소록 버튼 */
-.msgWrite-section .input-group .receiver-addressBtn .btn.btn-outline-secondary {
+.reply-section .input-group .receiver-addressBtn .btn.btn-outline-secondary {
     border: 1px solid #ced4da;
-    z-index: 106;
+    z-index: 110;
 }
 /* 인풋창 키 입력 커스텀 알림 */
 .custom-alert {

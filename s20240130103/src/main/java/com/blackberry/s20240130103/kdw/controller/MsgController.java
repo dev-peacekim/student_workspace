@@ -251,6 +251,7 @@ public class MsgController {
         log.info("MsgController readReceivedMessage fileMsgs.size() => {}", fileMsgs.size());
         return "kdw/msgReadReceived";
     }
+    
     // 보낸쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
     @GetMapping(value = "msgReadSent")
     public String readSentMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
@@ -309,13 +310,20 @@ public class MsgController {
 	
     // 답장쓰기 버튼 -> 답장쓰기 View 이동
     @GetMapping(value = "msgReply")
-    public String msgReplyPage(HttpServletRequest request, Model model) {
+    public String msgReplyPage(HttpServletRequest request, Model model, 
+    			@RequestParam(value = "sender", required = false) Long userNo) {
     log.info("MsgController msgReplyPage start...");
     // 세션에서 보내는 사람의 아이디 가져오기
     Long senderId = (Long) request.getSession().getAttribute("user_no");
     // 유저 테이블에서 모든 사용자 목록 가져오기
     List<User> userList = msgService.getAllUsers();
     
+    if (userNo != null) {
+        User senderUser = msgService.findUserDetailsById(userNo);
+        // 읽기 페이지에서 받은 보낸 사람 정보 -> 답장쓰기 받는사람
+        model.addAttribute("receiverUser", senderUser);
+        model.addAttribute("senderUserNo", userNo);
+    }
     
     model.addAttribute("senderId", senderId);
     model.addAttribute("userList", userList);

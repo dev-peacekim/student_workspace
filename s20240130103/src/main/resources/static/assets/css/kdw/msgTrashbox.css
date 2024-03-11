@@ -188,7 +188,7 @@ thead th:nth-child(7) {
     font-size: 14px;
 }
 
-.btn-msg-trashbox {
+.btn-msg-permanent-delete {
     margin-left: 0;
     color: #0d6efd;
     background-color: white;
@@ -202,7 +202,7 @@ thead th:nth-child(7) {
     font-weight: 800;
 }
 
-.btn-msg-trashbox:hover {
+.btn-msg-permanent-delete:hover {
     background-color: #0D6DFD; /* 마우스를 올렸을 때의 배경색 */
     color: #ffffff; /* 마우스를 올렸을 때의 텍스트 색상 */
     border: 1px solid #0D6DFD;

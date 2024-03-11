@@ -103,7 +103,8 @@ $(document).ready(function() {
 					<form id="readMessage-form">
 						<!-- Reply Button -->
 						<div class="form-group">
-							<a href="/msgReply" class="reply-btn">답장쓰기</a>
+							<!-- <a href="/msgReply" class="reply-btn">답장쓰기</a> -->
+							<a href="/msgReply?sender=${receivedMessageInfo.msg_sender}" class="reply-btn">답장쓰기</a>
 						</div>
 						<!-- 취소 Button : 이전 페이지로 돌아가기 -->
 						<!-- Referer 헤더는 사용자가 현재 요청을 보내기 전에 어떤 페이지에서 왔는지를 식별 -->
