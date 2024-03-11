@@ -50,7 +50,7 @@ public interface MsgDao {
 	void updateMsgDeleteStatus(List<Long> msgNos);
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
-	void permanentDeleteMessageFiles(List<Long> msgNos);
+	void deleteMessageFilesByMsgNo(Long msgNo);
 	// 쪽지 보내기 버튼 클릭스 쪽지 보내기 Insert
 	void sendMsg(Message message);
 	// !! 파일 업로드 !! 저장 처리
@@ -93,6 +93,8 @@ public interface MsgDao {
 	// 워크스패이스 쪽지 아이콘 누르면 인풋창에 해당유저 아이디(히든인풋) 닉네임 박히기
 	// 유저넘버로 닉네임 가져오기
 	User getUserNicUserId(Long receiverId);
+
+	
 
 	
 

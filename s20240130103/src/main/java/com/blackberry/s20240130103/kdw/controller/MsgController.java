@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.kdw.controller;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -488,20 +489,63 @@ public class MsgController {
     
     // '영구 삭제' 버튼 클릭 시 쪽지 영구 삭제
     @PostMapping(value = "/permanentDeleteMessages")
-    public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
-        System.out.println(requestData);
-    	List<Long> msgNos = requestData.get("msgNos");
+    public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData,HttpServletRequest request, HttpServletResponse response) {
+        List<Long> msgNos = requestData.get("msgNos");
         log.info("MsgController permanentDeleteMessages start...");
-        
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+
         try {
-            msgService.permanentDeleteMessages(msgNos);
-            System.out.println("쪽지 영구 삭제 성공");
+            for (Long msgNo : msgNos) {
+                // 첨부된 파일 목록 조회
+                List<MessageFile> files = msgService.getMessageFiles(msgNo);
+
+                // 파일 시스템에서 파일 삭제
+                for (MessageFile file : files) {
+                    String filePath = request.getSession().getServletContext().getRealPath("/upload/msgFile/") + file.getMsg_file_name();
+                    File f = new File(filePath);
+                    if (f.exists() && f.delete()) {
+                        log.info("File deleted successfully: " + filePath);
+                    } else {
+                        log.error("Failed to delete the file: " + filePath);
+                    }
+                }
+
+                // 데이터베이스에서 파일 정보 삭제
+                msgService.deleteMessageFilesByMsgNo(msgNo);
+
+                // 쪽지 정보 삭제
+                msgService.permanentDeleteMessages(Arrays.asList(msgNo));
+            }
+
+            response.getWriter().write("쪽지와 관련 파일들이 성공적으로 삭제되었습니다.");
+            response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             log.error("쪽지 영구 삭제에 실패했습니다.", e);
-            e.printStackTrace();
-            System.out.println("MsgController permanentDeleteMessages Exception ->" + e.getMessage());
+            try {
+                response.getWriter().write("쪽지 영구 삭제에 실패했습니다.");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            } catch (IOException ex) {
+                log.error("Error writing response", ex);
+            }
         }
     }
+    
+//    @PostMapping(value = "/permanentDeleteMessages")
+//    public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
+//        System.out.println(requestData);
+//    	List<Long> msgNos = requestData.get("msgNos");
+//        log.info("MsgController permanentDeleteMessages start...");
+//        
+//        try {
+//            msgService.permanentDeleteMessages(msgNos);
+//            System.out.println("쪽지 영구 삭제 성공");
+//        } catch (Exception e) {
+//            log.error("쪽지 영구 삭제에 실패했습니다.", e);
+//            e.printStackTrace();
+//            System.out.println("MsgController permanentDeleteMessages Exception ->" + e.getMessage());
+//        }
+//    }
     /* ========== 버튼 기능 구현 END =========== */
     
     

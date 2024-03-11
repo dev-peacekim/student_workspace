@@ -296,12 +296,19 @@ public class MsgDaoImpl implements MsgDao {
 	        e.printStackTrace();
 	    }
 	}
-	// 쪽지업로드 영구 삭제 구현
+	// 첨부파일 쪽 삭제 
 	@Override
-	public void permanentDeleteMessageFiles(List<Long> msgNos) {
-		// TODO Auto-generated method stub
-		
+	public void deleteMessageFilesByMsgNo(Long msgNo) {
+	    log.info("Deleting message files for msgNo: {}", msgNo);
+	    try {
+	        session.delete("kdwDeleteMessageFilesByMsgNo", msgNo);
+	        System.out.println("MsgDaoImpl deleteMessageFilesByMsgNo success msgNo" + msgNo);
+	    } catch (Exception e) {
+	        log.error("Error occurred while deleting message files for msgNo: {}", msgNo, e);
+	        e.printStackTrace();
+	    }
 	}
+
 	// 쪽지 보내기
     @Override
     public void sendMsg(Message message) {
@@ -526,31 +533,6 @@ public class MsgDaoImpl implements MsgDao {
 	    }
 	    return getUserNicUserId;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-	
-
-
-
-	
-	
-	
-
-
-
-
 
 
 

@@ -258,7 +258,11 @@
 			#{msgNo}
 		</foreach>
 	</delete>
-	
+	<!-- 첨부파일 쪽지 삭 -->
+	<delete id="kdwDeleteMessageFilesByMsgNo" parameterType="long">
+	    DELETE FROM message_file
+	    WHERE msg_no = #{msgNo}
+	</delete>
 	
 	<!-- !! 쪽지 등록 & 파일 업로드 !! -->
 	<!-- 쪽지 등록 -->

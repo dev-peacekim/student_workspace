@@ -56,7 +56,7 @@ public interface MsgService {
 	void updateMsgDeleteStatus(List<Long> msgNos);
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
-	void permanentDeleteMessageFiles(List<Long> msgNos, HttpServletRequest request);
+	void deleteMessageFilesByMsgNo(Long msgNo);
 	// 쪽지 보내기 (파일 업로드 포함)
 	void sendMsg(Message message, MultipartFile[] files, String path);
 	
@@ -95,6 +95,8 @@ public interface MsgService {
 	// 워크스패이스 쪽지 아이콘 누르면 인풋창에 해당유저 아이디(히든인풋) 닉네임 박히기
 	// 닉네임,아이디 가져오기
 	User findUserDetailsById(Long userNo);
+
+	
 
 
 
