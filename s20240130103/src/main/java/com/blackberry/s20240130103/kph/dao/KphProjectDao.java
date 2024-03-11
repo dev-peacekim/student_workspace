@@ -33,11 +33,13 @@ public interface KphProjectDao {
 	List<KphProjectTask> totalProjectTaskList(KphProjectTask kphProjectTask);
 
 	int totalProjectTaskCountByKeyword(KphProjectTask kphProjectTask);
+	
+	int isUserInProject(KphUserProject kphUserProject);
 
 	List<KphTask> taskListIncludingUsers(KphTask kphTask);
 
 	List<KphUsers> projectMemberList(Long project_no);
 
 	int taskAdd(List<Long> userNoList, KphTask kphTask);
-
+	
 }
