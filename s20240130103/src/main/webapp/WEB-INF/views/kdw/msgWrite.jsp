@@ -87,11 +87,9 @@ $('#receiverInput').on('focus', function() {
 
 // keydown 이벤트를 사용하여 키 입력 처리
 $('#receiverInput').on('keydown', function(e) {
-    const currentValue = $(this).val();
-
+    const currentValue = e.key;
     if (e.key === "Backspace") {
         let users = currentValue.split(', ');
-
         if (users.length > 0 && currentValue.slice(-1) !== ',') {
             users.pop(); // 마지막 요소 제거
             let newValue = users.join(', ') + (users.length > 0 ? ', ' : '');
@@ -99,13 +97,12 @@ $('#receiverInput').on('keydown', function(e) {
                 previousValue = newValue;
                 $(this).val(newValue);
             }
-
             e.preventDefault(); // 기본 동작 방지
         }
     } else {
         // 백스페이스 이외의 키 입력 시, DOM 업데이트 최소화
         setTimeout(() => {
-            if ($(this).val() !== previousValue) {
+            if (currentValue !== previousValue) {
                 $(this).val(previousValue); // 값을 이전 상태로 되돌림
                 showCustomAlert(); // 커스텀 알림 표시
             }
@@ -116,6 +113,7 @@ $('#receiverInput').on('keydown', function(e) {
 
 // 커스텀 알림을 표시하는 함수
 function showCustomAlert() {
+	
     $('#customAlert').css('display', 'block').css('opacity', '1');
 
     setTimeout(function() {

@@ -102,7 +102,7 @@
 									<td>프로필사진</td>
 									<td style="height: 450px;">
 									<c:if test="${ not empty user.user_profile }">
-										<img class="profile"
+										<img class="profile-pic"
 											src="${pageContext.request.contextPath}/upload/userImg/${user.user_profile}" alt="">
 										</td>
 									</c:if>
@@ -113,7 +113,7 @@
 					<div class="card-bottom d-flex justify-content-end">
 						<a href="admin_users">
 							<button class="btn btn-secondary">목록</button>
-						</a> <a href="admin_userDelete?cboard_no=${user.user_no }">
+						</a> <a href="admin_userDelete?user_no=${user.user_no }&user_profile=${user.user_profile}">
 							<button class="btn btn-danger">삭제</button>
 						</a>
 					</div>

@@ -92,4 +92,10 @@ public class LhsAdminController {
 		model.addAttribute("user", userdetail);
 		return "admin/admin_userDetail";
 	}
+	
+	@GetMapping("admin_userDelete")
+	public String adminUserDelete(User user,Model model) {
+		int result = adminService.deleteUser(user);
+		return "redirect:/admin_users";
+	}
 }

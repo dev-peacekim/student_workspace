@@ -27,7 +27,7 @@
 	
 	<insert id="kphTaskInsert" parameterType="KphTask" useGeneratedKeys="true" keyColumn="task_no" keyProperty="task_no">
 		INSERT INTO TASK t
-		VALUES (#{project_no}, (SELECT NVL(MAX(TASK_NO), 0)+1 FROM TASK t2 WHERE PROJECT_NO = #{project_no}), '#{task_title}', #{task_start}, TO_DATE('#{task_end, jdbcType=VARCHAR}', 'YYYY-MM-DD HH24:MI:SS'), 0, NULL)
+		VALUES (#{project_no}, (SELECT NVL(MAX(TASK_NO), 0)+1 FROM TASK t2 WHERE PROJECT_NO = #{project_no}), '#{task_title}', #{task_start}, TO_DATE(#{task_end, jdbcType=DATE}, 'YYYY-MM-DD HH24:MI:SS'), 0, NULL)
 	</insert>
 	
 </mapper>

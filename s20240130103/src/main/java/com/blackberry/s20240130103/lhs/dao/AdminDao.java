@@ -31,4 +31,6 @@ public interface AdminDao {
 
 	User selectUserDetail(User user);
 
+	int deleteUser(User user);
+
 }

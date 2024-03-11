@@ -82,4 +82,10 @@ public class AdminServiceImpl implements AdminService{
 		User userDetail = adminDao.selectUserDetail(user);
 		return userDetail;
 	}
+	
+	@Override
+	public int deleteUser(User user) {
+		int result = adminDao.deleteUser(user);
+		return result;
+	}
 }

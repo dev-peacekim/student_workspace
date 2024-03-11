@@ -81,7 +81,7 @@
 					bc.USER_NO = u.USER_NO 
 					AND bc.COMM_BIG = c.COMM_BIG 
 					AND bc.COMM_MID = c.COMM_MID 
-					ORDER BY bc.CBOARD_DELETE_CHK DESC) a) a2
+					ORDER BY bc.CBOARD_DELETE_CHK DESC,bc.cboard_date desc) a) a2
 		WHERE a2.rn BETWEEN #{start} AND #{end}
 	</select>
 	
@@ -145,5 +145,9 @@
 		and u.user_rank_big = c.comm_big
 		and u.user_rank_mid = c.comm_mid
 	</select>
+	
+	<delete id="LhsAdminUserDelete" parameterType="LhsUser">
+		delete from users u where u.user_no = #{user_no}
+	</delete>
 	
 </mapper>
