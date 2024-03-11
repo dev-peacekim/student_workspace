@@ -208,6 +208,7 @@ public class KphProjectController {
 		int compTaskListCount = ((List<KphTask>)detailProject.get("compTaskList")).size();
 		
 		model.addAttribute("taskList", detailProject.get("taskList"));
+		model.addAttribute("project_no", kphTask.getProject_no());
 		model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
 		model.addAttribute("unCompTaskListCount", unCompTaskListCount);
 		model.addAttribute("compTaskListCount", compTaskListCount);

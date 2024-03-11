@@ -77,7 +77,7 @@
 					<button type="button" class="project-home-btn btn btn-primary">프로젝트
 						홈</button>
 					<form action="boardProject" method="get">
-						<input class="project_no" type="hidden" name="project_no" value="${taskList.get(0).project_no }" />
+						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
 						<button type="button" class="project-board-btn btn btn-secondary">공유
 						게시판</button>			
 					</form>
@@ -109,7 +109,7 @@
 					<div class="task-card-head">
 						<h5 class="card-title">과업 목록</h5>
 						<form action="taskAddForm" method="post">
-							<input type="hidden" name="project_no" value="${taskList.get(0).project_no }" />
+							<input type="hidden" name="project_no" value="${project_no }" />
 							<input type="submit" class="plus-btn" value="+" />
 						</form>
 					</div>
