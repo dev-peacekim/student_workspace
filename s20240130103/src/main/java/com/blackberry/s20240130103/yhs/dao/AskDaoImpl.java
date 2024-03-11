@@ -16,12 +16,12 @@ public class AskDaoImpl implements AskDao {
 	// Mybatis DB 연동 
     private final SqlSession session;
 	@Override
-	public int totalAsk() {
+	public int totalAsk(Ask ask) {
 		int totAskCount = 0;
 		System.out.println("AskDaoImpl Start total..." );
 
 		try {
-			totAskCount = session.selectOne("com.blackberry.s20240130103.yhs.AskMapper.askTotal");
+			totAskCount = session.selectOne("askTotal",ask);
 			System.out.println("AskDaoImpl totalAsk totAskCount->" +totAskCount);
 		} catch (Exception e) {
 			System.out.println("AskDaoImpl totalAsk Exception->"+e.getMessage());
@@ -92,6 +92,12 @@ public class AskDaoImpl implements AskDao {
 			System.out.println("AskDaoImpl delete Exception->"+e.getMessage());
 		}
 		return result;
+	}
+	
+	@Override
+	public int selectAskCnt(Ask ask) {
+		int askCnt = session.selectOne("yhsSelectAskCnt",ask);
+		return askCnt;
 	}
 	 
 }

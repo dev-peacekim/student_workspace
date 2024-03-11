@@ -18,9 +18,9 @@ public class AskServiceImpl implements AskService {
 	private final AskDao askDao;
 	
 	@Override
-	public int totalAsk() {
+	public int totalAsk(Ask ask) {
 		System.out.println("AskServiceImpl Start total...");
-		int totAskCnt = askDao.totalAsk();
+		int totAskCnt = askDao.totalAsk(ask);
 		System.out.println("AskSeviceImpl totalAsk totAskCnt->"+ totAskCnt);
 		return totAskCnt;
 	}
@@ -70,6 +70,10 @@ public class AskServiceImpl implements AskService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	public int selectAskCnt(Ask ask) {
+		int askCnt = askDao.selectAskCnt(ask);
+		return askCnt;
 	}
+}
 

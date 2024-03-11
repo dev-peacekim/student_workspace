@@ -7,7 +7,7 @@ import com.blackberry.s20240130103.yhs.model.Ask;
 
 public interface AskService {
 
-	int totalAsk();
+	int totalAsk(Ask ask);
 	
 	List<Ask> listAsk(Ask ask);
 	

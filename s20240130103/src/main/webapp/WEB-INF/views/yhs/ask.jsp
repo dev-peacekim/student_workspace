@@ -179,28 +179,12 @@
 							<h5 class="card-title">여러분의 질문은 Blueberry를 성장시키는 자양분입니다!</h5>
 							<p></p>
 
-							<!-- Search Bar -->
-
-
-							<form action="askListSearch"
-								class="search-form d-flex align-items-center">
-								<div class="search-bar">
-									<input type="text" name="keyword" placeholder="키워드를 입력하세요"
-										title="Enter search keyword">
-									<button type="submit" title="Search">
-										<i class="bi bi-search"></i>
-									</button>
-								</div>
-							</form>
-							<!-- End Search Bar -->
-
 							<!-- Table with stripped rows -->
 
 							<table class="table datatable">
 								<thead>
 									<tr>
 										<th>문의번호</th>
-										<th>사용자번호</th>
 										<th>제목</th>
 										<th>작성일시</th>
 										<th>발생일시</th>
@@ -211,26 +195,54 @@
 									<c:forEach items="${listAsk }" var="BOARD_ADMIN">
 										<tr>
 											<td>${BOARD_ADMIN.admin_no}</td>
-											<td>${BOARD_ADMIN.user_no}</td>
-											<td><c:forEach begin="1"
-													end="${BOARD_ADMIN.admin_reply_group}">-</c:forEach> <a
-												href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a></td>
+											<td> 
+												<a href="askContent?admin_title=${BOARD_ADMIN.admin_title}">${BOARD_ADMIN.admin_title}</a>
+											</td>
 											<td><fmt:formatDate value="${BOARD_ADMIN.admin_date}"
 													pattern="yyyy-MM-dd" /></td>
 											<td><fmt:formatDate value="${BOARD_ADMIN.admin_start}"
 													pattern="yyyy-MM-dd" /></td>
-											<td>${BOARD_ADMIN.admin_reply_chk}</td>
+											<td>
+												<c:if test="${BOARD_ADMIN.admin_reply_chk eq 0 }">
+													답변중
+												</c:if>
+												<c:if test="${BOARD_ADMIN.admin_reply_chk eq 1 }">
+													답변완료
+												</c:if>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<div class="floatright">
-								<button type="button" class="btn-msg-primary">
-									<a href="askForm">글작성</a>
-								</button>
-							</div>
+							<div class="d-flex justify-content-end">
+			                  <a href="askForm">
+			                    <button type="button" class="btn-msg-primary">
+			                      글작성
+			                    </button>
+			                  </a>
+			                </div>
 							<!-- End Table with stripped rows -->
-
+							<div class="d-flex justify-content-center">
+			                  <ul class="pagination">
+									<c:if test="${page.startPage>paging.pageBlock }">
+										<li class="page-item"><a class="page-link"
+											href="askList?currentPage=${page.startPage-page.pageBlock }"><</a>
+										</li>
+									</c:if>
+									<c:forEach var="i" begin="${page.startPage }"
+										end="${page.endPage }">
+										<li class="page-item"><a class="page-link"
+											href="askList?currentPage=${i }">${i }</a>
+										</li>
+									</c:forEach>
+									<c:if test="${page.endPage < page.totalPage }">
+										<li class="page-item"><a class="page-link"
+											href="askList?currentPage=${page.startPage+paging.pageBlock }">></a>
+										</li>
+									</c:if>
+								</ul>
+			                </div>
+			                
 						</div>
 					</div>
 				</div>

@@ -33,7 +33,4 @@ public class Ask {
 	private String user_id;
 	private String user_name;
 	
-	// Test
-	private String boardtype;
-
 }
