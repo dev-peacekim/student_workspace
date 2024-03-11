@@ -124,7 +124,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
 		try {
-			
+			System.out.println("KphProjectDaoImp taskAdd kphTask=> " + kphTask);
 			session.insert("kphTaskInsert", kphTask);
 			System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + kphTask.getTask_no());
 			

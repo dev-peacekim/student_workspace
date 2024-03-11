@@ -1,6 +1,5 @@
 package com.blackberry.s20240130103.kph.model;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Data;
