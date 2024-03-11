@@ -57,29 +57,7 @@ SELECT *
 		) a
 		)
 		WHERE rn BETWEEN #{start} AND #{end}
-
-
 	</select>
-
-	<insert id="slaskBoardWrite" parameterType="String">
-		INSERT INTO
-		BOARD_COMM bc VALUES
-		(
-		seq_board_comm.nextval,
-		#{CBOARD_TITLE},
-		#{CBOARD_CONTENT},
-		0,
-		sysdate,
-		#{USER_NO}
-		0,
-		300,
-		20,
-		NULL,
-		NULL,
-		sysdate
-		)
-	</insert>
-
 
 	<select id="slboardAskContents" parameterType="int"
 		resultType="LslBoardComm">
@@ -90,12 +68,8 @@ SELECT *
 		WHERE bc.CBOARD_NO = #{cboard_no}
 	</select>
 
-	<update id="slboardAskViewCnt" parameterType="LslBoardComm">
-		update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where
-		cboard_no=#{cboard_no}
-	</update>
 
-	<insert id="slboardAskWriteInsert" parameterType="LslBoardComm" 
+<insert id="slboardAskWriteInsert" parameterType="LslBoardComm" 
 	useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
 		INSERT INTO
 		BOARD_COMM(cboard_no,
@@ -115,8 +89,8 @@ SELECT *
 		sysdate, #{user_no}, 0, 300, 10,NULL, NULL,
 		sysdate)
 	</insert>
-	
-	
+
+
 	<insert id="slSaveBoarAskdFile" parameterType = "LslboardFile">
 		INSERT INTO BOARD_COMM_FILE
 		(cboard_no,
@@ -133,9 +107,14 @@ SELECT *
 		FROM BOARD_COMM_FILE
 		WHERE cboard_no = #{cboard_no})
 		)
-		
 	</insert>
 
+	<update id="slboardAskViewCnt" parameterType="LslBoardComm">
+		update board_comm set CBOARD_VIEWCNT = CBOARD_VIEWCNT+1 where
+		cboard_no=#{cboard_no}
+	</update>
+
+	
 	<update id="sldeleteAskBoard" parameterType="LslBoardComm">
 		update board_comm
 		set CBOARD_DELETE_CHK = 1, COMM_UPDATE_DATE = sysdate
@@ -156,11 +135,26 @@ SELECT *
 		COMM_UPDATE_DATE = sysdate
 		where cboard_no = #{cboard_no}
 	</update>
+	
+	
+	
+	<!-- 게시판 파일 정보 && 파일 상세 정보 표시  -->
 <select id="slboardAskFiles" resultType="LslboardFile">
 	SELECT cboard_no, cboard_file_name, cboard_file_user_name, cboard_file_cnt
 	FROM BOARD_COMM_FILE
 	WHERE cboard_no = #{cboard_no} 
 </select>
 
-	
+<select id="slboardAskFileInfo" parameterType="LslboardFile" resultType="LslboardFile">
+	SELECT cboard_no, cboard_file_name, cboard_file_user_name, cboard_file_cnt
+	FROM BOARD_COMM_FILE
+	WHERE cboard_no = #{cboard_no}  AND cboard_file_cnt = #{fileCount}
+</select>
+
+	<!-- 게시판 파일 상세내역  -->
+	<select id="slboardAskInfo" parameterType="int">
+	SELECT *
+	FROM BOARD_COMM
+	WHERE cboard_no = #{cboard_no}
+	</select>
 </mapper>

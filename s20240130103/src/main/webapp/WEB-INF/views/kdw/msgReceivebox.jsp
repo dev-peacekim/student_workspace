@@ -84,18 +84,23 @@
 		// 보관 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 		var btnMsgStorebox = document.querySelector(".btn-msg-storebox");
 		btnMsgStorebox.addEventListener("click", function() {
-			// selectedMessageNos를 정의
-			selectedMessageNos = Array.from(
-					document.querySelectorAll(".message-checkbox:checked"))
-					.map(function(checkbox) {
-						return checkbox.getAttribute("data-msg-no");
-					});
-
-			// 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
-			console.log("Selected Message Nos:", selectedMessageNos);
-
-			// 선택된 메시지들의 번호를 서버로 보내어 업데이트하는 함수 호출
-			updateMsgStoreStatus(selectedMessageNos);
+		    // selectedMessageNos를 정의
+		    var selectedMessageNos = Array.from(
+		            document.querySelectorAll(".message-checkbox:checked"))
+		            .map(function(checkbox) {
+		                return checkbox.getAttribute("data-msg-no");
+		            });
+		
+		    // 선택된 쪽지가 없을 경우 함수 실행 중단
+		    if (selectedMessageNos.length === 0) {
+		        alert('선택된 쪽지가 없습니다.');
+		        return; // 여기서 함수 실행을 중단
+		    }
+		
+		    console.log("Selected Message Nos:", selectedMessageNos);
+		
+		    // 선택된 메시지들의 번호를 서버로 보내어 업데이트하는 함수 호출
+		    updateMsgStoreStatus(selectedMessageNos);
 		});
 
 		function updateMsgStoreStatus(selectedMessages) {
@@ -124,6 +129,8 @@
 
 		    xhr.send(JSON.stringify(data));
 		}
+		
+		
 		//휴지통으로 보내기
 		//삭제 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 		var btnMsgTrashbox = document.querySelector(".btn-msg-trashbox");
@@ -133,7 +140,12 @@
 		        return checkbox.getAttribute("data-msg-no");
 		    });
 
-		    // 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
+		    // 선택된 쪽지가 없을 경우 함수 실행 중단
+		    if (selectedMessageNos.length === 0) {
+		        alert('선택된 쪽지가 없습니다.');
+		        return; // 여기서 함수 실행을 중단
+		    }
+
 		    console.log("Selected Message Nos to Delete:", selectedMessageNos);
 
 		    // 선택된 메시지들의 번호를 서버로 보내어 삭제하는 함수 호출
@@ -167,7 +179,7 @@
 
 		    xhr.send(JSON.stringify(data));
 		}
-	});
+	}); // 건들지마
 	
 </script>
 <!-- 검색바&드롭박스 JS END-->

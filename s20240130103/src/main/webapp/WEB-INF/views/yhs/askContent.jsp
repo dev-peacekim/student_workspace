@@ -367,13 +367,10 @@
                 <span class="post-content">${askContent.admin_content}</span>
             </div>
                        
-                    	<button type="button" class="btn bacDelete" onclick="goBack()">삭제</button>
-						<button type="button" class="btn bacModify" onclick="goBack()">수정</button>
-						<button type="button" class="btn bacList" onclick="goBack()">목록</button>
-						<button type="button" class="btn bacReply"><a href="askContentReply">답변</button>
-                        
-                        
-                        
+                    	<button type="button" class="btn bacDelete" onclick="location.href='deleteAsk?admin_no=${askContent.admin_no}'">삭제</button>
+						<button type="button" class="btn bacModify" onclick="location href='askUpdateForm?user_no=${askUpdateForm.user_no}'">수정</button>
+						<button type="button" class="btn bacList" onclick="goBack()">목록</button>              
+                                              
                      <script>
                         function goBack() {
                             window.history.back();

@@ -94,6 +94,11 @@ public class KphProjectDaoImp implements KphProjectDao {
 		System.out.println("KphProjectDaoImp totalTaskCountByKeyword start...");
 		return session.selectOne("kphTotalTaskCountByKeyword", kphProjectTask);
 	}
+	
+	@Override
+	public int isUserInProject(KphUserProject kphUserProject) {
+		return session.selectOne("kphIsUserInProject", kphUserProject);
+	}
 
 	@Override
 	public List<KphTask> taskListIncludingUsers(KphTask kphTask) {
@@ -126,12 +131,12 @@ public class KphProjectDaoImp implements KphProjectDao {
 		try {
 			System.out.println("KphProjectDaoImp taskAdd kphTask=> " + kphTask);
 			session.insert("kphTaskInsert", kphTask);
-			System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + kphTask.getTask_no());
+			System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + kphTask.getPo_task_no());
 			
 			for (int i = 0; i < userNoList.size(); i++) {
 				KphUserTask kphUserTask = new KphUserTask();
 				kphUserTask.setProject_no(kphTask.getProject_no());
-				kphUserTask.setTask_no(kphTask.getTask_no());
+				kphUserTask.setTask_no(kphTask.getPo_task_no());
 				kphUserTask.setUser_no(userNoList.get(i));
 				int userTaskInsertResult = session.insert("kphUserTaskInsert", kphUserTask);
 				System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + userTaskInsertResult);
@@ -147,5 +152,5 @@ public class KphProjectDaoImp implements KphProjectDao {
 		
 		return result;
 	}
-	
+
 }

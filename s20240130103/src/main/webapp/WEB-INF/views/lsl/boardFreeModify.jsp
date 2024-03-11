@@ -66,18 +66,18 @@
                         <!-- General Form Elements -->
                      
                         <form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate">
-   						 <input type="hidden" name="cboard_no" value="${boardModifyContents.cboard_no}" />
+   						 <input type="hidden" name="cboard_no" value="${boardCommFileList.cboard_no}" />
     					<input type="hidden" name="boardType" value="${boardType}" />
 						    <div class="mb-3">
 						        <label for="inputText" class="form-label">제목</label>
-						        <input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
+						        <input type="text" class="form-control" name="cboard_title" value="${boardCommFileList.cboard_title}">
 						    </div>
                             <div class="upload-files">
                                 <label for="files" class="form-label">파일 첨부</label>
                                 <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
                             </div>
 						    <div class="mb-3">
-						        <textarea class="form-control" style="height: 550px;" name="cboard_content">${boardModifyContents.cboard_content}</textarea>
+						        <textarea class="form-control" style="height: 550px;" name="cboard_content">${boardCommFileList.cboard_content}</textarea>
 						    </div>
 						    <div class="mb-3">
 						        <button type="button" class="btn bfmCancle" onclick="goBack()">취소</button>

@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// 체크박스
+	// ================ 체크박스 ===================
 	var selectAllCheckbox = document.getElementById("select-all-checkbox");
 
 	selectAllCheckbox.addEventListener("click", function() {
@@ -77,50 +77,53 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 보관 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 	var btnMsgStorebox = document.querySelector(".btn-msg-storebox");
 	btnMsgStorebox.addEventListener("click", function() {
-		// selectedMessageNos를 정의
-		selectedMessageNos = Array.from(
-				document.querySelectorAll(".message-checkbox:checked"))
-				.map(function(checkbox) {
-					return checkbox.getAttribute("data-msg-no");
-				});
-
-		// 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
-		console.log("Selected Message Nos:", selectedMessageNos);
-
-		// 선택된 메시지들의 번호를 서버로 보내어 업데이트하는 함수 호출
-		updateMsgStoreStatus(selectedMessageNos);
+	    // selectedMessageNos를 정의
+	    var selectedMessageNos = Array.from(
+	            document.querySelectorAll(".message-checkbox:checked"))
+	            .map(function(checkbox) {
+	                return checkbox.getAttribute("data-msg-no");
+	            });
+	
+	    // 선택된 쪽지가 없을 경우 함수 실행 중단
+	    if (selectedMessageNos.length === 0) {
+	        alert('선택된 쪽지가 없습니다.');
+	        return; // 여기서 함수 실행을 중단
+	    }
+	
+	    console.log("Selected Message Nos:", selectedMessageNos);
+	
+	    // 선택된 메시지들의 번호를 서버로 보내어 업데이트하는 함수 호출
+	    updateMsgStoreStatus(selectedMessageNos);
 	});
 
 	function updateMsgStoreStatus(selectedMessages) {
-		// AJAX를 사용하여 서버에 업데이트 요청을 보냅니다.
-		var xhr = new XMLHttpRequest();
-		xhr.open('POST', '/updateMsgStoreStatus', true);
-		xhr.setRequestHeader('Content-Type',
-				'application/json;charset=UTF-8');
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/updateMsgStoreStatus', true);
+	    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4) {
-				console.log("Server Response:", xhr.status,
-						xhr.responseText); // 응답 상태 콘솔에 출력
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4) {
+	            console.log("Server Response:", xhr.status, xhr.responseText); // 응답 상태 콘솔에 출력
 
-				if (xhr.status === 200) {
-					// 성공적으로 업데이트된 경우의 처리를 여기에 추가합니다.
-					alert('쪽지가 성공적으로 보관되었습니다.');
-					// 알림창 확인 시 화면을 새로고침
-					location.reload();
-				} else {
-					alert('쪽지 보관에 실패했습니다.');
-				}
-			}
-		};
+	            if (xhr.status === 200) {
+	                // 성공적으로 업데이트된 경우의 처리를 여기에 추가합니다.
+	                alert('쪽지가 성공적으로 보관되었습니다.');
+	                // 알림창 확인 시 화면을 새로고침
+	                location.reload();
+	            } else {
+	                alert('쪽지 보관에 실패했습니다.');
+	            }
+	        }
+	    };
 
-		var data = {
-			msgNos : selectedMessageNos.map(Number)
-		};
+	    var data = {
+	        msgNos : selectedMessages.map(Number)
+	    };
 
-		xhr.send(JSON.stringify(data));
+	    xhr.send(JSON.stringify(data));
 	}
-
+	
+	
 	//휴지통으로 보내기
 	//삭제 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 	var btnMsgTrashbox = document.querySelector(".btn-msg-trashbox");
@@ -130,7 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	        return checkbox.getAttribute("data-msg-no");
 	    });
 
-	    // 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
+	    // 선택된 쪽지가 없을 경우 함수 실행 중단
+	    if (selectedMessageNos.length === 0) {
+	        alert('선택된 쪽지가 없습니다.');
+	        return; // 여기서 함수 실행을 중단
+	    }
+
 	    console.log("Selected Message Nos to Delete:", selectedMessageNos);
 
 	    // 선택된 메시지들의 번호를 서버로 보내어 삭제하는 함수 호출

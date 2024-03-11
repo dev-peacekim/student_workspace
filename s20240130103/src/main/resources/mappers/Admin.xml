@@ -150,4 +150,50 @@
 		delete from users u where u.user_no = #{user_no}
 	</delete>
 	
+	<select id="LhsAdminReplyCnt" parameterType="LhsReply" resultType="int">
+		select count(*)
+		from board_comm_reply bcr
+		<choose>
+			<when test="searchkind=='id'">
+				WHERE bcr.USER_NO = (SELECT u.USER_NO FROM USERS u WHERE u.user_id = #{searchValue})
+			</when>
+			<when test="searchkind=='cboard_no'">
+				WHERE bcr.cboard_no = #{searchValue}
+			</when>
+			<when test="searchkind=='creply_content'">
+				WHERE bcr.creply_content like '%'||#{searchValue}||'%'
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="LhsAdminReplyList" parameterType="LhsReply" resultType="LhsReply">
+		SELECT a.*
+		FROM (SELECT rownum rn,a.*
+				FROM (SELECT bc.CBOARD_TITLE ,u.USER_ID,bcr.*
+				FROM board_comm_reply bcr,USERS u,BOARD_COMM bc 
+				WHERE bcr.USER_NO =u.USER_NO 
+				AND bcr.CBOARD_NO = bc.CBOARD_NO(+)
+				<choose>
+					<when test="searchkind=='id'">
+						AND bcr.USER_NO = (SELECT u.USER_NO FROM USERS u WHERE u.user_id = #{searchValue})
+					</when>
+					<when test="searchkind=='cboard_no'">
+						AND bcr.cboard_no = #{searchValue}
+					</when>
+					<when test="searchkind=='creply_content'">
+						AND bcr.creply_content like '%'||#{searchValue}||'%'
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				ORDER BY bcr.CREPLY_DELETE_CHK desc,bcr.creply_group,bcr.CREPLY_LEVEL) a) a
+		WHERE a.rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	<delete id="LhsAdminReplyDelete" parameterType="LhsReply">
+		delete from board_comm_reply bcr where bcr.creply_no=#{creply_no}
+	</delete>
+	
 </mapper>

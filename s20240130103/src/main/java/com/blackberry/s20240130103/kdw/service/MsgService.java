@@ -8,6 +8,8 @@ import com.blackberry.s20240130103.kdw.model.Message;
 import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.lhs.model.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public interface MsgService {
 	
 	// 전체 유저 리스트 가져와서 뿌려주기(나중에 주소록으로 바꿔야함)
@@ -54,6 +56,7 @@ public interface MsgService {
 	void updateMsgDeleteStatus(List<Long> msgNos);
 	// 영구삭제버튼 클릭시 해당 쪽지 영구삭제
 	void permanentDeleteMessages(List<Long> msgNos);
+	void permanentDeleteMessageFiles(List<Long> msgNos, HttpServletRequest request);
 	// 쪽지 보내기 (파일 업로드 포함)
 	void sendMsg(Message message, MultipartFile[] files, String path);
 	

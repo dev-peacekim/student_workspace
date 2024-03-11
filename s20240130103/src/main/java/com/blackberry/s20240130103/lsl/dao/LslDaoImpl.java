@@ -1,7 +1,10 @@
 package com.blackberry.s20240130103.lsl.dao;
 
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -49,6 +52,8 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	
+	
+	
 	// 질문 게시판 토탈 카운트 및 페이징 
 	@Override
 	public int totalBoardAsk() {
@@ -75,6 +80,9 @@ public class LslDaoImpl implements LslDao {
 		}
 		return boardAskList;
 	}
+	
+	
+	
 	
 	
 	// 게시판 검색
@@ -105,6 +113,9 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	
+	
+	
+	
 	// 게시판 글 상세 페이지 
 	@Override
 	public LslBoardComm boardAskContents(int cboard_no) {
@@ -123,6 +134,9 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeContents;
 	}
 	
+	
+	
+	
 	// 게시판 파일 업로드 
 	@Override
 	public void saveBoardFile(LslboardFile lslboardFile) {
@@ -138,6 +152,9 @@ public class LslDaoImpl implements LslDao {
 	}
 
 
+	
+	
+	
 	// 게시판 글 파일 상세 내역 
 	@Override
 	public List<LslboardFile> boardAskFiles(int cboard_no) {
@@ -151,6 +168,88 @@ public class LslDaoImpl implements LslDao {
 		return boardAskFiles;
 	}
 	
+	@Override
+	public List<LslboardFile> boardFreeFile(int cboard_no) {
+		List<LslboardFile> boardFreeFiles = null;
+		
+		try {
+			boardFreeFiles = session.selectList("slboardFreeFiles", cboard_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("LslDaoImpl boardFreeFile Exception : " +e.getMessage());
+		}
+		return boardFreeFiles;
+	}
+
+	
+	
+	// 게시판 파일 다운로드 	
+	
+	@Override
+	public LslboardFile boardAskInfo(int cboard_no, int fileCount) {
+		LslboardFile boardAskInfo = null;
+		
+		try {
+			Map<String, Object> param = new HashMap<>();
+			param.put("cboard_no", cboard_no);
+			param.put("fileCount", fileCount);
+			
+			boardAskInfo = session.selectOne("slboardAskInfo", param);
+			
+		} catch (Exception e) {
+			System.out.println("LslDaoImpl boardAskInfo Exception ->" + e.getMessage());
+		}
+		
+		return boardAskInfo;
+	}
+	
+	
+	@Override
+	public LslboardFile boardFreeInfo(int cboard_no, int fileCount) {
+	    LslboardFile boardFreeInfo = null;
+	    
+	    try {
+	        Map<String, Object> param = new HashMap<>();
+	        param.put("cboard_no", cboard_no);
+	        param.put("fileCount", fileCount);
+	        
+	        boardFreeInfo = session.selectOne("slboardFreeInfo", param);
+	    } catch (Exception e) {
+	        System.out.println("LslDaoImpl boardFreeInfo Exception ->" + e.getMessage());
+	    }
+	    return boardFreeInfo;
+	    
+	}
+	    // 게시판 파일 포함 
+		@Override
+		public LslBoardComm boardFreeInfo(int cboard_no) {
+			LslBoardComm boardFreeInfo = null;
+			try {
+				boardFreeInfo = session.selectOne("slboardFreeFileInfo",cboard_no);
+			} catch (Exception e) {
+			 e.printStackTrace();
+			 System.out.println("LslDaoImpl boardFreeInfo Exception -> " + e.getMessage());
+			}
+			
+			return boardFreeInfo;
+		}
+
+		@Override
+		public LslBoardComm boardAskInfo(int cboard_no) {
+			LslBoardComm boardAskInfo = null;
+			try {
+				boardAskInfo = session.selectOne("slboardAskFileInfo",cboard_no);
+			} catch (Exception e) {
+			 e.printStackTrace();
+			 System.out.println("LslDaoImpl boardFreeInfo Exception -> " + e.getMessage());
+			}
+			
+			return boardAskInfo;
+		}
+
+		
+	
+	
 	
 	// 게시판 글 상세 페이지 댓글 카운트
 	@Override
@@ -159,8 +258,6 @@ public class LslDaoImpl implements LslDao {
 		return boardReplyCnt;
 	}
 
-	
-	
 	
 	// 게시판 글쓰기 
 	@Override
@@ -176,6 +273,8 @@ public class LslDaoImpl implements LslDao {
 	}
 
 
+	
+	
 	// 게시판 글 삭제
 	@Override
 	public int deleteFreeBoard(LslBoardComm lslBoardComms) {
@@ -191,6 +290,7 @@ public class LslDaoImpl implements LslDao {
 
 
 
+	
 	// 게시판 조회수 
 	@Override
 	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
@@ -205,6 +305,7 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	
+	
 	// 게시판 글 수정 페이지
 	@Override
 	public LslBoardComm boardFreeModify(int cboard_no) {
@@ -218,6 +319,8 @@ public class LslDaoImpl implements LslDao {
 		return boardAskModify;
 	}
 
+	
+	
 	// 게시판 글 수정 
 	@Override
 	public int  boardFreeUpdate(LslBoardComm lslBoardComm) {
@@ -269,27 +372,28 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeAskResult;
 	}
 
-
-	
-
 	
 	
 	
+	// 게시글 파일까지 상세내역 
+	@Override
+	public List<LslBoardComm> boardCommFileList(LslBoardComm lslBoardComm) {
+		List<LslBoardComm> boardCommFileList = session.selectList("slboardCommFreeFileList", lslBoardComm);
+//		Iterator<LslBoardComm> boardCommFileListIt = boardCommFileList.iterator();
+//		
+//		while(boardCommFileListIt.hasNext()) {
+//			LslBoardComm boardComm = boardCommFileListIt.next();
+//			boardComm.setBoardFiles(session.selectList("slFileListInBoard", boardComm));
+//		}
+		
+		return boardCommFileList;
+	}
+
+
+
 
 	
 
-
-
-	
-
-
-
-	
-	
-
-
-	
-	
 	
 	
 	

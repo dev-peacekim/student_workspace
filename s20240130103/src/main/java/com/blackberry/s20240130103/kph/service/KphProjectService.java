@@ -28,6 +28,8 @@ public interface KphProjectService {
 
 	int totalProjectTaskCountByKeyword(KphProjectTask kphProjectTask);
 
+	int isUserInProject(KphUserProject kphUserProject);
+
 	Map<String, Object> detailProject(KphTask kphTask);
 
 	List<KphUsers> projectMemberList(Long project_no);

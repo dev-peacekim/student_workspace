@@ -13,5 +13,18 @@
          )
       }
    </insert>
+   
+
+   <insert id="kphTaskInsert" parameterType="KphTask" statementType="CALLABLE">
+		 {
+         CALL KPH_TASK_INSERT_PROC (
+            #{project_no, mode=IN, jdbcType=INTEGER}
+            ,#{task_title, mode=IN, jdbcType=VARCHAR}
+            ,#{task_start, mode=IN, jdbcType=DATE}
+            ,#{task_end, mode=IN, jdbcType=VARCHAR}
+            ,#{po_task_no, mode=OUT, jdbcType=INTEGER}
+         )
+      	}
+	</insert>
 	
 </mapper>

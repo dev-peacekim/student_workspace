@@ -489,7 +489,8 @@ public class MsgController {
     // '영구 삭제' 버튼 클릭 시 쪽지 영구 삭제
     @PostMapping(value = "/permanentDeleteMessages")
     public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
-        List<Long> msgNos = requestData.get("msgNos");
+        System.out.println(requestData);
+    	List<Long> msgNos = requestData.get("msgNos");
         log.info("MsgController permanentDeleteMessages start...");
         
         try {

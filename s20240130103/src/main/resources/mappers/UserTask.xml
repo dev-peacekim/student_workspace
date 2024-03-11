@@ -6,5 +6,5 @@
 		INSERT INTO USER_TASK_MANY
 		VALUES (#{project_no}, #{task_no}, #{user_no})
 	</insert>
-	
+
 </mapper>

@@ -82,8 +82,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="main">Home</a></li>
 		  <li class="breadcrumb-item"><a href="askList">문의하기</a></li>
-	      <li class="breadcrumb-item"><a href="askForm">글작성</a></li>
-	      <li class="breadcrumb-item"><a href="askContentReply">답변작성</a></li>
+	      <li class="breadcrumb-item"><a href="askForm">글수정</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -94,24 +93,31 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">문의사항 작성하기</h5>
+              <h5 class="card-title">문의사항 수정하기</h5>
              <%--  <c:if test="${msg!=null}">${msg}</c:if> --%>
               <!-- General Form Elements -->
-						<form action="askWrite" method="post" name="frm">
+						<form action="askUpdateForm" method="post" name="frm">
 
 							<div class="row mb-3">
 								<label for="inputText" class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
 									<!-- <input type="text" class="form-control"> -->
-									<input type="text" class="form-control" name="admin_title"
-										value="${BOARD_ADMIN.admin_title}" required="required">
+									<tr><th>제목</th><td>${BOARD_ADMIN.admin_title}</td></tr>
 								</div>
 							</div>
 							<div class="row mb-3">
+                  				<label for="inputDate" class="col-sm-2 col-form-label">문의내용 발생일</label>
+                  				<div class="col-sm-10">
+                  					<tr><th>문의내용 발생일</th><td>${BOARD_ADMIN.admin_start}</td></tr>
+ <%--                    			<input type="date" name="admin_start" value="${BOARD_ADMIN.admin_start}" class="form-control">
+ --%>                  				</div>
+                			</div> 
+							<div class="row mb-3">
 								<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="admin_content"
-										value="${BOARD_ADMIN.admin_content}" style="height: 453px"></textarea>
+									<tr><th>내용</th><td>${BOARD_ADMIN.admin_content}</td></tr>
+<%-- 									<textarea class="form-control" name="admin_content"
+										value="${BOARD_ADMIN.admin_content}" style="height: 453px"></textarea> --%>
 								</div>
 							</div>
 							<div class="floatright">

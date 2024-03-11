@@ -6,23 +6,28 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
+import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
 import com.blackberry.s20240130103.lhs.service.AdminService;
 import com.blackberry.s20240130103.lhs.service.LhsPaging;
+import com.blackberry.s20240130103.lhs.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequiredArgsConstructor
 public class LhsAdminController {
 	
 	private final AdminService adminService;
+	private final UserService userService;
 	
 	@GetMapping("/adminMain")
 	public String adminMain(Model model) {
@@ -98,4 +103,36 @@ public class LhsAdminController {
 		int result = adminService.deleteUser(user);
 		return "redirect:/admin_users";
 	}
+	
+	@GetMapping("admin_reply")
+	public String adminReplyList(Reply reply,Model model) {
+		int replyCnt = adminService.selectReplyCnt(reply);
+		LhsPaging paging = new LhsPaging(replyCnt, reply.getCurrentPage());
+		reply.setStart(paging.getStart());
+		reply.setEnd(paging.getEnd());
+		List<Reply> replyList = adminService.selectReplyList(reply);
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchkind", reply.getSearchkind());
+		model.addAttribute("searchValue", reply.getSearchValue());
+		return "admin/admin_replyList";
+	}
+	
+	@GetMapping("admin_replyDelte")
+	public String adminReplyDelete(Reply reply) {
+		int result = adminService.deleteReply(reply);
+		return "redirect:/admin_reply";
+	}
+	
+	@GetMapping("adminRegisterForm")
+	public String adminRegisterForm() {
+		return "admin/admin_AddForm";
+	}
+	
+	@PostMapping("adminRegister")
+	public String adminRegister(com.blackberry.s20240130103.lhs.domain.User user) {
+		userService.joinUser(user);
+		return "redirect:/adminMain";
+	}
+	
 }

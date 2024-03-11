@@ -150,7 +150,6 @@ public class LslServiceImpl implements LslService {
 	
 	
 	// 질문 게시판 파일 상세 내역 
-
 	@Override
 	public List<LslboardFile> boardAskFile(int cboard_no) {
 		List<LslboardFile> boardAskFiles = ld.boardAskFiles(cboard_no);
@@ -168,6 +167,12 @@ public class LslServiceImpl implements LslService {
 		return boardFreeContents;
 	}
 	
+	// 질문 게시판 파일 상세 내역 
+	@Override
+	public List<LslboardFile> boardFreeFile(int cboard_no) {
+		List<LslboardFile> boardFreeFile = ld.boardFreeFile(cboard_no);
+		return boardFreeFile;
+	}
 	
 	
 	
@@ -229,34 +234,47 @@ public class LslServiceImpl implements LslService {
 
 	}
 	
+	
+	// 질문 게시판 파일 다운로드 
+	@Override
+	public LslboardFile boardAskInfo(int cboard_no, int fileCount) {
+		LslboardFile boardAskInfo = ld.boardAskInfo(cboard_no, fileCount);
+		return boardAskInfo;
+	}
+	
+	@Override
+	public LslboardFile boardFreeInfo(int cboard_no, int fileCount) {
+		LslboardFile boardFreeInfo  = ld.boardFreeInfo(cboard_no, fileCount);
+		return boardFreeInfo;
+	}
+
+	
+	// 게시판 파일 포함 리스트 
+	@Override
+	public LslBoardComm boardFreeInfo(int cboard_no) {
+		LslBoardComm boardFreeInfo = ld.boardFreeInfo(cboard_no);
+		return boardFreeInfo;
+	}
+	@Override
+	public LslBoardComm boardAskInfo(int cboard_no) {
+		LslBoardComm boardAskInfo = ld.boardAskInfo(cboard_no);
+		return boardAskInfo;
+	}
+	
+	
+	
+	
+	
 	public String boardFileSave(MultipartFile multipartFile, String boardfilePath) throws Exception {
 		
 		String orignalFileName = multipartFile.getOriginalFilename();
 		String fileEx = orignalFileName.substring(orignalFileName.lastIndexOf("."));
 	    //  중복되지 않는 파일명 생성(UUID, Date)
 	    String fileName = UUID.randomUUID().toString()+fileEx;
-	   
-	    // 2. 확장자
-	    /*
-	    StringBuilder builder = new StringBuilder();
-	    builder.append(fileName);
-	    builder.append("_");
-	    builder.append(multipartFile.getOriginalFilename());
-	    */
 	    
 	    // 3. 파일 저장
 	    File boardFile = new File(boardfilePath, fileName);
-	   /* try {
-	        multipartFile.transferTo(file);
-	        
-	    } catch (IllegalStateException e) {
-	        e.printStackTrace();
-	        System.out.println("multipartFile IllegalStateException : " + e.getMessage() );
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        System.out.println("multipartFile IOException : " + e.getMessage());
-	    }
-	    */
+
 	    Files.copy(multipartFile.getInputStream(), boardFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	    
 	    return fileName;
@@ -320,6 +338,7 @@ public class LslServiceImpl implements LslService {
 		
 	}
 
+	
 
 	// 자유 게시판 리스트 조회수 
 	@Override
@@ -330,6 +349,8 @@ public class LslServiceImpl implements LslService {
 	
 
 
+	
+	
 
 	
 	
@@ -367,8 +388,18 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
+	
 		
 		
+// 게시글 파일 까지 수정 리스트
+	@Override
+	public List<LslBoardComm> boardCommFileList(LslBoardComm lslBoardComm) {
+	List<LslBoardComm> boardCommFileList = ld.boardCommFileList(lslBoardComm);
+	return boardCommFileList;
+}
+	
+		
+	
 	
 		
 		

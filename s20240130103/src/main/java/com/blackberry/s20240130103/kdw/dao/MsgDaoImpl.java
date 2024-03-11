@@ -296,6 +296,12 @@ public class MsgDaoImpl implements MsgDao {
 	        e.printStackTrace();
 	    }
 	}
+	// 쪽지업로드 영구 삭제 구현
+	@Override
+	public void permanentDeleteMessageFiles(List<Long> msgNos) {
+		// TODO Auto-generated method stub
+		
+	}
 	// 쪽지 보내기
     @Override
     public void sendMsg(Message message) {
@@ -520,6 +526,8 @@ public class MsgDaoImpl implements MsgDao {
 	    }
 	    return getUserNicUserId;
 	}
+
+
 
 
 

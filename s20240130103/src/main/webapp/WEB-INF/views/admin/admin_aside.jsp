@@ -9,7 +9,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed" href="admin_users">
+          <a class="nav-link collapsed" href="admin_reply">
             <i class="bi bi-file-earmark-text"></i><span>´ñ±Û°ü¸®</span>
           </a>
         </li>

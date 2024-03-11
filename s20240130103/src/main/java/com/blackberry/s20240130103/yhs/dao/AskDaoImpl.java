@@ -16,12 +16,12 @@ public class AskDaoImpl implements AskDao {
 	// Mybatis DB 연동 
     private final SqlSession session;
 	@Override
-	public int totalAsk() {
+	public int totalAsk(Ask ask) {
 		int totAskCount = 0;
 		System.out.println("AskDaoImpl Start total..." );
 
 		try {
-			totAskCount = session.selectOne("com.blackberry.s20240130103.yhs.AskMapper.askTotal");
+			totAskCount = session.selectOne("askTotal",ask);
 			System.out.println("AskDaoImpl totalAsk totAskCount->" +totAskCount);
 		} catch (Exception e) {
 			System.out.println("AskDaoImpl totalAsk Exception->"+e.getMessage());
@@ -45,11 +45,11 @@ public class AskDaoImpl implements AskDao {
 	
 	
 	 @Override 
-	 public Ask askContent(String admin_title) {
+	 public Ask askContent(Ask ask) {
 	 System.out.println("AskDaoImpl askContent Start..."); 
-	 System.out.println("AskDaoImpl askConten admin_title->"+admin_title);
+	 System.out.println("AskDaoImpl askConten ask->"+ask);
 
-	 Ask askContent = session.selectOne("yhsAskContent", admin_title);
+	 Ask askContent = session.selectOne("yhsAskContent", ask);
 	 System.out.println("AskDaoImpl askContent -> " + askContent); 
 	 return askContent; 
 	 }
@@ -76,6 +76,20 @@ public class AskDaoImpl implements AskDao {
 			System.out.println("AskDaoImpl insert ask->" + ask);
 		} catch (Exception e) {
 			System.out.println("AskDaoImpl insert Exception->"+e.getMessage());
+		}
+		return result;
+	}
+	
+	@Override
+	public int deleteAsk(int admin_no) {
+		System.out.println("AskDaoImpl delete start..");
+		int result = 0;
+		System.out.println("AskDaoImpl delete empno->"+admin_no);
+		try {
+			result  = session.delete("yhsDeleteAsk",admin_no);
+			System.out.println("AskDaoImpl delete result->"+result);
+		} catch (Exception e) {
+			System.out.println("AskDaoImpl delete Exception->"+e.getMessage());
 		}
 		return result;
 	}

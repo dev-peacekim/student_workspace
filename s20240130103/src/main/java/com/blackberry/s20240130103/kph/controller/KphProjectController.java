@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -197,23 +198,42 @@ public class KphProjectController {
 		return response;
 	}
 	
-	@PostMapping("detailProject")
-	public String detailProject(KphTask kphTask, HttpServletRequest request, Model model) {
+	@GetMapping("detailProject")
+	public String detailProject(HttpServletRequest request, Model model) {
 		
-		System.out.println("KphProjectController detailProject start...");
+		String resultPage = "forward:mainLogic";
 		
-		Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		Long project_no = Long.parseLong(request.getParameter("project_no"));
 		
-		int unCompTaskListCount = ((List<KphTask>)detailProject.get("unCompTaskList")).size();
-		int compTaskListCount = ((List<KphTask>)detailProject.get("compTaskList")).size();
+		KphUserProject kphUserProject = new KphUserProject();
+		kphUserProject.setProject_no(project_no);
+		kphUserProject.setUser_no(user_no);
 		
-		model.addAttribute("taskList", detailProject.get("taskList"));
-		model.addAttribute("project_no", kphTask.getProject_no());
-		model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
-		model.addAttribute("unCompTaskListCount", unCompTaskListCount);
-		model.addAttribute("compTaskListCount", compTaskListCount);
+		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
+		System.out.println(isUserInProject);
 		
-		return "kph/detailProject";
+		if (isUserInProject > 0) {
+			KphTask kphTask = new KphTask();
+			kphTask.setProject_no(project_no);
+			
+			System.out.println("KphProjectController detailProject start...");
+			
+			Map<String, Object> detailProject = kphProjectService.detailProject(kphTask); 
+			
+			int unCompTaskListCount = ((List<KphTask>)detailProject.get("unCompTaskList")).size();
+			int compTaskListCount = ((List<KphTask>)detailProject.get("compTaskList")).size();
+			
+			model.addAttribute("taskList", detailProject.get("taskList"));
+			model.addAttribute("project_no", kphTask.getProject_no());
+			model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
+			model.addAttribute("unCompTaskListCount", unCompTaskListCount);
+			model.addAttribute("compTaskListCount", compTaskListCount);
+			
+			resultPage = "kph/detailProject";
+		}
+		
+		return resultPage;
 	}
 	
 	@PostMapping("taskFilter")
@@ -255,7 +275,7 @@ public class KphProjectController {
 	}
 	
 	@PostMapping("taskAdd")
-	public String taskAdd(@RequestParam("user_no") List<Long> userNoList, KphTask kphTask, HttpServletRequest request, Model model) {
+	public String taskAdd(@RequestParam("user_no") List<Long> userNoList, KphTask kphTask, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		System.out.println("KphProjectController taskAdd start...");
 		
 		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
@@ -265,7 +285,16 @@ public class KphProjectController {
 		int result = kphProjectService.taskAdd(userNoList, kphTask);
 		System.out.println("KphProjectController taskAdd result=> " + result);
 		
-		return "forward:/detailProject";
+		redirectAttributes.addAttribute("project_no", kphTask.getProject_no());
+		
+		return "redirect:/detailProject";
 	}
+	
+	@GetMapping("teamMemberAddForm")
+	public String teamMemberAddForm() {
+		
+		return "teamMemberAddForm";
+	}
+	
 	
 }

@@ -1,8 +1,10 @@
 package com.blackberry.s20240130103.lsl.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
+
 
 import lombok.Data;
 
@@ -32,6 +34,9 @@ public class LslBoardComm {
 	private int cboard_file_cnt;
 	private String cboard_file_name;
 	private String cboard_file_user_name;
+	
+	// File 다운로드용
+	private List<LslboardFile> boardFiles;
 
 	// 조회용
 	private String search;
@@ -58,6 +63,8 @@ public class LslBoardComm {
 	private String user_name;
 	private String user_profile;
 	
-
+	
+	
+	// 보드 타입
 	private String boardType;
 }

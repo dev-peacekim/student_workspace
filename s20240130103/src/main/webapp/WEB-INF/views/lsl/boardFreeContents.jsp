@@ -94,6 +94,16 @@ window.onload = function() {
             </div>
             <div class="community-post-header-body">
                 <span class="post-content">${boardFreeContents.cboard_content}</span>
+                <div class="boardFileBox">
+                    <div id="files">
+			          <c:forEach items="${boardFreeFile}" var="boardFreeFile">
+			    		<div class="file-container">
+			        	<a href="/boardFreeFileDownload?cboard_no=${boardFreeFile.cboard_no}&fileCount=${boardFreeFile.cboard_file_cnt}" target="_blank" class="file-link">${boardFreeFile.cboard_file_user_name}</a>
+			        	<i class="bi bi-download file-download-icon"></i>
+			    </div>
+			</c:forEach>
+                    </div>
+                </div>
             </div>
 
           <section class="community-post-answer">

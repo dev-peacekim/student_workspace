@@ -17,4 +17,7 @@ public class KphTask {
 	// 조회용
 	private List<KphUsers> users;
 	
+	// 프로시져 용
+	private Long po_task_no; 
+	
 }

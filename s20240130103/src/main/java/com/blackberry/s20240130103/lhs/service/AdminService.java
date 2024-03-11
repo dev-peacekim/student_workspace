@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
+import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
 
 public interface AdminService {
@@ -32,5 +33,11 @@ public interface AdminService {
 	User selectUserDetail(User user);
 
 	int deleteUser(User user);
+
+	List<Reply> selectReplyList(Reply reply);
+
+	int selectReplyCnt(Reply reply);
+
+	int deleteReply(Reply reply);
 
 }
