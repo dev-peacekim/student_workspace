@@ -8,5 +8,10 @@
 		WHERE PROJECT_NO = #{project_no}
 			AND USER_NO = #{user_no}
 	</select>
+	
+	<insert id="kphProjectMemberAdd" parameterType="KphUser_Project">
+		INSERT INTO USER_PROJECT_MANY
+		VALUES (#{project_no}, #{user_no}, 100, 20)
+	</insert>
 
 </mapper>

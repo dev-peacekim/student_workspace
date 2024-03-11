@@ -136,10 +136,28 @@ $(".taskFilter").on("click", function () {
   });
 });
 
-$("#team-member-add-btn").on("click", function () { 
-  $(".team-member-add-box-no-authority").css('display', 'flex');
+$("#team-member-add-btn").on("click", function () {
+
+    const projectLeader_no = $('.projectLeader_no').val();
+    const project_no = $('.project_no').val();
+
+    $.ajax({
+        type: "get",
+        url: "userAuthority",
+        data: {
+            projectLeader_no : projectLeader_no
+        },
+        dataType: "json",
+        success: function (userAuthority) {
+            if(userAuthority != 1){
+				$(".team-member-add-box-no-authority").css('display', 'flex');	
+			} else {
+				window.location.href = '/projectMemberAddForm?project_no=' + project_no; 
+			}
+        }
+    });
 });
 
-$(".authority-cancle").on('click', function () {  
-  $(".team-member-add-box-no-authority").css('display', 'none');
+$(".authority-cancle").on('click', function () {
+    $(".team-member-add-box-no-authority").css('display', 'none');
 })

@@ -9,5 +9,8 @@ public class KphUserProject {
 	private Long user_no;
 	private int comm_big;
 	private int comm_mid;
+
+	// 조회용
+	private String user_name;
 	
 }

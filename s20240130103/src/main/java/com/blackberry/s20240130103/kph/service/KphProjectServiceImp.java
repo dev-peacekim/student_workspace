@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
 import com.blackberry.s20240130103.kph.model.KphEval;
@@ -150,6 +151,10 @@ public class KphProjectServiceImp implements KphProjectService {
 		List<KphUsers> projectMemberList = kphProjectDao.projectMemberList(kphTask.getProject_no());
 		detailProject.put("projectMemberList", projectMemberList);
 		
+		// 프로젝트 팀장 세팅
+		Long projectLeader_no = kphProjectDao.projectLeaderNo(kphTask.getProject_no());
+		detailProject.put("projectLeader_no", projectLeader_no);
+		
 		return detailProject;
 	}
 
@@ -164,6 +169,31 @@ public class KphProjectServiceImp implements KphProjectService {
 	public int taskAdd(List<Long> userNoList, KphTask kphTask) {
 		System.out.println("KphProjectServiceImp taskAdd start...");
 		int result = kphProjectDao.taskAdd(userNoList, kphTask);
+		return result;
+	}
+
+	@Override
+	public List<KphUsers> addressUserListExceptProjectMember(KphUserProject kphUserProject) {
+		System.out.println("KphProjectServiceImp addressUserListExceptProjectMember start...");
+		List<KphUsers> addressUserList = kphProjectDao.addressUserListExceptProjectMember(kphUserProject);
+		return addressUserList;
+	}
+
+	@Override
+	@Transactional
+	public int projectMemberAdd(KphUserProject kphUserProject, List<Long> userNoList) {
+		System.out.println("KphProjectServiceImp projectMemberAdd start...");
+		
+		int result = 0;
+		
+		Iterator<Long> userNoListIt = userNoList.iterator();
+		while (userNoListIt.hasNext()) {
+			Long user_no = userNoListIt.next();
+			kphUserProject.setUser_no(user_no);
+			result = kphProjectDao.projectMemberAdd(kphUserProject);
+			System.out.println("projectMemberInsert result=> " + result);
+		}
+		
 		return result;
 	}
 

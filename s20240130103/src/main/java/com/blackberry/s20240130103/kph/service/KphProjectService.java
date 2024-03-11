@@ -36,4 +36,8 @@ public interface KphProjectService {
 
 	int taskAdd(List<Long> userNoList, KphTask kphTask);
 
+	List<KphUsers> addressUserListExceptProjectMember(KphUserProject kphUserProject);
+
+	int projectMemberAdd(KphUserProject kphUserProject, List<Long> userNoList);
+
 }

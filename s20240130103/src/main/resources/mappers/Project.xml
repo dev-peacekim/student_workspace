@@ -15,4 +15,10 @@
 		WHERE PROJECT_NO = #{project_no}
 	</select>
 	
+	<select id="kphProjectLeaderNo" parameterType="java.lang.Long" resultType="java.lang.Long">
+		SELECT USER_NO
+		FROM PROJECT
+		WHERE PROJECT_NO = #{project_no}
+	</select>
+	
 </mapper>

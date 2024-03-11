@@ -99,6 +99,11 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public int isUserInProject(KphUserProject kphUserProject) {
 		return session.selectOne("kphIsUserInProject", kphUserProject);
 	}
+	
+	@Override
+	public Long projectLeaderNo(Long project_no) {
+		return session.selectOne("kphProjectLeaderNo", project_no);
+	}
 
 	@Override
 	public List<KphTask> taskListIncludingUsers(KphTask kphTask) {
@@ -151,6 +156,18 @@ public class KphProjectDaoImp implements KphProjectDao {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<KphUsers> addressUserListExceptProjectMember(KphUserProject kphUserProject) {
+		System.out.println("KphProjectDaoImp addressUserListExceptProjectMember start...");
+		return session.selectList("kphAddressUserListExceptProjectMember", kphUserProject);
+	}
+
+	@Override
+	public int projectMemberAdd(KphUserProject kphUserProject) {
+		System.out.println("KphProjectDaoImp projectMemberAdd start...");
+		return session.insert("kphProjectMemberAdd", kphUserProject);
 	}
 
 }

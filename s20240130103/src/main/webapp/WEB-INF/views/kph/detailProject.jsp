@@ -72,6 +72,7 @@
 		<!-- End Page Title -->
 
 		<section class="section dashboard">
+			<input class="projectLeader_no" type="hidden" name="projectLeader_no" value="${projectLeader_no }" />
 			<div class="top">
 				<div class="top-btn">
 					<button type="button" class="project-home-btn btn btn-primary">프로젝트
@@ -98,8 +99,8 @@
 						<i id="setting-btn" class="bi bi-gear-fill"></i>
 						<ul id="setting-content" class="setting-content team-list-content">
 							<li id="team-member-add-btn">팀원 추가</li>
-							<a href="projectUpdate"><li>프로젝트 수정</li></a>
-							<a href="projectDelete"><li>프로젝트 삭제</li></a>
+							<li>프로젝트 수정</li>
+							<li>프로젝트 삭제</li>
 						</ul>
 					</div>
 				</div>

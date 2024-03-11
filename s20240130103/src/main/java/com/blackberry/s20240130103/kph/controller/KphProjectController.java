@@ -229,6 +229,7 @@ public class KphProjectController {
 			model.addAttribute("projectMemberList", detailProject.get("projectMemberList"));
 			model.addAttribute("unCompTaskListCount", unCompTaskListCount);
 			model.addAttribute("compTaskListCount", compTaskListCount);
+			model.addAttribute("projectLeader_no", detailProject.get("projectLeader_no"));
 			
 			resultPage = "kph/detailProject";
 		}
@@ -290,10 +291,48 @@ public class KphProjectController {
 		return "redirect:/detailProject";
 	}
 	
-	@GetMapping("teamMemberAddForm")
-	public String teamMemberAddForm() {
+	@GetMapping("userAuthority")
+	@ResponseBody
+	public int userAuthority(@RequestParam("projectLeader_no") Long projectLeader_no, HttpServletRequest request) {
+		int userAuthority = 0;
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		System.out.println(user_no);
 		
-		return "teamMemberAddForm";
+		if(user_no == projectLeader_no) {
+			userAuthority = 1;
+		}
+		
+		return userAuthority;
+	}
+	
+	@GetMapping("projectMemberAddForm")
+	public String projectMemberAddForm(HttpServletRequest request, Model model) {
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		Long project_no = Long.parseLong(request.getParameter("project_no"));
+		
+		KphUserProject kphUserProject = new KphUserProject();
+		kphUserProject.setUser_no(user_no);
+		kphUserProject.setProject_no(project_no);
+		
+		List<KphUsers> addressUserList = kphProjectService.addressUserListExceptProjectMember(kphUserProject);
+		
+		model.addAttribute("addressUserList", addressUserList);
+		model.addAttribute("project_no", project_no);
+		return "kph/projectMemberAddForm";
+	}
+	
+	@PostMapping("projectMemberAdd")
+	public String taskMemberAdd(@RequestParam("user_no") List<Long> userNoList, @RequestParam("project_no") Long project_no, HttpServletRequest request) {
+		System.out.println("KphProjectController taskMemberAdd start...");
+		
+		if(userNoList != null) {
+			KphUserProject kphUserProject = new KphUserProject();
+			kphUserProject.setProject_no(project_no);
+			int result = kphProjectService.projectMemberAdd(kphUserProject, userNoList);
+			System.out.println(result);
+		}
+		
+		return "redirect:/detailProject?project_no=" + String.valueOf(project_no);
 	}
 	
 	
