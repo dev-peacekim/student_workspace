@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmPaging;
 import com.blackberry.s20240130103.ykm.service.YkmService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +34,13 @@ public class YkmBoardController {
 		List<YkmBoardComm> getPostList = ykmService.getPostList(comm_mid2);
 		model.addAttribute("getPostList", getPostList);
 		model.addAttribute("comm_mid2", comm_mid2);
+		
+		int totalCount = ykmService.getTotalCount(ykmBoardComm);
+		
+		YkmPaging stuPage = new YkmPaging(totalCount, ykmBoardComm.getCurrentPage());
+		ykmBoardComm.setStart(stuPage.getStart());
+		ykmBoardComm.setEnd(stuPage.getEnd());
+		model.addAttribute("stuPage", stuPage);
 		//System.out.println("YkmController getPostList result --> "+ getPostList.size());
 		return "ykm/boardStudy";
 	}
@@ -101,6 +111,17 @@ public class YkmBoardController {
 		model.addAttribute("deletePost", deletePost);
 		return "forward:boardStudy";
 	}
+	
+	
+
+	// 검색
+	@PostMapping(value="/board/search")
+	public String getSearchList(YkmBoardComm ykmBoardComm, Model model) {
+		List<YkmBoardComm> searchResult = ykmService.getSearchList(ykmBoardComm);
+		model.addAttribute("searchResult", searchResult);
+		return "ykm/boardStudy";
+	}
+
 	
 	// 파일 업로드
 	

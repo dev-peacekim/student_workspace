@@ -15,6 +15,7 @@
       <typeAlias alias="KdwMessageFile" type="com.blackberry.s20240130103.kdw.model.MessageFile"/>
       <typeAlias alias="YkmBoardComm" type="com.blackberry.s20240130103.ykm.model.YkmBoardComm"/>
       <typeAlias alias="YkmBoardCommReply" type="com.blackberry.s20240130103.ykm.model.YkmBoardCommReply"/>
+      <typeAlias alias="YkmPaging" type="com.blackberry.s20240130103.ykm.model.YkmPaging"/>
       <typeAlias alias="Ask" type="com.blackberry.s20240130103.yhs.model.Ask"/>
       <typeAlias alias="LhsAddress" type="com.blackberry.s20240130103.lhs.model.Address"/>
       <typeAlias alias="LhsUser" type="com.blackberry.s20240130103.lhs.model.User"/>

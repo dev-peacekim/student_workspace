@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.BoardStudyMapper">
-	<select id="ykmGetPostList" parameterType="int" resultType="YkmBoardComm">
+	<select id="ykmGetPostList" parameterType="int" resultType="YkmBoardComm">	
 		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
 		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
 		FROM BOARD_COMM B
@@ -12,7 +12,7 @@
 			<if test="comm_mid2 != 0">
 			AND B.COMM_MID2 = #{comm_mid2} 
 			</if>
-		ORDER BY B.CBOARD_NO DESC
+		ORDER BY B.CBOARD_DATE DESC
 	</select>
 	
 	<select id="ykmGetPost" resultType="YkmBoardComm" parameterType="int">
@@ -61,6 +61,36 @@
 		SET COMM_MID2 = #{comm_mid2}
 		WHERE CBOARD_NO = #{cboard_no}
  	</update>
+ 	
+ 	<select id="ykmGetSearchList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
+ 		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
+ 		FROM BOARD_COMM B, USERS U
+ 		WHERE B.COMM_BIG=200 AND B.COMM_MID = 20
+ 			AND B.USER_NO = U.USER_NO
+ 			<if test="comm_mid2 != 0">
+			AND B.COMM_MID2 = #{comm_mid2} 
+			</if>
+ 		<choose>
+			<when test="type == 'TC'">
+				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+			</when>
+			<when test="type == 'W'">
+				AND U.USER_NIC = #{keyword}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		ORDER BY B.CBOARD_DATE DESC
+ 	</select>
 
+	<!-- TOTAL  -->
+	<select id="ykmGetTotalCount" parameterType="YkmBoardComm" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_COMM
+		WHERE COMM_BIG = 200
+	 	  AND COMM_MID = 20
+	</select>
 
+	
 </mapper>

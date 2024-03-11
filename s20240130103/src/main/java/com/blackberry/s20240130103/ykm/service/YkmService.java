@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
+import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 public interface YkmService {
 
@@ -35,6 +36,11 @@ public interface YkmService {
 	int countComment(int cboard_no); // 댓글 개수 카운트
 
 	int updateRecruitment(YkmBoardComm ykmBoardComm); // 모집여부 값 변경
+
+	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
+
+	int getTotalCount(YkmBoardComm ykmBoardComm);
+
 
 	
 }

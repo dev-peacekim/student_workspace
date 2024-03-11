@@ -28,12 +28,20 @@ public class YkmBoardComm {
 	// Users 조회용
 	private String user_id;
 	private String user_nic;
-//	private String user_name;
-//	private String user_email;
-//	private String user_phone;
 	private String user_profile;
-
-	//
+	
+	// 댓글 카운트
 	private int countComment;
-	private int reply_count;
+	private int reply_count;		
+
+	// 검색 조회용
+	private String type;
+	private String keyword;
+	
+	// 페이징 조회용
+	private String pageNum;
+	private int start;
+	private int end;
+	private String currentPage;
+	
 }

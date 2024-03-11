@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
+import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 public interface YkmBoardDao {
 	int writePost(YkmBoardComm ykmBoardComm);
@@ -33,6 +34,10 @@ public interface YkmBoardDao {
 	int updateComment(YkmBoardCommReply ykmBoardCommReply);
 
 	int countComment(int cboard_no);
+
+	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
+
+	int getTotalCount(YkmBoardComm ykmBoardComm);
 
 
 }

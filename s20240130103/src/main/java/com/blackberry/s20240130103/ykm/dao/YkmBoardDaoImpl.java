@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
+import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -107,6 +108,25 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		System.out.println("YkmBoardDaoImpl updateRecruitment start ---*");
 		return session.update("ykmUpdateRecruitment", ykmBoardComm);
 	}
-	
 
+	// null
+	@Override
+	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl getSearchList start ---*");
+		List<YkmBoardComm> getSearchList = session.selectList("ykmGetSearchList",ykmBoardComm);
+		return getSearchList;
+	}
+
+	@Override
+	public int getTotalCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl getTotalCount start ---*");
+		int result = session.selectOne("ykmGetTotalCount", ykmBoardComm);
+		System.out.println("YkmBoardDaoImpl getTotalCount result : " + result );
+		return result;
+	}
+
+
+
+
+	
 }

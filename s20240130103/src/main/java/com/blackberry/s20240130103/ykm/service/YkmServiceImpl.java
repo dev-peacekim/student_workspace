@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
+import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,6 @@ public class YkmServiceImpl implements YkmService {
 	public List<YkmBoardComm> getPostList(int comm_mid2) {
 		System.out.println("YkmServiceImpl getPostList start---*");
 		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList(comm_mid2);
-		
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
@@ -103,6 +103,23 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public int countComment(int cboard_no) {
 		return ykmBoardDao.countComment(cboard_no);
+	}
+
+
+	@Override
+	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getSearchList start ---*");
+		List<YkmBoardComm> getSearchList = ykmBoardDao.getSearchList(ykmBoardComm);
+		System.out.println("YkmServiceImpl getSearchList result ===> "+ getSearchList.size());
+		return getSearchList;
+	}
+
+	@Override
+	public int getTotalCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getTotalCount start ---*");
+		int result = ykmBoardDao.getTotalCount(ykmBoardComm);
+		System.out.println("YkmServiceImpl getTotalCount result : "+result);
+		return result;
 	}
 
 
