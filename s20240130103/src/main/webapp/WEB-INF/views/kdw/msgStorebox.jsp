@@ -83,7 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	        return checkbox.getAttribute("data-msg-no");
 	    });
 
-	    // 이후에 선택된 쪽지들의 번호를 활용하여 원하는 작업을 수행할 수 있습니다.
+	    // 선택된 쪽지가 없을 경우 함수 실행 중단
+	    if (selectedMessageNos.length === 0) {
+	        alert('선택된 쪽지가 없습니다.');
+	        return; // 여기서 함수 실행을 중단
+	    }
+
 	    console.log("Selected Message Nos to Delete:", selectedMessageNos);
 
 	    // 선택된 메시지들의 번호를 서버로 보내어 삭제하는 함수 호출

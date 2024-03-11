@@ -65,44 +65,46 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 체크박스
 	var selectAllCheckbox = document.getElementById("select-all-checkbox");
 
+	// 체크박스 상태 변경 확인 로직 추가
 	selectAllCheckbox.addEventListener("click", function() {
-		var messageCheckboxes = document
-				.querySelectorAll(".message-checkbox");
-
-		for (var i = 0; i < messageCheckboxes.length; i++) {
-			messageCheckboxes[i].checked = selectAllCheckbox.checked;
-		}
+	    var messageCheckboxes = document.querySelectorAll(".message-checkbox");
+	    for (var i = 0; i < messageCheckboxes.length; i++) {
+	        messageCheckboxes[i].checked = selectAllCheckbox.checked;
+	        // 체크박스 상태 로그 출력
+	        console.log("Checkbox " + i + " checked: " + messageCheckboxes[i].checked);
+	    }
 	});
 
 	// '영구 삭제' 버튼 클릭 시 선택된 쪽지들의 번호를 가져옴
 	var btnMsgPermanentDelete = document.querySelector(".btn-msg-permanent-delete");
+	// '영구 삭제' 버튼 클릭 이벤트 핸들러 수정
 	btnMsgPermanentDelete.addEventListener("click", function() {
-	    // selectedMessageNos를 정의
-	    selectedMessageNos = Array.from(document.querySelectorAll(".message-checkbox:checked")).map(function(checkbox) {
+	    var selectedMessageNos = Array.from(document.querySelectorAll(".message-checkbox:checked")).map(function(checkbox) {
 	        return checkbox.getAttribute("data-msg-no");
 	    });
 
-	    // 이후에 선택된 쪽지들의 번호를 활용하여 영구 삭제 수행
+	    if (selectedMessageNos.length === 0) {
+	        alert('선택된 쪽지가 없습니다.');
+	        return;
+	    }
+
+	    // 선택된 메시지 번호 로그 출력
 	    console.log("Selected Message Nos for Permanent Delete:", selectedMessageNos);
 
-	    // 선택된 메시지들의 번호를 서버로 보내어 영구 삭제하는 함수 호출
 	    permanentDeleteMessages(selectedMessageNos);
 	});
 
+	// 서버 요청 전 데이터 상태 확인
 	function permanentDeleteMessages(selectedMessages) {
-	    // AJAX를 사용하여 서버에 영구 삭제 요청을 보냅니다.
 	    var xhr = new XMLHttpRequest();
 	    xhr.open('POST', '/permanentDeleteMessages', true);
 	    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
 	    xhr.onreadystatechange = function() {
 	        if (xhr.readyState === 4) {
-	            console.log("Server Response:", xhr.status, xhr.responseText);  // 응답 상태 콘솔에 출력
-
+	            console.log("Server Response:", xhr.status, xhr.responseText);
 	            if (xhr.status === 200) {
-	                // 성공적으로 영구 삭제된 경우의 처리를 여기에 추가합니다.
 	                alert('쪽지가 성공적으로 영구 삭제되었습니다.');
-	                // 알림창 확인 시 화면을 새로고침 또는 업데이트
 	                location.reload();
 	            } else {
 	                alert('쪽지 영구 삭제에 실패했습니다.');
@@ -110,10 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	        }
 	    };
 	    
-	    var data = {
-	        msgNos: selectedMessages.map(Number)
-	    };
-
+	    var data = { msgNos: selectedMessages.map(Number) };
+	    console.log("Sending Data:", JSON.stringify(data));  // 전송 데이터 상태 확인 로그
 	    xhr.send(JSON.stringify(data));
 	}
 });

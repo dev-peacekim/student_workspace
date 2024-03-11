@@ -16,6 +16,7 @@ import com.blackberry.s20240130103.kdw.model.Message;
 import com.blackberry.s20240130103.kdw.model.MessageFile;
 import com.blackberry.s20240130103.lhs.model.User;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -188,6 +189,41 @@ public class MsgServiceImpl implements MsgService {
 		msgDao.permanentDeleteMessages(msgNos);
 	}
 
+	@Override
+	public void permanentDeleteMessageFiles(List<Long> msgNos, HttpServletRequest request) {
+	    System.out.println("MsgDaoImpl permanentDeleteMessageFiles start...");
+	    
+	    try {
+	        for(Long msgNo : msgNos) {
+	            // 예시로, msgNo에 해당하는 파일 이름을 가져오는 로직이 필요합니다.
+	            // 이 부분은 데이터베이스에서 msgNo를 기반으로 파일 이름을 조회하는 로직으로 대체해야 합니다.
+	            String fileName = ""; // 파일 이름을 조회하는 로직
+	            
+	            // 파일 경로 구성
+	            String filePath = request.getSession().getServletContext().getRealPath("/upload/msgFile/") + fileName;
+	            File file = new File(filePath);
+	            
+	            // 파일이 존재하면 삭제
+	            if(file.exists()) {
+	                if(file.delete()) {
+	                    System.out.println("File deleted successfully: " + filePath);
+	                } else {
+	                    System.out.println("Failed to delete the file: " + filePath);
+	                }
+	            } else {
+	                System.out.println("File does not exist: " + filePath);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("MsgDaoImpl permanentDeleteMessageFiles failure" + e.getMessage());
+	    }
+		
+	}
+
+	
+	
+	
 	// 쪽지 보내기
 	@Override
 	public void sendMsg(Message message, MultipartFile[] files, String path) {
