@@ -93,15 +93,18 @@ window.onload = function() {
             </div>
             <div class="community-post-header-body">
                 <span class="post-content">${boardAskContents.cboard_content}</span>
-                <div class="file-attachment">
+            <div class="boardFileBox">
                     <div id="files">
-                        <c:forEach items="${boardAskFile}" var="boardAskFile">
-                            <a href="/boardAskContents?cboard_no=${boardAskFile.cboard_no}" 
-                                target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a><br/>
-                        </c:forEach>
+			          <c:forEach items="${boardAskFile}" var="boardAskFile">
+			    		<div class="file-container">
+			        	<a href="/boardAskFileDownload?cboard_no=${boardAskFile.cboard_no}&fileCount=${boardAskFile.cboard_file_cnt}" target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a>
+			        	<i class="bi bi-download file-download-icon"></i>
+			    </div>
+			</c:forEach>
                     </div>
                 </div>
             </div>
+          
 
           <section class="community-post-answer">
             <div class="answer-info-header">
@@ -156,6 +159,7 @@ window.onload = function() {
                             window.history.back();
                         }
                     </script>
+                    
                     
             </div>
             </section>

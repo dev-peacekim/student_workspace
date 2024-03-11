@@ -2,31 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.blackberry.s20240130103.lsl.BoardFreeMapper">
-	<insert id="slboardFreeWriteInsert" parameterType="LslBoardComm"
-	useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
-		INSERT INTO BOARD_COMM
-		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content}, 0 ,
-		sysdate, #{user_no}, 0, 300, 20,NULL, NULL, sysdate)
-	</insert>
-	
-	<insert id="slSaveBoarFreedFile" parameterType = "LslboardFile">
-		INSERT INTO BOARD_COMM_FILE
-		(cboard_no,
-		cboard_file_name,
-		cboard_file_user_name,
-		cboard_file_cnt
-		)
-		VALUES(
-		#{cboard_no},
-		#{cboard_file_name},
-		#{cboard_file_user_name},
-		(SELECT
-		NVL(MAX(cboard_file_cnt), 0) + 1
-		FROM BOARD_COMM_FILE
-		WHERE cboard_no = #{cboard_no})
-		)
-	</insert>
-
 	<select id="sltotalBoardFreeList" resultType="int">
 	select count(*)
 	from board_comm
@@ -59,6 +34,9 @@ SELECT *
 		 and		rn <=#{end}
  		]]>
 	</select>
+	
+	
+	
 	<select id="slboardFreeSearch" parameterType="LslBoardComm"
 		resultType="LslBoardComm">
 		SELECT *
@@ -82,7 +60,8 @@ SELECT *
 		WHERE rn BETWEEN #{start}
 		AND #{end}
 	</select>
-
+	
+	
 	<select id="slboardFreeContents" parameterType="int"
 		resultType="LslBoardComm">
 		SELECT bc.*, u.USER_NIC
@@ -92,6 +71,31 @@ SELECT *
 		WHERE bc.CBOARD_NO = #{cboard_no}
 		AND CBOARD_DELETE_CHK = 0
 	</select>
+	
+	
+	<insert id="slboardFreeWriteInsert" parameterType="LslBoardComm"
+	useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
+		INSERT INTO BOARD_COMM
+		VALUES (SEQ_BOARD_COMM.nextval, #{cboard_title}, #{cboard_content}, 0 ,
+		sysdate, #{user_no}, 0, 300, 20,NULL, NULL, sysdate)
+	</insert>
+	
+	<insert id="slSaveBoarFreedFile" parameterType = "LslboardFile">
+		INSERT INTO BOARD_COMM_FILE
+		(cboard_no,
+		cboard_file_name,
+		cboard_file_user_name,
+		cboard_file_cnt
+		VALUES(
+		#{cboard_no},
+		#{cboard_file_name},
+		#{cboard_file_user_name},
+		(SELECT
+		NVL(MAX(cboard_file_cnt), 0) + 1
+		FROM BOARD_COMM_FILE
+		WHERE cboard_no = #{cboard_no})
+		)
+	</insert>
 
 
 	<update id="slboardFreeViewCnt" parameterType="LslBoardComm">
@@ -116,4 +120,39 @@ SELECT *
 		set cboard_title =#{cboard_title}, cboard_content = #{cboard_content},  COMM_UPDATE_DATE = sysdate
 		where cboard_no = #{cboard_no}
 	</update>
+	
+	
+	<!-- 게시판 파일 정보 && 파일 상세 정보 표시  -->
+<select id="slboardFreeFiles" resultType="LslboardFile">
+	SELECT cboard_no, cboard_file_name, cboard_file_user_name, cboard_file_cnt
+	FROM BOARD_COMM_FILE
+	WHERE cboard_no = #{cboard_no} 
+</select>
+
+
+<select id="slboardFreeFileInfo" parameterType="LslboardFile" resultType="LslboardFile">
+	SELECT cboard_no, cboard_file_name, cboard_file_user_name, cboard_file_cnt
+	FROM BOARD_COMM_FILE
+	WHERE cboard_no = #{cboard_no}  AND cboard_file_cnt = #{fileCount}
+</select>
+	
+	<!-- 게시판 파일 상세내역  -->
+	<select id="slboardFreeInfo" parameterType="int">
+	SELECT *
+	FROM BOARD_COMM
+	WHERE cboard_no = #{cboard_no}
+	</select>
+	
+	
+<select id="slboardCommFreeFileList" parameterType="LslBoardComm" resultType="java.util.List">
+SELECT *
+FROM BOARD_COMM
+WHERE cboard_no = #{cboard_no}
+</select>
+	
+<select id="slFileListInBoard" parameterType="LslBoardComm" resultType="LslboardFile">
+SELECT *
+FROM BOARD_COMM_FILE
+WHERE cboard_no = #{cboard_no}
+</select>
 </mapper>

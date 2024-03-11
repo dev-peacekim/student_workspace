@@ -11,5 +11,6 @@ public class LslboardFile {
 	private int cboard_file_cnt;
 	private String cboard_file_name;
 	private String cboard_file_user_name;
-
+	
+	
 }

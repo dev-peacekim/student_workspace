@@ -145,6 +145,7 @@
 	margin-left: 10px;
 }
 
+
 /*--------------------------------------------------------------
 # comment
 --------------------------------------------------------------*/
@@ -381,4 +382,23 @@
     font-size: 0.8rem;
     right: 50px;
 	
+}
+
+/*--------------------------------------------------------------
+# File Box Style
+--------------------------------------------------------------*/
+
+#files {
+	position:absolute;
+	margin-top: -40px;
+	right: -40px;
+	width: 400px;
+	height: 100px;
+}
+.FileBox {
+	position:absolute;
+	width: 100%;
+	height: 100px;
+	bottom: 200px;
+	border: 0.3rem solid black !important;
 }
