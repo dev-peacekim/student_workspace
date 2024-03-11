@@ -16,6 +16,7 @@ public interface AskDao {
 	List<Ask> askListSearch(Ask ask);
 
 	int insertAsk(Ask ask);
-	
-	
+
+	int deleteAsk(int admin_no);
+		
 }

@@ -35,4 +35,5 @@ public class Ask {
 	
 	// Test
 	private String boardtype;
+
 }

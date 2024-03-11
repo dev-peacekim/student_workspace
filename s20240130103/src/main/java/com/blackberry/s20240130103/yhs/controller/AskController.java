@@ -135,5 +135,14 @@ public class AskController {
 		return "yhs/askContentReply";
 	}
 	
+	@RequestMapping(value="deleteAsk")
+	public String deleteAsk(Ask ask, Model model) {
+		System.out.println("AskController Start delete..." );
+		// name -> Service, dao , mapper
+		int result = askService.deleteAsk(ask.getAdmin_no());
+		return "redirect:/askList";
+	}
+	
+	
+	
 }
-

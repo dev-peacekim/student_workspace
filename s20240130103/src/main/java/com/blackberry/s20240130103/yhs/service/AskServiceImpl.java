@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blackberry.s20240130103.lsl.model.LslBoardComm;
 import com.blackberry.s20240130103.yhs.dao.AskDao;
 import com.blackberry.s20240130103.yhs.model.Ask;
 
@@ -47,9 +46,9 @@ public class AskServiceImpl implements AskService {
 
 	public List<Ask> askListSearch(Ask ask) {	
 		 List<Ask> askListSearch = null;
-		 System.out.println("LslServiceImpl boardFreeSearch Start...");
+		 System.out.println("AskServiceImpl Start...");
 		  askListSearch = askDao.askListSearch(ask);
-		  System.out.println("EmpServiceImpl boardFreeSearch.size() ->"+askListSearch.size());
+		  System.out.println("AskServiceImpl .size() ->"+askListSearch.size());
 		 return askListSearch;
 	}
 
@@ -60,5 +59,17 @@ public class AskServiceImpl implements AskService {
 		return result;
 	}
 
+	public int deleteAsk(int admin_no) {
+		int result = 0;
+		System.out.println("EmpServiceImpl deleteEmp start...");
+		result = askDao.deleteAsk(admin_no);
+		return result;
+	}
+
+	public Ask askUpdateForm(String admin_title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	}
 

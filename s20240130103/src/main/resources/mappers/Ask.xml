@@ -64,6 +64,12 @@
 								ADMIN_REPLY_CHK)
 		VALUES (#{user_no},(select NVL(MAX(admin_no),0)+1 from board_admin where user_no = #{user_no}), sysdate,#{admin_title},#{admin_content}, #{admin_start}, 0, 0)
 		 </insert>	
-
+		 
+		 
+	<delete id="yhsDeleteAsk" parameterType="int">
+	    delete from BOARD_ADMIN where admin_no=#{admin_no}
+   </delete>
+   
+   
     
 </mapper>

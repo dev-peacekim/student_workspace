@@ -79,5 +79,19 @@ public class AskDaoImpl implements AskDao {
 		}
 		return result;
 	}
+	
+	@Override
+	public int deleteAsk(int admin_no) {
+		System.out.println("AskDaoImpl delete start..");
+		int result = 0;
+		System.out.println("AskDaoImpl delete empno->"+admin_no);
+		try {
+			result  = session.delete("yhsDeleteAsk",admin_no);
+			System.out.println("AskDaoImpl delete result->"+result);
+		} catch (Exception e) {
+			System.out.println("AskDaoImpl delete Exception->"+e.getMessage());
+		}
+		return result;
+	}
 	 
 }
