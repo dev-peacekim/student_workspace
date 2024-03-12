@@ -21,7 +21,10 @@ public interface LslDao {
 
 
 	// 게시판 검색 
+	int totalBoardSearchFree(LslBoardComm lslBoardComm);
 	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm);
+	
+	int totalBoardSearchAsk(LslBoardComm lslBoardComm);
 	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
 
 
@@ -60,19 +63,7 @@ public interface LslDao {
 	// 게시판 파일 상세 내역
 		List<LslboardFile> boardAskFiles(int cboard_no);
 		List<LslboardFile> boardFreeFile(int cboard_no);
-	
-	// 게시판 파일 다운로드 
-	LslboardFile boardAskInfo(int cboard_no, int fileCount);
-	LslboardFile boardFreeInfo(int cboard_no, int fileCount);
-	
-	// 게시판 상세 내역(파일 포함)
-	LslBoardComm boardFreeInfo(int cboard_no);
-	LslBoardComm boardAskInfo(int cboard_no);
-	
-	// 게시글 파일 내역 까지 리스트 
-	List<LslBoardComm> boardCommFileList(LslBoardComm lslBoardComm);
-	
-	
+
 	
 	/* 댓글 */  
 	
@@ -87,6 +78,9 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+	
 	
 
 	

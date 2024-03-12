@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import java.util.List;
@@ -62,12 +63,13 @@ public class LslController {
 	// 자유 게시판 검색
 	@RequestMapping(value = "boardFreeSearch")
 	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model) {
-		System.out.println("LslController boardFreeList Start...");
-		int totalBoardFree = ls.totalBoardFree();
-		System.out.println("LslController totalBoardFreeList ->" + totalBoardFree);
-
+		System.out.println("LslController boardFreeSearch Start...");
+		
+		int totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm);
+		System.out.println("LslController totalBoardFreeList ->" + totalBoardSearchFree);
+		System.out.println("test : " + lslBoardComm);
 		// paging 작업
-		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardFree, lslBoardComm.getCurrentPage());
+		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardSearchFree, lslBoardComm.getCurrentPage());
 		lslBoardComm.setStart(bfpage.getStart());
 		lslBoardComm.setEnd(bfpage.getEnd());
 		System.out.println(lslBoardComm);
@@ -75,7 +77,7 @@ public class LslController {
 		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm);
 		System.out.println("LslController boardFreeList boardFreeSearch.size() ->" + boardFreeList.size());
 
-		model.addAttribute("totalBoardFree", totalBoardFree);
+		model.addAttribute("totalBoardSearchFree", totalBoardSearchFree);
 		model.addAttribute("bfpage", bfpage);
 		model.addAttribute("boardFreeList", boardFreeList);
 
@@ -88,6 +90,7 @@ public class LslController {
 	@GetMapping(value = "boardFreeContents")
 	public String boardFreeContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		System.out.println("boardFreeContents cboard_no : " + cboard_no);
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
 		System.out.println("LslController replyBoardFreeList Start..");
 
@@ -111,32 +114,42 @@ public class LslController {
 	
 	// 자유 게시판 파일 다운로드 
 	@GetMapping("/boardFreeFileDownload")
-	public void boardFreeFileDownload(@RequestParam("cboard_no") int cboard_no, @RequestParam("fileCount") int fileCount, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("boardFileUpload cboard_no ->" + cboard_no);
-		System.out.println("boardFileUpload fileCount ->" + fileCount);
+	public void boardFreeFileDownload(@RequestParam("cboard_file_name") String fileName,  @RequestParam("cboard_file_user_name") String userFileName,  HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("boardFileUpload cboard_no ->" + fileName);
+		System.out.println("boardFileUpload fileCount ->" + userFileName);
 
-		try {
-		LslboardFile lslboardFreeFile = ls.boardFreeInfo(cboard_no, fileCount);
-	
-	System.out.println("boardFileUpload  lslboardFile ->" + lslboardFreeFile);
-		if(lslboardFreeFile != null) {
-			String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/")+lslboardFreeFile.getCboard_file_name();
-					
-			File file = new File(boardfilePath);
-		
-			response.setContentType("application.octet-stream");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(lslboardFreeFile.getCboard_file_name(), "UTF-8") + "\"");
-            response.setContentLength((int) file.length());
-            
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-            FileCopyUtils.copy(inputStream, response.getOutputStream());
-		}
-	}catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("LslController boardFileUpload Exception ->" + e.getMessage());
+		 
+	    String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/") + fileName;
+        File file = new File(boardfilePath);
+        
+	 
+	        // 파일 경로 설정
+	        
+	        // 파일이 존재하는 경우에만 처리
+	        if (file.exists()) {
+	            // MIME 타입 설정
+	            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+	            if (mimeType == null) {
+	                mimeType = "application/octet-stream";
+	            }
+	            response.setContentType(mimeType);
+	            
+	            try {
+	            // 파일 다운로드 설정
+	            response.setContentType("application.octet-stream");
+	            response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(userFileName, "UTF-8") + "\"");
+	            response.setContentLength((int) file.length());
+	            
+	            // 파일 다운로드 실행
+	            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+	            FileCopyUtils.copy(inputStream, response.getOutputStream());
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("LslController boardFileUpload Exception ->" + e.getMessage());
+	    }
+	        }
 	}
-	}
-
 	
 	// 자유 게시판 글 작성 페이지
 	@GetMapping(value = "boardFreeWrite")
@@ -221,11 +234,11 @@ public class LslController {
 	@RequestMapping(value = "boardAskSearch")
 	public String boardAskSearch(LslBoardComm lslBoardComm, Model model) {
 		System.out.println("LslController boardAskList Start...");
-		int totalBoardAsk = ls.totalBoardAsk();
-		System.out.println("LslController totalBoardAsk ->" + totalBoardAsk);
+		int totalBoardSearchAsk = ls.totalBoardSearchAsk(lslBoardComm);
+		System.out.println("LslController totalBoardAsk ->" + totalBoardSearchAsk);
 
 		// paging 작업
-		BoardFreeAskPaging bapage = new BoardFreeAskPaging(totalBoardAsk, lslBoardComm.getCurrentPage());
+		BoardFreeAskPaging bapage = new BoardFreeAskPaging(totalBoardSearchAsk, lslBoardComm.getCurrentPage());
 		lslBoardComm.setStart(bapage.getStart());
 		lslBoardComm.setEnd(bapage.getEnd());
 		System.out.println(lslBoardComm);
@@ -234,7 +247,7 @@ public class LslController {
 		List<LslBoardComm> boardAskList = ls.boardAskSearch(lslBoardComm);
 		System.out.println("LslController boardFreeList.size() ->" + boardAskList.size());
 
-		model.addAttribute("totalBoardAsk", totalBoardAsk);
+		model.addAttribute("totalBoardSearchAsk", totalBoardSearchAsk);
 		model.addAttribute("boardAskList", boardAskList);
 		model.addAttribute("bapage", bapage);
 
@@ -268,32 +281,45 @@ public class LslController {
 	
 	
 	// 질문 게시판 파일 다운로드 
-	@GetMapping("/boardAskFileDownload")
-	public void boardAskFileDownload(@RequestParam("cboard_no") int cboard_no, @RequestParam("fileCount") int fileCount, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("boardFileUpload cboard_no ->" + cboard_no);
-		System.out.println("boardFileUpload fileCount ->" + fileCount);
-		
-		
-		try {
-	LslboardFile lslboardAskFile = ls.boardAskInfo(cboard_no, fileCount);
-	
-	System.out.println("boardFileUpload  lslboardFile ->" + lslboardAskFile);
-		if(lslboardAskFile != null) {
-			String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/")+lslboardAskFile.getCboard_file_name();
-					
-			File file = new File(boardfilePath);
-		
-			response.setContentType("application.octet-stream");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(lslboardAskFile.getCboard_file_name(), "UTF-8") + "\"");
-            response.setContentLength((int) file.length());
-            
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-            FileCopyUtils.copy(inputStream, response.getOutputStream());
-		}
-	}catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("LslController boardFileUpload Exception ->" + e.getMessage());
-	}
+	@GetMapping("boardAskFileDownload")
+	public void boardAskFileDownload(@RequestParam("cboard_file_name") String fileName, 
+	                                 @RequestParam("cboard_file_user_name") String userFileName, 
+	                                 HttpServletRequest request, 
+	                                 HttpServletResponse response) {
+	    System.out.println("boardFileUpload cboard_no ->" + fileName);
+	    System.out.println("boardFileUpload fileCount ->" + userFileName);
+	    
+	    
+	    String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/") + fileName;
+        File file = new File(boardfilePath);
+        
+	 
+	        // 파일 경로 설정
+	        
+	        // 파일이 존재하는 경우에만 처리
+	        if (file.exists()) {
+	            // MIME 타입 설정
+	            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+	            if (mimeType == null) {
+	                mimeType = "application/octet-stream";
+	            }
+	            response.setContentType(mimeType);
+	            
+	            try {
+	            // 파일 다운로드 설정
+	            response.setContentType("application.octet-stream");
+	            response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(userFileName, "UTF-8") + "\"");
+	            response.setContentLength((int) file.length());
+	            
+	            // 파일 다운로드 실행
+	            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+	            FileCopyUtils.copy(inputStream, response.getOutputStream());
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("LslController boardFileUpload Exception ->" + e.getMessage());
+	    }
+	        }
 	}
 
 	
@@ -354,15 +380,31 @@ public class LslController {
 	// 게시판 글 수정 페이지 요청
 		@GetMapping(value = "boardFreeModify")
 		public String boardFreeAskModify(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
+			
 			int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+			
+			
+			System.out.println("boardFreeAskModify cboard_no -> " +cboard_no );
+			
 			String boardType = request.getParameter("boardType");
 			System.out.println("글게시판 수정 페이지 보드타입 :" + boardType);
+			
+			
 			LslBoardComm boardModifyContents;
+			
+			List<LslboardFile> boardFiles;
+		
+			
 			if (request.getParameter("boardType").equals("free")) {
 				boardModifyContents = ls.boardFreeModify(cboard_no);
+				boardFiles  = ls.boardFreeFile(cboard_no);
+				
+				System.out.println(boardModifyContents);
 			} else {
 				boardModifyContents = ls.boardAskModify(cboard_no);
+				boardFiles = ls.boardAskFile(cboard_no);
 			}
+			model.addAttribute("boardFiles",boardFiles);
 			model.addAttribute("boardType", boardType);
 			model.addAttribute("boardModifyContents", boardModifyContents);
 			return "lsl/boardFreeModify";
@@ -372,6 +414,7 @@ public class LslController {
 	@PostMapping(value = "boardFreeAskUpdate")
 	public String boardFreeAskUpdate(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		
 		String boardType = request.getParameter("boardType");
 		lslBoardComm.setCboard_no(cboard_no);
 		lslBoardComm.setBoardType(boardType);

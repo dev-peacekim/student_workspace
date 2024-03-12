@@ -201,6 +201,7 @@ public class LhsAdminController {
 			if (mimeType == null) {
                 mimeType = "application/octet-stream";
             }
+			
 			response.setContentType(mimeType);
             try {
 				response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(userFileName, "UTF-8") + "\"");

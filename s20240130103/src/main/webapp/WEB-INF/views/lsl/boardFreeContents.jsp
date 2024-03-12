@@ -98,8 +98,8 @@ window.onload = function() {
                     <div id="files">
 			          <c:forEach items="${boardFreeFile}" var="boardFreeFile">
 			    		<div class="file-container">
-			        	<a href="/boardFreeFileDownload?cboard_no=${boardFreeFile.cboard_no}&fileCount=${boardFreeFile.cboard_file_cnt}" target="_blank" class="file-link">${boardFreeFile.cboard_file_user_name}</a>
-			        	<i class="bi bi-download file-download-icon"></i>
+						<a href="boardFreeFileDownload?cboard_file_name=${boardFreeFile.cboard_file_name }&cboard_file_user_name=${boardFreeFile.cboard_file_user_name}" target="_blank" class="file-link">${boardFreeFile.cboard_file_user_name}</a>			        	
+						<i class="bi bi-download file-download-icon"></i>
 			    </div>
 			</c:forEach>
                     </div>
@@ -128,8 +128,9 @@ window.onload = function() {
                             <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
                         </c:otherwise>
                     </c:choose>
-	                    <input type="text" name="comment" id="freeBoardRe" placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
-	                </div>
+	                   <input type="text" name="comment" id="creply_content"
+                        placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
+                </div>
 	                <div class="btn-container is-editor-open">
                     	<button type="button" id="submitBtn" class="btn submitBtn">등록</button>
                     </div>
