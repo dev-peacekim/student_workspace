@@ -2,6 +2,8 @@ package com.blackberry.s20240130103.ykm.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 import com.blackberry.s20240130103.ykm.model.YkmPaging;
@@ -9,9 +11,9 @@ import com.blackberry.s20240130103.ykm.model.YkmPaging;
 public interface YkmService {
 
 	// 게시판 
-	int writePost(YkmBoardComm ykmBoardComm);
+	int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList);
 
-	List<YkmBoardComm> getPostList(int comm_mid2);
+	List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm);
 	
 	YkmBoardComm getPost(int cboard_no);
 	

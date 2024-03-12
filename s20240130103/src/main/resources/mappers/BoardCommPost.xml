@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.BoardStudyMapper">
-	<select id="ykmGetPostList" parameterType="int" resultType="YkmBoardComm">	
-		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
-		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
-		FROM BOARD_COMM B
-		JOIN USERS U ON U.USER_NO = B.USER_NO
-		WHERE 
-			B.COMM_BIG=200 
-			AND B.COMM_MID = 20
-			<if test="comm_mid2 != 0">
-			AND B.COMM_MID2 = #{comm_mid2} 
-			</if>
-		ORDER BY B.CBOARD_DATE DESC
+	<select id="ykmGetPostList" parameterType="YkmBoardComm" resultType="YkmBoardComm">	
+		SELECT a.*
+		FROM (SELECT ROWNUM rn , a.*
+		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+				       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
+						FROM BOARD_COMM B
+						JOIN USERS U ON U.USER_NO = B.USER_NO
+						WHERE 
+							B.COMM_BIG=200 
+							AND B.COMM_MID = 20
+							<if test="comm_mid2 != 0">
+							AND B.COMM_MID2 = #{comm_mid2} 
+							</if>
+						ORDER BY B.CBOARD_DATE DESC) a) a
+		WHERE a.rn BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="ykmGetPost" resultType="YkmBoardComm" parameterType="int">
@@ -91,6 +94,11 @@
 		WHERE COMM_BIG = 200
 	 	  AND COMM_MID = 20
 	</select>
-
+	
+	<select id="ykmSaveFileList" parameterType="YkmBoardCommFile" resultType="int">
+		INSERT INTO BOARD_COMM_FILE (CBOARD_NO, CBOARD_FILE_CNT, CBOARD_FILE_NAME, CBOARD_FILE_USER_NAME)
+		VALUES (#{cboard_no}, )
+	</select>
+	
 	
 </mapper>

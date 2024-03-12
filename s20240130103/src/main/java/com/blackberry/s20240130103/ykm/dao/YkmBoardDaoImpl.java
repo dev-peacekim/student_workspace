@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
@@ -19,9 +21,9 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 
 
 	@Override
-	public List<YkmBoardComm> getPostList(int comm_mid2) {
+	public List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getPostList start ---*");
-		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList", comm_mid2);
+		List<YkmBoardComm> getPostList = session.selectList("ykmGetPostList", ykmBoardComm);
 		//System.out.println("YkmBoardDaoImpl getPostList result --> " + getPostList.size());
 
 		return getPostList;
@@ -109,7 +111,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return session.update("ykmUpdateRecruitment", ykmBoardComm);
 	}
 
-	// null
 	@Override
 	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getSearchList start ---*");
@@ -127,6 +128,13 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
+
+	@Override
+	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
+		System.out.println("YkmBoardDaoImpl saveFileList start ---*");
+		int saveFileList = session.insert("ykmSaveFileList", ykmBoardCommFile);
+		return saveFileList;
+	}
 
 
 

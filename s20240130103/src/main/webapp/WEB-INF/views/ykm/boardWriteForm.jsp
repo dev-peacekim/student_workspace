@@ -77,13 +77,13 @@
 				<div class="community-header">
 					<p>글쓰기</p>
 				</div>
-				<form action="writePost" method="post">
+				<form action="writePost" method="post" enctype="multipart/form-data">
 					<div class="community-body">
 						<!-- 제목 -->
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label> 
 							<input type="text" class="form-control boardTitle " 
-									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." required="required">
+									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." required="required"/>
 						</div>
 
 						<!-- 파일 첨부 -->
@@ -91,7 +91,7 @@
 							<label for="inputNumber" class="form-label">
 								<span class="upload-file-title">파일 첨부</span>
 							</label> 
-							<input class="form-control" type="file" id="formFile" name="cboard_file_name" >
+							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple/>
 							<div class="upload-title">
 								<label for="fileContent" class="form-label">
 						            파일을 첨부할 수 있습니다
@@ -103,7 +103,8 @@
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" rows="15" 
-										placeholder="내용을 입력하세요." name="cboard_content" required="required"></textarea>
+										placeholder="내용을 입력하세요." name="cboard_content" required="required">
+							</textarea>
 						</div>
 						
 						<!-- 버튼 -->

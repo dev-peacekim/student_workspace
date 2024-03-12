@@ -7,7 +7,7 @@ import lombok.Data;
 public class YkmPaging {
 	//  페이징, 검색
 	private int currentPage = 1; 	// 현재 페이지 번호
-	private int itemsPerPage = 5;	// 한 페이지에 보여질 항목의 수
+	private int itemsPerPage = 10;	// 한 페이지에 보여질 항목의 수
 	private int pageBlock = 5;		// 페이지 블록의 크기
 	private int start;				// 시작 숫자
 	private int startPage;			// 현재 페이지 블록의 시작 
@@ -24,11 +24,11 @@ public class YkmPaging {
 			this.currentPage = Integer.parseInt(currentPage1);
 		}
 		// 2 5
-		start = (currentPage -1 ) * itemsPerPage +1; // 6
-		end = start + itemsPerPage -1; // 10
-		totalPages = (int)Math.ceil((double)total / itemsPerPage); // 7
-		startPage = currentPage - (currentPage-1) % pageBlock; // 1
-		endPage = startPage + pageBlock; // 11
+		start = (currentPage -1 ) * itemsPerPage +1;
+		end = start + itemsPerPage -1; 
+		totalPages = (int)Math.ceil((double)total / itemsPerPage); 
+		startPage = currentPage - (currentPage-1) % pageBlock; 
+		endPage = startPage + pageBlock;
 	
 		if (endPage > totalPages) {
 			endPage = totalPages;

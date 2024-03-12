@@ -44,9 +44,8 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-<!-- Reply JS File -->
+<!-- 댓글 comment JS File -->
 <script defer src="assets/js/ykm/comment.js"></script>
-
 <!-- Confirm Pop-up JS File -->
 <script defer src="assets/js/ykm/confirmPopup.js"></script>
 

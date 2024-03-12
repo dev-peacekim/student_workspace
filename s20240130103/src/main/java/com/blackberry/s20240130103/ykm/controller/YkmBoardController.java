@@ -1,5 +1,9 @@
 package com.blackberry.s20240130103.ykm.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmPaging;
 import com.blackberry.s20240130103.ykm.service.YkmService;
 
@@ -27,19 +33,18 @@ public class YkmBoardController {
 	@GetMapping(value = "boardStudy")
 	public String boardStudy(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 
-		int comm_mid2 = request.getParameter("comm_mid2")==null ? 0 : Integer.parseInt(request.getParameter("comm_mid2")); 
-		
+		//int comm_mid2 = request.getParameter("comm_mid2")==null ? 0 : Integer.parseInt(request.getParameter("comm_mid2")); 
 		System.out.println("YkmController boardStudy start ---*");
-		List<YkmBoardComm> getPostList = ykmService.getPostList(comm_mid2);
-		model.addAttribute("getPostList", getPostList);
-		model.addAttribute("comm_mid2", comm_mid2);
-		
+
 		int totalCount = ykmService.getTotalCount(ykmBoardComm);
-		
 		YkmPaging stuPage = new YkmPaging(totalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
+		
+		List<YkmBoardComm> getPostList = ykmService.getPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
+		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
+		model.addAttribute("getPostList", getPostList);
 		//System.out.println("YkmController getPostList result --> "+ getPostList.size());
 		return "ykm/boardStudy";
 	}
@@ -68,14 +73,21 @@ public class YkmBoardController {
 	
 	
 	@RequestMapping(value = "writePost")
-	public String writePost(HttpServletRequest request, YkmBoardComm ykmBoardComm) {
+	public String writePost(HttpServletRequest request, YkmBoardComm ykmBoardComm, 
+							@RequestParam("cboard_file_name") List<MultipartFile> fileList) {
 		System.out.println("YkmController writePost start---*");
+		
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
-		System.out.println("유저" + user_no);
-		ykmBoardComm.setUser_no(user_no);
-		int result = ykmService.writePost(ykmBoardComm);
-		System.out.println("YkmController writePost result"+result);
-		return "forward:boardStudy";
+		ykmBoardComm.setUser_no(user_no);		
+		
+		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
+		System.out.println("studyFilePath 경로 = " + studyFilePath);
+		
+		int result = ykmService.writePost(ykmBoardComm, studyFilePath, fileList);
+		System.out.println("YkmController writePost ykmBoardComm fileList : "+fileList);
+		System.out.println("YkmController writePost result "+result);
+		
+		return "redirect:/boardStudy";
 	}
 	
 	
@@ -97,7 +109,7 @@ public class YkmBoardController {
 		int updatePost = ykmService.updatePost(ykmBoardComm);
 		System.out.println("YkmController updatePost result--> " + updatePost);
 		model.addAttribute("updatePost", updatePost);
-		return "forward:boardStudy";
+		return "re:boardStudy";
 	}
 	
 	@RequestMapping(value="/deletePost")
@@ -114,7 +126,7 @@ public class YkmBoardController {
 	
 
 	// 검색
-	@RequestMapping(value="/boardSearch")
+	@PostMapping(value="/boardSearch")
 	public String getSearchList(YkmBoardComm ykmBoardComm, Model model) {
 		System.out.println("YkmController getSearchList start---*");
 		System.out.println("YkmController getSearchList ykmBoardComm : "+ykmBoardComm);
@@ -122,11 +134,14 @@ public class YkmBoardController {
 
 		System.out.println("YkmController getSearchList searchResult : "+searchResult);
 		model.addAttribute("getPostList", searchResult);
-		return "forward:boardStudy";
+		return "ykm/boardStudy";
 	}
 
 	
 	// 파일 업로드
+	
+	
+	
 	
 	
 	

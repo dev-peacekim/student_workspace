@@ -1,11 +1,20 @@
 package com.blackberry.s20240130103.ykm.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
@@ -19,16 +28,41 @@ public class YkmServiceImpl implements YkmService {
 
 	// 스터디 게시판
 	@Override
-	public int writePost(YkmBoardComm ykmBoardComm) {
+	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
+		
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
+		if (result > 0) {
+			saveFileList(studyFilePath, fileList);
+        }
 		return result;
 	}
 
+
+
+	// 파일 저장 
+	private void saveFileList(String studyFilePath, List<MultipartFile> fileList) {
+		System.out.println("YkmServiceImpl saveFileList start---*");
+		for (MultipartFile file : fileList) {
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            try {
+                // 파일 저장 경로 설정
+                Path uploadPath = Paths.get(studyFilePath + File.separator + fileName);
+                // 파일 저장
+                Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
+            }
+        }
+	}
+
+
+
 	@Override
-	public List<YkmBoardComm> getPostList(int comm_mid2) {
+	public List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getPostList start---*");
-		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList(comm_mid2);
+		List<YkmBoardComm> getPostList = ykmBoardDao.getPostList(ykmBoardComm);
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
@@ -121,6 +155,7 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getTotalCount result : "+result);
 		return result;
 	}
+
 
 
 	

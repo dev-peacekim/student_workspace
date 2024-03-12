@@ -2,14 +2,15 @@ package com.blackberry.s20240130103.ykm.dao;
 
 import java.util.List;
 
+
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
-import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 public interface YkmBoardDao {
 	int writePost(YkmBoardComm ykmBoardComm);
 
-	List<YkmBoardComm> getPostList(int comm_mid2);
+	List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm);
 
 	YkmBoardComm getPost(int cboard_no);
 
@@ -20,6 +21,8 @@ public interface YkmBoardDao {
 	int increseViewcount(int cboard_no);
 	
 	int updateRecruitment(YkmBoardComm ykmBoardComm); // 모집여부
+	
+	int saveFileList(YkmBoardCommFile ykmBoardCommFile); // 파일 DB 저장
 	
 	
 	

@@ -97,7 +97,7 @@
 							aria-controls="contact" aria-selected="false"
 							onclick="location.href='/boardStudy?comm_mid2=20';">모집완료</button>
 					</li>
-
+ 
 					<!-- 검색 시작  -->
 					<li class="nav-item ms-auto" role="presentation">
 						<div class="search-bar d-flex justify-content-end">
@@ -130,56 +130,27 @@
 							</tr>
 						</thead>
 						<tbody>
-					<c:choose>
-					<c:when test="${not empty searchResult}">
-							<c:forEach items="${searchResult}" var="search" varStatus="loop">
+							<c:forEach items="${getPostList}" var="postList" varStatus="loop">
 								<tr id="postTable">
 									<th scope="row">${loop.index+1}</th>
 									<td>
 										<c:choose>
-											<c:when test="${search.comm_mid2 == 10}">
-											<span id="recruitment_${search.cboard_no}" class="recruiting">모집중</span>
+											<c:when test="${postList.comm_mid2 == 10}">
+											<span id="recruitment_${postList.cboard_no}" class="recruiting">모집중</span>
 											</c:when>
-											<c:when test="${search.comm_mid2 == 20}">
-											<span id="recruitment_${search.cboard_no}" class="recruited">모집완료</span>
+											<c:when test="${postList.comm_mid2 == 20}">
+											<span id="recruitment_${postList.cboard_no}" class="recruited">모집완료</span>
 											</c:when>
 										</c:choose>
-										<a href="/post?cboard_no=${search.cboard_no}">${search.cboard_title}</a>
+										<a href="/post?cboard_no=${postList.cboard_no}">${postList.cboard_title}</a>
 									</td>					
-									<td>${search.user_nic}</td>
-									<td><fmt:formatDate value="${search.cboard_date}" pattern="yyyy-MM-dd"/></td>
-									<td>${search.cboard_viewcnt}</td>
-									<td>${search.reply_count}</td>
+									<td>${postList.user_nic}</td>
+									<td><fmt:formatDate value="${postList.cboard_date}" pattern="yyyy-MM-dd"/></td>
+									<td>${postList.cboard_viewcnt}</td>
+									<td>${postList.reply_count}</td>
 								</tr>
 								<!-- <span class="recruited">모집완료</span> -->
 							</c:forEach>
-					</c:when>
-							
-					<c:otherwise>
-							<c:forEach items="${getPostList}" var="PostList" varStatus="loop">
-								<tr id="postTable">
-									<th scope="row">${loop.index+1}</th>
-									<td>
-										<c:choose>
-											<c:when test="${PostList.comm_mid2 == 10}">
-											<span id="recruitment_${PostList.cboard_no}" class="recruiting">모집중</span>
-											</c:when>
-											<c:when test="${PostList.comm_mid2 == 20}">
-											<span id="recruitment_${PostList.cboard_no}" class="recruited">모집완료</span>
-											</c:when>
-										</c:choose>
-										<a href="/post?cboard_no=${PostList.cboard_no}">${PostList.cboard_title}</a>
-									</td>					
-									<td>${PostList.user_nic}</td>
-									<td><fmt:formatDate value="${PostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
-									<td>${PostList.cboard_viewcnt}</td>
-									<td>${PostList.reply_count}</td>
-								</tr>
-								<!-- <span class="recruited">모집완료</span> -->
-							</c:forEach>
-					</c:otherwise>		
-				</c:choose>			
-							
 						</tbody>
 					</table>
 				</div>
@@ -198,7 +169,7 @@
 						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
 							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${i}&comm_mid2=${comm_mid2}">${i}</a></li>
 						</c:forEach>
-						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
+						<c:if test="${stuPage.startPage < stuPage.pageBlock}">
 							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${stuPage.startPage + stuPage.pageBlock}"><span aria-hidden="true">»</span></a></li>
 						</c:if>
 						</ul>
@@ -206,7 +177,6 @@
 				</div>
 			</div>
 		</section>
-
 	</main>
 
 	<!-- ======= Footer ======= -->
@@ -215,7 +185,6 @@
    
    
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-   
    
     <!-- Vendor JS Files -->
     <!-- <script defer src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
