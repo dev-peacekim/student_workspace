@@ -7,6 +7,11 @@
 		FROM USER_PROJECT_MANY
 		WHERE PROJECT_NO = #{project_no}
 			AND USER_NO = #{user_no}
+			AND PROJECT_NO IN (SELECT PROJECT_NO 
+											FROM PROJECT p 
+					  						WHERE PROJECT_NO = #{project_no} 
+												AND PROJECT_DELETE_CHK = 0)
+			
 	</select>
 	
 	<insert id="kphProjectMemberAdd" parameterType="KphUser_Project">

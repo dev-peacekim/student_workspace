@@ -28,6 +28,8 @@ import com.blackberry.s20240130103.kph.service.KphProjectService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.proxy.annotation.Post;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -201,7 +203,7 @@ public class KphProjectController {
 	@GetMapping("detailProject")
 	public String detailProject(HttpServletRequest request, Model model) {
 		
-		String resultPage = "forward:mainLogic";
+		String resultPage = "redirect:/main";
 		
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		Long project_no = Long.parseLong(request.getParameter("project_no"));
@@ -352,5 +354,13 @@ public class KphProjectController {
 		return "redirect:/detailProject?project_no=" + kphProject.getProject_no().toString();
 	}
 	
+	@PostMapping("projectDelete")
+	@ResponseBody
+	public String projectDelete(KphProject kphProject) {
+		System.out.println("KphProjectController projectDelete start...");
+		System.out.println(kphProject);
+		int result = kphProjectService.projectDelete(kphProject);
+		return String.valueOf(result);
+	}
 	
 }

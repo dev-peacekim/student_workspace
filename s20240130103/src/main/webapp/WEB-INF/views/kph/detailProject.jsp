@@ -79,7 +79,7 @@
 						홈</button>
 					<form action="boardProject" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-						<button type="button" class="project-board-btn btn btn-secondary">공유
+						<button type="submit" class="project-board-btn btn btn-secondary">공유
 						게시판</button>			
 					</form>
 				</div>
@@ -89,9 +89,23 @@
 							목록</div>
 						<ul id="team-list-content" class="team-list-content">
 							<c:forEach var="projectMember" items="${projectMemberList }">
-								<li><img
-									src="${pageContext.request.contextPath}/upload/userImg/${projectMember.user_profile}"
-									alt="Profile" class="rounded-circle">${projectMember.user_name }</li>
+								<li>
+									<div>
+										<c:if test="${empty projectMember.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+												alt="Profile"
+												class="rounded-circle">${projectMember.user_name }
+										</c:if>
+										<c:if test="${not empty projectMember.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/${projectMember.user_profile}"
+												alt="Profile"
+												class="rounded-circle">${projectMember.user_name }
+										</c:if>
+									</div>
+									<i id="${projectMember.user_no}" class="bi bi-x"><input type="hidden" name="user_no" value="${projectMember.user_no}" /></i>
+								</li>
 							</c:forEach>
 						</ul>
 					</div>

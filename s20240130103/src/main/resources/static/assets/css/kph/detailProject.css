@@ -127,6 +127,7 @@ section {
 
 .top .top-list .team-list .team-list-content li {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.068);
 	padding-bottom: 10px;
@@ -138,7 +139,11 @@ section {
 .top .top-list .team-list .team-list-content li img {
 	width: 20px;
 	height: 20px;
-	margin-right: 10px;
+	margin-right: 5px;
+}
+
+.top .top-list .team-list .team-list-content li i:hover {
+    cursor: pointer;
 }
 
 .top .top-list .team-list .team-list-content li:last-child {

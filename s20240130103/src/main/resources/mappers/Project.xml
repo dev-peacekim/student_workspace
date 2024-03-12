@@ -37,4 +37,10 @@
 	 	WHERE PROJECT_NO = #{project_no}
 	</update>
 	
+	<update id="kphProjectDelete" parameterType="KphProject">
+		UPDATE PROJECT
+		SET PROJECT_DELETE_CHK = 1
+	 	WHERE PROJECT_NO = #{project_no}
+	</update>
+	
 </mapper>

@@ -179,7 +179,7 @@
 								<c:forEach var="projectTask" items="${totalProjectTaskList}">
 									<tr>
 										<th>${num}</th>
-										<td><a href="#">${projectTask.project_title}</a></td>
+										<td><a href="detailProject?project_no=${projectTask.project_no }">${projectTask.project_title}</a></td>
 										<td>${projectTask.task_title}</td>
 										<td>${projectTask.task_start.substring(0, projectTask.task_start.indexOf(" "))}</td>
 										<td>${projectTask.task_end.substring(0, projectTask.task_end.indexOf(" "))}</td>

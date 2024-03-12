@@ -44,4 +44,6 @@ public interface KphProjectService {
 
 	int projectUpdate(KphProject kphProject);
 
+	int projectDelete(KphProject kphProject);
+
 }

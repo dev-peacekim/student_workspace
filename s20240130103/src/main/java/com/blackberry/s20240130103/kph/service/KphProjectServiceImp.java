@@ -213,5 +213,12 @@ public class KphProjectServiceImp implements KphProjectService {
 		int result = kphProjectDao.projectUpdate(kphProject);
 		return result;
 	}
+
+	@Override
+	public int projectDelete(KphProject kphProject) {
+		System.out.println("KphProjectServiceImp projectDelete start...");
+		int result = kphProjectDao.projectDelete(kphProject);
+		return result;
+	}
 	
 }

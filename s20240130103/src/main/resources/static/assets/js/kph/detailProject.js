@@ -195,24 +195,20 @@ $(".authority-cancle").on('click', function () {
 });
 
 $(".cancle-btn").on('click', function () {
-    $(".project-delete-box-title").css('display', 'none');
+    $(".project-delete-box").css('display', 'none');
 });
 
 $(".check-btn").on('click', function () {
      $.ajax({
         type: "post",
         url: "projectDelete",
-        data: JSON.stringify({
+        data: {
             project_no: project_no
-        }),
-        contentType: "application/json",
-        dataType: "json",
+        },
+        dataType: "text",
         success: function (response) {
-            if (userAuthority != 1) {
-                $(".team-member-add-box-no-authority").css('display', 'flex');
-            } else {
-                $(".project-delete-box").css('display', 'flex');
-            }
+			console.log(response);
+            window.location.href = '/main';
         }
     });
 });

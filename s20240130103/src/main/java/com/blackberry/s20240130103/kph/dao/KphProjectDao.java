@@ -51,5 +51,7 @@ public interface KphProjectDao {
 	KphProject getProjectByProjectNo(KphProject kphProject);
 
 	int projectUpdate(KphProject kphProject);
+
+	int projectDelete(KphProject kphProject);
 	
 }
