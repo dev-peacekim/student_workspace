@@ -522,12 +522,6 @@ public class MsgController {
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             log.error("쪽지 영구 삭제에 실패했습니다.", e);
-            try {
-                response.getWriter().write("쪽지 영구 삭제에 실패했습니다.");
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            } catch (IOException ex) {
-                log.error("Error writing response", ex);
-            }
         }
     }
     

@@ -194,9 +194,6 @@ public class MsgServiceImpl implements MsgService {
 		msgDao.deleteMessageFilesByMsgNo(msgNo);
 	}
 
-
-	
-	
 	
 	// 쪽지 보내기
 	@Override

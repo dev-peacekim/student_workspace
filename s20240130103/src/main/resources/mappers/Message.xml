@@ -82,130 +82,98 @@
 	<!-- 받은 쪽지 리스트 가져오기 -->
 	<select id="kdwReceivedMessagesAll" parameterType="KdwMessage"
 		resultType="KdwMessage">
-	<![CDATA[
-	    SELECT *
-	    FROM (
-	        SELECT
-	            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-	            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-	            a.msg_delete_chk, u.user_nic AS senderNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-	        FROM
-	            (SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-	            m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-	             FROM message m
-	             WHERE m.msg_receiver = #{msgReceiver}
-	             AND m.msg_store_chk = 0
-	             AND m.msg_delete_chk = 0
-	             ) a, users u
-	        WHERE a.msg_sender = u.user_no
-	        AND a.rn >= #{start}
-	        AND a.rn <= #{end}
-	    )
-	    ORDER BY msg_no DESC
-	]]>
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*, u.user_nic AS senderNic,
+		            (SELECT mf.msg_file_name
+		             FROM message_file mf, message m
+		             WHERE mf.msg_no = m.msg_no
+		             AND ROWNUM = 1) AS first_file_name 
+		        FROM message m, users u
+		        WHERE m.msg_sender = u.user_no
+		        AND m.msg_receiver = #{msgReceiver}
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 0
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 보낸 쪽지 리스트 가져오기 -->
 	<select id="kdwSentMessagesAll" parameterType="KdwMessage"
 		resultType="KdwMessage">
-	    <![CDATA[
-	   	SELECT *
-	   	FROM (
-		    SELECT
-		        a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		        a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		        a.msg_delete_chk, u.user_nic AS receiverNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-		    FROM
-		        (SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		        m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		         FROM message m
-		         WHERE m.msg_sender = #{msgSender}
-		         AND m.msg_store_chk = 0
-		         AND m.msg_delete_chk = 0
-		         ) a, users u
-		    WHERE a.msg_receiver = u.user_no
-		    AND a.rn >= #{start}
-		    AND a.rn <= #{end}
-	    )
-	    ORDER BY msg_no DESC
-	    ]]>
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*, u.user_nic AS receiverNic,
+		            (SELECT mf.msg_file_name
+		             FROM message_file mf, message m
+		             WHERE mf.msg_no = m.msg_no
+		             AND ROWNUM = 1) AS first_file_name 
+		        FROM message m, users u
+		        WHERE m.msg_receiver = u.user_no
+		        AND m.msg_sender = #{msgSender}
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 0
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 쪽지 보관함 리스트 가져오기 -->
 	<select id="kdwStoredMessagesAll" parameterType="KdwMessage" resultType="KdwMessage">
-	    <![CDATA[
-	    	SELECT *
-	    	FROM (
-		        SELECT
-		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, 
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*,
 		            CASE 
-		                WHEN a.msg_sender = #{storeboxUserNo} THEN u1.user_nic 
-		                ELSE u2.user_nic 
+		                WHEN m.msg_sender = #{storeboxUserNo} THEN 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_receiver)
+		                ELSE 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_sender)
 		            END AS storedNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-		        FROM
-		            (
-		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		                m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		                FROM message m
-		                WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
-		                AND m.msg_store_chk = 1
-		                AND m.msg_delete_chk = 0
-		            ) a,
-		            users u1, users u2
-		        WHERE a.msg_receiver = u1.user_no(+)
-		        AND a.msg_sender = u2.user_no(+)
-		        AND a.rn >= #{start}
-		        AND a.rn <= #{end}
-	        )
-	        ORDER BY msg_no DESC
-	    ]]>
+		            (SELECT mf.msg_file_name 
+		             FROM message_file mf 
+		             WHERE mf.msg_no = m.msg_no 
+		             AND ROWNUM = 1) AS first_file_name
+		        FROM message m
+		        WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 1
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 휴지통 리스트 가져오기 -->
 	<select id="kdwTrashMessagesAll" parameterType="KdwMessage"
 		resultType="KdwMessage">
-	    <![CDATA[
-	    	SELECT *
-	    	FROM (
-		    	SELECT
-		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, 
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*,
 		            CASE 
-		                WHEN a.msg_sender = #{trashboxUserNo} THEN u1.user_nic 
-		                ELSE u2.user_nic 
+		                WHEN m.msg_sender = #{trashboxUserNo} THEN 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_receiver)
+		                ELSE 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_sender)
 		            END AS trashedNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-		        FROM
-		            (
-		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		                m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		                FROM message m
-		                WHERE (m.msg_receiver = #{trashboxUserNo} OR m.msg_sender = #{trashboxUserNo})
-		                AND m.msg_delete_chk = 1
-		            ) a,
-		            users u1, users u2
-		        WHERE a.msg_receiver = u1.user_no(+)
-		        AND a.msg_sender = u2.user_no(+)
-		        AND a.rn >= #{start}
-		        AND a.rn <= #{end}
-	        )
-	        ORDER BY msg_no DESC
-	    ]]>
+		            (SELECT mf.msg_file_name 
+		             FROM message_file mf 
+		             WHERE mf.msg_no = m.msg_no 
+		             AND ROWNUM = 1) AS first_file_name
+		        FROM message m
+		        WHERE (m.msg_receiver = #{trashboxUserNo} OR m.msg_sender = #{trashboxUserNo})
+		        AND m.msg_delete_chk = 1
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 
 
@@ -315,42 +283,34 @@
 	<!-- ========== 받은 쪽지함 검색기능 =========== -->
 	<!-- 받은 쪽지함 검색된 리스트 조회 -->
 	<select id="kdwSearchReceivedMessages" parameterType="KdwMessage" resultType="KdwMessage">
-	    <![CDATA[
-	    	SELECT *
-	    	FROM (
-		        SELECT
-		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, u.user_nic AS senderNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-		        FROM
-		            (
-		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		                m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		                FROM message m
-		                WHERE m.msg_receiver = #{msgReceiver}
-		                AND m.msg_store_chk = 0
-		                AND m.msg_delete_chk = 0
-		            ) a, users u
-		        WHERE a.msg_sender = u.user_no
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*, u.user_nic AS senderNic,
+		            (SELECT mf.msg_file_name
+		             FROM message_file mf, message m
+		             WHERE mf.msg_no = m.msg_no
+		             AND ROWNUM = 1) AS first_file_name 
+		        FROM message m, users u
+		        WHERE m.msg_sender = u.user_no
+		        AND m.msg_receiver = #{msgReceiver}
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 0
 		        AND (
 		            (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-		            				  OR a.msg_title LIKE '%' || #{keyword} || '%' 
-		            				  OR a.msg_content LIKE '%' || #{keyword} || '%'))
+		            				  OR  m.msg_title LIKE '%' || #{keyword} || '%' 
+		            				  OR  m.msg_content LIKE '%' || #{keyword} || '%'))
 		            OR
 		            (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
 		            OR
-		            (#{type} = 'titleContent' AND (a.msg_title LIKE '%' || #{keyword} || '%' 
-		            						   OR a.msg_content LIKE '%' || #{keyword} || '%'))
+		            (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
+		            						   OR  m.msg_content LIKE '%' || #{keyword} || '%'))
 		        )
-		        AND a.rn >= #{start}
-		        AND a.rn <= #{end}
-	        )
-	        ORDER BY msg_no DESC
-	    ]]>
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 받은 쪽지함 검색된 쪽지 수 조회 -->
 	<select id="kdwSearchReceiveMsgCnt" parameterType="map" resultType="int">
@@ -374,43 +334,34 @@
 	<!-- ========== 보낸 쪽지함 검색기능 =========== -->
 	<!-- 보낸 쪽지함 검색된 리스트 조회 -->
 	<select id="kdwSearchSentMessages" parameterType="KdwMessage" resultType="KdwMessage">
-	  <![CDATA[
-	  		SELECT *
-	  		FROM (
-		  	    SELECT
-		            a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-		            a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-		            a.msg_delete_chk, u.user_nic AS receiverNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-		        FROM
-		            (
-		                SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-		                m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-		                FROM message m
-		                WHERE m.msg_sender = #{msgSender}
-		                AND m.msg_store_chk = 0
-		                AND m.msg_delete_chk = 0
-		            ) a, users u
-		        WHERE a.msg_receiver = u.user_no
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*, u.user_nic AS receiverNic,
+		            (SELECT mf.msg_file_name
+		             FROM message_file mf, message m
+		             WHERE mf.msg_no = m.msg_no
+		             AND ROWNUM = 1) AS first_file_name 
+		        FROM message m, users u
+		        WHERE m.msg_receiver = u.user_no
+		        AND m.msg_sender = #{msgSender}
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 0
 		        AND (
 		            (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-		            				  OR a.msg_title LIKE '%' || #{keyword} || '%' 
-		            				  OR a.msg_content LIKE '%' || #{keyword} || '%'))
+		            				  OR m.msg_title LIKE '%' || #{keyword} || '%' 
+		            				  OR m.msg_content LIKE '%' || #{keyword} || '%'))
 		            OR
-		            (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
+		            (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
 		            OR
-		            (#{type} = 'titleContent' AND (a.msg_title LIKE '%' || #{keyword} || '%' 
-		            						   OR a.msg_content LIKE '%' || #{keyword} || '%'))
+		            (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
+		            						   OR  m.msg_content LIKE '%' || #{keyword} || '%'))
 		        )
-		        AND a.rn >= #{start}
-		        AND a.rn <= #{end}
-	        )
-	        ORDER BY msg_no DESC
-	        
-	  ]]>
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 보낸 쪽지함 검색된 쪽지 수 조회 -->
 	<select id="kdwSearchSentMsgCnt" parameterType="map" resultType="int">
@@ -425,7 +376,7 @@
 	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
 	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
 	        OR
-	        (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
 	        OR
 	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
 	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
@@ -434,53 +385,43 @@
 	<!-- ========== 쪽지 보관함 검색기능 =========== -->
 	<!-- 쪽지 보관함 검색된 리스트 조회 -->
 	<select id="kdwSearchStoredMessages" parameterType="KdwMessage" resultType="KdwMessage">
-	    <![CDATA[
-	    	SELECT *
-	    	FROM (
-			    SELECT
-			        a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-			        a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-			        a.msg_delete_chk, 
-			        CASE 
-			            WHEN a.msg_sender = #{storeboxUserNo} THEN u1.user_nic 
-			            ELSE u2.user_nic 
-			        END AS storedNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-			    FROM
-			        (
-			            SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-			            m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-			            FROM message m
-			            WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
-			            AND m.msg_store_chk = 1
-			            AND m.msg_delete_chk = 0
-			            AND (
-			                (#{type} = 'all' AND (
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*,
+		            CASE 
+		                WHEN m.msg_sender = #{storeboxUserNo} THEN 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_receiver)
+		                ELSE 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_sender)
+		            END AS storedNic,
+		            (SELECT mf.msg_file_name 
+		             FROM message_file mf 
+		             WHERE mf.msg_no = m.msg_no 
+		             AND ROWNUM = 1) AS first_file_name
+		        FROM message m
+		        WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
+		        AND m.msg_delete_chk = 0
+		        AND m.msg_store_chk = 1
+		        AND (
+			         (#{type} = 'all' AND (
 			                    m.msg_title LIKE '%' || #{keyword} || '%' OR 
 			                    m.msg_content LIKE '%' || #{keyword} || '%' OR
 			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
 			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
 			                ))
-			                OR
-			                (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
-			                OR
-			                (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
-			                OR
-			                (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+			     OR
+			         (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			     OR
+			         (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			     OR
+			         (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
 			            )
-			        ) a,
-			        users u1, 
-			        users u2
-			    WHERE a.msg_receiver = u1.user_no(+)
-			    AND a.msg_sender = u2.user_no(+)
-			    AND a.rn >= #{start}
-			    AND a.rn <= #{end}
-		    )
-		    ORDER BY msg_no DESC
-	    ]]>
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 쪽지 보관함 검색된 쪽지 수 조회 -->
 	<select id="kdwSearchStoredMsgCnt" parameterType="map" resultType="int">
@@ -507,53 +448,42 @@
 	<!-- ========== 휴지통 검색기능 =========== -->
 	<!-- 휴지통 검색된 리스트 조회 -->
 	<select id="kdwSearchTrashMessages" parameterType="KdwMessage" resultType="KdwMessage">
-	    <![CDATA[
-	    	SELECT *
-	    	FROM (
-			    SELECT
-			        a.rn, a.msg_no, a.msg_sender, a.msg_receiver, a.msg_title, 
-			        a.msg_content, a.msg_createdate, a.msg_readdate, a.msg_store_chk, 
-			        a.msg_delete_chk, 
-			        CASE 
-			            WHEN a.msg_sender = #{trashboxUserNo} THEN u1.user_nic 
-			            ELSE u2.user_nic 
-			        END AS trashedNic,
-	            (SELECT mf.msg_file_name 
-	             FROM message_file mf
-	             WHERE mf.msg_no = a.msg_no
-	             AND ROWNUM = 1) AS first_file_name
-			    FROM
-			        (
-			            SELECT rownum rn, m.msg_no, m.msg_sender, m.msg_receiver, m.msg_title, 
-			            m.msg_content, m.msg_createdate, m.msg_readdate, m.msg_store_chk, m.msg_delete_chk
-			            FROM message m
-			            WHERE (m.msg_receiver = #{trashboxUserNo} OR m.msg_sender = #{trashboxUserNo})
-			            AND m.msg_delete_chk = 1
-			            AND (
-			                (#{type} = 'all' AND (
-			                    m.msg_title LIKE '%' || #{keyword} || '%' OR 
-			                    m.msg_content LIKE '%' || #{keyword} || '%' OR
-			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT m.*,
+		            CASE 
+		                WHEN m.msg_sender = #{trashboxUserNo} THEN 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_receiver)
+		                ELSE 
+		                    (SELECT u.user_nic FROM users u WHERE u.user_no = m.msg_sender)
+		            END AS trashedNic,
+		            (SELECT mf.msg_file_name 
+		             FROM message_file mf 
+		             WHERE mf.msg_no = m.msg_no 
+		             AND ROWNUM = 1) AS first_file_name
+		        FROM message m
+		        WHERE (m.msg_receiver = #{trashboxUserNo} OR m.msg_sender = #{trashboxUserNo})
+		        AND m.msg_delete_chk = 1
+		        AND (
+			        (#{type} = 'all' AND (
+			        	m.msg_title LIKE '%' || #{keyword} || '%' OR 
+			            m.msg_content LIKE '%' || #{keyword} || '%' OR
+			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
+			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
 			                ))
-			                OR
-			                (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
-			                OR
-			                (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
-			                OR
-			                (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+			    OR
+			        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			    OR
+			        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			    OR
+			        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
 			            )
-			            ORDER BY m.msg_no DESC
-			        ) a,
-			        users u1, 
-			        users u2
-			    WHERE a.msg_receiver = u1.user_no(+)
-			    AND a.msg_sender = u2.user_no(+)
-			    AND a.rn >= #{start}
-			    AND a.rn <= #{end}
-		    )
-		    ORDER BY msg_no DESC
-	    ]]>
+		        ORDER BY m.msg_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 휴지통 검색된 쪽지 수 조회 -->
 	<select id="kdwSearchTrashMsgCnt" parameterType="map" resultType="int">

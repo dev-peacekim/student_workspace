@@ -173,6 +173,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	    xhr.send(JSON.stringify(data));
 	}
 });
+// 페이징 << >> 버튼 더이상 쪽지 없을시 비활성화
+document.addEventListener('DOMContentLoaded', function () {
+    // 'disabled' 클래스를 가진 모든 페이지 링크에 대해 클릭 이벤트를 방지합니다.
+    document.querySelectorAll('.pagination .disabled a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+    });
+});
 </script>
 <!-- 검색바&드롭박스 JS END-->
 </head>
@@ -296,22 +305,25 @@ document.addEventListener('DOMContentLoaded', function() {
 			<!-- 리스트 번호 -->
 			<nav aria-label="Page navigation"
 				class="msgSendbox-pagination-container">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link"
-						href="?currentPage=${page.startPage - 1}" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-					</a></li>
-
-					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-						<li class="page-item ${i eq page.currentPage ? 'active' : ''}">
-							<a class="page-link" href="?currentPage=${i}">${i}</a>
-						</li>
-					</c:forEach>
-
-					<li class="page-item"><a class="page-link"
-						href="?currentPage=${page.endPage + 1}" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span></a></li>
-				</ul>
+			    <ul class="pagination">
+			        <li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
+			            <a class="page-link prev-page" href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}" aria-label="Previous">
+			                <span aria-hidden="true">&laquo;</span>
+			            </a>
+			        </li>
+			
+			        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+			            <li class="page-item ${i == page.currentPage ? 'active' : ''}">
+			                <a class="page-link" href="?currentPage=${i}">${i}</a>
+			            </li>
+			        </c:forEach>
+			
+			        <li class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
+			            <a class="page-link next-page" href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}" aria-label="Next">
+			                <span aria-hidden="true">&raquo;</span>
+			            </a>
+			        </li>
+			    </ul>
 			</nav>
 		</div>
 		<!-- card END -->
