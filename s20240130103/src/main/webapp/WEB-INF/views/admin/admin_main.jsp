@@ -180,7 +180,7 @@
                           <tr>
                             <th>${user.user_no }</th>
                             <td>
-                            	<a href="/adminDetailUser?user_no=${user.user_no }">${user.user_name }</a>
+                            	<a href="/admin_user_detail?user_no=${user.user_no }">${user.user_name }</a>
                             </td>
                             <td>
                             	<fmt:formatDate value="${user.user_update_date }" type="both"/> 
