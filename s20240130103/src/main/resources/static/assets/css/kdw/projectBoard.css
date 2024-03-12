@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+body {
+    font-family: 'NanumSquare', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 5px 20px 0 rgba(82, 63, 105, 0.2);
+}
+
+/* Card */
+.card {
+	margin-bottom: 10px;
+	background-color: white;
+	width: 100%;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.card-body {
+	padding: 20px 20px 20px 20px;
+}
+
+.card-body .nav {
+    margin-bottom: 30px;
+    border-bottom: 0;
+    font-weight: 600;
+}
+
+.controller {
+    display: flex;
+    justify-content: space-between;
+}
+/* 버튼: 프로젝트 홈 & 공유게시판 */
+.top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.top .top-btn {
+	display: flex;
+}
+
+.top .top-btn .btn {
+	font-weight: 700;
+	width: 150px;
+	box-shadow: 0px 0 5px rgba(1, 41, 112, 0.1);
+}
+
+.top .top-btn .project-board-btn {
+	margin-left: 9px;
+}
+
+.top .top-btn .project-home-btn {
+	border: 1px solid #82838542;
+	background-color: white;
+	transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, 
+	border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+	color: #012970;
+}
+
+.top .top-btn .project-home-btn:hover {
+	background-color: #b4b0b025;
+	color: #0d6efd;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.search-form {
+	display: flex;
+	justify-content: space-between;
+    font-size: 14px;
+    color: #012970;
+    border: 1px solid rgba(1, 41, 112, 0.2);
+    padding: 7px 10px 7px 8px;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 250px;
+}
+
+.search-form input {
+	outline: none;
+	font-family: 'NanumSquare', sans-serif;
+	border: 0;
+}
+
+.search-form:focus-within,
+.search-form:hover {
+  box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+  border: 1px solid rgba(1, 41, 112, 0.3);
+}
+
+.search-form button {
+	border: 0;
+	padding: 0;
+	background: none;
+}
+
+.search-form button i {
+	color: #012970;
+}
+
+.search-bar .search-filter {
+    margin-left: 10px;
+    border: 1px solid rgba(1, 41, 112, 0.2);
+    height: 40px;
+    width: 130px;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+.controller .sort-filter {
+    border: 1px solid rgba(1, 41, 112, 0.2);
+    font-family: 'NanumSquare', sans-serif;
+    width: 230px;
+    height: 40px;
+}
+
+.table {
+    font-family: 'NanumSquare', sans-serif;
+}
+
+.table tr th:nth-child(2) {
+    width: 25%;
+}
+
+.table tr th:nth-child(4) {
+    width: 13%;
+}
+
+.table tr th:nth-child(5) {
+    width: 13%;
+}
+
+.page-navigation {
+    display: flex;
+    justify-content: center;
+}
+
+.page-navigation .pagination {
+    margin-bottom: 0;
+}
