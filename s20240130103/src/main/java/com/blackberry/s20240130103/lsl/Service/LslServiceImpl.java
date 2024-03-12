@@ -26,7 +26,7 @@ public class LslServiceImpl implements LslService {
 	private final LslDao ld;
 
 
-	// 지유 게시판 토탈 카운트 
+	// 자유 게시판 토탈 카운트 
 	@Override
 	public int totalBoardFree() {
 		System.out.println("LslServiceImpl totalBoardFree Start...");
@@ -45,7 +45,19 @@ public class LslServiceImpl implements LslService {
 		return boardFreeList;
 	}
 	
-	// 지유 게시판 리스트 검색 
+	
+	
+	
+
+	
+	//  자유 게시판 리스트 검색 카운트
+	@Override
+	public int totalBoardSearchFree(LslBoardComm lslBoardComm) {
+		int totalBoardSearchFree = ld.totalBoardSearchFree(lslBoardComm);
+		return totalBoardSearchFree;
+	}
+	
+	// 자유 게시판 리스트 검색 
 	@Override
 	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
 	 List<LslBoardComm> boardFreeSearch = null;
@@ -69,6 +81,7 @@ public class LslServiceImpl implements LslService {
 	// 게시판 글 수정 페이지 
 	@Override
 	public LslBoardComm boardFreeModify(int cboard_no) {
+		System.out.println("1시작");
 		LslBoardComm boardFreeModify = ld.boardFreeModify(cboard_no);
 		
 		return boardFreeModify;
@@ -93,6 +106,10 @@ public class LslServiceImpl implements LslService {
 		int boardAskUpdate = ld.boardAskUpdate(lslBoardComm);
 		return boardAskUpdate;
 	}
+
+	
+	
+	
 	
 	
 	
@@ -117,6 +134,15 @@ public class LslServiceImpl implements LslService {
 		return boardAskList;
 	}
 
+	// 질문 게시판 리스트 검색 카운트
+	@Override
+	public int totalBoardSearchAsk(LslBoardComm lslBoardComm) {
+		int totalBoardSearchAsk = ld.totalBoardSearchAsk(lslBoardComm);
+		return totalBoardSearchAsk;
+	}
+	
+	
+	
 	// 질문 게시판 리스트 검색 
 	@Override
 	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
@@ -233,35 +259,6 @@ public class LslServiceImpl implements LslService {
 		}
 
 	}
-	
-	
-	// 질문 게시판 파일 다운로드 
-	@Override
-	public LslboardFile boardAskInfo(int cboard_no, int fileCount) {
-		LslboardFile boardAskInfo = ld.boardAskInfo(cboard_no, fileCount);
-		return boardAskInfo;
-	}
-	
-	@Override
-	public LslboardFile boardFreeInfo(int cboard_no, int fileCount) {
-		LslboardFile boardFreeInfo  = ld.boardFreeInfo(cboard_no, fileCount);
-		return boardFreeInfo;
-	}
-
-	
-	// 게시판 파일 포함 리스트 
-	@Override
-	public LslBoardComm boardFreeInfo(int cboard_no) {
-		LslBoardComm boardFreeInfo = ld.boardFreeInfo(cboard_no);
-		return boardFreeInfo;
-	}
-	@Override
-	public LslBoardComm boardAskInfo(int cboard_no) {
-		LslBoardComm boardAskInfo = ld.boardAskInfo(cboard_no);
-		return boardAskInfo;
-	}
-	
-	
 	
 	
 	
@@ -392,11 +389,6 @@ public class LslServiceImpl implements LslService {
 		
 		
 // 게시글 파일 까지 수정 리스트
-	@Override
-	public List<LslBoardComm> boardCommFileList(LslBoardComm lslBoardComm) {
-	List<LslBoardComm> boardCommFileList = ld.boardCommFileList(lslBoardComm);
-	return boardCommFileList;
-}
 	
 		
 	
