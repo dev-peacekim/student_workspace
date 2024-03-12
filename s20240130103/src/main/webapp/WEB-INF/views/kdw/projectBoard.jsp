@@ -87,53 +87,6 @@
 		<section class="section dashboard">
 			<div class="card">
 				<div class="card-body">
-					<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab"
-						role="tablist">
-						<c:choose>
-							<c:when test="${clickedNav == 'comp'}">
-								<li class="nav-item">
-									<button class="nav-link" id="all-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="all">전체</button>
-								</li>
-								<li class="nav-item">
-									<button class="nav-link active" id="comp-tab"
-										data-bs-toggle="tab" type="button" role="tab" value="comp">완료</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="uncomp-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="uncomp">미완료</button>
-								</li>
-							</c:when>
-							<c:when test="${clickedNav == 'uncomp'}">
-								<li class="nav-item">
-									<button class="nav-link" id="all-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="all">전체</button>
-								</li>
-								<li class="nav-item">
-									<button class="nav-link" id="comp-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="comp">완료</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link active" id="uncomp-tab"
-										data-bs-toggle="tab" type="button" role="tab" value="uncomp">미완료</button>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="nav-item">
-									<button class="nav-link active" id="all-tab"
-										data-bs-toggle="tab" type="button" role="tab" value="all">전체</button>
-								</li>
-								<li class="nav-item">
-									<button class="nav-link" id="comp-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="comp">완료</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="uncomp-tab" data-bs-toggle="tab"
-										type="button" role="tab" value="uncomp">미완료</button>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
 					<div class="controller">
 						<div class="search-bar">
 							<div class="search-form">
@@ -163,69 +116,55 @@
 								</c:choose>
 							</select>
 						</div>
-						<select name="sort-filter" class="sort-filter form-select">
-							<c:choose>
-								<c:when test="${sortFilter == 'sort_project'}">
-									<option value="sort_deadline">sorted by deadline</option>
-									<option value="sort_project" selected>sorted by
-										project</option>
-									<option value="sort_task">sorted by task</option>
-								</c:when>
-								<c:when test="${sortFilter == 'sort_task'}">
-									<option value="sort_deadline">sorted by deadline</option>
-									<option value="sort_project">sorted by project</option>
-									<option value="sort_task" selected>sorted by task</option>
-								</c:when>
-								<c:otherwise>
-									<option value="sort_deadline" selected>sorted by
-										deadline</option>
-									<option value="sort_project">sorted by project</option>
-									<option value="sort_task">sorted by task</option>
-								</c:otherwise>
-							</c:choose>
-
-						</select>
 					</div>
 					<div class="table-nav">
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>프로젝트명</th>
-									<th>과업명</th>
-									<th>시작일</th>
-									<th>종료일</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>댓글</th>
 								</tr>
 							</thead>
-							<c:set var="num" value="${kphPaging.start }"></c:set>
 							<tbody>
-								<c:forEach var="projectTask" items="${totalProjectTaskList}">
-									<tr>
-										<th>${num}</th>
-										<td><a href="#">${projectTask.project_title}</a></td>
-										<td>${projectTask.task_title}</td>
-										<td>${projectTask.task_start.substring(0, projectTask.task_start.indexOf(" "))}</td>
-										<td>${projectTask.task_end.substring(0, projectTask.task_end.indexOf(" "))}</td>
+								<c:forEach var="boardProject" items="pboardList">
+									<tr class="list-item">
+										<td class="boardNo">${pboardList.pboard_no }</td>
+										<td class="subject">${pboardList.pboard_title }</td>
+										<td class="author">${userNo}</td>
+										<td class="views">0</td>
+										<td class="comments">0</td>
 									</tr>
-									<c:set var="num" value="${num + 1 }"></c:set>
 								</c:forEach>
 							</tbody>
 						</table>
-						<nav class="page-navigation">
+						<!-- 프로젝트 공유게시판 페이징 -->
+						<nav aria-label="Page navigation"
+							class="projectBoard-pagination-container">
 							<ul class="pagination">
-								<c:if test="${kphPaging.startPage > kphPaging.pageBlock }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${kphPaging.startPage-kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&laquo;</span></a></li>
-								</c:if>
-								<c:forEach var="i" begin="${kphPaging.startPage }"
-									end="${kphPaging.endPage }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${i}&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}">${i}</a></li>
+								<li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
+									<a class="page-link prev-page"
+									href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+
+								<c:forEach var="i" begin="${page.startPage}"
+									end="${page.endPage}">
+									<li class="page-item ${i == page.currentPage ? 'active' : ''}">
+										<a class="page-link" href="?currentPage=${i}">${i}</a>
+									</li>
 								</c:forEach>
-								<c:if test="${kphPaging.endPage < kphPaging.totalPage }">
-									<li class="page-item"><a class="page-link"
-										href="totalTaskList?currentPage=${kphPaging.startPage+kphPaging.pageBlock }&keyword=${keyword}&searchFilter=${searchFilter}&sortFilter=${sortFilter}&clickedNav=${clickedNav}"><span>&raquo;</span></a></li>
-								</c:if>
+
+								<li
+									class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
+									<a class="page-link next-page"
+									href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
 							</ul>
 						</nav>
 					</div>

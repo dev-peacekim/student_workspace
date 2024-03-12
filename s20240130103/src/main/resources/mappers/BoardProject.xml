@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackberry.s20240130103.MessageMapper">
+
+	<!-- 게시글 개수 -->
+	<select id="totPboardListCnt" resultType="int"
+		parameterType="java.lang.Long">
+		SELECT COUNT(*) FROM board_project
+		WHERE user_no = #{userNo}
+		AND pboard_delete_chk = 0
+	</select>
+	
+	<!-- 게시글 리스트 가져오기 -->
+	<select id="kdwPboardListAll" parameterType="KdwBoardProject"
+		resultType="KdwBoardProject">
+		SELECT *
+		FROM (
+		    SELECT a.*, ROWNUM AS rn
+		    FROM (
+		        SELECT bp.*, u.user_nic AS userNic
+		        FROM board_project bp, users u
+		        WHERE bp.user_no = u.user_no
+		        AND bp.user_no = #{userNo}
+		        AND pboard_delete_chk = 0
+		        ORDER BY bp.pboard_no DESC
+		    ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+</mapper>

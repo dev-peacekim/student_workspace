@@ -138,11 +138,50 @@ body {
     width: 13%;
 }
 
-.page-navigation {
+/*========== 쪽지 페이지 리스트 ==========*/
+.projectBoard-pagination-container {
+	position:absolute;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: -55px;
+    right: 50%;
+    bottom: 10px;
+    transform: translateX(50%);
 }
 
-.page-navigation .pagination {
-    margin-bottom: 0;
+.projectBoard-pagination-container .pagination {
+    margin: 0;
+}
+
+.projectBoard-pagination-container .pagination li {
+    margin: 0; /* 각 번호 간격 조절 */
+    
+}
+
+.projectBoard-pagination-container .pagination a {
+    color: #8A8A8A;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.projectBoard-pagination-container .pagination a:hover {
+     background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
+}
+
+.projectBoard-pagination-container .pagination .active a {
+    background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
+    color: #0D6DFD;
+    border: 1px solid #0D6DFD;
 }
