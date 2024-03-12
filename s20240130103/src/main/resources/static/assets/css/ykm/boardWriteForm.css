@@ -80,12 +80,13 @@
 
 
 .upload-title {
-	
 	margin: 10px 0 10px 0;
     height: 85px;
     border: 2px dashed #ccc;
     display: flex;
-    justify-content: center;
     align-items: center;
     border-radius: 5px;
+}
+.preview {
+	margin: 8px;
 }

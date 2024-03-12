@@ -78,10 +78,10 @@ public class YkmBoardController {
 		System.out.println("YkmController writePost start---*");
 		
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
-		ykmBoardComm.setUser_no(user_no);		
-		
+		ykmBoardComm.setUser_no(user_no);	
+
+		// 파일 업로드
 		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
-		System.out.println("studyFilePath 경로 = " + studyFilePath);
 		
 		int result = ykmService.writePost(ykmBoardComm, studyFilePath, fileList);
 		System.out.println("YkmController writePost ykmBoardComm fileList : "+fileList);
@@ -136,9 +136,8 @@ public class YkmBoardController {
 		model.addAttribute("getPostList", searchResult);
 		return "ykm/boardStudy";
 	}
-
 	
-	// 파일 업로드
+	
 	
 	
 	

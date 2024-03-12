@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -26,39 +27,47 @@ public class YkmServiceImpl implements YkmService {
 
 	private final YkmBoardDao ykmBoardDao;
 
-	// 스터디 게시판
+	/* 스터디 게시판 */
+	
+	// 게시판 글쓰기
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
 		
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
-		if (result > 0) {
-			saveFileList(studyFilePath, fileList);
-        }
+		
+		for (MultipartFile file : fileList) {
+			
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			
+			try {
+				Path uploadPath = Paths.get(studyFilePath + File.separator + fileName);
+				String uuid = UUID.randomUUID().toString();
+				Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
+				
+				YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
+				System.out.println("YkmServiceImpl writePost ykmBoardCommFile : "+ykmBoardCommFile);
+				ykmBoardCommFile.setCboard_no(ykmBoardComm.getCboard_no());
+				System.out.println("YkmServiceImpl writePost ykmBoardComm.getCboard_no() "+ykmBoardComm.getCboard_no());
+				ykmBoardCommFile.setCboard_file_name(uuid);
+				ykmBoardCommFile.setCboard_file_user_name(fileName);
+				
+				ykmBoardDao.saveFileList(ykmBoardCommFile);
+		
+			} catch (Exception e) {
+				e.printStackTrace();
+                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
+			}
+		}
+		System.out.println("YkmServiceImpl writePost ykmBoardComm "+ ykmBoardComm);
+		System.out.println("YkmServiceImpl writePost fileList "+ fileList); //????
+		System.out.println("YkmServiceImpl writePost result : "+result);
 		return result;
 	}
 
 
 
-	// 파일 저장 
-	private void saveFileList(String studyFilePath, List<MultipartFile> fileList) {
-		System.out.println("YkmServiceImpl saveFileList start---*");
-		for (MultipartFile file : fileList) {
-            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-            try {
-                // 파일 저장 경로 설정
-                Path uploadPath = Paths.get(studyFilePath + File.separator + fileName);
-                // 파일 저장
-                Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
-            }
-        }
-	}
-
-
-
+	// 게시판 리스트
 	@Override
 	public List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getPostList start---*");
@@ -67,6 +76,7 @@ public class YkmServiceImpl implements YkmService {
 		return getPostList;
 	}
 	
+	// 게시글 보여주기
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
 		return ykmBoardDao.getPost(cboard_no);
@@ -81,6 +91,7 @@ public class YkmServiceImpl implements YkmService {
 	}
 	*/
 	
+	// 글 수정
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl updatePost start---*");
@@ -88,17 +99,20 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updatePost(ykmBoardComm);	
 	}
 
+	// 글 삭제
 	@Override
 	public int deletePost(int cboard_no) {
 		System.out.println("YkmServiceImpl deletePost start---*");
 		return ykmBoardDao.deletePost(cboard_no);
 	}
 	
+	// 게시판 조회수 카운트
 	@Override
 	public int increseViewCount(int cboard_no) {
 		return ykmBoardDao.increseViewcount(cboard_no);
 	}
 	
+	// 게시판 모집 상태 변경 (모집중 / 모집완료)
 	@Override
 	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl updateRecruitment start---*");
@@ -106,6 +120,13 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 	
+	// 파일 불러오기
+	@Override
+	public List<YkmBoardCommFile> getFileList(YkmBoardCommFile ykmBoardCommFile) {
+		//
+		return null;
+	}
+
 	
 
 	
@@ -155,6 +176,9 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getTotalCount result : "+result);
 		return result;
 	}
+
+
+
 
 
 

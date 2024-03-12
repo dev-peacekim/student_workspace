@@ -2,6 +2,7 @@ package com.blackberry.s20240130103.ykm.dao;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
@@ -23,7 +24,6 @@ public interface YkmBoardDao {
 	int updateRecruitment(YkmBoardComm ykmBoardComm); // 모집여부
 	
 	int saveFileList(YkmBoardCommFile ykmBoardCommFile); // 파일 DB 저장
-	
 	
 	
 	/* REST API	*/

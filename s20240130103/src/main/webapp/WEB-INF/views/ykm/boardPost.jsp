@@ -124,6 +124,7 @@ window.onload = function() {
 				</div>
 				
 				<div class="community-post-body">
+					<span class="uploaded-file"></span>
 					<span class="post-content">${getPost.cboard_content}</span>
 				</div>
 

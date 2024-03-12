@@ -43,16 +43,35 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
-
 <link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
-</head>
-<body>
-	<script type="text/javascript">
-		function back() {
-			window.history.back()
-		}
+
+<script>
+window.onload = function() {
+	function back() {
+		window.history.back()
+	}
+	
+	function updatePreview() {
+	    $("input[type='file']").on("change", function (e) {
+	    	
+	        $('.preview').empty(); 
+	        var files = e.target.files;
+	        var arr = Array.prototype.slice.call(files);
+	        
+	        $.each(arr, function (index, file) {
+	            let fileName = file.name; 
+	            var div = $('<div>').text(fileName);
+	            $('.preview').prepend(div); // 새로운 파일이 위로 오도록 prepend를 사용합니다.
+	        });
+	    });
+	} 
+	
+	updatePreview();
+}	
 	</script>
+</head>
+
+<body>
 	
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
@@ -94,7 +113,7 @@
 							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple/>
 							<div class="upload-title">
 								<label for="fileContent" class="form-label">
-						            파일을 첨부할 수 있습니다
+						            <div class="preview">파일을 첨부할 수 있습니다</div>
 						        </label>
 					        </div>
 						</div>

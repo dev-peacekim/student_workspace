@@ -95,10 +95,14 @@
 	 	  AND COMM_MID = 20
 	</select>
 	
-	<select id="ykmSaveFileList" parameterType="YkmBoardCommFile" resultType="int">
-		INSERT INTO BOARD_COMM_FILE (CBOARD_NO, CBOARD_FILE_CNT, CBOARD_FILE_NAME, CBOARD_FILE_USER_NAME)
-		VALUES (#{cboard_no}, )
-	</select>
-	
-	
+	<insert id="ykmSaveFileList" parameterType="java.util.List" 
+				useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
+		INSERT INTO BOARD_COMM_FILE (CBOARD_NO, CBOARD_FILE_NAME, CBOARD_FILE_USER_NAME, CBOARD_FILE_CNT)
+		VALUES (
+				SEQ_BOARD_COMM.NEXTVAL, 
+				#{cboard_file_name}, 
+				#{cboard_file_user_name}, 
+				(SELECT NVL(MAX(CBOARD_NO), 0) + 1 FROM BOARD_COMM_FILE WHERE CBOARD_NO = #{cboard_no})
+				)
+	</insert>
 </mapper>

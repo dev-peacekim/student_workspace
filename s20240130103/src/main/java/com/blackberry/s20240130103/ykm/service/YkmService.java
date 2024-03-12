@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
+import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
@@ -23,6 +24,7 @@ public interface YkmService {
 	
 	int increseViewCount(int cboard_no); // 조회수
 
+	List<YkmBoardCommFile> getFileList(YkmBoardCommFile ykmBoardCommFile); // 파일 보여주기
 
 	
 	

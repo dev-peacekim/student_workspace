@@ -113,10 +113,9 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 
 	@Override
 	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmBoardDaoImpl getSearchList start ---*");
+		//System.out.println("YkmBoardDaoImpl getSearchList start ---*");
 		List<YkmBoardComm> getSearchList = session.selectList("ykmGetSearchList",ykmBoardComm);
-		System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList);
-		System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList.size());
+		//System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList.size());
 		return getSearchList;
 	}
 
@@ -124,17 +123,18 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getTotalCount start ---*");
 		int result = session.selectOne("ykmGetTotalCount", ykmBoardComm);
-		System.out.println("YkmBoardDaoImpl getTotalCount result : " + result );
+		//System.out.println("YkmBoardDaoImpl getTotalCount result : " + result );
 		return result;
 	}
 
 
 	@Override
 	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
-		System.out.println("YkmBoardDaoImpl saveFileList start ---*");
-		int saveFileList = session.insert("ykmSaveFileList", ykmBoardCommFile);
-		return saveFileList;
+		System.out.println("YkmBoardDaoImpl saveFileList ykmBoardCommFile : "+ykmBoardCommFile);
+		int result = session.insert("ykmSaveFileList", ykmBoardCommFile);
+		return result;
 	}
+
 
 
 
