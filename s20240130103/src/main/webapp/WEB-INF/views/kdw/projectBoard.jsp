@@ -129,11 +129,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="boardProject" items="pboardList">
+								<c:forEach var="pboardList" items="${pboardList }">
 									<tr class="list-item">
 										<td class="boardNo">${pboardList.pboard_no }</td>
 										<td class="subject">${pboardList.pboard_title }</td>
-										<td class="author">${userNo}</td>
+										<td class="author">${pboardList.userNic}</td>
 										<td class="views">0</td>
 										<td class="comments">0</td>
 									</tr>
