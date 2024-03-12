@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         ],
                         datasets: [
                           {
-                            label: "Bar Chart",
+                            label: "user",
                             data: [
 								result['4']['USER_CNT'], 
 								result['3']['USER_CNT'], 

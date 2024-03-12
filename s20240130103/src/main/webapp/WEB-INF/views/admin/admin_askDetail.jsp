@@ -59,62 +59,51 @@
 			<div class="main-detail bg-white">
 				<div class="card-body">
 					<div class="card-top">
-						<h5 class="fnt-nanum">게시글 상세 정보</h5>
+						<h5 class="fnt-nanum">문의 상세 정보</h5>
 					</div>
 					<div class="d-flex justify-content-center">
 						<table class="table table-bordered table-style">
 							<tbody>
 								<tr>
-									<td style="width: 8%;">제목</td>
-									<td>
-										${board.cboard_title }
-										<c:if test="${board.cboard_delete_chk eq 1 }">
-											<span class="title-span fnt-nanum">삭제요청</span>
-										</c:if>
-									</td>
+									<td style="width: 10%">제목</td>
+									<td>${ask.admin_title }</td>
 								</tr>
 								<tr>
 									<td>작성자</td>
 									<td>
-										${board.user_name }
-										<span class="writer-span">#${board.user_id }</span>
+										${ask.user_id } 
 									</td>
 								</tr>
-								<tr style="height: 300px;">
+								<tr style="height: 300px">
 									<td>내용</td>
-									<td>${board.cboard_content }</td>
-								</tr>
-								<tr style="height: 100px;">
-									<td>첨부파일</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>댓글갯수</td>
-									<td>${board.reply_cnt }</td>
+									<td>${ask.admin_content }</td>
 								</tr>
 								<tr>
 									<td>작성일</td>
 									<td>
-										<fmt:formatDate value="${board.cboard_date }" type="both"/>
+										<fmt:formatDate value="${ask.admin_date }" type="both" />
 									</td>
 								</tr>
 								<tr>
-									<td>게시판</td>
-									<td>${board.comm_content }</td>
+									<td>오류발생일</td>
+									<td>
+										<c:if test="${not empty ask.admin_start }">
+											<fmt:formatDate value="${ask.admin_start }" type="both" />
+										</c:if>
+									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="card-bottom d-flex justify-content-end">
-						<a href="admin_boardList">
+						<a href="admin_ask">
 							<button class="btn btn-secondary">목록</button>
-						</a>
-						<a href="admin_boardDelete?cboard_no=${board.cboard_no }">
-							<button class="btn btn-danger">삭제</button>
-						</a>
-						<a href="admin_reply?searchkind=cboard_no&searchValue=${board.cboard_no }">
-							<button class="btn btn-primary">댓글보기</button>
-						</a>
+						</a> 
+						<c:if test="${ask.admin_reply_chk eq 0 }">
+							<a href="admin_ask_responseForm?user_no=${ask.user_no }&admin_no=${ask.admin_no}">
+								<button class="btn btn-primary">답변작성</button>
+							</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -147,7 +147,7 @@
 		                        <tr>
 		                          <th>${boardAdmin.user_id }</th>
 		                          <td>
-		                          	<a href="/adminDetailBoardAdmin?user_no=${boardAdmin.user_no }&admin_no=${boardAdmin.admin_no}">${boardAdmin.admin_title }</a>
+		                          	<a href="/admin_ask_detail?user_no=${boardAdmin.user_no }&admin_no=${boardAdmin.admin_no}">${boardAdmin.admin_title }</a>
 		                          </td>
 		                          <td>
 		                          	<fmt:formatDate value="${boardAdmin.admin_date }" type="both"/>

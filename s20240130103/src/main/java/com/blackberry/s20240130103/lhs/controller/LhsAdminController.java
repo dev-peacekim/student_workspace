@@ -16,9 +16,11 @@ import com.blackberry.s20240130103.lhs.model.User;
 import com.blackberry.s20240130103.lhs.service.AdminService;
 import com.blackberry.s20240130103.lhs.service.LhsPaging;
 import com.blackberry.s20240130103.lhs.service.UserService;
+import com.blackberry.s20240130103.yhs.model.Ask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -133,6 +135,41 @@ public class LhsAdminController {
 	public String adminRegister(com.blackberry.s20240130103.lhs.domain.User user) {
 		userService.joinUser(user);
 		return "redirect:/adminMain";
+	}
+	
+	@GetMapping("admin_ask")
+	public String adminAskList(Ask ask,Model model) {
+		int askCnt = adminService.selectAskCnt(ask);
+		LhsPaging paging = new LhsPaging(askCnt, ask.getCurrentPage());
+		ask.setStart(paging.getStart());
+		ask.setEnd(paging.getEnd());
+		List<Ask> askList = adminService.selectAskList(ask);
+		model.addAttribute("askList", askList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchkind", ask.getSearch());
+		model.addAttribute("searchValue", ask.getKeyword());
+		return "admin/admin_askList";
+	}
+	
+	@GetMapping("admin_ask_detail")
+	public String adminAskDetail(Ask ask,Model model) {
+		Ask askDetail = adminService.selectAskDetail(ask);
+		model.addAttribute("ask", askDetail);
+		return "admin/admin_askDetail";
+	}
+	
+	@GetMapping("admin_ask_responseForm")
+	public String adminAskResponseForm(Ask ask,Model model) {
+		Ask askDetail = adminService.selectAskDetail(ask);
+		model.addAttribute("ask", askDetail);
+		return "admin/admin_askResponse";
+	}
+	
+	@PostMapping("admin_ask_responseWrite")
+	public String adminAskResponseWrite(Ask ask,HttpServletRequest request) {
+		ask.setUser_no((Long)request.getSession().getAttribute("user_no"));
+		int result = adminService.insertAskResponse(ask);
+		return "redirect:/admin_ask";
 	}
 	
 }

@@ -7,6 +7,7 @@ import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
+import com.blackberry.s20240130103.yhs.model.Ask;
 
 public interface AdminService {
 
@@ -39,5 +40,13 @@ public interface AdminService {
 	int selectReplyCnt(Reply reply);
 
 	int deleteReply(Reply reply);
+
+	int selectAskCnt(Ask ask);
+
+	List<Ask> selectAskList(Ask ask);
+
+	Ask selectAskDetail(Ask ask);
+
+	int insertAskResponse(Ask ask);
 
 }

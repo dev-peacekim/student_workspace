@@ -196,4 +196,61 @@
 		delete from board_comm_reply bcr where bcr.creply_no=#{creply_no}
 	</delete>
 	
+	
+	<select id="LhsAdminAskCnt" parameterType="Ask" resultType="int">
+		select count(*)
+		from board_admin ba
+		<choose>
+			<when test="search=='title'">
+				WHERE ba.admin_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="search=='id'">
+				WHERE ba.user_no = (SELECT u.USER_NO FROM USERS u WHERE u.user_id = #{keyword})
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="LhsAdminAskList" parameterType="Ask" resultType="Ask">
+		SELECT a.*
+		FROM (SELECT rownum rn, a.*
+				FROM (SELECT u.user_id,ba.*
+				FROM board_admin ba, users u
+				WHERE ba.user_no = u.user_no
+				<choose>
+					<when test="search=='title'">
+						and ba.admin_title like '%'||#{keyword}||'%'
+					</when>
+					<when test="search=='id'">
+						and ba.user_no = (SELECT u.USER_NO FROM USERS u WHERE u.user_id = #{keyword})
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				ORDER BY ba.admin_reply_chk,ba.admin_reply_group,ba.admin_date) a) a
+		WHERE a.rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="LhsAdminAskOne" parameterType="Ask" resultType="Ask">
+		select u.user_id,ba.*
+		from board_admin ba,users u
+		where ba.user_no = #{user_no}
+		and ba.admin_no = #{admin_no}
+		and ba.user_no = u.user_no
+	</select>
+	
+	<insert id="LhsAdminAskInsert" parameterType="Ask">
+		insert into
+		board_admin values
+		(#{user_no},(select NVL(MAX(admin_no),0)+1 from board_admin where user_no = #{user_no}),sysdate,#{admin_title},#{admin_content},null,#{admin_reply_group},1,#{admin_reply_user})
+	</insert>
+	
+	<update id="LhsAdminAskUpdate" parameterType="Ask">
+		update board_admin
+		set admin_reply_chk = 1
+		where admin_no = #{admin_reply_group}
+		and user_no = #{admin_reply_user}
+	</update>
+	
 </mapper>

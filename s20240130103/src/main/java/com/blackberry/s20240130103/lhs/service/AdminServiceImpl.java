@@ -4,16 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blackberry.s20240130103.lhs.dao.AdminDao;
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
+import com.blackberry.s20240130103.yhs.model.Ask;
 
 import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AdminServiceImpl implements AdminService{
 	
 	private final AdminDao adminDao;
@@ -105,6 +108,31 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int deleteReply(Reply reply) {
 		int result = adminDao.deleteReply(reply);
+		return result;
+	}
+	
+	@Override
+	public int selectAskCnt(Ask ask) {
+		int askCnt = adminDao.selectAskCnt(ask);
+		return askCnt;
+	}
+	
+	@Override
+	public List<Ask> selectAskList(Ask ask) {
+		List<Ask> askList = adminDao.selectAskList(ask);
+		return askList;
+	}
+	
+	@Override
+	public Ask selectAskDetail(Ask ask) {
+		Ask askDetail = adminDao.selectAskDetail(ask);
+		return askDetail;
+	}
+	
+	@Override
+	public int insertAskResponse(Ask ask) {
+		int result = adminDao.insertAskResponse(ask);
+		int updateresult = adminDao.updateAskResponse(ask);
 		return result;
 	}
 }

@@ -13,8 +13,7 @@
 			FROM (SELECT ba.*, u.user_name, u.user_nic
   			FROM BOARD_ADMIN ba
   			INNER JOIN users u ON ba.user_no = u.user_no
-  			WHERE ba.ADMIN_REPLY_CHK = 0
-  			AND ba.user_no = #{user_no}
+  			WHERE ba.user_no = #{user_no}
   			ORDER BY ADMIN_date DESC) a)
 		WHERE  rn  >= #{start} 
  		and    rn  <= #{end}    
@@ -41,7 +40,7 @@
 								admin_reply_group,					
 								ADMIN_REPLY_CHK)
 		VALUES (#{user_no},(select NVL(MAX(admin_no),0)+1 from board_admin where user_no = #{user_no}), sysdate,#{admin_title},#{admin_content}, #{admin_start}, (select NVL(MAX(admin_no),0)+1 from board_admin where user_no = #{user_no}), 0)
-		 </insert>	
+	</insert>	
 		 
 		 
 	<delete id="yhsDeleteAsk" parameterType="int">

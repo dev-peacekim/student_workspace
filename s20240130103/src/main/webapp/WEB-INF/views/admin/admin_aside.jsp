@@ -19,7 +19,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed" href="admin_users">
+          <a class="nav-link collapsed" href="admin_ask">
             <i class="bi bi-question-circle"></i><span>문의관리</span>
           </a>
         </li>

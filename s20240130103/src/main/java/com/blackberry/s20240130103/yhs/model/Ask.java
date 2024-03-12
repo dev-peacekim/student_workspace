@@ -17,6 +17,7 @@ public class Ask {
 	private Date admin_start;
 	private long admin_reply_group;
 	private long admin_reply_chk;
+	private long admin_reply_user;
 	
 	//조회용
 	private String search;

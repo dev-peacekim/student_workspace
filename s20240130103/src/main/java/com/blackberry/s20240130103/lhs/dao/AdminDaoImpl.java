@@ -10,6 +10,7 @@ import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
+import com.blackberry.s20240130103.yhs.model.Ask;
 
 import lombok.RequiredArgsConstructor;
 
@@ -125,5 +126,33 @@ public class AdminDaoImpl implements AdminDao {
 		int result = session.delete("LhsAdminReplyDelete", reply);
 		return result;
 	}
-
+	
+	@Override
+	public int selectAskCnt(Ask ask) {
+		int askCnt = session.selectOne("LhsAdminAskCnt", ask);
+		return askCnt;
+	}
+	
+	@Override
+	public List<Ask> selectAskList(Ask ask) {
+		List<Ask> askList = session.selectList("LhsAdminAskList", ask);
+		return askList;
+	}
+	
+	@Override
+	public Ask selectAskDetail(Ask ask) {
+		Ask askDetail = session.selectOne("LhsAdminAskOne",ask);
+		return askDetail;
+	}
+	
+	@Override
+	public int insertAskResponse(Ask ask) {
+		int result = session.insert("LhsAdminAskInsert", ask);
+		return result;
+	}
+	
+	public int updateAskResponse(Ask ask) {
+		int result = session.update("LhsAdminAskUpdate", ask);
+		return result;
+	};
 }
