@@ -47,6 +47,43 @@
 	}
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('formFile').addEventListener('change', function() {
+		
+        var fileListDiv = document.getElementById('fileList');
+        fileListDiv.innerHTML = '';
+
+        var files = this.files;
+		var boardType = document.getElementById('boardType').value;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var fileName = file.name; // 파일 이름 가져오기
+            var listItem = document.createElement('div');
+
+            var downloadLink = document.createElement('a');
+            var baseUrl = "";
+
+            if (boardType === "free") {
+                baseUrl = "/boardFreeFileDownload?cboard_file_name=";
+            } else {
+                baseUrl = "/boardAskFileDownload?cboard_file_name=";
+            }
+
+            downloadLink.href = baseUrl + encodeURIComponent(fileName);
+            downloadLink.textContent = fileName;
+            downloadLink.setAttribute("download", fileName);
+
+            listItem.appendChild(downloadLink);
+            fileListDiv.appendChild(listItem);
+        }
+    });
+});
+
+
+</script>
+
 
 </head>
 <body>
@@ -81,30 +118,33 @@
 							<!-- General Form Elements -->
 							<form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate">
 								<input type="hidden" name="cboard_no"value="${boardModifyContents.cboard_no}" /> 
-								<input type="hidden" name="boardType" value="${boardType}" />
+								<input type="hidden" id="boardType" value="${boardModifyContents.boardType}" />
 								<div class="mb-3">
 									<label for="inputText" class="form-label">제목</label> 
 									<input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
 									<!-- 파일 첨부 -->
-						      <div class="upload-files">
-									<label for="files" class="form-label">파일 첨부</label>
-									<input class="form-control" name="files" type="file" id="formFile" multiple/>
-										<div class="upload-title">
-										<c:forEach items="${boardFiles}" var="boardFile">
-											    <c:set var="downloadUrl" value="" />
-											    <c:choose>
-											        <c:when test="${boardModifyContents.boardType eq 'free'}">
-											            <c:set var="downloadUrl" value='/boardFreeFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
-											        </c:when>
-											        <c:when test="${boardModifyContents.boardType eq 'ask'}">
-											            <c:set var="downloadUrl" value='/boardAskFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
-											        </c:when>
-											    </c:choose>
-											    <a href="${downloadUrl}" target="_blank">${boardFile.cboard_file_user_name}</a><br/>
+									<div class="upload-files">
+										<label for="files" class="form-label">파일 첨부</label>
+										<input class="form-control" name="files" type="file" id="formFile" multiple/>
+										<div class="upload-title" id="fileList">
+											<c:forEach items="${boardFiles}" var="boardFile">
+												<c:set var="downloadUrl" value="" />
+												<c:choose>
+													<c:when test="${boardModifyContents.boardType eq 'free'}">
+														<c:set var="downloadUrl" value='/boardFreeFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
+													</c:when>
+													<c:otherwise>
+														<c:set var="downloadUrl" value='/boardAskFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
+													</c:otherwise>
+												</c:choose>
+												<!-- 파일 이름을 URL 인코딩하여 링크에 추가 -->
+												<a href="${downloadUrl}" download="${boardFile.cboard_file_user_name}" target="_blank">${boardFile.cboard_file_user_name}</a>
+												<br>
+												<br>
 											</c:forEach>
-										
 										</div>
-					        </div>
+									</div>
+									
 					        
 						</div>
 					

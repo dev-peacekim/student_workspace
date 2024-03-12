@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -412,12 +411,25 @@ public class LslController {
 
 	// 게시판 글 수정 처리
 	@PostMapping(value = "boardFreeAskUpdate")
-	public String boardFreeAskUpdate(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
+	public String boardFreeAskUpdate(@RequestParam("files") MultipartFile[] multipartFile, HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		
+		Long user_no = (Long) request.getSession().getAttribute("user_no");
+
+		String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/");
+
+		lslBoardComm.setUser_no(user_no);
+		
+		LslboardFile lslboardFile = new LslboardFile();
+		List<LslboardFile> boardAskFile = ls.boardAskFile(cboard_no);
+		List<LslboardFile> boardFreeFile = ls.boardFreeFile(cboard_no);
+		
+
+	 
 		String boardType = request.getParameter("boardType");
 		lslBoardComm.setCboard_no(cboard_no);
 		lslBoardComm.setBoardType(boardType);
+		
 
 		System.out.println("boardType :" + boardType);
 		int boardUpdate;

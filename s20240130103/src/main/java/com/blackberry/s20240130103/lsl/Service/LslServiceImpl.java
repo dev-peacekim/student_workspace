@@ -108,8 +108,7 @@ public class LslServiceImpl implements LslService {
 	}
 
 	
-	
-	
+	// 게시판 파일 수정 
 	
 	
 	
@@ -385,7 +384,8 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
-	
+		
+		
 		
 		
 // 게시글 파일 까지 수정 리스트

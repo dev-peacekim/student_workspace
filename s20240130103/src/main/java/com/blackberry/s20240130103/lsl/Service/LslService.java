@@ -63,6 +63,9 @@ public interface LslService {
 	int boardAskUpdate(LslBoardComm lslBoardComm);
 	
 	
+	//int boardFileUpdate(MultipartFile[] multipartFile, String boardfilePath);
+	// String uploadFile(MultipartFile file);
+	
 	// 게시판 상세페이지 파일 조회
 	List<LslboardFile> boardAskFile(int cboard_no);
 	List<LslboardFile> boardFreeFile(int cboard_no);
@@ -84,6 +87,10 @@ public interface LslService {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+	
+	
 	
 
 	

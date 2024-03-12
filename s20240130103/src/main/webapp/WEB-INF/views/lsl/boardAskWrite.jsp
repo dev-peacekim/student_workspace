@@ -33,7 +33,6 @@
   <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
-<script defer src="assets/js/lsl/boardFile.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -42,7 +41,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script>
+    function goBack() {
+        window.history.back();
+    }
 
+</script>
 
 
 
@@ -94,12 +98,7 @@
                                 <button type="submit" class="btn bwComple" id="bwComple">완료</button>
                             </div>
                         </form>
-                        <script>
-                            function goBack() {
-                                window.history.back();
-                            }
                         
-                        </script>
                         
                     </div>
                 </div>
