@@ -105,11 +105,17 @@
 				(SELECT NVL(MAX(CBOARD_NO), 0) + 1 FROM BOARD_COMM_FILE WHERE CBOARD_NO = #{cboard_no})
 				)
 	</insert>
-	
-	<select id="ykmGetFileList" parameterType="int" resultType="YkmBoardCommFile">
-		SELECT BCF.*
-		FROM BOARD_COMM_FILE BCF  
+
+<!-- 자고 내일 하삼~~~ 넘 피곤해 ㅠㅠ 근데 화면에 띄우고싶어요ㅠㅠ 쫌만 더... 욕심임 ㅠㅠ-->
+
+	<select id="ykmGetFileList" parameterType="int" resultMap="ykmResultMap">
+		SELECT BCF.CBOARD_NO, BCF.CBOARD_FILE_NAME
+		FROM BOARD_COMM_FILE BCF 
 		WHERE CBOARD_NO = #{cboard_no}
 	</select>
+	<resultMap type="YkmBoardCommFile" id="ykmResultMap">
+		<result column="cboard_no" property="cboard_no"/>
+		<result column="cboard_file_name" property="cboard_file_name"/>
+	</resultMap>
 	
 </mapper>

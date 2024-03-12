@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.ykm.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -135,15 +136,17 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
-
+/*
 	@Override
-	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+	public Map<String, Object> getFileList(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getFileList start ---*");
-		List<YkmBoardCommFile> getFileList = session.selectList("ykmGetFileList", cboard_no);
+		// 아니 왜 너만 ㅜㅠ
+		Map<String, Object> getFileList = session.selectMap("ykmGetFileList",);
+		System.out.println("YkmBoardDaoImpl getFileList : " + getFileList);
 		return getFileList;
 	}
 
-
+*/
 
 
 	

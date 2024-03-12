@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class YkmServiceImpl implements YkmService {
 			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			
 			try {
+				// 파일 업로드 db 저장
 				Path uploadPath = Paths.get(studyFilePath + File.separator + fileName);
 				String uuid = UUID.randomUUID().toString();
 				Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
@@ -79,6 +81,7 @@ public class YkmServiceImpl implements YkmService {
 	// 게시글 보여주기
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
+		
 		return ykmBoardDao.getPost(cboard_no);
 	}
 	
@@ -119,16 +122,18 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updateRecruitment(ykmBoardComm);
 	}
 
-	
+	/*
 	// 파일 불러오기
 	@Override
-	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+	public Map<String, Object> getFileList(int cboard_no) {
 		System.out.println("YkmServiceImpl getFileList start---*");
-		List<YkmBoardCommFile> getFileList = ykmBoardDao.getFileList(cboard_no);
+		Map<String, Object> getFileList = ykmBoardDao.getFileList(cboard_no);
+		// 여기! ***************
+		//getFileList.put(cboard_no, "Object");
 		return getFileList;
 	}
 
-	
+	*/
 
 	
 	

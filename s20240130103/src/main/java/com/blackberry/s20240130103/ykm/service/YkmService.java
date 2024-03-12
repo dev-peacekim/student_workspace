@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.ykm.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,7 @@ public interface YkmService {
 	
 	int increseViewCount(int cboard_no); // 조회수
 
-	List<YkmBoardCommFile> getFileList(int cboard_no); // 파일 보여주기
+	//Map<String, Object> getFileList(int cboard_no); // 파일 보여주기
 
 	
 	

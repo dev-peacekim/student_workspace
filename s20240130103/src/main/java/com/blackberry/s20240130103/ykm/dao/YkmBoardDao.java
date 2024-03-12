@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.ykm.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,7 +43,7 @@ public interface YkmBoardDao {
 
 	int getTotalCount(YkmBoardComm ykmBoardComm);
 
-	List<YkmBoardCommFile> getFileList(int cboard_no);
+	//Map<String, Object> getFileList(int cboard_no);
 
 
 }

@@ -124,6 +124,16 @@ window.onload = function() {
 				</div>
 				
 				<div class="community-post-body">
+					<table class="table-file list-group">
+					<c:forEach items="${getFileList}" var="fileList">
+				        <tr>
+				        <%-- <c:url="/fileDownload?cboard_no=${getFileList.cboard_no}"/> --%>
+				            <td><a href="" class="list-group-item list-group-item-action">
+				            	<i class="bi bi-file-earmark-arrow-down"></i> ${fileList.cboard_file_name}</a>
+				            </td>
+				        </tr>
+					</c:forEach>
+				    </table>
 					<span class="post-content">${getPost.cboard_content}</span>
 				</div>
 				<div class="community-post-answer">

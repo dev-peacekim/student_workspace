@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,11 +58,16 @@ public class YkmBoardController {
 		
 		ykmService.increseViewCount(cboard_no); // 조회수 카운트 메서드
 		int countComment = ykmService.countComment(cboard_no); // 댓글 개수 카운트 메서드
-		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
+		
+		//Map<String, Object> getFileList = ykmService.getFileList(cboard_no);
+		
 		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
-		model.addAttribute("getFileList",getFileList);
+		//model.addAttribute("getFileList",getFileList); // 업로드한 파일 목록 보여주기
+		//System.out.println("YkmController getFileList : "+ getFileList); // 비어있따,,?
 		// System.out.println("YkmController getPost finish ---*");
+		
+		
 		return "ykm/boardPost";
 	}
 
@@ -137,6 +143,9 @@ public class YkmBoardController {
 		model.addAttribute("getPostList", searchResult);
 		return "ykm/boardStudy";
 	}
+	
+	
+	
 	
 	
 	
