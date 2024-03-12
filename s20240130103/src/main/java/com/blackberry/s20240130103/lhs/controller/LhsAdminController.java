@@ -1,12 +1,23 @@
 package com.blackberry.s20240130103.lhs.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
@@ -16,11 +27,13 @@ import com.blackberry.s20240130103.lhs.model.User;
 import com.blackberry.s20240130103.lhs.service.AdminService;
 import com.blackberry.s20240130103.lhs.service.LhsPaging;
 import com.blackberry.s20240130103.lhs.service.UserService;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 import com.blackberry.s20240130103.yhs.model.Ask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -69,6 +82,10 @@ public class LhsAdminController {
 	@GetMapping("admin_cboard_detail")
 	public String adminBoardDetail(BoardComm board,Model model) {
 		BoardComm detailBoard = adminService.selectBoard(board);
+		List<LslboardFile> boardFileList = adminService.selectBoardFileList(board.getCboard_no());
+		if(!boardFileList.isEmpty()) {
+			model.addAttribute("fileList", boardFileList);
+		}
 		model.addAttribute("board", detailBoard);
 		return "admin/admin_boardDetail";
 	}
@@ -170,6 +187,34 @@ public class LhsAdminController {
 		ask.setUser_no((Long)request.getSession().getAttribute("user_no"));
 		int result = adminService.insertAskResponse(ask);
 		return "redirect:/admin_ask";
+	}
+	
+	@GetMapping("adminFileDownload")
+	public void downloadFile(@RequestParam("cboard_file_name")String filename,
+							@RequestParam("cboard_file_user_name")String userFileName,
+							HttpServletRequest request,
+							HttpServletResponse response) {
+		String filePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/") + filename;
+		File file = new File(filePath);
+		if(file.exists()) {
+			String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+			if (mimeType == null) {
+                mimeType = "application/octet-stream";
+            }
+			response.setContentType(mimeType);
+            try {
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(userFileName, "UTF-8") + "\"");
+				response.setContentLength((int) file.length());
+	            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+	            FileCopyUtils.copy(inputStream, response.getOutputStream());
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

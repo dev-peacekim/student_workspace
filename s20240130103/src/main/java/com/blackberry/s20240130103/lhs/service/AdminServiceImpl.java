@@ -11,6 +11,7 @@ import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 import com.blackberry.s20240130103.yhs.model.Ask;
 
 import lombok.RequiredArgsConstructor;
@@ -134,5 +135,11 @@ public class AdminServiceImpl implements AdminService{
 		int result = adminDao.insertAskResponse(ask);
 		int updateresult = adminDao.updateAskResponse(ask);
 		return result;
+	}
+	
+	@Override
+	public List<LslboardFile> selectBoardFileList(int cboard_no) {
+		List<LslboardFile> boardFileList = adminDao.selectBoardFileList(cboard_no);
+		return boardFileList;
 	}
 }

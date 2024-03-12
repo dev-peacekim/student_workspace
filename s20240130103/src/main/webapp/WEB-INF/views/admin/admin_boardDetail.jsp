@@ -86,7 +86,15 @@
 								</tr>
 								<tr style="height: 100px;">
 									<td>Ã·ºÎÆÄÀÏ</td>
-									<td></td>
+									<td>
+										<c:if test="${not empty fileList }">
+											<c:forEach items="${fileList }" var="file">
+												<a href="adminFileDownload?cboard_file_name=${file.cboard_file_name }&cboard_file_user_name=${file.cboard_file_user_name }">
+													${file.cboard_file_user_name }
+												</a><br>
+											</c:forEach>
+										</c:if>
+									</td>
 								</tr>
 								<tr>
 									<td>´ñ±Û°¹¼ö</td>

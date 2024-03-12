@@ -7,6 +7,7 @@ import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
 import com.blackberry.s20240130103.lhs.model.Reply;
 import com.blackberry.s20240130103.lhs.model.User;
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 import com.blackberry.s20240130103.yhs.model.Ask;
 
 public interface AdminDao {
@@ -50,5 +51,7 @@ public interface AdminDao {
 	int insertAskResponse(Ask ask);
 
 	int updateAskResponse(Ask ask);
+
+	List<LslboardFile> selectBoardFileList(int cboard_no);
 
 }
