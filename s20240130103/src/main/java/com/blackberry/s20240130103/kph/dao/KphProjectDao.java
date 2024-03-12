@@ -53,5 +53,7 @@ public interface KphProjectDao {
 	int projectUpdate(KphProject kphProject);
 
 	int projectDelete(KphProject kphProject);
+
+	int projectMemberDelete(KphUserProject kphUserProject);
 	
 }

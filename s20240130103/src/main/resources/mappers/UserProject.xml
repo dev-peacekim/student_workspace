@@ -18,5 +18,11 @@
 		INSERT INTO USER_PROJECT_MANY
 		VALUES (#{project_no}, #{user_no}, 100, 20)
 	</insert>
+	
+	<delete id="kphProjectMemberDelete" parameterType="KphUser_Project">
+		DELETE FROM USER_PROJECT_MANY
+		WHERE PROJECT_NO = #{project_no}
+			AND USER_NO = #{user_no}
+	</delete>
 
 </mapper>

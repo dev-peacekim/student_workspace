@@ -188,4 +188,10 @@ public class KphProjectDaoImp implements KphProjectDao {
 		return session.update("kphProjectDelete", kphProject);
 	}
 
+	@Override
+	public int projectMemberDelete(KphUserProject kphUserProject) {
+		System.out.println("KphProjectDaoImp projectMemberDelete start...");
+		return session.delete("kphProjectMemberDelete", kphUserProject);
+	}
+
 }

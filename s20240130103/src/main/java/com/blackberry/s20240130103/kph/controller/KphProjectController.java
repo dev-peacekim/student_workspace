@@ -363,4 +363,13 @@ public class KphProjectController {
 		return String.valueOf(result);
 	}
 	
+	@PostMapping("projectMemberDelete")
+	@ResponseBody
+	public String projectMemberDelete(KphUserProject kphUserProject) {
+		System.out.println("KphProjectController projectMemberDelete start...");
+		System.out.println(kphUserProject);
+		int result = kphProjectService.projectMemberDelete(kphUserProject);
+		return String.valueOf(result);
+	}
+	
 }

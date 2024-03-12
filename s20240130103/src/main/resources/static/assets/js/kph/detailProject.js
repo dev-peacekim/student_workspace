@@ -212,3 +212,46 @@ $(".check-btn").on('click', function () {
         }
     });
 });
+
+$(".member-cancle-btn").on('click', function () {
+    $(".project-member-delete-box").css('display', 'none');
+});
+
+let clickedUser;
+
+$(".team-list-content li i").on('click', function () {  
+    clickedUser = $(this).children('input');
+    $.ajax({
+        type: "get",
+        url: "userAuthority",
+        data: {
+            projectLeader_no: projectLeader_no
+        },
+        dataType: "json",
+        success: function (userAuthority) {
+            if (userAuthority != 1) {
+                $(".team-member-add-box-no-authority").css('display', 'flex');
+            } else {
+                $(".project-member-delete-box").css('display', 'flex');
+            }
+        }
+    });
+});
+
+$('.member-check-btn').on('click', function () {  
+	const user_no = $(clickedUser).val();
+    $.ajax({
+        type: "post",
+        url: "projectMemberDelete",
+        data: {
+            project_no: project_no,
+            user_no: user_no
+        },
+        dataType: "text",
+        success: function (response) {
+            console.log(response);
+            $(clickedUser).closest('li').remove();
+            $(".project-member-delete-box").css('display', 'none');
+        }
+    });
+});

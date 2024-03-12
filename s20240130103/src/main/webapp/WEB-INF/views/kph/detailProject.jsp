@@ -229,6 +229,17 @@
                     </div>
                 </div>
             </div>
+            <div class="project-member-delete-box">
+                <div>
+                    <div class="project-member-delete-box-title">
+                        삭제 시 복구가 불가능 합니다.<br /> 정말로 삭제하시겠습니까?
+                    </div>
+                    <div class="member-delete-btn-list">
+                        <button type="button" class="btn btn-primary member-check-btn">확인</button>
+                        <button type="button" class="btn btn-secondary member-cancle-btn">취소</button>
+                    </div>
+                </div>
+            </div>
 		</section>
 	</main>
     <!-- End #main -->
