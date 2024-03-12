@@ -75,8 +75,11 @@
 			<input class="projectLeader_no" type="hidden" name="projectLeader_no" value="${projectLeader_no }" />
 			<div class="top">
 				<div class="top-btn">
-					<button type="button" class="project-home-btn btn btn-primary">프로젝트
+					<form action="detailProject" method="get">
+						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
+						<button type="button" class="project-home-btn btn btn-primary">프로젝트
 						홈</button>
+					</form>
 					<form action="boardProject" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
 						<button type="submit" class="project-board-btn btn btn-secondary">공유
