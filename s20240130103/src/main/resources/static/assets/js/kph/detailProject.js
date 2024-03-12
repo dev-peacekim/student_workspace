@@ -255,3 +255,8 @@ $('.member-check-btn').on('click', function () {
         }
     });
 });
+
+$('.task-update-btn').on('click', function () {  
+    const task_no = $(this).children('input').val();
+    window.location.href = 'taskUpdateForm?task_no=' + task_no + '&project_no=' + project_no;
+});

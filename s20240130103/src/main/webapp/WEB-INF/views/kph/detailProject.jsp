@@ -142,8 +142,8 @@
 									<div class="task-title">${task.task_title}</div>
 									<i class="bi bi-three-dots-vertical"></i>
 									<ul class="task-setting">
-										<li><input type="hidden" name="task_no" value="${task.task_no }" />과업 수정</li>
-										<li>과업 삭제</li>
+										<li class="task-update-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 수정</li>
+                                    <li class="task-delete-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 삭제</li>
 									</ul>
 								</div>
 								<div class="task-detail">
