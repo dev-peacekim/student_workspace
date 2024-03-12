@@ -15,4 +15,5 @@ public class BoardProject {
 	private    int pboard_delete_chk;  // 삭제상태 0 = 삭제X, 1 = 삭제O
 	private String pboard_update_date; // 최종수정일자
 	
+	private String userNic; // 게시글 유저 닉네임 저장용
 }

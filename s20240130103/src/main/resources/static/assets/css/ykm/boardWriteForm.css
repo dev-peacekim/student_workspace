@@ -87,6 +87,51 @@
     align-items: center;
     border-radius: 5px;
 }
+<<<<<<< HEAD
 .preview {
 	margin: 8px;
+=======
+
+
+#formFile-box {
+	width: 100%;
+	height: 80px !important;
+	overflow-y: auto; 
+}
+
+#cboard_content {
+	height: 460px;
+}
+.upload-files {
+ margin-bottom: 20px;
+}
+
+
+
+
+.dropBox {
+  width: 100%;
+  height: 100px;
+   
+  margin-bottom: 10px;
+  overflow: auto;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+  border: 4px dashed #ddd;
+  user-select: none;
+  transition: 0.4s;
+}
+
+/* 드롭 반응 */
+.dropBox.active {
+  background: #ddd;
+}
+
+.dropBox h1 {
+  font-size: 1rem;
+>>>>>>> refs/remotes/origin/master
 }

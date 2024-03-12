@@ -93,6 +93,22 @@
 /*--------------------------------------------------------------
 # file box
 --------------------------------------------------------------*/
+
+#cboard_content {
+	height: 460px;
+}
+
+.upload-title {
+	margin: 10px 0 10px 0;
+    height: 85px;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+
 #formFile-box {
 	width: 100%;
 	height: 80px !important;
@@ -134,7 +150,6 @@
 .dropBox h1 {
   font-size: 1rem;
 }
-
 /* -----  ------ */
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');

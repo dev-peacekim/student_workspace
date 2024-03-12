@@ -91,19 +91,20 @@ window.onload = function() {
                     </div>
                 </div>
             </div>
-            <div class="community-post-header-body">
+           <div class="community-post-header-body">
                 <span class="post-content">${boardAskContents.cboard_content}</span>
-            <div class="boardFileBox">
+                <div class="boardFileBox">
                     <div id="files">
 			          <c:forEach items="${boardAskFile}" var="boardAskFile">
 			    		<div class="file-container">
-			        	<a href="/boardAskFileDownload?cboard_no=${boardAskFile.cboard_no}&fileCount=${boardAskFile.cboard_file_cnt}" target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a>
+			        	<a href="boardAskFileDownload?cboard_file_name=${boardAskFile.cboard_file_name }&cboard_file_user_name=${boardAskFile.cboard_file_user_name}" target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a>
 			        	<i class="bi bi-download file-download-icon"></i>
 			    </div>
 			</c:forEach>
                     </div>
                 </div>
             </div>
+
           
 
           <section class="community-post-answer">
