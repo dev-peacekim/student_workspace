@@ -47,6 +47,14 @@
 	    delete from BOARD_ADMIN where admin_no=#{admin_no}
    </delete>
    
+   <select id="yhsSelectAskResponseOne" resultType="Ask" parameterType="Ask">
+   		SELECT ba.*, u.USER_NIC, u.user_name,u.user_id
+		FROM BOARD_ADMIN ba
+		INNER JOIN USERS u ON ba.USER_NO = u.USER_NO
+		WHERE ba.admin_reply_user=#{user_no}
+		AND ba.admin_reply_group=#{admin_no}
+   </select>
+   
    
     
 </mapper>

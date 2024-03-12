@@ -69,6 +69,12 @@ public class AskServiceImpl implements AskService {
 	public Ask askUpdateForm(String admin_title) {
 		return null;
 	}
+	
+	@Override
+	public Ask selectAskResponse(Ask ask) {
+		Ask askResponse = askDao.selectAskResponse(ask);
+		return askResponse;
+	}
 
 }
 

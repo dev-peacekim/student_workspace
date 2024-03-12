@@ -16,5 +16,7 @@ public interface AskService {
 	int insertAsk(Ask ask);
 	
 	int deleteAsk(int admin_no);
+
+	Ask selectAskResponse(Ask ask);
 	
 }

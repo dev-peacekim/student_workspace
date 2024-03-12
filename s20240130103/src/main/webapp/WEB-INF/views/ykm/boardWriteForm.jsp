@@ -103,8 +103,7 @@
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" rows="15" 
-										placeholder="내용을 입력하세요." name="cboard_content" required="required">
-							</textarea>
+										placeholder="내용을 입력하세요." name="cboard_content" required="required"></textarea>
 						</div>
 						
 						<!-- 버튼 -->

@@ -65,11 +65,13 @@ public class AskController {
 		ask.setAdmin_no(Integer.parseInt(admin_no));
 		System.out.println("AskController askContent ask->"+ask);
 		Ask askContent = askService.askContent(ask);
-
 		System.out.println("AskController askContent askContent->"+askContent);
-//		List<LslCommReply> replyBoardFreeList = ls.replyBoardFreeList(cboard_no);
-
-//		model.addAttribute("replyBoardFreeList", replyBoardFreeList);
+		if(askContent.getAdmin_reply_chk() == 1) {
+			Ask responseAsk = askService.selectAskResponse(ask);
+			System.out.println(responseAsk);
+			responseAsk.setAdmin_content(responseAsk.getAdmin_content().replace("\r\n","<br>"));
+			model.addAttribute("askResponse", responseAsk);
+		}
 		model.addAttribute("askContent", askContent);
 		return "yhs/askContent";
 	}

@@ -371,8 +371,6 @@
 					<span class="post-content">${askContent.admin_content}</span>
 				</div>
 
-				<button type="button" class="btn bacDelete">삭제</button>
-				<button type="button" class="btn bacModify">수정</button>
 				<button type="button" class="btn bacList" onclick="goBack()">
 					목록</button>
 
@@ -389,7 +387,7 @@
 			<section class="community-post-detail">
 				<div class="row card main-card card-body">
 					<div class="card-header community-post-header">
-						<h3 class="card-title post-header-title">[답변] : 문의제목</h3>
+						<h3 class="card-title post-header-title">${askResponse.admin_title }</h3>
 						<div class="card-subtitle post-user-container">
 							<i class="bi bi-person-circle post-user-profile"></i>
 							<div class="card-title-header">
@@ -397,18 +395,15 @@
 								<div class="card-subtitle post-subtitle">
 									<p class="post-updated-at">
 										작성일
-										<!-- <fmt:formatDate
-	                      value="${askContent.admin_date}"
-	                      pattern="yyyy.MM.dd a hh:mm"
-	                    /> -->
-										2024-03-12 00:00:00
+										 <fmt:formatDate value="${askResponse.admin_date}" pattern="yyyy.MM.dd a hh:mm"/> 
+										
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="community-post-header-body">
-						<span class="post-content">대충 내용 답변</span>
+						<span class="post-content">${askResponse.admin_content }</span>
 					</div>
 				</div>
 			</section>

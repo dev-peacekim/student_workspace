@@ -93,5 +93,11 @@ public class AskDaoImpl implements AskDao {
 		}
 		return result;
 	}
+	
+	@Override
+	public Ask selectAskResponse(Ask ask) {
+		Ask askResponse = session.selectOne("yhsSelectAskResponseOne", ask);
+		return askResponse;
+	}
 	 
 }
