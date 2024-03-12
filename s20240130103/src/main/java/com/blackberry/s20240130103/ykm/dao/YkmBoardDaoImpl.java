@@ -136,6 +136,14 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 
 
+	@Override
+	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getFileList start ---*");
+		List<YkmBoardCommFile> getFileList = session.selectList("ykmGetFileList", cboard_no);
+		return getFileList;
+	}
+
+
 
 
 	

@@ -24,7 +24,7 @@ public interface YkmService {
 	
 	int increseViewCount(int cboard_no); // 조회수
 
-	List<YkmBoardCommFile> getFileList(YkmBoardCommFile ykmBoardCommFile); // 파일 보여주기
+	List<YkmBoardCommFile> getFileList(int cboard_no); // 파일 보여주기
 
 	
 	

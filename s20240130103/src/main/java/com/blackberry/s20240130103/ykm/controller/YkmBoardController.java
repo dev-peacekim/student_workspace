@@ -57,9 +57,10 @@ public class YkmBoardController {
 		
 		ykmService.increseViewCount(cboard_no); // 조회수 카운트 메서드
 		int countComment = ykmService.countComment(cboard_no); // 댓글 개수 카운트 메서드
-		
+		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
 		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
+		model.addAttribute("getFileList",getFileList);
 		// System.out.println("YkmController getPost finish ---*");
 		return "ykm/boardPost";
 	}
@@ -118,7 +119,7 @@ public class YkmBoardController {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		ykmBoardComm.setCboard_no(cboard_no);
 		int deletePost = ykmService.deletePost(cboard_no);
-		System.out.println("YkmController deletePost result --> " + deletePost);
+		System.out.println("YkmController deletePost result --> )" + deletePost);
 		model.addAttribute("deletePost", deletePost);
 		return "forward:boardStudy";
 	}
@@ -136,8 +137,6 @@ public class YkmBoardController {
 		model.addAttribute("getPostList", searchResult);
 		return "ykm/boardStudy";
 	}
-	
-	
 	
 	
 	

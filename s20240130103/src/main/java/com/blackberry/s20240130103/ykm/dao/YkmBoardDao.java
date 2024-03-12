@@ -42,5 +42,7 @@ public interface YkmBoardDao {
 
 	int getTotalCount(YkmBoardComm ykmBoardComm);
 
+	List<YkmBoardCommFile> getFileList(int cboard_no);
+
 
 }

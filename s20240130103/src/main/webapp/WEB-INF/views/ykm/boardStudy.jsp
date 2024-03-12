@@ -100,14 +100,14 @@
  
 					<!-- 검색 시작  -->
 					<li class="nav-item ms-auto" role="presentation">
-						<div class="search-bar d-flex justify-content-end">
+						<div class="search-bar justify-content-end">
 							<form action="/boardSearch" method="POST" class="search-form d-flex align-items-center">
 								<select class="form-select" name="type" aria-label="Default select example" required="required">
 								    <option selected="">검색 기준</option>
 								    <option value="TC">제목+내용</option>
 								    <option value="W">작성자</option>
 								</select>
-								<input type="text" name="keyword" placeholder="관심 스터디를 검색해보세요" title="Enter search keyword">
+								<input type="text" name="keyword" placeholder="관심 스터디를 검색해보세요" title="Enter search keyword" class="keyword-bar">
 								<button type="submit">
 									<i class="bi bi-search"></i>
 								</button>
@@ -132,7 +132,7 @@
 						<tbody>
 							<c:forEach items="${getPostList}" var="postList" varStatus="loop">
 								<tr id="postTable">
-									<th scope="row">${loop.index+1}</th>
+									<th scope="row" style="width: 86px">${loop.index+1}</th>
 									<td>
 										<c:choose>
 											<c:when test="${postList.comm_mid2 == 10}">
@@ -142,8 +142,7 @@
 											<span id="recruitment_${postList.cboard_no}" class="recruited">모집완료</span>
 											</c:when>
 										</c:choose>
-										<a href="/post?cboard_no=${postList.cboard_no}">${postList.cboard_title}</a>
-									</td>					
+										<a href="/post?cboard_no=${postList.cboard_no}">${postList.cboard_title}</a></td>					
 									<td>${postList.user_nic}</td>
 									<td><fmt:formatDate value="${postList.cboard_date}" pattern="yyyy-MM-dd"/></td>
 									<td>${postList.cboard_viewcnt}</td>

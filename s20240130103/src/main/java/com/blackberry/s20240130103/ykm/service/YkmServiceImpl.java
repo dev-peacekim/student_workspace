@@ -122,9 +122,10 @@ public class YkmServiceImpl implements YkmService {
 	
 	// 파일 불러오기
 	@Override
-	public List<YkmBoardCommFile> getFileList(YkmBoardCommFile ykmBoardCommFile) {
-		//
-		return null;
+	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+		System.out.println("YkmServiceImpl getFileList start---*");
+		List<YkmBoardCommFile> getFileList = ykmBoardDao.getFileList(cboard_no);
+		return getFileList;
 	}
 
 	
