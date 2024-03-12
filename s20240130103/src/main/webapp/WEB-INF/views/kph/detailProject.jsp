@@ -85,6 +85,10 @@
 						<button type="submit" class="project-board-btn btn btn-secondary">공유
 						게시판</button>			
 					</form>
+					<form action="proejctSchedule" method="get">
+						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
+						<button type="submit" class="project-board-btn btn btn-secondary">프로젝트 일정</button>			
+					</form>
 				</div>
 				<div class="top-list">
 					<div class="team-list">
@@ -138,7 +142,7 @@
 									<div class="task-title">${task.task_title}</div>
 									<i class="bi bi-three-dots-vertical"></i>
 									<ul class="task-setting">
-										<li>과업 수정</li>
+										<li><input type="hidden" name="task_no" value="${task.task_no }" />과업 수정</li>
 										<li>과업 삭제</li>
 									</ul>
 								</div>
