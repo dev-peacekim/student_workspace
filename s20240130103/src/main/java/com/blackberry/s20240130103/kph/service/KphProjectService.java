@@ -48,4 +48,6 @@ public interface KphProjectService {
 
 	int projectMemberDelete(KphUserProject kphUserProject);
 
+	KphTask getTaskIncludingUserList(KphTask kphTask);
+
 }

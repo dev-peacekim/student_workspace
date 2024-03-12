@@ -372,4 +372,12 @@ public class KphProjectController {
 		return String.valueOf(result);
 	}
 	
+//	@GetMapping("taskUpdateForm")
+//	public String taskUpdateForm(KphTask kphTask, Model model) {
+//		System.out.println("KphProjectController taskUpdateForm start...");
+//		KphTask task = kphProjectService.getTaskIncludingUserList(kphTask);
+//		model.addAttribute("task", task);
+//		return "kph/taskUpdateForm";
+//	}
+	
 }

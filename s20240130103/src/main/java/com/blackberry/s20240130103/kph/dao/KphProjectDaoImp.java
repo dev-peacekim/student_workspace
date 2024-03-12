@@ -194,4 +194,12 @@ public class KphProjectDaoImp implements KphProjectDao {
 		return session.delete("kphProjectMemberDelete", kphUserProject);
 	}
 
+	@Override
+	public KphTask getTaskIncludingUserList(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp getTaskIncludingUserList start...");
+		KphTask task = session.selectOne("kphGetTask");
+		task.setUsers(session.selectList("kphUserListInTask", task));
+		return task;
+	}
+
 }

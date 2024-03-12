@@ -55,5 +55,7 @@ public interface KphProjectDao {
 	int projectDelete(KphProject kphProject);
 
 	int projectMemberDelete(KphUserProject kphUserProject);
+
+	KphTask getTaskIncludingUserList(KphTask kphTask);
 	
 }

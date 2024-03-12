@@ -227,5 +227,12 @@ public class KphProjectServiceImp implements KphProjectService {
 		int result = kphProjectDao.projectMemberDelete(kphUserProject);
 		return result;
 	}
+
+	@Override
+	public KphTask getTaskIncludingUserList(KphTask kphTask) {
+		System.out.println("KphProjectServiceImp getTaskIncludingUserList start...");
+		KphTask task = kphProjectDao.getTaskIncludingUserList(kphTask);
+		return task;
+	}
 	
 }

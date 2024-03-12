@@ -25,4 +25,11 @@
 		ORDER BY TASK_END
 	</select>
 	
+	<select id="kphGetTask" parameterType="KphTask" resultType="KphTask">
+		SELECT *
+		FROM TASK
+		WHERE PROJECT_NO = #{project_no}
+			AND TASK_NO = #{task_no}
+	</select>
+	
 </mapper>
