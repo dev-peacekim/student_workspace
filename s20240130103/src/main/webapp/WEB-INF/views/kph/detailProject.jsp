@@ -99,8 +99,8 @@
 						<i id="setting-btn" class="bi bi-gear-fill"></i>
 						<ul id="setting-content" class="setting-content team-list-content">
 							<li id="team-member-add-btn">팀원 추가</li>
-							<li>프로젝트 수정</li>
-							<li>프로젝트 삭제</li>
+							<li id="project-update-btn">프로젝트 수정</li>
+                            <li id="project-delete-btn">프로젝트 삭제</li>
 						</ul>
 					</div>
 				</div>
@@ -201,6 +201,17 @@
 					<button type="button" class="btn btn-primary authority-cancle">확인</button>
 				</div>
 			</div>
+			<div class="project-delete-box">
+                <div>
+                    <div class="project-delete-box-title">
+                        삭제 시 복구가 불가능 합니다.<br /> 정말로 삭제하시겠습니까?
+                    </div>
+                    <div class="delete-btn-list">
+                        <button type="button" class="btn btn-primary check-btn">확인</button>
+                        <button type="button" class="btn btn-secondary cancle-btn">취소</button>
+                    </div>
+                </div>
+            </div>
 		</section>
 	</main>
     <!-- End #main -->

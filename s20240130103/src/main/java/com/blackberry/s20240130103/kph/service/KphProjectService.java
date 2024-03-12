@@ -40,4 +40,8 @@ public interface KphProjectService {
 
 	int projectMemberAdd(KphUserProject kphUserProject, List<Long> userNoList);
 
+	KphProject getProjectByProjectNo(KphProject kphProject);
+
+	int projectUpdate(KphProject kphProject);
+
 }

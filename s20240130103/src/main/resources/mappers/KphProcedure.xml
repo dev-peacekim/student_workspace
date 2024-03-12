@@ -15,7 +15,7 @@
    </insert>
    
 
-   <insert id="kphTaskInsert" parameterType="KphTask" statementType="CALLABLE">
+   <insert id="kphTaskInsertProc" parameterType="KphTask" statementType="CALLABLE">
 		 {
          CALL KPH_TASK_INSERT_PROC (
             #{project_no, mode=IN, jdbcType=INTEGER}

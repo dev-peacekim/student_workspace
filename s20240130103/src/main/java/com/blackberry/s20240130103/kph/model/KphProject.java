@@ -14,6 +14,7 @@ public class KphProject {
 	private String project_date;
 	private int project_delete_chk;
 	private int project_comp_chk;
+	private String project_update_date;
 	
 	// 조회용 컬럼
 	private int comp_task_count; // 완료된 과업 갯수

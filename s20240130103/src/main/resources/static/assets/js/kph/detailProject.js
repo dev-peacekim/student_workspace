@@ -136,28 +136,83 @@ $(".taskFilter").on("click", function () {
   });
 });
 
-$("#team-member-add-btn").on("click", function () {
-
-    const projectLeader_no = $('.projectLeader_no').val();
-    const project_no = $('.project_no').val();
-
+function authorityTest(projectLeader_no, project_no, url) {
     $.ajax({
         type: "get",
         url: "userAuthority",
         data: {
-            projectLeader_no : projectLeader_no
+            projectLeader_no: projectLeader_no
         },
         dataType: "json",
         success: function (userAuthority) {
-            if(userAuthority != 1){
-				$(".team-member-add-box-no-authority").css('display', 'flex');	
-			} else {
-				window.location.href = '/projectMemberAddForm?project_no=' + project_no; 
-			}
+            if (userAuthority != 1) {
+                $(".team-member-add-box-no-authority").css('display', 'flex');
+            } else {
+                window.location.href = '/' + url + '?project_no=' + project_no;
+            }
         }
     });
+}
+
+function authorityTestForDelete(projectLeader_no, project_no) {
+    $.ajax({
+        type: "get",
+        url: "userAuthority",
+        data: {
+            projectLeader_no: projectLeader_no
+        },
+        dataType: "json",
+        success: function (userAuthority) {
+            if (userAuthority != 1) {
+                $(".team-member-add-box-no-authority").css('display', 'flex');
+            } else {
+                $(".project-delete-box").css('display', 'flex');
+            }
+        }
+    });
+}
+
+const projectLeader_no = $('.projectLeader_no').val();
+const project_no = $('.project_no').val();
+
+$("#team-member-add-btn").on("click", function () {
+    const url = 'projectMemberAddForm';
+    authorityTest(projectLeader_no, project_no, url);
+});
+
+$("#project-update-btn").on("click", function () {
+    const url = 'projectUpdateForm';
+    authorityTest(projectLeader_no, project_no, url);
+});
+
+$("#project-delete-btn").on("click", function () {
+    const url = 'projectDelete';
+    authorityTestForDelete(projectLeader_no, project_no, url);
 });
 
 $(".authority-cancle").on('click', function () {
     $(".team-member-add-box-no-authority").css('display', 'none');
-})
+});
+
+$(".cancle-btn").on('click', function () {
+    $(".project-delete-box-title").css('display', 'none');
+});
+
+$(".check-btn").on('click', function () {
+     $.ajax({
+        type: "post",
+        url: "projectDelete",
+        data: JSON.stringify({
+            project_no: project_no
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            if (userAuthority != 1) {
+                $(".team-member-add-box-no-authority").css('display', 'flex');
+            } else {
+                $(".project-delete-box").css('display', 'flex');
+            }
+        }
+    });
+});

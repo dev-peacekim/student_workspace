@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
 import com.blackberry.s20240130103.kph.model.KphEval;
@@ -197,4 +198,20 @@ public class KphProjectServiceImp implements KphProjectService {
 		return result;
 	}
 
+	@Override
+	public KphProject getProjectByProjectNo(KphProject kphProject) {
+		System.out.println("KphProjectServiceImp getProjectByProjectNo start...");
+		KphProject project = kphProjectDao.getProjectByProjectNo(kphProject);
+		project.setProject_start(project.getProject_start().substring(0, project.getProject_start().indexOf(" ")));
+		project.setProject_end(project.getProject_end().substring(0, project.getProject_end().indexOf(" ")));
+		return project;
+	}
+
+	@Override
+	public int projectUpdate(KphProject kphProject) {
+		System.out.println("KphProjectServiceImp projectUpdate start...");
+		int result = kphProjectDao.projectUpdate(kphProject);
+		return result;
+	}
+	
 }

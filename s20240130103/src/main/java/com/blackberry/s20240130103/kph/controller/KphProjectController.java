@@ -335,5 +335,22 @@ public class KphProjectController {
 		return "redirect:/detailProject?project_no=" + String.valueOf(project_no);
 	}
 	
+	@GetMapping("projectUpdateForm")
+	public String projectUpdateForm(KphProject kphProject, Model model) {
+		System.out.println("KphProjectController projectUpdateForm start...");
+		KphProject project = kphProjectService.getProjectByProjectNo(kphProject);
+		System.out.println("KphProjectController projectUpdateForm project=>" + project);
+		model.addAttribute("project", project);
+		return "kph/projectUpdateForm";
+	}
+	
+	@PostMapping("projectUpdate")
+	public String projectUpdate(KphProject kphProject) {
+		System.out.println("KphProjectController projectUpdate start...");
+		int result = kphProjectService.projectUpdate(kphProject);
+		System.out.println("KphProjectController projectUpdate result=> " + result);
+		return "redirect:/detailProject?project_no=" + kphProject.getProject_no().toString();
+	}
+	
 	
 }

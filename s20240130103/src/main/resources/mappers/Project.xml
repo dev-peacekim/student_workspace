@@ -21,4 +21,20 @@
 		WHERE PROJECT_NO = #{project_no}
 	</select>
 	
+	<select id="kphGetProjectByProjectNo" parameterType="KphProject" resultType="KphProject">
+		SELECT PROJECT_NO, PROJECT_TITLE, PROJECT_CONTENT, PROJECT_START, PROJECT_END
+		FROM PROJECT
+		WHERE PROJECT_NO = #{project_no}
+	</select>
+	
+	<update id="kphProjectUpdate" parameterType="KphProject">
+		UPDATE PROJECT
+		SET PROJECT_TITLE = #{project_title},
+			  PROJECT_CONTENT = #{project_content},
+			  PROJECT_START = #{project_start},
+			  PROJECT_END = #{project_end},
+			  PROJECT_UPDATE_DATE = SYSDATE
+	 	WHERE PROJECT_NO = #{project_no}
+	</update>
+	
 </mapper>

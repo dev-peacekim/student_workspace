@@ -135,7 +135,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 		
 		try {
 			System.out.println("KphProjectDaoImp taskAdd kphTask=> " + kphTask);
-			session.insert("kphTaskInsert", kphTask);
+			session.insert("kphTaskInsertProc", kphTask);
 			System.out.println("KphProjectDaoImp taskAdd insertTaskNo=> " + kphTask.getPo_task_no());
 			
 			for (int i = 0; i < userNoList.size(); i++) {
@@ -168,6 +168,18 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public int projectMemberAdd(KphUserProject kphUserProject) {
 		System.out.println("KphProjectDaoImp projectMemberAdd start...");
 		return session.insert("kphProjectMemberAdd", kphUserProject);
+	}
+
+	@Override
+	public KphProject getProjectByProjectNo(KphProject kphProject) {
+		System.out.println("KphProjectDaoImp getProjectByProjectNo start...");
+		return session.selectOne("kphGetProjectByProjectNo", kphProject);
+	}
+
+	@Override
+	public int projectUpdate(KphProject kphProject) {
+		System.out.println("KphProjectDaoImp projectUpdate start...");
+		return session.update("kphProjectUpdate", kphProject);
 	}
 
 }

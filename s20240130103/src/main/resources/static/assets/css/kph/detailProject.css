@@ -9,7 +9,7 @@ section {
 	position: relative;
 }
 
-.team-member-add-box-no-authority {
+.team-member-add-box-no-authority, .project-delete-box {
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -28,12 +28,12 @@ section {
 	font-family: 'NanumSquare', sans-serif;
 }
 
-.team-member-add-box-no-authority> div {
+.team-member-add-box-no-authority> div, .project-delete-box> div {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.team-member-add-box-no-authority-title {
+.team-member-add-box-no-authority-title, .project-delete-box-title {
 	font-size: 1.25rem;
 	text-align: center;
 	width: 100%;
@@ -41,7 +41,11 @@ section {
 	margin-bottom: 20px;
 }
 
-.authority-cancle {
+.delete-btn-list {
+    margin: 0 auto;
+}
+
+.authority-cancle, .check-btn, .cancle-btn {
 	margin: 0 auto;
 	width: 100px;
 }

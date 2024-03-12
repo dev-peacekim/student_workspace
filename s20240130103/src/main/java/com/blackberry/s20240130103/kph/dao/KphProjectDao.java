@@ -47,5 +47,9 @@ public interface KphProjectDao {
 	List<KphUsers> addressUserListExceptProjectMember(KphUserProject kphUserProject);
 
 	int projectMemberAdd(KphUserProject kphUserProject);
+
+	KphProject getProjectByProjectNo(KphProject kphProject);
+
+	int projectUpdate(KphProject kphProject);
 	
 }
