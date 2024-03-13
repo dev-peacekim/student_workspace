@@ -200,10 +200,7 @@ public class KphProjectController {
 		return response;
 	}
 	
-	@GetMapping("detailProject")
-	public String detailProject(HttpServletRequest request, Model model) {
-		
-		String resultPage = "redirect:/main";
+	private int isUserInProject(HttpServletRequest request) {
 		
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		Long project_no = Long.parseLong(request.getParameter("project_no"));
@@ -215,7 +212,16 @@ public class KphProjectController {
 		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
 		System.out.println(isUserInProject);
 		
-		if (isUserInProject > 0) {
+		return isUserInProject;
+	}
+	
+	@GetMapping("detailProject")
+	public String detailProject(HttpServletRequest request, Model model) {
+		
+		String resultPage = "redirect:/main";
+		
+		if (isUserInProject(request) > 0) {
+			Long project_no = Long.parseLong(request.getParameter("project_no"));
 			KphTask kphTask = new KphTask();
 			kphTask.setProject_no(project_no);
 			
@@ -311,18 +317,16 @@ public class KphProjectController {
 	public String projectMemberAddForm(HttpServletRequest request, Model model) {
 		
 		String resultPage = "redirect:/main";
-		
-		Long user_no = (Long)request.getSession().getAttribute("user_no");
-		Long project_no = Long.parseLong(request.getParameter("project_no"));
-		
-		KphUserProject kphUserProject = new KphUserProject();
-		kphUserProject.setProject_no(project_no);
-		kphUserProject.setUser_no(user_no);
-		
-		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
-		System.out.println(isUserInProject);
-		
-		if (isUserInProject > 0) {
+						
+		if (isUserInProject(request) > 0) {
+			
+			Long user_no = (Long)request.getSession().getAttribute("user_no");
+			Long project_no = Long.parseLong(request.getParameter("project_no"));
+			
+			KphUserProject kphUserProject = new KphUserProject();
+			kphUserProject.setProject_no(project_no);
+			kphUserProject.setUser_no(user_no);
+			
 			List<KphUsers> addressUserList = kphProjectService.addressUserListExceptProjectMember(kphUserProject);
 			
 			model.addAttribute("addressUserList", addressUserList);
@@ -354,17 +358,7 @@ public class KphProjectController {
 		
 		String resultPage = "redirect:/main";
 		
-		Long user_no = (Long)request.getSession().getAttribute("user_no");
-		Long project_no = kphProject.getProject_no();
-		
-		KphUserProject kphUserProject = new KphUserProject();
-		kphUserProject.setProject_no(project_no);
-		kphUserProject.setUser_no(user_no);
-		
-		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
-		System.out.println(isUserInProject);
-		
-		if (isUserInProject > 0) {
+		if (isUserInProject(request) > 0) {
 			KphProject project = kphProjectService.getProjectByProjectNo(kphProject);
 			System.out.println("KphProjectController projectUpdateForm project=>" + project);
 			model.addAttribute("project", project);
@@ -406,17 +400,7 @@ public class KphProjectController {
 		
 		String resultPage = "redirect:/main";
 		
-		Long user_no = (Long)request.getSession().getAttribute("user_no");
-		Long project_no = kphTask.getProject_no();
-		
-		KphUserProject kphUserProject = new KphUserProject();
-		kphUserProject.setProject_no(project_no);
-		kphUserProject.setUser_no(user_no);
-		
-		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
-		System.out.println(isUserInProject);
-		
-		if (isUserInProject > 0) {
+		if (isUserInProject(request) > 0) {
 			// 유저리스트는 해당 과업에 포함되어 있는지가 0과 1로 구분되어 있음
 			KphTask task = kphProjectService.taskIncludingProjectMember(kphTask);
 			System.out.println(task);

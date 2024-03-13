@@ -62,9 +62,10 @@ $(document).click(function(event) {
 	}
 });
 
+let compTaskCount = Number($('.comp-task .taskFilter').text());
+let uncompTaskCount = Number($('.uncomp-task .taskFilter').text());
+
 $(".task-list").on("click", '.comp-chk-btn', function() {
-	const compTaskCount = Number($('.comp-task .taskFilter').text());
-	const uncompTaskCount = Number($('.uncomp-task .taskFilter').text());
 	if ($(this).attr("class").includes("uncomp-btn")) {
 		const task_no = $(this).children('input').val();
 		const btn = $(this);
@@ -87,9 +88,11 @@ $(".task-list").on("click", '.comp-chk-btn', function() {
 				$(btn).addClass("comp-btn");
 				$(btn).text("완료");
 				$(btn).append(input);
-				$('.comp-task .taskFilter').text(compTaskCount + 1);
-				$('.uncomp-task .taskFilter').text(uncompTaskCount-1);
-				$('.total-task .compPercent').text(((compTaskCount / (compTaskCount + uncompTaskCount)))*100 + '%');
+				compTaskCount += 1;
+				uncompTaskCount -= 1 ;
+				$('.comp-task .taskFilter').text(compTaskCount);
+				$('.uncomp-task .taskFilter').text(uncompTaskCount);
+				$('.total-task .compPercent').text((Math.round((compTaskCount / (compTaskCount + uncompTaskCount))*100)) + '%');
 			}
 		});
 	} else {
@@ -114,9 +117,11 @@ $(".task-list").on("click", '.comp-chk-btn', function() {
 				$(btn).addClass("uncomp-btn");
 				$(btn).text("미완료");
 				$(btn).append(input);
-				$('.comp-task .taskFilter').text(compTaskCount - 1);
-				$('.uncomp-task .taskFilter').text(uncompTaskCount + 1);
-				$('.total-task .compPercent').text(((compTaskCount / (compTaskCount + uncompTaskCount)))*100 + '%');
+				compTaskCount -= 1;
+				uncompTaskCount +=1;
+				$('.comp-task .taskFilter').text(compTaskCount);
+				$('.uncomp-task .taskFilter').text(uncompTaskCount);
+				$('.total-task .compPercent').text((Math.round((compTaskCount / (compTaskCount + uncompTaskCount))*100)) + '%');
 			}
 		});
 	}
