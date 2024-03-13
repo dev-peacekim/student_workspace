@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.domain.User;
 import com.blackberry.s20240130103.lhs.model.Address;
+import com.blackberry.s20240130103.lhs.model.Schedule;
 import com.blackberry.s20240130103.lhs.service.AddressService;
 import com.blackberry.s20240130103.lhs.service.EvalService;
+import com.blackberry.s20240130103.lhs.service.ScheduleService;
 import com.blackberry.s20240130103.lhs.service.UserService;
 
 import jakarta.mail.internet.MimeMessage;
@@ -41,6 +44,7 @@ public class LhsController {
 	private final EvalService evalService;
 	private final KphProjectService kphProjectService;
 	private final AddressService addressService;
+	private final ScheduleService scheduleService;
 	
 	@GetMapping(value = "loginForm")
 	public String loginForm() {
@@ -390,6 +394,50 @@ public class LhsController {
 		System.out.println("addressRequestDelete address : " + address);
 		int result = addressService.addressRequestDelete(address);
 		return "redirect:/address";
+	}
+	
+	@GetMapping("proejctSchedule")
+	public String scheduleMain(Schedule schedule,Model model) {
+		List<Schedule> scheduleList = scheduleService.scheduleList(schedule);
+		model.addAttribute("project_no", schedule.getProject_no());
+		model.addAttribute("scheduleList", scheduleList);
+		return "lhs/scheduleMain";
+	}
+	
+	@GetMapping("scheduleAddForm")
+	public String scheduleAddForm(Schedule schedule,Model model) {
+		model.addAttribute("project_no", schedule.getProject_no());
+		return "lhs/scheduleAddForm";
+	}
+	
+	@PostMapping("scheduleAdd")
+	public String scheduleAdd(Schedule schedule,HttpServletRequest request,RedirectAttributes redirect) {
+		schedule.setUser_no(Long.parseLong(request.getSession().getAttribute("user_no").toString()));
+		int result = scheduleService.scheduleAdd(schedule);
+		redirect.addAttribute("project_no", schedule.getProject_no());
+		return "redirect:/proejctSchedule";
+	}
+	
+	@GetMapping("scheduleDelete")
+	public String scheduleDelete(Schedule schedule,RedirectAttributes redirect) {
+		int result = scheduleService.scheduleDelete(schedule);
+		redirect.addAttribute("project_no", schedule.getProject_no());
+		return "redirect:/proejctSchedule";
+	}
+	
+	@GetMapping("scheduleUpdateForm")
+	public String scheduleUpdateForm(Schedule schedule,Model model) {
+		Schedule sc = scheduleService.scheduleSelectOne(schedule);
+		System.out.println(sc);
+		model.addAttribute("schedule", sc);
+		return "lhs/scheduleUpdateForm";
+	}
+	
+	@PostMapping("scheduleUpdate")
+	public String scheduleUpdate(Schedule schedule,RedirectAttributes redirect) {
+		int result = scheduleService.scheduleUpdate(schedule);
+		redirect.addAttribute("project_no", schedule.getProject_no());
+		return "redirect:/proejctSchedule";
 	}
 	
 }
