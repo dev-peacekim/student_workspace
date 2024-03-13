@@ -1,16 +1,18 @@
 package com.blackberry.s20240130103.ykm.controller;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import com.blackberry.s20240130103.ykm.model.YkmPaging;
 import com.blackberry.s20240130103.ykm.service.YkmService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -41,8 +44,9 @@ public class YkmBoardController {
 		YkmPaging stuPage = new YkmPaging(totalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
-		
+
 		List<YkmBoardComm> getPostList = ykmService.getPostList(ykmBoardComm);
+		
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
 		model.addAttribute("getPostList", getPostList);
@@ -50,7 +54,7 @@ public class YkmBoardController {
 		return "ykm/boardStudy";
 	}
 
-	@GetMapping(value = "post")
+	@GetMapping(value = "/post")
 	public String getPost(HttpServletRequest request, Model model) {
 		// System.out.println("YkmController getPost start ---*");
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
@@ -58,15 +62,16 @@ public class YkmBoardController {
 		
 		ykmService.increseViewCount(cboard_no); // 조회수 카운트 메서드
 		int countComment = ykmService.countComment(cboard_no); // 댓글 개수 카운트 메서드
-		
-		//Map<String, Object> getFileList = ykmService.getFileList(cboard_no);
-		
+
+		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
+		for(YkmBoardCommFile file : getFileList) {
+			System.out.println("test : " + file);
+		}
 		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
-		//model.addAttribute("getFileList",getFileList); // 업로드한 파일 목록 보여주기
-		//System.out.println("YkmController getFileList : "+ getFileList); // 비어있따,,?
-		// System.out.println("YkmController getPost finish ---*");
-		
+		model.addAttribute("getFileList",getFileList); // 업로드한 파일 목록 보여주기
+
+		System.out.println("YkmController getPost finish ---*");
 		
 		return "ykm/boardPost";
 	}
@@ -100,10 +105,13 @@ public class YkmBoardController {
 	
 	@GetMapping(value = "/updateForm")
 	public String updatePostForm(HttpServletRequest request, Model model) {
-		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		System.out.println("updatePostForm updatePostForm start---*");
+		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
+		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
 		model.addAttribute("getPost", getPost);
+		model.addAttribute("getFileList", getFileList);
+		
 		return "ykm/boardUpdateForm";
 	}
 	
@@ -116,7 +124,8 @@ public class YkmBoardController {
 		int updatePost = ykmService.updatePost(ykmBoardComm);
 		System.out.println("YkmController updatePost result--> " + updatePost);
 		model.addAttribute("updatePost", updatePost);
-		return "re:boardStudy";
+		
+		return "redirect:/boardStudy";
 	}
 	
 	@RequestMapping(value="/deletePost")
@@ -144,7 +153,44 @@ public class YkmBoardController {
 		return "ykm/boardStudy";
 	}
 	
-	
+	// 파일 다운로드
+	@GetMapping(value="/fileDownload")
+	public void getDownloadFile(@RequestParam("cboard_file_name") String cboard_file_name, 
+								@RequestParam("cboard_file_user_name") String cboard_file_user_name,
+						HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("YkmController String cboard_file_name : "+cboard_file_name);
+		
+			try {
+				
+			YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
+			ykmBoardCommFile.setCboard_file_name(cboard_file_name);
+			ykmBoardCommFile.setCboard_file_user_name(cboard_file_user_name);
+						
+			System.out.println("YkmController getDownloadFile ykmBoardCommFile : "+ykmBoardCommFile);
+		    String getFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/")+ykmBoardCommFile.getCboard_file_name();
+			System.out.println("YkmController getDownloadFile getFilePath : "+getFilePath);
+		   
+			File file = new File(getFilePath);
+			System.out.println("test : " + file.getName());
+		    if (file.exists()) {
+		    	String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+		    	if (mimeType == null) {
+		    	    mimeType = "application/octet-stream";
+		    	}
+		    
+	    	response.setContentType(mimeType);
+	    	response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(ykmBoardCommFile.getCboard_file_user_name(), "UTF-8") + "\"");	
+	    	response.setContentLength((int) file.length());
+
+	    	InputStream is = new BufferedInputStream(new FileInputStream(file));
+	    	FileCopyUtils.copy(is, response.getOutputStream());
+		    
+		 } 
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("YkmController getDownloadFile error+ " +e.getMessage());
+		}
+	}
 	
 	
 	

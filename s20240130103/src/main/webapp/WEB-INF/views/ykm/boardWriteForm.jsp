@@ -61,7 +61,7 @@ window.onload = function() {
 	        $.each(arr, function (index, file) {
 	            let fileName = file.name; 
 	            var div = $('<div>').text(fileName);
-	            $('.preview').prepend(div); // 새로운 파일이 위로 오도록 prepend를 사용합니다.
+	            $('.preview').prepend(div); 
 	        });
 	    });
 	} 
@@ -91,7 +91,7 @@ window.onload = function() {
 			</nav>
 		</div>
 		<!-- End Page Title -->
-		<section class="board-write">
+		<section class="section">
 			<div class="row card card-body">
 				<div class="community-header">
 					<p>글쓰기</p>

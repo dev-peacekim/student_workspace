@@ -1,16 +1,13 @@
 package com.blackberry.s20240130103.ykm.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
-import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -140,14 +137,20 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public Map<String, Object> getFileList(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getFileList start ---*");
-		// 아니 왜 너만 ㅜㅠ
-		Map<String, Object> getFileList = session.selectMap("ykmGetFileList",);
-		System.out.println("YkmBoardDaoImpl getFileList : " + getFileList);
-		return getFileList;
+		Map<String, Object> getFileList = session.selectMap("ykmGetFileList2", cboard_no, "cboard_file_cnt");
+		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList);
+        return getFileList;
 	}
 
 */
-
-
+	@Override
+	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getFileList start ---*");
+		//Map<String, Object> getFileList = session.selectMap("ykmGetFileList", cboard_no, "cboard_file_cnt");
+		List<YkmBoardCommFile> getFileList = session.selectList("ykmGetFileList",cboard_no);
+		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList.size());
+        return getFileList;
+	}
+	
 	
 }

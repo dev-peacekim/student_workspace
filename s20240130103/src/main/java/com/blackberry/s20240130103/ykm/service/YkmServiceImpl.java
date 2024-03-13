@@ -36,22 +36,24 @@ public class YkmServiceImpl implements YkmService {
 		
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
-		
+		System.out.println("test22 : " + ykmBoardComm);
 		for (MultipartFile file : fileList) {
+			// 파일 저장
+			String fileName = file.getOriginalFilename();
+			String fileExt = fileName.substring(fileName.lastIndexOf("."));
+			String fileUuid = UUID.randomUUID().toString()+ fileExt;
 			
-			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-			
+			File files = new File(studyFilePath, fileUuid);
 			try {
-				// 파일 업로드 db 저장
-				Path uploadPath = Paths.get(studyFilePath + File.separator + fileName);
-				String uuid = UUID.randomUUID().toString();
-				Files.copy(file.getInputStream(), uploadPath, StandardCopyOption.REPLACE_EXISTING);
+				Path uploadPath = Paths.get(studyFilePath + File.separator + fileUuid);
+				
+				Files.copy(file.getInputStream(), files.toPath(), StandardCopyOption.REPLACE_EXISTING);
 				
 				YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
 				System.out.println("YkmServiceImpl writePost ykmBoardCommFile : "+ykmBoardCommFile);
 				ykmBoardCommFile.setCboard_no(ykmBoardComm.getCboard_no());
 				System.out.println("YkmServiceImpl writePost ykmBoardComm.getCboard_no() "+ykmBoardComm.getCboard_no());
-				ykmBoardCommFile.setCboard_file_name(uuid);
+				ykmBoardCommFile.setCboard_file_name(fileUuid);
 				ykmBoardCommFile.setCboard_file_user_name(fileName);
 				
 				ykmBoardDao.saveFileList(ykmBoardCommFile);
@@ -61,12 +63,8 @@ public class YkmServiceImpl implements YkmService {
                 System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
 			}
 		}
-		System.out.println("YkmServiceImpl writePost ykmBoardComm "+ ykmBoardComm);
-		System.out.println("YkmServiceImpl writePost fileList "+ fileList); //????
-		System.out.println("YkmServiceImpl writePost result : "+result);
 		return result;
 	}
-
 
 
 	// 게시판 리스트
@@ -122,18 +120,22 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updateRecruitment(ykmBoardComm);
 	}
 
-	/*
+	
 	// 파일 불러오기
+//	@Override
+//	public Map<String, Object> getFileList(int cboard_no) {
+//		System.out.println("YkmServiceImpl getFileList start---*");
+//		Map<String, Object> getFileList = ykmBoardDao.getFileList(cboard_no);
+//		return getFileList;
+//	}
+//
 	@Override
-	public Map<String, Object> getFileList(int cboard_no) {
+	public List<YkmBoardCommFile> getFileList(int cboard_no) {
 		System.out.println("YkmServiceImpl getFileList start---*");
-		Map<String, Object> getFileList = ykmBoardDao.getFileList(cboard_no);
-		// 여기! ***************
-		//getFileList.put(cboard_no, "Object");
+		List<YkmBoardCommFile> getFileList = ykmBoardDao.getFileList(cboard_no);
 		return getFileList;
 	}
 
-	*/
 
 	
 	

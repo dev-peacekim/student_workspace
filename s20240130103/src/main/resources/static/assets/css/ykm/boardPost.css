@@ -206,11 +206,10 @@ section * {
 	border: none;
 	color: #f8f9fa;
 }
-.comment-body {
+.comment-header .comment-body {
 	align-items: center;
 	justify-content: center;
 	display: flex;
-	padding: 0px 16px 0px 16px;
 }
 .comment-body button {
 	color: black;
@@ -219,16 +218,14 @@ section * {
 	min-width: 65px;
 }
 
-
-.comment-card > comment-body {
-	padding-top: 0px;
-    padding-bottom: 0px;
-    padding-left: 20px;
-}
-
 .comment-form {
 	font-size: 18px;
 	font-weight: bold;
+}
+
+.rounded-circle {
+	height: 36px; 
+	width: 36px;
 }
 /*--------------------------------------------------------------
 # community-post-body

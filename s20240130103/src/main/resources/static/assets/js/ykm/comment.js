@@ -1,14 +1,27 @@
 /* 댓글 REST API */
 
-// 글쓰기 버튼 고정? 위치
-// 페이지 숫자 위치
+// 로그인 유저 정보
+let userInfo;
 
-
+function getUserNo() {
+	$.ajax({
+		url: "/userNo",
+		type: "GET",
+		//data: JSON.stringify(data),
+		success: function(data) {
+			console.log('getUserNo data :' + data);
+			userInfo = data
+			console.log('getUserNo : ' + userInfo);
+		},
+		error: function(error) {
+			console.log('사용자 정보를 가져오는 중 오류 발생:', error);
+		}
+	});
+}
 
 
 // 댓글 리스트
 let cboardNo = null;
-
 function getCommentList(cboard_no) {
 	if (cboardNo === null) {
 		cboardNo = cboard_no;
@@ -32,7 +45,6 @@ function getCommentList(cboard_no) {
 // 댓글리스트 갱신
 function updateReplyView(data) {
 	let replyList = '';
-
 	data.forEach(function(comment) {
 
 		console.log(comment);
@@ -45,7 +57,8 @@ function updateReplyView(data) {
 		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;
 
 		// 댓글 작성자 비교
-		const commentWriter = comment.user_no // commentWriter 댓글 작성자, userInfo 로그인 한 유저정보      
+		const commentWriter = comment.user_no // commentWriter 댓글 작성자, userInfo 로그인 한 유저정보
+		console.log('commentWriter'+commentWriter);      
 
 		replyList += `<div class="comment-card" data-creply-no="${comment.creply_no}">
 		<div class="comment-header">
@@ -62,11 +75,11 @@ function updateReplyView(data) {
 					<i class="bi bi-trash"></i> 삭제
 				</button>
 				<div class="replyBtn badge bg-light text-dark">
-					<i class="bi bi-reply-fill"></i>
+					<i class="bi bi-reply-fill"></i> 답글
 				</div>
 			</div>
 		</div>
-		<div class="comment-body">
+		<div class="comment-body" style="padding-top: 0px; padding-bottom: 0px;">
 			<input type="text" id="inputField_${comment.creply_no}" value ="${comment.creply_content}" class="form-control" required="required" disabled >
  			<button type="button" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" style="display : none"><i class="bi bi-check2-circle"></i> 확인</button>
 		</div>
@@ -75,9 +88,9 @@ function updateReplyView(data) {
 	`;
 	});
 
-	document.querySelector('#replyContainer').innerHTML = replyList;
-
+	$('#commentContainer').html(replyList);
 }
+
 
 
 // 댓글 등록 버튼 이벤트
@@ -109,7 +122,7 @@ function submitComment() {
 
 	writeComment(commentData);
 
-	$('#creply_content').val() = ''; // 입력 필드 비우기
+	$('#creply_content').val(''); // 입력 필드 비우기
 }
 
 
@@ -235,30 +248,10 @@ function updateRecruitment(cboard_no, comm_mid2) {
 
 
 // 대댓글
+/*$('.replyBtn').on("click", function() {
+	$('.comment-editor').on(
+});
+*/
+
 
 // 댓글 등록이 완료되었습니다 아님 댓글 달린 쪽으로 화면 포인트주기...? 
-// 페이징 
-// 검색
-
-
-
-// 로그인 유저 정보
-let userInfo;
-
-function getUserNo() {
-	$.ajax({
-		url: "/userNo",
-		type: "GET",
-		data: JSON.stringify(data),
-		success: function(data) {
-			console.log('getUserNo data :' + data);
-			userInfo = data
-			console.log('getUserNo : ' + userInfo);
-		},
-		error: function(error) {
-			console.log('사용자 정보를 가져오는 중 오류 발생:', error);
-		}
-	});
-}
-
-

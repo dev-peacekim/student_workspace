@@ -52,13 +52,12 @@
 <link href="assets/css/ykm/boardPost.css" rel="stylesheet">
 
 <script>
-
-window.onload = function() {
-	getCommentList(${getPost.cboard_no});
-};
-
+	window.onload = function() {
+		getCommentList(${getPost.cboard_no});
+		getUserNo();
+	};
 </script>
- 
+
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -125,15 +124,15 @@ window.onload = function() {
 				
 				<div class="community-post-body">
 					<table class="table-file list-group">
-					<c:forEach items="${getFileList}" var="fileList">
+					<c:forEach items="${getFileList}" var="file">
 				        <tr>
-				        <%-- <c:url="/fileDownload?cboard_no=${getFileList.cboard_no}"/> --%>
-				            <td><a href="" class="list-group-item list-group-item-action">
-				            	<i class="bi bi-file-earmark-arrow-down"></i> ${fileList.cboard_file_name}</a>
+				            <td><a href="/fileDownload?cboard_file_name=${file.cboard_file_name}&cboard_file_user_name=${file.cboard_file_user_name}" 
+				            		class="list-group-item list-group-item-action">
+				            	<i class="bi bi-file-earmark-arrow-down"></i> ${file.cboard_file_user_name}</a>
 				            </td>
 				        </tr>
 					</c:forEach>
-				    </table>
+					</table>
 					<span class="post-content">${getPost.cboard_content}</span>
 				</div>
 				<div class="community-post-answer">
@@ -152,6 +151,7 @@ window.onload = function() {
 								placeholder="${getPost.user_nic}님, 댓글을 작성해보세요."
 								class="form-control commentEditor" required="required">
 						</div>
+						
 						<div class="btn-container">
 							<button id="commentResetBtn" type="button" class="hidden btn btn-secondary">취소</button>
 							<button id="commentSubmitBtn" type="submit" class="hidden btn btn-primary">등록</button>
@@ -159,8 +159,11 @@ window.onload = function() {
 					</div>
 				</div>
 				<!-- 댓글 리스트 -->
-				<div id="replyContainer">
+				<div id="commentContainer">
 					<!-- ajax 비동기 갱신 -->
+				
+				<div class="re-reply-container">
+				</div>
 				
 			</div>
 
@@ -191,5 +194,6 @@ window.onload = function() {
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
 </body>
 </html>

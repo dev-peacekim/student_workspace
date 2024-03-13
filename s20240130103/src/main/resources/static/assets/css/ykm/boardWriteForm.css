@@ -5,7 +5,7 @@
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
-.board-write {
+.section {
 	font-family: 'NanumSquare', sans-serif !important;
 	display: flex;
 	flex-direction: column;
@@ -44,16 +44,15 @@
     font-size: 20px;
 	font-weight: bold;
 	color: #424242;
+
 }
 .community-header p {
-	margin-bottom: 8px;
-}
-
-.upload-file-title {
+	margin-bottom: 0px;
 	font-size: 20px;
 	font-weight: bold;
 	color: #424242;
 }
+
 /*--------------------------------------------------------------
 # content
 --------------------------------------------------------------*/
@@ -78,7 +77,9 @@
 	margin-left: 10px;
 }
 
-
+/*--------------------------------------------------------------
+# file
+--------------------------------------------------------------*/
 .upload-title {
 	margin: 10px 0 10px 0;
     height: 85px;
@@ -87,11 +88,15 @@
     align-items: center;
     border-radius: 5px;
 }
-<<<<<<< HEAD
+
+.upload-file-title {
+	font-size: 20px;
+	font-weight: bold;
+	color: #424242;
+}
 .preview {
 	margin: 8px;
-=======
-
+}
 
 #formFile-box {
 	width: 100%;
@@ -105,8 +110,6 @@
 .upload-files {
  margin-bottom: 20px;
 }
-
-
 
 
 .dropBox {
@@ -133,5 +136,4 @@
 
 .dropBox h1 {
   font-size: 1rem;
->>>>>>> refs/remotes/origin/master
 }

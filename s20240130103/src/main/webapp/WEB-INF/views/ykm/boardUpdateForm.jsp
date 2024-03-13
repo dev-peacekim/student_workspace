@@ -51,9 +51,34 @@
 </head>
 <body>
 <script>
-    function back() {
-        window.history.back();
+   window.onload = function() {
+   	function back() {
+           window.history.back();
+ 
+   	}
+   	
+   	function updateFileView() {
+        $('input[type=\'file\']').on("change", function(e) {
+            $('.checkboxContainer').empty();
+            console.log();
+            const files = e.target.files;
+            const arr = Array.prototype.slice.call(files);
+            arr.reverse();
+            
+            $.each(arr, function (index, file) {
+                let fileName = file.name;
+                var checkboxDiv = $('<div>').addClass('form-check');
+                var checkboxInput = $('<input>').addClass('form-check-input').attr('type', 'checkbox').val(file.name);
+                var checkboxLabel = $('<label>').addClass('form-check-label').text(file.name);
+                checkboxDiv.append(checkboxInput);
+                checkboxDiv.append(checkboxLabel);
+                $('#checkboxContainer').append(checkboxDiv);
+            });
+        });
     }
+    updateFileView();
+   	
+   }
 </script>
 
 	<!-- ======= header ======= -->
@@ -76,26 +101,40 @@
 		<!-- End Page Title -->
 		<section class="section">
 			<div class="row card card-body">
-				<form action="updatePost" method="post">
+				<div class="community-header">
+					<p>글 수정</p>
+				</div>
+				<form action="updatePost" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="cboard_no" value="${getPost.cboard_no}">
-					<div class="community-header">
-						<p>글 수정</p>
-					</div>
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label>
 							<input type="text" name="cboard_title" id="boardTitle" class="form-control" value="${getPost.cboard_title}"/>
 						</div>
+						
 						<!-- 파일 첨부 -->
 						<div class="upload-files">
 							<label for="inputNumber" class="form-label">
 								<span class="upload-file-title">파일 첨부</span>
 							</label> 
-							<input class="form-control" type="file" id="formFile" name="cboard_file_name" >
+							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple/>
+							<div class="upload-title checkboxContainer">
+								<c:forEach items="${getFileList}" var="file">
+								<div class="form-check">
+							        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+							        <label class="form-check-label" for="flexCheckDefault">
+							            ${file.cboard_file_user_name}
+							        </label>
+							    </div>
+							</c:forEach>
+					        </div>
 						</div>
+						
+						<!-- 내용 -->
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" name="cboard_content" rows="15">${getPost.cboard_content}</textarea>
 						</div>
+						<!-- 버튼 -->
 						<div class="btn-container">
 							<input type="submit" class="btn btn-primary" value="확인">
 							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>			

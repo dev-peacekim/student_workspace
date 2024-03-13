@@ -44,6 +44,6 @@ public interface YkmBoardDao {
 	int getTotalCount(YkmBoardComm ykmBoardComm);
 
 	//Map<String, Object> getFileList(int cboard_no);
-
+	List<YkmBoardCommFile> getFileList(int cboard_no);
 
 }
