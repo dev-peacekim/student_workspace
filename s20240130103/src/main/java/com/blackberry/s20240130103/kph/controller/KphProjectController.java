@@ -309,18 +309,29 @@ public class KphProjectController {
 	
 	@GetMapping("projectMemberAddForm")
 	public String projectMemberAddForm(HttpServletRequest request, Model model) {
+		
+		String resultPage = "redirect:/main";
+		
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		Long project_no = Long.parseLong(request.getParameter("project_no"));
 		
 		KphUserProject kphUserProject = new KphUserProject();
-		kphUserProject.setUser_no(user_no);
 		kphUserProject.setProject_no(project_no);
+		kphUserProject.setUser_no(user_no);
 		
-		List<KphUsers> addressUserList = kphProjectService.addressUserListExceptProjectMember(kphUserProject);
+		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
+		System.out.println(isUserInProject);
 		
-		model.addAttribute("addressUserList", addressUserList);
-		model.addAttribute("project_no", project_no);
-		return "kph/projectMemberAddForm";
+		if (isUserInProject > 0) {
+			List<KphUsers> addressUserList = kphProjectService.addressUserListExceptProjectMember(kphUserProject);
+			
+			model.addAttribute("addressUserList", addressUserList);
+			model.addAttribute("project_no", project_no);
+			
+			resultPage = "kph/projectMemberAddForm";
+		}
+		
+		return resultPage;
 	}
 	
 	@PostMapping("projectMemberAdd")
@@ -338,12 +349,29 @@ public class KphProjectController {
 	}
 	
 	@GetMapping("projectUpdateForm")
-	public String projectUpdateForm(KphProject kphProject, Model model) {
+	public String projectUpdateForm(KphProject kphProject, Model model, HttpServletRequest request) {
 		System.out.println("KphProjectController projectUpdateForm start...");
-		KphProject project = kphProjectService.getProjectByProjectNo(kphProject);
-		System.out.println("KphProjectController projectUpdateForm project=>" + project);
-		model.addAttribute("project", project);
-		return "kph/projectUpdateForm";
+		
+		String resultPage = "redirect:/main";
+		
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		Long project_no = kphProject.getProject_no();
+		
+		KphUserProject kphUserProject = new KphUserProject();
+		kphUserProject.setProject_no(project_no);
+		kphUserProject.setUser_no(user_no);
+		
+		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
+		System.out.println(isUserInProject);
+		
+		if (isUserInProject > 0) {
+			KphProject project = kphProjectService.getProjectByProjectNo(kphProject);
+			System.out.println("KphProjectController projectUpdateForm project=>" + project);
+			model.addAttribute("project", project);
+			resultPage = "kph/projectUpdateForm";
+		}
+		
+		return resultPage;
 	}
 	
 	@PostMapping("projectUpdate")
@@ -373,14 +401,31 @@ public class KphProjectController {
 	}
 	
 	@GetMapping("taskUpdateForm")
-	public String taskUpdateForm(KphTask kphTask, Model model) {
+	public String taskUpdateForm(KphTask kphTask, Model model, HttpServletRequest request) {
 		System.out.println("KphProjectController taskUpdateForm start...");
-		// 유저리스트는 해당 과업에 포함되어 있는지가 0과 1로 구분되어 있음
-		KphTask task = kphProjectService.taskIncludingProjectMember(kphTask);
-		System.out.println(task);
-		model.addAttribute("task", task);
-		model.addAttribute("projectMemberList", task.getUsers());
-		return "kph/taskUpdateForm";
+		
+		String resultPage = "redirect:/main";
+		
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		Long project_no = kphTask.getProject_no();
+		
+		KphUserProject kphUserProject = new KphUserProject();
+		kphUserProject.setProject_no(project_no);
+		kphUserProject.setUser_no(user_no);
+		
+		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
+		System.out.println(isUserInProject);
+		
+		if (isUserInProject > 0) {
+			// 유저리스트는 해당 과업에 포함되어 있는지가 0과 1로 구분되어 있음
+			KphTask task = kphProjectService.taskIncludingProjectMember(kphTask);
+			System.out.println(task);
+			model.addAttribute("task", task);
+			model.addAttribute("projectMemberList", task.getUsers());
+			resultPage = "kph/taskUpdateForm";
+		}
+		
+		return resultPage;
 	}
 	
 	@PostMapping("taskUpdate")

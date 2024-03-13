@@ -137,48 +137,57 @@ $(".taskFilter").on("click", function() {
 		contentType: "application/json",
 		dataType: "json",
 		success: function(taskList) {
+			
 			console.log(taskList);
 			taskList.forEach((task) => {
-
+				const input = $('<input>', {
+					type: 'hidden',
+		    		name: 'task_no',
+		    		value: task.task_no
+				});
+				
 				const users = task.users.map(user => `
-          <li><img src="/upload/userImg/${user.user_profile}" alt="Profile" class="rounded-circle">${user.user_name}</li>
-        `).join('');
+		          	<li><img src="/upload/userImg/${user.user_profile== null ? '987654321487321564defaultImg.jpg' : user.user_profile}" alt="Profile" class="rounded-circle">${user.user_name}</li>
+		        `).join('');
 
 				const day = ['일', '월', '화', '수', '목', '금', '토']
 				const endDate = new Date(task.task_end);
 				const endDay = day[endDate.getDay()]
-
+				
 				$(".task-list").append(`
-			<div class="task-list-detail">
-				<div class="task-head">
-					<div class="task-title">${task.task_title}</div>
-					<i class="bi bi-three-dots-vertical"></i>
-					<ul class="task-setting">
-						<li>과업 수정</li>
-						<li>과업 삭제</li>
-					</ul>
-				</div>
-				<div class="task-detail">
-					<div class="task-comp-chk">
-						<i class="bi bi-check-circle"></i>
-						${task.task_comp_chk == 0 ? '<button class="comp-chk-btn uncomp-btn">미완료</button>' : '<button class="comp-chk-btn comp-btn">완료</button>'}
-					</div>
-					<div class="member">
-						<i class="bi bi-people"></i>
-						<div class="task-member-toggle">
-							<div class="task-member-title dropdown-toggle">참여자</div>
-							<ul class="task-member-list">
-								${users}
+					<div class="task-list-detail">
+						<div class="task-head">
+							<div class="task-title">${task.task_title}</div>
+							<i class="bi bi-three-dots-vertical"></i>
+							<ul class="task-setting">
+								<li class="task-update-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 수정</li>
+                                <li class="task-delete-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 삭제</li>
 							</ul>
 						</div>
+						<div class="task-detail">
+							<div class="task-comp-chk">
+								<i class="bi bi-check-circle"></i>
+								<button class="comp-chk-btn ${task.task_comp_chk == 0 ? 'uncomp-btn' : 'comp-btn'}">
+        							<input type="hidden" name="task_no" value="${task.task_no}" />
+        							${task.task_comp_chk == 0 ? '미완료' : '완료'}
+    							</button>
+							</div>
+							<div class="member">
+								<i class="bi bi-people"></i>
+								<div class="task-member-toggle">
+									<div class="task-member-title dropdown-toggle">참여자</div>
+									<ul class="task-member-list">
+										${users}
+									</ul>
+								</div>
+							</div>
+							<div class="due-date">
+								<i class="bi bi-calendar3"></i>
+								<div>${task.task_end.substring(0, task.task_end.indexOf(" "))}(${endDay}) ${task.task_end.substring(task.task_end.indexOf(" "), 16)}까지</div>
+							</div>
+						</div>
 					</div>
-					<div class="due-date">
-						<i class="bi bi-calendar3"></i>
-						<div>${task.task_end.substring(0, task.task_end.indexOf(" "))}(${endDay}) ${task.task_end.substring(task.task_end.indexOf(" "), 16)}까지</div>
-					</div>
-				</div>
-			</div>
-        `);
+		        `);
 			});
 		},
 	});
