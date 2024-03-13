@@ -90,7 +90,7 @@
 					</form>
 					<form action="proejctSchedule" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-						<button type="submit" class="project-board-btn btn btn-secondary">프로젝트 일정</button>			
+						<button type="submit" class="project-schedule-btn btn btn-secondary">프로젝트 일정</button>			
 					</form>
 				</div>
 				<div class="top-list">

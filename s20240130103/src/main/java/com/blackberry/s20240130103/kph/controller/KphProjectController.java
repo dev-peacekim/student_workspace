@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class KphProjectController {
 	
 	private final KphProjectService kphProjectService;
+	
+	/*워크스페이스 - 메인 */
 
 	@GetMapping("mainLogic")
 	public String mainLogic(HttpServletRequest request, Model model) {
@@ -56,7 +58,6 @@ public class KphProjectController {
 		model.addAttribute("addressUserList", addressUserList);
 		return "main";
 	}
-	
 	
 	@GetMapping("projectAddForm")
 	public String projectAddForm() {
@@ -199,6 +200,9 @@ public class KphProjectController {
 				
 		return response;
 	}
+	
+	
+	/*워크스페이스 - 프로젝트 홈 */
 	
 	private int isUserInProject(HttpServletRequest request) {
 		
@@ -444,5 +448,9 @@ public class KphProjectController {
 		int result = kphProjectService.taskCompUpdate(kphTask);
 		return String.valueOf(result);
 	}
+	
+	
+	/*워크스페이스 - 공유 게시판 */
+	
 	
 }

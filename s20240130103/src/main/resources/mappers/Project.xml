@@ -39,7 +39,7 @@
 	
 	<update id="kphProjectDelete" parameterType="KphProject">
 		UPDATE PROJECT
-		SET PROJECT_DELETE_CHK = 1
+		SET PROJECT_DELETE_CHK = 1, PROJECT_UPDATE_DATE = SYSDATE
 	 	WHERE PROJECT_NO = #{project_no}
 	</update>
 	

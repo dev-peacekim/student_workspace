@@ -68,7 +68,7 @@ section {
 	box-shadow: 0px 0 5px rgba(1, 41, 112, 0.1);
 }
 
-.top .top-btn .project-board-btn {
+.top .top-btn .project-board-btn, .top .top-btn .project-schedule-btn {
 	border: 1px solid #82838542;
 	background-color: white;
 	transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, 
@@ -76,7 +76,7 @@ section {
 	color: #012970;
 }
 
-.top .top-btn .project-board-btn:hover {
+.top .top-btn .project-board-btn:hover, .top .top-btn .project-schedule-btn:hover {
 	background-color: #b4b0b025;
 	color: #0d6efd;
 }
