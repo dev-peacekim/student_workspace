@@ -41,10 +41,10 @@
 	<update id="kphTaskCompUpdate" parameterType="KphTask">
 		UPDATE TASK
 			  <if test="task_comp_chk==0">
-			  		SET TASK_COMP_CHK = 1
+			  		SET TASK_COMP_CHK = 1, TASK_UPDATE_DATE = SYSDATE
 			  </if>
 			  <if test="task_comp_chk==1">
-			  		SET TASK_COMP_CHK = 0
+			  		SET TASK_COMP_CHK = 0, TASK_UPDATE_DATE = SYSDATE
 			  </if>
 		WHERE PROJECT_NO = #{project_no}
 			AND TASK_NO = #{task_no} 
