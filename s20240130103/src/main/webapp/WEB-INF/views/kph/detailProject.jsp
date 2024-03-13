@@ -164,8 +164,18 @@
 											<div class="task-member-title dropdown-toggle">참여자</div>
 											<ul class="task-member-list">
 												<c:forEach var="user" items="${task.users }">
-													<li><img src="${pageContext.request.contextPath}/upload/userImg/${user.user_profile}" alt="Profile"
-													class="rounded-circle">${user.user_name }</li>
+													<li>
+														<c:if test="${empty user.user_profile }">
+															<img
+																src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+																alt="Profile" class="rounded-circle">${user.user_name }
+														</c:if> 
+														<c:if test="${not empty user.user_profile }">
+															<img
+																src="${pageContext.request.contextPath}/upload/userImg/${user.user_profile}"
+																alt="Profile" class="rounded-circle">${user.user_name }
+														</c:if> 
+													</li>
 												</c:forEach>
 											</ul>
 										</div>
