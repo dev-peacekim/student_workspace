@@ -125,6 +125,8 @@
 	                  </div>
 	                </div>
 	                <div class="schedule-content-body">
+	                
+	                
 	                  <div class="schedule-contents">
 	                    <i class="bi bi-calendar3"></i>
 	                    <fmt:formatDate value="${schedule.sch_start }" type="date"/> ~ 

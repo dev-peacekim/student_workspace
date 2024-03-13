@@ -33,10 +33,13 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
     <link href="assets/css/kph/detailProject.css"  rel="stylesheet"  type="text/css"> <!-- 이건 복사해서 사용하지 마세요 헤더 푸터가 아닙니다.-->
-     
+    <link href="assets/css/kph/detailProject_calender.css"  rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script defer src="/assets/js/kph/detailProject.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/assets/js/kph/detailProject_calender.js"></script>
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -221,6 +224,7 @@
 						<div class="callender-head">
 							<h5 class="card-title">프로젝트 일정</h5>
 						</div>
+						<div id="calender"></div>
 					</div>
 				</div>
 			</div>
