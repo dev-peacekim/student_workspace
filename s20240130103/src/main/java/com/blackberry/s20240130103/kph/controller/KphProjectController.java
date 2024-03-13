@@ -372,12 +372,48 @@ public class KphProjectController {
 		return String.valueOf(result);
 	}
 	
-//	@GetMapping("taskUpdateForm")
-//	public String taskUpdateForm(KphTask kphTask, Model model) {
-//		System.out.println("KphProjectController taskUpdateForm start...");
-//		KphTask task = kphProjectService.getTaskIncludingUserList(kphTask);
-//		model.addAttribute("task", task);
-//		return "kph/taskUpdateForm";
-//	}
+	@GetMapping("taskUpdateForm")
+	public String taskUpdateForm(KphTask kphTask, Model model) {
+		System.out.println("KphProjectController taskUpdateForm start...");
+		// 유저리스트는 해당 과업에 포함되어 있는지가 0과 1로 구분되어 있음
+		KphTask task = kphProjectService.taskIncludingProjectMember(kphTask);
+		System.out.println(task);
+		model.addAttribute("task", task);
+		model.addAttribute("projectMemberList", task.getUsers());
+		return "kph/taskUpdateForm";
+	}
+	
+	@PostMapping("taskUpdate")
+	public String taskUpdate(@RequestParam("user_no") List<Long> userNoList, KphTask kphTask, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
+		System.out.println("KphProjectController taskUpdate start...");
+		System.out.println(kphTask);
+		String task_end = request.getParameter("task_end_day") + " " + request.getParameter("task_end_time");
+		kphTask.setTask_end(task_end);
+		
+		int result = kphProjectService.taskUpdate(userNoList, kphTask);
+		System.out.println("KphProjectController taskUpdate result=> " + result);
+		
+		redirectAttributes.addAttribute("project_no", kphTask.getProject_no());
+		
+		return "redirect:/detailProject";
+	}
+	
+	@PostMapping("taskDelete")
+	@ResponseBody
+	public String taskDelete(KphTask kphTask) {
+		System.out.println("KphProjectController taskDelete start...");
+		System.out.println(kphTask);
+		int result = kphProjectService.taskDelete(kphTask);
+		return String.valueOf(result);
+	}
+	
+	@PostMapping("taskCompUpdate")
+	@ResponseBody
+	public String taskCompUpdate(KphTask kphTask) {
+		System.out.println("KphProjectController taskCompUpdate start...");
+		System.out.println(kphTask);
+		int result = kphProjectService.taskCompUpdate(kphTask);
+		return String.valueOf(result);
+	}
 	
 }

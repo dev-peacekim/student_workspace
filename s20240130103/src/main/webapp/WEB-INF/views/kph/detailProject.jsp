@@ -137,13 +137,13 @@
 					</div>
 					<div class="task-list">
 						<c:forEach var="task" items="${taskList}">
-							<div class="task-list-detail">
+							<div id="${task.task_no }" class="task-list-detail">
 								<div class="task-head">
 									<div class="task-title">${task.task_title}</div>
 									<i class="bi bi-three-dots-vertical"></i>
 									<ul class="task-setting">
 										<li class="task-update-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 수정</li>
-                                    <li class="task-delete-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 삭제</li>
+                                    	<li class="task-delete-btn"><input type="hidden" name="task_no" value="${task.task_no }" />과업 삭제</li>
 									</ul>
 								</div>
 								<div class="task-detail">
@@ -151,10 +151,10 @@
 										<i class="bi bi-check-circle"></i>
 										<c:choose>
 											<c:when test="${task.task_comp_chk == 0 }">
-												<button class="comp-chk-btn uncomp-btn">미완료</button>	
+												<button class="comp-chk-btn uncomp-btn"><input type="hidden" name="task_no" value="${task.task_no }" />미완료</button>	
 											</c:when>
 											<c:otherwise>
-												<button class="comp-chk-btn comp-btn">완료</button>	
+												<button class="comp-chk-btn comp-btn"><input type="hidden" name="task_no" value="${task.task_no }" />완료</button>	
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -191,7 +191,7 @@
 									<p>전체 과업</p>
 									<p class="taskFilter">${unCompTaskListCount + compTaskListCount}</p>
 								</div>
-								<div class="compPercent">8%</div>
+								<div class="compPercent">${Math.round((compTaskListCount/(unCompTaskListCount + compTaskListCount))*100) }%</div>
 							</div>
 							<div class="project-report-card comp-task">
 								<div>
@@ -241,6 +241,17 @@
                     <div class="member-delete-btn-list">
                         <button type="button" class="btn btn-primary member-check-btn">확인</button>
                         <button type="button" class="btn btn-secondary member-cancle-btn">취소</button>
+                    </div>
+                </div>
+            </div>
+            <div class="task-delete-box">
+                <div>
+                    <div class="task-delete-box-title">
+                        삭제 시 복구가 불가능 합니다.<br /> 정말로 삭제하시겠습니까?
+                    </div>
+                    <div class="task-delete-btn-list">
+                        <button type="button" class="btn btn-primary task-delete-check-btn">확인</button>
+                        <button type="button" class="btn btn-secondary task-delete-cancle-btn">취소</button>
                     </div>
                 </div>
             </div>

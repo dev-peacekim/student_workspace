@@ -18,5 +18,5 @@ public class KphUsers {
 	
 	// 조회용 테이블
 	private double user_score;
-	
+	private int is_user_in_task;
 }

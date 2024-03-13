@@ -36,7 +36,9 @@ public interface KphProjectDao {
 	
 	int isUserInProject(KphUserProject kphUserProject);
 
-	List<KphTask> taskListIncludingUsers(KphTask kphTask);
+	List<KphTask> taskListByProjectNo(KphTask kphTask);
+
+	List<KphUsers> UserListInTask(KphTask task);
 
 	List<KphUsers> projectMemberList(Long project_no);
 
@@ -56,6 +58,14 @@ public interface KphProjectDao {
 
 	int projectMemberDelete(KphUserProject kphUserProject);
 
-	KphTask getTaskIncludingUserList(KphTask kphTask);
-	
+	KphTask getTask(KphTask kphTask);
+
+	List<KphUsers> projectMemberListIncludingIsInTask(KphTask task);
+
+	int taskUpdate(List<Long> userNoList, KphTask kphTask);
+
+	int taskDelete(KphTask kphTask);
+
+	int taskCompUpdate(KphTask kphTask);
+
 }

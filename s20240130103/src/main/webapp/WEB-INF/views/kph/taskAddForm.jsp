@@ -83,7 +83,18 @@
 								<div class="form-check">
 									<input name="user_no" class="form-check-input" type="checkbox" id="${member.user_no}" value="${member.user_no}" />
 									<label class="form-check-label" for="${member.user_no}">
-										<img src="${pageContext.request.contextPath}/upload/userImg/${member.user_profile}" alt="Profile" class="rounded-circle">${member.user_name }
+										<c:if test="${empty member.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+												alt="Profile"
+												class="rounded-circle">${member.user_name }
+										</c:if>
+										<c:if test="${not empty member.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/${member.user_profile}"
+												alt="Profile"
+												class="rounded-circle">${member.user_name }
+										</c:if>
 									</label>
 								</div>
 							</c:forEach>

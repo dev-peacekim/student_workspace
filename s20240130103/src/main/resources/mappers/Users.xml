@@ -101,4 +101,15 @@
 			</if>									
 	</select>
 	
+	<select id="kphProjectMemberListIncludingIsInTask" parameterType="KphTask" resultType="KphUsers">
+		SELECT u.*, upm2.IS_USER_IN_TASK
+		FROM USERS u , (SELECT upm.PROJECT_NO , upm.USER_NO, CASE WHEN EXISTS (SELECT * 
+																												FROM USER_TASK_MANY utm 
+																												WHERE utm.PROJECT_NO = #{project_no}  
+																													AND utm.TASK_NO = #{task_no} 
+																													AND upm.USER_NO = utm.USER_NO) THEN 1 ELSE 0 END AS IS_USER_IN_TASK
+								FROM USER_PROJECT_MANY upm 
+								WHERE upm.PROJECT_NO = #{project_no}) upm2
+		WHERE u.USER_NO = upm2.USER_NO
+	</select>
 </mapper>

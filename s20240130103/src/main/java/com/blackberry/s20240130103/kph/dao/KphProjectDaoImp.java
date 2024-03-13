@@ -104,20 +104,17 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public Long projectLeaderNo(Long project_no) {
 		return session.selectOne("kphProjectLeaderNo", project_no);
 	}
+		
+	@Override
+	public List<KphTask> taskListByProjectNo(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp taskListByProjectNo start...");
+		return session.selectList("kphTaskListByProjectNo", kphTask);
+	}
 
 	@Override
-	public List<KphTask> taskListIncludingUsers(KphTask kphTask) {
-		System.out.println("KphProjectDaoImp taskListIncludingUsers start...");
-		
-		List<KphTask> taskList = session.selectList("kphTaskListByProjectNo", kphTask);
-		Iterator<KphTask> taskIt = taskList.iterator();
-		
-		while (taskIt.hasNext()) {
-			KphTask task = taskIt.next();
-			task.setUsers(session.selectList("kphUserListInTask", task));
-		}
-		
-		return taskList;
+	public List<KphUsers> UserListInTask(KphTask task) {
+		System.out.println("KphProjectDaoImp UserListInTask start...");
+		return session.selectList("kphUserListInTask", task);
 	}
 
 	@Override
@@ -195,11 +192,78 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public KphTask getTaskIncludingUserList(KphTask kphTask) {
-		System.out.println("KphProjectDaoImp getTaskIncludingUserList start...");
-		KphTask task = session.selectOne("kphGetTask");
-		task.setUsers(session.selectList("kphUserListInTask", task));
+	public KphTask getTask(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp getTask start...");
+		KphTask task = session.selectOne("kphGetTask", kphTask);
 		return task;
+	}
+
+	@Override
+	public List<KphUsers> projectMemberListIncludingIsInTask(KphTask task) {
+		System.out.println("KphProjectDaoImp getTask start...");
+		return session.selectList("kphProjectMemberListIncludingIsInTask", task);
+	}
+
+	@Override
+	public int taskUpdate(List<Long> userNoList, KphTask kphTask) {
+		System.out.println("KphProjectDaoImp taskUpdate start...");
+		
+		int result = 0;
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			session.delete("kphUserTaskDelete", kphTask);
+			session.update("kphTaskUpdateProc", kphTask);
+			
+			for (int i = 0; i < userNoList.size(); i++) {
+				KphUserTask kphUserTask = new KphUserTask();
+				kphUserTask.setProject_no(kphTask.getProject_no());
+				kphUserTask.setTask_no(kphTask.getPo_task_no());
+				kphUserTask.setUser_no(userNoList.get(i));
+				session.insert("kphUserTaskInsert", kphUserTask);
+			}
+			
+			result = 1;
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			result = -1;
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int taskDelete(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp projectDelete start...");
+		int totalResult = 0;
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			int result1 = session.delete("kphUserTaskDelete", kphTask);
+			int result2 = session.delete("kphTaskDelete", kphTask);
+			
+			if(result1 == 1 && result2 == 1) {
+				totalResult = 1;
+			}
+			
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			totalResult = -1;
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
+		
+		return totalResult;
+	}
+
+	@Override
+	public int taskCompUpdate(KphTask kphTask) {
+		System.out.println("KphProjectDaoImp taskCompUpdate start...");
+		kphTask = session.selectOne("kphGetTask", kphTask);
+		return session.update("kphTaskCompUpdate", kphTask);
 	}
 
 }

@@ -123,12 +123,20 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 
 	@Override
+	@Transactional
 	public Map<String, Object> detailProject(KphTask kphTask) {
 		System.out.println("KphProjectServiceImp detailProject start...");
 		Map<String, Object> detailProject = new HashMap<String, Object>();
 		
 		// 과업 리스트 세팅
-		List<KphTask> taskList = kphProjectDao.taskListIncludingUsers(kphTask);
+		List<KphTask> taskList = kphProjectDao.taskListByProjectNo(kphTask);
+		Iterator<KphTask> taskIt = taskList.iterator();
+		
+		while (taskIt.hasNext()) {
+			KphTask task = taskIt.next();
+			task.setUsers(kphProjectDao.UserListInTask(task));
+		}
+		
 		detailProject.put("taskList", taskList);
 		
 		// 완료/미완료 과업 세팅
@@ -229,10 +237,34 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 
 	@Override
-	public KphTask getTaskIncludingUserList(KphTask kphTask) {
-		System.out.println("KphProjectServiceImp getTaskIncludingUserList start...");
-		KphTask task = kphProjectDao.getTaskIncludingUserList(kphTask);
+	public KphTask taskIncludingProjectMember(KphTask kphTask) {
+		System.out.println("KphProjectServiceImp taskIncludingProjectMember start...");
+		KphTask task = kphProjectDao.getTask(kphTask);
+		task.setUsers(kphProjectDao.projectMemberListIncludingIsInTask(task));
+		System.out.println(task.getUsers().get(0));
+		System.out.println(task.getUsers().get(1));
 		return task;
 	}
-	
+
+	@Override
+	public int taskUpdate(List<Long> userNoList, KphTask kphTask) {
+		System.out.println("KphProjectServiceImp taskUpdate start...");
+		int result = kphProjectDao.taskUpdate(userNoList, kphTask);
+		return result;
+	}
+
+	@Override
+	public int taskDelete(KphTask kphTask) {
+		System.out.println("KphProjectServiceImp taskDelete start...");
+		int result = kphProjectDao.taskDelete(kphTask);
+		return result;
+	}
+
+	@Override
+	public int taskCompUpdate(KphTask kphTask) {
+		System.out.println("KphProjectServiceImp taskCompUpdate start...");
+		int result = kphProjectDao.taskCompUpdate(kphTask);
+		return result;
+	}
+
 }

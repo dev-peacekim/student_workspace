@@ -27,4 +27,16 @@
       	}
 	</insert>
 	
+	<update id="kphTaskUpdateProc" parameterType="KphTask" statementType="CALLABLE">
+		{
+         CALL KPH_TASK_UPDATE_PROC (
+            #{project_no, mode=IN, jdbcType=INTEGER}
+            ,#{task_no, mode=IN, jdbcType=INTEGER}
+            ,#{task_title, mode=IN, jdbcType=VARCHAR}
+            ,#{task_start, mode=IN, jdbcType=DATE}
+            ,#{task_end, mode=IN, jdbcType=VARCHAR}
+            ,#{po_task_no, mode=OUT, jdbcType=INTEGER}
+         )
+      	}
+	</update>
 </mapper>

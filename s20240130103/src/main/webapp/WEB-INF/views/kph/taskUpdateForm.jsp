@@ -66,11 +66,12 @@
         <section class="section dashboard">
 			<div class="card">
 				<p>과업 정보 입력</p>
-				<form action="taskAdd" method="post">
-					<input type="hidden" id="project_no" name="project_no" value="${project_no }" />
+				<form action="taskUpdate" method="post">
+					<input type="hidden" id="project_no" name="project_no" value="${task.project_no }" />
+					<input type="hidden" id="project_no" name="task_no" value="${task.task_no }" />
 					<div>
 						<p>과업 제목</p>
-						<input name="task_title" type="text" class="form-control">
+						<input name="task_title" type="text" class="form-control" value="${task.task_title }">
 						<p class="task-alert task-title-alert">과업 제목을 입력하세요</p>
 					</div>
 					<div>
@@ -81,9 +82,25 @@
 						<div class="task-member">
 							<c:forEach var="member" items="${projectMemberList}">
 								<div class="form-check">
-									<input name="user_no" class="form-check-input" type="checkbox" id="${member.user_no}" value="${member.user_no}" />
+									<c:if test="${member.is_user_in_task == 0}">
+										<input name="user_no" class="form-check-input" type="checkbox" id="${member.user_no}" value="${member.user_no}" />
+									</c:if>
+									<c:if test="${member.is_user_in_task == 1}">
+										<input name="user_no" class="form-check-input" type="checkbox" id="${member.user_no}" value="${member.user_no}" checked="checked" />
+									</c:if>
 									<label class="form-check-label" for="${member.user_no}">
-										<img src="${pageContext.request.contextPath}/upload/userImg/${member.user_profile}" alt="Profile" class="rounded-circle">${member.user_name }
+										<c:if test="${empty member.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+												alt="Profile"
+												class="rounded-circle">${member.user_name }
+										</c:if>
+										<c:if test="${not empty member.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/${member.user_profile}"
+												alt="Profile"
+												class="rounded-circle">${member.user_name }
+										</c:if>
 									</label>
 								</div>
 							</c:forEach>
@@ -92,14 +109,14 @@
 					</div>
 					<div>
 						<p>시작일</p>
-						<input name="task_start" type="date" class="form-control" />
+						<input name="task_start" type="date" class="form-control" value="${task.task_start.substring(0, 10) }" />
 						<p class="task-alert task-start-alert">과업 시작일을 입력하세요</p>
 					</div>
 					<div>
 						<p>종료일</p>
 						<div class="task-end-day-box">
-							<input name="task_end_day" type="date"	class="task-end-day form-control" /> 
-							<input name="task_end_time" type="time" class="form-control">
+							<input name="task_end_day" type="date"	class="task-end-day form-control" value="${task.task_end.substring(0, 10) }" /> 
+							<input name="task_end_time" type="time" class="form-control" value="${task.task_end.substring(11, 19) }">
 						</div>
 						<p class="task-alert task-end-alert">과업 종료일을 입력하세요</p>
 					</div>

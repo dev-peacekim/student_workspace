@@ -6,5 +6,11 @@
 		INSERT INTO USER_TASK_MANY
 		VALUES (#{project_no}, #{task_no}, #{user_no})
 	</insert>
+	
+	<delete id="kphUserTaskDelete" parameterType="KphTask">
+		DELETE FROM USER_TASK_MANY
+		WHERE PROJECT_NO = #{project_no}
+			AND TASK_NO = #{task_no}
+	</delete>
 
 </mapper>

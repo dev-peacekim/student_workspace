@@ -32,4 +32,22 @@
 			AND TASK_NO = #{task_no}
 	</select>
 	
+	<delete id="kphTaskDelete" parameterType="KphTask">
+		DELETE FROM TASK
+		WHERE PROJECT_NO = #{project_no}
+			AND TASK_NO = #{task_no} 
+	</delete>
+	
+	<update id="kphTaskCompUpdate" parameterType="KphTask">
+		UPDATE TASK
+			  <if test="task_comp_chk==0">
+			  		SET TASK_COMP_CHK = 1
+			  </if>
+			  <if test="task_comp_chk==1">
+			  		SET TASK_COMP_CHK = 0
+			  </if>
+		WHERE PROJECT_NO = #{project_no}
+			AND TASK_NO = #{task_no} 
+	</update>
+	
 </mapper>
