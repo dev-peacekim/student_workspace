@@ -39,7 +39,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script>
+   function goBack() {
+       window.history.back();
+   }
 
+</script>
 
 </head>
 <body>
@@ -88,14 +93,6 @@
                                 <button type="submit" class="btn bwComple">완료</button>
                             </div>
                         </form>
-                        
-                        <script>
-                            function goBack() {
-                                window.history.back();
-                            }
-                        
-                        </script>
-                        
                     </div>
                 </div>
             </div>

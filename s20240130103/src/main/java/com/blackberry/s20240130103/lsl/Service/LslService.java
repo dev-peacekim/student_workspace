@@ -59,26 +59,34 @@ public interface LslService {
 	LslBoardComm boardAskModify(int cboard_no);
 	
 	// 게시판 글 수정 
-	int boardFreeUpdate(LslBoardComm lslBoardComm);
-	int boardAskUpdate(LslBoardComm lslBoardComm);
+	int boardUpdate(LslBoardComm lslBoardComm);
 	
 	
-	//int boardFileUpdate(MultipartFile[] multipartFile, String boardfilePath);
-	// String uploadFile(MultipartFile file);
+	// 파일 정보 업데이트 이름 정보 가져오기 
+	List<LslboardFile> boardFileNames (MultipartFile[] multipartFile, String boardfilePath);
+	
+	// 기존 파일 삭제
+	List<LslCommReply> replyBoardFreeAskList(int cboard_no);
 	
 	// 게시판 상세페이지 파일 조회
 	List<LslboardFile> boardAskFile(int cboard_no);
 	List<LslboardFile> boardFreeFile(int cboard_no);
 	
-
+	// 게시판 파일 정보 업데이트
+	void updateBoradFile(LslboardFile newlslboardFile);
 	
-
-
+	// 게시판 이전 데이터 삭제
+	void deleteBoardOldData(int cboard_no);
+	
+	// 게시판 이전 파일 삭제
+	void deleteBoardOldFiles(int cboard_no, String boardfilePath);
+	
+	
 	
 	/* 댓글 */
 	
 	// 댓글 리스트 
-	List<LslCommReply> replyBoardFreeAskList(int cboard_no);
+	
 
 	// 댓글 등록
 	int insertBoardReply(LslCommReply lslCommReply);
@@ -87,6 +95,15 @@ public interface LslService {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -54,15 +54,22 @@ public interface LslDao {
 
 	
 	// 게시판 글 수정
-	int  boardFreeUpdate(LslBoardComm lslBoardComm);
-	int boardAskUpdate(LslBoardComm lslBoardComm);
+	int  boardUpdate(LslBoardComm lslBoardComm);
 	
 	// 게시판 파일 업로드
 	void saveBoardFile(LslboardFile lslboardFile);
 	
 	// 게시판 파일 상세 내역
-		List<LslboardFile> boardAskFiles(int cboard_no);
-		List<LslboardFile> boardFreeFile(int cboard_no);
+	List<LslboardFile> boardAskFiles(int cboard_no);
+	List<LslboardFile> boardFreeFile(int cboard_no);
+	
+	// 게시판 파일 업데이트 
+	void updateBoradFile(LslboardFile newlslboardFile);
+		
+		
+	// 게시판 기존 데이터 삭제
+	void deleteBoardOldData(int cboard_no);
+		
 
 	
 	/* 댓글 */  
@@ -78,6 +85,8 @@ public interface LslDao {
 
 	// 댓글 수정
 	int modifyBoardReply(LslCommReply lslCommReply);
+	
+	
 	
 	
 	

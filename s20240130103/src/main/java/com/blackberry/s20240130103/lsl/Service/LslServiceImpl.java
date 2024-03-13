@@ -4,6 +4,7 @@ package com.blackberry.s20240130103.lsl.Service;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -95,20 +96,11 @@ public class LslServiceImpl implements LslService {
 	
 	// 게시판 글 수정 
 	@Override
-	public int boardFreeUpdate(LslBoardComm lslBoardComm) {
-		 int boardFreeUpdate = ld.boardFreeUpdate(lslBoardComm);
+	public int boardUpdate(LslBoardComm lslBoardComm) {
+		 int boardUpdate = ld.boardUpdate(lslBoardComm);
 		
-		return boardFreeUpdate;
+		return boardUpdate;
 	}
-	
-	@Override
-	public int boardAskUpdate(LslBoardComm lslBoardComm) {
-		int boardAskUpdate = ld.boardAskUpdate(lslBoardComm);
-		return boardAskUpdate;
-	}
-
-	
-	// 게시판 파일 수정 
 	
 	
 	
@@ -198,8 +190,8 @@ public class LslServiceImpl implements LslService {
 		List<LslboardFile> boardFreeFile = ld.boardFreeFile(cboard_no);
 		return boardFreeFile;
 	}
-	
-	
+
+
 	
 	
 	// 게시판 글 상세 페이지 댓글 카운트 
@@ -259,8 +251,24 @@ public class LslServiceImpl implements LslService {
 
 	}
 	
-	
-	
+	// 파일 이름 가져오기 
+	@Override
+	public List<LslboardFile> boardFileNames(MultipartFile[] multipartFiles, String boardFilePath) {
+		List<LslboardFile> boardFileNames = new ArrayList<>();
+	    for (MultipartFile file : multipartFiles) {
+	        try {
+	        	LslboardFile updateFile = new LslboardFile();
+	            String fileName = boardFileSave(file, boardFilePath);
+	            updateFile.setCboard_file_name(fileName);
+	            updateFile.setCboard_file_user_name(file.getOriginalFilename());
+	            boardFileNames.add(updateFile);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	           System.out.println("boardFileNames Exception -> " + e.getMessage());
+	        }
+	    }
+	    return boardFileNames;
+	}
 	public String boardFileSave(MultipartFile multipartFile, String boardfilePath) throws Exception {
 		
 		String orignalFileName = multipartFile.getOriginalFilename();
@@ -275,6 +283,44 @@ public class LslServiceImpl implements LslService {
 	    
 	    return fileName;
 	}	
+
+	// 파일 정보 업데이트 
+	@Override
+	public void updateBoradFile(LslboardFile newlslboardFile) {
+		ld.updateBoradFile(newlslboardFile);
+		
+	}
+	// 기존 파일 삭제 
+	@Override
+	public void deleteBoardOldFiles(int cboard_no, String boardfilePath) {
+	 List<LslboardFile> boardFreeFileList = ld.boardFreeFile(cboard_no);
+	 
+	for(LslboardFile file : boardFreeFileList) {
+		String boardFreeFileName = file.getCboard_file_name();
+		
+		if(boardFreeFileName != null ) {
+			 String filePath = boardfilePath + boardFreeFileName; // 파일의 절대 경로
+			 System.out.println("test : " + filePath);
+	            File boardFreeFileDelete = new File(filePath);
+	            if (boardFreeFileDelete.exists()) {
+	            	boardFreeFileDelete.delete(); // 파일 삭제
+	            }
+		}
+	}
+	
+	}
+	
+	
+	// 기존 데이터 삭제
+	@Override
+	public void deleteBoardOldData(int cboard_no) {
+		ld.deleteBoardOldData(cboard_no);
+		
+	}
+
+	
+	
+	
 	
 	
 	// 질문 게시판 조회수 
@@ -384,22 +430,12 @@ public class LslServiceImpl implements LslService {
 			int boardFreeAskResult = ld.modifyBoardReply(lslCommReply);
 			return boardFreeAskResult;
 		}
+	
 		
 		
 		
 		
 // 게시글 파일 까지 수정 리스트
-	
-		
-	
-	
-		
-		
-		
-		
-		
-	
-	
 	
 	
 	

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -117,12 +118,10 @@ public class LslController {
 		System.out.println("boardFileUpload cboard_no ->" + fileName);
 		System.out.println("boardFileUpload fileCount ->" + userFileName);
 
-		 
+	    // 파일 경로 설정
 	    String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/") + fileName;
         File file = new File(boardfilePath);
-        
-	 
-	        // 파일 경로 설정
+
 	        
 	        // 파일이 존재하는 경우에만 처리
 	        if (file.exists()) {
@@ -182,7 +181,6 @@ public class LslController {
 	}
 
 	
-	
 	// 자유 게시판 글 삭제
 	@RequestMapping("/deleteFreeBoard")
 	public String deleteFreeBoard(HttpServletRequest request, LslBoardComm lslBoardComm) {
@@ -196,9 +194,6 @@ public class LslController {
 		return "forward:boardFree";
 	}
 
-	
-	
-	
 	
 	/* 질문 게시판 */
 
@@ -410,43 +405,63 @@ public class LslController {
 		}
 
 	// 게시판 글 수정 처리
-	@PostMapping(value = "boardFreeAskUpdate")
-	public String boardFreeAskUpdate(@RequestParam("files") MultipartFile[] multipartFile, HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
-		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
-		
-		Long user_no = (Long) request.getSession().getAttribute("user_no");
+		@PostMapping("/boardFreeAskUpdate")
+		public String boardFreeAskUpdate(@RequestParam("files") MultipartFile[] multipartFile, @RequestParam("boardType") String boardType,
+				HttpServletRequest request, Model model, LslBoardComm lslBoardComm, LslboardFile lslboardFile) {
+		    // 게시글 번호, 유저 번호, 게시판 타입을 가져옴
+		    int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		    Long user_no = (Long) request.getSession().getAttribute("user_no");
+		    //String boardType = request.getParameter("boardType");
 
-		String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/");
+		    System.out.println("boardType = "+boardType);
+		    
+		    // 서버에 저장된 파일 경로 설정
+		    String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/");
+		    
+		    // 유저 번호와 게시글 번호 설정
+		    lslBoardComm.setUser_no(user_no);
+		    lslboardFile.setCboard_no(cboard_no);
 
-		lslBoardComm.setUser_no(user_no);
-		
-		LslboardFile lslboardFile = new LslboardFile();
-		List<LslboardFile> boardAskFile = ls.boardAskFile(cboard_no);
-		List<LslboardFile> boardFreeFile = ls.boardFreeFile(cboard_no);
-		
-
+		    // 서버에 있는 기존 파일 삭제
+		    ls.deleteBoardOldFiles(cboard_no, boardfilePath);
+		    // 기존 파일 데이터 삭제
+		    ls.deleteBoardOldData(cboard_no);
+		    try {
+		        	System.out.println("multipartFile controller ->" + multipartFile);
+		            if(multipartFile.length != 0) {
+		            	
+		            	List<LslboardFile> boardFileName = ls.boardFileNames(multipartFile, boardfilePath);
+		            	for (LslboardFile file : boardFileName) {
+		            		System.out.println("boardFileName ->>>>"+boardFileName);
+		            	    LslboardFile newlslboardFile = new LslboardFile(); // 반복문 내부에서 객체 생성
+		            	    newlslboardFile.setCboard_no(cboard_no);
+		            	    newlslboardFile.setCboard_file_user_name(file.getCboard_file_user_name());
+		            	    newlslboardFile.setCboard_file_name(file.getCboard_file_name());
+		            	    ls.updateBoradFile(newlslboardFile);
+		            	}
+		            }
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		        System.out.println("LslController boardFreeAskUpdate Exception ->" + e.getMessage());
+		    }
+		    // 게시글 정보 업데이트
+		    lslBoardComm.setCboard_no(cboard_no);
+		    lslBoardComm.setBoardType(boardType);
+		    
+		    
+		   int  boardUpdate = ls.boardUpdate(lslBoardComm);
+		    model.addAttribute("boardUpdate", boardUpdate);
+		  
+		    // 보드 타입에 따라 페이지 이동
+		    if ("free".equals(boardType)) {
+		        return "redirect:/boardFree";
+		    } else {
+		        return "redirect:/boardAsk";
+		    }
+		}
 	 
-		String boardType = request.getParameter("boardType");
-		lslBoardComm.setCboard_no(cboard_no);
-		lslBoardComm.setBoardType(boardType);
 		
-
-		System.out.println("boardType :" + boardType);
-		int boardUpdate;
-		if (request.getParameter("boardType").equals("free")) {
-			boardUpdate = ls.boardFreeUpdate(lslBoardComm);
-		} else {
-			boardUpdate = ls.boardAskUpdate(lslBoardComm);
-		}
-		model.addAttribute("boardUpdate", boardUpdate);
-
-		// 보드 타입 따라 페이지 이동
-		if ("free".equals(boardType)) {
-			return "redirect:/boardFree";
-		} else {
-			return "redirect:/boardAsk";
-		}
-	}
+		
 
 
 }

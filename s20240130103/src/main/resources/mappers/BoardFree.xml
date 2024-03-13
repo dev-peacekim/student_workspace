@@ -39,6 +39,9 @@ SELECT *
 		SELECT count(*)
 		FROM BOARD_COMM bc , USERS u
 		WHERE bc.USER_NO = u.USER_NO
+		AND bc.COMM_MID = 20
+		AND bc.COMM_BIG = 300
+		AND bc.CBOARD_DELETE_CHK = 0
 		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
 		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
 		OR USER_NIC LIKE '%' || #{keyword} || '%')
@@ -46,28 +49,28 @@ SELECT *
 
 	<select id="slboardFreeSearch" parameterType="LslBoardComm"
 		resultType="LslBoardComm">
-		SELECT * FROM (
-		SELECT rownum rn, a.*
-		FROM (
-		SELECT bc.*, u.user_nic, count(bcr.CREPLY_NO) creply_cnt
-		FROM BOARD_COMM bc, users u, BOARD_COMM_REPLY bcr
-		WHERE bc.USER_NO = u.USER_NO
-		AND bc.cboard_no = bcr.CBOARD_NO
-		AND bc.COMM_MID = 20
-		AND bc.COMM_BIG = 300
-		AND bc.CBOARD_DELETE_CHK = 0
-		AND (
-		CBOARD_TITLE LIKE '%' || #{keyword} || '%'
-		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
-		OR user_nic LIKE '%' || #{keyword} || '%'
-		)
-		GROUP BY bc.CBOARD_NO ,bc.CBOARD_TITLE , bc.CBOARD_CONTENT
-		,bc.CBOARD_VIEWCNT , BC.CBOARD_DATE , bc.USER_NO ,
-		bc.CBOARD_DELETE_CHK ,bc.COMM_BIG , bc.COMM_MID , bc.COMM_BIG2 ,
-		bc.COMM_MID2 , bc.COMM_UPDATE_DATE , u.USER_Nic
-		ORDER BY bc.CBOARD_DATE DESC
-		) a
-		) WHERE rn BETWEEN #{start} AND #{end}
+	SELECT * FROM (
+	SELECT rownum rn, a.*
+	FROM (
+	SELECT bc.*, u.user_nic, count(bcr.CREPLY_NO) creply_cnt
+	FROM BOARD_COMM bc
+	JOIN users u ON bc.USER_NO = u.USER_NO
+	LEFT JOIN BOARD_COMM_REPLY bcr ON bc.cboard_no = bcr.CBOARD_NO
+	WHERE bc.COMM_MID = 20
+	AND bc.COMM_BIG = 300
+	AND bc.CBOARD_DELETE_CHK = 0
+	AND (
+	CBOARD_TITLE LIKE '%' || #{keyword} || '%'
+	OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
+	OR u.USER_NIC LIKE '%' || #{keyword} || '%'
+	)
+	GROUP BY bc.CBOARD_NO, bc.CBOARD_TITLE, bc.CBOARD_CONTENT,
+	bc.CBOARD_VIEWCNT, bc.CBOARD_DATE, bc.USER_NO, bc.CBOARD_DELETE_CHK,
+	bc.COMM_BIG, bc.COMM_MID, bc.COMM_BIG2, bc.COMM_MID2,
+	bc.COMM_UPDATE_DATE, u.USER_Nic
+	ORDER BY bc.CBOARD_DATE DESC
+	) a
+	) WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 
 
@@ -131,14 +134,6 @@ SELECT *
 		from board_comm bc
 		where bc.cboard_no = #{cboard_no}
 	</select>
-
-	<update id="slboardFreeUpdate" parameterType="LslBoardComm">
-		update board_comm
-		set cboard_title =#{cboard_title}, cboard_content = #{cboard_content},
-		COMM_UPDATE_DATE = sysdate
-		where cboard_no = #{cboard_no}
-	</update>
-
 
 	<!-- 게시판 파일 정보 && 파일 상세 정보 표시 -->
 	<select id="slboardFreeFiles" resultType="LslboardFile">

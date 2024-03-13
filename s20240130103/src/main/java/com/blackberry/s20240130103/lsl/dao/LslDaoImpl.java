@@ -1,10 +1,9 @@
 package com.blackberry.s20240130103.lsl.dao;
 
 
-import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -156,7 +155,6 @@ public class LslDaoImpl implements LslDao {
 	public void saveBoardFile(LslboardFile lslboardFile) {
 			try {
 				session.insert("slSaveBoarAskdFile", lslboardFile);
-				session.insert("slsaveBoardFreeFile", lslboardFile);
 				System.out.println("LslDaoImpl saveBoardFile Start ->" + lslboardFile);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -251,6 +249,9 @@ public class LslDaoImpl implements LslDao {
 
 	
 	
+	
+	
+	
 	// 게시판 글 수정 페이지
 	@Override
 	public LslBoardComm boardFreeModify(int cboard_no) {
@@ -269,22 +270,26 @@ public class LslDaoImpl implements LslDao {
 	
 	// 게시판 글 수정 
 	@Override
-	public int  boardFreeUpdate(LslBoardComm lslBoardComm) {
-		int boardFreeUpdate = session.update("slboardFreeUpdate", lslBoardComm);
-		return boardFreeUpdate;
-	}
-	
-	@Override
-	public int boardAskUpdate(LslBoardComm lslBoardComm) {
-		int boardAskUpdate = session.update("slboardAskUpdate", lslBoardComm);
-		return boardAskUpdate;
+	public int  boardUpdate(LslBoardComm lslBoardComm) {
+		int boardUpdate = session.update("slboardUpdate", lslBoardComm);
+		return boardUpdate;
 	}
 	
 	
 
+	// 게시판 파일 업데이트 
+	@Override
+	public void updateBoradFile(LslboardFile newlslboardFile) {
+		session.insert("slInsertBoradFile", newlslboardFile);
+		
+	}
 	
-	
-	
+	// 기존 데이터 삭제 
+	@Override
+	public void deleteBoardOldData(int cboard_no) {
+		session.delete("sldeleteBoardOldData", cboard_no);
+		
+	}
 	
 	
 // Rest API  댓글 
@@ -320,6 +325,12 @@ public class LslDaoImpl implements LslDao {
 		int boardFreeAskResult = session.update("slmodifyBoardReply", lslCommReply);
 		return boardFreeAskResult;
 	}
+
+
+
+
+
+	
 
 	
 	

@@ -33,6 +33,8 @@
 <link href="assets/css/style.css" rel="stylesheet">
 <!-- 헤더, 푸터, 사이드바 css -->
 
+<!-- Modify Js -->
+  <script defer src="assets/js/lsl/boardModify.js"></script>
 
 <!-- =======================================================
   * Template Name: NiceAdmin
@@ -45,43 +47,6 @@
 	function goBack() {
 		window.history.back();
 	}
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('formFile').addEventListener('change', function() {
-		
-        var fileListDiv = document.getElementById('fileList');
-        fileListDiv.innerHTML = '';
-
-        var files = this.files;
-		var boardType = document.getElementById('boardType').value;
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            var fileName = file.name; // 파일 이름 가져오기
-            var listItem = document.createElement('div');
-
-            var downloadLink = document.createElement('a');
-            var baseUrl = "";
-
-            if (boardType === "free") {
-                baseUrl = "/boardFreeFileDownload?cboard_file_name=";
-            } else {
-                baseUrl = "/boardAskFileDownload?cboard_file_name=";
-            }
-
-            downloadLink.href = baseUrl + encodeURIComponent(fileName);
-            downloadLink.textContent = fileName;
-            downloadLink.setAttribute("download", fileName);
-
-            listItem.appendChild(downloadLink);
-            fileListDiv.appendChild(listItem);
-        }
-    });
-});
-
-
 </script>
 
 
@@ -116,9 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
 							<h5 class="card-title">글 수정</h5>
 
 							<!-- General Form Elements -->
-							<form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate">
+							<form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate"  enctype="multipart/form-data">
 								<input type="hidden" name="cboard_no"value="${boardModifyContents.cboard_no}" /> 
-								<input type="hidden" id="boardType" value="${boardModifyContents.boardType}" />
+								<input type="hidden" name="boardType" id="boardType" value="${boardType}" />
 								<div class="mb-3">
 									<label for="inputText" class="form-label">제목</label> 
 									<input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
@@ -126,29 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
 									<div class="upload-files">
 										<label for="files" class="form-label">파일 첨부</label>
 										<input class="form-control" name="files" type="file" id="formFile" multiple/>
-										<div class="upload-title" id="fileList">
-											<c:forEach items="${boardFiles}" var="boardFile">
-												<c:set var="downloadUrl" value="" />
-												<c:choose>
-													<c:when test="${boardModifyContents.boardType eq 'free'}">
-														<c:set var="downloadUrl" value='/boardFreeFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
-													</c:when>
-													<c:otherwise>
-														<c:set var="downloadUrl" value='/boardAskFileDownload?cboard_file_name=${boardFile.cboard_file_name}&cboard_file_user_name=${boardFile.cboard_file_user_name}' />
-													</c:otherwise>
-												</c:choose>
-												<!-- 파일 이름을 URL 인코딩하여 링크에 추가 -->
-												<a href="${downloadUrl}" download="${boardFile.cboard_file_user_name}" target="_blank">${boardFile.cboard_file_user_name}</a>
-												<br>
-												<br>
+										<div class="upload-title" id="fileList"  >
+											<c:forEach items="${boardFiles}" var="boardFiles">
+											    <span>${boardFiles.cboard_file_user_name}</span>
+											    <button class="deleteFileBtn">X</button>
+											    <br>
 											</c:forEach>
 										</div>
 									</div>
-									
-					        
 						</div>
-					
-
 								<div class="mb-3">
 									<textarea class="form-control" style="height: 550px;"
 										name="cboard_content">${boardModifyContents.cboard_content}</textarea>
@@ -156,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 								<div class="mb-3">
 									<button type="button" class="btn bfmCancle" onclick="goBack()">취소</button>
-									
 									<button type="submit" class="btn bfmModify">저장</button>
 								</div>
 							</form>

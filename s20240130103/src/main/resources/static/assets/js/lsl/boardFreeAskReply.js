@@ -77,31 +77,44 @@ function updateReplyList(data) {
         const showButtons = currentuser_no === ReplyUser;
 
         boardReplyList += `<div class="re-comment-body">
-    <div id="replyBoardFreeList" class="comment-card">
-        <div class="comment-header">
-            <img class="comment-user-profile" src="${lslCommReply.user_profile}">
-            <div class="comment-user-container">
-                <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_name}</p>
-                <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
-            </div>
-            <div class="re-btn-container">
-                <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
+            <div id="replyBoardFreeList" class="comment-card">
+                <div class="comment-header">
+                    <img class="comment-user-profile" src="${lslCommReply.user_profile}">
+                    <div class="comment-user-container">
+                        <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_name}</p>
+                        <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
+                    </div>
+                    <div class="re-btn-container">
+                        <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
                         <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
-                <div class="btn brBtn"><i class="bi bi-reply-fill"></i></div>
+                        <button type="button" class="btn brBtn" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
+                    </div>
+                </div>
+                <div id="replyBox">
+                <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
+                    <textarea id="editCommentText_${lslCommReply.creply_no}" class="form-control">${lslCommReply.creply_content}</textarea>
+                    <button type="button" class="btn brSave" onclick="modifyComment('${lslCommReply.creply_no}');">저장</button>
+                </div>
+                </div>
+                <div id="addComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
+                    <textarea id="addCommentText_${lslCommReply.creply_no}" class="form-control"></textarea>
+                    <button type="button" class="btn addReply" id="addReply" onclick="addReply('${lslCommReply.creply_no}');">저장</button>
+                </div>
+                <div id="viewComment_${lslCommReply.creply_no}" class="card-body comment-body">
+                    <p class="markdown-body" id="creply_content${lslCommReply.creply_no}">${lslCommReply.creply_content}</p>
+                </div>
             </div>
-        </div>
-        <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
-            <textarea id="editCommentText_${lslCommReply.creply_no}" class="form-control">${lslCommReply.creply_content}</textarea>
-            <button type="button" class="btn brSave" onclick="modifyComment('${lslCommReply.creply_no}');">저장</button>
-        </div>
-        <div id="viewComment_${lslCommReply.creply_no}" class="card-body comment-body">
-            <p class="markdown-body" id="creply_content${lslCommReply.creply_no}">${lslCommReply.creply_content}</p>
-        </div>
-    </div>
-</div>`;
+        </div>`;
     });
+
     $('#boardReplyForm').html(boardReplyList);
 }
+
+function toggleReply(creply_no) {
+    var addCommentDiv = document.getElementById('addComment_' + creply_no);
+    addCommentDiv.style.display = addCommentDiv.style.display === 'none' ? 'block' : 'none';
+}
+
 
 // 댓글 등록 이벤트 처리 
 $(document).on("click", "#submitBtn", function() {

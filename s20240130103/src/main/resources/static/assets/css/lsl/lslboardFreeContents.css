@@ -151,6 +151,7 @@
 --------------------------------------------------------------*/
 .re-comment-body {
 	padding: 16px;
+	margin-top: 20px;
 	border-top: 1px solid #f1f3f5;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
@@ -321,7 +322,17 @@
     position: absolute;
     width: 80px;
     right: 50px;
-    margin-top: -10px;
+    margin-top: 10px;
+}
+
+.btn.addReply {
+	position: absolute;
+    margin-top: 5px;
+    margin-bottom: -190px;
+    margin-left: -100px;
+    width: 50px;
+    font-size: 0.8rem;
+    right: 50px;
 }
 
 
@@ -369,6 +380,8 @@
 
 .re-btn-container .btn.brBtn {
 	margin-top : 15px;
+	margin-right: -60px;
+	width: 50px;
 	
 } 
 
@@ -402,3 +415,6 @@
 	bottom: 200px;
 	border: 0.3rem solid black !important;
 }
+
+
+
