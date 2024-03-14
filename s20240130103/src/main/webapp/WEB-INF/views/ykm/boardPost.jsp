@@ -96,9 +96,16 @@
 						</div>
 					</div>
 					<div class="card-subtitle post-user-container">
-						<i class="bi bi-person-circle post-user-profile" alt="${getPost.user_profile}"></i>
+						<c:choose>
+						    <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+						        <img class="rounded-circle post-user-profile" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="유저 프로필"></img>
+						    </c:when>
+						    <c:otherwise>
+						        <img class="rounded-circle post-user-profile" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="유저 프로필" class="rounded-circle"></img>
+						    </c:otherwise>
+						</c:choose>
 						<div class="card-title-header">
-							<h5 class="card-title post-user-info">
+							<h5 class="card-title post-user-info post-user-name">
 								<a href="#">${getPost.user_nic}</a>
 							</h5>
 							<div class="card-subtitle post-subtitle">
@@ -146,12 +153,17 @@
 						<input type="hidden" name="creply_no" value="" />
 						
 						<div class="comment-editor">
-							<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-							<input type="text" id="creply_content"
-								placeholder="${getPost.user_nic}님, 댓글을 작성해보세요."
-								class="form-control commentEditor" required="required">
+						<c:choose>
+						    <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+						        <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="유저 프로필"></img>
+						    </c:when>
+						    <c:otherwise>
+						        <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="유저 프로필" class="rounded-circle"></img>
+						    </c:otherwise>
+						</c:choose>
+							<input type="text" name="comment" id="creply_content"
+						        placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
 						</div>
-						
 						<div class="btn-container">
 							<button id="commentResetBtn" type="button" class="hidden btn btn-secondary">취소</button>
 							<button id="commentSubmitBtn" type="submit" class="hidden btn btn-primary">등록</button>
@@ -160,11 +172,22 @@
 				</div>
 				<!-- 댓글 리스트 -->
 				<div id="commentContainer">
-					<!-- ajax 비동기 갱신 -->
 				
-				<div class="re-reply-container">
-				</div>
+					<!-- AJAX 비동기 갱신 -->
 				
+					<!-- 대댓글 -->
+					<!-- <div class="replyContainer">
+					    <input type="hidden" name="cboard_no" value=""> 
+					    <div class="comment-editor">
+					        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+					        <input type="text" id="creply_content" placeholder="댓글 추가..." class="form-control" required="required">
+					    </div>
+					    <div class="BtnContainer">
+					        <button id="replyResetBtn" type="button">취소</button>
+					        <button id="replySubmitBtn" type="submit">등록</button>
+					    </div>
+					</div> -->
+					
 			</div>
 
 			<!-- ======= 삭제 확인 pop up ======= -->
