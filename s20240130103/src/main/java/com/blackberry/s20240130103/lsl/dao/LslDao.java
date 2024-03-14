@@ -87,6 +87,12 @@ public interface LslDao {
 	int modifyBoardReply(LslCommReply lslCommReply);
 	
 	
+	// 대댓글 
+	
+	// 댓글 등록 
+	int insertBoardReReply(LslCommReply lslCommReply);
+	
+	
 	
 	
 	

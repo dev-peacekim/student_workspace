@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.lsl.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class LslRestController {
 	
 	// 댓글
 	// 게시판 댓글 리스트
-	   @GetMapping("/reply")
+	   @GetMapping("/replys")
 		public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no) {
 	    	System.out.println("LslRestController replyBoardFreeList Start..");
 			List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
@@ -83,9 +84,32 @@ public class LslRestController {
 	
 	
 	// 대댓글 
-	// 파일 업로드
+
 	
-	
+	// 
+	// 대댓글 등록
+	@PostMapping("/rereplys/reinsert")
+	public int reinsertBoardReply(@RequestBody LslCommReply lslCommReply, HttpServletRequest request) {
+	    Long user_no = (Long) request.getSession().getAttribute("user_no");
+	    System.out.println("reinsertBoardReply user_no" + user_no);
+	  
+	    
+	    int Pcreply_no = lslCommReply.getCreply_no();
+	    int cboard_no = lslCommReply.getCboard_no();
+	    
+	    System.out.println("reinsertBoardReply creply_group" + Pcreply_no);
+	    System.out.println("reinsertBoardReply user_no" + user_no);
+	    
+	    lslCommReply.setUser_no(user_no);
+	    lslCommReply.setCboard_no(cboard_no);
+	    lslCommReply.setCreply_group(Pcreply_no);
+	    
+	    System.out.println("reinsertBoardReply lslCommReply" + lslCommReply);
+	    
+	    int boardReReplyResult = ls.insertBoardReReply(lslCommReply);
+	    
+	    return boardReReplyResult;
+	}
 	
 	
 	

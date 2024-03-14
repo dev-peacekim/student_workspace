@@ -99,6 +99,15 @@ public interface LslService {
 	
 	
 	
+	// 대댓글
+	
+	// 대댓글 등록 
+	int insertBoardReReply(LslCommReply lslCommReply);
+	
+	
+	
+	
+	
 	
 	
 	

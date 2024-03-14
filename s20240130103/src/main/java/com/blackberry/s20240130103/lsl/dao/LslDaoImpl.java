@@ -327,6 +327,17 @@ public class LslDaoImpl implements LslDao {
 	}
 
 
+	
+	// 대댓글
+	
+	// 대댓글 등록
+	@Override
+	public int insertBoardReReply(LslCommReply lslCommReply) {
+		int boardReReplyResult = session.insert("slInsertBoardReReply", lslCommReply);
+		return boardReReplyResult;
+	}
+
+
 
 
 

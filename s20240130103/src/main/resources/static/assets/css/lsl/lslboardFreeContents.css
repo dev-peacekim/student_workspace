@@ -396,7 +396,26 @@
     right: 50px;
 	
 }
+.btn.brCancle{
+	position: absolute;
+    margin-top: 5px;
+    margin-bottom: -190px;
+    margin-left: -100px;
+    width: 50px;
+    font-size: 0.8rem;
+    right: 110px;
+	
+}
 
+.btn.replyCancle {
+	position: absolute;
+    margin-top: 5px;
+    margin-bottom: -190px;
+    margin-left: -100px;
+    width: 50px;
+    font-size: 0.8rem;
+    right: 110px;
+}
 /*--------------------------------------------------------------
 # File Box Style
 --------------------------------------------------------------*/
