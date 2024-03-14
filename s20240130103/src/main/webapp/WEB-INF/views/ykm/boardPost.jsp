@@ -54,7 +54,7 @@
 <script>
 	window.onload = function() {
 		getCommentList(${getPost.cboard_no});
-		getUserNo();
+		getUserInfo();
 	};
 </script>
 
@@ -174,19 +174,9 @@
 				<div id="commentContainer">
 				
 					<!-- AJAX 비동기 갱신 -->
-				
+							
 					<!-- 대댓글 -->
-					<!-- <div class="replyContainer">
-					    <input type="hidden" name="cboard_no" value=""> 
-					    <div class="comment-editor">
-					        <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
-					        <input type="text" id="creply_content" placeholder="댓글 추가..." class="form-control" required="required">
-					    </div>
-					    <div class="BtnContainer">
-					        <button id="replyResetBtn" type="button">취소</button>
-					        <button id="replySubmitBtn" type="submit">등록</button>
-					    </div>
-					</div> -->
+					
 					
 			</div>
 

@@ -189,7 +189,6 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmServiceImpl writeReply start ---*");
-		ykmBoardCommReply.setCreply_group(ykmBoardCommReply.getCreply_no());
 		int result = ykmBoardDao.writeReply(ykmBoardCommReply);
 		System.out.println("YkmServiceImpl writeReply : "+result);
 		return result;

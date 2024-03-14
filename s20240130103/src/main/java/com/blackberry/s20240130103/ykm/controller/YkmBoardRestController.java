@@ -1,6 +1,8 @@
 package com.blackberry.s20240130103.ykm.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +29,16 @@ public class YkmBoardRestController {
 	
 	/* 댓글 comment */
 	// 로그인한 사용자의 번호는 ${sessionScope.user_no}로 jsp에서 찾을 수 있음
-	@GetMapping("/userNo")
-	public Long getUserNo(HttpServletRequest request) {
-		System.out.println("YkmBoardRestController getUserNo start ---*");
-		Long result = (Long)request.getSession().getAttribute("user_no"); 
-		System.out.println("YkmBoardRestController result -->" +result);
-		return result;
+
+	@GetMapping("/sessionData")
+	public Map<String, Object> getSessionData(HttpServletRequest request) {
+		System.out.println("YkmBoardRestController getSessionData start ---*");
+		Map<String, Object> sessionData = new HashMap<>();
+		sessionData.put("seesion_user_no", request.getSession().getAttribute("user_no"));
+	    sessionData.put("seesion_user_nic", request.getSession().getAttribute("user_nic"));
+	    sessionData.put("seesion_user_profile", request.getSession().getAttribute("user_profile"));
+		return sessionData;
 	}
-	
 	
 	@GetMapping("/comment")
 	public List<YkmBoardCommReply> getCommentList(@RequestParam("cboard_no") int cboard_no) {
@@ -66,7 +70,7 @@ public class YkmBoardRestController {
 	}
 
 	// 대댓글
-	@PostMapping("/reply")
+	@PostMapping("/replys")
 	public int writeReply(@RequestBody YkmBoardCommReply ykmBoardCommReply, HttpServletRequest request) {
 		System.out.println("YkmBoardRestController writeReply start ---*");
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
@@ -78,11 +82,11 @@ public class YkmBoardRestController {
 	}
 	
 	
-	@GetMapping("/reply")
+	@GetMapping("/replys")
 	public List<YkmBoardCommReply> getReplyList(@RequestParam("creply_no") int creply_no) {
 		System.out.println("YkmBoardRestController getReplyList start ---*");
 		List<YkmBoardCommReply> getReplyList = ykmService.getReplyList(creply_no);
-		System.out.println("YkmBoardRestController getReplyList : "+getReplyList);
+		System.out.println("YkmBoardRestController getReplyList : "+ getReplyList);
 		return getReplyList;
 	}
 	

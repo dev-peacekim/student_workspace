@@ -86,6 +86,8 @@
 		</choose>
 		ORDER BY B.CBOARD_DATE DESC
  	</select>
+ 	
+ 	
 
 	<!-- 스터디 게시판 전체 게시글 카운트  -->
 	<select id="ykmGetTotalCount" parameterType="YkmBoardComm" resultType="int">
@@ -190,7 +192,10 @@
 	 	SELECT BCR.*
 		FROM BOARD_COMM_REPLY BCR
 		WHERE BCR.CREPLY_GROUP = #{creply_group}
+		AND BCR.CREPLY_INDENT = #{creply_indent}
  	</select>
+ 	
+ 	
  	
 	<update id="ykmUpdateReply"></update>	
 	

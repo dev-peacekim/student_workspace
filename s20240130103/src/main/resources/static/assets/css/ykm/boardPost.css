@@ -68,46 +68,6 @@ section * {
     display: disable;
 }
 
-/*
-.tooltip {
-	left: auto;
-	right: 0;
-	position: absolute;
-	visibility: hidden;
-	padding: 7px 12px;
-	border-radius: 5px;
-	background-color: #212529;
-	color: #fff;
-	font-size: 13px;
-	line-height: 1.38;
-	letter-spacing: -.3px;
-	white-space: nowrap;
-
-}
-
-
-.recruitBtn:hover + .tooltip {
-	visibility: visible; 
-}
-
-.recruitBtn {
-	height: 50px;
-	width: 84px;
-	align-items: center;
-	font-size: 14px;
-	padding: 11px;
-    box-shadow: 0 3px 8px 0 rgba(33,37,41,.05);
-	color: #ced4da;
-	border-color: #ced4da;
-	background-color: #fff;
-	cursor: default;
-	pointer-events: unset;
-	border-radius: 8px;
-	border-image-slice: 100%;
-	margin-left: auto;
-	letter-spacing: -0.3px;
-}
-*/
 
 /*--------------------------------------------------------------
 # 
@@ -365,6 +325,12 @@ section * {
 /*--------------------------------------------------------------
 # reply 대댓글
 --------------------------------------------------------------*/
+.reply-editor {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
 .replyBox {
 	align-items: center;
 	padding: 8px 32px 8px 32px;
@@ -393,39 +359,39 @@ section * {
 
 
 
+/*--------------------------------------------------------------
+# reply 대댓글
+--------------------------------------------------------------*/
 
 
-
-.re-reply {
+.reply {
 	padding: 8px 32px 8px 60px;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
 
-.re-reply-header {
+.reply-header {
 	display: flex;
 	align-items: center;
+	text-align: left;
+	flex-direction: row;
 }
-
-.re-reply-user-profile {
+.reply-user-container {
+	
+}
+.reply-user-profile {
 	margin-right: 10px;
 	font-size: 2em;
 }
 
-.re-reply-user-container {
-	display: flex;
-	align-items: center;
-	margin-left: 10px;
-}
-
-.re-reply-updated-at {
+.reply-updated-at {
 	font-size: 13px;
 	margin-left: 10px;
 	justify-content: flex-end;
 	margin-left: auto;
 }
 
-.re-reply-body {
+.reply-body {
 	padding: 8px;
 	display: flex;
 	align-items: center;
@@ -444,7 +410,7 @@ section * {
 
 
 /*--------------------------------------------------------------
-# popup
+# 삭제 확인 팝업
 --------------------------------------------------------------*/
 
 .confirmPopup {
