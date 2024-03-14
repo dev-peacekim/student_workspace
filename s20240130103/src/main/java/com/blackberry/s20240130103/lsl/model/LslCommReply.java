@@ -13,8 +13,10 @@ public class LslCommReply {
 	private int creply_group;  // 댓글 그룹번호 
 	private int creply_level;  // 댓글 레벨 
 	private int creply_indent; //  댓글 들여쓰기 
-	private int parent_creply_no; //  부모 댓글 번호 
-
+	
+	
+	private int parent_user_id; //  부모 댓글 번호 
+	private int parent_creply_no;
 	
 	
 	

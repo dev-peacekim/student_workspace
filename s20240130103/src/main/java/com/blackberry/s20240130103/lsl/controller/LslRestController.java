@@ -1,7 +1,6 @@
 package com.blackberry.s20240130103.lsl.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ public class LslRestController {
 	
 	// 댓글
 	// 게시판 댓글 리스트
-	   @GetMapping("/replys")
+	   @GetMapping("/reply")
 		public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no) {
 	    	System.out.println("LslRestController replyBoardFreeList Start..");
 			List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
