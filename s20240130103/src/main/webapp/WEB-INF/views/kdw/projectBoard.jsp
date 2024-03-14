@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -69,52 +70,48 @@
 		<div class="top">
 			<div class="top-btn">
 				<form action="detailProject" method="get">
-					<input class="project_no" type="hidden" name="project_no"
-						value="${projectNo }" />
+					<input class="project_no" type="hidden" name="project_no" value="${projectNo }" />
 					<button type="submit" class="project-home-btn btn btn-secondary">프로젝트
-						홈</button>
+					홈</button>
 				</form>
 				<form action="boardProject" method="get">
-					<input class="project_no" type="hidden" name="project_no"
-						value="${projectNo }" />
+					<input class="project_no" type="hidden" name="project_no" value="${projectNo }" />
 					<button type="submit" class="project-board-btn btn btn-primary">공유
-						게시판</button>
+					게시판</button>			
+				</form>
+				<form action="proejctSchedule" method="get">
+					<input class="project_no" type="hidden" name="project_no" value="${projectNo }" />
+					<button type="submit" class="project-schedule-btn btn btn-secondary">프로젝트 일정</button>			
 				</form>
 			</div>
 		</div>
+		<!-- 글쓰기 버튼 -->
+		<div class="pboard-write">
+			<a href= "/projectBoardWrite" class="pboard-write-Btn btn btn-secondary">글쓰기</a>
+		</div>
 		<!-- End Page Title -->
 
-		<section class="section dashboard">
+		<section class="section pboard">
 			<div class="card">
 				<div class="card-body">
 					<div class="controller">
-						<div class="search-bar">
-							<div class="search-form">
-								<input id="task-search-text" type="text"
-									placeholder="검색어를 입력하세요" value="${searchKeyword }">
-								<button id="task-search-btn">
-									<i class="bi bi-search"></i>
-								</button>
-							</div>
-							<select name="search-filter" class="search-filter form-select">
-								<c:choose>
-									<c:when test="${searchFilter == 'project_title'}">
-										<option value="all">전체</option>
-										<option value="project_title" selected>프로젝트명</option>
-										<option value="task_title">과업명</option>
-									</c:when>
-									<c:when test="${searchFilter == 'task_title'}">
-										<option value="all">전체</option>
-										<option value="project_title">프로젝트명</option>
-										<option value="task_title" selected>과업명</option>
-									</c:when>
-									<c:otherwise>
-										<option value="all" selected>전체</option>
-										<option value="project_title">프로젝트명</option>
-										<option value="task_title">과업명</option>
-									</c:otherwise>
-								</c:choose>
-							</select>
+						<!-- 검색바&드롭박스 -->
+						<div class="search-container">
+						    <div class="search-bar">
+						        <form class="search-form d-flex align-items-center" method="get" action="/boardProject">
+						            <select id="dropdownSelect" name="type">
+						                <option value="all">전체</option>
+						                <option value="author">글쓴이</option>
+						                <option value="title">제목</option>
+						                <option value="contentReply">내용+댓글</option>
+						            </select>
+						            <input type="text" name="keyword" placeholder="Search" title="Enter search keyword">
+						            <input type="hidden" name="project_no" value="${projectNo}">
+						            <button type="submit" title="Search">
+						                <i class="bi bi-search"></i>
+						            </button>
+						        </form>
+						    </div>
 						</div>
 					</div>
 					<div class="table-nav">
@@ -124,7 +121,8 @@
 									<th>#</th>
 									<th>제목</th>
 									<th>작성자</th>
-									<th>조회수</th>
+									<th>작성일</th>
+									<th>조회</th>
 									<th>댓글</th>
 								</tr>
 							</thead>
@@ -132,10 +130,15 @@
 								<c:forEach var="pboardList" items="${pboardList }">
 									<tr class="list-item">
 										<td class="boardNo">${pboardList.pboard_no }</td>
-										<td class="subject">${pboardList.pboard_title }</td>
-										<td class="author">${pboardList.userNic}</td>
-										<td class="views">0</td>
-										<td class="comments">0</td>
+										<td class="subject">
+											${pboardList.pboard_title }
+										</td>
+										<td class="author">${pboardList.user_nic }</td>
+										<td class="createDate">
+										    <fmt:formatDate value="${pboardList.pboard_date}" pattern="yyyy.MM.dd."/>
+										</td>
+										<td class="views">${pboardList.pboard_cnt }</td>
+										<td class="comments">${pboardList.reply_count }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -146,7 +149,8 @@
 							<ul class="pagination">
 								<li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
 									<a class="page-link prev-page"
-									href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}"
+									href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}&project_no=${projectNo }
+									&keyword=${keyword}&type=${tpye}"
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a>
 								</li>
@@ -154,14 +158,15 @@
 								<c:forEach var="i" begin="${page.startPage}"
 									end="${page.endPage}">
 									<li class="page-item ${i == page.currentPage ? 'active' : ''}">
-										<a class="page-link" href="?currentPage=${i}">${i}</a>
+										<a class="page-link" href="?currentPage=${i}&project_no=${projectNo }&keyword=${keyword}&type=${tpye}">${i}</a>
 									</li>
 								</c:forEach>
 
 								<li
 									class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
 									<a class="page-link next-page"
-									href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}"
+									href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}&project_no=${projectNo }
+									&keyword=${keyword}&type=${tpye}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 								</li>
