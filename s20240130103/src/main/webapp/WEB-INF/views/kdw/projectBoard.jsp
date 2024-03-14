@@ -130,7 +130,8 @@
 								<c:forEach var="pboardList" items="${pboardList }">
 									<tr class="list-item">
 										<td class="boardNo">${pboardList.pboard_no }</td>
-										<td class="subject">
+										<!-- 제목 -->
+										<td class="subject" onclick="location.href='/detailBoardProject?pboard_no=${pboardList.pboard_no }'">
 											${pboardList.pboard_title }
 										</td>
 										<td class="author">${pboardList.user_nic }</td>
