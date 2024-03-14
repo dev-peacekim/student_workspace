@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blackberry.s20240130103.kph.model.KphBoardProject;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -450,7 +451,19 @@ public class KphProjectController {
 	}
 	
 	
-	/*워크스페이스 - 공유 게시판 */
+	/*워크스페이스 - 공유 게시판 - 게시물 상세 */
+	@GetMapping("detailBoardProject")
+	public String detailBoardProject(KphBoardProject kphBoardProject, HttpServletRequest request, Model model) {
+		System.out.println("KphProjectController detailBoardProject start...");
+		String resultPage = "redirect:/main";
+		
+		if (isUserInProject(request) > 0) {
+			
+			resultPage = "kph/detailBoardProject";
+		}
+		
+		return resultPage;
+	}
 	
 	
 }
