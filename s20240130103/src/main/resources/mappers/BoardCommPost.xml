@@ -122,7 +122,7 @@
 	<!-- 댓글 -->
 	<select id="ykmGetCommentList" resultType="YkmBoardCommReply" parameterType="int">
 		SELECT 
-			BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, BCR.CBOARD_NO, BCR.CREPLY_DELETE_CHK, 
+			BCR.CREPLY_NO, BCR.CREPLY_CONTENT, BCR.COMM_UPDATE_DATE, BCR.CBOARD_NO, BCR.CREPLY_DELETE_CHK, BCR.CREPLY_GROUP,
 			BC.COMM_BIG, BC.COMM_MID, 
 			U.USER_ID, U.USER_NO, U.USER_NIC
 		FROM BOARD_COMM_REPLY BCR
@@ -136,7 +136,7 @@
 	
 	<insert id="ykmWriteComment" parameterType="YkmBoardCommReply">
 		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
-		VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, 1, 1, 1, #{cboard_no}, #{user_no}, 0, sysdate)
+		VALUES (SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate, SEQ_BOARD_COMM_REPLY.CURRVAL, 0, 0, #{cboard_no}, #{user_no}, 0, sysdate)
 	</insert>
 
 	<update id="ykmDeleteComment" parameterType="int">
@@ -169,6 +169,40 @@
 		AND b.COMM_BIG = 200
 		AND b.COMM_MID = 20
 	</select>
+	
+	<insert id="ykmWriteReply" parameterType="YkmBoardCommReply">
+		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
+		VALUES (
+				SEQ_BOARD_COMM_REPLY.NEXTVAL, 
+				#{creply_content}, 
+				sysdate, 
+				#{creply_group}, 
+				(SELECT NVL(MAX(creply_level), 1) FROM BOARD_COMM_REPLY), 
+				1, 
+				#{cboard_no}, 
+				#{user_no}, 
+				0, 
+				sysdate
+				)
+	</insert>
+ 	
+ 	<select id="ykmGetReplyList" parameterType="int" resultType="YkmBoardCommReply">
+	 	SELECT BCR.*
+		FROM BOARD_COMM_REPLY BCR
+		WHERE BCR.CREPLY_GROUP = #{creply_group}
+ 	</select>
+ 	
+	<update id="ykmUpdateReply"></update>	
+	
+	<update id="ykmDeleteReply"></update>
+	
+	
+	
+	
+	
+	
+	
+	
 
 <!-- 	<select id="ykmGetFileList2" parameterType="Integer" resultMap="ykmResultMap">
 	    SELECT BCF.CBOARD_NO, BCF.CBOARD_FILE_CNT, BCF.CBOARD_FILE_NAME, BCF.CBOARD_FILE_USER_NAME

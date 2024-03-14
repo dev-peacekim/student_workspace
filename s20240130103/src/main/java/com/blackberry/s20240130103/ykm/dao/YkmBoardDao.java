@@ -43,7 +43,13 @@ public interface YkmBoardDao {
 
 	int getTotalCount(YkmBoardComm ykmBoardComm);
 
-	//Map<String, Object> getFileList(int cboard_no);
 	List<YkmBoardCommFile> getFileList(int cboard_no);
+
+	// 대댓글
+	int writeReply(YkmBoardCommReply ykmBoardCommReply);
+
+	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기
+
+	
 
 }

@@ -153,6 +153,7 @@ section * {
 	align-items: center;
 	padding: 0.3rem 0.5rem;
 	margin-top: 0px;
+	padding-left: 0px;
 }
 
 .post-user-name {
@@ -160,7 +161,7 @@ section * {
 }
 
 .post-user-profile {
-	margin-right: 10px;
+	margin-right: 16px;
 	font-size: 2em;
 }
 
@@ -227,6 +228,7 @@ section * {
 	height: 36px; 
 	width: 36px;
 }
+
 /*--------------------------------------------------------------
 # community-post-body
 --------------------------------------------------------------*/
@@ -290,6 +292,11 @@ section * {
 .modify-container * {
 	border: none;
 }
+#check {
+	background: #f8f9fa;
+	font-size: 14px;
+	
+} 
 /*--------------------------------------------------------------
 # comment
 --------------------------------------------------------------*/
@@ -329,16 +336,17 @@ section * {
 	font-size: 13px;
 }
 
-#replyContainer {	
+#commentContainer {	
  	padding-right: 0px;
     padding-left: 0px;
 }
 
 .btnContainer {
-	justify-content: flex-end;
-	align-items: center;
+	justify-content: flex-end !important;
+	align-items: center !important;
 	cursor: pointer;
 	margin-left: auto;
+	font-size: 16px;
 }
 .btnContainer button {
 	border: none;
@@ -355,8 +363,39 @@ section * {
 	font-size: 1rem;	
 }
 /*--------------------------------------------------------------
-# reply
+# reply 대댓글
 --------------------------------------------------------------*/
+.replyBox {
+	align-items: center;
+	padding: 8px 32px 8px 32px;
+}
+.replyBtnContainer {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: 16px;
+	font-size: 14px;
+}
+
+.replyBtnContainer button {
+	width: 50px;
+	height: 40px;
+	border: none;
+	margin-left: 10px;
+	background-color: #f8f9fa;
+}
+.replyBtnContainer button:hover {
+	background-color: #f0f0f0;
+	border-radius: 10px;
+}
+
+
+
+
+
+
 .re-reply {
 	padding: 8px 32px 8px 60px;
 	border-bottom: 1px solid #f1f3f5;

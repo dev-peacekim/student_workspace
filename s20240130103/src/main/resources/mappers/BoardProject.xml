@@ -6,25 +6,101 @@
 	<select id="totPboardListCnt" resultType="int"
 		parameterType="java.lang.Long">
 		SELECT COUNT(*) FROM board_project
-		WHERE user_no = #{userNo}
+		WHERE project_no = #{projectNo}
 		AND pboard_delete_chk = 0
 	</select>
 	
 	<!-- 게시글 리스트 가져오기 -->
 	<select id="kdwPboardListAll" parameterType="KdwBoardProject"
 		resultType="KdwBoardProject">
-		SELECT *
+		SELECT bp.*, (
+					SELECT COUNT(*)
+			        FROM board_project_reply bpr
+			        WHERE bpr.pboard_no = bp.pboard_no
+			        AND bpr.preply_delete_chk = 0
+			        ) AS reply_count
 		FROM (
 		    SELECT a.*, ROWNUM AS rn
 		    FROM (
-		        SELECT bp.*, u.user_nic AS userNic
+		        SELECT bp.*, u.user_nic AS user_nic
 		        FROM board_project bp, users u
 		        WHERE bp.user_no = u.user_no
-		        AND bp.user_no = #{userNo}
-		        AND pboard_delete_chk = 0
+		        AND bp.project_no = #{projectNo}
+		        AND bp.pboard_delete_chk = 0
 		        ORDER BY bp.pboard_no DESC
 		    ) a
-		)
+		) bp
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
+	
+	<!-- !! 검색 기능 !! -->
+	<!-- 검색된 게시글 개수 -->
+	<!-- 하나의 게시글에 여러 댓글이기때문에 DISTINCT를 사용 -->
+	<select id="kdwSearchPboardListCnt" parameterType="map" resultType="int">
+	    SELECT COUNT(DISTINCT bp.pboard_no)
+	    FROM board_project bp, users u, Board_Project_Reply bpr
+	    WHERE bp.user_no = u.user_no
+	    AND bp.pboard_no = bpr.pboard_no(+)
+	    AND bp.project_no = #{projectNo}
+	    AND bp.pboard_delete_chk = 0
+	    AND (
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
+					          OR  bp.pboard_title LIKE '%' || #{keyword} || '%' 
+					          OR  bp.pboard_content LIKE '%' || #{keyword} || '%' 
+					          OR  bpr.preply_content LIKE '%' || #{keyword} || '%'
+	        ))
+	        OR
+	        (#{type} = 'author' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'title' AND bp.pboard_title LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'contentReply' AND (bp.pboard_content LIKE '%' || #{keyword} || '%'
+	            					   OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+	        ))
+	    )
+	</select>
+	<!-- 검색된 게시글 리스트 -->
+	<select id="kdwSearchPboardList" parameterType="KdwBoardProject" resultType="KdwBoardProject">
+	    SELECT *
+	    FROM (
+	        SELECT a.*, ROWNUM AS rn
+	        FROM (
+	            SELECT DISTINCT bp.pboard_no, bp.project_no, bp.pboard_title, bp.pboard_content, 
+	            				bp.pboard_date, bp.pboard_cnt, bp.user_no, bp.pboard_delete_chk, 
+	            				bp.pboard_update_date, u.user_nic AS user_nic, (
+																				SELECT COUNT(*)
+																		        FROM board_project_reply bpr
+																		        WHERE bpr.pboard_no = bp.pboard_no
+																		        AND bpr.preply_delete_chk = 0
+																		        ) AS reply_count
+	            FROM board_project bp, users u, Board_Project_Reply bpr
+	            WHERE bp.user_no = u.user_no
+	            AND bp.pboard_no = bpr.pboard_no(+)
+	            AND bp.project_no = #{projectNo}
+	            AND bp.pboard_delete_chk = 0
+	            AND (
+				    (#{type} = 'all' AND (
+				        u.user_nic LIKE '%' || #{keyword} || '%' 
+				        OR bp.pboard_title LIKE '%' || #{keyword} || '%' 
+				        OR bp.pboard_content LIKE '%' || #{keyword} || '%' 
+				        OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+				    ))
+				    OR
+				    (#{type} = 'author' AND u.user_nic LIKE '%' || #{keyword} || '%')
+				    OR
+				    (#{type} = 'title' AND bp.pboard_title LIKE '%' || #{keyword} || '%')
+				    OR
+				    (#{type} = 'contentReply' AND (
+				        	bp.pboard_content LIKE '%' || #{keyword} || '%'
+				        OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+				    ))
+			        )
+			        ORDER BY bp.pboard_no DESC
+			    ) a
+	    )
+	    WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
 </mapper>

@@ -133,16 +133,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
-/*
-	@Override
-	public Map<String, Object> getFileList(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl getFileList start ---*");
-		Map<String, Object> getFileList = session.selectMap("ykmGetFileList2", cboard_no, "cboard_file_cnt");
-		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList);
-        return getFileList;
-	}
 
-*/
 	@Override
 	public List<YkmBoardCommFile> getFileList(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getFileList start ---*");
@@ -152,5 +143,72 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
         return getFileList;
 	}
 	
+	/* 대댓글 */
+	@Override
+	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
+		System.out.println("YkmBoardDaoImpl writeReply start ---*");
+		int result = session.insert("ykmWriteReply", ykmBoardCommReply);
+		System.out.println("YkmBoardDaoImpl writeReply : "+ result);
+		return result;
+	}
+
+
+	@Override
+	public List<YkmBoardCommReply> getReplyList(int creply_no) {
+		System.out.println("YkmBoardDaoImpl getReplyList start ---*");
+		List<YkmBoardCommReply> getReplyList = session.selectList("ykmGetReplyList", creply_no);
+		return getReplyList;
+	}
+
+
+
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	@Override
+	public Map<String, Object> getFileList(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getFileList start ---*");
+		Map<String, Object> getFileList = session.selectMap("ykmGetFileList2", cboard_no, "cboard_file_cnt");
+		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList);
+        return getFileList;
+	}
+
+*/
 }

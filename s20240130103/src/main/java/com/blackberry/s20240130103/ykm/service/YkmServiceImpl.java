@@ -185,6 +185,27 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
+	/* 대댓글 */
+	@Override
+	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
+		System.out.println("YkmServiceImpl writeReply start ---*");
+		ykmBoardCommReply.setCreply_group(ykmBoardCommReply.getCreply_no());
+		int result = ykmBoardDao.writeReply(ykmBoardCommReply);
+		System.out.println("YkmServiceImpl writeReply : "+result);
+		return result;
+	}
+
+
+	@Override
+	public List<YkmBoardCommReply> getReplyList(int creply_no) {
+		System.out.println("YkmServiceImpl getReplyList start ---*");
+		List<YkmBoardCommReply> getReplyList = ykmBoardDao.getReplyList(creply_no);
+		return getReplyList;
+	}
+
+
+
+
 
 
 

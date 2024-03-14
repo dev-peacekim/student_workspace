@@ -6,4 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 			event.preventDefault();
 		});
 	});
-});
+	// 검색 기능
+	function changeDropdownItem(value) {
+		var dropdown = document.getElementById('dropdownSelect');
+		dropdown.value = value;
+	}
+
+	var dropdown = document.getElementById('dropdownSelect');
+
+	dropdown.addEventListener('click', function(event) {
+		event.stopPropagation();
+		dropdown.classList.toggle('active');
+	});
+
+	document.addEventListener('click', function(event) {
+		if (!dropdown.contains(event.target)) {
+				dropdown.classList.remove('active');
+		}
+	});
+	
+	
+}); // 건들지마
