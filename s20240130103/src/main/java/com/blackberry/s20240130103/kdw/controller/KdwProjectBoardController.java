@@ -86,21 +86,7 @@ public class KdwProjectBoardController {
 
 		System.out.println("MsgController msgWritePage userNoParam: " + userNoParam);
 		// 조회수 페이지
-		if (userNoParam != null && !userNoParam.isEmpty()) {
-			try {
-				userNo = Long.parseLong(userNoParam);
-				// userNicId = pBoardService.findUserDetailsById(userNo);
-				model.addAttribute("receiverNick", userNicId.getUser_nic());
-				model.addAttribute("receiverUserId", userNicId.getUser_id());
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// 모델에 데이터 추가 (세션 유저no, 유저리스트, receiverId)
 		model.addAttribute("senderId", senderId);
-		// model.addAttribute("userList", userList);
-		// 워크스페이스 페이지에서 요청하는 받는사람
 		model.addAttribute("userNo", userNo);
 
 		return "kdw/projectBoardWrite";
