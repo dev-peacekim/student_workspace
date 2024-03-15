@@ -333,72 +333,121 @@ function showCustomAlert() {
 	});
 	// ================ 드래그 앤 드롭 업로드================
 	$(document).ready(function() {
-	    var dropZone = $('#drop_zone');
-	    var fileList = $('#fileList');
+	    var customFileBtn = $('#customFileBtn');
 	    var filesInput = $('#files');
-	    var initialMessage = $('#initial_message');
-	    var fileListBar = $('#file_list_bar');
-	    var deleteAllBtn = $('#delete_all');
-
-	    var filesArray = [];
-
-	    function updateUIForFiles() {
-	        fileList.html(''); // 기존 목록 초기화
-	        if (filesArray.length > 0) {
-	            initialMessage.css('display', 'none');
-	            fileListBar.css('display', 'flex');
-	            // 파일 목록 표시
-	            $.each(filesArray, function(index, file) {
-	                fileList.append(createFileListItem(file));
+	    var fileList = $('#fileList');
+	    var selectedFiles = []; // 선택된 파일들을 저장하는 배열
+	
+	    // 사용자 정의 파일 선택 버튼 클릭 이벤트
+	    customFileBtn.on('click', function() {
+	        filesInput.click();
+	    });
+	
+	    // 파일 입력 필드 변경 이벤트
+	    filesInput.on('change', function(e) {
+	        // 선택된 파일들을 selectedFiles 배열에 추가
+	        for (let file of e.target.files) {
+	            selectedFiles.push(file);
+	        }
+	        updateFileList();
+	    });
+	
+	    // 파일 목록 업데이트 함수
+	    function updateFileList() {
+	        fileList.empty(); // 파일 목록 초기화
+	
+	        selectedFiles.forEach(function(file, index) {
+	            var fileSize = formatBytes(file.size);
+	            var listItem = $('<li class="file-list-item"></li>');
+	            var deleteButton = $('<span class="delete-file">X</span>');
+	
+	            // 삭제 버튼 클릭 이벤트 핸들러
+	            deleteButton.on('click', function() {
+	                // 파일 배열에서 파일 삭제
+	                selectedFiles.splice(index, 1);
+	                updateFileList(); // 파일 목록 업데이트
 	            });
+	
+	            listItem.append(deleteButton)
+	                    .append($('<span>').text(file.name))
+	                    .append($('<span>').text('(' + fileSize + ')'));
+	            fileList.append(listItem);
+	        });
+	
+	        $('#fileCount').text(selectedFiles.length + '개의 파일 선택됨');
+	        toggleFileListVisibility();
+	    }
+	
+	    // 파일 용량 형식 변환 함수
+	    function formatBytes(bytes, decimals = 2) {
+	        if (bytes === 0) return '0 Bytes';
+	        const k = 1024;
+	        const dm = decimals < 0 ? 0 : decimals;
+	        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	        const i = Math.floor(Math.log(bytes) / Math.log(k));
+	        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	    }
+	
+	    // 파일 목록의 가시성 토글 함수
+	    function toggleFileListVisibility() {
+	        if (selectedFiles.length > 0) {
+	            $('#initial_message').hide();
+	            $('#file_list_bar').show();
 	        } else {
-	            initialMessage.css('display', 'block');
-	            fileListBar.css('display', 'none');
+	            $('#initial_message').show();
+	            $('#file_list_bar').hide();
 	        }
 	    }
-
-	    function createFileListItem(file) {
-	        var li = $('<li>').addClass('file-list-item');
-	        var fileNameSpan = $('<span>').text(file.name);
-	        var fileSizeSpan = $('<span>').text((file.size / 1024).toFixed(2) + ' KB');
-	        var deleteBtnSpan = $('<span>').text('X').css('cursor', 'pointer');
-	        deleteBtnSpan.on('click', function() {
-	            filesArray = $.grep(filesArray, function(value) {
-	                return value !== file;
-	            });
-	            updateUIForFiles();
-	        });
-
-	        li.append(fileNameSpan).append(fileSizeSpan).append(deleteBtnSpan);
-	        return li;
-	    }
-
-	    function handleFiles(files) {
-	        $.each(files, function(index, file) {
-	            filesArray.push(file);
-	        });
-	        updateUIForFiles();
-	    }
-
+	
+	    // 드래그 앤 드롭 이벤트 핸들링
+	    var dropZone = $('#drop_zone');
 	    dropZone.on('dragover', function(e) {
-	        e.stopPropagation();
 	        e.preventDefault();
-	        e.originalEvent.dataTransfer.dropEffect = 'copy';
-	    });
-
-	    dropZone.on('drop', function(e) {
-	        e.stopPropagation();
+	    }).on('drop', function(e) {
 	        e.preventDefault();
-	        handleFiles(e.originalEvent.dataTransfer.files);
+	        e.stopPropagation(); // 이벤트 버블링 중지
+	
+	        // 드롭된 파일들을 selectedFiles 배열에 추가
+	        for (let file of e.originalEvent.dataTransfer.files) {
+	            selectedFiles.push(file);
+	        }
+	        updateFileList(); // 파일 목록 업데이트
 	    });
+	    
+	    // 폼 제출 이벤트
+	    $('#write-form').on('submit', function(e) {
+	        e.preventDefault();
+	        
+	        var formData = new FormData(this);
+	        selectedFiles.forEach(function(file) {
+	            formData.append('files', file); // selectedFiles 배열의 파일들을 formData에 추가
+	        });
 
-	    filesInput.on('change', function(e) {
-	        handleFiles(e.target.files);
+	        // 폼 데이터를 이용하여 서버에 폼 제출
+	        $.ajax({
+	            url: $(this).attr('action'), // '/msgSent' 또는 서버 측 엔드포인트
+	            type: 'POST',
+	            data: formData,
+	            processData: false, // processData와 contentType을 false로 설정
+	            contentType: false,
+	            success: function(response) {
+	                // 성공 처리 로직
+	                console.log('메시지가 성공적으로 전송되었습니다.');
+	                window.location.href = "/msgSentSuccessPage"; // 성공 시 리다이렉트할 페이지 경로
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                // 에러 처리 로직
+	                console.error('메시지 전송 실패: ', textStatus, errorThrown);
+	            }
+	        });
 	    });
-
-	    deleteAllBtn.on('click', function() {
-	        filesArray = [];
-	        updateUIForFiles();
+	
+	    // 전체 삭제 버튼 클릭 이벤트
+	    $('#delete_all').on('click', function() {
+	        // 선택된 파일 배열 비우기
+	        selectedFiles = [];
+	        // 파일 목록 업데이트
+	        updateFileList();
 	    });
 	});
 </script>
@@ -433,7 +482,7 @@ function showCustomAlert() {
 						enctype="multipart/form-data">
 						<!-- 보내기 버튼 -->
 						<div class="form-group">
-							<button type="submit" class="msg-Sent-Btn">보내기</button>
+							<button type="submit" class="msg-Sent-Btn" id="sendButton">보내기</button>
 						</div>
 						<!-- 취소 Button : 이전 페이지로 돌아가기 -->
 						<!-- Referer 헤더는 사용자가 현재 요청을 보내기 전에 어떤 페이지에서 왔는지를 식별 -->
@@ -535,32 +584,32 @@ function showCustomAlert() {
 						</div>
 						<!-- 첨부파일 -->
 						<div class="form-group">
-							<div class="mb-3">
-								<div class="file-form-control">
-									<!-- 파일 선택 input, 다중 선택 가능 -->
-									<input type="file" name="files" id="files"
-										class="files form-control form-control-sm" multiple>
-								</div>
-								<!-- 드래그 앤 드롭 영역 -->
-								<div id="drop_zone" class="file_drag"
-									style="min-height: 145px; overflow: auto;">
-									<!-- 초기 안내 문구 -->
-									<div id="initial_message" style="margin-top: 45px;">여기에
-										파일을 드래그하세요.</div>
-									<!-- 파일 목록 상단 바, 초기에는 숨김 처리 -->
-									<div id="file_list_bar" class="file-list-bar"
-										style="display: none;">
-										<span>파일명</span> <span>용량</span> <span id="delete_all"
-											style="cursor: pointer;">X</span>
-									</div>
-									<!-- 업로드된 파일 목록 -->
-									<ul id="fileList" class="file-list" ></ul>
-								</div>
-							</div>
+						    <div class="mb-3">
+						        <!-- 사용자 정의 파일 선택 버튼과 파일 개수 표시 -->
+						        <div class="file-form-control">
+						            <button type="button" id="customFileBtn" class="btn fileBtn">파일 선택</button>
+						            <span id="fileCount">선택된 파일 없음</span>
+						        </div>
+						        <input type="file" id="files" name="files" multiple style="display: none;" onchange="updateFileList(this.files)">
+						        <!-- 드래그 앤 드롭 영역 -->
+						        <div id="drop_zone" class="file_drag">
+								    <!-- 초기 안내 문구 -->
+								    <div id="initial_message" style="margin-top:36px; color:#6c757d; font-weight: 700;">여기에 파일을 드래그하세요.</div>
+								    <!-- 파일 목록 상단 바, 파일이 드래그 되면 표시됩니다. -->
+								    <div id="file_list_bar" class="file-list-bar" style="display: none;">
+								         <span id="delete_all" style="cursor: pointer;">X</span>
+								         <span>파일명</span>
+								         <span>용량</span>
+								    </div>
+								    <!-- 업로드된 파일 목록 -->
+								    <ul id="fileList" class="file-list"></ul>
+						        </div>
+						    </div>
 						</div>
 						<!-- 내용 -->
 						<div class="form-group">
 							<div class="content-group">
+								<span class="content-group-text">내용</span>
 								<textarea id="message" name="msg_content" rows="5" required></textarea>
 							</div>
 						</div>

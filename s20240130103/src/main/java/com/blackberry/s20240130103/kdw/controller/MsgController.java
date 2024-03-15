@@ -409,23 +409,24 @@ public class MsgController {
 	}
     
     // 쪽지 보내기 - 멀티 업로드(보내기 버튼)
+	@ResponseBody
     @PostMapping(value = "msgSent")
     public String sendMsg (Message message, @RequestParam("files") MultipartFile[] files, HttpServletRequest request) {
-    	
-    	String msgReceivers = request.getParameter("msg_receivers");
 
-    	// 쉼표로 문자열을 분리하고, 공백을 제거한 후 Long 타입으로 변환합니다.
-    	List<Long> receiversList = Arrays.stream(msgReceivers.split(","))
-    	                                      .map(String::trim) // 배열들 한번에 공백 삭제
-    	                                      .map(Long::parseLong) // 타입'Long'으로 파싱
-    	                                      //변환된 Long 값들을 List<Long>으로 수집
-    	                                      .collect(Collectors.toList());  
-    	
     	System.out.println("MsgController sendMsg message : " + message);
         try {
-            // HttpSession에서 로그인한 사용자 정보 가져오기 (쪽지 보내는 사람)
-            Long msgSender = (Long) request.getSession().getAttribute("user_no");
-            // 업로드 경로 설정
+        	
+			String msgReceivers = request.getParameter("msg_receivers");
+
+			// 쉼표로 문자열을 분리하고, 공백을 제거한 후 Long 타입으로 변환합니다.
+
+			List<Long> receiversList = Arrays.stream(msgReceivers.split(",")).map(String::trim) // 배열들 한번에 공백 삭제
+																			 .map(Long::parseLong) // 타입'Long'으로 파싱
+																			 // 변환된 Long 값들을 List<Long>으로 수집
+																			 .collect(Collectors.toList());
+			// HttpSession에서 로그인한 사용자 정보 가져오기 (쪽지 보내는 사람)
+			Long msgSender = (Long) request.getSession().getAttribute("user_no");
+			// 업로드 경로 설정
             String path = request.getSession().getServletContext().getRealPath("/upload/msgFile/");
             
             message.setMsg_sender(msgSender);
@@ -435,12 +436,18 @@ public class MsgController {
                 message.setMsg_receiver(receiver); // 수신자 설정
                 msgService.sendMsg(message, files, path); // 메시지 전송 서비스 호출
             }
+            return "Message sent successfully";
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("MsgController sendMsg Exception ->" + e.getMessage());
+            return "Error sending message";
         }
-        return "kdw/msgSent";
     }
+	// 보내기 성공 페이지 이동
+	@GetMapping("/msgSentSuccessPage")
+	public String msgSentSuccessPage() {
+	    return "kdw/msgSent";
+	}
     
     // 주소록 버튼 클릭시 -> 주소록 모달 페이지 이동
     @GetMapping("/getAddressBookList")
