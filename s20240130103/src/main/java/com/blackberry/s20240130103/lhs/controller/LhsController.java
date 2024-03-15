@@ -449,7 +449,6 @@ public class LhsController {
 	@PostMapping("getTaskAndSchedule")
 	@ResponseBody
 	public String scheduleAndTask(@RequestParam(name = "project_no") String project_no){
-		System.out.println(project_no);
 		Schedule schedule = new Schedule();
 		schedule.setProject_no(Long.parseLong(project_no));
 		List<Schedule> scheduleList = scheduleService.scheduleList(schedule);
@@ -457,18 +456,13 @@ public class LhsController {
 		KphTask kphTask = new KphTask();
 		kphTask.setProject_no(Long.parseLong(project_no));
 		List<KphTask> taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("taskList");
-		for(Schedule sc : scheduleList) {
-			System.out.println("test : " + sc);
-		}
-		for(KphTask task : taskList) {
-			System.out.println("test2 : " + task);
-		}
+		
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("schedule", scheduleList);
 		returnMap.put("task", taskList);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		String gsonStrValue = gson.toJson(returnMap);
-		System.out.println(gsonStrValue);
+		System.out.println("gson : " + gsonStrValue);
 		return gsonStrValue;
 	}
 	
