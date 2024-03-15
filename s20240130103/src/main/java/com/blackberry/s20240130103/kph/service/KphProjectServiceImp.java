@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
+import com.blackberry.s20240130103.kph.model.KphBoardProject;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -265,6 +266,14 @@ public class KphProjectServiceImp implements KphProjectService {
 		System.out.println("KphProjectServiceImp taskCompUpdate start...");
 		int result = kphProjectDao.taskCompUpdate(kphTask);
 		return result;
+	}
+
+	@Override
+	@Transactional
+	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
+		System.out.println("KphProjectServiceImp getBoardProject start...");
+		KphBoardProject board = kphProjectDao.getBoardProject(kphBoardProject);
+		return board;
 	}
 
 }

@@ -27,5 +27,6 @@
       <typeAlias alias="LhsSchedule" type="com.blackberry.s20240130103.lhs.model.Schedule"/>
       <typeAlias alias="KphProjectTask" type="com.blackberry.s20240130103.kph.model.KphProjectTask"/>
       <typeAlias alias="KphUserTask" type="com.blackberry.s20240130103.kph.model.KphUserTask"/>
+      <typeAlias alias="KphBoardProject" type="com.blackberry.s20240130103.kph.model.KphBoardProject"/>
    </typeAliases>
 </configuration>

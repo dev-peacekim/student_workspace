@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.kph.service;
 import java.util.List;
 import java.util.Map;
 
+import com.blackberry.s20240130103.kph.model.KphBoardProject;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -55,5 +56,7 @@ public interface KphProjectService {
 	int taskDelete(KphTask kphTask);
 
 	int taskCompUpdate(KphTask kphTask);
+
+	KphBoardProject getBoardProject(KphBoardProject kphBoardProject);
 
 }

@@ -458,7 +458,7 @@ public class KphProjectController {
 		String resultPage = "redirect:/main";
 		
 		if (isUserInProject(request) > 0) {
-			
+			KphBoardProject board = kphProjectService.getBoardProject(kphBoardProject);
 			resultPage = "kph/detailBoardProject";
 		}
 		

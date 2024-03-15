@@ -12,6 +12,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.blackberry.s20240130103.kph.model.KphBoardProject;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -264,6 +265,13 @@ public class KphProjectDaoImp implements KphProjectDao {
 		System.out.println("KphProjectDaoImp taskCompUpdate start...");
 		kphTask = session.selectOne("kphGetTask", kphTask);
 		return session.update("kphTaskCompUpdate", kphTask);
+	}
+
+	@Override
+	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
+		System.out.println("KphProjectDaoImp getBoardProject start...");
+		KphBoardProject board = session.selectOne("kphGetBoardProject", kphBoardProject);
+		return board;
 	}
 
 }

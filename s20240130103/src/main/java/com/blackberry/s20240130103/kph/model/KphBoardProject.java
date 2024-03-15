@@ -19,5 +19,6 @@ public class KphBoardProject {
 	
 	// 조회용
 	private List<KphBoardProjectFile> kphBoardProjectFileList;
+	private List<KphBoardProjectReply> kphBoardProjectReplyList;
 	
 }
