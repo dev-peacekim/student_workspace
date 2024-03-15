@@ -61,7 +61,6 @@ public class LhsAdminController {
 		List<Map<String, Long>> userJoinCntList = adminService.selectUserJoinCnt();
 		Gson gson = new GsonBuilder().setDateFormat("MM-dd").create();
 		String jsonstr = gson.toJson(userJoinCntList);
-		System.out.println(jsonstr);
 		return jsonstr;
 	}
 	

@@ -36,10 +36,11 @@
     <link href="assets/css/kph/detailProject_calender.css"  rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-    <script defer src="/assets/js/kph/detailProject.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script type="module" defer src="/assets/js/kph/detailProject.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
-    <script type="text/javascript" src="/assets/js/kph/detailProject_calender.js"></script>
+    <script type="module" src="/assets/js/kph/detailProject_calender.js"></script>
 
     <!-- =======================================================
   * Template Name: NiceAdmin

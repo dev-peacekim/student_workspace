@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,10 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUsers;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 import com.blackberry.s20240130103.lhs.domain.User;
@@ -27,6 +31,8 @@ import com.blackberry.s20240130103.lhs.service.AddressService;
 import com.blackberry.s20240130103.lhs.service.EvalService;
 import com.blackberry.s20240130103.lhs.service.ScheduleService;
 import com.blackberry.s20240130103.lhs.service.UserService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.ServletException;
@@ -438,6 +444,32 @@ public class LhsController {
 		int result = scheduleService.scheduleUpdate(schedule);
 		redirect.addAttribute("project_no", schedule.getProject_no());
 		return "redirect:/proejctSchedule";
+	}
+	
+	@PostMapping("getTaskAndSchedule")
+	@ResponseBody
+	public String scheduleAndTask(@RequestParam(name = "project_no") String project_no){
+		System.out.println(project_no);
+		Schedule schedule = new Schedule();
+		schedule.setProject_no(Long.parseLong(project_no));
+		List<Schedule> scheduleList = scheduleService.scheduleList(schedule);
+		
+		KphTask kphTask = new KphTask();
+		kphTask.setProject_no(Long.parseLong(project_no));
+		List<KphTask> taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("taskList");
+		for(Schedule sc : scheduleList) {
+			System.out.println("test : " + sc);
+		}
+		for(KphTask task : taskList) {
+			System.out.println("test2 : " + task);
+		}
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("schedule", scheduleList);
+		returnMap.put("task", taskList);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String gsonStrValue = gson.toJson(returnMap);
+		System.out.println(gsonStrValue);
+		return gsonStrValue;
 	}
 	
 }

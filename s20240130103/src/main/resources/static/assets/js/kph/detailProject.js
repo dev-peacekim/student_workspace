@@ -1,3 +1,5 @@
+import {calenderRender} from "./detailProject_calender.js"
+
 $("#team-list-title").on("click", () => {
 	if ($("#team-list-content").css("display") === "none") {
 		$("#team-list-content").css("display", "block");
@@ -351,4 +353,5 @@ $('.task-delete-check-btn').on('click', function() {
 			$(".task-delete-box").css('display', 'none');
 		}
 	});
+	calenderRender();
 });
