@@ -40,14 +40,10 @@
 
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- KDW Main JS File -->
+<script src="/assets/js/kdw/projectBoardWrite.js"></script>
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/projectBoardWrite.css" rel="stylesheet">
-<!-- KDW Main JS File -->
-<link href="assets/css/kdw/projectBoardWrite.js" rel="stylesheet">
-
-<script type="text/javascript">
-
-</script>
 
 </head>
 
@@ -79,17 +75,17 @@
 					</div>
 					<!-- 파일을 보내려면 form에서 encType = "multipart/form-data" 를 이용해서 보내야 한다 -->
 					<!-- 그리고 하단에 <input type="file" name="fileName">로 파일을 보낼 수 있게 넣어준다 -->
-					<form id="write-form" action="/msgSent" method="post"
+					<form id="write-form" action="/writeSave?project_no=${projectNo}" method="post"
 						enctype="multipart/form-data">
 						<!-- 보내기 버튼 -->
 						<div class="form-group">
-							<button type="submit" class="msg-Sent-Btn">보내기</button>
+							<button type="submit" class="write-save-btn">등록</button>
 						</div>
 						<!-- 취소 Button : 이전 페이지로 돌아가기 -->
 						<!-- Referer 헤더는 사용자가 현재 요청을 보내기 전에 어떤 페이지에서 왔는지를 식별 -->
 						<div class="form-group">
 							<a href="<%=request.getHeader("Referer")%>"
-								class="msg-cancel-btn">취소</a>
+								class="write-cancel-btn">취소</a>
 						</div>
 						<!-- 제목 -->
 						<div class="form-group">
@@ -107,38 +103,33 @@
 						</div>
 						<!-- 첨부파일 -->
 						<div class="form-group">
-							<div class="mb-3">
-								<div class="file-group-prepend">
-									<span class="file-group-text">첨부파일</span>
-								</div>
-								<div class="file-form-control">
-									<!-- 파일 선택 input, 다중 선택 가능 -->
-									<input type="file" name="files" id="files"
-										class="files form-control form-control-sm" multiple>
-								</div>
-								<!-- 드래그 앤 드롭 영역 -->
-								<div id="drop_zone" class="file_drag"
-									style="min-height: 145px; overflow: auto;">
-									<!-- 초기 안내 문구 -->
-									<div id="initial_message" style="margin-top: 45px; color: #808080; font-weight: 700;">
-										여기에 파일을 드래그하세요.
-									</div>
-									<!-- 파일 목록 상단 바, 초기에는 숨김 처리 -->
-									<div id="file_list_bar" class="file-list-bar"
-										style="display: none;">
-										<span>파일명</span> <span>용량</span> <span id="delete_all"
-											style="cursor: pointer;">X</span>
-									</div>
-									<!-- 업로드된 파일 목록 -->
-									<ul id="fileList" class="file-list"></ul>
-								</div>
-							</div>
+						    <div class="mb-3">
+						        <!-- 사용자 정의 파일 선택 버튼과 파일 개수 표시 -->
+						        <div class="file-form-control">
+						            <button type="button" id="customFileBtn" class="btn fileBtn">파일 선택</button>
+						            <span id="fileCount">선택된 파일 없음</span>
+						        </div>
+						        <input type="file" id="files" name="files" multiple style="display: none;" onchange="updateFileList(this.files)">
+						        <!-- 드래그 앤 드롭 영역 -->
+						        <div id="drop_zone" class="file_drag">
+								    <!-- 초기 안내 문구 -->
+								    <div id="initial_message" style="margin-top:60px; color:#6c757d; font-weight: 700;">여기에 파일을 드래그하세요.</div>
+								    <!-- 파일 목록 상단 바, 파일이 드래그 되면 표시됩니다. -->
+								    <div id="file_list_bar" class="file-list-bar" style="display: none;">
+								         <span id="delete_all" style="cursor: pointer;">X</span>
+								         <span>파일명</span>
+								         <span>용량</span>
+								    </div>
+								    <!-- 업로드된 파일 목록 -->
+								    <ul id="fileList" class="file-list"></ul>
+						        </div>
+						    </div>
 						</div>
 						<!-- 내용 -->
 						<div class="form-group">
 							<div class="content-group">
 								<span class="content-group-text">내용</span>
-								<textarea id="pboard-content" name="pboard_content" rows="5" required
+								<textarea id="pboard_content" name="pboard_content" rows="5" required
 									placeholder="내용을 입력해 주세요."></textarea>
 							</div>
 						</div>

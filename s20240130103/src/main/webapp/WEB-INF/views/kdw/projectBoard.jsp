@@ -43,11 +43,11 @@
 
 <!-- jQuery를 포함 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!-- KDW Main JS File -->
+<script src="/assets/js/kdw/projectBoard.js"></script>
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/projectBoard.css" rel="stylesheet">
-<!-- KDW Main JS File -->
-<link href="assets/js/kdw/projectBoard.js" rel="stylesheet">
+
 
 </head>
 
@@ -87,7 +87,7 @@
 		</div>
 		<!-- 글쓰기 버튼 -->
 		<div class="pboard-write">
-			<a href= "/projectBoardWrite" class="pboard-write-Btn btn btn-secondary">글쓰기</a>
+			<a href= "/projectBoardWrite?project_no=${projectNo }" class="pboard-write-Btn btn btn-secondary">글쓰기</a>
 		</div>
 		<!-- End Page Title -->
 

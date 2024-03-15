@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.kdw.model.BoardProject;
+import com.blackberry.s20240130103.kdw.model.BoardProjectFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +108,29 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 			log.error("KdwBoardProjectDaoImpl searchProjectBoardList searchPboardList Error", e.getMessage());
 		}
 		return searchProjectBoardList;
+	}
+	// 글쓰기
+	@Override
+	public void writeSave(BoardProject boardProject) {
+    	System.out.println("KdwBoardProjectDaoImpl writeSave start...");
+        try {
+			session.insert("kdwWriteSave", boardProject);
+			System.out.println("KdwBoardProjectDaoImpl writeSave success boardProject: " + boardProject);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("KdwBoardProjectDaoImpl writeSave error boardProject: " + boardProject);
+		}
+		
+	}
+	// 첨부파일 업로드
+	@Override
+	public void savePboardFile(BoardProjectFile boardProjectFile) {
+        try {
+            session.insert("kdwSavePboardFile", boardProjectFile);
+            System.out.println("KdwBoardProjectDaoImpl savePboardFile success: " + boardProjectFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 	

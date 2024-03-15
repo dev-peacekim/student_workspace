@@ -43,8 +43,8 @@ body {
 	padding-bottom: 10px;
 }
 
-/* 보내기 버튼 */
-#write-form .msg-Sent-Btn {
+/* 등록 버튼 */
+#write-form .write-save-btn {
 	position: absolute;
 	margin-top:-20px;
 	bottom: -10px;
@@ -61,14 +61,14 @@ body {
     z-index: 3;
     background-color: transparent;
 }
-#write-form .msg-Sent-Btn:active, #write-form .msg-Sent-Btn:hover {
+#write-form .write-save-btn:active, #write-form .write-save-btn:hover {
     background-color: #0D6DFD; 
     color: #ffffff; 
     border: #0D6DFD;
     line-height: 2.2;
 }
 /* 취소 버튼 */
-#write-form .msg-cancel-btn {
+#write-form .write-cancel-btn {
     position: absolute;
     bottom: -10px;
     right: 0px;
@@ -84,7 +84,7 @@ body {
     z-index: 3;
 }
 
-#write-form .msg-cancel-btn:active, #write-form .msg-cancel-btn:hover {
+#write-form .write-cancel-btn:active, #write-form .write-cancel-btn:hover {
     background-color: #808080; 
     color: #ffffff; 
     border: #808080;
@@ -140,108 +140,119 @@ body {
 /* ========= 첨부파일 ========= */
 /* 해당 스타일들 안먹는중 파일 속성이 강해서 그런듯 파일 첨부 끌어오기 검색해서 해볼것*/
 .mb-3 {
-	position:absolute;
-	width: 100%;
-	margin-top: 140px;
-	height: 50px;
+    position: absolute;
+    width: 100%;
+    margin-top: 145px;
 }
 
-.file-group-prepend {
-	font-size: 17px;
-	font-weight: 700;
-	padding-left: 5px; /* 왼쪽 패딩 추가 */
-}
 .file-form-control {
-	display: flex; /* 아이콘과 텍스트를 가로로 정렬 */
-  	align-items: center; /* 수직 정렬을 위해 사용 */
-  	margin-top: 3px;
-}
-.files.form-control {
-	width:100%;
-	height: 40px;
-	text-align:center;
-	line-height: 2;
-	font-size: 15px;
-	font-weight: 700;
-	border-radius: 7px;
-}
-.file-form-control .form-control {
-	border-color:#ced4da;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-.file-form-control .fa-file-circle-plus {
-  margin-right: 10px; /* 아이콘과 텍스트 사이의 간격 조절 */
+.file-form-control .btn {
+    margin-right: 0px;
 }
-/* 첨부파일 드래그 css */
+
+#fileCount {
+    flex-grow: 1;
+    border: 1px solid #ced4da;
+    /* 다른 스타일 규칙들 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* 우측 모서리에는 둥근 모서리를 주지 않음 */
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: 10px 15px;
+    color: #626262;
+    
+}
+
 .file_drag {
-	position:absolute;
-	width: 100%;
-    border: 2px dashed #ccc;
+    border: 2px dashed #cccccc;
     border-radius: 7px;
-    padding: 20px;
+    max-height: 160px;
+    min-height: 160px;
     text-align: center;
-    cursor: pointer;
-    margin-top: 5px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .file_drag.over {
-    border-color: #000;
+    background-color: #e8e8e8;
 }
 
-.file_list_item {
-    list-style-type: none;
-    margin: 10px 0;
+.file-list-bar {
+    width: 100%;
+    padding: 5px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.file_name {
-    width: calc(33% - 10px); /* 한 줄에 3개씩 나열 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.file_size {
-    width: 10%;
-}
-
-.delete_file {
-    cursor: pointer;
-}
-/* 드래그앤드롭 상단바 스타일 */
-.file-list-bar {
-	position: absolute;
-    display: flex;
-    justify-content: space-between;
-    background-color: #f0f0f0;
-    padding: 0px 0px; /* 상단바 패딩 조정 */
-    border-bottom: 1px solid #ccc;
-    margin: 0;
-}
-
-.file-list-header, .file-list-item span {
-    flex: 1;
-    text-align: center;
-}
-
-.file-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #dddddd;
+    height: 30px;
 }
 
 .file-list-item {
-    display: flex;
+	display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0; /* 항목 내 패딩 제거 */
+    align-items: center;
+    width: 100%;
+    background: #ffffff;
+    margin-left: -22px;
 }
 
-#fileList {
-    margin: 0;
-    padding: 0;
+.delete-file {
+    color: #ff0000;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.file-name {
+    flex-grow: 1;
+    margin-right: 10px; /* Ensure there's space between the file name and size */
+}
+
+.file-size {
+    white-space: nowrap;
+}
+
+#initial_message {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn.fileBtn{
+    background-color: white;
+    color: #626262;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    font-size: 16px;
+    /* 다른 스타일 규칙들 */
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    /* 우측 모서리에는 둥근 모서리를 주지 않음 */
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: pointer;
+    font-weight: 700;
+    border-right: none;
+}
+
+.btn.fileBtn:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+#sendButton {
+    margin-top: 10px;
 }
 /* ========= 첨부파일 END ========= */
 

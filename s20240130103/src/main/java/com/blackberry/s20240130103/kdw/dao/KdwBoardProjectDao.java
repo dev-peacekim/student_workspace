@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.kdw.dao;
 import java.util.List;
 
 import com.blackberry.s20240130103.kdw.model.BoardProject;
+import com.blackberry.s20240130103.kdw.model.BoardProjectFile;
 
 public interface KdwBoardProjectDao {
 	
@@ -16,5 +17,10 @@ public interface KdwBoardProjectDao {
 	int searchPboardListCnt(Long userNo, Long projectNo, String keyword, String type);
 	// 검색한 게시글 리스트
 	List<BoardProject> searchProjectBoardList(Long userNo, Long projectNo, String keyword, String type, int start, int end);
+	
+	// 글쓰기 + 업로드
+	void writeSave(BoardProject boardProject);
+	void savePboardFile(BoardProjectFile boardProjectFile);
+	
 
 }

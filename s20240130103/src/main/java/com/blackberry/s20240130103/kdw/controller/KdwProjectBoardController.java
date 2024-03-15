@@ -1,13 +1,19 @@
 package com.blackberry.s20240130103.kdw.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.kdw.model.BoardProject;
+import com.blackberry.s20240130103.kdw.model.Message;
 import com.blackberry.s20240130103.kdw.service.KdwProjectBoardPaging;
 import com.blackberry.s20240130103.kdw.service.KdwProjectBoardService;
 import com.blackberry.s20240130103.lhs.model.User;
@@ -69,27 +75,53 @@ public class KdwProjectBoardController {
 		return "kdw/projectBoard";
 	}
 	
-	// 쪽지쓰기 페이지로 이동(쪽지쓰기 버튼)
+	// 게시글 쓰기 페이지로 이동(쪽지쓰기 버튼)
 	@GetMapping(value = "projectBoardWrite")
-	public String msgWritePage(HttpServletRequest request, Model model) {
-		System.out.println("MsgController msgWritePage Start...");
-		// 세션에서 보내는 사람의 아이디 가져오기
-		Long senderId = (Long) request.getSession().getAttribute("user_no");
-
-		// 유저 테이블에서 모든 사용자 목록 가져오기
-		// List<User> userList = pBoardService.getAllUsers();
-
-		// 워크스페이스 페이지에서 요청하는 받는사람(닉네임+아이디로 인풋 입력)
-		String userNoParam = request.getParameter("user_no");
-		Long userNo = null;
-		User userNicId = null;
-
-		System.out.println("MsgController msgWritePage userNoParam: " + userNoParam);
-		// 조회수 페이지
-		model.addAttribute("senderId", senderId);
+	public String pboardWritePage(HttpServletRequest request, Model model) {
+		System.out.println("projectBoardController pboardWritePage Start...");
+		
+		 // 글작성 유저넘버(로그인유저) 
+		Long userNo = (Long) request.getSession().getAttribute("user_no");
+		System.out.println("projectBoardController pboardWritePage userNo: " + userNo); // 글작성하는 프로젝트 넘버 
+		Long projectNo = Long.parseLong(request.getParameter("project_no"));
+		System.out.println("projectBoardController pboardWritePage projectNo: " +projectNo);
+		 
 		model.addAttribute("userNo", userNo);
-
+		model.addAttribute("projectNo", projectNo);
 		return "kdw/projectBoardWrite";
 	}
+	
+	/*============== 업로드 글작성 ==============*/
+    // 글쓰기 - 멀티 업로드(보내기 버튼)
+	@ResponseBody
+    @PostMapping(value = "writeSave")
+    public String writeSave (BoardProject boardProject, @RequestParam("files") MultipartFile[] files, HttpServletRequest request) {
+
+    	System.out.println("projectBoardController writeSave boardProject : " + boardProject);
+        try {
+    		// 글작성 유저넘버(로그인유저)
+    		Long userNo = (Long) request.getSession().getAttribute("user_no");
+    		System.out.println("projectBoardController getProjectBoardList userNo: " +  userNo);
+    		// 글작성하는 프로젝트 넘버
+    		Long projectNo = Long.parseLong(request.getParameter("project_no"));
+    		System.out.println("projectBoardController getProjectBoardList projectNo: " +  projectNo);
+    		
+			// 업로드 경로 설정
+            String path = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/");
+            boardProject.setUser_no(userNo);
+            boardProject.setProject_no(projectNo);
+            
+            pBoardService.writeSave(boardProject, files, path); // 메시지 전송 서비스 호출
+
+            return "Message sent successfully";
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("projectBoardController writeSave Exception ->" + e.getMessage());
+            return "Error sending message";
+        }
+    }
+
+    
+	
 	
 }
