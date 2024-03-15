@@ -443,6 +443,20 @@ public class LslServiceImpl implements LslService {
 			return boardReReplyResult;
 		}
 		
+		// 대댓글 리스트 
+		@Override
+		public List<LslCommReply> getRepliesAfterParent(int cPreply_group, int creply_no) {
+			List<LslCommReply> getRepliesAfterParent = ld.getRepliesAfterParent(cPreply_group, creply_no);
+			return getRepliesAfterParent;
+		}
+		
+		// 대댓글 업데이트
+		@Override
+		public void updateReply(LslCommReply reply) {
+			ld.updateReply(reply);
+			
+		}
+		
 			
 	
 	

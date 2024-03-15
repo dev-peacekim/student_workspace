@@ -337,6 +337,25 @@ public class LslDaoImpl implements LslDao {
 		return boardReReplyResult;
 	}
 
+	// 대댓글 리스트 
+	@Override
+	public List<LslCommReply> getRepliesAfterParent(int cPreply_group, int creply_no) {
+		
+		LslCommReply lslCommReply = new LslCommReply();
+	    lslCommReply.setCreply_group(cPreply_group);
+	    lslCommReply.setCreply_no(creply_no);
+		
+		List<LslCommReply> getRepliesAfterParent = session.selectList("slRepliesAfterParentList", lslCommReply);
+		return getRepliesAfterParent;
+	}
+
+
+	@Override
+	public void updateReply(LslCommReply reply) {
+		session.update("slupdateReply", reply);
+		
+	}
+
 
 
 

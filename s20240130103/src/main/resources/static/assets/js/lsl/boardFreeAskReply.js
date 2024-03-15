@@ -1,3 +1,5 @@
+let currentuser_no;
+
 // 유저 정보 가져오기 
 function getUserNo() {
 	$.ajax({
@@ -72,7 +74,7 @@ function updateReplyList(data) {
 
         let indentation = 0;
         if (lslCommReply.creply_level > 0) {
-            indentation = 20;
+            indentation = lslCommReply.creply_indent * 20;
         }
 
 
@@ -87,7 +89,7 @@ function updateReplyList(data) {
                     <div class="re-btn-container">
                         <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
                         <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
-                        <button type="button" class="btn brBtn" data-user-no="${lslCommReply.user_no}", data-parent-creply="${lslCommReply.creply_no}", data-creply-no="${lslCommReply.creply_no}", data-creply-level="${lslCommReply.creply_level}"  onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
+                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}"  onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
                     </div>
                 </div>
                 <div id="replyBox">
@@ -103,8 +105,8 @@ function updateReplyList(data) {
                 </div>
 
                 <div id="addComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
-                    <textarea id="addCommentText" class="form-control"></textarea>
-                    <button type="button" class="btn addReply" id="addReply" onclick="addReply('${lslCommReply.creply_no}');">저장</button>
+                    <textarea id="addCommentText_${lslCommReply.creply_no}"  class="form-control"></textarea>
+                    <button type="button" class="btn addReply" id="addReply" data-creply-no="${lslCommReply.creply_no}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-level="${lslCommReply.creply_level}"  onclick="addReply(${lslCommReply.creply_no},${lslCommReply.creply_group});">저장</button>
                     <button type="button" class="btn replyCancle" onclick="toggleReply('${lslCommReply.creply_no}');">취소</button>
                 </div>
             </div>
@@ -165,31 +167,32 @@ function addComment(replyData) {
         }
     });
 }
-let pcreply_no;
-let puser_no;
+let cboard_no;
+let pcreply_group;
 
 $(document).on("click", ".brBtn", function() {
-	pcreply_no = $(this).data("creply-no");
-	puser_no = $(this).data("user_no");
-
+	//pcreply_no = $(this).data("creply-no");
+	pcreply_group = $(this).data("creply-group");
+	cboard_no = $(this).data("cboard-no");
 });
 
 
 // 대댓글 추가 시 creply_group 추가
-$(document).on('click', ".addReply", function() {
-    const reReply_content = document.getElementById('addCommentText').value;
-    const cboard_no = $('input[name="cboard_no"]').val();
-    
-    
+$(document).on('click', ".addReply", function(e) {
+	console.log(e.target.dataset);
+	console.log("test" , e.target.dataset['creplyNo']);
+	console.log("test" , e.target.dataset['creplyLevel']);
     
     // 대댓글 데이터에 creply_group 추가
     // 넘겨주는 값의 이름은 모델의 이름과 같게 해서 넘겨야 한다.
     //creply_no = 모델 이름과 동일하게 
     const reReplyData = {
-        creply_no: pcreply_no, 
-        creply_content: reReply_content,
-        cboard_no: cboard_no,
-        user_no: puser_no
+        creply_content : $('#addCommentText_'+e.target.dataset['creplyNo']).val(),
+        creply_group : pcreply_group,
+        creply_indent : e.target.dataset['creplyIndent'],
+        creply_level : e.target.dataset['creplyLevel'],
+        creply_no : e.target.dataset['creplyNo'],
+        cboard_no : cboard_no
     };
 
     addReply(reReplyData);
@@ -209,7 +212,7 @@ function addReply(reReplyData) {
             if (data > 0) {
                 console.log('대댓글 데이터 넘어옴');
                 // 대댓글 등록 후 댓글 리스트 업데이트
-                replyBoardFreeAskList(reReplyData.cboard_no);
+                replyBoardFreeAskList(reReplyData.cboardNo);
             }
         },
         error: function(error) {
@@ -218,6 +221,9 @@ function addReply(reReplyData) {
         }
     });
 }
+
+
+
 
 
 

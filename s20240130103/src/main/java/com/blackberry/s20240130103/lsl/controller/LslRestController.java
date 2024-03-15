@@ -91,24 +91,49 @@ public class LslRestController {
 	public int reinsertBoardReply(@RequestBody LslCommReply lslCommReply, HttpServletRequest request) {
 	    Long user_no = (Long) request.getSession().getAttribute("user_no");
 	    System.out.println("reinsertBoardReply user_no" + user_no);
+	  System.out.println("test : " + lslCommReply);
+//	    
+	  	// insert = 레벨이랑 인덴트 +1씩
+	  	
 	  
-	    
-	    int Pcreply_no = lslCommReply.getCreply_no();
+	    int cPreply_group = lslCommReply.getCreply_group();
 	    int cboard_no = lslCommReply.getCboard_no();
+	    int creply_indent = lslCommReply.getCreply_indent();
+	    int creply_level = lslCommReply.getCreply_level();
+	    int creply_no = lslCommReply.getCreply_no();
 	    
-	    System.out.println("reinsertBoardReply creply_group" + Pcreply_no);
+	
+		   
+    System.out.println("reinsertBoardReply creply_group" + cPreply_group);
 	    System.out.println("reinsertBoardReply user_no" + user_no);
-	    
+    
+	    lslCommReply.setCreply_no(creply_no);
 	    lslCommReply.setUser_no(user_no);
 	    lslCommReply.setCboard_no(cboard_no);
-	    lslCommReply.setCreply_group(Pcreply_no);
-	    
-	    System.out.println("reinsertBoardReply lslCommReply" + lslCommReply);
+	    lslCommReply.setCreply_group(cPreply_group);
+	    lslCommReply.setCreply_indent(creply_indent +1);
+	    lslCommReply.setCreply_level(creply_level + 1);
 	    
 	    int boardReReplyResult = ls.insertBoardReReply(lslCommReply);
 	    
-	    return boardReReplyResult;
+	    System.out.println("reinsertBoardReply lslCommReply" + lslCommReply);
+	    
+	    //  update = 내가 쓴 부모댓글에 해당하는 글들에서 대댓글 레벨 보다 큰 애들 +1
+	    
+	    // 대댓글 리스트 
+	    
+	    List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
+		   
+		   for (LslCommReply reply : repliesAfterParent) {
+		        ls.updateReply(reply); 
+		    }
+	 
+
+	  return boardReReplyResult;
 	}
+	
+
+	
 	
 	
 	
