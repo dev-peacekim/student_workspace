@@ -90,15 +90,7 @@ public class YkmBoardRestController {
 		return getReplyList;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/* study post */
 
 	@PutMapping(value = "/recruitment")
@@ -109,14 +101,5 @@ public class YkmBoardRestController {
 		return result;
 	}
 	
-	/*
-	 댓글 : comment
-	 CommentService, CommentServiceImpl, CommentDao, CommentDaoImpl, CommentController
-	 getCommentList
-	 getComment
-	 writeComment
-	 deleteComment
-	 updateComment
-	 */
 
 }

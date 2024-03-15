@@ -47,9 +47,6 @@
 
 <!-- ******************************************************** -->
 
-
-
-
 <link href="assets/css/ykm/boardContest.css" rel="stylesheet">
 </head>
 <body>
@@ -61,10 +58,9 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>공모전 스터디 게시판</h1>
-			<nav style="--bs-breadcrumb-divider: '-';">
+			<h1>정보게시판</h1>
+			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
 					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
 				</ol>
@@ -82,12 +78,15 @@
 					<div class="contest-title">
 						<span>함께 성장할 공모전 팀원을 모집해보세요</span>
 					</div>
-					<div class="search-bar d-flex justify-content-end">
-						<form class="search-form d-flex align-items-center" method="POST"
-							action="#">
-							<input type="text" name="query" placeholder="Search"
-								title="Enter search keyword">
-							<button type="submit" title="Search">
+					<div class="search-bar justify-content-end">
+						<form action="/boardCntSearch" method="POST" class="search-form d-flex align-items-center">
+							<select class="form-select" name="type" aria-label="Default select example" required="required">
+							    <option selected="">검색 기준</option>
+							    <option value="TC">제목+내용</option>
+							    <option value="W">작성자</option>
+							</select>
+							<input type="text" name="keyword" placeholder="관심 스터디를 검색해보세요" title="Enter search keyword" class="keyword-bar">
+							<button type="submit">
 								<i class="bi bi-search"></i>
 							</button>
 						</form>
@@ -108,61 +107,41 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach items="${getCntPostList}" var="cntPostList" varStatus="loop"> 
 							<tr>
-								<th scope="row">1</th>
-								<td>여긴 공모전 페이지다</td>
-								<td>Designer</td>
-								<td>2016-05-25</td>
-								<td>28</td>
-								<td>0</td>
+								<th scope="row">${loop.index+1}</th>
+								<td><a href="/post?cboard_no=${cntPostList.cboard_no}">${cntPostList.cboard_title}</a></td>
+								<td>${cntPostList.user_nic}</td>
+								<td><fmt:formatDate value="${cntPostList.cboard_date}" pattern="yyyy-MM-dd"/></td>
+								<td>${cntPostList.cboard_viewcnt}</td>
+								<td>${cntPostList.reply_count}</td>
 							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Bridie Kessler</td>
-								<td>Developer</td>
-								<td>2014-12-05</td>
-								<td>35</td>
-								<td>0</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Ashleigh Langosh</td>
-								<td>Finance</td>
-								<td>2011-08-12</td>
-								<td>45</td>
-								<td>0</td>
-							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>
-				<!-- End Table -->
+				<!-- 글쓰기 -->
 				<div class="community-bottom">
 					<div class="btn-container">
-						<form action="ykmBoardWriteForm" method="post">
-							<input type="hidden" name="boardConWriteBtn" value="10"> 
-							<input type="submit" class="btn btn-primary custom-btn wriBtn" value="글쓰기">
-						</form>
+						<a href="/writeForm?comm_mid=10&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
 					</div>
 					<!-- ======= Pagination ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">«</span>
-							</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">»</span>
-							</a></li>
+						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
+						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}"><span aria-hidden="true">«</span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid2=${comm_mid2}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${stuPage.startPage < stuPage.pageBlock}">
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}"><span aria-hidden="true">»</span></a></li>
+						</c:if>
 						</ul>
 					</nav>
 				</div>
 			</div>
 		</section>
-
 	</main>
 
 	<!-- ======= Footer ======= -->

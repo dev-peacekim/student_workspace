@@ -17,7 +17,9 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 
 	private final SqlSession session;
 
-
+	/* 스터디 게시판 */
+	
+	// 스터디 게시판 게시글 조회
 	@Override
 	public List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getPostList start ---*");
@@ -27,7 +29,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return getPostList;
 	}
 
-	
+	// 게시글 보여주기
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getPost start ---*");
@@ -36,6 +38,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return getPost;
 	}
 
+	// 글 등록
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl writePost start---*");
@@ -44,6 +47,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
+	// 글 수정
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl updatePost start ---*");
@@ -51,6 +55,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return updatePost;
 	}
 
+	// 글 삭제
 	@Override
 	public int deletePost(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl deletePost start ---*");
@@ -59,56 +64,20 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return deletePost;
 	}
 
+	// 게시글 조회수 카운드
 	@Override
 	public int increseViewcount(int cboard_no) {
 		return session.update("ykmIncreseViewCount", cboard_no);
 	}
 
-
-	// 댓글
-	@Override
-	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl getCommentList start ---*");
-		List<YkmBoardCommReply> getCommentList = session.selectList("ykmGetCommentList", cboard_no);
-		System.out.println("YkmBoardDaoImpl getCommentList finish ---*");
-		return getCommentList;
-	}
-
-	@Override
-	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
-		System.out.println("YkmBoardDaoImpl writeComment start ---*");
-		int result = session.insert("ykmWriteComment", ykmBoardCommReply);
-		//System.out.println("YkmBoardDaoImpl writeComment --> " + result);
-		//System.out.println("YkmBoardDaoImpl writeComment finish ---*");
-		return result;
-	}
-
-	@Override
-	public int deleteComment(int creply_no) {
-		System.out.println("ykmBoardDaoImpl deleteComment start ---*");
-		int result = session.delete("ykmDeleteComment", creply_no);
-		return result;
-	}
-
-	@Override
-	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
-		return session.update("ykmUpdateComment", ykmBoardCommReply);
-	}
-
-	// null 처리
-	@Override
-	public int countComment(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl countComment result ==> "+cboard_no);
-		Integer result = session.selectOne("ykmCountComment", cboard_no);
-		return (result != null) ? result : 0;
-	}
-
+	// 모집중, 모집완료 수정
 	@Override
 	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl updateRecruitment start ---*");
 		return session.update("ykmUpdateRecruitment", ykmBoardComm);
 	}
-
+	
+	// 검색 결과 조회
 	@Override
 	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
 		//System.out.println("YkmBoardDaoImpl getSearchList start ---*");
@@ -116,7 +85,8 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		//System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList.size());
 		return getSearchList;
 	}
-
+	
+	// 페이징, 전체 게시글 카운트 조회
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getTotalCount start ---*");
@@ -124,16 +94,8 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		//System.out.println("YkmBoardDaoImpl getTotalCount result : " + result );
 		return result;
 	}
-
-
-	@Override
-	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
-		System.out.println("YkmBoardDaoImpl saveFileList ykmBoardCommFile : "+ykmBoardCommFile);
-		int result = session.insert("ykmSaveFileList", ykmBoardCommFile);
-		return result;
-	}
-
-
+	
+	// 업로드 된 파일 정보 불러오기
 	@Override
 	public List<YkmBoardCommFile> getFileList(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getFileList start ---*");
@@ -152,7 +114,58 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
+	/* 스터디 댓글 REST API */
+	
+	// 댓글 리스트 조회
+	@Override
+	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl getCommentList start ---*");
+		List<YkmBoardCommReply> getCommentList = session.selectList("ykmGetCommentList", cboard_no);
+		System.out.println("YkmBoardDaoImpl getCommentList finish ---*");
+		return getCommentList;
+	}
 
+	// 댓글 등록
+	@Override
+	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
+		System.out.println("YkmBoardDaoImpl writeComment start ---*");
+		int result = session.insert("ykmWriteComment", ykmBoardCommReply);
+		//System.out.println("YkmBoardDaoImpl writeComment --> " + result);
+		//System.out.println("YkmBoardDaoImpl writeComment finish ---*");
+		return result;
+	}
+
+	// 댓글 삭제
+	@Override
+	public int deleteComment(int creply_no) {
+		System.out.println("ykmBoardDaoImpl deleteComment start ---*");
+		int result = session.delete("ykmDeleteComment", creply_no);
+		return result;
+	}
+
+	// 댓글 수정
+	@Override
+	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
+		return session.update("ykmUpdateComment", ykmBoardCommReply);
+	}
+
+	// 댓글 개수 카운트
+	@Override
+	public int countComment(int cboard_no) {
+		System.out.println("YkmBoardDaoImpl countComment result ==> "+cboard_no);
+		Integer result = session.selectOne("ykmCountComment", cboard_no);
+		return (result != null) ? result : 0;
+	}
+	
+	// 파일 업로드 (저장)
+	@Override
+	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
+		System.out.println("YkmBoardDaoImpl saveFileList ykmBoardCommFile : "+ykmBoardCommFile);
+		int result = session.insert("ykmSaveFileList", ykmBoardCommFile);
+		return result;
+	}
+
+	// 대댓글 불러오기 > 코드 중복이므로 수정 필요
 	@Override
 	public List<YkmBoardCommReply> getReplyList(int creply_no) {
 		System.out.println("YkmBoardDaoImpl getReplyList start ---*");
@@ -161,54 +174,69 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 
 
-
+	/* 공모전 게시판 */
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
+	// 공모전 전체 게시글 리스트 조회
 	@Override
-	public Map<String, Object> getFileList(int cboard_no) {
-		System.out.println("YkmBoardDaoImpl getFileList start ---*");
-		Map<String, Object> getFileList = session.selectMap("ykmGetFileList2", cboard_no, "cboard_file_cnt");
-		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList);
-        return getFileList;
+	public List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl getCntPostList start ---*");
+		List<YkmBoardComm> getCntPostList = session.selectList("ykmGetCntPostList", ykmBoardComm);
+		return getCntPostList;
 	}
 
-*/
+	// 전체 게시글 카운트 (페이징)
+	@Override
+	public int getCntTotalCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl getCntTotalCount start ---*");
+		int result = session.selectOne("ykmGetCntTotalCount", ykmBoardComm);
+		System.out.println("YkmBoardDaoImpl getCntTotalCount result"+result);
+		return result;
+	}
+
+	// 전체 검색
+	@Override
+	public List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl getCntSearchList start ---*");
+		List<YkmBoardComm> getCntSearchList = session.selectList("ykmGetCntSearchList", ykmBoardComm);
+		System.out.println("YkmBoardDaoImpl getCntSearchList getCntSearchList result");
+		return getCntSearchList;
+	}
+
+	@Override
+	public int writeCntPost(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmBoardDaoImpl writeCntPost start ---*");
+		int writeCntPost = session.insert("ykmWriteCntPost", ykmBoardComm);
+		return writeCntPost;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

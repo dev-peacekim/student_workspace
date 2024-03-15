@@ -33,8 +33,12 @@
 	}
 }
 
-.search-form {
+/* .search-form {
 	width: 100%;
+} */
+.search-form select{
+	/* width: 100%; */
+	width: 140px;
 }
 
 .search-form input {
@@ -83,6 +87,7 @@
 .card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	min-width: 660px !important; 
 }
 
 .card-body {
@@ -207,4 +212,9 @@ tbody th, tbody td {
 a, a:hover, a:link, a:active, a:hover, a:visited {
 	color: black;
     text-decoration: none; 
+}
+.breadcrumb {
+	font-size: 16px;
+	color: #7f7f7f;
+	margin: 5px;
 }

@@ -1,9 +1,9 @@
 /* 댓글 REST API */
 
-let seesion_user_no, seesion_user_nic, seesion_user_profile;
-
 
 // 세션에 저장된 유저 정보 불러오기
+let seesion_user_no, seesion_user_nic, seesion_user_profile;
+
 function getUserInfo() {
 	$.ajax({
 		url: "/sessionData",
@@ -39,6 +39,7 @@ function getCommentList(cboard_no) {
 		success: function(data) {
 			let listFilter = data.filter(comment => comment.creply_delete_chk === 0);
 			updateCommentView(listFilter);
+		
 		},
 		error: function(error) {
 			console.log('리스트 오류 발생!', error);
@@ -55,7 +56,10 @@ let commentWriter;
 function updateCommentView(data) {
 	let replyList = '';
 	data.forEach(function(comment) {
-
+		
+		
+		const paddingValue = comment.creply_indent * 30;
+		
 		console.log(comment);
 
 		const originalDate = new Date(comment.comm_update_date);
@@ -70,7 +74,9 @@ function updateCommentView(data) {
 		commentWriter = comment.user_no // commentWriter: 댓글 작성자, seesion_user_no 로그인 한 유저정보
 		console.log('commentWriter'+commentWriter);      
 
-		replyList += `<div class="comment-card" data-creply-no="${comment.creply_no}">
+		replyList += `
+				<div class="groupBy" style="padding-left: ${paddingValue}px;"> 
+				<div class="comment-card" data-creply-no="${comment.creply_no}">
 				<div class="comment-header">
 				<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
 				<div class="comment-user-container">
@@ -98,7 +104,7 @@ function updateCommentView(data) {
 			</div>
 				<div id="replyContainer_${comment.creply_no}" class="replyContainer_${comment.creply_no} replyBox"></div>
 			</div>
-
+			</div>
 	`;
 	
 	});
@@ -303,7 +309,6 @@ function writeReply(creply_no) {
 		data: JSON.stringify(replyData),
 		success: function(data) {
 			console.log('댓글이 성공적으로 등록되었습니다', data);
-			getReplyList(replyData.creply_no);
 		},
 		error: function(error) {
 			console.log('댓글 등록 중 오류 발생!', error);
@@ -313,65 +318,5 @@ function writeReply(creply_no) {
 	hideReplyBox(creply_no);
 	
 }
-
-
-
-
-/*
-
-function getReplyList(creply_no) {
-	$.ajax({
-		url: "/replys?creply_no="+creply_no,
-		type: "GET",
-		success: function(data) {
-			updateReplyView(data);
-			console.log('getReplyList 호출 성공');
-		},
-		error: function(error) {
-			console.log('대댓글 리스트를 불러오던 중 오류 발생!', error);
-		}
-	})
-}
-
-function updateReplyView(data) {
-	console.log('updateReplyView1 호출 성공!');
-	let replyList = '';
-	data.forEach(function (reply) {
-		replyList += `<div class="reply-header">
-					   	<i class="bi bi-person-circle reply-user-profile" alt="유저 프로필"></i>
-					    <div class="reply-user-container">
-					        <p class="card-title reply-user-name"><a href="#">닉네임</a></p>
-					        <p class="card-subtitle reply-updated-at">작성일 2024.03.14 오후 04:55</p>
-					    </div>
-					</div>
-					<div class="btnContainer">
-						<button type="button" id="check" class="checkButton_${reply.creply_no}" onclick="updateComment('${reply.creply_no}', document.querySelector('#inputField_${reply.creply_no}').value)" style="display : none">
-							<i class="bi bi-check2-circle"></i> 확인
-						</button>
-						<button type="button" class="modifyComment_${reply.creply_no} badge bg-light text-dark" value="${reply.creply_no}" onclick="buttonStatus('${reply.creply_no}')" style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
-							<i class="bi bi-pencil-fill"></i> 수정
-						</button>
-						<button type="button" class="deleteComment badge bg-light text-dark" onclick="deleteComment('${reply.creply_no}')" style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
-							<i class="bi bi-trash"></i> 삭제
-						</button>
-						<button type="button" class="replyBtn_${reply.creply_no} badge bg-light text-dark" onclick="createReplyBox('${reply.creply_no}')">
-							<i class="bi bi-reply-fill"></i>
-						</button>
-					</div>
-				    <div class="reply-body">
-				  	  <input type="text" id="re-reply_" value="" class="form-control" required="required" />
-				    </div>
-				    <div class="replyBtnContainer">
-				        <button id="replyResetBtn_${reply.creply_no}" type="button" onclick="hideReplyBox()">취소</button>
-				        <button id="replySubmitBtn_${reply.creply_no}" type="submit" onclick="writeReply()">답글</button>
-				    </div>
-			 `;
-	});
-	
-
-}
-
-
-*/
 
 // 댓글 등록이 완료되었습니다 아님 댓글 달린 쪽으로 화면 포인트주기...? 

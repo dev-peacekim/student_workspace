@@ -60,10 +60,9 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>공모전 스터디 게시판</h1>
-			<nav style="--bs-breadcrumb-divider: '-';">
+			<h1>정보게시판</h1>
+			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
 					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
 				</ol>
@@ -132,7 +131,7 @@
 						<tbody>
 							<c:forEach items="${getPostList}" var="postList" varStatus="loop">
 								<tr id="postTable">
-									<th scope="row" style="width: 86px">${loop.index+1}</th>
+									<th scope="row">${loop.index+1}</th>
 									<td>
 										<c:choose>
 											<c:when test="${postList.comm_mid2 == 10}">
@@ -156,7 +155,7 @@
 				<!-- 글쓰기 -->
 				<div class="community-bottom">
 					<div class="btn-container">
-						<a href="/writeForm"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+						<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
 					</div>
 
 					<!-- ======= Pagination ======= -->

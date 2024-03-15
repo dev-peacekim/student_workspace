@@ -69,7 +69,7 @@
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>공모전 스터디 게시판</h1>
-			<nav style="--bs-breadcrumb-divider: '-';">
+			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
@@ -176,7 +176,6 @@
 					<!-- AJAX 비동기 갱신 -->
 							
 					<!-- 대댓글 -->
-					
 					
 			</div>
 

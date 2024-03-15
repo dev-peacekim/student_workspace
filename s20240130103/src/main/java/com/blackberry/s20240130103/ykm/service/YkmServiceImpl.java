@@ -30,37 +30,39 @@ public class YkmServiceImpl implements YkmService {
 
 	/* 스터디 게시판 */
 	
-	// 게시판 글쓰기
+	// 게시판 글쓰기, 파일 업로드
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
 		
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
 		System.out.println("test22 : " + ykmBoardComm);
-		for (MultipartFile file : fileList) {
-			// 파일 저장
-			String fileName = file.getOriginalFilename();
-			String fileExt = fileName.substring(fileName.lastIndexOf("."));
-			String fileUuid = UUID.randomUUID().toString()+ fileExt;
+		if(fileList.isEmpty()) {
+			for (MultipartFile file : fileList) {
+				// 파일 저장
+				String fileName = file.getOriginalFilename();
+				String fileExt = fileName.substring(fileName.lastIndexOf("."));
+				String fileUuid = UUID.randomUUID().toString()+ fileExt;
+				
+				File files = new File(studyFilePath, fileUuid);
+				try {
+					Path uploadPath = Paths.get(studyFilePath + File.separator + fileUuid);
+					
+					Files.copy(file.getInputStream(), files.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					
+					YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
+					System.out.println("YkmServiceImpl writePost ykmBoardCommFile : "+ykmBoardCommFile);
+					ykmBoardCommFile.setCboard_no(ykmBoardComm.getCboard_no());
+					System.out.println("YkmServiceImpl writePost ykmBoardComm.getCboard_no() "+ykmBoardComm.getCboard_no());
+					ykmBoardCommFile.setCboard_file_name(fileUuid);
+					ykmBoardCommFile.setCboard_file_user_name(fileName);
+					
+					ykmBoardDao.saveFileList(ykmBoardCommFile);
 			
-			File files = new File(studyFilePath, fileUuid);
-			try {
-				Path uploadPath = Paths.get(studyFilePath + File.separator + fileUuid);
-				
-				Files.copy(file.getInputStream(), files.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				
-				YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
-				System.out.println("YkmServiceImpl writePost ykmBoardCommFile : "+ykmBoardCommFile);
-				ykmBoardCommFile.setCboard_no(ykmBoardComm.getCboard_no());
-				System.out.println("YkmServiceImpl writePost ykmBoardComm.getCboard_no() "+ykmBoardComm.getCboard_no());
-				ykmBoardCommFile.setCboard_file_name(fileUuid);
-				ykmBoardCommFile.setCboard_file_user_name(fileName);
-				
-				ykmBoardDao.saveFileList(ykmBoardCommFile);
-		
-			} catch (Exception e) {
-				e.printStackTrace();
-                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
+				} catch (Exception e) {
+					e.printStackTrace();
+	                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
+				}
 			}
 		}
 		return result;
@@ -79,18 +81,8 @@ public class YkmServiceImpl implements YkmService {
 	// 게시글 보여주기
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
-		
 		return ykmBoardDao.getPost(cboard_no);
 	}
-	
-	/*
-	Iterator<YkmBoardComm> boardCommIt = getPostList.iterator();
-	
-	while(boardCommIt.hasNext()) {
-		YkmBoardComm board = boardCommIt.next();
-		board.setCountComment(ykmBoardDao.countComment(board.getCboard_no()));
-	}
-	*/
 	
 	// 글 수정
 	@Override
@@ -120,15 +112,6 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updateRecruitment(ykmBoardComm);
 	}
 
-	
-	// 파일 불러오기
-//	@Override
-//	public Map<String, Object> getFileList(int cboard_no) {
-//		System.out.println("YkmServiceImpl getFileList start---*");
-//		Map<String, Object> getFileList = ykmBoardDao.getFileList(cboard_no);
-//		return getFileList;
-//	}
-//
 	@Override
 	public List<YkmBoardCommFile> getFileList(int cboard_no) {
 		System.out.println("YkmServiceImpl getFileList start---*");
@@ -136,47 +119,7 @@ public class YkmServiceImpl implements YkmService {
 		return getFileList;
 	}
 
-
-	
-	
-	// Reply RESTful API
-
-	@Override
-	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
-		List<YkmBoardCommReply> getCommentList = ykmBoardDao.getCommentList(cboard_no);
-		System.err.println("YkmServiceImpl getCommentList result --> " + getCommentList.size());
-		return getCommentList;
-	}
-
-	@Override
-	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
-		return ykmBoardDao.writeComment(ykmBoardCommReply);
-	}
-
-	@Override
-	public int deleteComment(int creply_no) {
-		return ykmBoardDao.deleteComment(creply_no);
-	}
-
-	@Override
-	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
-		return ykmBoardDao.updateComment(ykmBoardCommReply);
-	}
-
-	@Override
-	public int countComment(int cboard_no) {
-		return ykmBoardDao.countComment(cboard_no);
-	}
-
-
-	@Override
-	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl getSearchList start ---*");
-		List<YkmBoardComm> getSearchList = ykmBoardDao.getSearchList(ykmBoardComm);
-		System.out.println("YkmServiceImpl getSearchList result ===> "+ getSearchList.size());
-		return getSearchList;
-	}
-
+	// 페이징 전체 게시글 조회
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getTotalCount start ---*");
@@ -184,8 +127,52 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getTotalCount result : "+result);
 		return result;
 	}
+	
+	// 검색
+	@Override
+	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getSearchList start ---*");
+		List<YkmBoardComm> getSearchList = ykmBoardDao.getSearchList(ykmBoardComm);
+		System.out.println("YkmServiceImpl getSearchList result ===> "+ getSearchList.size());
+		return getSearchList;
+	}
+		
+	/* 댓글 RESTful API */
+	
+	// 댓글 리스트
+	@Override
+	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
+		List<YkmBoardCommReply> getCommentList = ykmBoardDao.getCommentList(cboard_no);
+		System.err.println("YkmServiceImpl getCommentList result --> " + getCommentList.size());
+		return getCommentList;
+	}
 
-	/* 대댓글 */
+	// 댓글 등록
+	@Override
+	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
+		return ykmBoardDao.writeComment(ykmBoardCommReply);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public int deleteComment(int creply_no) {
+		return ykmBoardDao.deleteComment(creply_no);
+	}
+	
+	// 댓글 수정
+	@Override
+	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
+		return ykmBoardDao.updateComment(ykmBoardCommReply);
+	}
+	
+	// 댓글 개수 카운트
+	@Override
+	public int countComment(int cboard_no) {
+		return ykmBoardDao.countComment(cboard_no);
+	}
+
+	/* 대댓글 등록 */
+	// 코드 중복이므로 수정 필요
 	@Override
 	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmServiceImpl writeReply start ---*");
@@ -194,7 +181,7 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-
+	// 코드 중복이므로 수정 필요
 	@Override
 	public List<YkmBoardCommReply> getReplyList(int creply_no) {
 		System.out.println("YkmServiceImpl getReplyList start ---*");
@@ -203,12 +190,32 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 
+	
+	/* 공모전 리스트 */
+	@Override
+	public List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getCntPostList start ---*");
+		List<YkmBoardComm> getCntPostList = ykmBoardDao.getCntPostList(ykmBoardComm);
+		System.out.println("YkmServiceImpl getCntPostList result");
+		return getCntPostList;
+	}
 
+	// 전체 게시글 카운트
+	@Override
+	public int getCntTotalCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getCntTotalCount start ---*");
+		int result = ykmBoardDao.getCntTotalCount(ykmBoardComm);
+		System.out.println("YkmServiceImpl getCntTotalCount result : "+result);
+		return result;
+	}
 
-
-
-
-
+	// 공모전 글 전체 검색
+	@Override
+	public List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getCntSearchList start ---*");
+		List<YkmBoardComm> getCntSearchList = ykmBoardDao.getCntSearchList(ykmBoardComm);
+		return getCntSearchList;
+	}
 
 	
 }

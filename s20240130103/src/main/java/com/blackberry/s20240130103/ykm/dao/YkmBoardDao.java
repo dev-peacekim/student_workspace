@@ -10,6 +10,8 @@ import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
 
 public interface YkmBoardDao {
+	
+	/* 스터디 게시판 */
 	int writePost(YkmBoardComm ykmBoardComm);
 
 	List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm);
@@ -27,8 +29,7 @@ public interface YkmBoardDao {
 	int saveFileList(YkmBoardCommFile ykmBoardCommFile); // 파일 DB 저장
 	
 	
-	/* REST API	*/
-	// 댓글
+	/* 스터디 게시판 댓글 REST API	*/
 	List<YkmBoardCommReply> getCommentList(int cboard_no);
 
 	int writeComment(YkmBoardCommReply ykmBoardCommReply);
@@ -41,14 +42,24 @@ public interface YkmBoardDao {
 
 	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
 
-	int getTotalCount(YkmBoardComm ykmBoardComm);
+	int getTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 게시글 카운트
 
-	List<YkmBoardCommFile> getFileList(int cboard_no);
+	List<YkmBoardCommFile> getFileList(int cboard_no); // 파일 리스트 불러오기
 
-	// 대댓글
-	int writeReply(YkmBoardCommReply ykmBoardCommReply);
+	
+	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 > 중복이므로 수정 필요
 
-	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기
+	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기 > 중복이므로 수정 필요
+
+	
+	/* 공모전 게시판 */
+	List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm); // 게시판 리스트 조회
+
+	int getCntTotalCount(YkmBoardComm ykmBoardComm); // 전체 게시글 카운트
+
+	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 전체 검색
+
+	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
 
 	
 

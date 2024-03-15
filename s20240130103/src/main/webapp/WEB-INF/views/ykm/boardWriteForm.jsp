@@ -97,6 +97,8 @@ window.onload = function() {
 					<p>글쓰기</p>
 				</div>
 				<form action="writePost" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="comm_mid" value="${comm_mid}">
+					<input type="hidden" name="comm_big" value="${comm_big}">
 					<div class="community-body">
 						<!-- 제목 -->
 						<div class="title-input">

@@ -33,8 +33,9 @@
 	}
 }
 
-.search-form {
-	width: 100%;
+.search-form select{
+	/* width: 100%; */
+	width: 140px;
 }
 
 .search-form input {
@@ -45,7 +46,8 @@
 	padding: 7px 38px 7px 8px;
 	border-radius: 3px;
 	transition: 0.3s;
-	width: 100%;
+	width: 360px;
+	
 }
 
 .search-form input:focus, .search-form input:hover {
@@ -65,6 +67,7 @@
 	color: #012970;
 }
 
+
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
@@ -77,12 +80,22 @@
 	font-size: large;
 }
 
+a, a:hover, a:link, a:active, a:hover, a:visited {
+	color: black;
+    text-decoration: none; 
+}
+.breadcrumb {
+	font-size: 16px;
+	color: #7f7f7f;
+	margin: 5px;
+}
 /*--------------------------------------------------------------
 # section
 --------------------------------------------------------------*/
 .card {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	min-width: 660px; 
 }
 
 .card-body {
@@ -91,7 +104,8 @@
 	width: 100%;
 	height: 100%;
 	max-height: 100%;
-	min-height: 700px;
+	min-height: 660px;
+	padding-right: 24px;
 }
 
 .card-title {
@@ -107,10 +121,9 @@
 
 .contest-title {
 	font-weight: bold;
-	font-size: 16px;
-	margin-left: 12px;
-	margin-bottom: 24px;
-	color: #616161;
+	font-size: 18px;
+	color: #4154f1;
+	padding-bottom: 10px;
 }
 
 .community-header {
@@ -127,7 +140,7 @@
 	position: absolute;
     bottom: 0;
     right: 0;
-} 
+}
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/

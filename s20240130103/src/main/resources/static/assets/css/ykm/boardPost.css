@@ -376,9 +376,6 @@ section * {
 	text-align: left;
 	flex-direction: row;
 }
-.reply-user-container {
-	
-}
 .reply-user-profile {
 	margin-right: 10px;
 	font-size: 2em;
@@ -407,8 +404,9 @@ section * {
 .re-reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
 }
-
-
+.groupBy {
+	background-color: #f8f9fa;
+}
 /*--------------------------------------------------------------
 # 삭제 확인 팝업
 --------------------------------------------------------------*/

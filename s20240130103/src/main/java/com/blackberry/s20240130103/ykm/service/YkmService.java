@@ -12,31 +12,33 @@ import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 public interface YkmService {
 
-	// 게시판 
-	int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList);
-
-	List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm);
+	/* 스터디 게시판 */
 	
-	YkmBoardComm getPost(int cboard_no);
+	int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList); // 글작성
 	
-	int updatePost(YkmBoardComm ykmBoardComm);
-
-	int deletePost(int cboard_no);
+	List<YkmBoardComm> getPostList(YkmBoardComm ykmBoardComm); // 전체 게시글 리스트 조회
 	
-	int increseViewCount(int cboard_no); // 조회수
+	YkmBoardComm getPost(int cboard_no); // 글 보여주기
+	
+	int updatePost(YkmBoardComm ykmBoardComm); // 글 수정
 
-	//Map<String, Object> getFileList(int cboard_no); // 파일 보여주기
-	List<YkmBoardCommFile> getFileList(int cboard_no);
+	int deletePost(int cboard_no); // 글 삭제
+	
+	int increseViewCount(int cboard_no); // 글 조회수
+
+	List<YkmBoardCommFile> getFileList(int cboard_no); // 게시글에 파일 목록 보여주기
+	
+	int getTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 글 카운트
 	
 	
-	// 댓글 
-	List<YkmBoardCommReply> getCommentList(int cboard_no);
+	/* 스터디 게시판 댓글 */
+	List<YkmBoardCommReply> getCommentList(int cboard_no); // 댓글 리스트 조회
 
-	int writeComment(YkmBoardCommReply ykmBoardCommReply);
+	int writeComment(YkmBoardCommReply ykmBoardCommReply); // 댓글 작성
 
-	int deleteComment(int creply_no);
+	int deleteComment(int creply_no); // 댓글 삭제
 
-	int updateComment(YkmBoardCommReply ykmBoardCommReply);
+	int updateComment(YkmBoardCommReply ykmBoardCommReply); // 댓글 수정
 
 	int countComment(int cboard_no); // 댓글 개수 카운트
 
@@ -44,13 +46,16 @@ public interface YkmService {
 
 	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
 
-	int getTotalCount(YkmBoardComm ykmBoardComm);
-
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 작성
 
 	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기
 
+	
+	/* 공모전 게시판 */
+	List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm); // 게시글 리스트
+	
+	int getCntTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 게시글 카운트
 
-
+	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 공모전 전체 검색
 	
 }
