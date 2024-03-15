@@ -401,11 +401,15 @@ h6 {
 
 .header-nav .messages .message-item a {
   display: flex;
+  align-items: center;
 }
 
 .header-nav .messages .message-item img {
   margin: 0 20px 0 10px;
-  max-height: 40px;
+  max-height: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  min-width: 50px;
 }
 
 .header-nav .messages .message-item h4 {
@@ -413,12 +417,14 @@ h6 {
   font-weight: 600;
   margin-bottom: 5px;
   color: #444444;
+  font-family:'NanumSquare', sans-serif;
 }
 
 .header-nav .messages .message-item p {
   font-size: 13px;
   margin-bottom: 3px;
   color: #919191;
+  font-family:'NanumSquare', sans-serif;
 }
 
 .header-nav .messages .message-item:hover {
