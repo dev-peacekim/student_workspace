@@ -5,14 +5,22 @@
 
 	<select id="slreplyBoardFreeAskList" parameterType="int"
 		resultType="LslCommReply">
-		SELECT bcr.* , u.*
-		FROM BOARD_COMM_REPLY bcr , USERS u
-		WHERE
+		SELECT bcr.*, u.*
+		FROM BOARD_COMM_REPLY bcr
+		JOIN USERS u ON
 		bcr.USER_NO = u.USER_NO
-		AND bcr.CREPLY_DELETE_CHK = 0
-		AND cboard_no =#{cboard_no}
-		ORDER BY bcr.CREPLY_DATE asc
-		
+		WHERE bcr.CREPLY_DELETE_CHK = 0
+		AND
+		bcr.cboard_no = #{cboard_no}
+		ORDER BY
+		bcr.CREPLY_DATE ASC,
+		CASE
+		WHEN bcr.CREPLY_INDENT = 0 THEN bcr.CREPLY_NO
+		ELSE bcr.CREPLY_GROUP
+		END,
+		bcr.CREPLY_INDENT,
+		bcr.CREPLY_LEVEL
+
 	</select>
 
 
@@ -49,8 +57,7 @@
 		FROM BOARD_COMM bc ,
 		BOARD_COMM_REPLY bcr
 		WHERE bc.CBOARD_NO = bcr.CBOARD_NO
-		AND bc.CBOARD_NO
-		= #{CBOARD_NO}
+		AND bc.CBOARD_NO = #{CBOARD_NO}
 		AND bcr.CREPLY_DELETE_CHK = 0
 	</select>
 
@@ -59,8 +66,8 @@
 	<!-- 대댓글 -->
 	<insert id="slInsertBoardReReply" parameterType="LslCommReply">
 		INSERT INTO
-		board_comm_reply
-		(creply_no,
+		board_comm_reply (
+		creply_no,
 		creply_content,
 		creply_date,
 		creply_group,
@@ -69,29 +76,29 @@
 		cboard_no,
 		user_no,
 		creply_delete_chk,
-		comm_update_date)
+		comm_update_date
+		)
 		VALUES (
 		SEQ_BOARD_COMM_REPLY.NEXTVAL,
 		#{creply_content},
 		SYSDATE,
 		#{creply_group},
-		(SELECT
-		NVL(MAX(creply_level), 0)+1 FROM board_comm_reply WHERE creply_group
-		=
-		#{creply_group}),
+		(SELECT NVL(MAX(creply_level), 0) + 1 FROM board_comm_reply WHERE
+		creply_group = #{creply_group}),
 		1,
 		#{cboard_no},
 		#{user_no},
 		0,
-		SYSDATE)
+		SYSDATE
+		)
 	</insert>
 
 	<select id="slRepliesAfterParentList"
 		parameterType="LslCommReply">
 		SELECT *
 		FROM BOARD_COMM_REPLY
-		WHERE CREPLY_GROUP = #{creply_group}
-		AND CREPLY_INDENT > 0;
+		WHERE CREPLY_DELETE_CHK = 0
+		AND CREPLY_INDENT > 0
 	</select>
 
 	<update id="slupdateReply" parameterType="LslCommReply">

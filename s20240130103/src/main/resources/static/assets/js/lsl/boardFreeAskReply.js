@@ -37,6 +37,7 @@ let cboardNo = null;
 function replyBoardFreeAskList(cboard_no) {
 	if (cboard_no === null) {
 		cboard_no = cboardNo;
+		console.log('cboard_no :' +cboard_no);
 	}
 	$.ajax({
 		url: "/reply?cboard_no=" + cboard_no,
@@ -106,7 +107,7 @@ function updateReplyList(data) {
 
                 <div id="addComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
                     <textarea id="addCommentText_${lslCommReply.creply_no}"  class="form-control"></textarea>
-                    <button type="button" class="btn addReply" id="addReply" data-creply-no="${lslCommReply.creply_no}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-level="${lslCommReply.creply_level}"  onclick="addReply(${lslCommReply.creply_no},${lslCommReply.creply_group});">저장</button>
+                    <button type="button" class="btn addReply" id="addReply" data-cboard-no="${lslCommReply.cboard_no}" data-creply-no="${lslCommReply.creply_no}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-level="${lslCommReply.creply_level}"  onclick="addReply(${lslCommReply.creply_no},${lslCommReply.creply_group});">저장</button>
                     <button type="button" class="btn replyCancle" onclick="toggleReply('${lslCommReply.creply_no}');">취소</button>
                 </div>
             </div>
@@ -173,7 +174,8 @@ let pcreply_group;
 $(document).on("click", ".brBtn", function() {
 	//pcreply_no = $(this).data("creply-no");
 	pcreply_group = $(this).data("creply-group");
-	//cboard_no = $(this).data("cboard-no");
+	cboard_no = $(this).data("cboard-no");
+	console.log('cboard_no : ' + cboard_no);
 });
 
 
@@ -192,7 +194,7 @@ $(document).on('click', ".addReply", function(e) {
         creply_indent : e.target.dataset['creplyIndent'],
         creply_level : e.target.dataset['creplyLevel'],
         creply_no : e.target.dataset['creplyNo'],
-        cboard_no : cboardNo
+        cboard_no : cboard_no
     };
 
     addReply(reReplyData);
@@ -211,7 +213,6 @@ function addReply(reReplyData) {
             console.log(data);
             if (data > 0) {
                 console.log('대댓글 데이터 넘어옴');
-                // 대댓글 등록 후 댓글 리스트 업데이트
                 replyBoardFreeAskList(reReplyData.cboard_no);
             }
         },

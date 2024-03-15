@@ -112,7 +112,7 @@ public class LslRestController {
 	    lslCommReply.setCboard_no(cboard_no);
 	    lslCommReply.setCreply_group(cPreply_group);
 	    lslCommReply.setCreply_indent(creply_indent +1);
-	    lslCommReply.setCreply_level(creply_level + 1);
+	    //lslCommReply.setCreply_level(creply_level + 1);
 	    
 	    int boardReReplyResult = ls.insertBoardReReply(lslCommReply);
 	    
@@ -122,11 +122,11 @@ public class LslRestController {
 	    
 	    // 대댓글 리스트 
 	    
-	    List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
+	    //List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
 		   
-		   for (LslCommReply reply : repliesAfterParent) {
-		        ls.updateReply(reply); 
-		    }
+		  // for (LslCommReply reply : repliesAfterParent) {
+		    //    ls.updateReply(reply); 
+		    //}
 	 
 
 	  return boardReReplyResult;
@@ -135,7 +135,8 @@ public class LslRestController {
 
 	
 	
-	
+	// 대대댓글 업데이트 
+	// 사용자 권한 막기
 	
 	
 

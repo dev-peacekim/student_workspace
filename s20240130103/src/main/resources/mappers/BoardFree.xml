@@ -133,6 +133,7 @@ SELECT *
 		select bc.*
 		from board_comm bc
 		where bc.cboard_no = #{cboard_no}
+		AND bc.user_no = #{user_no}
 	</select>
 
 	<!-- 게시판 파일 정보 && 파일 상세 정보 표시 -->
