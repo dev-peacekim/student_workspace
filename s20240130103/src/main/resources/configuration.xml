@@ -29,5 +29,6 @@
       <typeAlias alias="KphUserTask" type="com.blackberry.s20240130103.kph.model.KphUserTask"/>
       <typeAlias alias="KphBoardProject" type="com.blackberry.s20240130103.kph.model.KphBoardProject"/>
       <typeAlias alias="KphBoardProjectReply" type="com.blackberry.s20240130103.kph.model.KphBoardProjectReply"/>
+      <typeAlias alias="KphBoardProjectFile" type="com.blackberry.s20240130103.kph.model.KphBoardProjectFile"/>
    </typeAliases>
 </configuration>

@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.KphBoardProjectReplyMapper">
 					
-	
+	<select id="KphBoardProjectReplyList" parameterType="KphBoardProject" resultType="KphBoardProjectReply">
+		SELECT *
+		FROM BOARD_PROJECT_REPLY
+		WHERE PBOARD_NO = #{pboard_no}
+		ORDER BY PREPLY_GROUP desc, PREPLY_LEVEL asc
+	</select>
 	
 </mapper>

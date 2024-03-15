@@ -276,6 +276,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 			board = session.selectOne("kphGetBoardProject", kphBoardProject);
 			board.setUser(session.selectOne("KphGetUserByUserNo", board.getUser_no()));
 			board.setBoardProjectReplyList(session.selectList("KphBoardProjectReplyList", board));
+			board.setBoardProjectFileList(session.selectList("KphBoardProjectFileList", board));
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
