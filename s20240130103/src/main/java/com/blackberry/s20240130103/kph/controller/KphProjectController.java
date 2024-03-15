@@ -215,7 +215,6 @@ public class KphProjectController {
 		kphUserProject.setUser_no(user_no);
 		
 		int isUserInProject = kphProjectService.isUserInProject(kphUserProject);
-		System.out.println(isUserInProject);
 		
 		return isUserInProject;
 	}
@@ -459,6 +458,11 @@ public class KphProjectController {
 		
 		if (isUserInProject(request) > 0) {
 			KphBoardProject board = kphProjectService.getBoardProject(kphBoardProject);
+			model.addAttribute("board", board);
+			model.addAttribute("fileList", board.getFileList());
+			model.addAttribute("replyListGroups", board.getReplyListGroupByGroup());
+			model.addAttribute("replyListSize", board.getReplyListGroupByGroup().size());
+			model.addAttribute("project_no", kphBoardProject.getProject_no());
 			resultPage = "kph/detailBoardProject";
 		}
 		

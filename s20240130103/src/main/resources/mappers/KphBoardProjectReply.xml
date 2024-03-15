@@ -9,4 +9,19 @@
 		ORDER BY PREPLY_GROUP desc, PREPLY_LEVEL asc
 	</select>
 	
+	<select id="KphReplyGroupListByPboardNo" parameterType="java.lang.Long" resultType="java.lang.Long">
+		SELECT PREPLY_GROUP
+		FROM (SELECT * 
+				  FROM BOARD_PROJECT_REPLY 
+				  WHERE PBOARD_NO = #{pboard_no} 
+				  ORDER BY PREPLY_GROUP desc, PREPLY_LEVEL ASC)
+		GROUP BY PREPLY_GROUP
+	</select>
+	
+	<select id="KphBoardProjectReplyCnt" parameterType="java.lang.Long" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_PROJECT_REPLY
+		WHERE PBOARD_NO = #{pboard_no}
+	</select>
+	
 </mapper>

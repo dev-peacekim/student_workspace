@@ -5,7 +5,13 @@
 	<select id="kphGetBoardProject" parameterType="KphBoardProject" resultType="KphBoardProject">
 		SELECT *
 		FROM BOARD_PROJECT
-		WHERE PBOARD_NO = #{PBOARD_NO}
+		WHERE PBOARD_NO = #{pboard_no}
 	</select>
+	
+	<update id="KphIncreaseBoardProjectCnt" parameterType="KphBoardProject">
+		UPDATE BOARD_PROJECT
+		SET PBOARD_CNT = PBOARD_CNT + 1
+		WHERE PBOARD_NO = #{pboard_no}
+	</update>
 	
 </mapper>

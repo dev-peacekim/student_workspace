@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -13,6 +15,8 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectFile;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -270,19 +274,55 @@ public class KphProjectDaoImp implements KphProjectDao {
 	@Override
 	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectDaoImp getBoardProject start...");
+		
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		KphBoardProject board = new KphBoardProject();
+		KphBoardProject boardProject = new KphBoardProject();
+		
 		try {
-			board = session.selectOne("kphGetBoardProject", kphBoardProject);
-			board.setUser(session.selectOne("KphGetUserByUserNo", board.getUser_no()));
-			board.setBoardProjectReplyList(session.selectList("KphBoardProjectReplyList", board));
-			board.setBoardProjectFileList(session.selectList("KphBoardProjectFileList", board));
+			session.update("KphIncreaseBoardProjectCnt", kphBoardProject);
+			boardProject = session.selectOne("kphGetBoardProject", kphBoardProject);
+			System.out.println("kphGetBoardProject =>" + boardProject);
+			boardProject.setUser(session.selectOne("KphGetUserByUserNo", boardProject.getUser_no()));
+			System.out.println("KphGetUserByUserNo =>" + boardProject);
+			boardProject.setFileList(session.selectList("KphBoardProjectFileList", boardProject));
+			System.out.println("KphBoardProjectFileList =>" + boardProject);
+			
+			List<Long> replyGroupList = session.selectList("KphReplyGroupListByPboardNo", boardProject.getPboard_no());
+			List<KphBoardProjectReply> replyList = session.selectList("KphBoardProjectReplyList", boardProject);
+			List<List<KphBoardProjectReply>> replyMapGroupByGroup = new ArrayList<>();
+			Iterator<Long> replyGroupListIt = replyGroupList.iterator();
+			
+			while (replyGroupListIt.hasNext()) {
+				Long replyGroupNo = replyGroupListIt.next();
+				List<KphBoardProjectReply> madeReplyList = new ArrayList<>();
+				
+				Iterator<KphBoardProjectReply> replyListIt = replyList.iterator();
+				
+				while (replyListIt.hasNext()) {
+					KphBoardProjectReply reply = replyListIt.next();
+					reply.setUser(session.selectOne("KphGetUserByUserNo", reply.getUser_no()));
+
+					if(reply.getPreply_group() == replyGroupNo) {
+						madeReplyList.add(reply);
+					}
+				}
+				
+				replyMapGroupByGroup.add(madeReplyList);
+				System.out.println("replyMapGroupByGroup =>" + replyMapGroupByGroup.get(0));
+				
+			}
+			
+			boardProject.setReplyListGroupByGroup(replyMapGroupByGroup);
+			
+			boardProject.setReplyCnt(session.selectOne("KphBoardProjectReplyCnt", kphBoardProject.getPboard_no()));
+			
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(txStatus);
 		}
-		return board;
+		
+		return boardProject;
 	}
 
 }

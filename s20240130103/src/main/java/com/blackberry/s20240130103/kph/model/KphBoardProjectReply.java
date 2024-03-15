@@ -1,5 +1,7 @@
 package com.blackberry.s20240130103.kph.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -15,5 +17,8 @@ public class KphBoardProjectReply {
 	private Long user_no;
 	private int preply_delete_chk;
 	private String preply_update_date;
+	
+	// 조회용
+	private KphUsers user;
 	
 }

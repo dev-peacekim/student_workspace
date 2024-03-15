@@ -77,12 +77,12 @@
 				<div class="top-btn">
 					<form action="detailProject" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-						<button type="button" class="project-home-btn btn btn-primary">프로젝트
+						<button type="button" class="project-home-btn btn btn-secondary">프로젝트
 						홈</button>
 					</form>
 					<form action="boardProject" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-						<button type="submit" class="project-board-btn btn btn-secondary">공유
+						<button type="submit" class="project-board-btn btn btn-primary">공유
 						게시판</button>			
 					</form>
 					<form action="proejctSchedule" method="get">
@@ -92,40 +92,50 @@
 				</div>
 			</div>
 			<div class="post">
-				<div class="post-title">게시글 제목</div>
+				<div class="post-title">${board.pboard_title}</div>
 				<div class="post-user">
-					<img src="assets/img/profile-img.jpg" alt="Profile"
-						class="rounded-circle">
+					<c:if test="${empty board.user.user_profile }">
+						<img
+							src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+							alt="Profile" class="rounded-circle">
+					</c:if>
+					<c:if test="${not empty board.user.user_profile }">
+						<img
+							src="${pageContext.request.contextPath}/upload/userImg/${board.user.user_profile}"
+							alt="Profile" class="rounded-circle">
+					</c:if>
 					<div class="post-user-detail">
-						<p class="user-name">김평화</p>
-						<p class="user-write-day">1일전</p>
+						<p class="user-name">${board.user.user_name}</p>
+						<c:if test="${board.pboard_update_date == null }">
+							<p class="user-write-day">${board.pboard_date}</p>
+						</c:if>
+						<c:if test="${board.pboard_update_date != null }">
+							<p class="user-write-day">${board.pboard_update_date}</p>
+						</c:if>
 					</div>
 				</div>
-				<div class="post-content">게시글 내용입니다.게시글 내용입니다.게시글 내용입니다.게시글
-					내용입니다.게시글 내용입니다.게시글 내용입니다.게시글 내용입니다. 게시글 내용입니다.게시글 내용입니다.게시글
-					내용입니다.게시글 내용입니다.</div>
+				<div class="post-content">
+					${board.pboard_content }
+				</div>
 				<div class="post-meta">
 					<div class="count">
 						<div class="view-count">
-							<i class="bi bi-eye-fill"></i>30
+							<i class="bi bi-eye-fill"></i>${board.pboard_cnt }
 						</div>
 						<div class="reply-count">
-							<i class="bi bi-card-text"></i>2
+							<i class="bi bi-card-text"></i>${board.replyCnt}
 						</div>
 					</div>
 					<div class="attached-file">
 						<div class="attached-file-title">첨부파일</div>
 						<div class="attached-file-list">
-							<div class="file">
-								<a
-									href="boardProjectFileDownload?pboard_no=31&pboard_file_no=192"><i
-									class="bi bi-file-earmark-arrow-down"></i> please.jpg</a>
-							</div>
-							<div class="file">
-								<a
-									href="boardProjectFileDownload?pboard_no=31&pboard_file_no=192"><i
-									class="bi bi-file-earmark-arrow-down"></i> please.jpg</a>
-							</div>
+							<c:forEach var="file" items="${fileList }">
+								<div class="file">
+									<a
+										href="boardProjectFileDownload?pboard_no=${board.pboard_no }&pboard_file_no=${file.pboard_file_no}"><i
+										class="bi bi-file-earmark-arrow-down"></i> ${file.pboard_file_user_name }</a>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -138,76 +148,102 @@
 						<button type="button" class="btn btn-primary reply-write-btn">등록</button>
 					</div>
 					<div class="reply-list">
-						<div class="reply-detail">
-							<input type="hidden" name="user_no" value="41" />
-							<div class="reply-detail-top">
-								<div class="reply-writer">
-									<input type="hidden" name="user_no" value="41" /> <img
-										src="assets/img/profile-img.jpg" alt="Profile"
-										class="rounded-circle">
-									<div class="reply-writer-detail">
-										<p class="reply-user-name">김평화</p>
-										<p class="reply-write-day">1일전</p>
+						<c:forEach var="replyList" items="${replyListGroups }">
+							<div class="reply-detail">
+								<input type="hidden" name="user_no" value="${replyList.get(0).user_no}" />
+								<div class="reply-detail-top">
+									<div class="reply-writer">
+										<input type="hidden" name="user_no" value="${replyList.get(0).user_no}" />
+										<c:if test="${empty replyList.get(0).user.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+												alt="Profile" class="rounded-circle">
+										</c:if>
+										<c:if test="${not empty replyList.get(0).user.user_profile }">
+											<img
+												src="${pageContext.request.contextPath}/upload/userImg/${replyList.get(0).user.user_profile}"
+												alt="Profile" class="rounded-circle">
+										</c:if>
+										<div class="reply-writer-detail">
+											<p class="reply-user-name">${replyList.get(0).user.user_name }</p>
+											<c:if test="${replyList.get(0).preply_update_date == null }">
+												<p class="reply-write-day">${replyList.get(0).preply_date}</p>
+											</c:if>
+											<c:if test="${replyList.get(0).preply_update_date != null }">
+												<p class="reply-write-day">${replyList.get(0).preply_update_date}</p>
+											</c:if>
+										</div>
+									</div>
+									<div class="reply-reply-write">
+										<i class="bi bi-reply-fill"></i> 답글
 									</div>
 								</div>
-								<div class="reply-reply-write">
-									<i class="bi bi-reply-fill"></i> 답글
+								<c:choose>
+									<c:when test="${replyList.get(0).preply_delete_chk == 0 }">
+										<div class="reply-content">${replyList.get(0).preply_content }</div>
+									</c:when>
+									<c:otherwise>
+										<div class="reply-content">삭제된 댓글입니다.</div>
+									</c:otherwise>
+								</c:choose>
+								<div class="reply-reply-reply-write-box">
+									<textarea class="form-control reply-reply-reply-write-area"
+										placeholder="댓글을 입력하세요">
+											</textarea>
+									<button type="button"
+										class="btn btn-primary reply-reply-reply-write-btn">
+										등록</button>
 								</div>
-							</div>
-							<div class="reply-content">댓글 내용입니다.댓글 내용입니다.댓글 내용입니다.댓글
-								내용입니다.댓글 내용입니다.댓글 내용입니다.댓글 내용입니다.댓글 내용입니다.댓글 내용입니다.댓글 내용입니다.댓글
-								내용입니다.댓글 내용입니다.</div>
-							<div class="reply-reply-reply-write-box">
-								<textarea class="form-control reply-reply-reply-write-area"
-									placeholder="댓글을 입력하세요"></textarea>
-								<button type="button"
-									class="btn btn-primary reply-reply-reply-write-btn">등록</button>
-							</div>
-							<div class="reply-reply-box">
-								<p class="reply-reply-btn">답글 더보기</p>
-								<div class="reply-reply-list">
-									<div class="reply-reply-detail">
-										<div class="reply-reply-detail-top">
-											<input type="hidden" name="user_no" value="41">
-											<div class="reply-reply-writer">
-												<img src="assets/img/profile-img.jpg" alt="Profile"
-													class="rounded-circle">
-												<div class="reply-reply-writer-detail">
-													<p class="reply-reply-user-name">김평화</p>
-													<p class="reply-reply-write-day">1일전</p>
+								<c:if test="${replyList.size() > 1 }">
+									<div class="reply-reply-box">
+										<p class="reply-reply-btn">답글 더보기</p>
+										<div class="reply-reply-list">
+											<c:forEach var="reply" items="${replyList }" begin="1">
+												<div class="reply-reply-detail">
+													<div class="reply-reply-detail-top">
+														<input type="hidden" name="user_no"
+															value="${reply.user_no }">
+														<div class="reply-reply-writer">
+															<c:if test="${empty reply.user.user_profile }">
+																<img
+																	src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
+																	alt="Profile" class="rounded-circle">
+															</c:if>
+															<c:if test="${not empty reply.user.user_profile }">
+																<img
+																	src="${pageContext.request.contextPath}/upload/userImg/${reply.user.user_profile}"
+																	alt="Profile" class="rounded-circle">
+															</c:if>
+															<div class="reply-reply-writer-detail">
+																<p class="reply-reply-user-name">${reply.user.user_name }</p>
+																<c:if test="${reply.preply_update_date == null }">
+																	<p class="reply-reply-write-day">${reply.preply_date }</p>
+																</c:if>
+																<c:if test="${reply.preply_update_date != null }">
+																	<p class="reply-reply-write-day">${reply.preply_update_date }</p>
+																</c:if>
+															</div>
+														</div>
+														<div class="reply-reply-reply-write">
+															<i class="bi bi-reply-fill"></i> 답글
+														</div>
+													</div>
+													<div class="reply-reply-content">
+														<c:if test="${reply.preply_indent == 0 }">
+															<div>${reply.preply_content }</div>
+														</c:if>
+														<c:if test="${reply.preply_indent == 1 }">
+															<span class="tag">${reply.preply_content.substring(0, reply.preply_content.indexOf(" ")) }</span>
+															<div>${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length() - 1) }</div>
+														</c:if>
+													</div>
 												</div>
-											</div>
-											<div class="reply-reply-reply-write">
-												<i class="bi bi-reply-fill"></i> 답글
-											</div>
-										</div>
-										<div class="reply-reply-content">
-											<div>화이팅</div>
+											</c:forEach>
 										</div>
 									</div>
-									<div class="reply-reply-detail">
-										<div class="reply-reply-detail-top">
-											<input type="hidden" name="user_no" value="41">
-											<div class="reply-reply-writer">
-												<img src="assets/img/profile-img.jpg" alt="Profile"
-													class="rounded-circle">
-												<div class="reply-reply-writer-detail">
-													<p class="reply-reply-user-name">김평화2</p>
-													<p class="reply-reply-write-day">1일전</p>
-												</div>
-											</div>
-											<div class="reply-reply-reply-write">
-												<i class="bi bi-reply-fill"></i> 답글
-											</div>
-										</div>
-										<div class="reply-reply-content">
-											<span class="tag">@김평화</span>
-											<div>여물딱 지세요</div>
-										</div>
-									</div>
-								</div>
+								</c:if>
 							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

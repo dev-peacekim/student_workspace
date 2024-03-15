@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.kph.model;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -18,8 +19,9 @@ public class KphBoardProject {
 	private String pboard_update_date;
 	
 	// 조회용
-	private List<KphBoardProjectFile> boardProjectFileList;
-	private List<KphBoardProjectReply> boardProjectReplyList;
+	private List<KphBoardProjectFile> fileList;
+	private List<List<KphBoardProjectReply>> replyListGroupByGroup;
 	private KphUsers user;
+	private int replyCnt;
 	
 }
