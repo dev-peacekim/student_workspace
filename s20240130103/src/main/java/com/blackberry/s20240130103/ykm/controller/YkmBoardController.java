@@ -35,6 +35,9 @@ public class YkmBoardController {
 
 	private final YkmService ykmService;
 
+	
+	// 글 수정할 때 글쓴 사용자만 수정할 수 있게 권한 체크
+	
 	/* 스터디 게시판 */
 	
 	// 스터디 게시판 리스트 조회, 페이징 카운트

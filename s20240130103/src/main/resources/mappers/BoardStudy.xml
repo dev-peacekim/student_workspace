@@ -171,7 +171,7 @@
 		AND B.COMM_MID = 20
 		AND BCR.CREPLY_DELETE_CHK =0
 		GROUP BY BCR.CBOARD_NO
-	</select>  
+	</select>
 	
 	<select id="ykmGetPostWriter" resultType="int" parameterType="int">
 		SELECT b.user_no

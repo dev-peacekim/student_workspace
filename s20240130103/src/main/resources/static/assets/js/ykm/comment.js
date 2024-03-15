@@ -269,6 +269,15 @@ function updateRecruitment(cboard_no, comm_mid2) {
 // ex) /recruitment?cboard_no=30 이라면 @RequestParam
 
 
+
+/*
+$(`#creply_content_${creply_no}`).on("keydown", function(e) {
+    if (e.keyCode === 13) {
+        writeReply(`${creply_no}`);
+    }
+});
+*/
+
 // 대댓글 이벤트
 function createReplyBox(creply_no) {
 	const replyBox = `<div class="reply-editor">
@@ -281,7 +290,6 @@ function createReplyBox(creply_no) {
 				    </div>
 				    `;
 
-	console.log("replyBox ===>" + replyBox);
 	$('.replyContainer_'+creply_no).html(replyBox);
 }
 
@@ -309,14 +317,20 @@ function writeReply(creply_no) {
 		data: JSON.stringify(replyData),
 		success: function(data) {
 			console.log('댓글이 성공적으로 등록되었습니다', data);
+			getCommentList(cboardNo);
 		},
 		error: function(error) {
 			console.log('댓글 등록 중 오류 발생!', error);
 		}
 	});
-	
 	hideReplyBox(creply_no);
 	
 }
 
-// 댓글 등록이 완료되었습니다 아님 댓글 달린 쪽으로 화면 포인트주기...? 
+
+/*
+	대댓글 update, delete
+	댓글 작성 후 댓글 작성이 된 쪽으로 화면 이동 혹은 등록되었다는 메세지
+	답댓글 아이콘 누르면 그것만 활성화 (다른 input창 비활성화)
+	엔터키
+*/
