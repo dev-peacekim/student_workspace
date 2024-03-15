@@ -11,10 +11,8 @@
 		bcr.USER_NO = u.USER_NO
 		AND bcr.CREPLY_DELETE_CHK = 0
 		AND cboard_no =#{cboard_no}
-		ORDER BY
-		CASE WHEN bcr.CREPLY_INDENT = 0 THEN bcr.CREPLY_NO ELSE bcr.CREPLY_GROUP END,
-		bcr.CREPLY_GROUP,
-		bcr.CREPLY_INDENT
+		ORDER BY bcr.CREPLY_DATE asc
+		
 	</select>
 
 
@@ -92,8 +90,7 @@
 		parameterType="LslCommReply">
 		SELECT *
 		FROM BOARD_COMM_REPLY
-		WHERE CREPLY_GROUP =
-		#{cboard_group}
+		WHERE CREPLY_GROUP = #{creply_group}
 		AND CREPLY_INDENT > 0;
 	</select>
 

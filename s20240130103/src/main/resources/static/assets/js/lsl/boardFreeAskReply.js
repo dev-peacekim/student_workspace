@@ -173,7 +173,7 @@ let pcreply_group;
 $(document).on("click", ".brBtn", function() {
 	//pcreply_no = $(this).data("creply-no");
 	pcreply_group = $(this).data("creply-group");
-	cboard_no = $(this).data("cboard-no");
+	//cboard_no = $(this).data("cboard-no");
 });
 
 
@@ -192,7 +192,7 @@ $(document).on('click', ".addReply", function(e) {
         creply_indent : e.target.dataset['creplyIndent'],
         creply_level : e.target.dataset['creplyLevel'],
         creply_no : e.target.dataset['creplyNo'],
-        cboard_no : cboard_no
+        cboard_no : cboardNo
     };
 
     addReply(reReplyData);
@@ -212,7 +212,7 @@ function addReply(reReplyData) {
             if (data > 0) {
                 console.log('대댓글 데이터 넘어옴');
                 // 대댓글 등록 후 댓글 리스트 업데이트
-                replyBoardFreeAskList(reReplyData.cboardNo);
+                replyBoardFreeAskList(reReplyData.cboard_no);
             }
         },
         error: function(error) {
