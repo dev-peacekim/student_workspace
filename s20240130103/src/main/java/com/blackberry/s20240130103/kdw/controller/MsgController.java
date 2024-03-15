@@ -525,21 +525,7 @@ public class MsgController {
         }
     }
     
-//    @PostMapping(value = "/permanentDeleteMessages")
-//    public void permanentDeleteMessages(@RequestBody Map<String, List<Long>> requestData, HttpServletResponse response) {
-//        System.out.println(requestData);
-//    	List<Long> msgNos = requestData.get("msgNos");
-//        log.info("MsgController permanentDeleteMessages start...");
-//        
-//        try {
-//            msgService.permanentDeleteMessages(msgNos);
-//            System.out.println("쪽지 영구 삭제 성공");
-//        } catch (Exception e) {
-//            log.error("쪽지 영구 삭제에 실패했습니다.", e);
-//            e.printStackTrace();
-//            System.out.println("MsgController permanentDeleteMessages Exception ->" + e.getMessage());
-//        }
-//    }
+
     /* ========== 버튼 기능 구현 END =========== */
     
     
