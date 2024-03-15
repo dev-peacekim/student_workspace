@@ -269,7 +269,6 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 
 	@Override
-	@Transactional
 	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectServiceImp getBoardProject start...");
 		KphBoardProject board = kphProjectDao.getBoardProject(kphBoardProject);

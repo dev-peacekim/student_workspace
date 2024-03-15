@@ -18,7 +18,8 @@ public class KphBoardProject {
 	private String pboard_update_date;
 	
 	// 조회용
-	private List<KphBoardProjectFile> kphBoardProjectFileList;
-	private List<KphBoardProjectReply> kphBoardProjectReplyList;
+	private List<KphBoardProjectFile> boardProjectFileList;
+	private List<KphBoardProjectReply> boardProjectReplyList;
+	private KphUsers user;
 	
 }

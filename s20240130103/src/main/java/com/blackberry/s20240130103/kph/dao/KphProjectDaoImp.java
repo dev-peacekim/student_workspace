@@ -270,7 +270,17 @@ public class KphProjectDaoImp implements KphProjectDao {
 	@Override
 	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectDaoImp getBoardProject start...");
-		KphBoardProject board = session.selectOne("kphGetBoardProject", kphBoardProject);
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		KphBoardProject board = new KphBoardProject();
+		try {
+			board = session.selectOne("kphGetBoardProject", kphBoardProject);
+			board.setUser(session.selectOne("KphGetUserByUserNo", board.getUser_no()));
+			board.setBoardProjectReplyList(session.selectList("KphBoardProjectReplyList", board));
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
 		return board;
 	}
 

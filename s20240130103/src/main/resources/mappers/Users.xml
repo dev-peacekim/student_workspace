@@ -112,4 +112,11 @@
 								WHERE upm.PROJECT_NO = #{project_no}) upm2
 		WHERE u.USER_NO = upm2.USER_NO
 	</select>
+	
+	<select id="KphGetUserByUserNo" parameterType="java.lang.Long" resultType="KphUsers">
+		SELECT *
+		FROM UESRS
+		WHERE USER_NO = #{user_no}
+	</select>
+	
 </mapper>
