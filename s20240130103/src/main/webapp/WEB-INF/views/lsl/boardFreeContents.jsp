@@ -73,8 +73,7 @@ window.onload = function() {
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" 
-                    alt="${boardFreeContents.user_profile}"></i>
+                    <i class="bi bi-person-circle post-user-profile" alt="${boardFreeContents.user_profile}"></i>
                     <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardFreeContents.user_nic}</a>

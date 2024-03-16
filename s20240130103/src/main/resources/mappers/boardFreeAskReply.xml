@@ -7,17 +7,12 @@
 		resultType="LslCommReply">
 		SELECT bcr.*, u.*
 		FROM BOARD_COMM_REPLY bcr
-		JOIN USERS u ON
-		bcr.USER_NO = u.USER_NO
+		JOIN USERS u ON bcr.USER_NO = u.USER_NO
 		WHERE bcr.CREPLY_DELETE_CHK = 0
-		AND
-		bcr.cboard_no = #{cboard_no}
+		AND bcr.cboard_no = #{cboard_no}
 		ORDER BY
+		bcr.CREPLY_GROUP,
 		bcr.CREPLY_DATE ASC,
-		CASE
-		WHEN bcr.CREPLY_INDENT = 0 THEN bcr.CREPLY_NO
-		ELSE bcr.CREPLY_GROUP
-		END,
 		bcr.CREPLY_INDENT,
 		bcr.CREPLY_LEVEL
 
@@ -62,7 +57,6 @@
 	</select>
 
 
-
 	<!-- 대댓글 -->
 	<insert id="slInsertBoardReReply" parameterType="LslCommReply">
 		INSERT INTO
@@ -91,14 +85,16 @@
 		0,
 		SYSDATE
 		)
+
 	</insert>
 
 	<select id="slRepliesAfterParentList"
 		parameterType="LslCommReply">
-		SELECT *
-		FROM BOARD_COMM_REPLY
-		WHERE CREPLY_DELETE_CHK = 0
-		AND CREPLY_INDENT > 0
+		SELECT bcr.*, u.*
+		FROM BOARD_COMM_REPLY bcr
+		JOIN USERS u ON bcr.USER_NO = u.USER_NO
+		WHERE bcr.CREPLY_DELETE_CHK = 0
+		AND bcr.CREPLY_INDENT > 0
 	</select>
 
 	<update id="slupdateReply" parameterType="LslCommReply">

@@ -112,28 +112,4 @@
 }
 
 
-.dropBox {
-  width: 100%;
-  height: 100px;
-   
-  margin-bottom: 10px;
-  overflow: auto;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  border-radius: 5px;
-  border: 4px dashed #ddd;
-  user-select: none;
-  transition: 0.4s;
-}
-
-/* 드롭 반응 */
-.dropBox.active {
-  background: #ddd;
-}
-
-.dropBox h1 {
-  font-size: 1rem;
-}

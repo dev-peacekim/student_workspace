@@ -54,18 +54,18 @@
 	right: 100%;
 	display: inline-block;
 	border: none;
-	background-color: #7e57c2;
+	background-color: #0d6dfd;
 	color:  white;
 	
 }
 .btn:hover {
-    background-color: #9575cd;
+    background-color: #0b5ed7;
     color: white;
 }
 
 .btn.bfWrite {
 	position:absolute;
-	width: 100px;
+	width: 80px;
 	right: 20px;
 	bottom: 60px;
 }
@@ -146,4 +146,13 @@
 a:hover, a:link, a:active, a:visited {
 	color: black !important;
     text-decoration: none; 
+}
+
+
+
+
+
+.breadcrumb-item {
+	font-size: 16px;
+	
 }

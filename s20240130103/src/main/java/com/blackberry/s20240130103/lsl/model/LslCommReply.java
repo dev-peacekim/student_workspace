@@ -15,7 +15,9 @@ public class LslCommReply {
 	private int creply_indent; //  댓글 들여쓰기 
 	
 	
-	private int parent_user_id; //  부모 댓글 번호 
+	
+	
+	private String parent_user_id; //  부모 댓글 아이디 
 	private int parent_creply_no;
 	
 	
@@ -31,7 +33,7 @@ public class LslCommReply {
 	private Long  user_no;   // 작성자 user_no
 	private String user_id;
 	private String user_name;
-	private String USER_NIC; 
+	private String user_nic; 
 	private String user_profile;
 	private int creply_delete_chk;
 

@@ -50,26 +50,26 @@
 	right: 100%;
 	display: inline-block;
 	border: none;
-	background-color: #7e57c2;
+	background-color: #0d6dfd;
 	color:  white;
 	
 }
 .btn:hover {
-    background-color: #9575cd;
+    background-color: #0b5ed7;
     color: white;
 }
 
 .btn.bfmCancle {
 	position:absolute;
-	width: 100px;
-	right: 140px;
+	width: 80px;
+	right: 110px;
 	bottom: 20px;
 }
 
 
 .btn.bfmModify {
 	position:absolute;
-	width: 100px;
+	width: 80px;
 	right: 20px;
 	bottom: 20px;
    
@@ -78,13 +78,14 @@
 
 
 .upload-title {
-	margin: 10px 0 10px 0;
+    margin: 10px 0;
     height: 85px;
     border: 2px dashed #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    white-space: pre-line; /* 줄 바꿈 적용 */
 }
 
 
@@ -104,38 +105,10 @@ position: relative;
  margin-bottom: 5px;
 }
 
+.fileName {
+        display: inline-block; /* 요소를 인라인 블록 요소로 지정하여 수평으로 표시 */
+        margin-right: 10px; /* 파일 이름 사이의 간격 설정 */
+    }
+    
 
-
-.dropBox {
-  width: 100%;
-  height: 100px;
-   
-  margin-bottom: 10px;
-  overflow: auto;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 5px;
-  border: 4px dashed #ddd;
-  user-select: none;
-  transition: 0.4s;
-}
-
-/* 드롭 반응 */
-.dropBox.active {
-  background: #ddd;
-}
-
-.dropBox h1 {
-  font-size: 1rem;
-}
-.form-label {
-	width: 100%;
-}
-
-#formFile {
-	width: 100%;
-}
 

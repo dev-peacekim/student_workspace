@@ -54,19 +54,21 @@
 	right: 100%;
 	display: inline-block;
 	border: none;
-	background-color: #7e57c2;
+	border: 1px solid #0d6dfd;
+	background-color: #0d6dfd;
 	color: white;
 
 }
 
 .btn:hover {
-	background-color: #9575cd;
-	color: white;
+	background-color:white;
+	border: 1px solid #0d6dfd;
+	color: #0d6dfd;
 }
 
 .btn.baWrite {
 	position: absolute;
-	width: 100px;
+	width: 80px;
 	right: 20px;
 	bottom: 60px;
 }
@@ -147,4 +149,11 @@
 a:hover, a:link, a:active, a:visited {
 	color: black !important;
     text-decoration: none; 
+}
+
+
+
+.breadcrumb-item {
+	font-size: 16px;
+	
 }

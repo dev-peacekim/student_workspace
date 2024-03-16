@@ -92,6 +92,7 @@
 
 .community-post-answer {
 	padding: 16px;
+	margin-bottom: 10px;
 	border-top: 1px solid #f1f3f5;
 	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
@@ -151,9 +152,10 @@
 --------------------------------------------------------------*/
 .re-comment-body {
 	padding: 16px;
+	height: 150px;
 	margin-top: 20px;
+	margin-bottom: 10px;
 	border-top: 1px solid #f1f3f5;
-	border-bottom: 1px solid #f1f3f5;
 	background-color: #f8f9fa;
 }
 
@@ -260,35 +262,35 @@
 	right: 100%;
 	display: inline-block;
 	border: none;
-	background-color: #7e57c2;
+	background-color: #0d6dfd;
 	color: white;
 
 }
 
 .btn:hover {
-	background-color: #9575cd;
+	background-color: #0b5ed7;
 	color: white;
 }
 
 .btn.bfcDelete {
 	position: absolute;
-	margin-top: 10px;
-	width: 100px;
-	right: 260px;
+	margin-top: 20px;
+	width: 80px;
+	right: 200px;
 	bottom: 10px;
 }
 .btn.bfcModify {
 	position: absolute;
-	margin-top: 10px;
-	width: 100px;
-	right: 140px;
+	margin-top: 20px;
+	width: 80px;
+	right: 110px;
 	bottom: 10px;
 	
 }
 .btn.bfcList {
 	position: absolute;
-	margin-top: 10px;
-	width: 100px;
+	margin-top: 20px;
+	width: 80px;
 	right: 20px;
 	bottom: 10px;
 	
@@ -297,22 +299,22 @@
 .btn.bacDelete {
 	position: absolute;
 	margin-top: 10px;
-	width: 100px;
-	right: 260px;
+	width: 80px;
+	right: 200px;
 	bottom: 10px;
 }
 .btn.bacModify {
 	position: absolute;
 	margin-top: 10px;
-	width: 100px;
-	right: 140px;
+	width: 80px;
+	right: 110px;
 	bottom: 10px;
 	
 }
 .btn.bacList {
 	position: absolute;
 	margin-top: 10px;
-	width: 100px;
+	width: 80px;
 	right: 20px;
 	bottom: 10px;
 	
@@ -320,8 +322,8 @@
 
 .submitBtn {
     position: absolute;
-    width: 80px;
-    right: 50px;
+    width: 60px;
+    right: 60px;
     margin-top: 10px;
 }
 
@@ -423,7 +425,7 @@
 #files {
 	position:absolute;
 	margin-top: -40px;
-	right: -40px;
+	right: -180px;
 	width: 400px;
 	height: 100px;
 }

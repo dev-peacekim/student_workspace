@@ -34,6 +34,9 @@
   <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 
+  <!-- File Js -->
+  <script defer src="assets/js/lsl/boardFile.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -86,10 +89,13 @@
                                 <label for="inputText" class="form-label">제목</label>
                                     <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div class="upload-files">
-                                <label for="files" class="form-label">파일 첨부</label>
-                                <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
-                            </div>
+                            <!-- 파일 첨부 -->
+									<div class="upload-files">
+										<label for="files" class="form-label">파일 첨부</label>
+										<input class="form-control" name="files" type="file" id="formFile" multiple/>
+										<div class="upload-title" id="fileList">
+										</div>
+									</div>
                             <div class="mb-3">
                                 <textarea class="form-control" style="height: 550px;" name="cboard_content"></textarea>
                             </div>

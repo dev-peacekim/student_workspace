@@ -50,9 +50,8 @@
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>자유 질문 게시판</h1>
-			<nav style="--bs-breadcrumb-divider: '-';">
+			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
 					<li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
 				</ol>

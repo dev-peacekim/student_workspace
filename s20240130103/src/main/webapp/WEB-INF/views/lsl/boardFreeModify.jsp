@@ -33,8 +33,8 @@
 <link href="assets/css/style.css" rel="stylesheet">
 <!-- 헤더, 푸터, 사이드바 css -->
 
-<!-- Modify Js -->
-  <script defer src="assets/js/lsl/boardModify.js"></script>
+<!-- File Js -->
+<script defer src="assets/js/lsl/boardFile.js"></script>
 
 <!-- =======================================================
   * Template Name: NiceAdmin
@@ -87,19 +87,17 @@
 								<div class="mb-3">
 									<label for="inputText" class="form-label">제목</label> 
 									<input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
+								</div>
 									<!-- 파일 첨부 -->
 									<div class="upload-files">
 										<label for="files" class="form-label">파일 첨부</label>
 										<input class="form-control" name="files" type="file" id="formFile" multiple/>
-										<div class="upload-title" id="fileList"  >
-											<c:forEach items="${boardFiles}" var="boardFiles">
-											    <span>${boardFiles.cboard_file_user_name}</span>
-											    <button class="deleteFileBtn">X</button>
-											    <br>
+										<div class="upload-title" id="fileList" >
+											<c:forEach items="${boardFiles}" var="boardFile">
+												<div class="fileName">${boardFile.cboard_file_user_name}</div>
 											</c:forEach>
-										</div>
 									</div>
-						</div>
+									</div>
 								<div class="mb-3">
 									<textarea class="form-control" style="height: 550px;"
 										name="cboard_content">${boardModifyContents.cboard_content}</textarea>

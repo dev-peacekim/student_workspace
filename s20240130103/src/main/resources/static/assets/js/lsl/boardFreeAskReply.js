@@ -75,22 +75,22 @@ function updateReplyList(data) {
 
         let indentation = 0;
         if (lslCommReply.creply_level > 0) {
-            indentation = lslCommReply.creply_indent * 20;
+            indentation = lslCommReply.creply_indent * 25;
         }
 
 
-        boardReplyList += `<div class="re-comment-body" style="margin-left: ${indentation}px;"> <!-- 들여쓰기 -->
+        boardReplyList += `<div class="re-comment-body" style="margin-left: ${indentation}px;"> 
             <div id="replyBoardFreeList" class="comment-card">
                 <div class="comment-header">
-                    <img class="comment-user-profile" src="${lslCommReply.user_profile}">
+                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
                     <div class="comment-user-container">
-                        <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_name}</p>
+                        <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_nic}</p>
                         <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
                     </div>
                     <div class="re-btn-container">
                         <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
                         <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
-                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}"  onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
+                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-puser-id="${lslCommReply.user_id}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
                     </div>
                 </div>
                 <div id="replyBox">
@@ -170,12 +170,16 @@ function addComment(replyData) {
 }
 let cboard_no;
 let pcreply_group;
+//let puser_id;
 
 $(document).on("click", ".brBtn", function() {
 	//pcreply_no = $(this).data("creply-no");
 	pcreply_group = $(this).data("creply-group");
 	cboard_no = $(this).data("cboard-no");
+	//puser_id = $(this).data("puser-id")
+	console.log("pcreply_group :" +pcreply_group);
 	console.log('cboard_no : ' + cboard_no);
+	console.log('puser_id : ' + puser_id);	
 });
 
 
@@ -194,7 +198,8 @@ $(document).on('click', ".addReply", function(e) {
         creply_indent : e.target.dataset['creplyIndent'],
         creply_level : e.target.dataset['creplyLevel'],
         creply_no : e.target.dataset['creplyNo'],
-        cboard_no : cboard_no
+        cboard_no : cboard_no,
+		
     };
 
     addReply(reReplyData);

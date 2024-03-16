@@ -23,15 +23,16 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   
-    <!-- File Js -->
-  <script defer src="assets/js/lsl/boardFile.js"></script>
-  
   
   <!-- Template Main CSS File -->
   <link href="assets/css/lsl/lslboardFreeWrite.css" rel="stylesheet"> 
   <link href="assets/css/style.css" rel="stylesheet"> <!-- 헤더, 푸터, 사이드바 css -->
   
   
+   <!-- File Js -->
+   <script defer src="assets/js/lsl/boardFile.js"></script>
+
+   
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -81,10 +82,13 @@
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
                             </div>
-                            <div class="upload-files">
-                                <label for="files" class="form-label">파일 첨부</label>
-                                <input type="file" name="files" id="files" class="files form-control form-control-sm" multiple>
-                            </div>
+                            <!-- 파일 첨부 -->
+									<div class="upload-files">
+										<label for="files" class="form-label">파일 첨부</label>
+										<input class="form-control" name="files" type="file" id="formFile" multiple/>
+										<div class="upload-title" id="fileList" >
+										</div>
+									</div>
                             <div class="mb-3">
                                 <textarea class="form-control" id="cboard_content" name="cboard_content" ></textarea>
                             </div>

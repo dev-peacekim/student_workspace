@@ -85,6 +85,7 @@ public class LslRestController {
 	// 대댓글 
 
 	
+	
 	// 
 	// 대댓글 등록
 	@PostMapping("/rereplys/reinsert")
@@ -101,8 +102,11 @@ public class LslRestController {
 	    int creply_indent = lslCommReply.getCreply_indent();
 	    int creply_level = lslCommReply.getCreply_level();
 	    int creply_no = lslCommReply.getCreply_no();
+	    //String parent_user_id = lslCommReply.getParent_user_id();
 	    
 	
+	   
+		   
 		   
     System.out.println("reinsertBoardReply creply_group" + cPreply_group);
 	    System.out.println("reinsertBoardReply user_no" + user_no);
@@ -113,6 +117,7 @@ public class LslRestController {
 	    lslCommReply.setCreply_group(cPreply_group);
 	    lslCommReply.setCreply_indent(creply_indent +1);
 	    //lslCommReply.setCreply_level(creply_level + 1);
+	    //lslCommReply.setParent_user_id(parent_user_id);
 	    
 	    int boardReReplyResult = ls.insertBoardReReply(lslCommReply);
 	    
@@ -121,13 +126,16 @@ public class LslRestController {
 	    //  update = 내가 쓴 부모댓글에 해당하는 글들에서 대댓글 레벨 보다 큰 애들 +1
 	    
 	    // 대댓글 리스트 
-	    
-	    //List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
-		   
-		  // for (LslCommReply reply : repliesAfterParent) {
-		    //    ls.updateReply(reply); 
-		    //}
-	 
+//	    
+//	    List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
+//	    
+//	    for (LslCommReply reply : repliesAfterParent) {
+//	        // 대댓글의 레벨보다 큰 애들의 레벨을 +1로 업데이트
+//	        if (reply.getCreply_level() > creply_level) {
+//	            reply.setCreply_level(reply.getCreply_level() + 1);
+//	            ls.updateReply(reply); // 업데이트 메서드 호출
+//	        }
+//	    }
 
 	  return boardReReplyResult;
 	}

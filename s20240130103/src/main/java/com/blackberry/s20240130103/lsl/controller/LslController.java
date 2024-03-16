@@ -450,6 +450,7 @@ public class LslController {
 		    
 		    
 		   int  boardUpdate = ls.boardUpdate(lslBoardComm);
+		   
 		    model.addAttribute("boardUpdate", boardUpdate);
 		  
 		    // 보드 타입에 따라 페이지 이동
