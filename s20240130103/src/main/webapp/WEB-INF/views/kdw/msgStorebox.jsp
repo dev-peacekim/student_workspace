@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', function () {
 								        </c:choose>
 								    </td>
 									<!-- 파일 첨부 이미지 표시 -->
-							        <td class="attachment">
+							        <td class="attachment" style="text-align: center; vertical-align: middle;">
 							            <c:if test="${not empty message.first_file_name}">
-							                <img src="assets/img/kdw/attachments.png" width="16" height="16">
+							                <img src="assets/img/kdw/attachments.png" width="17" height="17">
 							            </c:if>
 							        </td>
 									<td class="mailType">

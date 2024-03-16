@@ -85,16 +85,16 @@
 				</form>
 			</div>
 		</div>
-		<!-- 글쓰기 버튼 -->
-		<div class="pboard-write">
-			<a href= "/projectBoardWrite?project_no=${projectNo }" class="pboard-write-Btn btn btn-secondary">글쓰기</a>
-		</div>
-		<!-- End Page Title -->
 
+		<!-- End Page Title -->
 		<section class="section pboard">
 			<div class="card">
 				<div class="card-body">
 					<div class="controller">
+						<!-- 글쓰기 버튼 -->
+						<div class="pboard-write">
+							<a href= "/projectBoardWrite?project_no=${projectNo }" class="pboard-write-Btn btn btn-secondary">글쓰기</a>
+						</div>
 						<!-- 검색바&드롭박스 -->
 						<div class="search-container">
 						    <div class="search-bar">
