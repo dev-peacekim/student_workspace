@@ -44,11 +44,11 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-<!-- 댓글 comment JS File -->
+<!-- 댓글, 대댓글 comment JS File -->
 <script defer src="assets/js/ykm/comment.js"></script>
-<!-- Confirm Pop-up JS File -->
+<!-- 삭제 확인 팝업 JS File -->
 <script defer src="assets/js/ykm/confirmPopup.js"></script>
-
+<!-- 화면 css -->
 <link href="assets/css/ykm/boardPost.css" rel="stylesheet">
 
 <script>
@@ -66,6 +66,7 @@
 	<!-- ======= Sidebar ======= -->
     <%@ include file="../asidebar.jsp" %>
 
+	<!-- 게시판 페이지 헤더 -->
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>공모전 스터디 게시판</h1>
@@ -77,7 +78,7 @@
 				</ol>
 			</nav>
 		</div>
-		<!-- End Page Title -->
+		<!-- 게시판 페이지 본문 -->
 		<section class="community-post-detail">
 			<div class="row card card-body">
 				<div class="card-header community-post-header">
@@ -146,7 +147,8 @@
 					<div class="comment-form">
 						댓글 <span class="answer-count">${countComment}</span>
 					</div>
-					<!-- 댓글 REST API -->
+					
+					<!-- 댓글 등록 폼 -->
 					<div class="boardPostComment">
 						<input type="hidden" name="cboard_no" value="${getPost.cboard_no}" /> 
 						<input type="hidden" name="user_no" value="${getPost.user_no}"> 
@@ -158,7 +160,7 @@
 						        <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="유저 프로필"></img>
 						    </c:when>
 						    <c:otherwise>
-						        <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="유저 프로필" class="rounded-circle"></img>
+						        <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="유저 프로필"></img>
 						    </c:otherwise>
 						</c:choose>
 							<input type="text" name="comment" id="creply_content"
@@ -170,10 +172,10 @@
 						</div>
 					</div>
 				</div>
-				<!-- 댓글 리스트 -->
+				<!-- 댓글 RESTAPI JavaScript -->
 				<div id="commentContainer">
 				
-					<!-- AJAX 비동기 갱신 -->
+					<!-- AJAX 비동기 화면 갱신 -->
 							
 					<!-- 대댓글 -->
 					

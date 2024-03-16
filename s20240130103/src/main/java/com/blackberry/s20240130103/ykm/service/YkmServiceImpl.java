@@ -172,12 +172,11 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 	/* 대댓글 등록 */
-	// 코드 중복이므로 수정 필요
 	@Override
 	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmServiceImpl writeReply start ---*");
 		int result = ykmBoardDao.writeReply(ykmBoardCommReply);
-		System.out.println("YkmServiceImpl writeReply : "+result);
+		System.out.println("YkmServiceImpl writeReply : " + result);
 		return result;
 	}
 
@@ -189,7 +188,8 @@ public class YkmServiceImpl implements YkmService {
 		return getReplyList;
 	}
 
-
+	
+	
 	
 	/* 공모전 리스트 */
 	@Override

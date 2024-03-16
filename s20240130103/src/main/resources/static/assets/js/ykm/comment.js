@@ -71,7 +71,8 @@ function updateCommentView(data) {
 		currentTime = formatted;
 		
 		// 댓글 작성자 비교
-		commentWriter = comment.user_no // commentWriter: 댓글 작성자, seesion_user_no 로그인 한 유저정보
+		// commentWriter: 댓글 작성자, seesion_user_no: 로그인 한 유저정보
+		commentWriter = comment.user_no 
 		console.log('commentWriter'+commentWriter);      
 
 		replyList += `
@@ -87,33 +88,41 @@ function updateCommentView(data) {
 					<button type="button" id="check" class="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" style="display : none">
 						<i class="bi bi-check2-circle"></i> 확인
 					</button>
-					<button type="button" class="modifyComment_${comment.creply_no} badge bg-light text-dark" value="${comment.creply_no}" onclick="buttonStatus('${comment.creply_no}')" style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
-						<i class="bi bi-pencil-fill"></i> 수정
+					<button type="button" class="modifyComment_${comment.creply_no} badge bg-light text-dark" 
+							value="${comment.creply_no}" onclick="buttonStatus('${comment.creply_no}')" 
+							style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
+							<i class="bi bi-pencil-fill"></i> 수정
 					</button>
-					<button type="button" class="deleteComment badge bg-light text-dark" onclick="deleteComment('${comment.creply_no}')" style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
-						<i class="bi bi-trash"></i> 삭제
+					<button type="button" class="deleteComment badge bg-light text-dark" 
+							onclick="deleteComment('${comment.creply_no}')" 
+							style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
+							<i class="bi bi-trash"></i> 삭제
 					</button>
-					<button type="button" class="replyBtn_${comment.creply_no} badge bg-light text-dark" onclick="createReplyBox('${comment.creply_no}')">
-						<i class="bi bi-reply-fill"></i>
+					<button type="button" class="replyBtn_${comment.creply_no} badge bg-light text-dark" 
+							onclick="createReplyBox('${comment.creply_no}')">
+							<i class="bi bi-reply-fill"></i>
 					</button>
 				</div>
 			</div>
 			<div class="comment-body" style="padding-top: 0px; padding-bottom: 0px;">
-				<input type="text" id="inputField_${comment.creply_no}" value ="${comment.creply_content}" class="form-control" required="required" disabled >
-	 			<button type="button" class="check" id="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" style="display : none"><i class="bi bi-check2-circle"></i> 확인</button>
+				<input type="text" id="inputField_${comment.creply_no}" value ="${comment.creply_content}" 
+						class="form-control" required="required" disabled >
+	 			<button type="button" class="check" id="checkButton_${comment.creply_no}" 
+	 					onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" 
+	 					style="display : none"><i class="bi bi-check2-circle"></i> 확인
+	 			</button>
 			</div>
-				<div id="replyContainer_${comment.creply_no}" class="replyContainer_${comment.creply_no} replyBox"></div>
+				<div id="replyContainer_${comment.creply_no}" class="replyContainer_${comment.creply_no} replyBox">
+				</div>
 			</div>
 			</div>
 	`;
 	
 	});
 	
-	
 
 	$('#commentContainer').html(replyList);
 }
-
 
 
 // 댓글 등록 버튼 이벤트
@@ -251,7 +260,7 @@ function updateRecruitment(cboard_no, comm_mid2) {
 		contentType: "application/json",
 		data: JSON.stringify({
 			cboard_no: cboard_no,
-			comm_mid2: comm_mid2==10 ? 20 : 10
+			comm_mid2: comm_mid2 == 10 ? 20 : 10
 		}),
 		success: function(data) {
 			$('.recruitBtn').text("모집완료").prop('disabled', true);
@@ -263,20 +272,6 @@ function updateRecruitment(cboard_no, comm_mid2) {
 	});
 }
 
-
-// uri에 값을 보내면 @PathVariable
-// JSON data 객체로 보낼 떈 @RequestBody
-// ex) /recruitment?cboard_no=30 이라면 @RequestParam
-
-
-
-/*
-$(`#creply_content_${creply_no}`).on("keydown", function(e) {
-    if (e.keyCode === 13) {
-        writeReply(`${creply_no}`);
-    }
-});
-*/
 
 // 대댓글 이벤트
 function createReplyBox(creply_no) {
@@ -299,7 +294,7 @@ function hideReplyBox(creply_no) {
 
 
 
-
+// 대댓글 등록
 function writeReply(creply_no) {
 	const creply_content = $(`#creply_content_${creply_no}`).val();
 	const replyData = {
@@ -308,7 +303,7 @@ function writeReply(creply_no) {
 		creply_group: creply_no,
 		creply_content : creply_content
 	}
-	console.log('writeReply Data : '+replyData);
+	console.log('writeReply Data : ' +replyData);
 	
 	$.ajax({
 		url: "/replys",
@@ -327,10 +322,23 @@ function writeReply(creply_no) {
 	
 }
 
+/*
+$(`#creply_content_${creply_no}`).on("keydown", function(e) {
+    if (e.keyCode === 13) {
+        writeReply(`${creply_no}`);
+    }
+});
+*/
 
 /*
-	대댓글 update, delete
+	대댓글 update, delete 확인
 	댓글 작성 후 댓글 작성이 된 쪽으로 화면 이동 혹은 등록되었다는 메세지
 	답댓글 아이콘 누르면 그것만 활성화 (다른 input창 비활성화)
 	엔터키
 */
+
+
+
+// uri에 값을 보내면 @PathVariable
+// JSON data 객체로 보낼 떈 @RequestBody
+// ex) /recruitment?cboard_no=30 이라면 @RequestParam
