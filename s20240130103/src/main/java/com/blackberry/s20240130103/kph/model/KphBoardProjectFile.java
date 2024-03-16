@@ -8,6 +8,6 @@ public class KphBoardProjectFile {
 	private Long pboard_no;
 	private int pboard_file_no;
 	private String pboard_file_name;
-	private String pboard_user_name;
+	private String pboard_file_user_name;
 	
 }

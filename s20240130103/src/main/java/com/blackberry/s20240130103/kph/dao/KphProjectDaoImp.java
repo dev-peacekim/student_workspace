@@ -272,57 +272,95 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
+	public KphBoardProject getBoardProjectByPboardNo(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectDaoImp getBoardProject start...");
+		KphBoardProject boardProject = new KphBoardProject();
+		boardProject = session.selectOne("kphGetBoardProjectByPboardNo", kphBoardProject);
+		return boardProject;
+	}
+	
+	@Override
+	public void IncreaseBoardProjectCnt(KphBoardProject kphBoardProject) {
+		session.update("KphIncreaseBoardProjectCnt", kphBoardProject);
+	}
+	
+	@Override
+	public KphUsers getUserByUserNo(Long user_no) {
+		return session.selectOne("KphGetUserByUserNo", user_no);
+	}
+	
+	@Override
+	public List<KphBoardProjectFile> boardProjectFileList(KphBoardProject boardProject) {
+		return session.selectList("KphBoardProjectFileList", boardProject);
+	}
+	
+	@Override
+	public List<Long> replyGroupListByPboardNo(Long pboard_no) {
+		return session.selectList("KphReplyGroupListByPboardNo", pboard_no);
+	}
+	
+	@Override
+	public List<KphBoardProjectReply> boardProjectReplyList(KphBoardProject boardProject) {
+		return session.selectList("KphBoardProjectReplyList", boardProject);
+	}
+	
+	@Override
+	public int boardProjectReplyCnt(Long pboard_no) {
+		return session.selectOne("KphBoardProjectReplyCnt", pboard_no);
+	}
+
+	@Override
+	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
+		System.out.println("KphProjectDaoImp boardProjectReplyAdd start...");
 		
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		KphBoardProject boardProject = new KphBoardProject();
+		KphBoardProjectReply resultReply = null;
 		
 		try {
-			session.update("KphIncreaseBoardProjectCnt", kphBoardProject);
-			boardProject = session.selectOne("kphGetBoardProject", kphBoardProject);
-			System.out.println("kphGetBoardProject =>" + boardProject);
-			boardProject.setUser(session.selectOne("KphGetUserByUserNo", boardProject.getUser_no()));
-			System.out.println("KphGetUserByUserNo =>" + boardProject);
-			boardProject.setFileList(session.selectList("KphBoardProjectFileList", boardProject));
-			System.out.println("KphBoardProjectFileList =>" + boardProject);
-			
-			List<Long> replyGroupList = session.selectList("KphReplyGroupListByPboardNo", boardProject.getPboard_no());
-			List<KphBoardProjectReply> replyList = session.selectList("KphBoardProjectReplyList", boardProject);
-			List<List<KphBoardProjectReply>> replyMapGroupByGroup = new ArrayList<>();
-			Iterator<Long> replyGroupListIt = replyGroupList.iterator();
-			
-			while (replyGroupListIt.hasNext()) {
-				Long replyGroupNo = replyGroupListIt.next();
-				List<KphBoardProjectReply> madeReplyList = new ArrayList<>();
-				
-				Iterator<KphBoardProjectReply> replyListIt = replyList.iterator();
-				
-				while (replyListIt.hasNext()) {
-					KphBoardProjectReply reply = replyListIt.next();
-					reply.setUser(session.selectOne("KphGetUserByUserNo", reply.getUser_no()));
-
-					if(reply.getPreply_group() == replyGroupNo) {
-						madeReplyList.add(reply);
-					}
-				}
-				
-				replyMapGroupByGroup.add(madeReplyList);
-				System.out.println("replyMapGroupByGroup =>" + replyMapGroupByGroup.get(0));
-				
-			}
-			
-			boardProject.setReplyListGroupByGroup(replyMapGroupByGroup);
-			
-			boardProject.setReplyCnt(session.selectOne("KphBoardProjectReplyCnt", kphBoardProject.getPboard_no()));
-			
+			session.insert("KphboardProjectReplyAdd", reply);
+			System.out.println(reply);
+			resultReply = session.selectOne("KphBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			System.out.println(resultReply);
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			transactionManager.rollback(txStatus);
 		}
 		
-		return boardProject;
+		return resultReply;
 	}
-
+	
+	@Override
+	public int isUserInIndentZero(KphBoardProjectReply reply) {
+		System.out.println("KphProjectDaoImp isUserInIndentTwo start...");
+		int result = session.selectOne("KphIsUserInIndentZero", reply);
+		return result;
+	}
+	
+	@Override
+	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
+		System.out.println("KphProjectDaoImp boardProjectReplyReplyAdd start...");
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		KphBoardProjectReply resultReply = null;
+		
+		try {
+			session.insert("KphboardProjectReplyReplyAdd", reply);
+			System.out.println(reply);
+			resultReply = session.selectOne("KphBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			System.out.println(resultReply);
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
+		
+		return resultReply;
+	}
+	
+	@Override
+	public int boardProjectReplyDelete(Long preply_no) {
+		return session.update("KphBoardProjectReplyDelete", preply_no);
+	}
+	
 }

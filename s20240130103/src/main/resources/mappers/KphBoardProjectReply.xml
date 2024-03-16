@@ -14,7 +14,7 @@
 		FROM (SELECT * 
 				  FROM BOARD_PROJECT_REPLY 
 				  WHERE PBOARD_NO = #{pboard_no} 
-				  ORDER BY PREPLY_GROUP desc, PREPLY_LEVEL ASC)
+				  ORDER BY PREPLY_GROUP desc, PREPLY_LEVEL asc)
 		GROUP BY PREPLY_GROUP
 	</select>
 	
@@ -23,5 +23,47 @@
 		FROM BOARD_PROJECT_REPLY
 		WHERE PBOARD_NO = #{pboard_no}
 	</select>
+	
+	<insert id="KphboardProjectReplyAdd" useGeneratedKeys="true" parameterType="KphBoardProjectReply" keyColumn="preply_no" keyProperty="preply_no">
+		INSERT INTO BOARD_PROJECT_REPLY
+		VALUES (SEQ_PBOARD_REPLY.NEXTVAL, #{preply_content}, SYSDATE, SEQ_PBOARD_REPLY.NEXTVAL, 0, 0, #{pboard_no}, #{user_no}, 0, null)
+	</insert>
+	
+	<select id="KphBoardProjectReplyByPreplyNo" parameterType="java.lang.Long" resultType="KphBoardProjectReply">
+		SELECT *
+		FROM BOARD_PROJECT_REPLY
+		WHERE PREPLY_NO = #{preply_no}
+	</select>
+	
+	<select id="KphIsUserInIndentZero" parameterType="KphBoardProjectReply" resultType="int">
+		SELECT COUNT(PREPLY_NO)
+		FROM BOARD_PROJECT_REPLY bpr  
+		WHERE PREPLY_GROUP = #{preply_group}
+			AND PREPLY_LEVEL > 0
+			AND PREPLY_INDENT = 0
+			AND USER_NO IN (SELECT u.USER_NO FROM USERS u WHERE u.USER_NAME = #{tagName})
+	</select>
+	
+	<insert id="KphboardProjectReplyReplyAdd" useGeneratedKeys="true" parameterType="KphBoardProjectReply" keyColumn="preply_no" keyProperty="preply_no">
+		INSERT INTO BOARD_PROJECT_REPLY
+		VALUES (SEQ_PBOARD_REPLY.NEXTVAL, 
+					#{preply_content}, 
+					SYSDATE, 
+					#{preply_group}, 
+					(SELECT MAX(PREPLY_LEVEL) + 1
+					FROM BOARD_PROJECT_REPLY
+					WHERE PREPLY_GROUP = #{preply_group}), 
+					#{preply_indent}, 
+					#{pboard_no}, 
+					#{user_no}, 
+					0, 
+					null)
+	</insert>
+	
+	<update id="KphBoardProjectReplyDelete" parameterType="java.lang.Long">
+		UPDATE BOARD_PROJECT_REPLY
+		SET PREPLY_DELETE_CHK = 1
+		WHERE PREPLY_NO = #{preply_no}
+	</update>
 	
 </mapper>

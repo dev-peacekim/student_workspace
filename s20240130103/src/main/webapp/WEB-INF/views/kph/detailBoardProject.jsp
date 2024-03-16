@@ -77,7 +77,7 @@
 				<div class="top-btn">
 					<form action="detailProject" method="get">
 						<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-						<button type="button" class="project-home-btn btn btn-secondary">프로젝트
+						<button type="submit" class="project-home-btn btn btn-secondary">프로젝트
 						홈</button>
 					</form>
 					<form action="boardProject" method="get">
@@ -92,7 +92,14 @@
 				</div>
 			</div>
 			<div class="post">
-				<div class="post-title">${board.pboard_title}</div>
+				<input id="pboard_no" type="hidden" name="pboard_no" value="${board.pboard_no }" />
+				<div class="post-top">
+					<div class="post-top-title">${board.pboard_title}</div>
+					<div	class="post-top-edit">
+						<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
+                        <i id="board-project-edit" class="bi bi-pencil-square board-project-edit"></i>
+					</div>
+				</div>
 				<div class="post-user">
 					<c:if test="${empty board.user.user_profile }">
 						<img
@@ -143,14 +150,15 @@
 				<div class="reply">
 					<div class="reply-title">댓글</div>
 					<div class="reply-write-box">
-						<textarea class="form-control reply-write-area"
-							placeholder="댓글을 입력하세요"></textarea>
+						<textarea class="form-control reply-write-area" placeholder="댓글을 입력하세요"></textarea>
 						<button type="button" class="btn btn-primary reply-write-btn">등록</button>
 					</div>
 					<div class="reply-list">
 						<c:forEach var="replyList" items="${replyListGroups }">
 							<div class="reply-detail">
-								<input type="hidden" name="user_no" value="${replyList.get(0).user_no}" />
+								<input type="hidden" name="preply_no" value="${replyList.get(0).preply_no}" />
+								<input type="hidden" name="preply_group" value="${replyList.get(0).preply_group }">
+								<input type="hidden" name="preply_indent" value="${replyList.get(0).preply_indent}" />
 								<div class="reply-detail-top">
 									<div class="reply-writer">
 										<input type="hidden" name="user_no" value="${replyList.get(0).user_no}" />
@@ -172,6 +180,9 @@
 											<c:if test="${replyList.get(0).preply_update_date != null }">
 												<p class="reply-write-day">${replyList.get(0).preply_update_date}</p>
 											</c:if>
+											<c:if test="${session_user_no == replyList.get(0).user_no}">
+												<i class="bi bi-trash-fill reply-delete-btn"></i>
+											</c:if>
 										</div>
 									</div>
 									<div class="reply-reply-write">
@@ -186,12 +197,10 @@
 										<div class="reply-content">삭제된 댓글입니다.</div>
 									</c:otherwise>
 								</c:choose>
-								<div class="reply-reply-reply-write-box">
-									<textarea class="form-control reply-reply-reply-write-area"
-										placeholder="댓글을 입력하세요">
-											</textarea>
+								<div class="reply-reply-write-box">
+									<textarea class="form-control reply-reply-write-area" placeholder="댓글을 입력하세요"></textarea>
 									<button type="button"
-										class="btn btn-primary reply-reply-reply-write-btn">
+										class="btn btn-primary reply-reply-write-btn">
 										등록</button>
 								</div>
 								<c:if test="${replyList.size() > 1 }">
@@ -201,8 +210,9 @@
 											<c:forEach var="reply" items="${replyList }" begin="1">
 												<div class="reply-reply-detail">
 													<div class="reply-reply-detail-top">
-														<input type="hidden" name="user_no"
-															value="${reply.user_no }">
+														<input type="hidden" name="preply_no" value="${reply.preply_no}" />
+														<input type="hidden" name="preply_group" value="${reply.preply_group }">
+														<input type="hidden" name="preply_indent" value="${reply.preply_indent}" />
 														<div class="reply-reply-writer">
 															<c:if test="${empty reply.user.user_profile }">
 																<img
@@ -222,6 +232,9 @@
 																<c:if test="${reply.preply_update_date != null }">
 																	<p class="reply-reply-write-day">${reply.preply_update_date }</p>
 																</c:if>
+																<c:if test="${session_user_no == reply.user_no}">
+																	<i class="bi bi-trash-fill reply-reply-delete-btn"></i>
+																</c:if>
 															</div>
 														</div>
 														<div class="reply-reply-reply-write">
@@ -234,7 +247,7 @@
 														</c:if>
 														<c:if test="${reply.preply_indent == 1 }">
 															<span class="tag">${reply.preply_content.substring(0, reply.preply_content.indexOf(" ")) }</span>
-															<div>${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length() - 1) }</div>
+															<div>${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length()) }</div>
 														</c:if>
 													</div>
 												</div>

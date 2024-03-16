@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -58,5 +59,13 @@ public interface KphProjectService {
 	int taskCompUpdate(KphTask kphTask);
 
 	KphBoardProject getBoardProject(KphBoardProject kphBoardProject);
+
+	KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply);
+
+	boolean isUserInIndentZero(KphBoardProjectReply reply);
+
+	KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
+
+	int boardProjectReplyDelete(Long preply_no);
 
 }

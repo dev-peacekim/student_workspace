@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.blackberry.s20240130103.kph.dao.KphProjectDao;
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -269,10 +270,86 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 
 	@Override
+	@Transactional
 	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectServiceImp getBoardProject start...");
-		KphBoardProject board = kphProjectDao.getBoardProject(kphBoardProject);
-		return board;
+		
+		KphBoardProject boardProject = new KphBoardProject();
+		
+		kphProjectDao.IncreaseBoardProjectCnt(kphBoardProject);
+		boardProject = kphProjectDao.getBoardProjectByPboardNo(kphBoardProject);
+		boardProject.setPboard_content(boardProject.getPboard_content().replace("\n","<br>"));
+		boardProject.setUser(kphProjectDao.getUserByUserNo(boardProject.getUser_no()));
+		boardProject.setFileList(kphProjectDao.boardProjectFileList(boardProject));
+		
+		List<Long> replyGroupList = kphProjectDao.replyGroupListByPboardNo(boardProject.getPboard_no());
+		List<KphBoardProjectReply> replyList = kphProjectDao.boardProjectReplyList(boardProject);
+		List<List<KphBoardProjectReply>> replyMapGroupByGroup = new ArrayList<>();
+		Iterator<Long> replyGroupListIt = replyGroupList.iterator();
+		
+		while (replyGroupListIt.hasNext()) {
+			Long replyGroupNo = replyGroupListIt.next();
+			List<KphBoardProjectReply> madeReplyList = new ArrayList<>();
+			
+			Iterator<KphBoardProjectReply> replyListIt = replyList.iterator();
+			
+			while (replyListIt.hasNext()) {
+				KphBoardProjectReply reply = replyListIt.next();
+				reply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+				reply.setUser(kphProjectDao.getUserByUserNo(reply.getUser_no()));
+				
+				if(reply.getPreply_group() == replyGroupNo) {
+					madeReplyList.add(reply);
+				}
+			}
+			
+			replyMapGroupByGroup.add(madeReplyList);
+			System.out.println("replyMapGroupByGroup =>" + replyMapGroupByGroup.get(0));
+			
+		}
+		
+		boardProject.setReplyListGroupByGroup(replyMapGroupByGroup);
+		boardProject.setReplyCnt(kphProjectDao.boardProjectReplyCnt(kphBoardProject.getPboard_no()));
+		
+		return boardProject;
 	}
-
+	
+	@Override
+	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp boardProjectReplyAdd start...");
+		KphBoardProjectReply resultReply = kphProjectDao.boardProjectReplyAdd(reply);
+		resultReply.setUser(kphProjectDao.getUserByUserNo(resultReply.getUser_no()));
+		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+		return resultReply;
+	}
+	
+	@Override
+	public boolean isUserInIndentZero(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp isUserInIndentOne start...");
+		boolean result = false;
+		int isUserInIndentTwo = kphProjectDao.isUserInIndentZero(reply);
+		
+		if (isUserInIndentTwo > 0) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp boardProjectReplyReplyAdd start...");
+		KphBoardProjectReply resultReply = kphProjectDao.boardProjectReplyReplyAdd(reply);
+		resultReply.setUser(kphProjectDao.getUserByUserNo(resultReply.getUser_no()));
+		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+		return resultReply;
+	}
+	
+	@Override
+	public int boardProjectReplyDelete(Long preply_no) {
+		System.out.println("KphProjectServiceImp boardProjectReplyReplyAdd start...");
+		int result = kphProjectDao.boardProjectReplyDelete(preply_no);
+		return result;
+	}
+	
 }

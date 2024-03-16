@@ -49,10 +49,23 @@
     font-family: 'NanumSquare', sans-serif;
 }
 
-.post .post-title {
+.post .post-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-top .post-top-title {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 20px;
+}
+
+.post-top .post-top-edit i:hover {
+    cursor: pointer;
+}
+
+.post-top .post-top-edit .board-project-delete {
+    margin-right: 5px;
 }
 
 .post .post-user {
@@ -187,6 +200,7 @@
 
 .reply-writer .reply-writer-detail {
     display: flex;
+    align-items: center;
 }
 
 .reply-writer-detail p{
@@ -204,12 +218,25 @@
     line-height: 24px;
 }
 
+.reply-writer-detail i {
+	margin-left: 5px;
+	color: rgba(128, 128, 128, 0.596);
+}
+
+.reply-writer-detail i:hover {
+	cursor: pointer;
+}
+
 .reply-detail-top .reply-reply-write {
     font-size: 14px;
 }
 
+.reply-detail-top .reply-reply-write:hover {
+    cursor: pointer;
+}
+
 .reply-detail .reply-content {
-    margin-bottom: 20px;
+    
 }
 
 .reply-detail .reply-reply-box {
@@ -217,6 +244,7 @@
 }
 
 .reply-reply-box .reply-reply-btn {
+	margin-top: 20px;
     font-size: 14px;
     color: #0d6efd;
     margin-bottom: 0;
@@ -264,6 +292,7 @@
 
 .reply-reply-writer .reply-reply-writer-detail {
     display: flex;
+    align-items: center;
 }
 
 .reply-reply-writer-detail p {
@@ -279,6 +308,15 @@
     color: rgba(128, 128, 128, 0.596);
     font-size: 14px;
     line-height: 24px;
+}
+
+.reply-reply-writer-detail i {
+	margin-left: 5px;
+	color: rgba(128, 128, 128, 0.596);
+}
+
+.reply-reply-writer-detail i:hover {
+	cursor: pointer;
 }
 
 .reply-reply-detail .reply-reply-content {
@@ -298,12 +336,21 @@
 .reply-reply-detail .reply-reply-content div {
 }
 
-.reply-reply-reply-write-box {
+.reply-reply-write-box {
+	margin-top: 20px;
     display: none;
     flex-wrap: wrap;
     justify-content: right;
 }
 
-.reply-reply-reply-write-box .reply-reply-reply-write-area {
+.reply-reply-write-box .reply-reply-write-area {
     margin-bottom: 10px;
+}
+
+.reply-reply-reply-write {
+    font-size: 14px;
+}
+
+.reply-reply-reply-write:hover {
+    cursor: pointer;
 }

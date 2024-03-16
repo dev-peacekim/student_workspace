@@ -20,5 +20,7 @@ public class KphBoardProjectReply {
 	
 	// 조회용
 	private KphUsers user;
+	private String tagName;
+	private Long session_user_no;
 	
 }

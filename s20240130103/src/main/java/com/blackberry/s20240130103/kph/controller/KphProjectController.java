@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
@@ -463,10 +464,77 @@ public class KphProjectController {
 			model.addAttribute("replyListGroups", board.getReplyListGroupByGroup());
 			model.addAttribute("replyListSize", board.getReplyListGroupByGroup().size());
 			model.addAttribute("project_no", kphBoardProject.getProject_no());
+			Long user_no = (Long)request.getSession().getAttribute("user_no");
+			model.addAttribute("session_user_no", user_no);
 			resultPage = "kph/detailBoardProject";
 		}
 		
 		return resultPage;
+	}
+	
+	@PostMapping("boardProjectReplyAdd")
+	@ResponseBody
+	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
+		System.out.println("KphProjectController boardProjectReplyAdd start...");
+		System.out.println("KphProjectController boardProjectReplyWrite reply=>" + reply);
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		reply.setUser_no(user_no);
+		
+		KphBoardProjectReply resultReply = kphProjectService.boardProjectReplyAdd(reply);
+		return resultReply;
+	}
+	
+	@PostMapping("boardProjectReplyReplyAdd")
+	@ResponseBody
+	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
+		System.out.println("KphProjectController boardProjectReplyReplyAdd start...");
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		
+		KphBoardProjectReply resultReply = null;
+		String content = reply.getPreply_content();
+		String tag = null;
+		if(content.indexOf(" ") != -1) {
+			tag = content.substring(0, content.indexOf(" "));
+		}
+		
+		if (content.startsWith("@")) {
+			reply.setTagName(tag.substring(1));
+			
+			// 해당 댓글 그룹에 속하는 인원 중 대댓글로 작성한 인원이 있는지 체크 
+			boolean isUserInIndentZero = kphProjectService.isUserInIndentZero(reply);
+			
+			if(isUserInIndentZero) {
+				reply.setPreply_indent(1);
+				reply.setUser_no(user_no);
+			} else {
+				reply.setPreply_indent(0);
+				reply.setUser_no(user_no);
+			}
+			
+			resultReply = kphProjectService.boardProjectReplyReplyAdd(reply);
+			
+		} else {
+			reply.setPreply_indent(0);
+			reply.setUser_no(user_no);
+			resultReply = kphProjectService.boardProjectReplyReplyAdd(reply);
+		}
+		
+		return resultReply;
+	}
+	
+	@PostMapping("boardProjectReplyDelete")
+	@ResponseBody
+	public String boardProjectReplyDelete(KphBoardProjectReply reply) {
+		System.out.println("KphProjectController boardProjectReplyDelete start...");
+		String result= null;
+		
+		int deleteResult = kphProjectService.boardProjectReplyDelete(reply.getPreply_no());
+		
+		if(deleteResult > 0) {
+			result = "성공";
+		}
+		
+		return result;
 	}
 	
 	
