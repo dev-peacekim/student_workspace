@@ -31,6 +31,12 @@ function getUserNic() {
     });
 }
 
+// 프로필 주소 
+// 이게 맞나 싶어요
+var profileImageUrl = 'http://localhost:8989' + "/upload/userImg/";
+console.log(profileImageUrl);
+
+
 // 게시판 댓글 리스트
 let cboardNo = null;
 
@@ -77,12 +83,13 @@ function updateReplyList(data) {
         if (lslCommReply.creply_level > 0) {
             indentation = lslCommReply.creply_indent * 25;
         }
+        let imageUrl = profileImageUrl + lslCommReply.user_profile;
 
 
         boardReplyList += `<div class="re-comment-body" style="margin-left: ${indentation}px;"> 
             <div id="replyBoardFreeList" class="comment-card">
                 <div class="comment-header">
-                    <i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+                    <img class="user-profile" src="${imageUrl}" alt="User Profile" ></img>
                     <div class="comment-user-container">
                         <p id="replyuser_name" class="card-title comment-user-name">${lslCommReply.user_nic}</p>
                         <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
@@ -107,7 +114,7 @@ function updateReplyList(data) {
 
                 <div id="addComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
                     <textarea id="addCommentText_${lslCommReply.creply_no}"  class="form-control"></textarea>
-                    <button type="button" class="btn addReply" id="addReply" data-cboard-no="${lslCommReply.cboard_no}" data-creply-no="${lslCommReply.creply_no}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-level="${lslCommReply.creply_level}"  onclick="addReply(${lslCommReply.creply_no},${lslCommReply.creply_group});">저장</button>
+                    <button type="button" class="btn addReply" id="addReply" data-cboard-no="${lslCommReply.cboard_no}" data-creply-no="${lslCommReply.creply_no}" data-creply-indent="${lslCommReply.creply_indent}" data-user-profile="${lslCommReply.user_profile}" data-creply-level="${lslCommReply.creply_level}"  onclick="addReply(${lslCommReply.creply_no},${lslCommReply.creply_group});">저장</button>
                     <button type="button" class="btn replyCancle" onclick="toggleReply('${lslCommReply.creply_no}');">취소</button>
                 </div>
             </div>
@@ -133,12 +140,15 @@ $(document).on("click", "#submitBtn", function() {
     const cboard_no = $('input[name="cboard_no"]').val();
     const user_No = $('input[name="user_no"]').val();
     const creply_no = $('input[name="creply_no"]').val();
+    const user_profile = $('input[name="user_profile"]').val();
 
     const replyData = {
         cboard_no: cboard_no,
         user_no: user_No,
         creply_content: creply_content,
-        creply_no: creply_no
+        creply_no: creply_no,
+        user_profile:user_profile
+        
     };
 
     console.log(replyData);
@@ -198,6 +208,7 @@ $(document).on('click', ".addReply", function(e) {
         creply_indent : e.target.dataset['creplyIndent'],
         creply_level : e.target.dataset['creplyLevel'],
         creply_no : e.target.dataset['creplyNo'],
+        user_profile : e.target.dataset['userProfile'],
         cboard_no : cboard_no,
 		
     };

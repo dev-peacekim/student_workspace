@@ -152,7 +152,6 @@
 --------------------------------------------------------------*/
 .re-comment-body {
 	padding: 16px;
-	height: 150px;
 	margin-top: 20px;
 	margin-bottom: 10px;
 	border-top: 1px solid #f1f3f5;
@@ -439,3 +438,16 @@
 
 
 
+.user-profile {
+    height: 36px;
+    width: 36px;
+    border-radius: 50% !important;
+    margin-left: -20px;
+    margin-right: 10px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+img, svg {
+    vertical-align: middle;
+}

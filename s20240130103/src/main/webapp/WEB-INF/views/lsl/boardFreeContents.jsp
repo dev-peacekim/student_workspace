@@ -73,7 +73,14 @@ window.onload = function() {
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" alt="${boardFreeContents.user_profile}"></i>
+                    <c:choose>
+                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${userProfile}" alt="User Profile" ></img>
+                </c:when>
+                <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="" class="rounded-circle">                   
+                 </c:otherwise>
+                </c:choose>
                     <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardFreeContents.user_nic}</a>
@@ -117,6 +124,7 @@ window.onload = function() {
 							<input type="hidden" name="user_no" value="${boardFreeContents.user_no}" /> 
 							<input type="hidden" name="creply_no" value="${boardFreeContents.creply_no}" />
                             <input type="hidden" name="boardType" value="${boardFreeContents.boardType}" />
+                            <input type="hidden" name="user_profile" value="${boardFreeContents.user_profile}" />
                 
 	                <div class="comment-editor">
 	            		<c:choose>

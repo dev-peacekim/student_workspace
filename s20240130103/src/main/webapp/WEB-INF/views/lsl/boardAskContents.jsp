@@ -72,8 +72,14 @@ window.onload = function() {
             <div class="card-header community-post-header">
                 <h3 class="card-title post-header-title">${boardAskContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
-                    <i class="bi bi-person-circle post-user-profile" 
-                    alt="${boardFreeContents.user_profile}"></i>
+                    <c:choose>
+                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${userProfile}" alt="User Profile" ></img>
+                </c:when>
+                <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="" class="rounded-circle">                   
+                 </c:otherwise>
+                </c:choose>
                             <div class="card-title-header">
                         <h5 class="card-title post-user-name">
                             <a href="#">${boardAskContents.user_nic}</a>
@@ -125,8 +131,8 @@ window.onload = function() {
                             <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
                         </c:when>
                     <c:otherwise>
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
-                        </c:otherwise>
+                        <i class="bi bi-person-circle post-user-profile"  alt="${boardFreeContents.user_profile}"></i>                      
+                     </c:otherwise>
                     </c:choose>
                     <input type="text" name="comment" id="creply_content"
                         placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">

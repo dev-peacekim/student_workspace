@@ -2,6 +2,7 @@ package com.blackberry.s20240130103.lsl.controller;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,18 +42,27 @@ public class LslRestController {
 	
 	// 댓글
 	// 게시판 댓글 리스트
-	   @GetMapping("/reply")
-		public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no) {
-	    	System.out.println("LslRestController replyBoardFreeList Start..");
-			List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
-			System.out.println("LslRestController replyBoardFreeList.size() ->" + replyBoardFreeAskList.size());
-			 // 댓글 목록에 댓글 번호를 추가
-	        for (LslCommReply reply : replyBoardFreeAskList) {
-	            reply.setCreply_no(reply.getCreply_no()); // 댓글 번호를 가져와서 설정
-	        }
+	@GetMapping("/reply")
+	public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no,HttpServletRequest request, Model model) {
+	    System.out.println("LslRestController replyBoardFreeList Start..");
+	    List<LslCommReply> replyBoardFreeAskList = ls.replyBoardFreeAskList(cboard_no);
+	    System.out.println("LslRestController replyBoardFreeList.size() ->" + replyBoardFreeAskList.size());
+	    
+	   
+	    // 댓글 목록에 댓글 번호를 추가
+	    for (LslCommReply reply : replyBoardFreeAskList) {
+	        // 각 댓글의 사용자 프로필을 가져옴
+	        String userProfile = reply.getUser_profile();
+	        System.out.println("userProfile : " + userProfile);
 	        
-	        return replyBoardFreeAskList;
-		   }
+	        // 필요한 작업 수행
+	        
+	        // 댓글 번호를 가져와서 설정
+	        reply.setCreply_no(reply.getCreply_no());
+	    }
+	    
+	    return replyBoardFreeAskList;
+	}
    
     
    //  게시판 댓글 등록 
@@ -102,6 +112,7 @@ public class LslRestController {
 	    int creply_indent = lslCommReply.getCreply_indent();
 	    int creply_level = lslCommReply.getCreply_level();
 	    int creply_no = lslCommReply.getCreply_no();
+	    String user_profile = lslCommReply.getUser_profile();
 	    //String parent_user_id = lslCommReply.getParent_user_id();
 	    
 	
@@ -116,6 +127,7 @@ public class LslRestController {
 	    lslCommReply.setCboard_no(cboard_no);
 	    lslCommReply.setCreply_group(cPreply_group);
 	    lslCommReply.setCreply_indent(creply_indent +1);
+	    lslCommReply.setUser_profile(user_profile);
 	    //lslCommReply.setCreply_level(creply_level + 1);
 	    //lslCommReply.setParent_user_id(parent_user_id);
 	    
@@ -126,7 +138,7 @@ public class LslRestController {
 	    //  update = 내가 쓴 부모댓글에 해당하는 글들에서 대댓글 레벨 보다 큰 애들 +1
 	    
 	    // 대댓글 리스트 
-//	    
+	    
 //	    List<LslCommReply> repliesAfterParent = ls.getRepliesAfterParent(cPreply_group, creply_no);
 //	    
 //	    for (LslCommReply reply : repliesAfterParent) {

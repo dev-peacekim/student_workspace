@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -90,6 +89,7 @@ public class LslController {
 	@GetMapping(value = "boardFreeContents")
 	public String boardFreeContents(HttpServletRequest request, Model model, LslBoardComm lslBoardComm) {
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		
 		System.out.println("boardFreeContents cboard_no : " + cboard_no);
 		LslBoardComm boardFreeContents = ls.boardFreeContents(cboard_no);
 		System.out.println("LslController replyBoardFreeList Start..");
@@ -103,6 +103,12 @@ public class LslController {
 		// 파일 첨부 된 글
 		List<LslboardFile> boardFreeFile = ls.boardFreeFile(cboard_no);
 		
+		// 프로필 
+		String userProfile = boardFreeContents.getUser_profile();
+		System.out.println("usesrProfile : " + userProfile);
+	
+		
+		model.addAttribute("userProfile", userProfile);
 		model.addAttribute("boardFreeFile",boardFreeFile);
 		model.addAttribute("boardReplyCnt", boardReplyCnt);
 		model.addAttribute("boardFreeViewCnt", boardFreeViewCnt);
@@ -265,7 +271,12 @@ public class LslController {
 		// 파일 첨부 된 글 
 		List<LslboardFile> boardAskFile = ls.boardAskFile(cboard_no);
 		
-
+		//프로필 
+		String userProfile = boardAskContents.getUser_profile();
+		System.out.println("usesrProfile : " + userProfile);
+	
+		
+		model.addAttribute("userProfile", userProfile);
 		model.addAttribute("boardAskFile",boardAskFile);
 		model.addAttribute("boardReplyCnt", boardReplyCnt);
 		model.addAttribute("boardAskViewCnt", boardAskViewCnt);
