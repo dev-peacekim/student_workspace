@@ -81,7 +81,7 @@
 					<div class="search-bar justify-content-end">
 						<form action="/boardCntSearch" method="POST" class="search-form d-flex align-items-center">
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
-							    <option selected="">검색 기준</option>
+							    <option selected="A">전체</option>
 							    <option value="TC">제목+내용</option>
 							    <option value="W">작성자</option>
 							</select>

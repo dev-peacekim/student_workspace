@@ -5,19 +5,23 @@
 # community-post
 --------------------------------------------------------------*/
 
-section * {
-	font-family: 'NanumSquare', sans-serif !important;
+.main * {
+	font-family: 'NanumSquare', sans-serif;
 }
 .card-body {
 	border: none;
 	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-	font-family: 'NanumSquare', sans-serif !important;
 }
 
 .sider-header {
 	display: flex;
 	align-items: center;
 }
+
+/*--------------------------------------------------------------
+# 게시글 헤더
+--------------------------------------------------------------*/
+
 .post-title {
 	flex: 1;
 }
@@ -41,7 +45,7 @@ section * {
     line-height: 1.38;
     letter-spacing: -.3px;
     white-space: nowrap;
-    z-index: 1; /* Ensure tooltip is displayed above other content */
+    z-index: 1; 
     opacity: initial;
 }
 
@@ -70,7 +74,7 @@ section * {
 
 
 /*--------------------------------------------------------------
-# 
+# file
 --------------------------------------------------------------*/
 .table-file {
 	margin-bottom: 10px;
@@ -97,12 +101,16 @@ section * {
 	color: #212121;
 }
 
+
+/*--------------------------------------------------------------
+# 게시판 페이지 본문
+--------------------------------------------------------------*/
 .community-post-header {
 	align-items: center;
 	position: relative;
 	flex-grow: 1;
+	background-color: #fff !important;
 }
-
 .card-title-header {
 	display: flex;
 	flex-direction: column;
@@ -192,9 +200,6 @@ section * {
 /*--------------------------------------------------------------
 # community-post-body
 --------------------------------------------------------------*/
-.community-post-header {
-	background-color: #fff !important;
-}
 
 .community-post-body {
 	font-size: 16px;
@@ -312,7 +317,7 @@ section * {
 	border: none;
 }
 /*--------------------------------------------------------------
-# ref-comment
+# 
 --------------------------------------------------------------*/
 .comment-user-profile {
 	margin-right: 10px;
@@ -365,7 +370,7 @@ section * {
 /*--------------------------------------------------------------
 # reply 대댓글
 --------------------------------------------------------------*/
-
+/*
 
 .reply {
 	padding: 8px 32px 8px 60px;
@@ -407,6 +412,7 @@ section * {
 .re-reply-body>.bi-reply-fill:hover {
 	cursor: pointer;
 }
+*/
 .groupBy {
 	background-color: #f8f9fa;
 }
