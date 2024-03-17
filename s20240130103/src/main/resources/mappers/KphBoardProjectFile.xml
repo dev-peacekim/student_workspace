@@ -8,4 +8,11 @@
 		WHERE PBOARD_NO = #{pboard_no}
 	</select>
 	
+	<select id="KphGetBoardProjectFile" parameterType="KphBoardProjectFile" resultType="KphBoardProjectFile">
+		SELECT *
+		FROM BOARD_PROJECT_FILE
+		WHERE PBOARD_NO = #{pboard_no}
+			AND PBOARD_FILE_NO = #{pboard_file_no}
+	</select>
+	
 </mapper>

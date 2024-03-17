@@ -93,4 +93,8 @@ public interface KphProjectDao {
 
 	int boardProjectReplyDelete(Long preply_no);
 
+	void boardProjectDelete(KphBoardProject board);
+
+	KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file);
+
 }

@@ -360,4 +360,14 @@ public class KphProjectDaoImp implements KphProjectDao {
 		return session.update("KphBoardProjectReplyDelete", preply_no);
 	}
 	
+	@Override
+	public void boardProjectDelete(KphBoardProject board) {
+		session.update("KphBoardProjectDelete", board);
+	}
+	
+	@Override
+	public KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file) {
+		return session.selectOne("KphGetBoardProjectFile", file);
+	}
+	
 }

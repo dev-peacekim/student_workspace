@@ -8,4 +8,10 @@
 		WHERE PBOARD_NO = #{pboard_no}
 	</update>
 	
+	<update id="KphBoardProjectDelete" parameterType="KphBoardProject">
+		UPDATE BOARD_PROJECT
+		SET PBOARD_DELETE_CHK = 1, PBOARD_UPDATE_DATE = SYSDATE
+		WHERE PBOARD_NO = #{pboard_no}
+	</update>
+	
 </mapper>

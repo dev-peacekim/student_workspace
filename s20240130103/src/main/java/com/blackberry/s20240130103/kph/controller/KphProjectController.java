@@ -1,5 +1,13 @@
 package com.blackberry.s20240130103.kph.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -9,6 +17,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectFile;
 import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -30,6 +40,7 @@ import com.blackberry.s20240130103.kph.service.KphPaging;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.proxy.annotation.Post;
@@ -540,5 +551,39 @@ public class KphProjectController {
 		return result;
 	}
 	
+	@PostMapping("boardProjectDelete")
+	public String boardProjectDelete(KphBoardProject board ,HttpServletRequest request) {
+		System.out.println("KphProjectController boardProjectDelete start...");
+		kphProjectService.boardProjectDelete(board);
+		return "redirect:/boardProject?project_no=" + board.getProject_no();
+	}
+	
+	@GetMapping("boardProjectFileDownload")
+	public void boardProjectFileDownload(KphBoardProjectFile file, HttpServletRequest request, HttpServletResponse response) {
+		KphBoardProjectFile fileInformation = kphProjectService.getBoardProjectFile(file);
+		try {
+			if(fileInformation != null) {
+				String filePath = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/") + fileInformation.getPboard_file_name();
+				File boardProjectFile = new File(filePath);
+				if(boardProjectFile.exists()) {
+					 String mimeType = URLConnection.guessContentTypeFromName(boardProjectFile.getName());
+					 if(mimeType == null) {
+						 mimeType = "application/octet-stream";
+					 }
+					 response.setContentType(mimeType);
+		             response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileInformation.getPboard_file_user_name(), "UTF-8") + "\"");
+		             response.setContentLength((int)boardProjectFile.length());
+		             
+		             InputStream inputStream = new BufferedInputStream(new FileInputStream(boardProjectFile));
+		             FileCopyUtils.copy(inputStream, response.getOutputStream());
+				}
+			}
+		} catch (FileNotFoundException fileNotFoundException) {
+			fileNotFoundException.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.blackberry.s20240130103.kph.model.KphBoardProject;
+import com.blackberry.s20240130103.kph.model.KphBoardProjectFile;
 import com.blackberry.s20240130103.kph.model.KphBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
@@ -69,5 +70,9 @@ public interface KphProjectService {
 	KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
 
 	int boardProjectReplyDelete(KphBoardProjectReply reply);
+
+	void boardProjectDelete(KphBoardProject board);
+
+	KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file);
 
 }
