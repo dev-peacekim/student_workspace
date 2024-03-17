@@ -41,7 +41,7 @@
 		WHERE ba.ADMIN_REPLY_CHK = 0
 		AND ba.USER_NO = u.USER_NO
 		AND rownum <= 5
-		ORDER BY admin_date
+		ORDER BY admin_date desc
 	    ]]>
 	</select>
 	
@@ -134,7 +134,7 @@
 					<otherwise>
 					</otherwise>
 				</choose>
-				ORDER BY u.USER_DELETE_CHK desc,u.USER_DATE) a) a
+				ORDER BY u.USER_DELETE_CHK desc,u.USER_DATE desc) a) a
 		WHERE a.rn BETWEEN #{start} AND #{end}
 	</select>
 	

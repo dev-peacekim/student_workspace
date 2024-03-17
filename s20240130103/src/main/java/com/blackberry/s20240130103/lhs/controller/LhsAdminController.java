@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blackberry.s20240130103.lhs.model.BoardAdmin;
 import com.blackberry.s20240130103.lhs.model.BoardComm;
@@ -129,6 +130,7 @@ public class LhsAdminController {
 		reply.setStart(paging.getStart());
 		reply.setEnd(paging.getEnd());
 		List<Reply> replyList = adminService.selectReplyList(reply);
+		model.addAttribute("currentPage", reply.getCurrentPage());
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("paging", paging);
 		model.addAttribute("searchkind", reply.getSearchkind());
@@ -137,8 +139,9 @@ public class LhsAdminController {
 	}
 	
 	@GetMapping("admin_replyDelte")
-	public String adminReplyDelete(Reply reply) {
+	public String adminReplyDelete(Reply reply,RedirectAttributes redirect) {
 		int result = adminService.deleteReply(reply);
+		redirect.addAttribute("currentPage", reply.getCurrentPage());
 		return "redirect:/admin_reply";
 	}
 	

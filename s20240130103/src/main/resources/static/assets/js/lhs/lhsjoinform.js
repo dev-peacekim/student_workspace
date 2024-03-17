@@ -1,6 +1,7 @@
 let idChkval = 0;
 let passChkval = 0;
 const extenReg = /.+\.(jpeg|jpg|png)/;
+const idReg = /\s?(admin)?/;
 document.getElementById('file').addEventListener('change',function(){
 	if(this.value.match(extenReg)){
 		if(this.files[0]){
@@ -23,7 +24,8 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 	document.querySelector('.disableId').style.display='none';
 	document.querySelector('.enableId').style.display='none';
 	let idval = document.getElementById('id').value;
-	if(idval && idval !==""){
+	console.log(idReg.test(idval));
+	if(idval && idval !=="" && !idReg.test(idval)){
 		$.ajax({
 			type:'post',
 			url:'/joinIdChk',
@@ -40,12 +42,12 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 			}
 		})
 	}else{
-		alert("id 입력하세요");
+		alert("잘못된 id입니다");
 	}
 });
 
 document.getElementById('pw2').addEventListener('keyup',function(){
-	if(document.getElementById('pw1').value === this.value){
+	if(document.getElementById('pw1').value === this.value && !/\s?/.test(this.value)){
 		document.querySelector('.disablePass').style.display='none';
 		document.querySelector('.enablePass').style.display='block';
 		passChkval=1;

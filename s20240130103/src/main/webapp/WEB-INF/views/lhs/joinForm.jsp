@@ -85,8 +85,8 @@
                     <div class="col-12">
                       <label for="pw2" class="form-label">비밀번호확인</label>
                       <input type="password" name="user_pw" class="form-control" id="pw2" required>
-                      <div class="enablePass">비밀번호가 같습니다.</div>
-                      <div class="disablePass">비밀번호가 다릅니다.</div>
+                      <div class="enablePass">사용가능한 비밀번호입니다.</div>
+                      <div class="disablePass">사용불가능한 비밀번호이거나 비밀번호가 서로 다릅니다.</div>
                     </div>
                     
                     <div class="col-12">

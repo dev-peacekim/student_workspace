@@ -59,7 +59,7 @@
 			<div class="main-div">
 				<div class="main-top">
 					<div class="pagetitle">
-						<h1>회원 관리</h1>
+						<h1>댓글 관리</h1>
 					</div>
 				</div>
 				<div class="main-mid bg-white">
@@ -115,7 +115,10 @@
 											</a>
 										</td>
 										<td>${reply.user_id }</td>
-										<td>${reply.creply_content }</td>
+										<td>
+											<c:forEach begin="1" end="${reply.creply_indent }">└</c:forEach>
+											${reply.creply_content }
+										</td>
 										<td>
 											<fmt:formatDate value="${reply.creply_date }" type="both"/>
 										</td>
@@ -123,7 +126,7 @@
 											<c:if test="${reply.creply_delete_chk eq 1 }">삭제대기중</c:if>
 										</td>
 										<td>
-											<a href="admin_replyDelte?creply_no=${reply.creply_no }">
+											<a href="admin_replyDelte?creply_no=${reply.creply_no }&currentPage=${currentPage}">
 												<button class="btn btn-danger btn-sm">삭제</button>
 											</a>
 										</td>

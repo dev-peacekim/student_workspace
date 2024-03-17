@@ -33,9 +33,6 @@ public class LhsHeaderAspect {
         if(session.getAttribute("user_no") != null) {
         	int noreadMessageCnt = headerMessageService.selectNoReadMessageCnt(session.getAttribute("user_no").toString());
         	List<Message> headerThreeMessageList = headerMessageService.getThreeMessage(session.getAttribute("user_no").toString());
-        	for(Message msg : headerThreeMessageList) {
-        		System.out.println("test : " + msg);
-        	}
         	session.setAttribute("headerList", headerThreeMessageList);
         	session.setAttribute("messageCnt", noreadMessageCnt);
         }

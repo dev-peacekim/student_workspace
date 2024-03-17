@@ -20,7 +20,7 @@ public class LhsPaging {
 	
 	public LhsPaging(int total, String currentPage1) {
 		this.total = total;
-		if(currentPage1 != null) {
+		if(currentPage1 != null && currentPage1 !="" ) {
 			this.currentPage = Integer.parseInt(currentPage1);
 		}
 		start = (currentPage -1) * rowPage + 1;

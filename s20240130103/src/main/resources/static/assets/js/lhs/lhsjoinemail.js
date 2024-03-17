@@ -2,7 +2,7 @@ let regExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?
 let number;
 document.getElementById("emailchkbtn").addEventListener('click',function(){
 	const emailform = document.getElementById('email');
-	if(emailform.value.match(emailform)){
+	if(emailform.value.match(regExp)){
 		$.ajax({
 			type: 'post',
 			url : '/emailChkAjax',

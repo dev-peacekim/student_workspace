@@ -530,6 +530,7 @@
 		SELECT count(*)
 		FROM MESSAGE m 
 		WHERE m.MSG_RECEIVER = #{userNo}
+		AND m.msg_delete_chk = 0
 		AND m.MSG_READDATE IS NULL
 	</select>
 	
