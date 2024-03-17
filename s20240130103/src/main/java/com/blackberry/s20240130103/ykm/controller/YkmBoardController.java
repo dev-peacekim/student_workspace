@@ -121,16 +121,25 @@ public class YkmBoardController {
 	
 	// 글 수정 폼
 	@GetMapping(value = "/updateForm")
-	public String updatePostForm(HttpServletRequest request, Model model) {
+	public String UpdatePostForm(HttpServletRequest request, Model model) {
 		System.out.println("updatePostForm updatePostForm start---*");
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
-
 		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
 		model.addAttribute("getPost", getPost);
 		model.addAttribute("getFileList", getFileList);
 		
-		return "ykm/boardUpdateForm";
+		// 로그인 유저
+		Long currentUserNo = (Long) request.getSession().getAttribute("user_no");
+		// 글 작성자
+		Long postWriter = getPost.getUser_no();
+
+		// 권한 체크 (글 작성자와 로그인 유저가 같을 경우엔 페이지 이용 가능, 아니라면 로그인 폼으로 이동)
+		if (getPost != null && currentUserNo !=null && currentUserNo.equals(postWriter)) {
+			return "ykm/boardUpdateForm";
+		} else {
+			return "lhs/loginForm";
+		}
 	}
 	
 	// 글 수정

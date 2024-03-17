@@ -2,7 +2,7 @@
 
 
 // 세션에 저장된 유저 정보 불러오기
-let seesion_user_no, seesion_user_nic, seesion_user_profile;
+let seesion_user_no, seesion_user_nic, seesion_user_profile, profile_image_path;
 
 function getUserInfo() {
 	$.ajax({
@@ -12,11 +12,10 @@ function getUserInfo() {
 		 seesion_user_no = data.seesion_user_no;
          seesion_user_nic = data.seesion_user_nic;
          seesion_user_profile = data.seesion_user_profile;
+         profile_image_path = data.profile_image_path;
          
-       	 console.log('1'+seesion_user_no);
-		 console.log('2'+seesion_user_nic);
-		 console.log('3'+seesion_user_profile);
-		
+         console.log('seesion_user_profile'+seesion_user_profile);
+         console.log('profile_image_path'+profile_image_path);
 		},
 		error: function(error) {
 			console.log('세션 데이터를 가져오는 중 오류 발생!', error);
@@ -74,12 +73,13 @@ function updateCommentView(data) {
 		// commentWriter: 댓글 작성자, seesion_user_no: 로그인 한 유저정보
 		commentWriter = comment.user_no 
 		console.log('commentWriter'+commentWriter);      
+		let profileImagePath = comment.user_profile ? `${profile_image_path}/${comment.user_profile}` : "/upload/userImg/987654321487321564defaultImg.jpg";
 
 		replyList += `
 				<div class="groupBy" style="padding-left: ${paddingValue}px;"> 
 				<div class="comment-card" data-creply-no="${comment.creply_no}">
 				<div class="comment-header">
-				<i class="bi bi-person-circle comment-user-profile" alt="유저 프로필"></i>
+				<img class="rounded-circle" src="${profileImagePath}" alt="유저 프로필"></img>
 				<div class="comment-user-container">
 					<p class="card-title comment-user-name"><a href="#">${comment.user_nic}</a></p>
 					<p class="card-subtitle comment-updated-at">작성일 ${formatted}</p>
