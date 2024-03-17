@@ -97,4 +97,6 @@ public interface KphProjectDao {
 
 	KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file);
 
+	int projectEnd(KphProject kphProject);
+
 }

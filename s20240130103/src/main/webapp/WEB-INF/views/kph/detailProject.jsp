@@ -126,6 +126,7 @@
 							<li id="team-member-add-btn">팀원 추가</li>
 							<li id="project-update-btn">프로젝트 수정</li>
                             <li id="project-delete-btn">프로젝트 삭제</li>
+                            <li id="project-end-btn">프로젝트 완료</li>
 						</ul>
 					</div>
 				</div>
@@ -267,6 +268,17 @@
                     <div class="task-delete-btn-list">
                         <button type="button" class="btn btn-primary task-delete-check-btn">확인</button>
                         <button type="button" class="btn btn-secondary task-delete-cancle-btn">취소</button>
+                    </div>
+                </div>
+            </div>
+            <div class="project-end-box">
+                <div>
+                    <div class="project-end-box-title">
+                        완료 시 복구가 불가능 합니다.<br /> 정말로 완료하시겠습니까?
+                    </div>
+                    <div class="end-btn-list">
+                        <button type="button" class="btn btn-primary end-check-btn">확인</button>
+                        <button type="button" class="btn btn-secondary end-cancle-btn">취소</button>
                     </div>
                 </div>
             </div>

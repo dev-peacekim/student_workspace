@@ -236,6 +236,24 @@ function authorityTestForDelete(projectLeader_no, project_no) {
 	});
 }
 
+function authorityTestForEnd(projectLeader_no, project_no) {
+	$.ajax({
+		type: "get",
+		url: "userAuthority",
+		data: {
+			projectLeader_no: projectLeader_no
+		},
+		dataType: "json",
+		success: function(userAuthority) {
+			if (userAuthority != 1) {
+				$(".team-member-add-box-no-authority").css('display', 'flex');
+			} else {
+				$(".project-end-box").css('display', 'flex');
+			}
+		}
+	});
+}
+
 const projectLeader_no = $('.projectLeader_no').val();
 const project_no = $('.project_no').val();
 
@@ -254,6 +272,11 @@ $("#project-delete-btn").on("click", function() {
 	authorityTestForDelete(projectLeader_no, project_no, url);
 });
 
+$("#project-end-btn").on("click", function() {
+	const url = 'projectEnd';
+	authorityTestForEnd(projectLeader_no, project_no, url);
+});
+
 $(".authority-cancle").on('click', function() {
 	$(".team-member-add-box-no-authority").css('display', 'none');
 });
@@ -262,10 +285,29 @@ $(".cancle-btn").on('click', function() {
 	$(".project-delete-box").css('display', 'none');
 });
 
+$(".end-cancle-btn").on('click', function() {
+	$(".project-end-box").css('display', 'none');
+});
+
 $(".check-btn").on('click', function() {
 	$.ajax({
 		type: "post",
 		url: "projectDelete",
+		data: {
+			project_no: project_no
+		},
+		dataType: "text",
+		success: function(response) {
+			console.log(response);
+			window.location.href = '/main';
+		}
+	});
+});
+
+$(".end-check-btn").on('click', function() {
+	$.ajax({
+		type: "post",
+		url: "projectEnd",
 		data: {
 			project_no: project_no
 		},

@@ -45,11 +45,15 @@ public class KphProjectServiceImp implements KphProjectService {
 		int totalUnCompTaskCount = 0;
 		
 		while(projectIter.hasNext()) {
-			KphProject kphProject = projectIter.next(); 
+			KphProject kphProject = projectIter.next();
 			kphProject.setUser_no(user_no);
+			int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
+			if(isEvalByUser > 0) {
+				projectIter.remove();
+				continue;
+			}
 			List<KphTask> unComptaskList = kphProjectDao.unCompTaskListByProjectNo(kphProject.getProject_no());
 			List<KphTask> compTaskList = kphProjectDao.compTaskListByProjectNo(kphProject.getProject_no());
-			int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
 			kphProject.setUncomp_task_count(unComptaskList.size());
 			kphProject.setComp_task_count(compTaskList.size());
 			kphProject.setIsEvalByUser(isEvalByUser);
@@ -232,6 +236,13 @@ public class KphProjectServiceImp implements KphProjectService {
 	public int projectDelete(KphProject kphProject) {
 		System.out.println("KphProjectServiceImp projectDelete start...");
 		int result = kphProjectDao.projectDelete(kphProject);
+		return result;
+	}
+	
+	@Override
+	public int projectEnd(KphProject kphProject) {
+		System.out.println("KphProjectServiceImp projectEnd start...");
+		int result = kphProjectDao.projectEnd(kphProject);
 		return result;
 	}
 

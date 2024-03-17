@@ -48,7 +48,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 		System.out.println("KphProjectDaoImp projectList start...");
 		return session.selectList("kphProjectListByUserNo", user_no);
 	}
-
+	
 	@Override
 	public List<KphTask> unCompTaskListByProjectNo(Long project_no) {
 		return session.selectList("kphUnCompTaskListByProjectNo", project_no);
@@ -190,6 +190,12 @@ public class KphProjectDaoImp implements KphProjectDao {
 	public int projectDelete(KphProject kphProject) {
 		System.out.println("KphProjectDaoImp projectDelete start...");
 		return session.update("kphProjectDelete", kphProject);
+	}
+
+	@Override
+	public int projectEnd(KphProject kphProject) {
+		System.out.println("KphProjectDaoImp projectDelete start...");
+		return session.update("KphProjectEnd", kphProject);
 	}
 
 	@Override

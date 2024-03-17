@@ -173,7 +173,7 @@
 											</div>
 										</div>
 										<div class="score-message">
-											<div class="user-score rounded-circle">${addressUser.user_score }</div>
+											<div class="user-score rounded-circle">${Math.round(addressUser.user_score*10) / 10 }</div>
 											<form action="msgWrite" method="get"> <!-- action은 쪽지 기능 완료 후 로직 구현 -->
 												<input type="hidden" name="user_no" value="${addressUser.user_no }">
 												<button type="submit" class="rounded-circle message">

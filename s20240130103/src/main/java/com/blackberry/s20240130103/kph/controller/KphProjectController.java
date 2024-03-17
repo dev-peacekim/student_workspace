@@ -403,6 +403,15 @@ public class KphProjectController {
 		return String.valueOf(result);
 	}
 	
+	@PostMapping("projectEnd")
+	@ResponseBody
+	public String projectEnd(KphProject kphProject) {
+		System.out.println("KphProjectController projectEnd start...");
+		System.out.println(kphProject);
+		int result = kphProjectService.projectEnd(kphProject);
+		return String.valueOf(result);
+	}
+	
 	@PostMapping("projectMemberDelete")
 	@ResponseBody
 	public String projectMemberDelete(KphUserProject kphUserProject) {

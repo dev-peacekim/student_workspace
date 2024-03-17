@@ -75,4 +75,6 @@ public interface KphProjectService {
 
 	KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file);
 
+	int projectEnd(KphProject kphProject);
+
 }

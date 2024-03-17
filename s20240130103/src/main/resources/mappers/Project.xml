@@ -43,4 +43,10 @@
 	 	WHERE PROJECT_NO = #{project_no}
 	</update>
 	
+	<update id="KphProjectEnd" parameterType="KphProject">
+		UPDATE PROJECT
+		SET PROJECT_COMP_CHK = 1, PROJECT_UPDATE_DATE = SYSDATE
+	 	WHERE PROJECT_NO = #{project_no}
+	</update>
+	
 </mapper>
