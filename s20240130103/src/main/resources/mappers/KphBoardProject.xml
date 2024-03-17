@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.KphBoardProjectMapper">
 					
-	<select id="kphGetBoardProjectByPboardNo" parameterType="KphBoardProject" resultType="KphBoardProject">
-		SELECT *
-		FROM BOARD_PROJECT
-		WHERE PBOARD_NO = #{pboard_no}
-	</select>
-	
 	<update id="KphIncreaseBoardProjectCnt" parameterType="KphBoardProject">
 		UPDATE BOARD_PROJECT
 		SET PBOARD_CNT = PBOARD_CNT + 1

@@ -113,10 +113,4 @@
 		WHERE u.USER_NO = upm2.USER_NO
 	</select>
 	
-	<select id="KphGetUserByUserNo" parameterType="java.lang.Long" resultType="KphUsers">
-		SELECT *
-		FROM USERS
-		WHERE USER_NO = #{user_no}
-	</select>
-	
 </mapper>

@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.kph.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,10 @@ import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProject;
 
 import lombok.RequiredArgsConstructor;
 
@@ -271,54 +274,44 @@ public class KphProjectServiceImp implements KphProjectService {
 
 	@Override
 	@Transactional
-	public KphBoardProject getBoardProject(KphBoardProject kphBoardProject) {
+	public KphUserBoardProject getBoardProject(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectServiceImp getBoardProject start...");
 		
-		KphBoardProject boardProject = new KphBoardProject();
+		KphUserBoardProject boardProject = new KphUserBoardProject();
 		
 		kphProjectDao.IncreaseBoardProjectCnt(kphBoardProject);
 		boardProject = kphProjectDao.getBoardProjectByPboardNo(kphBoardProject);
 		boardProject.setPboard_content(boardProject.getPboard_content().replace("\n","<br>"));
-		boardProject.setUser(kphProjectDao.getUserByUserNo(boardProject.getUser_no()));
 		boardProject.setFileList(kphProjectDao.boardProjectFileList(boardProject));
 		
-		List<Long> replyGroupList = kphProjectDao.replyGroupListByPboardNo(boardProject.getPboard_no());
-		List<KphBoardProjectReply> replyList = kphProjectDao.boardProjectReplyList(boardProject);
-		List<List<KphBoardProjectReply>> replyMapGroupByGroup = new ArrayList<>();
-		Iterator<Long> replyGroupListIt = replyGroupList.iterator();
+		List<Long> replyGroupNoList = kphProjectDao.replyGroupListByPboardNo(boardProject.getPboard_no());
+		List<KphUserBoardProjectReply> replyList = kphProjectDao.boardProjectReplyList(boardProject);
+		Map<Long, List<KphUserBoardProjectReply>> replyMapByGroup = new LinkedHashMap<>();
 		
-		while (replyGroupListIt.hasNext()) {
-			Long replyGroupNo = replyGroupListIt.next();
-			List<KphBoardProjectReply> madeReplyList = new ArrayList<>();
-			
-			Iterator<KphBoardProjectReply> replyListIt = replyList.iterator();
-			
-			while (replyListIt.hasNext()) {
-				KphBoardProjectReply reply = replyListIt.next();
-				reply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
-				reply.setUser(kphProjectDao.getUserByUserNo(reply.getUser_no()));
-				
-				if(reply.getPreply_group() == replyGroupNo) {
-					madeReplyList.add(reply);
-				}
-			}
-			
-			replyMapGroupByGroup.add(madeReplyList);
-			System.out.println("replyMapGroupByGroup =>" + replyMapGroupByGroup.get(0));
-			
+		Iterator<Long> replyGroupNoListIt = replyGroupNoList.iterator();
+		while (replyGroupNoListIt.hasNext()) {
+			Long replyGroupNo = replyGroupNoListIt.next();
+			List<KphUserBoardProjectReply> madeReplyList = new ArrayList<>();
+			replyMapByGroup.put(replyGroupNo, madeReplyList);
 		}
 		
-		boardProject.setReplyListGroupByGroup(replyMapGroupByGroup);
+		Iterator<KphUserBoardProjectReply> replyListIt = replyList.iterator();
+		while (replyListIt.hasNext()) {
+			KphUserBoardProjectReply reply = replyListIt.next();
+			reply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+			replyMapByGroup.get(reply.getPreply_group()).add(reply);
+		}
+		
+		boardProject.setReplyMapByGroup(replyMapByGroup);
 		boardProject.setReplyCnt(kphProjectDao.boardProjectReplyCnt(kphBoardProject.getPboard_no()));
 		
 		return boardProject;
 	}
 	
 	@Override
-	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
 		System.out.println("KphProjectServiceImp boardProjectReplyAdd start...");
-		KphBoardProjectReply resultReply = kphProjectDao.boardProjectReplyAdd(reply);
-		resultReply.setUser(kphProjectDao.getUserByUserNo(resultReply.getUser_no()));
+		KphUserBoardProjectReply resultReply = kphProjectDao.boardProjectReplyAdd(reply);
 		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
 		return resultReply;
 	}
@@ -337,18 +330,17 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 	
 	@Override
-	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
 		System.out.println("KphProjectServiceImp boardProjectReplyReplyAdd start...");
-		KphBoardProjectReply resultReply = kphProjectDao.boardProjectReplyReplyAdd(reply);
-		resultReply.setUser(kphProjectDao.getUserByUserNo(resultReply.getUser_no()));
+		KphUserBoardProjectReply resultReply = kphProjectDao.boardProjectReplyReplyAdd(reply);
 		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
 		return resultReply;
 	}
 	
 	@Override
-	public int boardProjectReplyDelete(Long preply_no) {
-		System.out.println("KphProjectServiceImp boardProjectReplyReplyAdd start...");
-		int result = kphProjectDao.boardProjectReplyDelete(preply_no);
+	public int boardProjectReplyDelete(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp boardProjectReplyDelete start...");
+		int result = kphProjectDao.boardProjectReplyDelete(reply.getPreply_no());
 		return result;
 	}
 	

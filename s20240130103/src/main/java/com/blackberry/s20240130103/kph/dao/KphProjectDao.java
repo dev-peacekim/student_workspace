@@ -10,8 +10,10 @@ import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProject;
 
 public interface KphProjectDao {
 
@@ -71,25 +73,23 @@ public interface KphProjectDao {
 
 	int taskCompUpdate(KphTask kphTask);
 
-	KphBoardProject getBoardProjectByPboardNo(KphBoardProject kphBoardProject);
+	KphUserBoardProject getBoardProjectByPboardNo(KphBoardProject kphBoardProject);
 
 	void IncreaseBoardProjectCnt(KphBoardProject kphBoardProject);
 
-	KphUsers getUserByUserNo(Long user_no);
-
-	List<KphBoardProjectFile> boardProjectFileList(KphBoardProject boardProject);
+	List<KphBoardProjectFile> boardProjectFileList(KphUserBoardProject boardProject);
 
 	List<Long> replyGroupListByPboardNo(Long pboard_no);
 
-	List<KphBoardProjectReply> boardProjectReplyList(KphBoardProject boardProject);
+	List<KphUserBoardProjectReply> boardProjectReplyList(KphUserBoardProject boardProject);
 
 	int boardProjectReplyCnt(Long pboard_no);
 
-	KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply);
+	KphUserBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply);
 
 	int isUserInIndentZero(KphBoardProjectReply reply);
 
-	KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
+	KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
 
 	int boardProjectReplyDelete(Long preply_no);
 

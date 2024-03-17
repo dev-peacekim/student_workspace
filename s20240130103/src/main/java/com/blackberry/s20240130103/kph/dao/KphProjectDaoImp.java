@@ -21,9 +21,11 @@ import com.blackberry.s20240130103.kph.model.KphEval;
 import com.blackberry.s20240130103.kph.model.KphProject;
 import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProjectReply;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUserTask;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProject;
 
 import lombok.RequiredArgsConstructor;
 
@@ -272,9 +274,9 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public KphBoardProject getBoardProjectByPboardNo(KphBoardProject kphBoardProject) {
+	public KphUserBoardProject getBoardProjectByPboardNo(KphBoardProject kphBoardProject) {
 		System.out.println("KphProjectDaoImp getBoardProject start...");
-		KphBoardProject boardProject = new KphBoardProject();
+		KphUserBoardProject boardProject = new KphUserBoardProject();
 		boardProject = session.selectOne("kphGetBoardProjectByPboardNo", kphBoardProject);
 		return boardProject;
 	}
@@ -285,12 +287,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 	
 	@Override
-	public KphUsers getUserByUserNo(Long user_no) {
-		return session.selectOne("KphGetUserByUserNo", user_no);
-	}
-	
-	@Override
-	public List<KphBoardProjectFile> boardProjectFileList(KphBoardProject boardProject) {
+	public List<KphBoardProjectFile> boardProjectFileList(KphUserBoardProject boardProject) {
 		return session.selectList("KphBoardProjectFileList", boardProject);
 	}
 	
@@ -300,7 +297,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 	
 	@Override
-	public List<KphBoardProjectReply> boardProjectReplyList(KphBoardProject boardProject) {
+	public List<KphUserBoardProjectReply> boardProjectReplyList(KphUserBoardProject boardProject) {
 		return session.selectList("KphBoardProjectReplyList", boardProject);
 	}
 	
@@ -310,16 +307,16 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 
 	@Override
-	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply) {
 		System.out.println("KphProjectDaoImp boardProjectReplyAdd start...");
 		
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		KphBoardProjectReply resultReply = null;
+		KphUserBoardProjectReply resultReply = null;
 		
 		try {
 			session.insert("KphboardProjectReplyAdd", reply);
 			System.out.println(reply);
-			resultReply = session.selectOne("KphBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			resultReply = session.selectOne("KphUserBoardProjectReplyByPreplyNo", reply.getPreply_no());
 			System.out.println(resultReply);
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {
@@ -338,16 +335,16 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 	
 	@Override
-	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply) {
 		System.out.println("KphProjectDaoImp boardProjectReplyReplyAdd start...");
 		
 		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		KphBoardProjectReply resultReply = null;
+		KphUserBoardProjectReply resultReply = null;
 		
 		try {
 			session.insert("KphboardProjectReplyReplyAdd", reply);
 			System.out.println(reply);
-			resultReply = session.selectOne("KphBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			resultReply = session.selectOne("KphUserBoardProjectReplyByPreplyNo", reply.getPreply_no());
 			System.out.println(resultReply);
 			transactionManager.commit(txStatus);
 		} catch (Exception e) {

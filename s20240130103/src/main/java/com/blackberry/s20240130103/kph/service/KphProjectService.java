@@ -11,6 +11,8 @@ import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProject;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProjectReply;
 
 public interface KphProjectService {
 	
@@ -58,14 +60,14 @@ public interface KphProjectService {
 
 	int taskCompUpdate(KphTask kphTask);
 
-	KphBoardProject getBoardProject(KphBoardProject kphBoardProject);
+	KphUserBoardProject getBoardProject(KphBoardProject kphBoardProject);
 
-	KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply);
+	KphUserBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply);
 
 	boolean isUserInIndentZero(KphBoardProjectReply reply);
 
-	KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
+	KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply);
 
-	int boardProjectReplyDelete(Long preply_no);
+	int boardProjectReplyDelete(KphBoardProjectReply reply);
 
 }

@@ -18,10 +18,4 @@ public class KphBoardProject {
 	private int pboard_delete_chk;
 	private String pboard_update_date;
 	
-	// 조회용
-	private List<KphBoardProjectFile> fileList;
-	private List<List<KphBoardProjectReply>> replyListGroupByGroup;
-	private KphUsers user;
-	private int replyCnt;
-	
 }

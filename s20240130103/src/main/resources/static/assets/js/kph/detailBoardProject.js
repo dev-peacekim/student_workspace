@@ -59,10 +59,13 @@ $('.reply-write-btn').on('click', function () {
 		},
 		dataType: "json",
 		success: function (reply) {
+			
+			const viewCnt = Number($('.reply-count span').text());  
+			$('.reply-count span').text(viewCnt + 1);
 
-			const userImg = reply.user.user_profile == null ?
+			const userImg = reply.user_profile == null ?
 				`<img src="/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle">` :
-				`<img src="/upload/userImg/${reply.user.user_profile}" alt="Profile" class="rounded-circle">`;
+				`<img src="/upload/userImg/${reply.user_profile}" alt="Profile" class="rounded-circle">`;
 
 			const writeDay = reply.preply_update_date == null ?
 				`<p class="reply-write-day">${reply.preply_date}</p>` :
@@ -74,15 +77,18 @@ $('.reply-write-btn').on('click', function () {
 
 			$('.reply-list').prepend(`
 				<div class="reply-detail">
-					<input type="hidden" name="user_no" value="${reply.user_no}" />
+					<input type="hidden" name="preply_no" value="${reply.preply_no}" />
+					<input type="hidden" name="preply_group" value="${reply.preply_group }">
+					<input type="hidden" name="preply_indent" value="${reply.preply_indent}" />
+					<input type="hidden" name="preply_level" value="${reply.preply_level}" />
 					<div class="reply-detail-top">
 						<div class="reply-writer">
 							<input type="hidden" name="user_no" value="${reply.user_no}" />
 							${userImg}
 							<div class="reply-writer-detail">
-								<p class="reply-user-name">${reply.user.user_name}</p>
+								<p class="reply-user-name">${reply.user_name}</p>
 								${writeDay}
-								<i class="bi bi-trash-fill"></i>
+								<i class="bi bi-trash-fill reply-delete-btn"></i>
 							</div>
 						</div>
 						<div class="reply-reply-write">
@@ -131,10 +137,13 @@ $('.reply-list').on('click', '.reply-reply-write-btn', function () {
 		},
 		dataType: "json",
 		success: function (reply) {
+			
+			const viewCnt = Number($('.reply-count span').text());  
+			$('.reply-count span').text(viewCnt + 1);
 
-			const userImg = reply.user.user_profile == null ?
+			const userImg = reply.user_profile == null ?
 							`<img src="/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle">` :
-							`<img src="/upload/userImg/${reply.user.user_profile}" alt="Profile" class="rounded-circle">`;
+							`<img src="/upload/userImg/${reply.user_profile}" alt="Profile" class="rounded-circle">`;
 
 			const writeDay = reply.preply_update_date == null ?
 							`<p class="reply-reply-write-day">${reply.preply_date}</p>` :
@@ -153,14 +162,16 @@ $('.reply-list').on('click', '.reply-reply-write-btn', function () {
 			$(reply_reply_list).append(`
 				<div class="reply-reply-detail">
 					<div class="reply-reply-detail-top">
+						<input type="hidden" name="preply_no" value="${reply.preply_no}" />
 						<input type="hidden" name="preply_group" value="${reply.preply_group}">
 						<input type="hidden" name="preply_indent" value="${reply.preply_indent}" />
+						<input type="hidden" name="preply_level" value="${reply.preply_level}" />
 						<div class="reply-reply-writer">
 							${userImg}
 							<div class="reply-reply-writer-detail">
-								<p class="reply-reply-user-name">${reply.user.user_name}</p>
+								<p class="reply-reply-user-name">${reply.user_name}</p>
 								${writeDay}
-								<i class="bi bi-trash-fill"></i>
+								<i class="bi bi-trash-fill reply-reply-delete-btn"></i>
 							</div>
 						</div>
 						<div class="reply-reply-reply-write">
@@ -180,29 +191,52 @@ $('.reply-list').on('click', '.reply-delete-btn, .reply-reply-delete-btn', funct
 	let preply_no;
 	let reply_detail;
 	let reply_reply_detail;
+	let preply_level;
 	
 	if($(this).hasClass('reply-delete-btn')) {
 		reply_detail = $(this).closest('.reply-detail');
 		preply_no = $(reply_detail).find('input[name=preply_no]').val();
+		preply_level = $(reply_detail).find('input[name=preply_level]').val();
 	} else {
+		reply_detail = $(this).closest('.reply-detail');
 		reply_reply_detail = $(this).closest('.reply-reply-detail');
 		preply_no = $(reply_reply_detail).find('input[name=preply_no]').val();
+		preply_level = $(reply_reply_detail).find('input[name=preply_level]').val();
 	}
 	
 	$.ajax({
 		type: "post",
 		url: "boardProjectReplyDelete",
 		data: {
-			preply_no : preply_no
+			preply_no : preply_no,
+			preply_level : preply_level
 		},
-		dataType: "json",
+		dataType: "text",
 		success: function (response) {
 			console.log(response);
 			if(reply_reply_detail === undefined) {
-				$('.reply_detail').remove();
+				// 댓글 삭제인 경우
+				if($(reply_detail).find('.reply-reply-box').length == 0) {
+					$(reply_detail).remove();
+				} else {
+					$(reply_detail).find('.reply-content').text('삭제된 댓글입니다.');
+				}
 			} else {
-				$('.reply_detail').remove();
+				// 대댓글 삭제인 경우
+				$(reply_reply_detail).remove();
+				if($(reply_detail).find('.reply-reply-detail').length == 0 && $(reply_detail).find('.reply-content').text() == '삭제된 댓글입니다.'){
+					$(reply_detail).remove();
+				} else if ($(reply_detail).find('.reply-reply-detail').length == 0) {
+					$(reply_detail).find('.reply-reply-box').remove();
+				}
 			}
+			
+			const viewCnt = Number($('.reply-count span').text());  
+			$('.reply-count span').text(viewCnt - 1);
 		}
 	});
 });
+
+$('#board-project-delete, #board-project-update').on('click', function () {  
+	$(this).closest('form').submit();
+})

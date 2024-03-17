@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blackberry.s20240130103.KphBoardProjectFileMapper">
 					
-	<select id="KphBoardProjectFileList" parameterType="KphBoardProject" resultType="KphBoardProjectFile">
+	<select id="KphBoardProjectFileList" parameterType="KphUserBoardProject" resultType="KphBoardProjectFile">
 		SELECT *
 		FROM BOARD_PROJECT_FILE
 		WHERE PBOARD_NO = #{pboard_no}

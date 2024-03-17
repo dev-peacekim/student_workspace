@@ -96,23 +96,31 @@
 				<div class="post-top">
 					<div class="post-top-title">${board.pboard_title}</div>
 					<div	class="post-top-edit">
-						<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
-                        <i id="board-project-edit" class="bi bi-pencil-square board-project-edit"></i>
+						<form action="boardProjectDelete" method="post">
+							<input type="hidden" name="project_no" value="${project_no }" />
+							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
+							<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
+						</form>
+						<form action="boardProjectUpdate" method="post">
+							<input type="hidden" name="project_no" value="${project_no }" />
+							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
+							<i id="board-project-update" class="bi bi-pencil-square board-project-update"></i>
+						</form>
 					</div>
 				</div>
 				<div class="post-user">
-					<c:if test="${empty board.user.user_profile }">
+					<c:if test="${empty board.user_profile }">
 						<img
 							src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
 							alt="Profile" class="rounded-circle">
 					</c:if>
-					<c:if test="${not empty board.user.user_profile }">
+					<c:if test="${not empty board.user_profile }">
 						<img
-							src="${pageContext.request.contextPath}/upload/userImg/${board.user.user_profile}"
+							src="${pageContext.request.contextPath}/upload/userImg/${board.user_profile}"
 							alt="Profile" class="rounded-circle">
 					</c:if>
 					<div class="post-user-detail">
-						<p class="user-name">${board.user.user_name}</p>
+						<p class="user-name">${board.user_name}</p>
 						<c:if test="${board.pboard_update_date == null }">
 							<p class="user-write-day">${board.pboard_date}</p>
 						</c:if>
@@ -130,7 +138,7 @@
 							<i class="bi bi-eye-fill"></i>${board.pboard_cnt }
 						</div>
 						<div class="reply-count">
-							<i class="bi bi-card-text"></i>${board.replyCnt}
+							<i class="bi bi-card-text"></i><span>${board.replyCnt}</span>
 						</div>
 					</div>
 					<div class="attached-file">
@@ -156,31 +164,32 @@
 					<div class="reply-list">
 						<c:forEach var="replyList" items="${replyListGroups }">
 							<div class="reply-detail">
-								<input type="hidden" name="preply_no" value="${replyList.get(0).preply_no}" />
-								<input type="hidden" name="preply_group" value="${replyList.get(0).preply_group }">
-								<input type="hidden" name="preply_indent" value="${replyList.get(0).preply_indent}" />
+								<input type="hidden" name="preply_no" value="${replyList.value.get(0).preply_no}" />
+								<input type="hidden" name="preply_level" value="${replyList.value.get(0).preply_level}" />
+								<input type="hidden" name="preply_group" value="${replyList.value.get(0).preply_group }">
+								<input type="hidden" name="preply_indent" value="${replyList.value.get(0).preply_indent}" />
 								<div class="reply-detail-top">
 									<div class="reply-writer">
-										<input type="hidden" name="user_no" value="${replyList.get(0).user_no}" />
-										<c:if test="${empty replyList.get(0).user.user_profile }">
+										<input type="hidden" name="user_no" value="${replyList.value.get(0).user_no}" />
+										<c:if test="${empty replyList.value.get(0).user_profile }">
 											<img
 												src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
 												alt="Profile" class="rounded-circle">
 										</c:if>
-										<c:if test="${not empty replyList.get(0).user.user_profile }">
+										<c:if test="${not empty replyList.value.get(0).user_profile }">
 											<img
-												src="${pageContext.request.contextPath}/upload/userImg/${replyList.get(0).user.user_profile}"
+												src="${pageContext.request.contextPath}/upload/userImg/${replyList.value.get(0).user_profile}"
 												alt="Profile" class="rounded-circle">
 										</c:if>
 										<div class="reply-writer-detail">
-											<p class="reply-user-name">${replyList.get(0).user.user_name }</p>
-											<c:if test="${replyList.get(0).preply_update_date == null }">
-												<p class="reply-write-day">${replyList.get(0).preply_date}</p>
+											<p class="reply-user-name">${replyList.value.get(0).user_name }</p>
+											<c:if test="${replyList.value.get(0).preply_update_date == null }">
+												<p class="reply-write-day">${replyList.value.get(0).preply_date}</p>
 											</c:if>
-											<c:if test="${replyList.get(0).preply_update_date != null }">
-												<p class="reply-write-day">${replyList.get(0).preply_update_date}</p>
+											<c:if test="${replyList.value.get(0).preply_update_date != null }">
+												<p class="reply-write-day">${replyList.value.get(0).preply_update_date}</p>
 											</c:if>
-											<c:if test="${session_user_no == replyList.get(0).user_no}">
+											<c:if test="${session_user_no == replyList.value.get(0).user_no}">
 												<i class="bi bi-trash-fill reply-delete-btn"></i>
 											</c:if>
 										</div>
@@ -190,8 +199,8 @@
 									</div>
 								</div>
 								<c:choose>
-									<c:when test="${replyList.get(0).preply_delete_chk == 0 }">
-										<div class="reply-content">${replyList.get(0).preply_content }</div>
+									<c:when test="${replyList.value.get(0).preply_delete_chk == 0 }">
+										<div class="reply-content">${replyList.value.get(0).preply_content }</div>
 									</c:when>
 									<c:otherwise>
 										<div class="reply-content">삭제된 댓글입니다.</div>
@@ -203,29 +212,30 @@
 										class="btn btn-primary reply-reply-write-btn">
 										등록</button>
 								</div>
-								<c:if test="${replyList.size() > 1 }">
+								<c:if test="${replyList.value.size() > 1 }">
 									<div class="reply-reply-box">
 										<p class="reply-reply-btn">답글 더보기</p>
 										<div class="reply-reply-list">
-											<c:forEach var="reply" items="${replyList }" begin="1">
+											<c:forEach var="reply" items="${replyList.value }" begin="1">
 												<div class="reply-reply-detail">
 													<div class="reply-reply-detail-top">
 														<input type="hidden" name="preply_no" value="${reply.preply_no}" />
 														<input type="hidden" name="preply_group" value="${reply.preply_group }">
+														<input type="hidden" name="preply_level" value="${reply.preply_level }">
 														<input type="hidden" name="preply_indent" value="${reply.preply_indent}" />
 														<div class="reply-reply-writer">
-															<c:if test="${empty reply.user.user_profile }">
+															<c:if test="${empty reply.user_profile }">
 																<img
 																	src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg"
 																	alt="Profile" class="rounded-circle">
 															</c:if>
-															<c:if test="${not empty reply.user.user_profile }">
+															<c:if test="${not empty reply.user_profile }">
 																<img
-																	src="${pageContext.request.contextPath}/upload/userImg/${reply.user.user_profile}"
+																	src="${pageContext.request.contextPath}/upload/userImg/${reply.user_profile}"
 																	alt="Profile" class="rounded-circle">
 															</c:if>
 															<div class="reply-reply-writer-detail">
-																<p class="reply-reply-user-name">${reply.user.user_name }</p>
+																<p class="reply-reply-user-name">${reply.user_name }</p>
 																<c:if test="${reply.preply_update_date == null }">
 																	<p class="reply-reply-write-day">${reply.preply_date }</p>
 																</c:if>

@@ -60,12 +60,16 @@
     margin-bottom: 20px;
 }
 
-.post-top .post-top-edit i:hover {
-    cursor: pointer;
+.post-top .post-top-edit {
+	display: flex;
 }
 
-.post-top .post-top-edit .board-project-delete {
-    margin-right: 5px;
+.post-top .post-top-edit form:first-child {
+	margin-right: 10px;
+} 
+
+.post-top .post-top-edit i:hover {
+    cursor: pointer;
 }
 
 .post .post-user {

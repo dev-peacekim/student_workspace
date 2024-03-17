@@ -24,6 +24,8 @@ import com.blackberry.s20240130103.kph.model.KphProjectTask;
 import com.blackberry.s20240130103.kph.model.KphTask;
 import com.blackberry.s20240130103.kph.model.KphUserProject;
 import com.blackberry.s20240130103.kph.model.KphUsers;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProject;
+import com.blackberry.s20240130103.kph.model.KphUserBoardProjectReply;
 import com.blackberry.s20240130103.kph.service.KphPaging;
 import com.blackberry.s20240130103.kph.service.KphProjectService;
 
@@ -458,11 +460,11 @@ public class KphProjectController {
 		String resultPage = "redirect:/main";
 		
 		if (isUserInProject(request) > 0) {
-			KphBoardProject board = kphProjectService.getBoardProject(kphBoardProject);
+			KphUserBoardProject board = kphProjectService.getBoardProject(kphBoardProject);
 			model.addAttribute("board", board);
 			model.addAttribute("fileList", board.getFileList());
-			model.addAttribute("replyListGroups", board.getReplyListGroupByGroup());
-			model.addAttribute("replyListSize", board.getReplyListGroupByGroup().size());
+			model.addAttribute("replyListGroups", board.getReplyMapByGroup());
+			model.addAttribute("replyListSize", board.getReplyMapByGroup().size());
 			model.addAttribute("project_no", kphBoardProject.getProject_no());
 			Long user_no = (Long)request.getSession().getAttribute("user_no");
 			model.addAttribute("session_user_no", user_no);
@@ -474,23 +476,23 @@ public class KphProjectController {
 	
 	@PostMapping("boardProjectReplyAdd")
 	@ResponseBody
-	public KphBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
+	public KphUserBoardProjectReply boardProjectReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
 		System.out.println("KphProjectController boardProjectReplyAdd start...");
 		System.out.println("KphProjectController boardProjectReplyWrite reply=>" + reply);
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		reply.setUser_no(user_no);
 		
-		KphBoardProjectReply resultReply = kphProjectService.boardProjectReplyAdd(reply);
+		KphUserBoardProjectReply resultReply = kphProjectService.boardProjectReplyAdd(reply);
 		return resultReply;
 	}
 	
 	@PostMapping("boardProjectReplyReplyAdd")
 	@ResponseBody
-	public KphBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
+	public KphUserBoardProjectReply boardProjectReplyReplyAdd(KphBoardProjectReply reply, HttpServletRequest request) {
 		System.out.println("KphProjectController boardProjectReplyReplyAdd start...");
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		
-		KphBoardProjectReply resultReply = null;
+		KphUserBoardProjectReply resultReply = null;
 		String content = reply.getPreply_content();
 		String tag = null;
 		if(content.indexOf(" ") != -1) {
@@ -526,9 +528,10 @@ public class KphProjectController {
 	@ResponseBody
 	public String boardProjectReplyDelete(KphBoardProjectReply reply) {
 		System.out.println("KphProjectController boardProjectReplyDelete start...");
+		System.out.println(reply);
 		String result= null;
 		
-		int deleteResult = kphProjectService.boardProjectReplyDelete(reply.getPreply_no());
+		int deleteResult = kphProjectService.boardProjectReplyDelete(reply);
 		
 		if(deleteResult > 0) {
 			result = "성공";
