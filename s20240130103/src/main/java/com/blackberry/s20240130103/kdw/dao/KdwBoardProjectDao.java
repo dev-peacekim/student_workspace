@@ -22,5 +22,8 @@ public interface KdwBoardProjectDao {
 	void writeSave(BoardProject boardProject);
 	void savePboardFile(BoardProjectFile boardProjectFile);
 	
+	// 글수정
+	void updateSave(BoardProject boardProject);
+	
 
 }

@@ -127,4 +127,12 @@
 		)
 	</insert>
 	
+	<!-- 글 수정 -->
+	<insert id="kdwUpdateSave" parameterType="KdwBoardProject">
+	    UPDATE board_project
+	    SET pboard_title = #{pboard_title},
+	        pboard_content = #{pboard_content},
+	        pboard_update_date = SYSDATE
+	    WHERE pboard_no = #{pboard_no}
+	</insert>
 </mapper>

@@ -124,5 +124,60 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 	    return fileName;
 	}
 	
+	// 파일 삭제
+	@Override
+	public List<BoardProjectFile> getBoardProjectFiles(Long pboardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	// 글 수정
+	@Override
+	public void updateSave(BoardProject boardProject, MultipartFile[] files, String path) {
+		log.info("KdwProjectBoardServiceImpl updateSave start...");
+
+		// 쪽지 정보 DB에 저장
+		pboardDao.updateSave(boardProject);
+
+		// 파일 업로드 처리
+		if (files != null && files.length > 0) {
+		    File file = new File(path);
+
+		    if (!file.exists()) {
+		        boolean check = file.mkdirs();
+
+		        // 디렉토리 생성에 실패한 경우 콘솔에 출력
+		        if (!check) {
+		            System.err.println("Failed to create directory: " + path);
+		        }
+		    }
+		    for (MultipartFile f : files) {
+		        if (!f.isEmpty()) {
+		            System.out.println("file => " + f.getOriginalFilename());
+
+		            try {
+		                // HDD에 저장
+		                String fileName = saveFile(f, path);
+		                File uploadedFile = new File(path, fileName); // 파일 저장 후 생성된 파일 객체
+		                
+		                // DB에 저장
+		                BoardProjectFile boardProjectFile = new BoardProjectFile();
+		                boardProjectFile.setPboard_no(boardProject.getPboard_no()); // 게시글 번호 설정
+		                boardProjectFile.setPboard_file_name(fileName); // 첨부파일 가공 식별 저장명 설정
+		                boardProjectFile.setPboard_file_user_name(f.getOriginalFilename()); // 첨부파일 오리지날 유저명 설정
+		                System.out.println("KdwProjectBoardServiceImpl updateSave boardProjectFile: " + boardProjectFile);
+		                // DB에 파일 정보 저장
+		                pboardDao.savePboardFile(boardProjectFile);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		                System.err.println("Error saving file: " + e.getMessage());
+		            }
+		        }
+		    }
+		}
+		log.info("KdwProjectBoardServiceImpl updateSave end...");
+		
+	}
+	
 
 }
