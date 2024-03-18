@@ -126,7 +126,9 @@
 							<li id="team-member-add-btn">팀원 추가</li>
 							<li id="project-update-btn">프로젝트 수정</li>
                             <li id="project-delete-btn">프로젝트 삭제</li>
-                            <li id="project-end-btn">프로젝트 완료</li>
+                            <c:if test="${isProjectCompleted == 0 }">
+                            	<li id="project-end-btn">프로젝트 완료</li>
+                            </c:if>
 						</ul>
 					</div>
 				</div>

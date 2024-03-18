@@ -228,8 +228,10 @@ function authorityTestForDelete(projectLeader_no, project_no) {
 		dataType: "json",
 		success: function(userAuthority) {
 			if (userAuthority != 1) {
+				console.log(userAuthority)
 				$(".team-member-add-box-no-authority").css('display', 'flex');
 			} else {
+				console.log(userAuthority)
 				$(".project-delete-box").css('display', 'flex');
 			}
 		}

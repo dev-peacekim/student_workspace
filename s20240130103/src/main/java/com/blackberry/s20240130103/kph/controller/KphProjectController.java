@@ -324,11 +324,12 @@ public class KphProjectController {
 		int userAuthority = 0;
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		System.out.println(user_no);
+		System.out.println(projectLeader_no);
 		
-		if(user_no == projectLeader_no) {
+		if(user_no.equals(projectLeader_no)) {
 			userAuthority = 1;
 		}
-		
+		System.out.println(userAuthority);
 		return userAuthority;
 	}
 	
