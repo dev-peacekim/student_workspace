@@ -170,7 +170,6 @@ function writeComment(commentData) {
 			console.log('댓글 등록 오류 발생!', error);
 		}
 	});
-	// updateCount(cboardNo);
 }
 
 
@@ -237,11 +236,8 @@ function deleteComment(creply_no) {
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
 			
-<<<<<<< HEAD
 			$('#answer-count').text(Number($('#answer-count').text()) - 1);
 			
-=======
->>>>>>> branch 'master' of https://github.com/dlgkstnrn/s20240130103_2.git
 		},
 		error: function(xhr, status, error) {
 			console.log('댓글 삭제 오류!', error);
