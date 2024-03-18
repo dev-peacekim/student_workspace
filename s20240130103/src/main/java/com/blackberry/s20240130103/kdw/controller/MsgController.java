@@ -253,11 +253,25 @@ public class MsgController {
     
     // 받은 쪽지 읽기 및 첨부 파일 정보 불러오기
     @GetMapping(value = "msgReadReceived")
-    public String readReceivedMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
+    public String readReceivedMessageInfo(@RequestParam("msg_no") Long msgNo, HttpServletRequest request, Model model) {
         log.info("MsgController readReceivedMessage start...");
-
+        
+        // 현재 로그인한 사용자
+        Long userNo = (Long) request.getSession().getAttribute("user_no");
+        
         // msgNo를 사용하여 해당 쪽지 정보 및 첨부 파일 정보 가져오기
         Message receivedMessageInfo = msgService.getReceivedMessageByInfo(msgNo);
+        
+        // 쪽지가 존재하지 않는 경우 에러 페이지로
+        if (receivedMessageInfo == null) {
+            return "redirect:/errorPage";
+        }
+        
+        // 현재 로그인한 사용자가 쪽지의 수신자가 아니라면 에러 페이지로
+        if (!receivedMessageInfo.getMsg_receiver().equals(userNo)) {
+            return "redirect:/errorPage";
+        }
+        
         // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
         List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo);
         // 보낸사람,받는사람 번호로 닉네임, 아이디 가져오기
@@ -281,11 +295,24 @@ public class MsgController {
     
     // 보낸쪽지 읽기('msg_readdate'가 'null'이면 'msg_readdate'업데이트)
     @GetMapping(value = "msgReadSent")
-    public String readSentMessageInfo(@RequestParam("msg_no") Long msgNo, Model model) {
+    public String readSentMessageInfo(@RequestParam("msg_no") Long msgNo, HttpServletRequest request, Model model) {
         log.info("MsgController readSentMessage start...");
-
+        
+        
+        // 현재 로그인한 사용자
+        Long userNo = (Long) request.getSession().getAttribute("user_no");
         // msgNo를 사용하여 해당 쪽지 정보 가져오기 및 읽은 시간 업데이트
         Message sentMessageInfo = msgService.getSentMessageByInfo(msgNo);
+        
+        // 쪽지가 존재하지 않는 경우
+        if (sentMessageInfo == null) {
+            return "redirect:/errorPage";
+        }
+        
+        // 현재 로그인한 사용자가 쪽지의 수신자가 아니라면 에러 페이지로 리다이렉트
+        if (!sentMessageInfo.getMsg_sender().equals(userNo)) {
+            return "redirect:/errorPage";
+        }
         // 파일첨부가된 쪽지 리스트 = (다운로드 기능)
         List<MessageFile> fileMsgs = msgService.getMessageFiles(msgNo); 
         

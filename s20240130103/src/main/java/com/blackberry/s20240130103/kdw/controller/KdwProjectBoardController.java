@@ -196,14 +196,14 @@ public class KdwProjectBoardController {
 	
 	
 	
-    // x 버튼 클릭 시 파일 영구 삭제
-    @PostMapping(value = "/delete-files")
+    // 수정 버튼 클릭 시 업로드된 폴더&DB에서 파일 삭제
+    @PostMapping(value = "/delete-file")
     public void permanentDeleteFiles(@RequestBody Map<String, List<Long>> requestData,HttpServletRequest request, HttpServletResponse response) {
         List<Long> pboardNos = requestData.get("pboardNo");
         log.info("projectBoardController permanentDeleteFiles start...");
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-
+        System.out.println("permanentDeleteFiles delete request for pboardNos: " + pboardNos);
         try {
             for (Long pboardNo : pboardNos) {
                 // 첨부된 파일 목록 조회

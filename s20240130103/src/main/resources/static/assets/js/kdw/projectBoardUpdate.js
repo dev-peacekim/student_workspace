@@ -6,46 +6,74 @@ $(document).ready(function() {
     var dragAndDropFiles = []; // 드래그 앤 드롭으로 선택된 파일들을 저장하는 배열
     var fileSelectionMethod = null; // 파일 선택 방법 ('input' 또는 'dragAndDrop')
     var uploadFileListElement = $('#uploadFileList'); // 업로드된 파일 목록을 담을 요소	
-	
+	var deleteWaitingList = []; // 삭제 대기 목록
+
     // 업로드된 파일 목록 표시
     displayUploadedFiles(uploadedFiles);
 
-    function displayUploadedFiles(uploadedFiles) {
-        uploadedFiles.forEach(function(file) {
-            var listItem = $('<li class="file-list-item"></li>').data('fileId', file.pboard_file_no);
-            var deleteButton = $('<span class="delete-file">X</span>');
-            var fileNameSpan = $('<span>').text(file.pboard_file_name);
-            var fileSizeSpan = $('<span>').text(file.pboard_file_user_name); // 이 예제에서는 파일의 실제 크기 정보가 없으므로, user_name을 대신 사용합니다.
+	// 업로드된 파일 목록 표시
+	function displayUploadedFiles(uploadedFiles) {
+	    uploadedFiles.forEach(function(file) {
+	        var listItem = $('<li class="file-list-item"></li>').data('fileId', file.pboard_file_no);
+	        var deleteButton = $('<span class="delete-file">X</span>');
+	
+	        // 삭제 버튼 클릭 이벤트 핸들러는 나중에 추가
+	
+	        var fileNameSpan = $('<span>').text(file.pboard_file_user_name);
+	        var fileSizeSpan = $('<span>').text(file.pboard_file_name);
+	
+	        listItem.append(deleteButton).append(fileNameSpan).append(fileSizeSpan);
+	        uploadFileListElement.append(listItem);
+	    });
+	}
 
-            // 삭제 버튼 클릭 이벤트 핸들러
-            deleteButton.on('click', function() {
-                deleteUploadedFile(file.pboard_no, file.pboard_file_no); // 파일 삭제
-            });
-
-            listItem.append(deleteButton).append(fileNameSpan).append(fileSizeSpan);
-            uploadFileListElement.append(listItem);
-        });
-    }
-
-    // 업로드된 파일 삭제
-    function deleteUploadedFile(pboardNo, fileId) {
-        $.ajax({
-            url: '/delete-files', // 파일 삭제 엔드포인트
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ pboardNo: [pboardNo] }), // 서버에 전달할 데이터. 실제 필드명과 데이터 구조는 서버 구현에 따라 달라질 수 있습니다.
-            success: function(response) {
-                console.log(response);
-                // 성공 시 페이지에서 해당 파일 목록 아이템 삭제
-                $('li').filter(function() {
-                    return $(this).data('fileId') === fileId;
-                }).remove();
-            },
-            error: function(xhr, status, error) {
-                console.error('파일 삭제 실패', status, error);
-            }
-        });
-    }
+	// 업로드된 파일 삭제 대기
+	function addToDeleteWaitingList(pboardNo, fileId) {
+	    deleteWaitingList.push({pboardNo, fileId});
+	
+	    // 목록에서 시각적으로 제거 (실제 삭제는 아님)
+	    $('li').filter(function() {
+	        return $(this).data('fileId') === fileId;
+	    }).remove();
+	}
+	
+	// 삭제 버튼 클릭 이벤트 위임
+	uploadFileListElement.on('click', '.delete-file', function() {
+	    var listItem = $(this).closest('li');
+	    var fileId = listItem.data('fileId');
+	    console.log("Deleting file with ID:", fileId);
+	    listItem.remove();
+	});
+	
+	// "수정" 버튼 클릭 이벤트 = 삭제 요청
+	$('#updateButton').on('click', function() {
+	    // 삭제 대기 목록에 있는 모든 파일을 삭제하는 요청을 서버에 보냅니다.
+	    deleteWaitingList.forEach(function(file) {
+			console.log(JSON.stringify({ pboardNo: [file.pboardNo] }))
+	        $.ajax({
+	            url: '/delete-file', // 파일 삭제 엔드포인트
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify({ pboardNo: [file.pboardNo] }), // 서버에 전달할 데이터
+	            success: function(response) {
+	                console.log('파일이 성공적으로 삭제되었습니다.');
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('파일 삭제 실패', status, error, xhr.responseText);
+	            }
+	        });
+	    });
+	
+	    // 삭제 대기 목록 초기화
+	    deleteWaitingList = [];
+	});
+	
+	// "취소" 버튼 클릭 이벤트
+	$('#cancelButton').on('click', function() {
+	    // 삭제 대기 목록 초기화
+	    deleteWaitingList = [];
+	    // 필요한 경우 사용자에게 피드백을 제공하거나 다른 처리를 수행
+	});
 	
 	
 	// ================= 업데이트 END =================

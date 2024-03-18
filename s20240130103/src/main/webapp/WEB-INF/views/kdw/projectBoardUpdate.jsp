@@ -94,11 +94,11 @@
 	                <form id="update-form" action="/updateSave?project_no=${projectNo}&pboard_no=${pboardNo}" method="post" enctype="multipart/form-data">
 	                    <!-- 수정 버튼 -->
 	                    <div class="form-group">
-	                        <button type="submit" class="update-save-btn">수정</button>
+	                        <button type="submit" id="updateButton" class="update-save-btn">수정</button>
 	                    </div>
 	                    <!-- 취소 Button : 이전 페이지로 돌아가기 -->
 	                    <div class="form-group">
-	                        <a href="<%=request.getHeader("Referer")%>" class="update-cancel-btn">취소</a>
+	                        <a href="<%=request.getHeader("Referer")%>" id="cancelButton" class="update-cancel-btn">취소</a>
 	                    </div>
 						<!-- 제목 -->
 	                    <div class="form-group">
