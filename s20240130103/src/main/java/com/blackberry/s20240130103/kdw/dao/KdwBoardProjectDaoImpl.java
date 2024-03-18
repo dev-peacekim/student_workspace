@@ -132,7 +132,20 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
             e.printStackTrace();
         }
 	}
-	
+	// 글 수정
+	@Override
+	public void updateSave(BoardProject boardProject) {
+	    log.info("KdwBoardProjectDaoImpl updateSave start...");
+	    try {
+	    	
+	    // 게시글 정보 업데이트
+	    session.update("kdwUpdateSave", boardProject);
+	    System.out.println("KdwBoardProjectDaoImpl updateSave success: " + boardProject);
+	    } catch (Exception e) {
+	    	log.info("KdwBoardProjectDaoImpl updateSave end...");
+	    	e.printStackTrace();
+	    }
+	}
 	
 
 }

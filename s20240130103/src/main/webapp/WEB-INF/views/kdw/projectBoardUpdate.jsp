@@ -1,3 +1,4 @@
+<%@page import="com.blackberry.s20240130103.kdw.model.BoardProjectFile"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>공유게시판 새 글쓰기 : 블루베리</title>
+<title>공유게시판 글 수정 : 블루베리</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -42,9 +43,9 @@
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- KDW Main JS File -->
-<script src="/assets/js/kdw/projectBoardWrite.js"></script>
+<script src="/assets/js/kdw/projectBoardUpdate.js"></script>
 <!-- KDW Main CSS File -->
-<link href="assets/css/kdw/projectBoardWrite.css" rel="stylesheet">
+<link href="assets/css/kdw/projectBoardUpdate.css" rel="stylesheet">
 
 </head>
 
@@ -56,52 +57,46 @@
 	<%@ include file="../asidebar.jsp"%>
 
 	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>공유게시판 글쓰기</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
-					<li class="breadcrumb-item"><a href="boardProject?project_no=${projectNo}">공유게시판</a></li>
-					<li class="breadcrumb-item active">글쓰기</li>
-				</ol>
-			</nav>
-		</div>
+	    <div class="pagetitle">
+	        <h1>공유게시판 글 수정</h1>
+	        <nav>
+	            <ol class="breadcrumb">
+	                <li class="breadcrumb-item"><a href="main">Home</a></li>
+	                <li class="breadcrumb-item"><a href="boardProject?project_no=${projectNo}">공유게시판</a></li>
+	                <li class="breadcrumb-item active">글 수정</li>
+	            </ol>
+	        </nav>
+	    </div>
 		<!-- End Page Title -->
 		<div class="card">
 			<!-- 글쓰기 세션 부분 -->
-			<section class="write-section">
+			<section class="update-section">
 				<div class="form-container">
 					<div class="title-group-prepend">
 						<span class="title-group-text">글쓰기</span>
 					</div>
 					<!-- 파일을 보내려면 form에서 encType = "multipart/form-data" 를 이용해서 보내야 한다 -->
 					<!-- 그리고 하단에 <input type="file" name="fileName">로 파일을 보낼 수 있게 넣어준다 -->
-					<form id="write-form" action="/writeSave?project_no=${projectNo}" method="post"
-						enctype="multipart/form-data">
-						<!-- 보내기 버튼 -->
-						<div class="form-group">
-							<button type="submit" class="write-save-btn">등록</button>
-						</div>
-						<!-- 취소 Button : 이전 페이지로 돌아가기 -->
-						<!-- Referer 헤더는 사용자가 현재 요청을 보내기 전에 어떤 페이지에서 왔는지를 식별 -->
-						<div class="form-group">
-							<a href="<%=request.getHeader("Referer")%>"
-								class="write-cancel-btn">취소</a>
-						</div>
+	                <form id="update-form" action="/updateSave?project_no=${projectNo}&pboard_no=${pboardNo}" method="post" enctype="multipart/form-data">
+	                    <!-- 수정 버튼 -->
+	                    <div class="form-group">
+	                        <button type="submit" class="update-save-btn">수정</button>
+	                    </div>
+	                    <!-- 취소 Button : 이전 페이지로 돌아가기 -->
+	                    <div class="form-group">
+	                        <a href="<%=request.getHeader("Referer")%>" class="update-cancel-btn">취소</a>
+	                    </div>
 						<!-- 제목 -->
-						<div class="form-group">
-							<div class="subject-group">
-								<!-- 제목 텍스트 -->
-								<div class="subject-group-prepend">
-									<span class="subject-group-text">제목</span>
-								</div>
-								<!-- 인풋 -->
-								<input type="text" id="pboard_subject" name="pboard_title"
-									class="form-control"
-									aria-label="Text input with segmented dropdown button"
-									placeholder="제목을 입력해 주세요.">
-							</div>
-						</div>
+	                    <div class="form-group">
+	                        <div class="subject-group">
+	                            <!-- 제목 텍스트 -->
+	                            <div class="subject-group-prepend">
+	                                <span class="subject-group-text">제목</span>
+	                            </div>
+	                            <!-- 인풋 -->
+	                            <input type="text" id="pboard_subject" name="pboard_title" class="form-control" value="${board.pboard_title}" required>
+	                        </div>
+	                    </div>
 						<!-- 첨부파일 -->
 						<div class="form-group">
 						    <div class="mb-3">
@@ -114,26 +109,28 @@
 						        <!-- 드래그 앤 드롭 영역 -->
 						        <div id="drop_zone" class="file_drag">
 								    <!-- 초기 안내 문구 -->
-								    <div id="initial_message" style="margin-top:60px; color:#6c757d; font-weight: 700;">여기에 파일을 드래그하세요.</div>
+								    <div id="initial_message" style="display:none; margin-top:60px; color:#6c757d; font-weight: 700;">여기에 파일을 드래그하세요.</div>
 								    <!-- 파일 목록 상단 바, 파일이 드래그 되면 표시됩니다. -->
-								    <div id="file_list_bar" class="file-list-bar" style="display: none;">
+								    <div id="file_list_bar" class="file-list-bar">
 								         <span id="delete_all" style="cursor: pointer;">X</span>
 								         <span>파일명</span>
 								         <span>용량</span>
 								    </div>
-								    <!-- 업로드된 파일 목록 -->
+								    <!-- 업로드할 파일 목록 -->
 								    <ul id="fileList" class="file-list"></ul>
+									<!-- 업로드된 파일 목록 -->
+									<ul id="uploadFileList" class="file-list">
+									</ul>
 						        </div>
 						    </div>
 						</div>
 						<!-- 내용 -->
-						<div class="form-group">
-							<div class="content-group">
-								<span class="content-group-text">내용</span>
-								<textarea id="pboard_content" name="pboard_content" rows="5" required
-									placeholder="내용을 입력해 주세요."></textarea>
-							</div>
-						</div>
+	                    <div class="form-group">
+	                        <div class="content-group">
+	                            <span class="content-group-text">내용</span>
+	                            <textarea id="pboard_content" name="pboard_content" rows="5" required>${board.pboard_content}</textarea>
+	                        </div>
+	                    </div>
 					</form>
 				</div>
 			</section>
