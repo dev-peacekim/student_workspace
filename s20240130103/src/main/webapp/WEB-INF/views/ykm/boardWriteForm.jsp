@@ -20,7 +20,6 @@
     <!-- Google Fonts -->
   	<link href="https://fonts.gstatic.com" rel="preconnect">
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -44,7 +43,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 <link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
-
 <script>
 window.onload = function() {
 	function back() {
@@ -68,7 +66,20 @@ window.onload = function() {
 	
 	updatePreview();
 }	
-	</script>
+
+
+$('#boardTitle').on("input", function() {
+	const title = $(this).val().trim();
+	if (title === '') {
+		alert('제목에 공백을 포함할 수 없습니다.');
+	}
+});
+
+
+
+
+</script>
+
 </head>
 
 <body>
@@ -103,7 +114,7 @@ window.onload = function() {
 						<!-- 제목 -->
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label> 
-							<input type="text" class="form-control boardTitle " 
+							<input type="text" class="form-control" id="boardTitle" 
 									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." required="required"/>
 						</div>
 
