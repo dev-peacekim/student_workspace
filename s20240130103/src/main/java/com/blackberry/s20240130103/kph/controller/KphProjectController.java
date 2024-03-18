@@ -61,6 +61,9 @@ public class KphProjectController {
 	public String mainLogic(HttpServletRequest request, Model model) {
 		System.out.println("KphProjectController mainLogic start...");
 		HttpSession session = request.getSession();
+		if(session.getAttribute("user_no") == null || session.getAttribute("user_no") == "") {
+			return "redirect:/";
+		}
 		Long user_no = (Long)session.getAttribute("user_no");
 		
 		Map<String, Object> mainLogic = kphProjectService.mainLogic(user_no);

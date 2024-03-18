@@ -302,6 +302,7 @@ function writeReply(creply_no) {
 		success: function(data) {
 			console.log('댓글이 성공적으로 등록되었습니다', data);
 			getCommentList(cboardNo);
+			$('#answer-count').text(Number($('#answer-count').text()) + 1);
 		},
 		error: function(error) {
 			console.log('댓글 등록 중 오류 발생!', error);
