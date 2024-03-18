@@ -322,23 +322,6 @@ function writeReply(creply_no) {
 	
 }
 
-/*
-$(`#creply_content_${creply_no}`).on("keydown", function(e) {
-    if (e.keyCode === 13) {
-        writeReply(`${creply_no}`);
-    }
-});
-*/
-
-/*
-	대댓글 update, delete 확인
-	댓글 작성 후 댓글 작성이 된 쪽으로 화면 이동 혹은 등록되었다는 메세지
-	답댓글 아이콘 누르면 그것만 활성화 (다른 input창 비활성화)
-	엔터키
-*/
-
-
-
 // uri에 값을 보내면 @PathVariable
 // JSON data 객체로 보낼 떈 @RequestBody
 // ex) /recruitment?cboard_no=30 이라면 @RequestParam

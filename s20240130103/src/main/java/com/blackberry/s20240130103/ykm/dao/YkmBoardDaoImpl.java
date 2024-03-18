@@ -165,15 +165,8 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
-	// 대댓글 불러오기 > 코드 중복이므로 수정 필요
-	@Override
-	public List<YkmBoardCommReply> getReplyList(int creply_no) {
-		System.out.println("YkmBoardDaoImpl getReplyList start ---*");
-		List<YkmBoardCommReply> getReplyList = session.selectList("ykmGetReplyList", creply_no);
-		return getReplyList;
-	}
-
-
+	
+	
 	/* 공모전 게시판 */
 	
 	// 공모전 전체 게시글 리스트 조회

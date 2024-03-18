@@ -28,7 +28,6 @@ public class YkmBoardRestController {
 	
 	
 	/* 댓글 comment */
-	// 로그인한 사용자의 번호는 ${sessionScope.user_no}로 jsp에서 찾을 수 있음
 
 	// 세션 정보 요청
 	@GetMapping("/sessionData")

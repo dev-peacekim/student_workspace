@@ -179,17 +179,6 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl writeReply : " + result);
 		return result;
 	}
-
-	// 코드 중복이므로 수정 필요
-	@Override
-	public List<YkmBoardCommReply> getReplyList(int creply_no) {
-		System.out.println("YkmServiceImpl getReplyList start ---*");
-		List<YkmBoardCommReply> getReplyList = ykmBoardDao.getReplyList(creply_no);
-		return getReplyList;
-	}
-
-	
-	
 	
 	/* 공모전 리스트 */
 	@Override

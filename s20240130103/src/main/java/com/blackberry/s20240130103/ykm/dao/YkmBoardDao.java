@@ -49,7 +49,6 @@ public interface YkmBoardDao {
 	
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 > 중복이므로 수정 필요
 
-	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기 > 중복이므로 수정 필요
 
 	
 	/* 공모전 게시판 */

@@ -48,7 +48,6 @@ public interface YkmService {
 
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 작성
 
-	List<YkmBoardCommReply> getReplyList(int creply_no); // 대댓글 리스트 불러오기
 
 	
 	/* 공모전 게시판 */

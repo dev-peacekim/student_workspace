@@ -55,7 +55,7 @@ public class YkmBoardController {
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
 		model.addAttribute("getPostList", getPostList);
-	
+		
 		return "ykm/boardStudy";
 	}
 
