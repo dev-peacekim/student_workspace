@@ -100,11 +100,13 @@ public class YkmBoardController {
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
 		ykmBoardComm.setUser_no(user_no);	
 
+
+		
 		// 게시판 분류
 		int comm_big = ykmBoardComm.getComm_big();
 		int comm_mid = ykmBoardComm.getComm_mid();
-		
-		// 파일 업로드
+//		
+//		// 파일 업로드
 		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
 
 		redirect.addAttribute("comm_mid", comm_mid);

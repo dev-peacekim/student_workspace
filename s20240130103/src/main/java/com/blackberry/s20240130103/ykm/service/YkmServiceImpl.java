@@ -36,8 +36,6 @@ public class YkmServiceImpl implements YkmService {
 		
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
-		System.out.println("test22 : " + ykmBoardComm);
-		//
 		
 		if(!fileList.isEmpty()) {
 			for (MultipartFile file : fileList) {
@@ -63,7 +61,7 @@ public class YkmServiceImpl implements YkmService {
 					
 					ykmBoardDao.saveFileList(ykmBoardCommFile);
 			
-					System.out.println("saveFileList : "+ ykmBoardDao.saveFileList(ykmBoardCommFile));
+					//System.out.println("saveFileList : "+ ykmBoardDao.saveFileList(ykmBoardCommFile));
 				} catch (Exception e) {
 					e.printStackTrace();
 	                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());

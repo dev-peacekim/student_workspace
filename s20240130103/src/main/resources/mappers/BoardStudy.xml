@@ -101,13 +101,13 @@
 	 	  AND COMM_MID = 20
 	</select>
 	
-	<insert id="ykmSaveFileList" parameterType="java.util.List" >
+	<insert id="ykmSaveFileList" parameterType="YkmBoardCommFile" >
 		INSERT INTO BOARD_COMM_FILE (CBOARD_NO, CBOARD_FILE_NAME, CBOARD_FILE_USER_NAME, CBOARD_FILE_CNT)
 		VALUES (
 				#{cboard_no}, 
 				#{cboard_file_name}, 
 				#{cboard_file_user_name}, 
-				(SELECT NVL(MAX(CBOARD_NO), 0) + 1 FROM BOARD_COMM_FILE WHERE CBOARD_NO = #{cboard_no})
+				(SELECT NVL(MAX(cboard_file_cnt), 0) + 1 FROM BOARD_COMM_FILE WHERE CBOARD_NO = #{cboard_no})
 				)
 	</insert>
 
@@ -116,10 +116,6 @@
 	    FROM BOARD_COMM_FILE BCF 
 	    WHERE bcf.CBOARD_NO = #{cboard_no}
 	</select>
-	
-	
-	
-	
 
 	
 	<!-- 댓글 -->
