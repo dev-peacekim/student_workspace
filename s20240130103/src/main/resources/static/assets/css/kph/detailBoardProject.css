@@ -247,6 +247,20 @@
 
 }
 
+.reply-content .reply-content-box {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+.reply-content div textarea {
+    margin-bottom: 10px;
+}
+
+.reply-content div .reply-edit-btn {
+    margin-right: 5px;
+}
+
 .reply-reply-box .reply-reply-btn {
 	margin-top: 20px;
     font-size: 14px;
@@ -337,6 +351,22 @@
     color: #0d6efd;
     margin-right: 10px;
 }
+
+.reply-reply-content .reply-reply-content-box {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: right;
+    width: 100%;
+}
+
+.reply-reply-content textarea {
+    margin-bottom: 10px;
+}
+
+.reply-reply-content .reply-reply-edit-btn {
+    margin-right: 5px;
+}
+
 .reply-reply-detail .reply-reply-content div {
 }
 

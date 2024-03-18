@@ -86,4 +86,16 @@
 		WHERE PREPLY_NO = #{preply_no}
 	</update>
 	
+	<update id="KphUpdateBoardProjectReply" parameterType="KphBoardProjectReply">
+		UPDATE BOARD_PROJECT_REPLY
+		SET PREPLY_CONTENT = #{preply_content}, PREPLY_UPDATE_DATE = SYSDATE
+		WHERE PREPLY_NO = #{preply_no}
+	</update>
+	
+	<update id="KphboardProjectReplyReplyUpdate" parameterType="KphBoardProjectReply">
+		UPDATE BOARD_PROJECT_REPLY
+		SET PREPLY_CONTENT = #{preply_content}, PREPLY_INDENT= #{preply_indent}, PREPLY_UPDATE_DATE = SYSDATE
+		WHERE PREPLY_NO = #{preply_no}
+	</update>
+	
 </mapper>

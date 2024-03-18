@@ -600,4 +600,56 @@ public class KphProjectController {
 		
 	}
 	
+	@PostMapping("boardProjectReplyEdit")
+	@ResponseBody
+	public String boardProjectReplyEdit(KphBoardProjectReply reply) {
+		System.out.println("KphProjectController boardProjectReplyEdit start...");
+		String response = "실패";
+		int result = kphProjectService.updateBoardProjectReply(reply);
+		if(result > 0) {
+			response = "성공";
+		}
+		return response;
+	}
+	
+	@PostMapping("boardProjectReplyReplyEdit")
+	@ResponseBody
+	public KphUserBoardProjectReply boardProjectReplyReplyEdit(KphBoardProjectReply reply, HttpServletRequest request) {
+		System.out.println("KphProjectController boardProjectReplyReplyEdit start...");
+		Long user_no = (Long)request.getSession().getAttribute("user_no");
+		
+		KphUserBoardProjectReply resultReply = null;
+		String content = reply.getPreply_content();
+		String tag = "";
+		if(content.indexOf(" ") != -1) {
+			tag = content.substring(0, content.indexOf(" "));
+		}
+		
+		if (content.startsWith("@")) {
+			reply.setTagName(tag.substring(1));
+			
+			// 해당 댓글 그룹에 속하는 인원 중 대댓글로 작성한 인원이 있는지 체크 
+			boolean isUserInIndentZero = kphProjectService.isUserInIndentZero(reply);
+			System.out.println(isUserInIndentZero);
+			
+			if(isUserInIndentZero) {
+				reply.setPreply_indent(1);
+				reply.setUser_no(user_no);
+			} else {
+				reply.setPreply_indent(0);
+				reply.setUser_no(user_no);
+			}
+			
+			resultReply = kphProjectService.boardProjectReplyReplyUpdate(reply);
+			
+		} else {
+			reply.setPreply_indent(0);
+			reply.setUser_no(user_no);
+			resultReply = kphProjectService.boardProjectReplyReplyUpdate(reply);
+		}
+		
+		return resultReply;
+	}
+	
+	
 }

@@ -340,7 +340,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 	
 	@Override
 	public int isUserInIndentZero(KphBoardProjectReply reply) {
-		System.out.println("KphProjectDaoImp isUserInIndentTwo start...");
+		System.out.println("KphProjectDaoImp isUserInIndentZero start...");
 		int result = session.selectOne("KphIsUserInIndentZero", reply);
 		return result;
 	}
@@ -379,6 +379,32 @@ public class KphProjectDaoImp implements KphProjectDao {
 	@Override
 	public KphBoardProjectFile getBoardProjectFile(KphBoardProjectFile file) {
 		return session.selectOne("KphGetBoardProjectFile", file);
+	}
+	
+	@Override
+	public int updateBoardProjectReply(KphBoardProjectReply reply) {
+		return session.update("KphUpdateBoardProjectReply", reply);
+	}
+	
+	@Override
+	public KphUserBoardProjectReply boardProjectReplyReplyUpdate(KphBoardProjectReply reply) {
+		System.out.println("KphProjectDaoImp boardProjectReplyReplyAdd start...");
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		KphUserBoardProjectReply resultReply = null;
+		
+		try {
+			session.update("KphboardProjectReplyReplyUpdate", reply);
+			System.out.println(reply);
+			resultReply = session.selectOne("KphUserBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			System.out.println(resultReply);
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
+		
+		return resultReply;
 	}
 	
 }
