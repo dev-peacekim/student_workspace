@@ -61,7 +61,7 @@
 	                            <h5 class="card-title text-center pb-0 fs-4">아이디 찾기 결과</h5>
 	                        </div>
 	                        <div>
-	                        	<c:if test="${not empty user_id }">
+	                        	<c:if test="${not empty user }">
 		                            <table class="table">
 		                                <thead>
 		                                    <tr>
@@ -70,16 +70,19 @@
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
-			                                <tr>
-												<td>${user_id }</td>
-												<td>
-													<fmt:formatDate value="${user_date }" dateStyle="full"/>
-												</td>
-			                                </tr>
+		                                	<c:forEach items="${user }" var="us">
+			                                	<tr>
+													<td>${us.user_id }</td>
+													<td>
+														<fmt:parseDate value="${us.user_date }" pattern="yyyy-MM-dd'T'HH:mm" var="parseDate" type="both" />
+														<fmt:formatDate value="${parseDate }" dateStyle="full"/>
+													</td>
+			                                	</tr>
+			                                </c:forEach>
 		                                </tbody>
 		                            </table>
 	                            </c:if>
-	                            <c:if test="${empty user_id }">
+	                            <c:if test="${empty user }">
 	                            	<p>해당 이메일로 가입하신 아이디가 없습니다.</p>
 	                            </c:if>
 	                        </div>

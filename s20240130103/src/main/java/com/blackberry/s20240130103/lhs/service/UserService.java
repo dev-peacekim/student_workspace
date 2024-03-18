@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lhs.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.blackberry.s20240130103.lhs.domain.User;
@@ -21,7 +22,7 @@ public interface UserService {
 
 	int chkPasswordUser(String passwd, String userNo);
 
-	User findIdByemail(String email);
+	List<User> findIdByemail(String email);
 
 	Optional<User> findPassByIdEmail(User user);
 

@@ -45,9 +45,26 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 		alert("잘못된 id입니다");
 	}
 });
+let pw1Chk = 0;
+document.getElementById('pw1').addEventListener('keyup',function(){
+	console.log(this.value);
+	console.log(pw1Chk);
+	if(this.value && !isEmpty(this.value)){
+		pw1Chk = 1;
+	}else if(document.getElementById('pw2').value !== this.value ){
+		document.querySelector('.enablePass').style.display='none';
+		document.querySelector('.disablePass').style.display='none';
+		pw1Chk = 0;
+	}else{
+		pw1Chk = 0;
+	}
+})
 
 document.getElementById('pw2').addEventListener('keyup',function(){
-	if(document.getElementById('pw1').value === this.value && !/\s/.test(this.value)){
+	if(document.getElementById('pw1').value === this.value 
+		&& !/\s/.test(this.value)
+		&& !isEmpty(this.value)
+		&& pw1Chk){
 		document.querySelector('.disablePass').style.display='none';
 		document.querySelector('.enablePass').style.display='block';
 		passChkval=1;
@@ -56,7 +73,22 @@ document.getElementById('pw2').addEventListener('keyup',function(){
 		document.querySelector('.disablePass').style.display='block';
 		passChkval=0;
 	}
-});
+})
+
+const isEmpty = (input) =>{
+	if(
+		typeof input === "undefined" ||
+		input === null ||
+		input === "" ||
+		input === "null" ||
+		input.length === 0 ||
+		(typeof input === "object" && !Object.keys(input).length)
+		){
+			return true;
+		}else{
+			return false;
+		}
+}
 
 function chk(){
 	if(idChkval===1){

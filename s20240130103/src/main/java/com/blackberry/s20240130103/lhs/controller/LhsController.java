@@ -261,11 +261,9 @@ public class LhsController {
 	
 	@PostMapping("userFindId")
 	public String userIdSearch(@RequestParam(name = "user_email")String email,Model model) {
-		User user = userService.findIdByemail(email);
-		if(user != null) {
-			model.addAttribute("user_id",user.getUser_id());
-			model.addAttribute("user_date",java.sql.Timestamp.valueOf(user.getUser_date()));
-		}
+		List<User> user = userService.findIdByemail(email);
+		//User user = userService.findIdByemail(email);
+		model.addAttribute("user",user);
 		return "lhs/idSearchResult";
 	}
 	

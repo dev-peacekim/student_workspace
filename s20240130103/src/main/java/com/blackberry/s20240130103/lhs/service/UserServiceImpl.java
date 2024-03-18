@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lhs.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -104,10 +105,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findIdByemail(String email) {
-		Optional<User> userOp = userRepository.findIdByemail(email);
-		if(userOp.isPresent()) {
-			return userOp.get();
+	public List<User> findIdByemail(String email) {
+		List<User> user = userRepository.findIdByemail(email);
+		if(!user.isEmpty()) {
+			return user;
 		}else {
 			return null;
 		}

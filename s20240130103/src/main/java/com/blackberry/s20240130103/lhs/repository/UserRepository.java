@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lhs.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.blackberry.s20240130103.lhs.domain.Comm;
@@ -18,7 +19,7 @@ public interface UserRepository {
 
 	void deleteUser(String userNo);
 
-	Optional<User> findIdByemail(String email);
+	List<User> findIdByemail(String email);
 
 	Optional<User> findPassByIdEmail(User user);
 

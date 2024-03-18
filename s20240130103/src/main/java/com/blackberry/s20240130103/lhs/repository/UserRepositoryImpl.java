@@ -1,5 +1,6 @@
 package com.blackberry.s20240130103.lhs.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -69,25 +70,22 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
-	public Optional<User> findIdByemail(String email) {
+	public List<User> findIdByemail(String email) {
 	    try {
-	        String findIdSql = "SELECT u FROM User u WHERE u.user_email = :email and u.user_delete_chk = 0";
+	        String findIdSql = "SELECT u FROM User u WHERE u.user_email = :email and u.user_delete_chk = 0 and u.user_rank_mid = 10";
 	        TypedQuery<User> query = entityManager.createQuery(findIdSql, User.class);
 	        query.setParameter("email", email);
-	        User user = query.getSingleResult();
-	        return Optional.ofNullable(user);
+	        List<User> userList = query.getResultList();
+	        //User user = query.getSingleResult();
+	        return userList;
 	    } catch (NoResultException e) {
 	        // 해당 이메일에 대한 결과가 없을 경우
 	        System.out.println("User with email " + email + " not found.");
-	        return Optional.empty();
-	    } catch (NonUniqueResultException e) {
-	        // 해당 이메일에 대한 중복된 결과가 있을 경우
-	        System.out.println("Multiple users found with email " + email);
-	        return Optional.empty();
-	    } catch (Exception e) {
+	        return null;
+	    }catch (Exception e) {
 	        // 그 외 예외 처리
 	        System.out.println("UserRepositoryImpl findIdByemail exception : " + e.getMessage());
-	        return Optional.empty();
+	        return null;
 	    }
 	}
 	
