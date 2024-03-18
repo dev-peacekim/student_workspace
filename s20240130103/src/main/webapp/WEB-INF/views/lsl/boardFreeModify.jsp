@@ -15,6 +15,11 @@
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+<!-- Google Fonts -->
+  	<link href="https://fonts.gstatic.com" rel="preconnect">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -36,6 +41,9 @@
 <!-- File Js -->
 <script defer src="assets/js/lsl/boardFile.js"></script>
 
+    <!-- Write Form Js  -->
+  <script defer src="assets/js/lsl/writeForm.js"></script>
+
 <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -43,12 +51,6 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<script>
-	function goBack() {
-		window.history.back();
-	}
-</script>
-
 
 </head>
 <body>

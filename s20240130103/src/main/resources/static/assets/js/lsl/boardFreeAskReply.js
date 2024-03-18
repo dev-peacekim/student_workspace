@@ -31,8 +31,7 @@ function getUserNic() {
     });
 }
 
-
-
+  
 
 // 게시판 댓글 리스트
 let cboardNo = null;
@@ -76,11 +75,10 @@ function updateReplyList(data) {
         // 현재 세션 사용자와 댓글 작성자가 동일한 경우에만 수정 및 삭제 버튼 표시
         const showButtons = currentuser_no === ReplyUser;
 
-        let indentation = 0;
-        if (lslCommReply.creply_level > 0) {
+      
             indentation = lslCommReply.creply_indent * 25;
             
-        }
+     
         
         var profileImageUrl = ''; 
 
@@ -144,6 +142,10 @@ function toggleReply(creply_no) {
 
 }
 
+ 
+
+const replyData = null;
+
 // 댓글 등록 이벤트 처리 
 $(document).on("click", "#submitBtn", function() {
     const creply_content = $('#creply_content').val();
@@ -188,6 +190,12 @@ function addComment(replyData) {
         }
     });
 }
+
+
+
+
+
+// 대댓글 
 let cboard_no;
 let pcreply_group;
 let pcreply_level;
@@ -225,9 +233,7 @@ $(document).on('click', ".addReply", function(e) {
         creply_level : e.target.dataset['creplyLevel'],
         creply_no : e.target.dataset['creplyNo'],
         user_profile : e.target.dataset['userProfile'],
-        cboard_no : cboard_no,
-        parent_creply_level : pcreply_level,
-        parent_creply_indent : pcreply_indent
+        cboard_no : cboard_no
         
 		
     };
@@ -289,6 +295,8 @@ function toggleEdit(creply_no) {
 	}
 }
 
+
+
 // 댓글 삭제
 function deleteComment(cboard_no, creply_no) {
 	// AJAX 요청을 통해 댓글 삭제 API 호출
@@ -300,6 +308,7 @@ function deleteComment(cboard_no, creply_no) {
 			if (data > 0) {
 				// 삭제 성공 시, 다시 댓글 리스트를 업데이트
 				replyBoardFreeAskList(cboard_no);
+				 
 			} else {
 				console.log('댓글 삭제에 실패했습니다!');
 			}
@@ -309,6 +318,10 @@ function deleteComment(cboard_no, creply_no) {
 		}
 	});
 }
+
+
+
+
 
 // 댓글 수정
 function modifyComment(creply_no) {
