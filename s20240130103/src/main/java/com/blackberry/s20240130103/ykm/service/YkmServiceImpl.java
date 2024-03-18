@@ -39,7 +39,7 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("test22 : " + ykmBoardComm);
 		//
 		
-		if(fileList.isEmpty()) {
+		if(!fileList.isEmpty()) {
 			for (MultipartFile file : fileList) {
 				// 파일 저장
 				String fileName = file.getOriginalFilename();
