@@ -1,7 +1,7 @@
 let idChkval = 0;
 let passChkval = 0;
 const extenReg = /.+\.(jpeg|jpg|png)/;
-const idReg = /\s?(admin)?/;
+const idReg = /\t|\s|(admin)/;
 document.getElementById('file').addEventListener('change',function(){
 	if(this.value.match(extenReg)){
 		if(this.files[0]){
