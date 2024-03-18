@@ -48,10 +48,6 @@ public class KphProjectServiceImp implements KphProjectService {
 			KphProject kphProject = projectIter.next();
 			kphProject.setUser_no(user_no);
 			int isEvalByUser = kphProjectDao.isEvalByUser(kphProject);
-			if(isEvalByUser > 0) {
-				projectIter.remove();
-				continue;
-			}
 			List<KphTask> unComptaskList = kphProjectDao.unCompTaskListByProjectNo(kphProject.getProject_no());
 			List<KphTask> compTaskList = kphProjectDao.compTaskListByProjectNo(kphProject.getProject_no());
 			kphProject.setUncomp_task_count(unComptaskList.size());
@@ -173,6 +169,10 @@ public class KphProjectServiceImp implements KphProjectService {
 		// 프로젝트 팀장 세팅
 		Long projectLeader_no = kphProjectDao.projectLeaderNo(kphTask.getProject_no());
 		detailProject.put("projectLeader_no", projectLeader_no);
+		
+		// 프로젝트 완료 여부 세팅
+		int isProjectCompleted = kphProjectDao.isProjectCompleted(kphTask.getProject_no());
+		detailProject.put("isProjectCompleted", isProjectCompleted);
 		
 		return detailProject;
 	}

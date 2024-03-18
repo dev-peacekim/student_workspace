@@ -70,6 +70,11 @@ public class KphProjectDaoImp implements KphProjectDao {
 		List<KphUsers> userList = session.selectList("kphUserListByProjectNoExceptOwn", kphUserProject);
 		return userList;
 	}
+	
+	@Override
+	public int isProjectCompleted(Long project_no) {
+		return session.selectOne("KphIsProjectCompleted", project_no);
+	}
 
 	@Override
 	public int eval(KphEval eval) {

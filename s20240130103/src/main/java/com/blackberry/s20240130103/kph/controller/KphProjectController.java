@@ -256,6 +256,7 @@ public class KphProjectController {
 			model.addAttribute("unCompTaskListCount", unCompTaskListCount);
 			model.addAttribute("compTaskListCount", compTaskListCount);
 			model.addAttribute("projectLeader_no", detailProject.get("projectLeader_no"));
+			model.addAttribute("isProjectCompleted", detailProject.get("isProjectCompleted"));
 			
 			resultPage = "kph/detailProject";
 		}

@@ -99,4 +99,6 @@ public interface KphProjectDao {
 
 	int projectEnd(KphProject kphProject);
 
+	int isProjectCompleted(Long project_no);
+
 }
