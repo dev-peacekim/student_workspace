@@ -101,7 +101,7 @@
 							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
 							<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
 						</form>
-						<form action="boardProjectUpdate" method="post">
+						<form action="projectBoardUpdate" method="post">
 							<input type="hidden" name="project_no" value="${project_no }" />
 							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
 							<i id="board-project-update" class="bi bi-pencil-square board-project-update"></i>
