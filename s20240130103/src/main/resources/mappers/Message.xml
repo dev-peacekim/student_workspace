@@ -520,6 +520,7 @@
 					FROM MESSAGE m ,USERS u 
 					WHERE m.MSG_RECEIVER = #{userNo}
 					AND m.msg_sender = u.USER_NO 
+					AND m.msg_delete_chk = 0
 					AND m.MSG_READDATE IS NULL
 					ORDER BY m.MSG_CREATEDATE DESC) a
 			WHERE rownum <=3
