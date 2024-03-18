@@ -65,15 +65,18 @@ window.onload = function() {
 	} 
 	
 	updatePreview();
+	
+	
+	function blankchk() {
+		const title = $(#boardTitle).val().trim();
+		if (title === '') {
+			alert('제목에 공백을 포함할 수 없습니다.');
+		}
+	}
 }	
 
 
-$('#boardTitle').on("input", function() {
-	const title = $(this).val().trim();
-	if (title === '') {
-		alert('제목에 공백을 포함할 수 없습니다.');
-	}
-});
+	
 
 
 
@@ -140,7 +143,7 @@ $('#boardTitle').on("input", function() {
 						
 						<!-- 버튼 -->
 						<div class="btn-container">
-							<input type="submit" class="btn btn-primary" value="확인">
+							<input type="submit" class="btn btn-primary" value="확인" onclick="blankchk()">
 							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
 						</div>
 					</div>

@@ -1,4 +1,4 @@
-@charset "UTF-8";@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 /* Card */
 .card {
@@ -81,13 +81,17 @@
     margin: 10px 0;
     height: 85px;
     border: 2px dashed #ccc;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    white-space: pre-line; /* 줄 바꿈 적용 */
+     overflow-y: auto; /* 수직 스크롤을 추가합니다. */
 }
 
+.upload-title div {
+margin-bottom: -5px;
+margin-left: 10px;
+}
 
 #formFile-box {
 	width: 100%;

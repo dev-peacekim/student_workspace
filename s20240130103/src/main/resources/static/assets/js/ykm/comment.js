@@ -236,6 +236,7 @@ function deleteComment(creply_no) {
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
 			
+
 			$('#answer-count').text(Number($('#answer-count').text()) - 1);
 			
 		},
@@ -306,16 +307,11 @@ function writeReply(creply_no) {
 			console.log('댓글 등록 중 오류 발생!', error);
 		}
 	});
-	hideReplyBox(creply_no);
+	
+	$(`.replyContainer_${creply_no} > *`).empty();
 	
 }
 
-function hideReplyBox(creply_no) {
-	$(`.replyContainer_${creply_no} > *`).empty();
-}
-
-// 댓글 카운트
-// 제목에 공백만 있을때 안되게
 
 
 

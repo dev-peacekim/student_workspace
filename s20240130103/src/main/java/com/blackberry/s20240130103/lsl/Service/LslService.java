@@ -105,12 +105,13 @@ public interface LslService {
 	int insertBoardReReply(LslCommReply lslCommReply);
 	
 	// 대댓글 리스트 
-	List<LslCommReply> getRepliesAfterParent(LslCommReply lslCommReply); 
+	LslCommReply reReply(LslCommReply lslCommReply);
 
 	
 	
 	// 대댓글 업데이트
-	void updateReply(LslCommReply reply);
+	int  updateReply(LslCommReply lslCommReply);
+	
 	
 	
 	

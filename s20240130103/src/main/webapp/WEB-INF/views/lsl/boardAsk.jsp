@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -14,26 +14,29 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="assets/img/blueberry-favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    
+    <!-- Google Fonts -->
+  	<link href="https://fonts.gstatic.com" rel="preconnect">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-
-<!-- Template Main CSS File -->
+    <!-- Template Main CSS File -->
+<link href="assets/css/style.css" rel="stylesheet"  type="text/css">
 <link href="assets/css/lsl/lslboardAsk.css" rel="stylesheet">
-<link href="assets/css/style.css" rel="stylesheet">
+
 <!-- 헤더, 푸터, 사이드바 css -->
+
+
 
 
 <!-- =======================================================
@@ -52,14 +55,10 @@
 
 	<%@ include file="../header.jsp"%>
 
-	<!-- ======= End Header  ======= -->
-
-
 	<!-- ======= Sidebar ======= -->
+	<%@ include file="../asidebar.jsp" %>
 
-	<%@ include file="../asidebar.jsp"%>
 
-	<!-- ======= End Sidebar  ======= -->
 
 
 
@@ -97,20 +96,20 @@
 
 						<!-- 게시판 테이블 -->
 						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
-									<th scope="col">작성일</th>
-									<th scope="col">조회수</th>
-									<th scope="col">댓글</th>
-								</tr>
-								</thead>
-								<tbody>
-								<c:forEach var="boardAsk" items="${boardAskList}">
-									<tr>
-										<td>${boardAsk.cboard_no}</td>
+						        <thead>
+						            <tr class="list">
+						                <th scope="col" class="board-number">#</th>
+						                <th scope="col" class="title-column">제목</th>
+						                <th scope="col" class="short-column">작성자</th>
+						                <th scope="col" class="short-column">작성일</th>
+						                <th scope="col" class="short-column">조회수</th>
+						                <th scope="col" class="short-column">댓글</th>
+						            </tr>
+						        </thead>
+								<tbody class="listTbody">
+								<c:forEach items="${boardAskList}" var="boardAsk" varStatus="loop">
+								    <tr >
+								        <th scope="row">${loop.index + 1}</th>
 										<td><a href="boardAskContents?cboard_no=${boardAsk.cboard_no}">${boardAsk.cboard_title}</a></td>
 										<td>${boardAsk.user_nic}</td>
 										<td><fmt:formatDate value="${boardAsk.cboard_date}" pattern="yyyy-MM-dd"/></td>
@@ -188,8 +187,8 @@
 	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
 
-	<!-- Template Main JS File -->
-	<script src="assets/js/main.js"></script>
+	 <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>

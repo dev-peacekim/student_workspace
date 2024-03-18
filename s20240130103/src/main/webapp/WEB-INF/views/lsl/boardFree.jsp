@@ -16,6 +16,11 @@
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+<!-- Google Fonts -->
+  	<link href="https://fonts.gstatic.com" rel="preconnect">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -83,27 +88,27 @@
 
 						<!-- 게시판 테이블 -->
 							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">제목</th>
-										<th scope="col">작성자</th>
-										<th scope="col">작성일</th>
-										<th scope="col">조회수</th>
-										<th scope="col">댓글</th>
-									</tr>
-									</thead>
-									<tbody>
-									<c:forEach var="boardFree" items="${boardFreeList}">
-										<tr>
-											<td>${boardFree.cboard_no}</td>
-											<td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
-											<td>${boardFree.user_nic}</td>
-											<td><fmt:formatDate value="${boardFree.cboard_date}" pattern="yyyy-MM-dd"/></td>
-											<td>${boardFree.cboard_viewcnt}</td>
-											<td>${boardFree.creply_cnt}</td>
-										</tr>
-									</c:forEach>
+						        <thead>
+						            <tr class="list">
+						                <th scope="col" class="board-number">#</th>
+						                <th scope="col" class="title-column">제목</th>
+						                <th scope="col" class="short-column">작성자</th>
+						                <th scope="col" class="short-column">작성일</th>
+						                <th scope="col" class="short-column">조회수</th>
+						                <th scope="col" class="short-column">댓글</th>
+						            </tr>
+						        </thead>
+									<tbody class="listTbody">
+									<c:forEach items="${boardFreeList}" var="boardFree" varStatus="loop">
+								    <tr>
+								        <th scope="row">${loop.index + 1}</th>
+								        <td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
+								        <td>${boardFree.user_nic}</td>
+								        <td><fmt:formatDate value="${boardFree.cboard_date}" pattern="yyyy-MM-dd"/></td>
+								        <td>${boardFree.cboard_viewcnt}</td>
+								        <td>${boardFree.creply_cnt}</td>
+								    </tr>
+								</c:forEach>
 								</tbody>
 							</table>
 			
