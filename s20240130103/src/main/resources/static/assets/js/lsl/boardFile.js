@@ -12,17 +12,15 @@ $(document).ready(function() {
         }
 
         for (var i = 0; i < files.length; i++) {
-            (function(index) {
-                var file = files[index];
-                var fileName = file.name;
-                var listItem = document.createElement('div');
+            var file = files[i];
+            var fileName = file.name;
 
-                listItem.textContent = fileName;
-                fileListDiv.appendChild(listItem);
+            var listItem = document.createElement('div');
+            listItem.textContent = fileName;
+            fileListDiv.appendChild(listItem);
 
-                // 줄 바꿈 추가
-                fileListDiv.appendChild(document.createElement('br'));
-            })(i);
+            // 파일 이름 다음에 줄 바꿈 추가
+            fileListDiv.appendChild(document.createElement('br'));
         }
     });
 });

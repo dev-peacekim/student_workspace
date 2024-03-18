@@ -158,23 +158,28 @@ public class LslController {
 
 	// 자유 게시판 글쓰기
 	@PostMapping(value = "freeWrite")
-	public String freeWrite(HttpServletRequest request, LslBoardComm lslBoardComm, @RequestParam("files") MultipartFile[] multipartFile) {
+	public String freeWrite(HttpServletRequest request, LslBoardComm lslBoardComm, @RequestParam("files") MultipartFile[] multipartFile, Model model) {
 		System.out.println("LslController freeWrite Start...");
 		
 		
 		try {
 			Long user_no = (Long) request.getSession().getAttribute("user_no");
+		
 
 			String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/");
 
+			
+			
 			lslBoardComm.setUser_no(user_no);
 
 			ls.boardFreeWriteInsert(lslBoardComm, multipartFile, boardfilePath);
-
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("LslController askWrite Exception ->" + e.getMessage());
 		}
+		
 
 		return "redirect:/boardFree";
 

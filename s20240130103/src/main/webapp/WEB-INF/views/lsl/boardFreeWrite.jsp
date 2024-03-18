@@ -14,6 +14,11 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   
+  <!-- Google Fonts -->
+  	<link href="https://fonts.gstatic.com" rel="preconnect">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+  
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -31,6 +36,9 @@
   
    <!-- File Js -->
    <script defer src="assets/js/lsl/boardFile.js"></script>
+   
+   <!-- Write Form Js  -->
+   <script defer src="assets/js/lsl/writeForm.js"></script>
 
    
   <!-- =======================================================
@@ -40,12 +48,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <script>
-   function goBack() {
-       window.history.back();
-   }
-
-</script>
+  
 
 </head>
 <body>
@@ -78,6 +81,7 @@
 
                         <!-- General Form Elements -->
                         <form id="freeWrite" method="post" action="/freeWrite" enctype="multipart/form-data">
+                       
                             <div class="mb-3">
                                 <label for="inputText" class="form-label">제목</label>
                                 <input type="text" class="form-control" id="inputText" name="cboard_title">
