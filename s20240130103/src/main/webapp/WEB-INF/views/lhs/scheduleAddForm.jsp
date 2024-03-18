@@ -29,7 +29,29 @@
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+function chk(){
+	let start = new Date(document.getElementById("sch_start").value);
+	let end = new Date(document.getElementById("sch_end").value);
+	let title = document.getElementById("sch_title").value;
+	if(title.trim() !== "" && title !== null){
+		if(end.getTime()>=start.getTime()){
+			return true;
+		}else{
+			alert("날짜 선택을 정확하게 해주세요");
+			return false;
+		}
+	}else{
+		alert("제목을 입력해주세요");
+		return false;
+	}
+}
 
+
+function goback(project_no){
+	location.href="proejctSchedule?project_no="+project_no;
+}
+</script>
 </head>
 
 <body>
@@ -58,20 +80,20 @@
       <section class="section dashboard">
         <div class="card">
           <p>일정 정보 입력</p>
-          <form action="scheduleAdd" method="post">
+          <form action="scheduleAdd" method="post" onsubmit="return chk()">
             <input type="hidden" id="project_no" name="project_no" value="${project_no }" />
             <div>
               <p>일정 제목</p>
-              <input name="sch_title" type="text" class="form-control" required="required"/>
+              <input name="sch_title" id="sch_title" type="text" class="form-control" required="required"/>
             </div>
 
             <div>
               <p>시작일</p>
-              <input name="sch_start" type="date" class="form-control" required="required"/>
+              <input name="sch_start" id="sch_start" type="date" class="form-control" required="required"/>
             </div>
             <div>
               <p>종료일</p>
-              <input name="sch_end" type="date" class="form-control" re/>
+              <input name="sch_end" id="sch_end" type="date" class="form-control" required="required"/>
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary">저장</button>
@@ -82,11 +104,7 @@
       </section>
     </main>
     <!-- End #main -->
-<script type="text/javascript">
-function goback(project_no){
-	location.href="proejctSchedule?project_no="+project_no;
-}
-</script>
+
     <!-- ======= Footer ======= -->
     <%@ include file="../footer.jsp" %>
     <!-- End Footer -->

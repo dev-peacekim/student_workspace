@@ -86,6 +86,7 @@
 						<p>종료일</p>
 						<input name="project_end" type="date" class="form-control" value="${project.project_end }" />
 						<p class="project-alert project-end-alert">프로젝트 종료일을 입력하세요</p>
+						<p class="project-alert project-chk-alert">잘못된 날짜선택입니다</p>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>

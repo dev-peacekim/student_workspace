@@ -28,9 +28,9 @@
     <link href="assets/css/kph/taskAddForm.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
-    <script defer src="./assets/js/kph/taskAddForm.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+	<script defer src="./assets/js/kph/taskAddForm.js"></script>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -113,6 +113,7 @@
 							<input name="task_end_time" type="time" class="form-control">
 						</div>
 						<p class="task-alert task-end-alert">과업 종료일을 입력하세요</p>
+						<p class="task-alert task-chk-alert">잘못된 날짜선택입니다</p>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>

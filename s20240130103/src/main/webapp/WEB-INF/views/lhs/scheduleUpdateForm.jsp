@@ -59,21 +59,21 @@
       <section class="section dashboard">
         <div class="card">
           <p>일정 정보 입력</p>
-          <form action="scheduleUpdate" method="post">
+          <form action="scheduleUpdate" method="post" onsubmit="return chk()">
             <input type="hidden" id="project_no" name="project_no" value="${schedule.project_no }" />
             <input type="hidden" id="sch_no" name="sch_no" value="${schedule.sch_no }" />
             <div>
               <p>일정 제목</p>
-              <input name="sch_title" value="${schedule.sch_title }" type="text" class="form-control" required="required"/>
+              <input name="sch_title" id="sch_title" value="${schedule.sch_title }" type="text" class="form-control" required="required"/>
             </div>
 
             <div>
               <p>시작일</p>
-              <input name="sch_start" type="date" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${schedule.sch_start}'/>" class="form-control" required="required"/>
+              <input name="sch_start" id="sch_start" type="date" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${schedule.sch_start}'/>" class="form-control" required="required"/>
             </div>
             <div>
               <p>종료일</p>
-              <input name="sch_end" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${schedule.sch_end}'/>" type="date" class="form-control" required="required">
+              <input name="sch_end" id="sch_end" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${schedule.sch_end}'/>" type="date" class="form-control" required="required">
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary">저장</button>
@@ -85,6 +85,24 @@
     </main>
     <!-- End #main -->
 <script type="text/javascript">
+function chk(){
+	let start = new Date(document.getElementById("sch_start").value);
+	let end = new Date(document.getElementById("sch_end").value);
+	let title = document.getElementById("sch_title").value;
+	if(title.trim() !== "" && title !== null){
+		if(end.getTime()>=start.getTime()){
+			return true;
+		}else{
+			alert("날짜 선택을 정확하게 해주세요");
+			return false;
+		}
+	}else{
+		alert("제목을 입력해주세요");
+		return false;
+	}
+}
+
+
 function goback(project_no){
 	location.href="proejctSchedule?project_no="+project_no;
 }

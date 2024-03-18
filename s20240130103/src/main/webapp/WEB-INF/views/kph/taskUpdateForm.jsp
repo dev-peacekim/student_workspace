@@ -119,6 +119,7 @@
 							<input name="task_end_time" type="time" class="form-control" value="${task.task_end.substring(11, 19) }">
 						</div>
 						<p class="task-alert task-end-alert">과업 종료일을 입력하세요</p>
+						<p class="task-alert task-chk-alert">잘못된 날짜선택입니다.</p>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>

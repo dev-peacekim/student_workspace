@@ -9,8 +9,12 @@ $(".btn-primary").on("click", function (event) {
 	const task_start = $(".form-control[name='task_start']").val();
 	const task_end_day = $(".form-control[name='task_end_day']").val();
 	const task_end_time = $(".form-control[name='task_end_time']").val();
-
-	if (task_title == '') {
+	
+	//날짜비교 객체 생성
+	const task_start_date = new Date(task_start);
+	const task_end_date = new Date(task_end_day);
+	
+	if (task_title == '' || task_title.trim() == '') {
 		$(".task-title-alert").css("display", "block");
 		event.preventDefault();
 	} 
@@ -27,6 +31,11 @@ $(".btn-primary").on("click", function (event) {
 	
 	if(task_end_day == '' || task_end_time == '') {
 		$(".task-end-alert").css("display", "block");
+		event.preventDefault();
+	}
+	
+	if(task_start_date>task_end_date){
+		$(".task-chk-alert").css("display","block");
 		event.preventDefault();
 	}
 });

@@ -27,9 +27,9 @@
     <link href="assets/css/kph/projectAddForm.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
-    <script defer src="./assets/js/kph/projectAddForm.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+	<script defer src="./assets/js/kph/projectAddForm.js"></script>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -84,6 +84,7 @@
 						<p>종료일</p>
 						<input name="project_end" type="date" class="form-control" />
 						<p class="project-alert project-end-alert">프로젝트 종료일을 입력하세요</p>
+						<p class="project-alert project-chk-alert">잘못된 날짜선택입니다</p>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>
