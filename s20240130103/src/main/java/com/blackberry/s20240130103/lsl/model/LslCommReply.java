@@ -19,6 +19,8 @@ public class LslCommReply {
 	
 	private String parent_user_id; //  부모 댓글 아이디 
 	private int parent_creply_no;
+	private int parent_creply_level;
+	private int parent_creply_indent;
 	
 	
 	

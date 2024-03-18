@@ -4,7 +4,6 @@ package com.blackberry.s20240130103.lsl.dao;
 
 import java.util.List;
 
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -338,16 +337,13 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	// 대댓글 리스트 
-	@Override
-	public List<LslCommReply> getRepliesAfterParent(int cPreply_group, int creply_no) {
-		
-		LslCommReply lslCommReply = new LslCommReply();
-	    lslCommReply.setCreply_group(cPreply_group);
-	    lslCommReply.setCreply_no(creply_no);
-		
-		List<LslCommReply> getRepliesAfterParent = session.selectList("slRepliesAfterParentList", lslCommReply);
-		return getRepliesAfterParent;
-	}
+		@Override
+		public List<LslCommReply> getRepliesAfterParent(LslCommReply lslCommReply) {
+			
+			List<LslCommReply> getRepliesAfterParent = session.selectList("slRepliesAfterParentList", lslCommReply);
+			System.out.println("getRepliesAfterParent" + getRepliesAfterParent);
+			return getRepliesAfterParent;
+		}
 
 
 	@Override

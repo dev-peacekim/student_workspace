@@ -31,10 +31,7 @@ function getUserNic() {
     });
 }
 
-// 프로필 주소 
-// 이게 맞나 싶어요
-var profileImageUrl = 'http://localhost:8989' + "/upload/userImg/";
-console.log(profileImageUrl);
+
 
 
 // 게시판 댓글 리스트
@@ -82,8 +79,21 @@ function updateReplyList(data) {
         let indentation = 0;
         if (lslCommReply.creply_level > 0) {
             indentation = lslCommReply.creply_indent * 25;
+            
         }
-        let imageUrl = profileImageUrl + lslCommReply.user_profile;
+        
+        var profileImageUrl = ''; 
+
+		// 프로필 이미지가 없는 경우 기본 이미지 
+		if (lslCommReply.user_profile !=null) {
+		    profileImageUrl = 'http://localhost:8989/upload/userImg/'+lslCommReply.user_profile;
+		} else {
+		    profileImageUrl = 'http://localhost:8989/upload/userImg/987654321487321564defaultImg.jpg'; // 기본 이미지 URL
+		}
+		
+		console.log(profileImageUrl);
+		
+        let imageUrl = profileImageUrl;
 
 
         boardReplyList += `<div class="re-comment-body" style="margin-left: ${indentation}px;"> 
@@ -97,7 +107,7 @@ function updateReplyList(data) {
                     <div class="re-btn-container">
                         <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
                         <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
-                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-puser-id="${lslCommReply.user_id}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
+                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-creply-level="${lslCommReply.creply_level}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-no="${lslCommReply.creply_no}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
                     </div>
                 </div>
                 <div id="replyBox">
@@ -180,16 +190,22 @@ function addComment(replyData) {
 }
 let cboard_no;
 let pcreply_group;
-//let puser_id;
+let pcreply_level;
+let pcreply_indent;
 
 $(document).on("click", ".brBtn", function() {
 	//pcreply_no = $(this).data("creply-no");
 	pcreply_group = $(this).data("creply-group");
 	cboard_no = $(this).data("cboard-no");
-	//puser_id = $(this).data("puser-id")
+	pcreply_level = $(this).data("creply-level");
+	pcreply_indent = $(this).data("creply-indent");
+	
+	
 	console.log("pcreply_group :" +pcreply_group);
 	console.log('cboard_no : ' + cboard_no);
-	console.log('puser_id : ' + puser_id);	
+	console.log('preply_level : ' + pcreply_level);	
+	console.log('pcreply_indent : ' + pcreply_indent);	
+	
 });
 
 
@@ -210,6 +226,9 @@ $(document).on('click', ".addReply", function(e) {
         creply_no : e.target.dataset['creplyNo'],
         user_profile : e.target.dataset['userProfile'],
         cboard_no : cboard_no,
+        parent_creply_level : pcreply_level,
+        parent_creply_indent : pcreply_indent
+        
 		
     };
 

@@ -103,12 +103,6 @@ public class LslController {
 		// 파일 첨부 된 글
 		List<LslboardFile> boardFreeFile = ls.boardFreeFile(cboard_no);
 		
-		// 프로필 
-		String userProfile = boardFreeContents.getUser_profile();
-		System.out.println("usesrProfile : " + userProfile);
-	
-		
-		model.addAttribute("userProfile", userProfile);
 		model.addAttribute("boardFreeFile",boardFreeFile);
 		model.addAttribute("boardReplyCnt", boardReplyCnt);
 		model.addAttribute("boardFreeViewCnt", boardFreeViewCnt);
@@ -272,11 +266,6 @@ public class LslController {
 		List<LslboardFile> boardAskFile = ls.boardAskFile(cboard_no);
 		
 		//프로필 
-		String userProfile = boardAskContents.getUser_profile();
-		System.out.println("usesrProfile : " + userProfile);
-	
-		
-		model.addAttribute("userProfile", userProfile);
 		model.addAttribute("boardAskFile",boardAskFile);
 		model.addAttribute("boardReplyCnt", boardReplyCnt);
 		model.addAttribute("boardAskViewCnt", boardAskViewCnt);

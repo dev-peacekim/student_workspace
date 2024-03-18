@@ -445,8 +445,8 @@ public class LslServiceImpl implements LslService {
 		
 		// 대댓글 리스트 
 		@Override
-		public List<LslCommReply> getRepliesAfterParent(int cPreply_group, int creply_no) {
-			List<LslCommReply> getRepliesAfterParent = ld.getRepliesAfterParent(cPreply_group, creply_no);
+		public List<LslCommReply> getRepliesAfterParent(LslCommReply lslCommReply) {
+			List<LslCommReply> getRepliesAfterParent = ld.getRepliesAfterParent(lslCommReply);
 			return getRepliesAfterParent;
 		}
 		
@@ -456,6 +456,8 @@ public class LslServiceImpl implements LslService {
 			ld.updateReply(reply);
 			
 		}
+		
+
 		
 			
 	

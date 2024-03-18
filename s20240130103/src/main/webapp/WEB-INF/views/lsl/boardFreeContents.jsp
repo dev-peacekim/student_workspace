@@ -74,11 +74,11 @@ window.onload = function() {
                 <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
                 <div class="card-subtitle post-user-container">
                     <c:choose>
-                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
-                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${userProfile}" alt="User Profile" ></img>
+                        <c:when test="${boardFreeContents.user_profile !=null}">
+                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${boardFreeContents.user_profile}" alt="User Profile" ></img>
                 </c:when>
                 <c:otherwise>
-                    <img src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="" class="rounded-circle">                   
+                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="">                   
                  </c:otherwise>
                 </c:choose>
                     <div class="card-title-header">
@@ -129,7 +129,7 @@ window.onload = function() {
 	                <div class="comment-editor">
 	            		<c:choose>
                         <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
+                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${sessionScope.user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
                         </c:when>
                     <c:otherwise>
                             <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
