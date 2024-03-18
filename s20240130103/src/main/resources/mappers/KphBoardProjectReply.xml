@@ -61,6 +61,7 @@
 		WHERE PREPLY_GROUP = #{preply_group}
 			AND PREPLY_LEVEL > 0
 			AND PREPLY_INDENT = 0
+			AND PREPLY_DELETE_CHK = 0
 			AND USER_NO IN (SELECT u.USER_NO FROM USERS u WHERE u.USER_NAME = #{tagName})
 	</select>
 	

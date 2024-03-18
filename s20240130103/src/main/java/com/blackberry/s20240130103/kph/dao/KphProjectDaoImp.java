@@ -382,8 +382,21 @@ public class KphProjectDaoImp implements KphProjectDao {
 	}
 	
 	@Override
-	public int updateBoardProjectReply(KphBoardProjectReply reply) {
-		return session.update("KphUpdateBoardProjectReply", reply);
+	public KphUserBoardProjectReply updateBoardProjectReply(KphBoardProjectReply reply) {
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		KphUserBoardProjectReply resultReply = null;
+		
+		try {
+			session.update("KphUpdateBoardProjectReply", reply);
+			resultReply = session.selectOne("KphUserBoardProjectReplyByPreplyNo", reply.getPreply_no());
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			transactionManager.rollback(txStatus);
+		}
+		
+		return resultReply;
 	}
 	
 	@Override

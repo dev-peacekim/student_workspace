@@ -270,17 +270,19 @@ $('.reply-list').on('click', '.reply-edit-btn-icon, .reply-reply-edit-btn-icon',
 	if($(this).hasClass('reply-edit-btn-icon')) {
 		const reply_content_box = $(this).closest('.reply-detail').find('.reply-content-box');
 		const reply_default_content = $(this).closest('.reply-detail').find('.reply-default-content');
-		$(reply_content_box).find('textarea').val($(reply_default_content).text());
+		const new_reply_default_content = $(reply_default_content).html().replace(/<br\s*[\/]?>/gi, "\n");
+		$(reply_content_box).find('textarea').val(new_reply_default_content);
 		$(reply_content_box).css('display', 'flex');
 		$(reply_default_content).css('display', 'none');
 	} else {
 		const reply_reply_content_box = $(this).closest('.reply-reply-detail').find('.reply-reply-content-box');
 		const reply_reply_default_content = $(this).closest('.reply-reply-detail').find('.reply-reply-default-content');
+		const new_reply_reply_default_content = $(reply_reply_default_content).html().replace(/<br\s*[\/]?>/gi, "\n");
 		const tag = $(this).closest('.reply-reply-detail').find('.tag');
-		if(tag.length == 0) {
-			$(reply_reply_content_box).find('textarea').val($(reply_reply_default_content).text());
+		if($(tag).length == 0) {
+			$(reply_reply_content_box).find('textarea').val(new_reply_reply_default_content);
 		} else {
-			$(reply_reply_content_box).find('textarea').val(tag.text() + $(reply_reply_default_content).text());	
+			$(reply_reply_content_box).find('textarea').val(tag.text() + new_reply_reply_default_content);	
 		}
 		$(reply_reply_content_box).css('display', 'flex');
 		$(reply_reply_default_content).css('display', 'none');
@@ -306,10 +308,6 @@ $('.reply-list').on('click', '.reply-edit-btn', function() {
 	const reply_content_box = $(this).closest('.reply-content-box');
 	const preply_no = $(this).closest('.reply-detail').find('input[name=preply_no]').val();
 	const preply_content = $(this).closest('.reply-content-box').find('textarea').val();
-	console.log(reply_content);
-	console.log(reply_content_box);
-	console.log(preply_no);
-	console.log(preply_content);
 	
 	$.ajax({
 		type: "post",
@@ -318,10 +316,9 @@ $('.reply-list').on('click', '.reply-edit-btn', function() {
 			preply_no : preply_no,
 			preply_content : preply_content
 		},
-		dataType: "text",
-		success: function (response) {
-			console.log(response);
-			$(reply_content).find('.reply-default-content').text(preply_content);
+		dataType: "json",
+		success: function (reply) {
+			$(reply_content).find('.reply-default-content').html(reply.preply_content);
 			$(reply_content).find('.reply-default-content').css('display', 'block');
 			$(reply_content_box).css('display', 'none');
 		}
@@ -336,12 +333,18 @@ $('.reply-list').on('click', '.reply-reply-edit-cancle-btn', function() {
 });
 
 $('.reply-list').on('click', '.reply-reply-edit-btn', function() {
-	const reply_reply_content = $(this).closest('.reply-reply-content')
-	const reply_reply_content_box = $(this).closest('.reply-reply-content-box')
+	const reply_reply_detail = $(this).closest('.reply-reply-detail');
+	const reply_reply_content = $(this).closest('.reply-reply-content');
+	const reply_reply_content_box = $(this).closest('.reply-reply-content-box');
 	const preply_no = $(this).closest('.reply-reply-detail').find('input[name=preply_no]').val();
 	const preply_content = $(this).closest('.reply-reply-content-box').find('textarea').val();
 	const preply_group = $(this).closest('.reply-reply-detail').find('input[name=preply_group]').val();
 	const tag = $(this).closest('.reply-reply-content').find('.tag');
+	if($(tag).length == 0) {
+		$(reply_reply_content).prepend(`
+			<span class="tag"></span>
+		`);
+	}
 	
 	$.ajax({
 		type: "post",
@@ -354,14 +357,15 @@ $('.reply-list').on('click', '.reply-reply-edit-btn', function() {
 		dataType: "json",
 		success: function (reply) {
 			if(reply.preply_indent == 0) {
-				$(reply_reply_content).find('.reply-reply-default-content').text(reply.preply_content);
+				$(reply_reply_detail).find('.tag').remove();
+				$(reply_reply_detail).find('.reply-reply-default-content').html(reply.preply_content);
 			} else {
-				$(tag).val(reply.preply_content.substring(0, reply.preply_content.indexOf(" ")));
-				$(reply_reply_content).find('.reply-reply-default-content').text(reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length));
+				$(reply_reply_detail).find('.tag').text(reply.preply_content.substring(0, reply.preply_content.indexOf(" ")));
+				$(reply_reply_detail).find('.reply-reply-default-content').html(reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length));
 			}
 			
 			$(reply_reply_content).find('.reply-reply-default-content').css('display', 'block');
-			$(tag).css('display', 'block');
+			$(reply_reply_content).find('.tag').css('display', 'block');
 			$(reply_reply_content_box).css('display', 'none');
 		}
 	});

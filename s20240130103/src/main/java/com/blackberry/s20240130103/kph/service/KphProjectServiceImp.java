@@ -370,10 +370,11 @@ public class KphProjectServiceImp implements KphProjectService {
 	}
 	
 	@Override
-	public int updateBoardProjectReply(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply updateBoardProjectReply(KphBoardProjectReply reply) {
 		System.out.println("KphProjectServiceImp updateBoardProjectReply start...");
-		int result = kphProjectDao.updateBoardProjectReply(reply);
-		return result;
+		KphUserBoardProjectReply resultReply = kphProjectDao.updateBoardProjectReply(reply);
+		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+		return resultReply;
 	}
 	
 	@Override

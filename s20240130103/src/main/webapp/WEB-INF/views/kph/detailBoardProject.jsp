@@ -266,7 +266,6 @@
 													</div>
 													<div class="reply-reply-content">
 														<c:if test="${reply.preply_indent == 0 }">
-															<span class="tag"></span>
 															<div class="reply-reply-default-content">${reply.preply_content }</div>
 															<div class="reply-reply-content-box">
 																<textarea class="form-control"></textarea>

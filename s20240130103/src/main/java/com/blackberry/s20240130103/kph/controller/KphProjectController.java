@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -240,6 +242,7 @@ public class KphProjectController {
 	public String detailProject(HttpServletRequest request, Model model) {
 		
 		String resultPage = "redirect:/main";
+		Long session_user_no = (Long)request.getSession().getAttribute("user_no");
 		
 		if (isUserInProject(request) > 0) {
 			Long project_no = Long.parseLong(request.getParameter("project_no"));
@@ -260,6 +263,7 @@ public class KphProjectController {
 			model.addAttribute("compTaskListCount", compTaskListCount);
 			model.addAttribute("projectLeader_no", detailProject.get("projectLeader_no"));
 			model.addAttribute("isProjectCompleted", detailProject.get("isProjectCompleted"));
+			model.addAttribute("session_user_no", session_user_no);
 			
 			resultPage = "kph/detailProject";
 		}
@@ -519,15 +523,19 @@ public class KphProjectController {
 		
 		KphUserBoardProjectReply resultReply = null;
 		String content = reply.getPreply_content();
-		String tag = null;
-		if(content.indexOf(" ") != -1) {
-			tag = content.substring(0, content.indexOf(" "));
-		}
 		
-		if (content.startsWith("@")) {
-			reply.setTagName(tag.substring(1));
+		String pattern = "^@\\S+\\s+\\S[\\s\\S]";
+		Pattern regex = Pattern.compile(pattern);
+		Matcher matcher = regex.matcher(content);
+		
+		if (matcher.find()) {
 			
-			// 해당 댓글 그룹에 속하는 인원 중 대댓글로 작성한 인원이 있는지 체크 
+			String tag = content;
+			if(content.indexOf(" ") != -1) {
+				tag = content.substring(0, content.indexOf(" "));
+			} 
+			
+			reply.setTagName(tag.substring(1));
 			boolean isUserInIndentZero = kphProjectService.isUserInIndentZero(reply);
 			
 			if(isUserInIndentZero) {
@@ -602,14 +610,10 @@ public class KphProjectController {
 	
 	@PostMapping("boardProjectReplyEdit")
 	@ResponseBody
-	public String boardProjectReplyEdit(KphBoardProjectReply reply) {
+	public KphUserBoardProjectReply boardProjectReplyEdit(KphBoardProjectReply reply) {
 		System.out.println("KphProjectController boardProjectReplyEdit start...");
-		String response = "실패";
-		int result = kphProjectService.updateBoardProjectReply(reply);
-		if(result > 0) {
-			response = "성공";
-		}
-		return response;
+		KphUserBoardProjectReply resultReply = kphProjectService.updateBoardProjectReply(reply);
+		return resultReply;
 	}
 	
 	@PostMapping("boardProjectReplyReplyEdit")
@@ -620,17 +624,20 @@ public class KphProjectController {
 		
 		KphUserBoardProjectReply resultReply = null;
 		String content = reply.getPreply_content();
-		String tag = "";
-		if(content.indexOf(" ") != -1) {
-			tag = content.substring(0, content.indexOf(" "));
-		}
 		
-		if (content.startsWith("@")) {
-			reply.setTagName(tag.substring(1));
+		String pattern = "^@\\S+\\s+\\S[\\s\\S]";
+		Pattern regex = Pattern.compile(pattern);
+		Matcher matcher = regex.matcher(content);
+		
+		if (matcher.find()) {
 			
-			// 해당 댓글 그룹에 속하는 인원 중 대댓글로 작성한 인원이 있는지 체크 
+			String tag = content;
+			if(content.indexOf(" ") != -1) {
+				tag = content.substring(0, content.indexOf(" "));
+			} 
+			
+			reply.setTagName(tag.substring(1));
 			boolean isUserInIndentZero = kphProjectService.isUserInIndentZero(reply);
-			System.out.println(isUserInIndentZero);
 			
 			if(isUserInIndentZero) {
 				reply.setPreply_indent(1);
