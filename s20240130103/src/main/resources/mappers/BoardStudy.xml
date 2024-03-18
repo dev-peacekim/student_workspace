@@ -99,6 +99,7 @@
 		FROM BOARD_COMM
 		WHERE COMM_BIG = 200
 	 	  AND COMM_MID = 20
+	 	  AND COMM_MID2 = #{comm_mid2}
 	</select>
 	
 	<insert id="ykmSaveFileList" parameterType="YkmBoardCommFile" >
