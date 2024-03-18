@@ -73,7 +73,7 @@ public class KphProjectDaoImp implements KphProjectDao {
 	
 	@Override
 	public int isProjectCompleted(Long project_no) {
-		return session.selectOne("KphisProjectCompleted", project_no);
+		return session.selectOne("KphIsProjectCompleted", project_no);
 	}
 
 	@Override

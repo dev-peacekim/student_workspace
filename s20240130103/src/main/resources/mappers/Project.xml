@@ -10,6 +10,12 @@
 		ORDER BY p.PROJECT_COMP_CHK ASC, PROJECT_END ASC
 	</select>
 	
+	<select id="KphIsProjectCompleted" parameterType="java.lang.Long" resultType="int">
+		SELECT PROJECT_COMP_CHK
+		FROM PROJECT
+		WHERE PROJECT_NO = #{project_no}
+	</select>
+	
 	<select id="kphProjectTitleByProjectNo" parameterType="Long" resultType="string">
 		SELECT PROJECT_TITLE
 		FROM PROJECT
