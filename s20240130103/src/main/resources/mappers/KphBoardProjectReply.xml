@@ -61,6 +61,7 @@
 		WHERE PREPLY_GROUP = #{preply_group}
 			AND PREPLY_LEVEL > 0
 			AND PREPLY_INDENT = 0
+			AND PREPLY_DELETE_CHK = 0
 			AND USER_NO IN (SELECT u.USER_NO FROM USERS u WHERE u.USER_NAME = #{tagName})
 	</select>
 	
@@ -83,6 +84,18 @@
 	<update id="KphBoardProjectReplyDelete" parameterType="java.lang.Long">
 		UPDATE BOARD_PROJECT_REPLY
 		SET PREPLY_DELETE_CHK = 1, PREPLY_UPDATE_DATE = SYSDATE
+		WHERE PREPLY_NO = #{preply_no}
+	</update>
+	
+	<update id="KphUpdateBoardProjectReply" parameterType="KphBoardProjectReply">
+		UPDATE BOARD_PROJECT_REPLY
+		SET PREPLY_CONTENT = #{preply_content}, PREPLY_UPDATE_DATE = SYSDATE
+		WHERE PREPLY_NO = #{preply_no}
+	</update>
+	
+	<update id="KphboardProjectReplyReplyUpdate" parameterType="KphBoardProjectReply">
+		UPDATE BOARD_PROJECT_REPLY
+		SET PREPLY_CONTENT = #{preply_content}, PREPLY_INDENT= #{preply_indent}, PREPLY_UPDATE_DATE = SYSDATE
 		WHERE PREPLY_NO = #{preply_no}
 	</update>
 	

@@ -138,7 +138,6 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 	public void updateSave(BoardProject boardProject) {
 	    log.info("KdwBoardProjectDaoImpl updateSave start...");
 	    try {
-	    	
 	    // 게시글 정보 업데이트
 	    session.update("kdwUpdateSave", boardProject);
 	    System.out.println("KdwBoardProjectDaoImpl updateSave success: " + boardProject);
@@ -150,11 +149,17 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 	
 	// 파일 첨부목록
 	@Override
-	public List<BoardProjectFile> getBoardFiles(Long pboardNo) {
+	public BoardProjectFile getBoardFiles(Long pboardNo, int pboardFileNo) {
         log.info("KdwBoardProjectDaoImpl getBoardFiles start...");
-        List<BoardProjectFile> files = null;
+        BoardProjectFile files = null;
         try {
-            files = session.selectList("kdwGetBoardWithFiles", pboardNo);
+        	Map<String, Object> paramMap = new HashMap<>();
+        	paramMap.put("pboardNo", pboardNo);
+        	paramMap.put("pboardFileNo", pboardFileNo);
+            files = session.selectOne("kdwGetBoardWithFiles", paramMap);
+            
+            System.out.println("KdwBoardProjectDaoImpl getBoardFiles pboardNo: " + pboardNo);
+            System.out.println("KdwBoardProjectDaoImpl getBoardFiles pboardFileNo: " + pboardFileNo);
         } catch (Exception e) {
             log.error("Error getting board with files: {}", e.getMessage());
             e.printStackTrace();
@@ -163,14 +168,22 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 	}
 	// 파일 삭제
 	@Override
-	public void deleteFilesByPboardNo(Long pboardNo) {
+	public void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo) {
 	    System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo start...");
+	    
 	    try {
-	        session.delete("kdwdeleteFiles", pboardNo);
-	        System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo success pboardNo" + pboardNo);
+        	Map<String, Object> paramMap = new HashMap<>();
+        	paramMap.put("pboardNo", pboardNo);
+        	paramMap.put("pboardFileNo", pboardFileNo);
+        	
+	        session.delete("kdwdeleteFilesByPboardNo", paramMap);
+	        System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo pboardNo" + pboardNo);
+	        System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo pboardFileNo: " + pboardFileNo);
 	    } catch (Exception e) {
+	    	System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo Error pboardNo: " + pboardNo);
 	        e.printStackTrace();
 	    }
+	    
 	}
 
 

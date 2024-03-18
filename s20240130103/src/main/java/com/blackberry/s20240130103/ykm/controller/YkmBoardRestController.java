@@ -80,13 +80,13 @@ public class YkmBoardRestController {
 		System.out.println("YkmBoardRestController writeReply start ---*");
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		ykmBoardCommReply.setUser_no(user_no);
-		YkmBoardCommReply replyValue = ykmService.getReplyValue(ykmBoardCommReply);
-		System.out.println("test : " + replyValue);
+		YkmBoardCommReply getReplyNo = ykmService.getReplyNo(ykmBoardCommReply);
+		System.out.println("test : " + getReplyNo);
 		System.out.println("YkmBoardRestController writeReply ykmBoardCommReply:"+ykmBoardCommReply);
-		ykmBoardCommReply.setCreply_group(replyValue.getCreply_group());
-		ykmBoardCommReply.setCreply_level(replyValue.getCreply_level()+1);
-		ykmBoardCommReply.setCreply_indent(replyValue.getCreply_indent()+1);
-		int updateResult = ykmService.updateReply(ykmBoardCommReply);
+		ykmBoardCommReply.setCreply_group(getReplyNo.getCreply_group());
+		ykmBoardCommReply.setCreply_level(getReplyNo.getCreply_level()+1);
+		ykmBoardCommReply.setCreply_indent(getReplyNo.getCreply_indent()+1);
+		int updateGroup = ykmService.updateGroup(ykmBoardCommReply);
 		int result = ykmService.writeReply(ykmBoardCommReply);
 		System.out.println("YkmBoardRestController writeReply result : "+result);
 		
@@ -96,11 +96,14 @@ public class YkmBoardRestController {
 	
 	/* 모집상태 변경 */
 	@PutMapping(value = "/recruitment")
-	public int updateRecruitment(@RequestBody YkmBoardComm ykmBoardComm) {
+	public Map<String, Object> updateRecruitment(@RequestBody YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardRestController updateRecruitment start---*");
 		int result = ykmService.updateRecruitment(ykmBoardComm);
 		System.out.println("YkmBoardRestController updateRecruitment result : " + result);
-		return result;
+		Map<String, Object> response = new HashMap<>();
+		response.put("result", result);
+		response.put("comm_mid2", ykmBoardComm.getComm_mid2());
+		return response;
 	}
 	
 

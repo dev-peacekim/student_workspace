@@ -115,7 +115,9 @@
 												class="rounded-circle">${projectMember.user_name }
 										</c:if>
 									</div>
-									<i id="${projectMember.user_no}" class="bi bi-x"><input type="hidden" name="user_no" value="${projectMember.user_no}" /></i>
+									<c:if test="${session_user_no != projectMember.user_no }">
+										<i id="${projectMember.user_no}" class="bi bi-x"><input type="hidden" name="user_no" value="${projectMember.user_no}" /></i>
+									</c:if>
 								</li>
 							</c:forEach>
 						</ul>

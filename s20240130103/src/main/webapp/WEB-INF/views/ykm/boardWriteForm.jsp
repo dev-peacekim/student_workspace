@@ -65,15 +65,25 @@ window.onload = function() {
 	} 
 	
 	updatePreview();
+	
+	$('#blankchk').on("click", function(e) {
+		const inputTitle = $('#inputTitle').val();
+		if (inputTitle.trim() === "") {
+			e.preventDefault();
+			alert('제목에 공백을 사용할 수 없습니다.');
+		} else {
+			inputTitle.focus();
+		}
+	});
+	
+	
+	
+	
+	
 }	
 
 
-$('#boardTitle').on("input", function() {
-	const title = $(this).val().trim();
-	if (title === '') {
-		alert('제목에 공백을 포함할 수 없습니다.');
-	}
-});
+	
 
 
 
@@ -114,8 +124,8 @@ $('#boardTitle').on("input", function() {
 						<!-- 제목 -->
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label> 
-							<input type="text" class="form-control" id="boardTitle" 
-									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." required="required"/>
+							<input type="text" class="form-control" id="inputTitle" 
+									name="cboard_title"	placeholder="제목에 핵심 내용을 요약해보세요." value="" required="required"/>
 						</div>
 
 						<!-- 파일 첨부 -->
@@ -140,7 +150,7 @@ $('#boardTitle').on("input", function() {
 						
 						<!-- 버튼 -->
 						<div class="btn-container">
-							<input type="submit" class="btn btn-primary" value="확인">
+							<input type="submit" class="btn btn-primary" value="확인" id="blankchk">
 							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
 						</div>
 					</div>

@@ -330,7 +330,7 @@ public class KphProjectServiceImp implements KphProjectService {
 	
 	@Override
 	public boolean isUserInIndentZero(KphBoardProjectReply reply) {
-		System.out.println("KphProjectServiceImp isUserInIndentOne start...");
+		System.out.println("KphProjectServiceImp isUserInIndentZero start...");
 		boolean result = false;
 		int isUserInIndentTwo = kphProjectDao.isUserInIndentZero(reply);
 		
@@ -367,6 +367,22 @@ public class KphProjectServiceImp implements KphProjectService {
 		System.out.println("KphProjectServiceImp getBoardProjectFile start...");
 		KphBoardProjectFile fileInformation = kphProjectDao.getBoardProjectFile(file);
 		return fileInformation;
+	}
+	
+	@Override
+	public KphUserBoardProjectReply updateBoardProjectReply(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp updateBoardProjectReply start...");
+		KphUserBoardProjectReply resultReply = kphProjectDao.updateBoardProjectReply(reply);
+		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+		return resultReply;
+	}
+	
+	@Override
+	public KphUserBoardProjectReply boardProjectReplyReplyUpdate(KphBoardProjectReply reply) {
+		System.out.println("KphProjectServiceImp boardProjectReplyReplyUpdate start...");
+		KphUserBoardProjectReply resultReply = kphProjectDao.boardProjectReplyReplyUpdate(reply);
+		resultReply.setPreply_content(reply.getPreply_content().replace("\n","<br>"));
+		return resultReply;
 	}
 	
 }

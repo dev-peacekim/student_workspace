@@ -9,7 +9,6 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -35,9 +34,6 @@ public class YkmBoardController {
 
 	private final YkmService ykmService;
 
-	
-	// 글 수정할 때 글쓴 사용자만 수정할 수 있게 권한 체크
-	
 	/* 스터디 게시판 */
 	
 	// 스터디 게시판 리스트 조회, 페이징 카운트
@@ -45,8 +41,10 @@ public class YkmBoardController {
 	public String boardStudy(YkmBoardComm ykmBoardComm, Model model) {
 
 		System.out.println("YkmController boardStudy start ---*");
+		if (ykmBoardComm.getComm_mid2() == 0) ykmBoardComm.setComm_mid2(99);
 		
 		int totalCount = ykmService.getTotalCount(ykmBoardComm);
+		System.out.println("YkmController 전체 게시글 카운트 : "+ykmService.getTotalCount(ykmBoardComm));
 		YkmPaging stuPage = new YkmPaging(totalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
@@ -100,13 +98,13 @@ public class YkmBoardController {
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
 		ykmBoardComm.setUser_no(user_no);	
 
-
+		System.out.println("taaaa : " + fileList.size());
 		
 		// 게시판 분류
 		int comm_big = ykmBoardComm.getComm_big();
 		int comm_mid = ykmBoardComm.getComm_mid();
-//		
-//		// 파일 업로드
+		
+		// 파일 업로드
 		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
 
 		redirect.addAttribute("comm_mid", comm_mid);

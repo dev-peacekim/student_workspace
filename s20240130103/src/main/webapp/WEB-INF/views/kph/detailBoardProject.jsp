@@ -95,18 +95,20 @@
 				<input id="pboard_no" type="hidden" name="pboard_no" value="${board.pboard_no }" />
 				<div class="post-top">
 					<div class="post-top-title">${board.pboard_title}</div>
-					<div	class="post-top-edit">
-						<form action="boardProjectDelete" method="post">
-							<input type="hidden" name="project_no" value="${project_no }" />
-							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
-							<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
-						</form>
-						<form action="projectBoardUpdate" method="get">
-							<input type="hidden" name="project_no" value="${project_no }" />
-							<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
-							<i id="board-project-update" class="bi bi-pencil-square board-project-update"></i>
-						</form>
-					</div>
+					<c:if test="${session_user_no == board.user_no }">
+						<div	class="post-top-edit">
+							<form action="boardProjectDelete" method="post">
+								<input type="hidden" name="project_no" value="${project_no }" />
+								<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
+								<i id="board-project-delete" class="bi bi-trash-fill board-project-delete"></i>
+							</form>
+							<form action="projectBoardUpdate" method="get">
+								<input type="hidden" name="project_no" value="${project_no }" />
+								<input type="hidden" name="pboard_no" value="${board.pboard_no }" />
+								<i id="board-project-update" class="bi bi-pencil-square board-project-update"></i>
+							</form>
+						</div>
+					</c:if>
 				</div>
 				<div class="post-user">
 					<c:if test="${empty board.user_profile }">
@@ -189,8 +191,9 @@
 											<c:if test="${replyList.value.get(0).preply_update_date != null }">
 												<p class="reply-write-day">${replyList.value.get(0).preply_update_date}</p>
 											</c:if>
-											<c:if test="${session_user_no == replyList.value.get(0).user_no}">
+											<c:if test="${session_user_no == replyList.value.get(0).user_no && replyList.value.get(0).preply_delete_chk == 0}">
 												<i class="bi bi-trash-fill reply-delete-btn"></i>
+												<i class="bi bi-pencil-square reply-edit-btn-icon"></i>
 											</c:if>
 										</div>
 									</div>
@@ -200,10 +203,19 @@
 								</div>
 								<c:choose>
 									<c:when test="${replyList.value.get(0).preply_delete_chk == 0 }">
-										<div class="reply-content">${replyList.value.get(0).preply_content }</div>
+										<div class="reply-content">
+											<div class="reply-default-content">${replyList.value.get(0).preply_content }</div>
+											<div class="reply-content-box">
+												<textarea class="form-control"></textarea>
+							                    <button type="button" class="btn btn-primary reply-edit-btn" id="reply-edit-btn">수정</button>
+							                    <button type="button" class="btn btn-secondary reply-edit-cancle-btn" id="reply-edit-cancle-btn">취소</button>
+							                </div>
+										</div>
 									</c:when>
 									<c:otherwise>
-										<div class="reply-content">삭제된 댓글입니다.</div>
+										<div class="reply-content">
+											<div class="reply-default-content">삭제된 댓글입니다.</div>
+										</div>
 									</c:otherwise>
 								</c:choose>
 								<div class="reply-reply-write-box">
@@ -244,6 +256,7 @@
 																</c:if>
 																<c:if test="${session_user_no == reply.user_no}">
 																	<i class="bi bi-trash-fill reply-reply-delete-btn"></i>
+																	<i class="bi bi-pencil-square reply-reply-edit-btn-icon"></i>
 																</c:if>
 															</div>
 														</div>
@@ -253,11 +266,21 @@
 													</div>
 													<div class="reply-reply-content">
 														<c:if test="${reply.preply_indent == 0 }">
-															<div>${reply.preply_content }</div>
+															<div class="reply-reply-default-content">${reply.preply_content }</div>
+															<div class="reply-reply-content-box">
+																<textarea class="form-control"></textarea>
+											                    <button type="button" class="btn btn-primary reply-reply-edit-btn" id="reply-reply-edit-btn">수정</button>
+											                    <button type="button" class="btn btn-secondary reply-reply-edit-cancle-btn" id="reply-reply-edit-cancle-btn">취소</button>
+											                </div>
 														</c:if>
 														<c:if test="${reply.preply_indent == 1 }">
 															<span class="tag">${reply.preply_content.substring(0, reply.preply_content.indexOf(" ")) }</span>
-															<div>${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length()) }</div>
+															<div class="reply-reply-default-content">${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length()) }</div>
+															<div class="reply-reply-content-box">
+																<textarea class="form-control"></textarea>
+											                    <button type="button" class="btn btn-primary reply-reply-edit-btn" id="reply-reply-edit-btn">수정</button>
+											                    <button type="button" class="btn btn-secondary reply-reply-edit-cancle-btn" id="reply-reply-edit-cancle-btn">취소</button>
+											                </div>
 														</c:if>
 													</div>
 												</div>

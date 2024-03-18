@@ -80,10 +80,10 @@
 				<!-- 카테고리 탭 시작  -->
 				<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link ${comm_mid2=='0' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
+						<button class="nav-link ${comm_mid2=='99' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
 							data-bs-target="#bordered-home" type="button" role="tab"
 							aria-controls="home" aria-selected="${comm_mid2=='0' ? 'true' : 'false'}"
-							onclick="location.href='/boardStudy';">전체</button>
+							onclick="location.href='/boardStudy?=comm_mid2=99';">전체</button>
 					</li>
 					<li class="nav-item" role="presentation">
 						<button class="nav-link ${comm_mid2=='10' ? 'active' : ''}" id="recruiting-tab" data-bs-toggle="tab"

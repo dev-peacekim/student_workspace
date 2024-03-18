@@ -60,9 +60,9 @@ public interface YkmBoardDao {
 
 	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
 
-	YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply);
+	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 댓글 번호 조회
 
-	int updateReply(YkmBoardCommReply ykmBoardCommReply);
+	int updateGroup(YkmBoardCommReply ykmBoardCommReply); // 같은 댓글 그룹핑
 
 	
 

@@ -29,50 +29,49 @@ public class YkmServiceImpl implements YkmService {
 	private final YkmBoardDao ykmBoardDao;
 
 	/* 스터디 게시판 */
-	
+
 	// 게시판 글쓰기, 파일 업로드
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
-		
+
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
-		
-		
-		if(!fileList.isEmpty() && fileList.size() > 0) {
-			for (MultipartFile file : fileList) {
+
+		for (MultipartFile file : fileList) {
+			if (!file.isEmpty()) {
+
 				// 파일 저장
 				String fileName = file.getOriginalFilename();
-					
-				
+
 				String fileExt = fileName.substring(fileName.lastIndexOf("."));
-				String fileUuid = UUID.randomUUID().toString()+ fileExt;
-				
+				String fileUuid = UUID.randomUUID().toString() + fileExt;
+
 				File files = new File(studyFilePath, fileUuid);
 				try {
 					Path uploadPath = Paths.get(studyFilePath + File.separator + fileUuid);
-					
+
 					Files.copy(file.getInputStream(), files.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					
+
 					YkmBoardCommFile ykmBoardCommFile = new YkmBoardCommFile();
-					System.out.println("YkmServiceImpl writePost ykmBoardCommFile : "+ykmBoardCommFile);
-					
+					System.out.println("YkmServiceImpl writePost ykmBoardCommFile : " + ykmBoardCommFile);
+
 					ykmBoardCommFile.setCboard_no(ykmBoardComm.getCboard_no());
-					System.out.println("YkmServiceImpl writePost ykmBoardComm.getCboard_no() "+ykmBoardComm.getCboard_no());
-					
+					System.out.println(
+							"YkmServiceImpl writePost ykmBoardComm.getCboard_no() " + ykmBoardComm.getCboard_no());
+
 					ykmBoardCommFile.setCboard_file_name(fileUuid);
 					ykmBoardCommFile.setCboard_file_user_name(fileName);
-					
+
 					ykmBoardDao.saveFileList(ykmBoardCommFile);
-				
+
 				} catch (Exception e) {
 					e.printStackTrace();
-	                System.out.println("YkmServiceImpl saveFileList error : "+e.getMessage());
+					System.out.println("YkmServiceImpl saveFileList error : " + e.getMessage());
 				}
 			}
 		}
 		return result;
 	}
-
 
 	// 게시판 리스트
 	@Override
@@ -82,19 +81,19 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getPostList result --> " + getPostList.size());
 		return getPostList;
 	}
-	
+
 	// 게시글 보여주기
 	@Override
 	public YkmBoardComm getPost(int cboard_no) {
 		return ykmBoardDao.getPost(cboard_no);
 	}
-	
+
 	// 글 수정
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl updatePost start---*");
-		System.out.println("YkmServiceImpl updatePost ykmBoardComm --> "+ ykmBoardComm);
-		return ykmBoardDao.updatePost(ykmBoardComm);	
+		System.out.println("YkmServiceImpl updatePost ykmBoardComm --> " + ykmBoardComm);
+		return ykmBoardDao.updatePost(ykmBoardComm);
 	}
 
 	// 글 삭제
@@ -103,13 +102,13 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl deletePost start---*");
 		return ykmBoardDao.deletePost(cboard_no);
 	}
-	
+
 	// 게시판 조회수 카운트
 	@Override
 	public int increseViewCount(int cboard_no) {
 		return ykmBoardDao.increseViewcount(cboard_no);
 	}
-	
+
 	// 게시판 모집 상태 변경 (모집중 / 모집완료)
 	@Override
 	public int updateRecruitment(YkmBoardComm ykmBoardComm) {
@@ -128,22 +127,23 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getTotalCount start ---*");
+		System.out.println("YkmServiceImpl getTotalCount ykmBoardComm"+ykmBoardComm);
 		int result = ykmBoardDao.getTotalCount(ykmBoardComm);
-		System.out.println("YkmServiceImpl getTotalCount result : "+result);
+		System.out.println("YkmServiceImpl getTotalCount result : " + result);
 		return result;
 	}
-	
+
 	// 검색
 	@Override
 	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getSearchList start ---*");
 		List<YkmBoardComm> getSearchList = ykmBoardDao.getSearchList(ykmBoardComm);
-		System.out.println("YkmServiceImpl getSearchList result ===> "+ getSearchList.size());
+		System.out.println("YkmServiceImpl getSearchList result ===> " + getSearchList.size());
 		return getSearchList;
 	}
-		
+
 	/* 댓글 RESTful API */
-	
+
 	// 댓글 리스트
 	@Override
 	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
@@ -157,19 +157,19 @@ public class YkmServiceImpl implements YkmService {
 	public int writeComment(YkmBoardCommReply ykmBoardCommReply) {
 		return ykmBoardDao.writeComment(ykmBoardCommReply);
 	}
-	
+
 	// 댓글 삭제
 	@Override
 	public int deleteComment(int creply_no) {
 		return ykmBoardDao.deleteComment(creply_no);
 	}
-	
+
 	// 댓글 수정
 	@Override
 	public int updateComment(YkmBoardCommReply ykmBoardCommReply) {
 		return ykmBoardDao.updateComment(ykmBoardCommReply);
 	}
-	
+
 	// 댓글 개수 카운트
 	@Override
 	public int countComment(int cboard_no) {
@@ -184,7 +184,7 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl writeReply : " + result);
 		return result;
 	}
-	
+
 	/* 공모전 리스트 */
 	@Override
 	public List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm) {
@@ -199,7 +199,7 @@ public class YkmServiceImpl implements YkmService {
 	public int getCntTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getCntTotalCount start ---*");
 		int result = ykmBoardDao.getCntTotalCount(ykmBoardComm);
-		System.out.println("YkmServiceImpl getCntTotalCount result : "+result);
+		System.out.println("YkmServiceImpl getCntTotalCount result : " + result);
 		return result;
 	}
 
@@ -210,18 +210,17 @@ public class YkmServiceImpl implements YkmService {
 		List<YkmBoardComm> getCntSearchList = ykmBoardDao.getCntSearchList(ykmBoardComm);
 		return getCntSearchList;
 	}
-	
+
 	@Override
-	public YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply) {
-		YkmBoardCommReply replyValue = ykmBoardDao.getReplyValue(ykmBoardCommReply);
+	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = ykmBoardDao.getReplyNo(ykmBoardCommReply);
 		return replyValue;
 	}
-	
+
 	@Override
-	public int updateReply(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.updateReply(ykmBoardCommReply);
+	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
 		return result;
 	}
 
-	
 }

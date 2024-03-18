@@ -72,8 +72,17 @@ $('.reply-write-btn').on('click', function () {
 				`<p class="reply-write-day">${reply.preply_update_date}</p>`;
 
 			let preply_content = reply.preply_delete_chk == 0 ?
-				`<div class="reply-content">${reply.preply_content}</div>` :
-				`<div class="reply-content">삭제된 댓글입니다.</div>`;
+				`<div class="reply-content">
+					<div class="reply-default-content">${reply.preply_content}</div>
+					<div class="reply-content-box">
+						<textarea class="form-control"></textarea>
+						<button type="button" class="btn btn-primary reply-edit-btn" id="reply-edit-btn">수정</button>
+						<button type="button" class="btn btn-secondary reply-edit-cancle-btn" id="reply-edit-cancle-btn">취소</button>
+					</div>
+				</div>` :
+				`<div class="reply-content">
+					<div class="reply-default-content">삭제된 댓글입니다.</div>
+				</div>`;
 
 			$('.reply-list').prepend(`
 				<div class="reply-detail">
@@ -89,6 +98,7 @@ $('.reply-write-btn').on('click', function () {
 								<p class="reply-user-name">${reply.user_name}</p>
 								${writeDay}
 								<i class="bi bi-trash-fill reply-delete-btn"></i>
+								<i class="bi bi-pencil-square reply-edit-btn-icon"></i>
 							</div>
 						</div>
 						<div class="reply-reply-write">
@@ -151,13 +161,23 @@ $('.reply-list').on('click', '.reply-reply-write-btn', function () {
 
 
 			let preply_indent = reply.preply_indent == 0 ?
-								`<div>${reply.preply_content}</div>` :
+								`<div class="reply-reply-default-content">${reply.preply_content}</div>
+								  <div class="reply-reply-content-box">
+									<textarea class="form-control"></textarea>
+									<button type="button" class="btn btn-primary reply-reply-edit-btn" id="reply-reply-edit-btn">수정</button>
+									<button type="button" class="btn btn-secondary reply-reply-edit-cancle-btn" id="reply-reply-edit-cancle-btn">취소</button>
+								  </div>` :
 								`<span class="tag">${reply.preply_content.substring(0, reply.preply_content.indexOf(" "))}</span>
-								<div>${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length)}</div>`;
+								<div class="reply-reply-default-content">${reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length)}</div>
+								<div class="reply-reply-content-box">
+									<textarea class="form-control"></textarea>
+									<button type="button" class="btn btn-primary reply-reply-edit-btn" id="reply-reply-edit-btn">수정</button>
+									<button type="button" class="btn btn-secondary reply-reply-edit-cancle-btn" id="reply-reply-edit-cancle-btn">취소</button>
+								</div>`;
 
 			let preply_content = reply.preply_delete_chk == 0 ?
 								preply_indent :
-								`<div>삭제된 댓글입니다.</div>`;
+								`<div class="reply-reply-default-content">삭제된 댓글입니다.</div>`;
 
 			$(reply_reply_list).append(`
 				<div class="reply-reply-detail">
@@ -172,6 +192,7 @@ $('.reply-list').on('click', '.reply-reply-write-btn', function () {
 								<p class="reply-reply-user-name">${reply.user_name}</p>
 								${writeDay}
 								<i class="bi bi-trash-fill reply-reply-delete-btn"></i>
+								<i class="bi bi-pencil-square reply-reply-edit-btn-icon"></i>
 							</div>
 						</div>
 						<div class="reply-reply-reply-write">
@@ -179,9 +200,9 @@ $('.reply-list').on('click', '.reply-reply-write-btn', function () {
 						</div>
 					</div >
 					<div class="reply-reply-content">
-					${preply_content}
-				</div>
-			</div >
+						${preply_content}
+					</div>
+				</div >
 			`);
 		}
 	});
@@ -219,12 +240,15 @@ $('.reply-list').on('click', '.reply-delete-btn, .reply-reply-delete-btn', funct
 				if($(reply_detail).find('.reply-reply-box').length == 0) {
 					$(reply_detail).remove();
 				} else {
-					$(reply_detail).find('.reply-content').text('삭제된 댓글입니다.');
+					$(reply_detail).find('.reply-content .reply-default-content').text('삭제된 댓글입니다.');
+					$(reply_detail).find('.reply-delete-btn').remove();
+					$(reply_detail).find('.reply-edit-btn-icon').remove();
 				}
 			} else {
 				// 대댓글 삭제인 경우
 				$(reply_reply_detail).remove();
-				if($(reply_detail).find('.reply-reply-detail').length == 0 && $(reply_detail).find('.reply-content').text() == '삭제된 댓글입니다.'){
+				console.log($(reply_detail).find('.reply-default-content').text());
+				if($(reply_detail).find('.reply-reply-detail').length == 0 && $(reply_detail).find('.reply-default-content').text() == '삭제된 댓글입니다.'){
 					$(reply_detail).remove();
 				} else if ($(reply_detail).find('.reply-reply-detail').length == 0) {
 					$(reply_detail).find('.reply-reply-box').remove();
@@ -240,3 +264,110 @@ $('.reply-list').on('click', '.reply-delete-btn, .reply-reply-delete-btn', funct
 $('#board-project-delete, #board-project-update').on('click', function () {  
 	$(this).closest('form').submit();
 })
+
+$('.reply-list').on('click', '.reply-edit-btn-icon, .reply-reply-edit-btn-icon', function() {
+	
+	if($(this).hasClass('reply-edit-btn-icon')) {
+		const reply_content_box = $(this).closest('.reply-detail').find('.reply-content-box');
+		const reply_default_content = $(this).closest('.reply-detail').find('.reply-default-content');
+		const new_reply_default_content = $(reply_default_content).html().replace(/<br\s*[\/]?>/gi, "\n");
+		$(reply_content_box).find('textarea').val(new_reply_default_content);
+		$(reply_content_box).css('display', 'flex');
+		$(reply_default_content).css('display', 'none');
+	} else {
+		const reply_reply_content_box = $(this).closest('.reply-reply-detail').find('.reply-reply-content-box');
+		const reply_reply_default_content = $(this).closest('.reply-reply-detail').find('.reply-reply-default-content');
+		const new_reply_reply_default_content = $(reply_reply_default_content).html().replace(/<br\s*[\/]?>/gi, "\n");
+		const tag = $(this).closest('.reply-reply-detail').find('.tag');
+		if($(tag).length == 0) {
+			$(reply_reply_content_box).find('textarea').val(new_reply_reply_default_content);
+		} else {
+			$(reply_reply_content_box).find('textarea').val(tag.text() + new_reply_reply_default_content);	
+		}
+		$(reply_reply_content_box).css('display', 'flex');
+		$(reply_reply_default_content).css('display', 'none');
+		$(tag).css('display', 'none');
+	}
+	
+});
+
+$(document).mousedown(function(event) {
+	if($(event.target).closest('.reply-reply-content-box').length == 0 && $(event.target).closest('.reply-content-box').length == 0 && $(event.target).closest('.reply-edit-btn-icon').length == 0 && $(event.target).closest('.reply-reply-edit-btn-icon').length == 0) {
+		$('.reply-reply-content-box, .reply-content-box').css('display', 'none');
+		$('.reply-default-content, .tag, .reply-reply-default-content').css('display', 'block');
+	}
+})
+
+$('.reply-list').on('click', '.reply-edit-cancle-btn', function() {
+	$(this).closest('.reply-content-box').css('display', 'none');
+	$(this).closest('.reply-content').find('.reply-default-content').css('display', 'block');
+});
+
+$('.reply-list').on('click', '.reply-edit-btn', function() {
+	const reply_content = $(this).closest('.reply-content');
+	const reply_content_box = $(this).closest('.reply-content-box');
+	const preply_no = $(this).closest('.reply-detail').find('input[name=preply_no]').val();
+	const preply_content = $(this).closest('.reply-content-box').find('textarea').val();
+	
+	$.ajax({
+		type: "post",
+		url: "boardProjectReplyEdit",
+		data: {
+			preply_no : preply_no,
+			preply_content : preply_content
+		},
+		dataType: "json",
+		success: function (reply) {
+			$(reply_content).find('.reply-default-content').html(reply.preply_content);
+			$(reply_content).find('.reply-default-content').css('display', 'block');
+			$(reply_content_box).css('display', 'none');
+		}
+	});
+	
+ });
+ 
+$('.reply-list').on('click', '.reply-reply-edit-cancle-btn', function() {
+	$(this).closest('.reply-reply-content-box').css('display', 'none');
+	$(this).closest('.reply-reply-content').find('.reply-reply-default-content').css('display', 'block');
+	$(this).closest('.reply-reply-content').find('.tag').css('display', 'block');
+});
+
+$('.reply-list').on('click', '.reply-reply-edit-btn', function() {
+	const reply_reply_detail = $(this).closest('.reply-reply-detail');
+	const reply_reply_content = $(this).closest('.reply-reply-content');
+	const reply_reply_content_box = $(this).closest('.reply-reply-content-box');
+	const preply_no = $(this).closest('.reply-reply-detail').find('input[name=preply_no]').val();
+	const preply_content = $(this).closest('.reply-reply-content-box').find('textarea').val();
+	const preply_group = $(this).closest('.reply-reply-detail').find('input[name=preply_group]').val();
+	const tag = $(this).closest('.reply-reply-content').find('.tag');
+	if($(tag).length == 0) {
+		$(reply_reply_content).prepend(`
+			<span class="tag"></span>
+		`);
+	}
+	
+	$.ajax({
+		type: "post",
+		url: "boardProjectReplyReplyEdit",
+		data: {
+			preply_no : preply_no,
+			preply_content : preply_content,
+			preply_group: preply_group
+		},
+		dataType: "json",
+		success: function (reply) {
+			if(reply.preply_indent == 0) {
+				$(reply_reply_detail).find('.tag').remove();
+				$(reply_reply_detail).find('.reply-reply-default-content').html(reply.preply_content);
+			} else {
+				$(reply_reply_detail).find('.tag').text(reply.preply_content.substring(0, reply.preply_content.indexOf(" ")));
+				$(reply_reply_detail).find('.reply-reply-default-content').html(reply.preply_content.substring(reply.preply_content.indexOf(" "), reply.preply_content.length));
+			}
+			
+			$(reply_reply_content).find('.reply-reply-default-content').css('display', 'block');
+			$(reply_reply_content).find('.tag').css('display', 'block');
+			$(reply_reply_content_box).css('display', 'none');
+		}
+	});
+	
+ });

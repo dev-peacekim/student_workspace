@@ -57,8 +57,8 @@ public interface YkmService {
 
 	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 공모전 전체 검색
 
-	YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply);
+	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 
 
-	int updateReply(YkmBoardCommReply ykmBoardCommReply);
+	int updateGroup(YkmBoardCommReply ykmBoardCommReply);
 	
 }

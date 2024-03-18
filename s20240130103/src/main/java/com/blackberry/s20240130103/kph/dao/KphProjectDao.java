@@ -101,4 +101,8 @@ public interface KphProjectDao {
 
 	int isProjectCompleted(Long project_no);
 
+	KphUserBoardProjectReply updateBoardProjectReply(KphBoardProjectReply reply);
+
+	KphUserBoardProjectReply boardProjectReplyReplyUpdate(KphBoardProjectReply reply);
+
 }

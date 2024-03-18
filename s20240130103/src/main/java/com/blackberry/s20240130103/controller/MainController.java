@@ -14,6 +14,11 @@ public class MainController {
 		return "thymeleaf/index";
 	}
 	
+	@GetMapping("errorPage")
+	public String errorPage() {
+		return "thymeleaf/404error";
+	}
+	
 	@GetMapping(value = "main")
 	public String mainPage() {
 		return "forward:mainLogic";

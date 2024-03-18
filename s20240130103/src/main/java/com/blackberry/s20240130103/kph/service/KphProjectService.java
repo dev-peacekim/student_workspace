@@ -77,4 +77,8 @@ public interface KphProjectService {
 
 	int projectEnd(KphProject kphProject);
 
+	KphUserBoardProjectReply updateBoardProjectReply(KphBoardProjectReply reply);
+
+	KphUserBoardProjectReply boardProjectReplyReplyUpdate(KphBoardProjectReply reply);
+
 }
