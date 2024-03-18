@@ -67,10 +67,6 @@
 	                  <button class="nav-link w-100" id="addressresponse" type="button" data-bs-toggle="tab"  aria-selected="false" >받은 요청</button>
 	              </li>
 	            </ul>
-	            <form action="" class="d-flex">
-	                <input type="text" class="form-control width300 mr-2" placeholder="이름으로 검색">
-	                <input type="submit" value="검색" class="btn btn-outline-secondary">
-	            </form>
 	          </div>
 	          <div>
 	          	<a href="addressaddForm">

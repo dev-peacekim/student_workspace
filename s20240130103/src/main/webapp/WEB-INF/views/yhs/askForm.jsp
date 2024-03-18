@@ -64,9 +64,19 @@
     --bs-btn-hover-bg: #B52BFC;
     --bs-btn-hover-border: 1px solid #B52BFC;
     --bs-btn-border-radius: 7px;
-	
-
+}
 </style>
+<script type="text/javascript">
+function chk(){
+	title_value = document.getElementById("admin_title").value;
+	if(title_value.trim() !== "" || title_value === null){
+		return true;
+	}else{
+		alert("제목을 입력해주세요");
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -96,14 +106,14 @@
               <h5 class="card-title">문의사항 작성하기</h5>
              <%--  <c:if test="${msg!=null}">${msg}</c:if> --%>
               <!-- General Form Elements -->
-						<form action="askWrite" method="post" name="frm">
+						<form action="askWrite" method="post" name="frm" onsubmit="return chk()">
 
 							<div class="row mb-3">
 								<label for="inputText" class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
 									<!-- <input type="text" class="form-control"> -->
 									<input type="text" class="form-control" name="admin_title"
-										value="${BOARD_ADMIN.admin_title}" required="required">
+										value="${BOARD_ADMIN.admin_title}" required="required" id="admin_title">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -133,17 +143,6 @@
         </div>
     </section>
 	</main>
-	
-	<!-- <script type="text/javascript">
-	function chk() {
-		alert('chk Start...');
-		if (!frm.admin_title.value) {
-			alert("제목을 입력한 후에 확인하세요");
-			frm.admin_title.focus();
-			return false;
-		} else location.href="confirm?admin_title="+frm.admin_title.value;
-	} 
-</script>-->
     
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>

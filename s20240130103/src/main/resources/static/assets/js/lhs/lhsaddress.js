@@ -34,7 +34,7 @@ function addressList(){
 			              </div>
 			              <div class="score-message">
 			              	<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
-			                <form action="" method="get"> 
+			                <form action="msgWrite" method="get"> 
 			                  <input type="hidden" name="user_no" value="${content.user_no }">
 			                  <button type="submit" class="rounded-circle message">
 			                    <i class="bi bi-envelope-fill"></i>

@@ -219,6 +219,13 @@ public class LhsController {
 			user.setUser_profile(upLoadImg(part,request.getParameter("user_id"),uploadPath));
 		}
 		userService.updateUser(user,userNo);
+		HttpSession session = request.getSession();
+		session.removeAttribute("user_name");
+		session.setAttribute("user_name", user.getUser_name());
+		if(user.getUser_profile() != null) {
+			session.removeAttribute("user_profile");
+			session.setAttribute("user_profile", user.getUser_profile());
+		}
 		return "redirect:/myPage";
 	}
 	
