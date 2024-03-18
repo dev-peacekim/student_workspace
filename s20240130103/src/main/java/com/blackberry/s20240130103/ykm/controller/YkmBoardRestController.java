@@ -46,7 +46,8 @@ public class YkmBoardRestController {
 		System.out.println("YkmBoardRestController getCommentList start ---*");
 		List<YkmBoardCommReply> getCommentList = ykmService.getCommentList(cboard_no);
 		System.out.println("YkmBoardRestController getCommentList --> " + getCommentList.size());
-				
+		
+		ykmService.countComment(cboard_no);
 		return getCommentList;
 	}
 

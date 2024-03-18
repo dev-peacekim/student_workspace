@@ -44,13 +44,12 @@ function getCommentList(cboard_no) {
 
 let currentTime;
 let commentWriter;
-
+let deleteCheck;
 
 // 댓글리스트 갱신
 function updateCommentView(data) {
 	let replyList = '';
 	data.forEach(function(comment) {
-		
 		
 		const paddingValue = comment.creply_indent * 30;
 		
@@ -63,6 +62,7 @@ function updateCommentView(data) {
 		hour = hour % 12 || 12; // 0시일 때 12시로 변경
 		const formatted = `${originalDate.getFullYear()}.${(originalDate.getMonth() + 1).toString().padStart(2, '0')}.${originalDate.getDate().toString().padStart(2, '0')} ${ampm} ${hour.toString().padStart(2, '0')}:${originalDate.getMinutes().toString().padStart(2, '0')}`;
 		currentTime = formatted;
+		
 		// 댓글 작성자 비교
 		// commentWriter: 댓글 작성자, seesion_user_no: 로그인 한 유저정보
 		commentWriter = comment.user_no 
@@ -87,7 +87,7 @@ function updateCommentView(data) {
 							<i class="bi bi-pencil-fill"></i> 수정
 					</button>
 					<button type="button" class="deleteComment badge bg-light text-dark" 
-							onclick="deleteComment('${comment.creply_no}')" 
+							onclick="deleteComment('${comment.creply_no}','${comment.creply_group}')" 
 							style="display: ${seesion_user_no && commentWriter && seesion_user_no === commentWriter ? 'inline' : 'none'}">
 							<i class="bi bi-trash"></i> 삭제
 					</button>
@@ -105,8 +105,7 @@ function updateCommentView(data) {
 	 					style="display : none"><i class="bi bi-check2-circle"></i> 확인
 	 			</button>
 			</div>
-				<div id="replyContainer_${comment.creply_no}" class="replyContainer_${comment.creply_no} replyBox">
-				</div>
+				<div id="replyContainer_${comment.creply_no}" class="replyContainer_${comment.creply_no} replyBox"></div>
 			</div>
 			</div>
 	`;
@@ -115,7 +114,6 @@ function updateCommentView(data) {
 	
 
 	$('#commentContainer').html(replyList);
-	
 }
 
 
@@ -171,7 +169,7 @@ function writeComment(commentData) {
 			console.log('댓글 등록 오류 발생!', error);
 		}
 	});
-	updateCount(cboardNo);
+	// updateCount(cboardNo);
 }
 
 
@@ -237,13 +235,13 @@ function deleteComment(creply_no) {
 			// 삭제된 댓글을 화면에서 제거
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
+			
 		},
 		error: function(xhr, status, error) {
 			console.log('댓글 삭제 오류!', error);
 		}
 	});
 }
-
 
 
 // 모집 버튼 이벤트, 모집완료가 되면 값 변경
@@ -314,6 +312,8 @@ function hideReplyBox(creply_no) {
 	$(`.replyContainer_${creply_no} > *`).empty();
 }
 
+// 댓글 카운트
+// 제목에 공백만 있을때 안되게
 
 
 
