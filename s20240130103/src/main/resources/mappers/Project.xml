@@ -7,6 +7,7 @@
 		FROM PROJECT p , (SELECT PROJECT_NO FROM USER_PROJECT_MANY WHERE USER_NO = #{user_no}) upm
 		WHERE p.PROJECT_NO = upm.PROJECT_NO
 			AND p.PROJECT_DELETE_CHK =0
+		ORDER BY p.PROJECT_COMP_CHK ASC, PROJECT_END ASC
 	</select>
 	
 	<select id="kphProjectTitleByProjectNo" parameterType="Long" resultType="string">
