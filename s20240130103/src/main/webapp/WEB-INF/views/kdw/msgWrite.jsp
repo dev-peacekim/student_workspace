@@ -425,8 +425,27 @@
 	
 	    // 폼 제출 이벤트
 	    $('#write-form').on('submit', function(e) {
+	        // 받는 사람의 사용자 번호를 확인
+	        var receiverUserNo = $.trim($('#receiverUserNos').val());
+
+	        // 받는 사람이 지정되지 않았는지 검사
+	        if (receiverUserNo === '') {
+	            alert('받는 사람을 지정해주세요.');
+	            e.preventDefault(); // 폼 제출 중단
+	            return false; // 함수 실행 중단
+	        }
+	        // 제목과 내용 입력값 검증
+	        var title = $.trim($('#msg_title').val());
+	        var content = $.trim($('#message').val());
+
+	        if (title === '' || content === '') {
+	            alert('제목이나 내용은 반드시 입력해야 합니다.');
+	            e.preventDefault(); // 폼 제출 중단
+	            return false; // 함수 실행 중단
+	        }
+	        
 	        e.preventDefault();
-	
+			
 	        var formData = new FormData(this);
 	
 	        if (fileSelectionMethod === 'dragAndDrop') {
