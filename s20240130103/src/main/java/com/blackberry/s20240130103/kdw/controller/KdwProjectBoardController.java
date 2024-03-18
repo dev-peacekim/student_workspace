@@ -1,6 +1,7 @@
 package com.blackberry.s20240130103.kdw.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -194,10 +195,53 @@ public class KdwProjectBoardController {
         }
     }
 	
+	@ResponseBody
+	@PostMapping(value = "delete-file")
+	public void permanentDeleteFiles(@RequestBody List<Map<String, Object>> fileDataList, HttpServletRequest request, HttpServletResponse response) {
+	    log.info("projectBoardController permanentDeleteFiles start...");
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    
+	    try {
+	        for (Map<String, Object> fileData : fileDataList) {
+	            Long pboardNo = Long.valueOf(fileData.get("pboardNo").toString());
+	            int pboardFileNo = Integer.parseInt(fileData.get("fileId").toString());
+
+	            // 특정 파일 조회
+	            BoardProjectFile file = pBoardService.getBoardProjectFiles(pboardNo, pboardFileNo);
+	            if (file != null) {
+	                // 파일 시스템에서 파일 삭제
+	                String filePath = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/") + file.getPboard_file_name();
+	                File f = new File(filePath);
+	                if (f.exists() && f.delete()) {
+	                    log.info("File deleted successfully: " + filePath);
+	                    
+	                    // 데이터베이스에서 파일 정보 삭제
+	                    pBoardService.deleteFilesByPboardNo(pboardNo, pboardFileNo);
+	                } else {
+	                    log.error("Failed to delete the file: " + filePath);
+	                }
+	            } else {
+	                log.error("No file found with pboardNo: " + pboardNo + " and pboardFileNo: " + pboardFileNo);
+	            }
+	        }
+
+	        response.getWriter().write("파일들이 성공적으로 삭제되었습니다.");
+	        response.setStatus(HttpServletResponse.SC_OK);
+	    } catch (Exception e) {
+	        log.error("파일 삭제에 실패했습니다.", e);
+	        try {
+	            response.getWriter().write("파일 삭제에 실패했습니다.");
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        } catch (IOException ie) {
+	            ie.printStackTrace();
+	        }
+	    }
+	}
 	
-	
+	/*
     // 수정 버튼 클릭 시 업로드된 폴더&DB에서 파일 삭제
-    @PostMapping(value = "/delete-file")
+    @PostMapping(value = "delete-file")
     public void permanentDeleteFiles(@RequestBody Map<String, List<Long>> requestData,HttpServletRequest request, HttpServletResponse response) {
         List<Long> pboardNos = requestData.get("pboardNo");
         log.info("projectBoardController permanentDeleteFiles start...");
@@ -230,6 +274,6 @@ public class KdwProjectBoardController {
             log.error("파일 삭제에 실패했습니다.", e);
         }
     }
-	
+	*/
 	
 }

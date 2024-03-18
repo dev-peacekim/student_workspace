@@ -176,17 +176,17 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 	
 	// 파일 목록조회
 	@Override
-	public List<BoardProjectFile> getBoardProjectFiles(Long pboardNo) {
+	public BoardProjectFile getBoardProjectFiles(Long pboardNo, int pboardFileNo) {
         log.info("KdwProjectBoardServiceImpl getBoardProjectFiles start...");
-        List<BoardProjectFile> boardWithFiles = pboardDao.getBoardFiles(pboardNo);
-        log.info("KdwProjectBoardServiceImpl getBoardProjectFiles boardWithFiles size: " + boardWithFiles.size());
+        BoardProjectFile boardWithFiles = pboardDao.getBoardFiles(pboardNo, pboardFileNo);
+        log.info("KdwProjectBoardServiceImpl getBoardProjectFiles boardWithFiles size: " + boardWithFiles);
         return boardWithFiles;
 	}
 	// 파일 삭제
 	@Override
-	public void deleteFilesByPboardNo(Long pboardNo) {
+	public void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo) {
 		log.info("KdwProjectBoardServiceImpl deleteFilesByPboardNo start...");
-		pboardDao.deleteFilesByPboardNo(pboardNo);
+		pboardDao.deleteFilesByPboardNo(pboardNo, pboardFileNo);
 	}
 	
 

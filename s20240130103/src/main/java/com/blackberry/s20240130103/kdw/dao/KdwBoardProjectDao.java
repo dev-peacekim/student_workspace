@@ -25,9 +25,10 @@ public interface KdwBoardProjectDao {
 	// 글수정
 	void updateSave(BoardProject boardProject);
 	// 파일 첨부 목록
-	List<BoardProjectFile> getBoardFiles(Long pboardNo);
+	BoardProjectFile getBoardFiles(Long pboardNo, int pboardFileNo);
 	// 파일삭제
-	void deleteFilesByPboardNo(Long pboardNo);
+	void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo);
+	
 
 	
 

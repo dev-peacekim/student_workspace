@@ -23,12 +23,13 @@ public interface KdwProjectBoardService {
 	// 글쓰기 + 업로드
 	void writeSave(BoardProject boardProject, MultipartFile[] files, String path);
 	
-	// 파일 목록 가져오기
-	List<BoardProjectFile> getBoardProjectFiles(Long pboardNo);
-	
 	// 글 수정
 	void updateSave(BoardProject boardProject, MultipartFile[] files, String path);
+
+	// 파일 목록 가져오기
+	BoardProjectFile getBoardProjectFiles(Long pboardNo, int pboardFileNo);
 	// 파일 삭제
-	void deleteFilesByPboardNo(Long pboardNo);
+	void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo);
+
 
 }
