@@ -37,10 +37,6 @@ public class YkmBoardRestController {
 		sessionData.put("seesion_user_no", request.getSession().getAttribute("user_no"));
 	    sessionData.put("seesion_user_nic", request.getSession().getAttribute("user_nic"));
 	    sessionData.put("seesion_user_profile", request.getSession().getAttribute("user_profile"));
-	    sessionData.put("profile_image_path", "/upload/userImg/");
-	    
-	    System.out.println("profile_image_path");
-	    
 		return sessionData;
 	}
 	

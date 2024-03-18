@@ -47,6 +47,15 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
+	// 파일 업로드 (저장)
+	@Override
+	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
+		System.out.println("YkmBoardDaoImpl saveFileList ykmBoardCommFile : "+ykmBoardCommFile);
+		int result = session.insert("ykmSaveFileList", ykmBoardCommFile);
+		return result;
+	}
+	
+	
 	// 글 수정
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
@@ -99,7 +108,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	@Override
 	public List<YkmBoardCommFile> getFileList(int cboard_no) {
 		System.out.println("YkmBoardDaoImpl getFileList start ---*");
-		//Map<String, Object> getFileList = session.selectMap("ykmGetFileList", cboard_no, "cboard_file_cnt");
 		List<YkmBoardCommFile> getFileList = session.selectList("ykmGetFileList",cboard_no);
 		System.out.println("YkmBoardDaoImpl getFileList :"+getFileList.size());
         return getFileList;
@@ -157,13 +165,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return (result != null) ? result : 0;
 	}
 	
-	// 파일 업로드 (저장)
-	@Override
-	public int saveFileList(YkmBoardCommFile ykmBoardCommFile) {
-		System.out.println("YkmBoardDaoImpl saveFileList ykmBoardCommFile : "+ykmBoardCommFile);
-		int result = session.insert("ykmSaveFileList", ykmBoardCommFile);
-		return result;
-	}
 
 	
 	

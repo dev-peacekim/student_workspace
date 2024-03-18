@@ -148,7 +148,7 @@
 	border-color: #0d6efd;
 }
 
-.wriBtn:hover {
+/* .wriBtn:hover {
 	color: #fff;
 	background-color: #6610f2;
 	border-color: #6610f2;
@@ -158,7 +158,7 @@
 	background-color: #6f42c1;
 	transition: all 0.3s ease;
 }
-
+ */
 
 .form-select {
 	width: 120px;
@@ -168,7 +168,7 @@
 	margin-right: 10px;
 }
 
-
+/* 
 thead tr, tead th {
 	height: 30px;
 	line-height: 30px;
@@ -178,7 +178,7 @@ tbody th, tbody td {
 	height: 30px;
 	line-height: 30px;
 }
-
+ */
 .recruiting {
 	display: inline-flex;
 	position: relative;

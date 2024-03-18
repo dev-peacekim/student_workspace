@@ -117,21 +117,21 @@
 				
 				<!-- 게시글 리스트 -->
 				<div class="table-body">
-					<table class="table table-hover">
+					<table class="table table-hover align-middle">
 						<thead>
 							<tr>
-								<th scope="col">#</th>
-								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">날짜</th>
-								<th scope="col">조회수</th>
-								<th scope="col">댓글</th>
+								<th scope="col" style="width: 5%">#</th>
+								<th scope="col" style="width: 45%">제목</th>
+								<th scope="col" style="width: 10%">작성자</th>
+								<th scope="col" style="width: 10%">날짜</th>
+								<th scope="col" style="width: 10%">조회수</th>
+								<th scope="col" style="width: 10%">댓글</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${getPostList}" var="postList" varStatus="loop">
 								<tr id="postTable">
-									<th scope="row">${loop.index+1}</th>
+									<th scope="row">${stuPage.start + loop.index}</th>
 									<td>
 										<c:choose>
 											<c:when test="${postList.comm_mid2 == 10}">

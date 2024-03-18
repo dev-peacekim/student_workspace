@@ -55,7 +55,7 @@ public class YkmBoardController {
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
 		model.addAttribute("getPostList", getPostList);
-		
+		model.addAttribute("totalCount", totalCount);
 		return "ykm/boardStudy";
 	}
 
@@ -75,7 +75,8 @@ public class YkmBoardController {
 		}
 		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
-		model.addAttribute("getFileList",getFileList); // 업로드한 파일 목록 보여주기
+		model.addAttribute("getFileList", getFileList); // 업로드한 파일 목록 보여주기
+		System.out.println("getFileList 파일리스트 : "+getFileList);
 
 		System.out.println("YkmController getPost finish ---*");
 		
@@ -96,19 +97,21 @@ public class YkmBoardController {
 	public String writePost(HttpServletRequest request, YkmBoardComm ykmBoardComm, 
 							@RequestParam("cboard_file_name") List<MultipartFile> fileList,RedirectAttributes redirect) {
 		System.out.println("YkmController writePost start---*");
-		System.out.println("ttt : " +ykmBoardComm);
 		Long user_no = (Long) request.getSession().getAttribute("user_no");
 		ykmBoardComm.setUser_no(user_no);	
-		
-		// 파일 업로드
-		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
 
 		// 게시판 분류
 		int comm_big = ykmBoardComm.getComm_big();
 		int comm_mid = ykmBoardComm.getComm_mid();
-		int result = ykmService.writePost(ykmBoardComm, studyFilePath, fileList);
+		
+		// 파일 업로드
+		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
+
 		redirect.addAttribute("comm_mid", comm_mid);
 		redirect.addAttribute("comm_mid", comm_big);
+		
+		int result = ykmService.writePost(ykmBoardComm, studyFilePath, fileList);
+		
 		if (comm_big == 200 && comm_mid == 10) {
 			System.out.println("YkmController writePost result "+result);
 			return "redirect:/boardContest";

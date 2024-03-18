@@ -98,18 +98,18 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col">#</th>
-								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">날짜</th>
-								<th scope="col">조회수</th>
-								<th scope="col">댓글</th>
+								<th scope="col" style="width: 5%">#</th>
+								<th scope="col" style="width: 45%">제목</th>
+								<th scope="col" style="width: 10%">작성자</th>
+								<th scope="col" style="width: 10%">날짜</th>
+								<th scope="col" style="width: 10%">조회수</th>
+								<th scope="col" style="width: 10%">댓글</th>
 							</tr>
 						</thead>
 						<tbody>
 						<c:forEach items="${getCntPostList}" var="cntPostList" varStatus="loop"> 
 							<tr>
-								<th scope="row">${loop.index+1}</th>
+								<th scope="row">${stuPage.start + loop.index}</th>
 								<td><a href="/post?cboard_no=${cntPostList.cboard_no}">${cntPostList.cboard_title}</a></td>
 								<td>${cntPostList.user_nic}</td>
 								<td><fmt:formatDate value="${cntPostList.cboard_date}" pattern="yyyy-MM-dd"/></td>

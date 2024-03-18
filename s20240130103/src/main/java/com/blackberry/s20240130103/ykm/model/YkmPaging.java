@@ -13,7 +13,7 @@ public class YkmPaging {
 	private int startPage;			// 현재 페이지 블록의 시작 
 	private int end;				// 끝 숫자
 	private int endPage;			// 현재 페이지 블록의 끝
-	private int total;			// 전체 항목의 수
+	private int total;				// 전체 항목의 수
 	private int totalPages;			// 전체 페이지의 수
 	
 	public YkmPaging(int total, String currentPage1) {
@@ -23,10 +23,12 @@ public class YkmPaging {
 		if(currentPage1 != null && !currentPage1.isEmpty()) {
 			this.currentPage = Integer.parseInt(currentPage1);
 		}
-		// 2 5
+		
 		start = (currentPage -1 ) * itemsPerPage +1;
 		end = start + itemsPerPage -1; 
-		totalPages = (int)Math.ceil((double)total / itemsPerPage); 
+
+		totalPages = (int) Math.ceil((double) total / itemsPerPage);
+		
 		startPage = currentPage - (currentPage-1) % pageBlock; 
 		endPage = startPage + pageBlock;
 	

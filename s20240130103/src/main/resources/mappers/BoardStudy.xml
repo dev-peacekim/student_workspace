@@ -138,7 +138,8 @@
 		    bc.COMM_MID, 
 		    u.USER_ID, 
 		    u.USER_NO, 
-		    u.USER_NIC
+		    u.USER_NIC,
+		    u.USER_PROFILE
 		FROM 
 		    BOARD_COMM_REPLY bcr
 		JOIN 
