@@ -10,9 +10,9 @@
 		WHERE bcr.CREPLY_DELETE_CHK = 0
 		AND bcr.cboard_no = #{cboard_no}
 		ORDER BY
-		bcr.CREPLY_DATE ASC,
-		bcr.CREPLY_LEVEL,
-		bcr.CREPLY_INDENT
+		bcr.CREPLY_GROUP DESC,
+		bcr.CREPLY_LEVEL ASC,
+		bcr.CREPLY_DATE DESC
 
 </select>
 
@@ -75,8 +75,7 @@
     #{creply_content},
     SYSDATE,
     #{creply_group},
-    (SELECT NVL(MAX(creply_level), 0) + 1 FROM board_comm_reply WHERE
-		creply_group = #{creply_group}),
+	#{creply_level},
    	#{creply_indent},
     #{cboard_no},
     #{user_no},
@@ -85,21 +84,18 @@
     )
 
 	</insert>
-
-	<select id="slRepliesAfterParentList" parameterType="LslCommReply"
-		resultType="LslCommReply">
-		SELECT bcr.*, u.*
-		FROM BOARD_COMM_REPLY bcr
-		JOIN USERS u ON bcr.USER_NO = u.USER_NO
-		WHERE bcr.CREPLY_DELETE_CHK = 0
-		AND bcr.CREPLY_GROUP = #{creply_group}
-		AND bcr.CREPLY_INDENT = 1 
-</select>
-
+	<select id="slreReply" parameterType="LslCommReply" resultType="LslCommReply">
+		select *
+		from board_comm_reply
+		where creply_no = #{creply_no}
+	</select>
+	
+	
 	<update id="slupdateReply" parameterType="LslCommReply">
-		UPDATE BOARD_COMM_REPLY
-		SET CREPLY_LEVEL = #{creply_level}
-		WHERE CREPLY_GROUP = #{creply_group}
+	update board_comm_reply
+		set creply_level = creply_level+1
+		where creply_group = #{creply_group}
+		and creply_level >= #{creply_level}
 	</update>
 
 

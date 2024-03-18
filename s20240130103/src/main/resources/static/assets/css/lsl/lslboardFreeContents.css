@@ -1,6 +1,4 @@
-@import
-	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
-	;
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 /*--------------------------------------------------------------
 # community-post
 --------------------------------------------------------------*/
@@ -274,22 +272,22 @@
 .btn.bfcDelete {
 	position: absolute;
 	margin-top: 20px;
-	width: 80px;
-	right: 200px;
+	width: 70px;
+	right: 180px;
 	bottom: 10px;
 }
 .btn.bfcModify {
 	position: absolute;
 	margin-top: 20px;
-	width: 80px;
-	right: 110px;
+	width: 70px;
+	right: 100px;
 	bottom: 10px;
 	
 }
 .btn.bfcList {
 	position: absolute;
 	margin-top: 20px;
-	width: 80px;
+	width: 70px;
 	right: 20px;
 	bottom: 10px;
 	
@@ -297,23 +295,23 @@
 
 .btn.bacDelete {
 	position: absolute;
-	margin-top: 10px;
-	width: 80px;
-	right: 200px;
+	margin-top: 20px;
+	width: 70px;
+	right: 180px;
 	bottom: 10px;
 }
 .btn.bacModify {
 	position: absolute;
-	margin-top: 10px;
-	width: 80px;
-	right: 110px;
+	margin-top: 20px;
+	width: 70px;
+	right: 100px;
 	bottom: 10px;
 	
 }
 .btn.bacList {
 	position: absolute;
-	margin-top: 10px;
-	width: 80px;
+	margin-top: 20px;
+	width: 70px;
 	right: 20px;
 	bottom: 10px;
 	
@@ -380,12 +378,12 @@
 }
 
 .re-btn-container .btn.brBtn {
+	position: absolute;
 	margin-top : 15px;
-	margin-right: -60px;
-	width: 50px;
+	margin-right: -140px;
+	width: 36px;
 	
 } 
-
 
 .btn.brSave {
 	position: absolute;
