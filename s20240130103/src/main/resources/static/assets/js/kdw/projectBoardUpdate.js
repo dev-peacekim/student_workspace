@@ -1,11 +1,56 @@
 // ================ 드래그 앤 드롭 업로드================
 $(document).ready(function() {
-	var customFileBtn = $('#customFileBtn');
-	var filesInput = $('#files');
-	var fileList = $('#fileList');
-	var dragAndDropFiles = []; // 드래그 앤 드롭으로 선택된 파일들을 저장하는 배열
-	var fileSelectionMethod = null; // 파일 선택 방법 ('input' 또는 'dragAndDrop')
+    var customFileBtn = $('#customFileBtn');
+    var filesInput = $('#files');
+    var fileList = $('#fileList');
+    var dragAndDropFiles = []; // 드래그 앤 드롭으로 선택된 파일들을 저장하는 배열
+    var fileSelectionMethod = null; // 파일 선택 방법 ('input' 또는 'dragAndDrop')
+    var uploadFileListElement = $('#uploadFileList'); // 업로드된 파일 목록을 담을 요소	
+	
+    // 업로드된 파일 목록 표시
+    displayUploadedFiles(uploadedFiles);
 
+    function displayUploadedFiles(uploadedFiles) {
+        uploadedFiles.forEach(function(file) {
+            var listItem = $('<li class="file-list-item"></li>').data('fileId', file.pboard_file_no);
+            var deleteButton = $('<span class="delete-file">X</span>');
+            var fileNameSpan = $('<span>').text(file.pboard_file_name);
+            var fileSizeSpan = $('<span>').text(file.pboard_file_user_name); // 이 예제에서는 파일의 실제 크기 정보가 없으므로, user_name을 대신 사용합니다.
+
+            // 삭제 버튼 클릭 이벤트 핸들러
+            deleteButton.on('click', function() {
+                deleteUploadedFile(file.pboard_no, file.pboard_file_no); // 파일 삭제
+            });
+
+            listItem.append(deleteButton).append(fileNameSpan).append(fileSizeSpan);
+            uploadFileListElement.append(listItem);
+        });
+    }
+
+    // 업로드된 파일 삭제
+    function deleteUploadedFile(pboardNo, fileId) {
+        $.ajax({
+            url: '/delete-files', // 파일 삭제 엔드포인트
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ pboardNo: [pboardNo] }), // 서버에 전달할 데이터. 실제 필드명과 데이터 구조는 서버 구현에 따라 달라질 수 있습니다.
+            success: function(response) {
+                console.log(response);
+                // 성공 시 페이지에서 해당 파일 목록 아이템 삭제
+                $('li').filter(function() {
+                    return $(this).data('fileId') === fileId;
+                }).remove();
+            },
+            error: function(xhr, status, error) {
+                console.error('파일 삭제 실패', status, error);
+            }
+        });
+    }
+	
+	
+	// ================= 업데이트 END =================
+	
+	
 	// 사용자 정의 파일 선택 버튼 클릭 이벤트
 	customFileBtn.on('click', function() {
 		fileSelectionMethod = 'input'; // 파일 선택 방법을 'input'으로 설정

@@ -28,5 +28,7 @@ public interface KdwProjectBoardService {
 	
 	// 글 수정
 	void updateSave(BoardProject boardProject, MultipartFile[] files, String path);
+	// 파일 삭제
+	void deleteFilesByPboardNo(Long pboardNo);
 
 }

@@ -124,12 +124,7 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 	    return fileName;
 	}
 	
-	// 파일 삭제
-	@Override
-	public List<BoardProjectFile> getBoardProjectFiles(Long pboardNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	// 글 수정
 	@Override
@@ -177,6 +172,21 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 		}
 		log.info("KdwProjectBoardServiceImpl updateSave end...");
 		
+	}
+	
+	// 파일 목록조회
+	@Override
+	public List<BoardProjectFile> getBoardProjectFiles(Long pboardNo) {
+        log.info("KdwProjectBoardServiceImpl getBoardProjectFiles start...");
+        List<BoardProjectFile> boardWithFiles = pboardDao.getBoardFiles(pboardNo);
+        log.info("KdwProjectBoardServiceImpl getBoardProjectFiles boardWithFiles size: " + boardWithFiles.size());
+        return boardWithFiles;
+	}
+	// 파일 삭제
+	@Override
+	public void deleteFilesByPboardNo(Long pboardNo) {
+		log.info("KdwProjectBoardServiceImpl deleteFilesByPboardNo start...");
+		pboardDao.deleteFilesByPboardNo(pboardNo);
 	}
 	
 

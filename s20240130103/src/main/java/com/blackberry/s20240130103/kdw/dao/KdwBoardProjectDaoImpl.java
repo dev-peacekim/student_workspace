@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blackberry.s20240130103.kdw.model.BoardProject;
 import com.blackberry.s20240130103.kdw.model.BoardProjectFile;
+import com.blackberry.s20240130103.kdw.model.MessageFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -146,6 +147,33 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 	    	e.printStackTrace();
 	    }
 	}
+	
+	// 파일 첨부목록
+	@Override
+	public List<BoardProjectFile> getBoardFiles(Long pboardNo) {
+        log.info("KdwBoardProjectDaoImpl getBoardFiles start...");
+        List<BoardProjectFile> files = null;
+        try {
+            files = session.selectList("kdwGetBoardWithFiles", pboardNo);
+        } catch (Exception e) {
+            log.error("Error getting board with files: {}", e.getMessage());
+            e.printStackTrace();
+        }
+        return files;
+	}
+	// 파일 삭제
+	@Override
+	public void deleteFilesByPboardNo(Long pboardNo) {
+	    System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo start...");
+	    try {
+	        session.delete("kdwdeleteFiles", pboardNo);
+	        System.out.println("KdwBoardProjectDaoImpl deleteFilesByPboardNo success pboardNo" + pboardNo);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 	
 
 }

@@ -221,7 +221,7 @@ public class KdwProjectBoardController {
                 }
 
                 // 데이터베이스에서 파일 정보 삭제
-                // pBoardService.deleteFilesByPboardNo(pboardNo);
+                pBoardService.deleteFilesByPboardNo(pboardNo);
             }
 
             response.getWriter().write("파일들이 성공적으로 삭제되었습니다.");

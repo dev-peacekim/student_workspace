@@ -135,4 +135,20 @@
 	        pboard_update_date = SYSDATE
 	    WHERE pboard_no = #{pboard_no}
 	</insert>
+	<!-- 첨부된 파일 목록 -->
+	<select id="kdwGetBoardWithFiles" resultType="KdwBoardProjectFile">
+	    SELECT pboard_no, pboard_file_no, pboard_file_name, pboard_file_user_name
+	    FROM board_project_file
+	    WHERE pboard_no = #{pboardNo}
+	</select>
+	<!-- 파일 삭제 -->
+	<delete id="kdwdeleteFiles"
+		parameterType="java.util.List">
+		DELETE FROM board_project
+		WHERE pboard_no IN
+		<foreach collection="list" item="pboardNo" open="(" separator=","
+			close=")">
+			#{pboardNo}
+		</foreach>
+	</delete>
 </mapper>

@@ -47,6 +47,20 @@
 <!-- KDW Main CSS File -->
 <link href="assets/css/kdw/projectBoardUpdate.css" rel="stylesheet">
 
+<script type="text/javascript">
+	var uploadedFiles = [
+	    // JSP에서 서버로부터 받은 파일 목록을 JavaScript 배열로 변환
+	    <c:forEach items="${uploadFileList}" var="file" varStatus="status">
+	        <c:if test="${!status.last}">
+	            {pboard_no: '${file.pboard_no}', pboard_file_no: '${file.pboard_file_no}', pboard_file_name: '${file.pboard_file_name}', pboard_file_user_name: '${file.pboard_file_user_name}'},
+	        </c:if>
+	        <c:if test="${status.last}">
+	            {pboard_no: '${file.pboard_no}', pboard_file_no: '${file.pboard_file_no}', pboard_file_name: '${file.pboard_file_name}', pboard_file_user_name: '${file.pboard_file_user_name}'}
+	        </c:if>
+	    </c:forEach>
+	];
+</script>
+
 </head>
 
 <body>

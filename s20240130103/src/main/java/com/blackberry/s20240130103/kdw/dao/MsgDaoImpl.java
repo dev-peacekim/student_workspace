@@ -296,7 +296,7 @@ public class MsgDaoImpl implements MsgDao {
 	        e.printStackTrace();
 	    }
 	}
-	// 첨부파일 쪽 삭제 
+	// 첨부파일 쪽지 삭제 
 	@Override
 	public void deleteMessageFilesByMsgNo(Long msgNo) {
 	    log.info("Deleting message files for msgNo: {}", msgNo);
