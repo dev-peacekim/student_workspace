@@ -236,12 +236,9 @@ function deleteComment(creply_no) {
 			// 삭제된 댓글을 화면에서 제거
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
-			
-<<<<<<< HEAD
+
 			$('#answer-count').text(Number($('#answer-count').text()) - 1);
-			
-=======
->>>>>>> branch 'master' of https://github.com/dlgkstnrn/s20240130103_2.git
+
 		},
 		error: function(xhr, status, error) {
 			console.log('댓글 삭제 오류!', error);
