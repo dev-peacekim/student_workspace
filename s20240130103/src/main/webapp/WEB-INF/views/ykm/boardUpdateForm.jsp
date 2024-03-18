@@ -78,6 +78,19 @@
     }
     updateFileView();
    	
+    $('#blankchk').on("click", function(e) {
+    	const inputTitle = $('#inputTitle').val();
+    	if(inputTitle.trim() === "") {
+    		e.preventDefault();
+    		alert('제목에 공백을 사용할 수 없습니다.');
+    	} else {
+    		inputTitle.focus();
+    	}
+    });
+    
+    
+    
+    
    }
 </script>
 
@@ -108,7 +121,7 @@
 					<input type="hidden" name="cboard_no" value="${getPost.cboard_no}">
 						<div class="title-input">
 							<label for="boradTitle" class="form-label"></label>
-							<input type="text" name="cboard_title" id="boardTitle" class="form-control" value="${getPost.cboard_title}"/>
+							<input type="text" name="cboard_title" id="inputTitle" class="form-control" value="${getPost.cboard_title}"/>
 						</div>
 						
 						<!-- 파일 첨부 -->
@@ -136,7 +149,7 @@
 						</div>
 						<!-- 버튼 -->
 						<div class="btn-container">
-							<input type="submit" class="btn btn-primary" value="확인">
+							<input type="submit" class="btn btn-primary" value="확인" id="blankchk">
 							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>			
 						</div>
 				</form>

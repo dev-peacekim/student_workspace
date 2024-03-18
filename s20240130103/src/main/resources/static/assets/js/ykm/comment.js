@@ -235,10 +235,7 @@ function deleteComment(creply_no) {
 			// 삭제된 댓글을 화면에서 제거
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
-			
-
 			$('#answer-count').text(Number($('#answer-count').text()) - 1);
-			
 		},
 		error: function(xhr, status, error) {
 			console.log('댓글 삭제 오류!', error);
@@ -249,7 +246,7 @@ function deleteComment(creply_no) {
 
 // 모집 버튼 이벤트, 모집완료가 되면 값 변경
 function updateRecruitment(cboard_no, comm_mid2) {
-	console.log("updateRecruitment 함수가 호출되었습니다. cboardNo: ", cboardNo);
+	console.log('updateRecruitment 실행!');
 	$.ajax({
 		url: "/recruitment",
 		type: "PUT",
@@ -259,13 +256,23 @@ function updateRecruitment(cboard_no, comm_mid2) {
 			comm_mid2: comm_mid2 == 10 ? 20 : 10
 		}),
 		success: function(data) {
-			$('.recruitBtn').text("모집완료").prop('disabled', true);
-			console.log('모집완료 상태로 변경되었습니다. : ' + data);
+			console.log('success', data);
+			/*
+			if (data.comm_mid2 === 20) {
+				$('.recruitBtn').text("모집완료");
+				$('.tooltip').hide();
+				console.log('모집완료 상태로 변경되었습니다. : ' + data);
+			} else if (data.comm_mid2 === 10) {
+				$('.recruitBtn').text("모집중");
+				console.log('모집중 상태로 변경되었습니다.');
+			}
+			*/
 		},
 		error: function(error) {
 			console.log('모집완료 변경 오류!', error);
 		}
 	});
+	
 }
 
 
@@ -312,9 +319,6 @@ function writeReply(creply_no) {
 	$(`.replyContainer_${creply_no} > *`).empty();
 	
 }
-
-
-
 
 // uri에 값을 보내면 @PathVariable
 // JSON data 객체로 보낼 떈 @RequestBody

@@ -204,14 +204,14 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 	
 	@Override
-	public YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply) {
-		YkmBoardCommReply replyValue = session.selectOne("ykmGetReply", ykmBoardCommReply);
+	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = session.selectOne("ykmGetReplyNo", ykmBoardCommReply);
 		return replyValue;
 	}
 	
 	@Override
-	public int updateReply(YkmBoardCommReply ykmBoardCommReply) {
-		int result = session.update("ykmUpdateReply", ykmBoardCommReply);
+	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
+		int result = session.update("ykmUpdateGroup", ykmBoardCommReply);
 		return result;
 	}
 	

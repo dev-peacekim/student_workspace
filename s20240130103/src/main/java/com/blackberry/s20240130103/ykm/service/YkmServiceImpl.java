@@ -127,6 +127,7 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getTotalCount start ---*");
+		System.out.println("YkmServiceImpl getTotalCount ykmBoardComm"+ykmBoardComm);
 		int result = ykmBoardDao.getTotalCount(ykmBoardComm);
 		System.out.println("YkmServiceImpl getTotalCount result : " + result);
 		return result;
@@ -211,14 +212,14 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 	@Override
-	public YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply) {
-		YkmBoardCommReply replyValue = ykmBoardDao.getReplyValue(ykmBoardCommReply);
+	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = ykmBoardDao.getReplyNo(ykmBoardCommReply);
 		return replyValue;
 	}
 
 	@Override
-	public int updateReply(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.updateReply(ykmBoardCommReply);
+	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
 		return result;
 	}
 
