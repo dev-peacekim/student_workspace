@@ -47,7 +47,7 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 });
 
 document.getElementById('pw2').addEventListener('keyup',function(){
-	if(document.getElementById('pw1').value === this.value && !/\s?/.test(this.value)){
+	if(document.getElementById('pw1').value === this.value && !/\s/.test(this.value)){
 		document.querySelector('.disablePass').style.display='none';
 		document.querySelector('.enablePass').style.display='block';
 		passChkval=1;
