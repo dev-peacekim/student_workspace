@@ -145,7 +145,7 @@
 				</div>
 				<div class="community-post-answer">
 					<div class="comment-form">
-						댓글 <span class="answer-count">${countComment}</span>
+						댓글 <span id="answer-count" class="answer-count">${countComment}</span>
 					</div>
 					
 					<!-- 댓글 등록 폼 -->

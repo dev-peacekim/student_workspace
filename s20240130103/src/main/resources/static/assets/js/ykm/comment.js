@@ -166,6 +166,8 @@ function writeComment(commentData) {
 		success: function(data) {
 			console.log(data);
 			getCommentList(cboard_no);
+			console.log("test : " ,$('#answer-count').text());
+			$('#answer-count').text(Number($('#answer-count').text()) + 1);
 		},
 		error: function(error) {
 			console.log('댓글 등록 오류 발생!', error);
@@ -237,6 +239,9 @@ function deleteComment(creply_no) {
 			// 삭제된 댓글을 화면에서 제거
 			const deleteComment = $(`.comment-card[data-creply-no="${creply_no}"]`);
 			deleteComment.remove();
+			
+			$('#answer-count').text(Number($('#answer-count').text()) - 1);
+			
 		},
 		error: function(xhr, status, error) {
 			console.log('댓글 삭제 오류!', error);
