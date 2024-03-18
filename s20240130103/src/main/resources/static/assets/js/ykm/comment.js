@@ -61,7 +61,7 @@ function updateCommentView(data) {
 		
 		console.log(comment);
 
-		const originalDate = new Date(comment.comm_update_date);
+		const originalDate = new Date(comment.creply_date);
 
 		let hour = originalDate.getHours();
 		const ampm = hour >= 12 ? '오후' : '오전';
@@ -85,7 +85,7 @@ function updateCommentView(data) {
 					<p class="card-subtitle comment-updated-at">작성일 ${formatted}</p>
 				</div>	
 				<div class="btnContainer">
-					<button type="button" id="check" class="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value)" style="display : none">
+					<button type="button" id="check" class="checkButton_${comment.creply_no}" onclick="updateComment('${comment.creply_no}', document.querySelector('#inputField_${comment.creply_no}').value), buttonStatus('${comment.creply_no}')" style="display : none">
 						<i class="bi bi-check2-circle"></i> 확인
 					</button>
 					<button type="button" class="modifyComment_${comment.creply_no} badge bg-light text-dark" 

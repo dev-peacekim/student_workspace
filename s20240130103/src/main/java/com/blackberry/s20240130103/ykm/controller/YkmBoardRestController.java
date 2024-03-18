@@ -30,6 +30,7 @@ public class YkmBoardRestController {
 	/* 댓글 comment */
 	// 로그인한 사용자의 번호는 ${sessionScope.user_no}로 jsp에서 찾을 수 있음
 
+	// 세션 정보 요청
 	@GetMapping("/sessionData")
 	public Map<String, Object> getSessionData(HttpServletRequest request) {
 		System.out.println("YkmBoardRestController getSessionData start ---*");
@@ -44,6 +45,7 @@ public class YkmBoardRestController {
 		return sessionData;
 	}
 	
+	// 댓글 리스트 조회
 	@GetMapping("/comment")
 	public List<YkmBoardCommReply> getCommentList(@RequestParam("cboard_no") int cboard_no, HttpServletRequest request) {
 		System.out.println("YkmBoardRestController getCommentList start ---*");
@@ -53,6 +55,7 @@ public class YkmBoardRestController {
 		return getCommentList;
 	}
 
+	// 댓글 등록
 	@PostMapping("/comment")
 	public int writeComment(@RequestBody YkmBoardCommReply ykmBoardCommReply, HttpServletRequest request) {
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
@@ -60,6 +63,7 @@ public class YkmBoardRestController {
 		return ykmService.writeComment(ykmBoardCommReply);
 	}
 
+	// 댓글 삭제
 	@DeleteMapping("/comment/{creply_no}")
 	public int deleteComment(@PathVariable("creply_no") int creply_no) {
 		System.out.println("deletemapping creply_no : " + creply_no);
@@ -68,12 +72,13 @@ public class YkmBoardRestController {
 		return result;
 	}
 
+	// 댓글 수정
 	@PutMapping("/comment")
 	public int updateComment(@RequestBody YkmBoardCommReply ykmBoardCommReply) {
 		return ykmService.updateComment(ykmBoardCommReply);
 	}
 
-	// 대댓글
+	// 대댓글 등록
 	@PostMapping("/replys")
 	public int writeReply(@RequestBody YkmBoardCommReply ykmBoardCommReply, HttpServletRequest request) {
 		System.out.println("YkmBoardRestController writeReply start ---*");
@@ -86,17 +91,7 @@ public class YkmBoardRestController {
 	}
 	
 	
-	@GetMapping("/replys")
-	public List<YkmBoardCommReply> getReplyList(@RequestParam("creply_no") int creply_no) {
-		System.out.println("YkmBoardRestController getReplyList start ---*");
-		List<YkmBoardCommReply> getReplyList = ykmService.getReplyList(creply_no);
-		System.out.println("YkmBoardRestController getReplyList : "+ getReplyList);
-		return getReplyList;
-	}
-	
-
-	/* study post */
-
+	/* 모집상태 변경 */
 	@PutMapping(value = "/recruitment")
 	public int updateRecruitment(@RequestBody YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardRestController updateRecruitment start---*");

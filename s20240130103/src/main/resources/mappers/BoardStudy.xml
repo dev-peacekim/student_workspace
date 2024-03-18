@@ -127,11 +127,13 @@
 		SELECT 
 		    bcr.CREPLY_NO, 
 		    bcr.CREPLY_CONTENT, 
-		    bcr.COMM_UPDATE_DATE, 
+		    bcr.COMM_UPDATE_DATE,
+		    bcr.CREPLY_DATE, 
 		    bcr.CBOARD_NO, 
 		    bcr.CREPLY_DELETE_CHK, 
 		    bcr.CREPLY_GROUP,
 		    bcr.CREPLY_INDENT,
+		    bcr.CREPLY_LEVEL,
 		    bc.COMM_BIG, 
 		    bc.COMM_MID, 
 		    u.USER_ID, 
@@ -147,8 +149,9 @@
 		    bc.CBOARD_NO = #{cboard_no}
 		ORDER BY 
 		    CASE WHEN bcr.CREPLY_INDENT = 0 THEN bcr.CREPLY_NO ELSE bcr.CREPLY_GROUP END,
-		    bcr.CREPLY_GROUP,
-		    bcr.CREPLY_INDENT
+		    bcr.CREPLY_GROUP DESC,
+		    bcr.CREPLY_LEVEL ASC,
+		    bcr.CREPLY_DATE DESC
 	</select>
 	
 	<insert id="ykmWriteComment" parameterType="YkmBoardCommReply">
@@ -194,46 +197,14 @@
 				#{creply_content}, 
 				sysdate, 
 				#{creply_group}, 
-				(SELECT NVL(MAX(creply_level), 1)+1 FROM BOARD_COMM_REPLY WHERE CREPLY_GROUP = #{creply_group}), 
-				1, 
-				#{cboard_no}, 
+				(SELECT NVL(MAX(creply_level), 1) + 1 FROM BOARD_COMM_REPLY WHERE CREPLY_GROUP = #{creply_group}), 
+				#{creply_indent} + 1,
+				#{cboard_no},
 				#{user_no}, 
 				0, 
 				NULL
 				)
 	</insert>
  	
- 	<select id="ykmGetReplyList" parameterType="int" resultType="YkmBoardCommReply">
-	 	SELECT BCR.*
-		FROM BOARD_COMM_REPLY BCR
-		WHERE BCR.CREPLY_GROUP = #{creply_group}
-		AND BCR.CREPLY_INDENT = #{creply_indent}
- 	</select>
- 	
- 	
- 	
-	<update id="ykmUpdateReply"></update>	
-	
-	<update id="ykmDeleteReply"></update>
-	
-	
-	
-	
-	
-	
-	
-	
-
-<!-- 	<select id="ykmGetFileList2" parameterType="Integer" resultMap="ykmResultMap">
-	    SELECT BCF.CBOARD_NO, BCF.CBOARD_FILE_CNT, BCF.CBOARD_FILE_NAME, BCF.CBOARD_FILE_USER_NAME
-	    FROM BOARD_COMM_FILE BCF 
-	    WHERE CBOARD_NO = #{cboard_no}
-	</select>
-	<resultMap type="YkmBoardCommFile" id="ykmResultMap">
-	    <result column="cboard_no" property="cboard_no"/>
-	    <result column="cboard_file_cnt" property="cboard_file_cnt"/>
-	    <result column="cboard_file_name" property="cboard_file_name"/>
-	    <result column="cboard_file_user_name" property="cboard_file_user_name"/>
-	</resultMap> -->
 	
 </mapper>
