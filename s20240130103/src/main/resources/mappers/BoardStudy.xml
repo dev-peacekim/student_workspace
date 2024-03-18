@@ -197,13 +197,27 @@
 				#{creply_content}, 
 				sysdate, 
 				#{creply_group}, 
-				(SELECT NVL(MAX(creply_level), 1) + 1 FROM BOARD_COMM_REPLY WHERE CREPLY_GROUP = #{creply_group}), 
-				#{creply_indent} + 1,
+				#{creply_level}, 
+				#{creply_indent},
 				#{cboard_no},
 				#{user_no}, 
 				0, 
 				NULL
 				)
 	</insert>
+	
+	<select id="ykmGetReply" parameterType="YkmBoardCommReply" resultType="YkmBoardCommReply">
+		select *
+		from board_comm_reply
+		where creply_no = #{creply_no}
+	</select>
+	
+	
+	<update id="ykmUpdateReply" parameterType="YkmBoardCommReply">
+		update board_comm_reply
+		set creply_level = creply_level+1
+		where creply_group = #{creply_group}
+		and creply_level >= #{creply_level}
+	</update>
  	
 </mapper>

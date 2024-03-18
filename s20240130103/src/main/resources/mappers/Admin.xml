@@ -188,7 +188,7 @@
 					<otherwise>
 					</otherwise>
 				</choose>
-				ORDER BY bcr.CREPLY_DELETE_CHK desc,bcr.creply_group,bcr.CREPLY_LEVEL) a) a
+				ORDER BY bcr.CREPLY_DELETE_CHK desc,bcr.CBOARD_NO,bcr.creply_group,bcr.CREPLY_LEVEL) a) a
 		WHERE a.rn BETWEEN #{start} AND #{end}
 	</select>
 	

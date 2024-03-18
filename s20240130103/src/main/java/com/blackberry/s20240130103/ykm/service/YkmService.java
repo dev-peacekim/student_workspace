@@ -56,5 +56,9 @@ public interface YkmService {
 	int getCntTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 게시글 카운트
 
 	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 공모전 전체 검색
+
+	YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply);
+
+	int updateReply(YkmBoardCommReply ykmBoardCommReply);
 	
 }

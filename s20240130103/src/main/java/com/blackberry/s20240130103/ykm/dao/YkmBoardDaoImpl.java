@@ -202,10 +202,17 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return writeCntPost;
 	}
 	
+	@Override
+	public YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = session.selectOne("ykmGetReply", ykmBoardCommReply);
+		return replyValue;
+	}
 	
-	
-	
-	
+	@Override
+	public int updateReply(YkmBoardCommReply ykmBoardCommReply) {
+		int result = session.update("ykmUpdateReply", ykmBoardCommReply);
+		return result;
+	}
 	
 	
 	

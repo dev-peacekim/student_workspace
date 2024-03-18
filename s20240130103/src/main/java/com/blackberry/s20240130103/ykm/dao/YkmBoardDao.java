@@ -60,6 +60,10 @@ public interface YkmBoardDao {
 
 	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
 
+	YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply);
+
+	int updateReply(YkmBoardCommReply ykmBoardCommReply);
+
 	
 
 }

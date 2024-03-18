@@ -205,6 +205,18 @@ public class YkmServiceImpl implements YkmService {
 		List<YkmBoardComm> getCntSearchList = ykmBoardDao.getCntSearchList(ykmBoardComm);
 		return getCntSearchList;
 	}
+	
+	@Override
+	public YkmBoardCommReply getReplyValue(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = ykmBoardDao.getReplyValue(ykmBoardCommReply);
+		return replyValue;
+	}
+	
+	@Override
+	public int updateReply(YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmBoardDao.updateReply(ykmBoardCommReply);
+		return result;
+	}
 
 	
 }

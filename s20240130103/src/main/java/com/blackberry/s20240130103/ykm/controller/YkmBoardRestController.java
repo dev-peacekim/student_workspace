@@ -83,9 +83,16 @@ public class YkmBoardRestController {
 		System.out.println("YkmBoardRestController writeReply start ---*");
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		ykmBoardCommReply.setUser_no(user_no);
+		YkmBoardCommReply replyValue = ykmService.getReplyValue(ykmBoardCommReply);
+		System.out.println("test : " + replyValue);
 		System.out.println("YkmBoardRestController writeReply ykmBoardCommReply:"+ykmBoardCommReply);
+		ykmBoardCommReply.setCreply_group(replyValue.getCreply_group());
+		ykmBoardCommReply.setCreply_level(replyValue.getCreply_level()+1);
+		ykmBoardCommReply.setCreply_indent(replyValue.getCreply_indent()+1);
+		int updateResult = ykmService.updateReply(ykmBoardCommReply);
 		int result = ykmService.writeReply(ykmBoardCommReply);
 		System.out.println("YkmBoardRestController writeReply result : "+result);
+		
 		return result;
 	}
 	

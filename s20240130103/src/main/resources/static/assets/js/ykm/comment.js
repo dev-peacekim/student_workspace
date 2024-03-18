@@ -281,18 +281,12 @@ function createReplyBox(creply_no) {
 				    </div>
 				    <div class="replyBtnContainer">
 				        <button id="replyResetBtn_${creply_no}" type="button" onclick="hideReplyBox('${creply_no}')">취소</button>
-				        <button id="replySubmitBtn_${creply_no}" type="submit" onclick="writeReply('${creply_no}')">답글</button>
+				        <button id="replySubmitBtn_${creply_no}" type="button" onclick="writeReply('${creply_no}')">답글</button>
 				    </div>
 				    `;
 
 	$('.replyContainer_'+creply_no).html(replyBox);
 }
-
-function hideReplyBox(creply_no) {
-	$(`.replyContainer_${creply_no} > *`).empty();
-}
-
-
 
 // 대댓글 등록
 function writeReply(creply_no) {
@@ -300,7 +294,6 @@ function writeReply(creply_no) {
 	const replyData = {
 		cboard_no: cboardNo,
 		creply_no : creply_no,
-		creply_group: creply_no,
 		creply_content : creply_content
 	}
 	console.log('writeReply Data : ' +replyData);
@@ -321,6 +314,14 @@ function writeReply(creply_no) {
 	hideReplyBox(creply_no);
 	
 }
+
+function hideReplyBox(creply_no) {
+	$(`.replyContainer_${creply_no} > *`).empty();
+}
+
+
+
+
 
 // uri에 값을 보내면 @PathVariable
 // JSON data 객체로 보낼 떈 @RequestBody
