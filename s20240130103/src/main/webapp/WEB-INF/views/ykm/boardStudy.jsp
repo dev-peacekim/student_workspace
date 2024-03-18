@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <title>Blueberry</title>
     <meta content="" name="description">
@@ -31,10 +33,9 @@
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" >
-
-    <script defer src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
+	<link href="assets/css/lsl/lslboardFree.css" rel="stylesheet">
+   
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -182,19 +183,22 @@
     <!-- End Footer -->
    
    
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+   <a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
    
     <!-- Vendor JS Files -->
-    <!-- <script defer src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
-    <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- <script defer src="assets/vendor/chart.js/chart.umd.js"></script> -->
-    <!-- <script defer src="assets/vendor/echarts/echarts.min.js"></script> -->
-    <script defer src="assets/vendor/quill/quill.min.js"></script>
-    <script defer src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script defer src="assets/vendor/tinymce/tinymce.min.js"></script>
-    <script defer src="assets/vendor/php-email-form/validate.js"></script>
+	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/chart.js/chart.umd.js"></script>
+	<script src="assets/vendor/echarts/echarts.min.js"></script>
+	<script src="assets/vendor/quill/quill.min.js"></script>
+	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
     
         <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    
 </body>
 </html>
