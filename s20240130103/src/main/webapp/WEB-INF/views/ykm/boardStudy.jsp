@@ -77,7 +77,9 @@
 				<div class="community-header">
 					<span>스터디 게시판</span>
 				</div>
+				
 				<!-- 카테고리 탭 시작  -->
+				<div class="community-body">
 				<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link ${comm_mid2=='99' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
@@ -97,11 +99,11 @@
 							aria-controls="contact" aria-selected="false"
 							onclick="location.href='/boardStudy?comm_mid2=20';">모집완료</button>
 					</li>
- 
-					<!-- 검색 시작  -->
+				 
+				<!-- 검색 시작  -->
 					<li class="nav-item ms-auto" role="presentation">
 						<div class="search-bar justify-content-end">
-							<form action="boardStudy" method="get" class="search-form d-flex align-items-center">
+							<form action="boardStudy" method="GET" class="search-form d-flex align-items-center">
 								<input type="hidden" name="comm_mid2" value="${comm_mid2}">
 								<select class="form-select" name="type" aria-label="Default select example" required="required">
 								    <option value="A">전체</option>
@@ -117,6 +119,7 @@
 					</li>
 				</ul>
 				
+				</div>
 				<!-- 게시글 리스트 -->
 				<div class="table-body">
 					<table class="table table-hover align-middle">
@@ -156,11 +159,13 @@
 				</div>
 				<!-- 글쓰기 -->
 				<div class="community-bottom">
-					<div class="btn-container">
+					<!-- <div class="btn-container">
 						<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+					</div> -->
+					<div class="btn-container">
+						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
 					</div>
-
-					<!-- ======= Pagination ======= -->
+					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">

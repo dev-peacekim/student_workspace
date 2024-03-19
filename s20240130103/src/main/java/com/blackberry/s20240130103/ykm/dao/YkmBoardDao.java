@@ -46,9 +46,11 @@ public interface YkmBoardDao {
 
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 > 중복이므로 수정 필요
 
-	int getSearchCount(YkmBoardComm ykmBoardComm); // 검색 결과 게시글 조회
+	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 댓글 번호 조회
 
+	int updateGroup(YkmBoardCommReply ykmBoardCommReply); // 같은 댓글 그룹핑
 	
+
 	
 	/* 공모전 게시판 */
 	List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm); // 게시판 리스트 조회
@@ -56,10 +58,6 @@ public interface YkmBoardDao {
 	int getCntTotalCount(YkmBoardComm ykmBoardComm); // 전체 게시글 카운트
 
 	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
-
-	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 댓글 번호 조회
-
-	int updateGroup(YkmBoardCommReply ykmBoardCommReply); // 같은 댓글 그룹핑
 
 	
 	

@@ -80,7 +80,9 @@
 					</div>
 					<div class="search-bar justify-content-end">
 						<form action="boardContest" method="GET" class="search-form d-flex align-items-center">
-						<input type="hidden" name="comm_mid2" value="${comm_mid}">
+							<c:if test="${getCntPostList.size() != 0}">
+								<input type="hidden" name="comm_mid" value="${getCntPostList.get(0).comm_mid}">
+							</c:if>
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
 							    <option value="A">전체</option>
 							    <option value="TC">제목+내용</option>
@@ -124,19 +126,19 @@
 				<!-- 글쓰기 -->
 				<div class="community-bottom">
 					<div class="btn-container">
-						<a href="/writeForm?comm_mid=10&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=10&comm_big=200'">글쓰기</button>
 					</div>
-					<!-- ======= Pagination ======= -->
+					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
-						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
+						<li class="page-item"><a class="page-link" href="/boardContest?currentPage=${stuPage.startPage - stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
 						</c:if>
 						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid=${comm_mid}&type=${type}&keyword=${keyword}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="/boardContest?currentPage=${i}&comm_mid=${comm_mid}&type=${type}&keyword=${keyword}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${stuPage.endPage < stuPage.totalPages}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">»</span></a></li>
+							<li class="page-item"><a class="page-link" href="/boardContest?currentPage=${stuPage.startPage + stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">»</span></a></li>
 						</c:if>
 						</ul>
 					</nav>

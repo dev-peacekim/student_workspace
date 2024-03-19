@@ -10,6 +10,7 @@
 	padding-bottom: 20px;
 	font-family: 'NanumSquare', sans-serif;
     right: 36px;
+    margin-top: 50px;
 }
 .keyword-bar {
 	margin-right: 0px;
@@ -78,16 +79,22 @@
 --------------------------------------------------------------*/
 .section {
 	font-family: 'NanumSquare', sans-serif !important;
+	padding-right: 12px;
+    padding-left: 12px;
 }
 
 .section .nav-link {
 	font-weight: bold;
 	font-size: large;
 }
+
 #borderedTab {
 	padding-right: 0px;
     border-bottom-width: 0px;
     margin-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    
 }
 .breadcrumb {
 	font-size: 14px;
@@ -123,12 +130,11 @@
 	font-weight: bold;
 	color: #424242;
 }
-
-.community-bottom {
-	width: 100%;
-	/* position: absolute; */
-	bottom: 0;
+.community-body {
+	display: flex;
+	justify-content: space-between;
 }
+
 .table {
 	border: 1px solid #ebeef4;
 }
@@ -142,20 +148,28 @@
 .table-hover {
 	padding: 10px;
 }
+
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
-.btn-container {
+.custom-btn.wriBtn {
 	display: flex;
-	justify-content: flex-end;
+ 	justify-content: flex-end;
 	align-items: center;
 	padding: 1rem;
-	width: 100%;
-	z-index: 100;
+	left: 0px;
+	height: 50px;
+	width: 100px;
+	margin-left: auto;
+	text-align: center;
+	padding: 6px 12px 6px 12px;
 }
-
-.btn-container form {
-	margin-left: 10px; /* 버튼 사이 간격 조정 */
+ 
+ 
+.community-bottom {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .custom-btn {
@@ -172,37 +186,13 @@
 	border-color: #0d6efd;
 }
 
-/* .wriBtn:hover {
-	color: #fff;
-	background-color: #6610f2;
-	border-color: #6610f2;
-}
-
-.wriBtn:after {
-	background-color: #6f42c1;
-	transition: all 0.3s ease;
-}
- */
-
 .form-select {
 	width: 120px;
 }
 .keyword-bar {
 	width: 340px !important;
-	margin-right: 10px;
 }
 
-/* 
-thead tr, tead th {
-	height: 30px;
-	line-height: 30px;
-}
-
-tbody th, tbody td {
-	height: 30px;
-	line-height: 30px;
-}
- */
 .recruiting {
 	display: inline-flex;
 	position: relative;

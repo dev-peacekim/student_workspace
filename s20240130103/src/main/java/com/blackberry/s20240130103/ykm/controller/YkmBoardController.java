@@ -220,21 +220,20 @@ public class YkmBoardController {
 	@GetMapping(value = "boardContest")
 	public String boardContest(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 		System.out.println("YkmController boardContest start ---*");
-		ykmBoardComm.setComm_mid(10);
+		System.out.println("YkmController boardContest 검색 start ---*");
+		System.out.println("이거 : "+ ykmBoardComm);
+		
 		int CnttotalCount = ykmService.getCntTotalCount(ykmBoardComm);
 		YkmPaging stuPage = new YkmPaging(CnttotalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
 		
-		
 		List<YkmBoardComm> getCntPostList = ykmService.getCntPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("getCntPostList", getCntPostList);
 		model.addAttribute("CnttotalCount", CnttotalCount);
-		model.addAttribute("comm_mid", ykmBoardComm.getComm_mid());
 		model.addAttribute("type", ykmBoardComm.getType());
 		model.addAttribute("keyword", ykmBoardComm.getKeyword());
-		System.out.println("boardContest comm_mid :"+ykmBoardComm.getComm_mid());
 		
 		return "ykm/boardContest";
 	}

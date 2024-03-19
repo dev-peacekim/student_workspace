@@ -4,11 +4,11 @@
 	<select id="ykmGetCntPostList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
 		SELECT 	a.*
 		FROM(SELECT rownum rn, a.*
-		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG, B.COMM_BIG2, B.COMM_MID, B.COMM_MID2, U.USER_ID, U.USER_NIC,
 			  (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
 		 		FROM BOARD_COMM B, USERS U
-		 		WHERE B.COMM_BIG=200 
-		 		AND B.COMM_MID = #{comm_mid}
+		 		WHERE B.COMM_BIG = 200 
+		 		AND B.COMM_MID = 10
 		 		AND B.USER_NO = U.USER_NO
 		 		<choose>
 		 			<when test='type == "A"'>
@@ -32,38 +32,24 @@
 	
 	<select id="ykmGetCntTotalCount" parameterType="YkmBoardComm" resultType="int" >
 		SELECT COUNT(*)
-		FROM BOARD_COMM
-		WHERE COMM_BIG = 200
-	 	  AND COMM_MID = 10
-	</select>
-	
-	<select id="getCntPostList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
-		SELECT 	a.*
-		FROM(SELECT rownum rn, a.*
-		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
-			  (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
-		 		FROM BOARD_COMM B, USERS U
-		 		WHERE B.COMM_BIG=200 
-		 		AND B.COMM_MID = #{comm_mid}
-		 		AND B.USER_NO = U.USER_NO
-		 		<choose>
-		 			<when test='type == "A"'>
-		 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
-		                    OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
-		                    OR U.USER_NIC = #{keyword}
-		                    )
-			 		</when>
-					<when test='type == "TC"'>
-						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
-					</when>
-					<when test='type == "W"'>
-						AND U.USER_NIC = #{keyword}
-					</when>
-					<otherwise>
-					</otherwise>
-				</choose>
-				ORDER BY B.CBOARD_DATE DESC) a)a
-		WHERE rn BETWEEN #{start} AND ${end}
+		FROM BOARD_COMM B, USERS U
+		WHERE B.USER_NO = U.USER_NO
+		  AND B.COMM_BIG = 200
+	 	  AND B.COMM_MID = 10
+	 	  <choose>
+ 			<when test='type == "A"'>
+ 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
+                    OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
+                    OR U.USER_NIC = #{keyword}
+                    )
+	 		</when>
+			<when test='type == "TC"'>
+				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+			</when>
+			<when test='type == "W"'>
+				AND U.USER_NIC = #{keyword}
+			</when>
+		</choose>
 	</select>
 	
 	<insert id="ykmWriteCntPost" parameterType="YkmBoardComm" useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">

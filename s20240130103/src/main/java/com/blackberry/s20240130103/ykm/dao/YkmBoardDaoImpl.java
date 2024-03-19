@@ -156,6 +156,18 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return (result != null) ? result : 0;
 	}
 	
+	@Override
+	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = session.selectOne("ykmGetReplyNo", ykmBoardCommReply);
+		return replyValue;
+	}
+	
+	@Override
+	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
+		int result = session.update("ykmUpdateGroup", ykmBoardCommReply);
+		return result;
+	}
+
 
 	
 	
@@ -174,7 +186,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public int getCntTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl getCntTotalCount start ---*");
 		int result = session.selectOne("ykmGetCntTotalCount", ykmBoardComm);
-		System.out.println("YkmBoardDaoImpl getCntTotalCount result"+result);
+		System.out.println("YkmBoardDaoImpl ykmGetCntTotalCount result " + result);
 		return result;
 	}
 
@@ -184,49 +196,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		int writeCntPost = session.insert("ykmWriteCntPost", ykmBoardComm);
 		return writeCntPost;
 	}
-	
-	@Override
-	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
-		YkmBoardCommReply replyValue = session.selectOne("ykmGetReplyNo", ykmBoardCommReply);
-		return replyValue;
-	}
-	
-	@Override
-	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
-		int result = session.update("ykmUpdateGroup", ykmBoardCommReply);
-		return result;
-	}
 
-	@Override
-	public int getSearchCount(YkmBoardComm ykmBoardComm) {
-		System.out.println("getSearchCount test : " + ykmBoardComm);
-		int getSearchCount = session.selectOne("ykmGetSearchCount", ykmBoardComm);
-		return getSearchCount;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

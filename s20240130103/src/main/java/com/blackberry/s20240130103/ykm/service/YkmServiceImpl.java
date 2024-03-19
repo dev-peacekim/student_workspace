@@ -206,11 +206,5 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	@Override
-	public int getSearchCount(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl getSearchCount start ---*");
-		int getSearchCount = ykmBoardDao.getSearchCount(ykmBoardComm);
-		return getSearchCount;
-	}
 
 }
