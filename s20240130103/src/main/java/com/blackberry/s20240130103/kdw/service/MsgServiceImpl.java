@@ -47,13 +47,11 @@ public class MsgServiceImpl implements MsgService {
 	// 받은 쪽지중 읽지 않은 쪽지 개수 
 	@Override
 	public int totUnreadReceiveMsgCnt(Long msgReceiver) {
-		log.info("MsgServiceImpl totReceiveMsgCnt start...");
+		log.info("MsgServiceImpl totUnreadReceiveMsgCnt start...");
 		int totUnreadReceiveMsgCnt = msgDao.totUnreadReceiveMsgCnt(msgReceiver);
-		log.info("MsgServiceImpl totReceiveMsgCnt totMsgCnt->" + totUnreadReceiveMsgCnt);
+		log.info("MsgServiceImpl totUnreadReceiveMsgCnt totMsgCnt->" + totUnreadReceiveMsgCnt);
 		return totUnreadReceiveMsgCnt;
 	}
-
-	
 	
 	// 보낸 쪽지 개수
 	@Override
@@ -301,6 +299,14 @@ public class MsgServiceImpl implements MsgService {
 	    System.out.println("MsgServiceImpl searchReceivedMsgCount: " + searchReceivedMsgCount);
 	    return searchReceivedMsgCount;
 	}
+	// 검색 받은쪽지중 읽지않은 쪽지개수 
+	@Override
+	public int searchTotUnreadReceiveMsgCnt(Long msgReceiver, String keyword, String type) {
+		log.info("MsgServiceImpl searchTotUnreadReceiveMsgCnt start...");
+		int searchTotUnreadReceiveMsgCnt = msgDao.searchTotUnreadReceiveMsgCnt(msgReceiver, keyword, type);
+		log.info("MsgServiceImpl searchTotUnreadReceiveMsgCnt totMsgCnt->" + searchTotUnreadReceiveMsgCnt);
+		return searchTotUnreadReceiveMsgCnt;
+	}
 	// 검색 결과 리스트
 	@Override
 	public List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end) {
@@ -317,6 +323,14 @@ public class MsgServiceImpl implements MsgService {
 	    int searchSentMsgCount = msgDao.searchSentMsgCnt(msgSender, keyword, type);
 	    System.out.println("MsgServiceImpl searchSentMsgCount: " + searchSentMsgCount);
 	    return searchSentMsgCount;
+	}
+	// 검색 보낸쪽지중 읽지않은 쪽지개수 
+	@Override
+	public int searchTotUnreadSentMsgCnt(Long msgSender, String keyword, String type) {
+		log.info("MsgServiceImpl searchTotUnreadSentMsgCnt start...");
+		int searchTotUnreadSentMsgCnt = msgDao.searchTotUnreadSentMsgCnt(msgSender, keyword, type);
+		log.info("MsgServiceImpl searchTotUnreadSentMsgCnt totMsgCnt->" + searchTotUnreadSentMsgCnt);
+		return searchTotUnreadSentMsgCnt;
 	}
 	// 검색 결과 리스트
 	@Override
@@ -335,6 +349,14 @@ public class MsgServiceImpl implements MsgService {
 	    System.out.println("MsgServiceImpl searchStoredMsgCount: " + searchStoredMsgCount);
 	    return searchStoredMsgCount;
 	}
+	// 검색 쪽지보관함중 읽지않은 쪽지개수 
+	@Override
+	public int searchTotUnreadStoredMsgCnt(Long storeboxUserNo, String keyword, String type) {
+		log.info("MsgServiceImpl searchTotUnreadStoredMsgCnt start...");
+		int searchTotUnreadStoredMsgCnt = msgDao.searchTotUnreadStoredMsgCnt(storeboxUserNo, keyword, type);
+		log.info("MsgServiceImpl searchTotUnreadStoredMsgCnt totMsgCnt->" + searchTotUnreadStoredMsgCnt);
+		return searchTotUnreadStoredMsgCnt;
+	}
 	// 검색 결과 리스트
 	@Override
 	public List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end) {
@@ -343,6 +365,7 @@ public class MsgServiceImpl implements MsgService {
 	    System.out.println("MsgServiceImpl searchStoredMsgList.size(): " + searchStoredMsgList.size());
 	    return searchStoredMsgList;
 	}
+	
 	// ======== 휴지통 검색기능 ========
 	// 검색 결과 개수
 	@Override
@@ -351,6 +374,14 @@ public class MsgServiceImpl implements MsgService {
 	    int searchTrashMsgCount = msgDao.searchTrashMsgCnt(trashboxUserNo, keyword, type);
 	    System.out.println("MsgServiceImpl searchTrashMsgCount: " + searchTrashMsgCount);
 	    return searchTrashMsgCount;
+	}
+	// 검색 휴지통중 읽지않은 쪽지개수 
+	@Override
+	public int searchTotUnreadTrashMsgCnt(Long trashboxUserNo, String keyword, String type) {
+		log.info("MsgServiceImpl searchTotUnreadTrashMsgCnt start...");
+		int searchTotUnreadTrashMsgCnt = msgDao.searchTotUnreadTrashMsgCnt(trashboxUserNo, keyword, type);
+		log.info("MsgServiceImpl searchTotUnreadTrashMsgCnt totMsgCnt->" + searchTotUnreadTrashMsgCnt);
+		return searchTotUnreadTrashMsgCnt;
 	}
 	// 검색 결과 리스트
 	@Override
@@ -368,6 +399,14 @@ public class MsgServiceImpl implements MsgService {
 		User getUserNicUserId = msgDao.getUserNicUserId(userNo);
 		return getUserNicUserId;
 	}
+
+
+
+
+
+
+
+
 
 
 

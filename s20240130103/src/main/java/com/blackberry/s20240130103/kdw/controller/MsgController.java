@@ -70,7 +70,13 @@ public class MsgController {
 	    } else {
 	        totReceiveMsgCnt = msgService.totReceiveMsgCnt(msgReceiver);
 	    }
-	    totUnreadReceiveMsgCnt = msgService.totUnreadReceiveMsgCnt(msgReceiver);
+	    // 안 읽은 쪽지 수 가져오기 & 검색 시 안 읽은 쪽지 수
+	    if (keyword != null && !keyword.isEmpty()) {
+	    	totUnreadReceiveMsgCnt = msgService.searchTotUnreadReceiveMsgCnt(msgReceiver, keyword, type);
+	    } else {
+	    	totUnreadReceiveMsgCnt = msgService.totUnreadReceiveMsgCnt(msgReceiver);
+	    }
+	    
 	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totReceiveMsgCnt, currentPage);
@@ -121,7 +127,12 @@ public class MsgController {
 	    } else {
 	    	totSentMsgCnt = msgService.totSentMsgCnt(msgSender);
 	    }
-	    totUnreadSentMsgCnt = msgService.totUnreadSentMsgCnt(msgSender);
+	    if (keyword != null && !keyword.isEmpty()) {
+	    	totUnreadSentMsgCnt = msgService.searchTotUnreadSentMsgCnt(msgSender, keyword, type);
+	    } else {
+	    	totUnreadSentMsgCnt = msgService.totUnreadSentMsgCnt(msgSender);
+	    }
+	    
 	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totSentMsgCnt, currentPage);
@@ -174,7 +185,12 @@ public class MsgController {
 	    } else {
 	    	totStoredMsgCnt = msgService.totStoredMsgCnt(storeboxUserNo);
 	    }
-	    totUnreadStoredMsgCnt = msgService.totUnreadStoredMsgCnt(storeboxUserNo);
+	    if (keyword != null && !keyword.isEmpty()) {
+	    	totUnreadStoredMsgCnt = msgService.searchTotUnreadStoredMsgCnt(storeboxUserNo, keyword, type);
+	    } else {
+	    	totUnreadStoredMsgCnt = msgService.totUnreadStoredMsgCnt(storeboxUserNo);
+	    }
+	    
 	    
 	    // 페이징 처리
 	    MsgPaging page = new MsgPaging(totStoredMsgCnt, currentPage);
@@ -223,7 +239,13 @@ public class MsgController {
 	    } else {
 	    	totTrashMsgCnt = msgService.totTrashMsgCnt(trashboxUserNo);
 	    }
-	    totUnreadTrashMsgCnt = msgService.totUnreadTrashMsgCnt(trashboxUserNo);
+	    // 읽지않은 쪽지개수
+	    if (keyword != null && !keyword.isEmpty()) {
+	    	totUnreadTrashMsgCnt = msgService.searchTotUnreadTrashMsgCnt(trashboxUserNo, keyword, type);
+	    } else {
+	    	totUnreadTrashMsgCnt = msgService.totUnreadTrashMsgCnt(trashboxUserNo);
+	    }
+	    
 	    
         // 페이징 처리
         MsgPaging page = new MsgPaging(totTrashMsgCnt, currentPage);

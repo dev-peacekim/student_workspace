@@ -153,6 +153,7 @@ public class KdwProjectBoardController {
         kphBoardProject.setPboard_no(pboardNo);
         KphUserBoardProject board = kphProjectService.getBoardProject(kphBoardProject);
         System.out.println("projectBoardController detailBoardUpdateForm board: " + board);
+        board.setPboard_content(board.getPboard_content().replace("<br>", "\n")); // 내용 부분 엔터처리작업(엔터값이 <br>로 나오는중)
         
         model.addAttribute("userNo", userNo);
         model.addAttribute("projectNo", projectNo);
@@ -166,7 +167,7 @@ public class KdwProjectBoardController {
 	} // detailBoardUpdateForm
     
 	
-    // 글수정 - 멀티 업로드(수정 버튼)
+    // 글 수정(UPDATE) - 멀티 업로드(수정 버튼)
 	@ResponseBody
     @PostMapping(value = "updateSave")
     public String updateSave (BoardProject boardProject, @RequestParam("files") MultipartFile[] files, HttpServletRequest request) {

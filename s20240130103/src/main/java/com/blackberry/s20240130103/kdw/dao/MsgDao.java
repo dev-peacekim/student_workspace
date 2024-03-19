@@ -67,24 +67,32 @@ public interface MsgDao {
 	// ========== 받은 쪽지함 검색기능 ===========
 	// 검색한 쪽지개수
 	int searchReceiveMsgCnt(Long msgReceiver, String keyword, String type);
+	// 검색한 읽지않은 쪽지개수
+	int searchTotUnreadReceiveMsgCnt(Long msgReceiver, String keyword, String type);
 	// 검색한 쪽지리스트
 	List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end);
 	
 	// ========== 보낸 쪽지함 검색기능 ===========
 	// 검색한 쪽지개수
 	int searchSentMsgCnt(Long msgSender, String keyword, String type);
+	// 검색한 읽지않은 쪽지개수
+	int searchTotUnreadSentMsgCnt(Long msgSender, String keyword, String type);
 	// 검색한 쪽지리스트
 	List<Message> searchSentMessages(Long msgSender, String keyword, String type, int start, int end);
 	
 	// ========== 쪽지 보관함 검색기능 ===========
 	// 검색한 쪽지개수
 	int searchStoredMsgCnt(Long storeboxUserNo, String keyword, String type);
+	// 검색한 읽지않은 쪽지개수
+	int searchTotUnreadStoredMsgCnt(Long storeboxUserNo, String keyword, String type);
 	// 검색한 쪽지리스트
 	List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end);
 	
 	// ========== 휴지통 검색기능 ===========
 	// 검색한 쪽지개수
 	int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
+	// 검색한 읽지않은 쪽지개수
+	int searchTotUnreadTrashMsgCnt(Long trashboxUserNo, String keyword, String type);
 	// 검색한 쪽지리스트
 	List<Message> searchTrashMessages(Long trashboxUserNo, String keyword, String type, int start, int end);
 
@@ -93,6 +101,13 @@ public interface MsgDao {
 	// 워크스패이스 쪽지 아이콘 누르면 인풋창에 해당유저 아이디(히든인풋) 닉네임 박히기
 	// 유저넘버로 닉네임 가져오기
 	User getUserNicUserId(Long receiverId);
+
+	
+
+	
+
+
+	
 
 	
 

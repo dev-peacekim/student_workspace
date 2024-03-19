@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>공유 게시판 : 블루베리</title>
+<title>Blueberry</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -127,9 +127,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="pboardList" items="${pboardList }">
+								<c:forEach var="pboardList" items="${pboardList }" varStatus="loop">
 									<tr class="list-item">
-										<td class="boardNo">${pboardList.pboard_no }</td>
+										<td>${(page.currentPage - 1) * page.rowPage + loop.index + 1}</td>
 										<!-- 제목 -->
 										<td class="subject" onclick="location.href='/detailBoardProject?pboard_no=${pboardList.pboard_no }&project_no=${projectNo}'">
 											${pboardList.pboard_title }

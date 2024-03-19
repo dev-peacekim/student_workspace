@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>쪽지 보관함 : 블루베리</title>
+<title>Blueberry</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			<h1>쪽지보관함</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
+					<li class="breadcrumb-item">쪽지</li>
 					<li class="breadcrumb-item active">쪽지보관함</li>
 				</ol>
 			</nav>

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>공유게시판 글 수정 : 블루베리</title>
+<title>Blueberry</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -72,12 +72,12 @@
 
 	<main id="main" class="main">
 	    <div class="pagetitle">
-	        <h1>공유게시판 글 수정</h1>
+	        <h1>공유 게시판</h1>
 	        <nav>
 	            <ol class="breadcrumb">
-	                <li class="breadcrumb-item"><a href="main">Home</a></li>
-	                <li class="breadcrumb-item"><a href="boardProject?project_no=${projectNo}">공유게시판</a></li>
-	                <li class="breadcrumb-item active">글 수정</li>
+	                <li class="breadcrumb-item"><a href="main">워크 스페이스</a></li>
+	                <li class="breadcrumb-item"><a href="boardProject?project_no=${projectNo}">공유 게시판</a></li>
+	                <li class="breadcrumb-item active">게시글 수정</li>
 	            </ol>
 	        </nav>
 	    </div>
@@ -87,7 +87,7 @@
 			<section class="update-section">
 				<div class="form-container">
 					<div class="title-group-prepend">
-						<span class="title-group-text">글쓰기</span>
+						<span class="title-group-text">게시글 수정</span>
 					</div>
 					<!-- 파일을 보내려면 form에서 encType = "multipart/form-data" 를 이용해서 보내야 한다 -->
 					<!-- 그리고 하단에 <input type="file" name="fileName">로 파일을 보낼 수 있게 넣어준다 -->

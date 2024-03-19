@@ -380,6 +380,25 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultCount;
     }
+    // 검색된 읽지않은 쪽지개수
+	@Override
+	public int searchTotUnreadReceiveMsgCnt(Long msgReceiver, String keyword, String type) {
+        log.info("MsgDaoImpl searchTotUnreadReceiveMsgCnt start...");
+        int searchUnreadResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgReceiver", msgReceiver);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchUnreadResultCount = session.selectOne("kdwSearchUnreadReceiveMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching received messages count: {}", e.getMessage());
+        }
+        return searchUnreadResultCount;
+	}
+
     // 검색 리스트 가져오기
     @Override
     public List<Message> searchReceivedMessages(Long msgReceiver, String keyword, String type, int start, int end) {
@@ -418,6 +437,24 @@ public class MsgDaoImpl implements MsgDao {
             log.error("Error occurred while searching sent messages count: {}", e.getMessage());
         }
         return searchResultCount;
+	}
+	// 검색된 읽지않은 쪽지개수
+	@Override
+	public int searchTotUnreadSentMsgCnt(Long msgSender, String keyword, String type) {
+        log.info("MsgDaoImpl searchTotUnreadSentMsgCnt start...");
+        int searchUnreadResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("msgSender", msgSender);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchUnreadResultCount = session.selectOne("kdwSearchUnreadSentMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching received messages count: {}", e.getMessage());
+        }
+        return searchUnreadResultCount;
 	}
 	// 검색 리스트 가져오기
 	@Override
@@ -458,6 +495,25 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultCount;
 	}
+	// 검색된 읽지않은 쪽지개수
+	@Override
+	public int searchTotUnreadStoredMsgCnt(Long storeboxUserNo, String keyword, String type) {
+        log.info("MsgDaoImpl searchTotUnreadStoredMsgCnt start...");
+        int searchUnreadResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("storeboxUserNo", storeboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchUnreadResultCount = session.selectOne("kdwSearchUnreadStoredMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Stored messages count: {}", e.getMessage());
+        }
+        return searchUnreadResultCount;
+	}
+
 	// 검색 리스트 가져오기
 	@Override
 	public List<Message> searchStoredMessages(Long storeboxUserNo, String keyword, String type, int start, int end) {
@@ -478,7 +534,7 @@ public class MsgDaoImpl implements MsgDao {
         }
         return searchResultMessages;
 	}
-    // ======= 쪽지 보관함 검색기능 ======
+    // ======= 휴지통 검색기능 ======
     // 검색된 쪽지 개수
 	@Override
 	public int searchTrashMsgCnt(Long trashboxUserNo, String keyword, String type) {
@@ -496,6 +552,24 @@ public class MsgDaoImpl implements MsgDao {
             log.error("Error occurred while searching Trash messages count: {}", e.getMessage());
         }
         return searchResultCount;
+	}
+	// 검색된 읽지않은 쪽지개수
+	@Override
+	public int searchTotUnreadTrashMsgCnt(Long trashboxUserNo, String keyword, String type) {
+        log.info("MsgDaoImpl searchTotUnreadTrashMsgCnt start...");
+        int searchUnreadResultCount = 0;
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("trashboxUserNo", trashboxUserNo);
+            paramMap.put("keyword", keyword);
+            paramMap.put("type", type);
+
+            searchUnreadResultCount = session.selectOne("kdwSearchUnreadTrashMsgCnt", paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Error occurred while searching Trash messages count: {}", e.getMessage());
+        }
+        return searchUnreadResultCount;
 	}
 	// 검색 리스트 가져오기
 	@Override
@@ -533,6 +607,11 @@ public class MsgDaoImpl implements MsgDao {
 	    }
 	    return getUserNicUserId;
 	}
+
+
+
+
+
 
 
 

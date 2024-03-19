@@ -328,6 +328,26 @@
 	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
 	    )
 	</select>
+	<!-- 받은 쪽지함 검색된 읽지않은 쪽지개수 조회 -->
+	<select id="kdwSearchUnreadReceiveMsgCnt" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM message m, users u
+	    WHERE m.msg_sender = u.user_no
+	    AND m.msg_receiver = #{msgReceiver}
+	    AND m.msg_store_chk = 0
+	    AND m.msg_delete_chk = 0
+	    AND msg_readdate IS NULL
+	    AND (
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
+	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
+	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
+	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	    )
+	</select>
 	<!-- ========== 보낸 쪽지함 검색기능 =========== -->
 	<!-- 보낸 쪽지함 검색된 리스트 조회 -->
 	<select id="kdwSearchSentMessages" parameterType="KdwMessage" resultType="KdwMessage">
@@ -368,6 +388,26 @@
 	    AND msg_sender = #{msgSender}
 	    AND m.msg_store_chk = 0
 	    AND m.msg_delete_chk = 0
+	    AND (
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
+	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
+	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
+	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	    )
+	</select>
+	<!-- 보낸 쪽지함 검색된 읽지않은 쪽지 수 조회 -->
+	<select id="kdwSearchUnreadSentMsgCnt" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+	    FROM message m, users u
+	    WHERE m.msg_receiver = u.user_no
+	    AND msg_sender = #{msgSender}
+	    AND m.msg_store_chk = 0
+	    AND m.msg_delete_chk = 0
+	    AND msg_readdate IS NULL
 	    AND (
 	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
 	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
@@ -427,6 +467,29 @@
 	    WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
 	    AND m.msg_store_chk = 1
 	    AND m.msg_delete_chk = 0
+	    AND (
+	        (#{type} = 'all' AND (
+	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
+	            m.msg_content LIKE '%' || #{keyword} || '%' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        ))
+	        OR
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	    )
+	</select>
+	<!-- 쪽지 보관함 검색된 읽지않은 쪽지 수 조회 -->
+	<select id="kdwSearchUnreadStoredMsgCnt" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM message m
+	    WHERE (m.msg_receiver = #{storeboxUserNo} OR m.msg_sender = #{storeboxUserNo})
+	    AND m.msg_store_chk = 1
+	    AND m.msg_delete_chk = 0
+	    AND msg_readdate IS NULL
 	    AND (
 	        (#{type} = 'all' AND (
 	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
@@ -503,7 +566,28 @@
 	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
 	    )
 	</select>
-	
+	<!-- 휴지통 검색된 읽지않은 쪽지 수 조회 -->
+	<select id="kdwSearchUnreadTrashMsgCnt" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM message m
+	    WHERE (m.msg_receiver = #{trashboxUserNo} OR m.msg_sender = #{trashboxUserNo})
+	    AND m.msg_delete_chk = 1
+	    AND msg_readdate IS NULL
+	    AND (
+	        (#{type} = 'all' AND (
+	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
+	            m.msg_content LIKE '%' || #{keyword} || '%' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        ))
+	        OR
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	    )
+	</select>
 	
 	<!-- 유저 넘버로 유저 닉네임, 아이디 가져오기 -->
 	<select id="kdwGetUserNicUserId" parameterType="java.lang.Long" 

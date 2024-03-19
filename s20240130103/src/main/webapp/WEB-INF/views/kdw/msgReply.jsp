@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>답장 쓰기 : 블루베리</title>
+<title>Blueberry</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
@@ -490,7 +490,7 @@
             <h1>답장쓰기</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="main">Home</a></li>
+                    <li class="breadcrumb-item">쪽지</li>
                     <li class="breadcrumb-item active">답장쓰기</li>
                 </ol>
             </nav>
@@ -605,28 +605,27 @@
 						</div>
                         <!-- 첨부파일 -->
 						<div class="form-group">
-							<div class="mb-3">
-								<div class="file-form-control">
-									<!-- 파일 선택 input, 다중 선택 가능 -->
-									<input type="file" name="files" id="files"
-										class="files form-control form-control-sm" multiple>
-								</div>
-								<!-- 드래그 앤 드롭 영역 -->
-								<div id="drop_zone" class="file_drag"
-									style="min-height: 145px; overflow: auto;">
-									<!-- 초기 안내 문구 -->
-									<div id="initial_message" style="margin-top: 45px;">여기에
-										파일을 드래그하세요.</div>
-									<!-- 파일 목록 상단 바, 초기에는 숨김 처리 -->
-									<div id="file_list_bar" class="file-list-bar"
-										style="display: none;">
-										<span>파일명</span> <span>용량</span> <span id="delete_all"
-											style="cursor: pointer;">X</span>
-									</div>
-									<!-- 업로드된 파일 목록 -->
-									<ul id="fileList" class="file-list" ></ul>
-								</div>
-							</div>
+							   <div class="mb-3">
+						        <!-- 사용자 정의 파일 선택 버튼과 파일 개수 표시 -->
+						        <div class="file-form-control">
+						            <button type="button" id="customFileBtn" class="btn fileBtn">파일 선택</button>
+						            <span id="fileCount">선택된 파일 없음</span>
+						        </div>
+						        <input type="file" id="files" name="files" multiple style="display: none;" onchange="updateFileList(this.files)">
+						        <!-- 드래그 앤 드롭 영역 -->
+						        <div id="drop_zone" class="file_drag">
+								    <!-- 초기 안내 문구 -->
+								    <div id="initial_message" style="margin-top:36px; color:#6c757d; font-weight: 700;">여기에 파일을 드래그하세요.</div>
+								    <!-- 파일 목록 상단 바, 파일이 드래그 되면 표시됩니다. -->
+								    <div id="file_list_bar" class="file-list-bar" style="display: none;">
+								         <span id="delete_all" style="cursor: pointer;">X</span>
+								         <span>파일명</span>
+								         <span>용량</span>
+								    </div>
+								    <!-- 업로드된 파일 목록 -->
+								    <ul id="fileList" class="file-list"></ul>
+						        </div>
+						    </div>
 						</div>
                         <!-- 내용 -->
 						<div class="form-group">
