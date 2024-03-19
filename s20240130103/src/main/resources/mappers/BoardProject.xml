@@ -44,18 +44,18 @@
 	    AND bp.project_no = #{projectNo}
 	    AND bp.pboard_delete_chk = 0
 	    AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-					          OR  bp.pboard_title LIKE '%' || #{keyword} || '%' 
-					          OR  bp.pboard_content LIKE '%' || #{keyword} || '%' 
-					          OR  bpr.preply_content LIKE '%' || #{keyword} || '%'
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+					          OR  bp.pboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+					          OR  bp.pboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+					          OR  bpr.preply_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
 	        ))
 	        OR
-	        (#{type} = 'author' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'author' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'title' AND bp.pboard_title LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'title' AND bp.pboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'contentReply' AND (bp.pboard_content LIKE '%' || #{keyword} || '%'
-	            					   OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+	        (#{type} = 'contentReply' AND (bp.pboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	            					   OR bpr.preply_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
 	        ))
 	    )
 	</select>
@@ -80,19 +80,19 @@
 	            AND bp.pboard_delete_chk = 0
 	            AND (
 				    (#{type} = 'all' AND (
-				        u.user_nic LIKE '%' || #{keyword} || '%' 
-				        OR bp.pboard_title LIKE '%' || #{keyword} || '%' 
-				        OR bp.pboard_content LIKE '%' || #{keyword} || '%' 
-				        OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+				        u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				        OR bp.pboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				        OR bp.pboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				        OR bpr.preply_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
 				    ))
 				    OR
-				    (#{type} = 'author' AND u.user_nic LIKE '%' || #{keyword} || '%')
+				    (#{type} = 'author' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 				    OR
-				    (#{type} = 'title' AND bp.pboard_title LIKE '%' || #{keyword} || '%')
+				    (#{type} = 'title' AND bp.pboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 				    OR
 				    (#{type} = 'contentReply' AND (
-				        	bp.pboard_content LIKE '%' || #{keyword} || '%'
-				        OR bpr.preply_content LIKE '%' || #{keyword} || '%'
+				        	bp.pboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				        OR bpr.preply_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
 				    ))
 			        )
 			        ORDER BY bp.pboard_no DESC

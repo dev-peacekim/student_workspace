@@ -294,16 +294,20 @@
 		        AND m.msg_receiver = #{msgReceiver}
 		        AND m.msg_delete_chk = 0
 		        AND m.msg_store_chk = 0
-		        AND (
-		            (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-		            				  OR  m.msg_title LIKE '%' || #{keyword} || '%' 
-		            				  OR  m.msg_content LIKE '%' || #{keyword} || '%'))
-		            OR
-		            (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
-		            OR
-		            (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-		            						   OR  m.msg_content LIKE '%' || #{keyword} || '%'))
-		        )
+				AND (
+				    (#{type} = 'all' AND (
+				        u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				        OR  m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				        OR  m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				    ))
+				    OR
+				    (#{type} = 'sender' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
+				    OR
+				    (#{type} = 'titleContent' AND (
+				        m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				        OR  m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				    ))
+				)
 		        ORDER BY m.msg_no DESC
 		    ) a
 		)
@@ -318,14 +322,15 @@
 	    AND m.msg_store_chk = 0
 	    AND m.msg_delete_chk = 0
 	    AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        ))
 	        OR
-	        (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'sender' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        							OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- 받은 쪽지함 검색된 읽지않은 쪽지개수 조회 -->
@@ -338,14 +343,14 @@
 	    AND m.msg_delete_chk = 0
 	    AND msg_readdate IS NULL
 	    AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'sender' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'sender' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+	        							OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- ========== 보낸 쪽지함 검색기능 =========== -->
@@ -366,14 +371,14 @@
 		        AND m.msg_delete_chk = 0
 		        AND m.msg_store_chk = 0
 		        AND (
-		            (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-		            				  OR m.msg_title LIKE '%' || #{keyword} || '%' 
-		            				  OR m.msg_content LIKE '%' || #{keyword} || '%'))
+		            (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+		            				  OR m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+		            				  OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 		            OR
-		            (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
+		            (#{type} = 'receiver' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 		            OR
-		            (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-		            						   OR  m.msg_content LIKE '%' || #{keyword} || '%'))
+		            (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+		            						   OR  m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 		        )
 		        ORDER BY m.msg_no DESC
 		    ) a
@@ -389,14 +394,14 @@
 	    AND m.msg_store_chk = 0
 	    AND m.msg_delete_chk = 0
 	    AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        							OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- 보낸 쪽지함 검색된 읽지않은 쪽지 수 조회 -->
@@ -409,14 +414,14 @@
 	    AND m.msg_delete_chk = 0
 	    AND msg_readdate IS NULL
 	    AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_title LIKE '%' || #{keyword} || '%' 
-	        					OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	        					OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        (#{type} = 'receiver' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' 
-	        							OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+	        							OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- ========== 쪽지 보관함 검색기능 =========== -->
@@ -443,17 +448,18 @@
 		        AND m.msg_store_chk = 1
 		        AND (
 			         (#{type} = 'all' AND (
-			                    m.msg_title LIKE '%' || #{keyword} || '%' OR 
-			                    m.msg_content LIKE '%' || #{keyword} || '%' OR
-			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+			                    m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+			                    m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+			                    EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 			                ))
 			     OR
-			         (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			         (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			     OR
-			         (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			         (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			     OR
-			         (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+			         (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+			         							OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			            )
 		        ORDER BY m.msg_no DESC
 		    ) a
@@ -469,17 +475,18 @@
 	    AND m.msg_delete_chk = 0
 	    AND (
 	        (#{type} = 'all' AND (
-	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
-	            m.msg_content LIKE '%' || #{keyword} || '%' OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	            m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+	            m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+	            )
 	        ))
 	        OR
-	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- 쪽지 보관함 검색된 읽지않은 쪽지 수 조회 -->
@@ -492,17 +499,17 @@
 	    AND msg_readdate IS NULL
 	    AND (
 	        (#{type} = 'all' AND (
-	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
-	            m.msg_content LIKE '%' || #{keyword} || '%' OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	            m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+	            m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        ))
 	        OR
-	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- ========== 휴지통 검색기능 =========== -->
@@ -528,17 +535,17 @@
 		        AND m.msg_delete_chk = 1
 		        AND (
 			        (#{type} = 'all' AND (
-			        	m.msg_title LIKE '%' || #{keyword} || '%' OR 
-			            m.msg_content LIKE '%' || #{keyword} || '%' OR
-			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+			        	m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+			            m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+			            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 			                ))
 			    OR
-			        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			    OR
-			        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+			        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			    OR
-			        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+			        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 			            )
 		        ORDER BY m.msg_no DESC
 		    ) a
@@ -553,17 +560,17 @@
 	    AND m.msg_delete_chk = 1
 	    AND (
 	        (#{type} = 'all' AND (
-	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
-	            m.msg_content LIKE '%' || #{keyword} || '%' OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	            m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+	            m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        ))
 	        OR
-	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	<!-- 휴지통 검색된 읽지않은 쪽지 수 조회 -->
@@ -575,17 +582,17 @@
 	    AND msg_readdate IS NULL
 	    AND (
 	        (#{type} = 'all' AND (
-	            m.msg_title LIKE '%' || #{keyword} || '%' OR 
-	            m.msg_content LIKE '%' || #{keyword} || '%' OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%') OR
-	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%')
+	            m.msg_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR 
+	            m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\') OR
+	            EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
 	        ))
 	        OR
-	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'sender' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_sender AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'receiver' AND EXISTS (SELECT 1 FROM users u WHERE u.user_no = m.msg_receiver AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	        OR
-	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || #{keyword} || '%'))
+	        (#{type} = 'titleContent' AND (m.msg_title LIKE '%' || #{keyword} || '%' OR m.msg_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'))
 	    )
 	</select>
 	
