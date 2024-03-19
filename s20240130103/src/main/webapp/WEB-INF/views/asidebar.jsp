@@ -45,13 +45,23 @@
 		        </a>
 		        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 		          <li>
+		            <a href="boardContest">
+		              <i class="bi bi-circle"></i><span>공모전</span>
+		            </a>
+		          </li>
+		          <li>
 		            <a href="boardStudy">
-		              <i class="bi bi-circle"></i><span>공모전 / 스터디</span>
+		              <i class="bi bi-circle"></i><span>스터디</span>
 		            </a>
 		          </li>
 		          <li>
 		            <a href="boardFree">
-		              <i class="bi bi-circle"></i><span>자유 / 질문</span>
+		              <i class="bi bi-circle"></i><span>자유게시판</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="boardAsk">
+		              <i class="bi bi-circle"></i><span>질문게시판</span>
 		            </a>
 		          </li>
 		        </ul>
