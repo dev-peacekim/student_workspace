@@ -48,7 +48,7 @@
 
 <!-- ******************************************************** -->
 
-<script defer src="assets/js/ykm/comment.js"></script>
+<script defer src="assets/js/ykm/ykmBoard.js"></script>
 <link href="assets/css/ykm/boardStudy.css" rel="stylesheet">
 
 </head>
@@ -160,11 +160,8 @@
 				<!-- 글쓰기 -->
 				<div class="community-bottom">
 					<!-- <div class="btn-container">
-						<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
-					</div> -->
-					<div class="btn-container">
 						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
-					</div>
+					</div> -->
 					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
@@ -179,6 +176,9 @@
 						</c:if>
 						</ul>
 					</nav>
+					<div class="btn-write">
+						<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+					</div>
 				</div>
 			</div>
 		</section>
