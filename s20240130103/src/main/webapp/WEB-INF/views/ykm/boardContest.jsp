@@ -61,8 +61,8 @@
 			<h1>정보게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
-					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
+					<li class="breadcrumb-item">공모전</li>
+					<li class="breadcrumb-item">스터디</li>
 				</ol>
 			</nav>
 		</div>
@@ -80,6 +80,7 @@
 					</div>
 					<div class="search-bar justify-content-end">
 						<form action="boardContest" method="GET" class="search-form d-flex align-items-center">
+						<input type="hidden" name="comm_mid2" value="${comm_mid}">
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
 							    <option value="A">전체</option>
 							    <option value="TC">제목+내용</option>
@@ -129,13 +130,13 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
-						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}?type=${type}?keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
+						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
 						</c:if>
 						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid2=${comm_mid2}?type=${type}?keyword=${keyword}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid=${comm_mid}&type=${type}&keyword=${keyword}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${stuPage.endPage < stuPage.totalPages}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}?type=${type}?keyword=${keyword}"><span aria-hidden="true">»</span></a></li>
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">»</span></a></li>
 						</c:if>
 						</ul>
 					</nav>

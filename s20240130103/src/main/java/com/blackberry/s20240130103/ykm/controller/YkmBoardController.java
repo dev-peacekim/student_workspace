@@ -220,45 +220,23 @@ public class YkmBoardController {
 	@GetMapping(value = "boardContest")
 	public String boardContest(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 		System.out.println("YkmController boardContest start ---*");
-
+		ykmBoardComm.setComm_mid(10);
 		int CnttotalCount = ykmService.getCntTotalCount(ykmBoardComm);
 		YkmPaging stuPage = new YkmPaging(CnttotalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
-	
+		
+		
 		List<YkmBoardComm> getCntPostList = ykmService.getCntPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("getCntPostList", getCntPostList);
 		model.addAttribute("CnttotalCount", CnttotalCount);
-		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
+		model.addAttribute("comm_mid", ykmBoardComm.getComm_mid());
 		model.addAttribute("type", ykmBoardComm.getType());
 		model.addAttribute("keyword", ykmBoardComm.getKeyword());
+		System.out.println("boardContest comm_mid :"+ykmBoardComm.getComm_mid());
 		
 		return "ykm/boardContest";
 	}
-	
 
-/*
-	// 검색
-	@PostMapping(value="boardCntSearch")
-	public String getCntSearchList(YkmBoardComm ykmBoardComm, Model model) {
-		System.out.println("YkmController getCntSearchList start---*");
-		
-		int totalCntCount = ykmService.getCntTotalCount(ykmBoardComm);
-		System.out.println("YkmController 공모전 게시글 카운트 : "+ykmService.getCntTotalCount(ykmBoardComm));
-		YkmPaging stuPage = new YkmPaging(totalCntCount, ykmBoardComm.getCurrentPage());
-		ykmBoardComm.setStart(stuPage.getStart());
-		ykmBoardComm.setEnd(stuPage.getEnd());
-		
-		List<YkmBoardComm> searchResult = ykmService.getCntSearchList(ykmBoardComm);
-		model.addAttribute("getCntPostList", searchResult);
-		model.addAttribute("stuPage", stuPage);
-		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
-		model.addAttribute("type", ykmBoardComm.getType());
-		model.addAttribute("keyword", ykmBoardComm.getKeyword());
-		 
-		return "ykm/boardContest";
-	}
-
-*/
 }
