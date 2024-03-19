@@ -68,7 +68,7 @@
         <h1>게시판</h1>
         <nav style="--bs-breadcrumb-divider: '/';">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="main">정보 게시판</a></li>
+                <li class="breadcrumb-item">정보 게시판</li>
                 <li class="breadcrumb-item">자유 게시판</li>
             </ol>
         </nav>
@@ -133,6 +133,7 @@
     
     
     <!-- Template Main JS File -->
-    <script defer src="assets/js/main.js"></script>
+ <script src="assets/js/main.js"></script>
+ 
 </body>
 </html>

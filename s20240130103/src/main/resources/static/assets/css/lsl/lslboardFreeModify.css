@@ -23,7 +23,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #012970;
-  font-family: "Poppins", sans-serif;
+  font-family: 'NanumSquare', sans-serif;
 }
 
 .card-title span {
@@ -40,6 +40,17 @@
 .card-img-overlay {
   background-color: rgba(255, 255, 255, 0.6);
 }
+
+#ModifyTitle {
+	display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+}
+
 
 /*--------------------------------------------------------------
 # btn
@@ -119,9 +130,11 @@ position: relative;
 }
 
 .fileName {
-        display: inline-block; /* 요소를 인라인 블록 요소로 지정하여 수평으로 표시 */
-        margin-right: 10px; /* 파일 이름 사이의 간격 설정 */
+        display: inline-block; 
+        margin-right: 10px; 
     }
     
 
-
+body{
+	font-family: 'NanumSquare', sans-serif !important;
+}

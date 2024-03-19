@@ -17,6 +17,8 @@
 }
 
 .card-title {
+	padding-top: 16px;
+	padding-left: 20px;
 	padding-right: 15px;
 	margin-bottom: 40px;
 	font-size: 1.5rem;
@@ -140,8 +142,8 @@
 #searchSelect {
 	position: absolute;
 	height: 36px;
-	margin-bottom:51px;
-	right: 320px;
+	margin-bottom:83px;
+	right: 360px;
 	width: 140px;
 }
 
@@ -177,10 +179,6 @@ tbody th, tbody td {
 }
 
 
-th[scope="row"] {
-    font-weight: normal;
-}
-
 
 .table th.title-column {
 	width: 35%;
@@ -196,4 +194,8 @@ th[scope="row"] {
 .listTbody tr {
 	border-left: 1px solid #dee2e6;
 	border-right: 1px solid #dee2e6;
+}
+
+body{
+	font-family: 'NanumSquare', sans-serif !important;
 }

@@ -55,10 +55,10 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>공유 게시판</h1>
+			<h1>정보 게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">공유 게시판</li>
+					<li class="breadcrumb-item">정보 게시판</li>
 					<li class="breadcrumb-item">자유 게시판</li>
 				</ol>
 			</nav>
@@ -73,12 +73,13 @@
 						<!-- Search Bar -->
 
 						<form action="boardFreeSearch"class="search-form d-flex align-items-center">
+							
+							<div class="search-bar">
 							<select class="form-select" id ="searchSelect" name="type">
 				                <option value="all">전체</option>
 				                <option value="writer">작성자</option>
 				                <option value="titleContent">제목+내용</option>
 				            </select>
-							<div class="search-bar">
 								<input type="text" name="keyword" placeholder="키워드를 입력하세요" title="Enter search keyword">
 								<button type="submit" title="Search"><i class="bi bi-search"></i></button>
 							</div>
@@ -101,7 +102,7 @@
 									<tbody class="listTbody">
 									<c:forEach items="${boardFreeList}" var="boardFree" varStatus="loop">
 								    <tr>
-								        <th scope="row">${loop.index + 1}</th>
+								        <th scope="row">${bfpage.start + loop.index}</th>
 								        <td><a href="boardFreeContents?cboard_no=${boardFree.cboard_no}">${boardFree.cboard_title}</a></td>
 								        <td>${boardFree.user_nic}</td>
 								        <td><fmt:formatDate value="${boardFree.cboard_date}" pattern="yyyy-MM-dd"/></td>
@@ -166,7 +167,9 @@
 	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
 	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
+	
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+	
 </body>
 </html>

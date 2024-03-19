@@ -458,3 +458,8 @@
 img, svg {
     vertical-align: middle;
 }
+
+
+body{
+	font-family: 'NanumSquare', sans-serif !important;
+}

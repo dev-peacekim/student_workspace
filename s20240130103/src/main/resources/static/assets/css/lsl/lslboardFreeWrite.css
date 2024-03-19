@@ -23,8 +23,9 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #012970;
-  font-family: "Poppins", sans-serif;
+  font-family: 'NanumSquare', sans-serif;
 }
+
 
 .card-title span {
   color: #899bbd;
@@ -139,11 +140,14 @@ margin-left: 10px;
 }
 
 .file-name {
-    display: block; /* 각 파일 이름을 새로운 줄에 표시 */
-    margin-bottom: 5px; /* 파일 이름 사이의 간격 설정 */
+    display: block; 
+    margin-bottom: 5px; 
 }
 .preview {
     margin: 8px;
     margin-top: 25px;
 }
 
+body{
+	font-family: 'NanumSquare', sans-serif !important;
+}

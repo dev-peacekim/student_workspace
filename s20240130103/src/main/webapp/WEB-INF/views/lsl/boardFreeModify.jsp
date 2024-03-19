@@ -66,11 +66,10 @@
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>글 수정하기</h1>
-			<nav style="--bs-breadcrumb-divider: '-';">
+			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
-					<li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-					<li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+					<li class="breadcrumb-item">정보 게시판</li>
+					<li class="breadcrumb-item">글 수정</li>
 				</ol>
 			</nav>
 		</div>
@@ -88,8 +87,7 @@
 								<input type="hidden" name="cboard_no"value="${boardModifyContents.cboard_no}" /> 
 								<input type="hidden" name="boardType" id="boardType" value="${boardType}" />
 								<div class="mb-3">
-									<label for="inputText" class="form-label">제목</label> 
-									<input type="text" class="form-control" name="cboard_title" value="${boardModifyContents.cboard_title}">
+									<input id="ModifyTitle" type="text" class="form-control" name="cboard_title" placeholder="제목을 입력하세요." value="${boardModifyContents.cboard_title}">
 								</div>
 									<!-- 파일 첨부 -->
 									<div class="upload-files">
@@ -103,7 +101,7 @@
 									</div>
 								<div class="mb-3">
 									<textarea class="form-control" style="height: 550px;"
-										name="cboard_content">${boardModifyContents.cboard_content}</textarea>
+										name="cboard_content" >${boardModifyContents.cboard_content}</textarea>
 
 								</div>
 								<div class="mb-3">
@@ -145,6 +143,6 @@
 
 
 	<!-- Template Main JS File -->
-	<script defer src="assets/js/lsl/main.js"></script>
+	 <script src="assets/js/main.js"></script>
 </body>
 </html>

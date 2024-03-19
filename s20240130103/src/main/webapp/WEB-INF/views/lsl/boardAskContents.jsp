@@ -71,9 +71,9 @@ function goBack() {
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>게시판</h1> 
-        <nav style="--bs-breadcrumb-divider: '-';">
+        <nav style="--bs-breadcrumb-divider: '/">
             <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="boardAsk">공유 게시판</a></li>
+         <li class="breadcrumb-item"><a href="boardAsk">정보 게시판</a></li>
                 <li class="breadcrumb-item">질문 게시판</li>
             </ol>
         </nav>
@@ -93,7 +93,7 @@ function goBack() {
                 </c:choose>
                             <div class="card-title-header">
                         <h5 class="card-title post-user-name">
-                            <a href="#">${boardAskContents.user_nic}</a>
+                            <label>${boardAskContents.user_nic}</label>
                         </h5>
                         <div class="card-subtitle post-subtitle">
                             <p class="post-updated-at">
@@ -199,6 +199,7 @@ function goBack() {
     
     
     <!-- Template Main JS File -->
-    <script defer src="assets/js/lsl/main.js"></script>
+    <script src="assets/js/main.js"></script>
+    
 </body>
 </html>
