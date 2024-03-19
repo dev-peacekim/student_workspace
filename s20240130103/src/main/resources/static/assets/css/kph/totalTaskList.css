@@ -95,16 +95,24 @@
     font-family: 'NanumSquare', sans-serif;
 }
 
+.table tr th:nth-child(1) {
+    width: 10%;
+}
+
 .table tr th:nth-child(2) {
     width: 25%;
 }
 
+.table tr th:nth-child(3) {
+    width: 45%;
+}
+
 .table tr th:nth-child(4) {
-    width: 13%;
+    width: 10%;
 }
 
 .table tr th:nth-child(5) {
-    width: 13%;
+    width: 10%;
 }
 
 .page-navigation {
