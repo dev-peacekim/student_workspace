@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <c:if test="${sessionScope.admin ne true }">
+ 	<script>
+ 		location.href = "main";
+ 	</script>
+ </c:if>
   <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
         <a href="adminMain" class="logo d-flex align-items-center">

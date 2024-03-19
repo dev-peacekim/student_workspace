@@ -5,7 +5,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="/main">
+                <a class="nav-link collapsed" href="/main">
                     <i class="bi bi-grid"></i>
                     <span>워크 스페이스</span>
                 </a>

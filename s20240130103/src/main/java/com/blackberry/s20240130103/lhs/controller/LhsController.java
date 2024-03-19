@@ -182,6 +182,7 @@ public class LhsController {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user_no", user.getUser_no());
 			session.setAttribute("user_name", user.getUser_name());
+			session.setAttribute("admin", true);
 			return "redirect:/adminMain";
 		}else {
 			request.setAttribute("islogin", 0);

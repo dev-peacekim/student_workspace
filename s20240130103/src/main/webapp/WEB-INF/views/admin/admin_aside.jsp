@@ -3,7 +3,7 @@
 	<aside id="sidebar" class="sidebar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/admin_boardList">
+          <a class="nav-link collapsed" href="/admin_boardList">
             <i class="bi bi-clipboard-check"></i>
             <span>게시판관리</span>
           </a>
