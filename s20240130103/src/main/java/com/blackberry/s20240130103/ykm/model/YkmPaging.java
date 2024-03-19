@@ -30,7 +30,7 @@ public class YkmPaging {
 		totalPages = (int) Math.ceil((double) total / itemsPerPage);
 		
 		startPage = currentPage - (currentPage-1) % pageBlock; 
-		endPage = startPage + pageBlock;
+		endPage = startPage + pageBlock-1;
 	
 		if (endPage > totalPages) {
 			endPage = totalPages;
