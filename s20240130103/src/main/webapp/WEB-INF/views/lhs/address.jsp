@@ -57,7 +57,6 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">주소록</li>
-                    <li class="breadcrumb-item active">목록</li>
                 </ol>
             </nav>
         </div>

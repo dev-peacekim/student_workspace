@@ -52,7 +52,15 @@
 
 	<main id="main" class="main">
 		<section>
-		<h1>주소록</h1>
+		<div class="pagetitle">
+            <h1>주소록</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">주소록</li>
+                    <li class="breadcrumb-item active">등록</li>
+                </ol>
+            </nav>
+        </div>
 		<div class="maindiv card-body">
 			<div class="d-flex align-items-center address-top">
 	          <div class="d-flex align-items-center ">
