@@ -88,7 +88,7 @@
 							<button class="recruitBtn" name="comm_mid2"
 							<c:if test="${sessionScope.user_no == getPost.user_no}">
 								onclick="updateRecruitment(${getPost.cboard_no}, ${getPost.comm_mid2})"
-							</c:if>>
+							</c:if> value="${getPost.comm_mid2}">
 								${getPost.comm_mid2 == 10 ? '모집 중' : '모집 완료'}
 							</button>
 							<c:if test="${sessionScope.user_no == getPost.user_no}">							

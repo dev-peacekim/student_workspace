@@ -71,7 +71,24 @@
     letter-spacing: -0.3px;
     display: disable;
 }
-
+.recruitingBtn {
+    height: 50px;
+    width: 84px;
+    align-items: center;
+    font-size: 14px;
+    padding: 11px;
+    box-shadow: 0 3px 8px 0 rgba(33,37,41,.05);
+    color: #ced4da;
+    border-color: #ced4da;
+    background-color: #fff;
+    cursor: default;
+    pointer-events: unset;
+    border-radius: 8px;
+    border-image-slice: 100%;
+    margin-left: auto;
+    letter-spacing: -0.3px;
+    display: disable;
+}
 
 /*--------------------------------------------------------------
 # file

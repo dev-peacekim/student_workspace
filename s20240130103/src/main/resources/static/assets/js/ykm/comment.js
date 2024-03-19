@@ -257,22 +257,19 @@ function updateRecruitment(cboard_no, comm_mid2) {
 		}),
 		success: function(data) {
 			console.log('success', data);
-			/*
 			if (data.comm_mid2 === 20) {
-				$('.recruitBtn').text("모집완료");
+				$('.recruitBtn').text("모집 완료");
 				$('.tooltip').hide();
 				console.log('모집완료 상태로 변경되었습니다. : ' + data);
 			} else if (data.comm_mid2 === 10) {
-				$('.recruitBtn').text("모집중");
+				$('.recruitBtn').text("모집 중");
 				console.log('모집중 상태로 변경되었습니다.');
 			}
-			*/
 		},
 		error: function(error) {
 			console.log('모집완료 변경 오류!', error);
 		}
 	});
-	
 }
 
 
