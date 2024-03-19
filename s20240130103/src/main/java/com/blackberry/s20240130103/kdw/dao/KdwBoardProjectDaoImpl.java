@@ -185,6 +185,23 @@ public class KdwBoardProjectDaoImpl implements KdwBoardProjectDao {
 	    }
 	    
 	}
+	// 파일 상세정보(사이즈)
+	@Override
+	public BoardProjectFile getFileDetails(Long pboardNo, int pboardFileNo) {
+        log.info("KdwBoardProjectDaoImpl getFileDetails start...");
+        BoardProjectFile fileDetails = null;
+        try {
+        	Map<String, Object> paramMap = new HashMap<>();
+        	paramMap.put("pboardNo", pboardNo);
+        	paramMap.put("pboardFileNo", pboardFileNo);
+        	fileDetails = session.selectOne("kdwGetFileDetails", paramMap);
+            
+        } catch (Exception e) {
+            log.error("Error getting board with files: {}", e.getMessage());
+            e.printStackTrace();
+        }
+        return fileDetails;
+	}
 
 
 	

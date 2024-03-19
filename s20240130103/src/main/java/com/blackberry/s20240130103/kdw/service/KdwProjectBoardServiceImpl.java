@@ -3,6 +3,7 @@ package com.blackberry.s20240130103.kdw.service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
@@ -187,6 +188,22 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 	public void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo) {
 		log.info("KdwProjectBoardServiceImpl deleteFilesByPboardNo start...");
 		pboardDao.deleteFilesByPboardNo(pboardNo, pboardFileNo);
+	}
+	// 파일 사이즈 가져오기
+	@Override
+	public long getFileSize(String filePath) {
+	    try {
+	        return Files.size(Paths.get(filePath));
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return -1; // 파일 크기를 얻을 수 없는 경우
+	    }
+	}
+	// 파일 상세정보(사이즈)
+	@Override
+	public BoardProjectFile getFileDetails(Long pboardNo, int pboardFileNo) {
+		BoardProjectFile getFiledetails = pboardDao.getFileDetails(pboardNo, pboardFileNo);
+		return getFiledetails;
 	}
 	
 

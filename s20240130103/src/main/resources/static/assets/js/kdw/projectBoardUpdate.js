@@ -12,21 +12,25 @@ $(document).ready(function() {
     displayUploadedFiles(uploadedFiles);
 
 	// 업로드된 파일 목록 표시
-	function displayUploadedFiles(uploadedFiles) {
-	    uploadedFiles.forEach(function(file) {
-	        var listItem = $('<li class="file-list-item"></li>').data('fileId', file.pboard_file_no).data('pboardNo', file.pboard_no);
-	        var deleteButton = $('<span class="delete-file">X</span>');
-	
-	        // 삭제 버튼 클릭 이벤트 핸들러는 나중에 추가
-	        var fileNameSpan = $('<span>').text(file.pboard_file_user_name);
-	        var fileSizeSpan = $('<span>').text(file.pboard_file_name);
-	
-	        listItem.append(deleteButton).append(fileNameSpan).append(fileSizeSpan);
-	        uploadFileListElement.append(listItem);
-	    });
-	}
+    function displayUploadedFiles(uploadedFiles) {
+        uploadedFiles.forEach(function(file) {
+            var listItem = $('<li class="file-list-item"></li>').data('fileId', file.pboard_file_no).data('pboardNo', file.pboard_no);
+            var deleteButton = $('<span class="delete-file">X</span>');
+            
+            var fileNameSpan = $('<span>').text(file.pboard_file_user_name);
+            // 파일 사이즈 정보를 불러오기 위한 span
+            var fileSizeSpan = $('<span class="file-size-info">Loading size...</span>');
 
-	// 업로드된 파일 삭제 대기
+            listItem.append(deleteButton).append(fileNameSpan).append(fileSizeSpan);
+            $('#uploadFileList').append(listItem);
+
+            // 서버에서 파일 사이즈 정보를 불러와 업데이트
+            displayFileSize(file.pboard_file_name, fileSizeSpan, file.pboard_no, file.pboard_file_no);
+        });
+    }
+    
+	/* ================  삭제 =============== */
+	// 업로드된 파일 삭제 대기열에 넣어놓고 수정버튼 누르면 삭제 실행
 	function addToDeleteWaitingList(pboardNo, fileId) {
 	    deleteWaitingList.push({pboardNo, fileId});
 	
@@ -35,7 +39,6 @@ $(document).ready(function() {
 	        return $(this).data('fileId') === fileId;
 	    }).remove();
 	
-	    // 삭제 대기 목록에 추가된 후의 상태를 콘솔에 로깅
 	    console.log("deleteWaitingList 삭제 대기열: ", deleteWaitingList);
 	}
 	
@@ -58,10 +61,6 @@ $(document).ready(function() {
 	    deleteWaitingList = [];
 	    // 필요한 경우 사용자에게 피드백을 제공하거나 다른 처리를 수행
 	});
-	
-	
-	// ================= 업데이트 END =================
-	
 	
 	// 사용자 정의 파일 선택 버튼 클릭 이벤트
 	customFileBtn.on('click', function() {
@@ -151,17 +150,38 @@ $(document).ready(function() {
 			$('#initial_message').show();
 		}
 	}
-
+	
+    // 파일 정보를 웹 페이지에 표시하는 함수
+	function displayFileSize(pboardFileName, fileSizeElement, pboardNo, pboardFileNo) {
+	
+	    $.ajax({
+	        url: '/getFileSize',
+	        type: 'GET',
+	        data: { 
+	            fileName: pboardFileName, 
+	            pboard_no: pboardNo,
+	            pboard_file_no: pboardFileNo
+	        },
+	        success: function(response) {
+	            var fileSizeInfo = formatBytes(response.fileSize);
+	            fileSizeElement.text("(" + fileSizeInfo + ")");
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error fetching file size: ", status, error);
+	            fileSizeElement.text("Error loading size");
+	        }
+	    });
+	}
 	// 파일 용량 형식 변환 함수 구현
 	function formatBytes(bytes, decimals = 2) {
-		if (bytes === 0) return '0 Bytes';
-		const k = 1024;
-		const dm = decimals < 0 ? 0 : decimals;
-		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-		const i = Math.floor(Math.log(bytes) / Math.log(k));
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	    if (bytes === 0) return '0 Bytes';
+	    const k = 1024;
+	    const dm = decimals < 0 ? 0 : decimals;
+	    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	    const i = Math.floor(Math.log(bytes) / Math.log(k));
+	    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	}
-
+	
 	// "수정" 버튼 클릭 이벤트 핸들러
 	$('#updateButton').on('click', function(event) {
 	    event.preventDefault(); // 폼 제출 방지

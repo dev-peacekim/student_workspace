@@ -28,6 +28,8 @@ public interface KdwBoardProjectDao {
 	BoardProjectFile getBoardFiles(Long pboardNo, int pboardFileNo);
 	// 파일삭제
 	void deleteFilesByPboardNo(Long pboardNo, int pboardFileNo);
+	// 파일 상세(사이즈)
+	BoardProjectFile getFileDetails(Long pboardNo, int pboardFileNo);
 	
 
 	

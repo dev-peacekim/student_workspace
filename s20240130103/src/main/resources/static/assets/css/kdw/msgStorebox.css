@@ -83,7 +83,7 @@ thead th:nth-child(4) {
     width: 10px; /* 유형 셀 가로 */
 }
 thead th:nth-child(5) {
-    width: 80px; /* 아이디 셀 가로*/
+    width: 100px; /* 아이디 셀 가로*/
 }
 
 thead th:nth-child(6) {

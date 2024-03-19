@@ -149,5 +149,10 @@
 	    WHERE pboard_no = #{pboardNo}
 	    AND pboard_file_no = #{pboardFileNo}
 	</delete>
-	
+	<select id="kdwGetFileDetails" resultType="KdwBoardProjectFile">
+	    SELECT pboard_no, pboard_file_no, pboard_file_name, pboard_file_user_name
+	    FROM board_project_file
+	    WHERE pboard_no = #{pboardNo}
+	    AND pboard_file_no = #{pboardFileNo}
+	</select>
 </mapper>

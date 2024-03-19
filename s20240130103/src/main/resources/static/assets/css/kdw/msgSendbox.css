@@ -83,7 +83,7 @@ thead th:nth-child(4) {
     width: 1500px; /* 제목 셀 가로 */
 }
 thead th:nth-child(5) {
-    width: 80px; /* 글쓴이 셀 가로*/
+    width: 100px; /* 글쓴이 셀 가로*/
 }
 
 thead th:nth-child(6) {

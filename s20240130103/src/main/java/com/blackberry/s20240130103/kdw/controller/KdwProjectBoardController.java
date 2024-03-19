@@ -3,6 +3,8 @@ package com.blackberry.s20240130103.kdw.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -131,7 +133,7 @@ public class KdwProjectBoardController {
             return "Error writeSave";
         }
     }
-	/*============== 업데이트 ==============*/
+	/*============== 업데이트(수정) ==============*/
 	// 업데이트 작성 폼 이동
 	@GetMapping(value = "projectBoardUpdate")
 	public String detailBoardUpdateForm(HttpServletRequest request, Model model) {
@@ -161,7 +163,7 @@ public class KdwProjectBoardController {
         }
         
 		return "kdw/projectBoardUpdate";
-	}
+	} // detailBoardUpdateForm
     
 	
     // 글수정 - 멀티 업로드(수정 버튼)
@@ -193,8 +195,9 @@ public class KdwProjectBoardController {
             System.out.println("projectBoardController updateSave Exception ->" + e.getMessage());
             return "Error updateSave";
         }
-    }
+    } // updateSave
 	
+	// 수정시: x 버튼 누르고 수정버튼 누르면 파일 삭제
 	@ResponseBody
 	@PostMapping(value = "delete-file")
 	public void permanentDeleteFiles(@RequestBody List<Map<String, Object>> fileDataList, HttpServletRequest request, HttpServletResponse response) {
@@ -237,43 +240,35 @@ public class KdwProjectBoardController {
 	            ie.printStackTrace();
 	        }
 	    }
+	} // permanentDeleteFiles
+	
+	
+	// 업로드된 파일 사이즈 가져오기
+	@ResponseBody
+	@GetMapping("/getFileSize")
+	public Map<String, Object> getFileDetails(
+	        @RequestParam("pboard_no") Long pboardNo,
+	        @RequestParam("pboard_file_no") Integer pboardFileNo,
+	        HttpServletRequest request) {
+
+	    System.out.println("projectBoardController getFileDetails Start...");
+	    System.out.println("projectBoardController getFileDetails pboardNo: " + pboardNo);
+	    System.out.println("projectBoardController getFileDetails pboardFileNo: " + pboardFileNo);
+
+	    // 해당 파일 상세정보 조회
+	    BoardProjectFile getFileDetails = pBoardService.getFileDetails(pboardNo, pboardFileNo);
+	    if (getFileDetails == null) {
+	        return Collections.singletonMap("error", "File not found");
+	    }
+
+	    String filePath = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/") + getFileDetails.getPboard_file_name();
+	    long fileSize = pBoardService.getFileSize(filePath);
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("fileName", getFileDetails.getPboard_file_user_name()); // 사용자에게 보여줄 원본 파일 이름
+	    response.put("fileSize", fileSize);
+
+	    return response;
 	}
 	
-	/*
-    // 수정 버튼 클릭 시 업로드된 폴더&DB에서 파일 삭제
-    @PostMapping(value = "delete-file")
-    public void permanentDeleteFiles(@RequestBody Map<String, List<Long>> requestData,HttpServletRequest request, HttpServletResponse response) {
-        List<Long> pboardNos = requestData.get("pboardNo");
-        log.info("projectBoardController permanentDeleteFiles start...");
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        System.out.println("permanentDeleteFiles delete request for pboardNos: " + pboardNos);
-        try {
-            for (Long pboardNo : pboardNos) {
-                // 첨부된 파일 목록 조회
-                List<BoardProjectFile> files = pBoardService.getBoardProjectFiles(pboardNo);
-
-                // 파일 시스템에서 파일 삭제
-                for (BoardProjectFile file : files) {
-                    String filePath = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/") + file.getPboard_file_name();
-                    File f = new File(filePath);
-                    if (f.exists() && f.delete()) {
-                        log.info("File deleted successfully: " + filePath);
-                    } else {
-                        log.error("Failed to delete the file: " + filePath);
-                    }
-                }
-
-                // 데이터베이스에서 파일 정보 삭제
-                pBoardService.deleteFilesByPboardNo(pboardNo);
-            }
-
-            response.getWriter().write("파일들이 성공적으로 삭제되었습니다.");
-            response.setStatus(HttpServletResponse.SC_OK);
-        } catch (Exception e) {
-            log.error("파일 삭제에 실패했습니다.", e);
-        }
-    }
-	*/
-	
-}
+} // class
