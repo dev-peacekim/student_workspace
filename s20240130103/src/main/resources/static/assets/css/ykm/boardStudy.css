@@ -9,6 +9,10 @@
 	padding-top: 10px;
 	padding-bottom: 20px;
 	font-family: 'NanumSquare', sans-serif;
+    right: 36px;
+}
+.keyword-bar {
+	margin-right: 0px;
 }
 
 @media ( max-width : 1199px) {
@@ -80,7 +84,9 @@
 	font-weight: bold;
 	font-size: large;
 }
-
+#borderedTab {
+	margin-bottom: 5px;
+}
 /*--------------------------------------------------------------
 # card
 --------------------------------------------------------------*/
