@@ -6,14 +6,17 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>글쓰기</title> <!-- 페이지 제목은 변경하지 않았습니다. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   
+  	<title>Blueberry</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+
+	<!-- Favicons -->
+ <link href="assets/img/blueberry-favicon.png" rel="icon">
+ <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
   <!-- Google Fonts -->
   	<link href="https://fonts.gstatic.com" rel="preconnect">
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -63,11 +66,10 @@
  <main id="main" class="main">
     <div class="pagetitle">
         <h1>게시판</h1>
-        <nav style="--bs-breadcrumb-divider: '-';">
+        <nav style="--bs-breadcrumb-divider: '/';">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="main">Home</a></li>
-                <li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-                <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+                <li class="breadcrumb-item"><a href="main">정보 게시판</a></li>
+                <li class="breadcrumb-item">자유 게시판</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -83,18 +85,18 @@
                         <form id="freeWrite" method="post" action="/freeWrite" enctype="multipart/form-data">
                        
                             <div class="mb-3">
-                                <label for="inputText" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="inputText" name="cboard_title">
+                                <input type="text" class="form-control" id="inputText" name="cboard_title" placeholder="제목을 입력하세요.">
                             </div>
                             <!-- 파일 첨부 -->
 									<div class="upload-files">
 										<label for="files" class="form-label">파일 첨부</label>
-										<input class="form-control" name="files" type="file" id="formFile" multiple/>
+										<input class="form-control" name="files" type="file" id="formFile"  multiple />
 										<div class="upload-title" id="fileList" >
+										<div class="preview">파일을 첨부할 수 있습니다.</div>
 										</div>
 									</div>
                             <div class="mb-3">
-                                <textarea class="form-control" id="cboard_content" name="cboard_content" ></textarea>
+                                <textarea class="form-control" id="cboard_content" name="cboard_content" placeholder="내용을 입력하세요." ></textarea>
                             </div>
                             <div class="mb-3">
                                 <button type="button" class="btn bwCancle" onclick="goBack()">취소</button>

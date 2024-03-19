@@ -5,13 +5,20 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>글쓰기</title> <!-- 페이지 제목은 변경하지 않았습니다. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  
+  
+	  
+	 <title>Blueberry</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+  
+  
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+ <link href="assets/img/blueberry-favicon.png" rel="icon">
+ <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
   
   <!-- Google Fonts -->
   	<link href="https://fonts.gstatic.com" rel="preconnect">
@@ -48,6 +55,10 @@ window.onload = function() {
      getUserNic();
 	replyBoardFreeAskList(${boardFreeContents.cboard_no});
 }
+
+function goBack() {
+    window.history.back();
+}
 </script>
 
 
@@ -64,11 +75,10 @@ window.onload = function() {
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>게시판 </h1>
-        <nav style="--bs-breadcrumb-divider: '-';">
+        <nav style="--bs-breadcrumb-divider: '/';">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="main">Home</a></li>
-                <li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-                <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+                <li class="breadcrumb-item"><a href="boardFree">공유 게시판</a></li>
+                <li class="breadcrumb-item">자유 게시판</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -155,24 +165,18 @@ window.onload = function() {
 				
 			</div>
         </section>
-         
+         <div class="btnBox">
 			  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
-			  <form id="deleteForm" action="/deleteFreeBoard" method="post">
+			           <a href="boardFreeModify?boardType=free&cboard_no=${boardFreeContents.cboard_no}" class="badge bg-light text-dark">
+						   <i class="bi bi-highlighter"></i>수정</a>
+						<form id="deleteForm" action="/deleteFreeBoard" method="post">
 			  	  <input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}">
 			   		 <input type="hidden" name="user_no" value="${boardFreeContents.user_no}">
-			    	<button type="submit" class="btn bfcDelete">삭제</button>
+			    	<button type="submit" class="badge bg-light text-dark"><i class="bi bi-trash"></i> 삭제</button>
 			</form>
-			           <a href="boardFreeModify?boardType=free&cboard_no=${boardFreeContents.cboard_no}">
-						    <button class="btn bfcModify" id="bfcModify">수정</button>
-						</a>
                     </c:if>
-
+			</div>
                         <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
-                    <script>
-                        function goBack() {
-                            window.history.back();
-                        }
-                    </script>
                     
             </div>
             </section>

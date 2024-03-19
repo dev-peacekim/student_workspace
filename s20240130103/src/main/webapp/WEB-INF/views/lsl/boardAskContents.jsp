@@ -5,16 +5,18 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>글쓰기</title> <!-- 페이지 제목은 변경하지 않았습니다. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-<!-- Google Fonts -->
  
+ 
+ <title>Blueberry</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+
+	<!-- Favicons -->
+ <link href="assets/img/blueberry-favicon.png" rel="icon">
+ <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
     <!-- Google Fonts -->
   	<link href="https://fonts.gstatic.com" rel="preconnect">
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -44,7 +46,10 @@ window.onload = function() {
     
 }
 
-
+function goBack() {
+    window.history.back();
+}
+ 
 </script>
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -68,9 +73,8 @@ window.onload = function() {
         <h1>게시판</h1> 
         <nav style="--bs-breadcrumb-divider: '-';">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="main">Home</a></li>
-                <li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-                <li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+         <li class="breadcrumb-item"><a href="boardAsk">공유 게시판</a></li>
+                <li class="breadcrumb-item">질문 게시판</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -112,20 +116,16 @@ window.onload = function() {
 			    		<div class="file-container">
 			        	<a href="boardAskFileDownload?cboard_file_name=${boardAskFile.cboard_file_name }&cboard_file_user_name=${boardAskFile.cboard_file_user_name}" target="_blank" class="file-link">${boardAskFile.cboard_file_user_name}</a>
 			        	<i class="bi bi-download file-download-icon"></i>
-			    </div>
-			</c:forEach>
+			   		 </div>
+				</c:forEach>
                     </div>
                 </div>
-            </div>
-
-          
-
+            </div>	
           <section class="community-post-answer">
             <div class="answer-info-header">
                 <div class="answer-info-title">
                     댓글 <span class="answer-info-title-count">${boardReplyCnt}</span>
                 </div>
-                
                 
                 <div class="boardPostComment">
 						<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}" /> 
@@ -152,29 +152,23 @@ window.onload = function() {
                  <!-- 댓글 리스트 -->
 				<div id="boardReplyForm">
 					<!-- ajax 비동기 갱신 -->
-				
             </div>
         </section>
-        
-			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">
-             <form id="deleteForm" action="/deleteAskBoard" method="post">
+        <div class="btnBox">
+			  <c:if test="${sessionScope.user_no eq boardAskContents.user_no}">             
+                        <a href="boardFreeModify?boardType=ask&cboard_no=${boardAskContents.cboard_no}" class="badge bg-light text-dark">
+						    <i class="bi bi-highlighter"></i>수정</a>
+                    <form id="deleteForm" action="/deleteAskBoard" method="post">
 			 	 	  	<input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}">
 			   			 <input type="hidden" name="user_no" value="${boardAskContents.user_no}">
-			    		<button type="submit" class="btn bfcDelete">삭제</button>
-				</form>
-                        <a href="boardFreeModify?boardType=ask&cboard_no=${boardAskContents.cboard_no}">
-						    <button class="btn bacModify" id="bacModify">수정</button>
-						</a>
+			    		
+			    		<button type="submit" class="badge bg-light text-dark"><i class="bi bi-trash"></i> 삭제</button>
+			   </form>
+                    
                     </c:if>
-
+			</div>
                         <button type="button" class="btn bacList" onclick="goBack()">목록</button>
-                    <script>
-                        function goBack() {
-                            window.history.back();
-                        }
-                    </script>
-                    
-                    
+                               
             </div>
             </section>
 </main>

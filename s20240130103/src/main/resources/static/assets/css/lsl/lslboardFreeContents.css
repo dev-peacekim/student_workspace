@@ -81,6 +81,10 @@
 	margin-bottom: 0px;
 }
 
+
+
+
+
 /*--------------------------------------------------------------
 # community-post-body
 --------------------------------------------------------------*/
@@ -142,6 +146,23 @@
 
 .btn-container form {
 	margin-left: 10px;
+}
+
+.btnBox {
+	position:absolute;
+	top: 60px;
+	right: 30px;
+	width: 150px;
+	height: 70px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-left: auto;
+	font-size: 1.2rem;
+}
+
+.badge {
+	border: none;
 }
 
 
@@ -293,21 +314,6 @@
 	
 }
 
-.btn.bacDelete {
-	position: absolute;
-	margin-top: 20px;
-	width: 70px;
-	right: 180px;
-	bottom: 10px;
-}
-.btn.bacModify {
-	position: absolute;
-	margin-top: 20px;
-	width: 70px;
-	right: 100px;
-	bottom: 10px;
-	
-}
 .btn.bacList {
 	position: absolute;
 	margin-top: 20px;
@@ -354,6 +360,7 @@
 	margin-left: -55px;
 	width: 10%;
 	height: 10%;
+	border: none !important;
 }
 .re-btn-container .btn.brDelete {
     position: absolute;
@@ -380,10 +387,12 @@
 .re-btn-container .btn.brBtn {
 	position: absolute;
 	margin-top : 15px;
-	margin-right: -140px;
+	margin-right: -120px;
 	width: 36px;
-	
+	color: black;
+	background-color: white;
 } 
+
 
 .btn.brSave {
 	position: absolute;

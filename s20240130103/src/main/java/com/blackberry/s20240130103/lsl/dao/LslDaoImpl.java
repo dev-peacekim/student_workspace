@@ -89,7 +89,7 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	@Override
-	public int totalBoardSearchAsk(LslBoardComm lslBoardComm) {
+	public int totalBoardSearchAsk(LslBoardComm lslBoardComm ) {
 		int totalBoardSearchAsk = session.selectOne("sltotalBoardSearchAsk", lslBoardComm);
 		return totalBoardSearchAsk;
 	}

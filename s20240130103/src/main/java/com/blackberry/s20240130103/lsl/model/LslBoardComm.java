@@ -41,6 +41,7 @@ public class LslBoardComm {
 	// 조회용
 	private String search;
 	private String keyword;
+	private String type;
 	private String pageNum;
 
 	// Page 정보

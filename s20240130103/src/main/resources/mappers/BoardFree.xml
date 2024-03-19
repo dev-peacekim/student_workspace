@@ -42,9 +42,16 @@ SELECT *
 		AND bc.COMM_MID = 20
 		AND bc.COMM_BIG = 300
 		AND bc.CBOARD_DELETE_CHK = 0
-		AND (CBOARD_TITLE LIKE '%' || #{keyword} || '%'
-		OR CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
-		OR USER_NIC LIKE '%' || #{keyword} || '%')
+		AND (
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
+	        					OR bc.cboard_title LIKE '%' || #{keyword} || '%' 
+	        					OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'writer' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'titleContent' AND (bc.cboard_title LIKE '%' || #{keyword} || '%' 
+	        							OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
+	    )
 	</select>
 
 	<select id="slboardFreeSearch" parameterType="LslBoardComm"
@@ -60,10 +67,15 @@ SELECT *
         AND bc.COMM_BIG = 300
         AND bc.CBOARD_DELETE_CHK = 0
         AND (
-            bc.CBOARD_TITLE LIKE '%' || #{keyword} || '%'
-            OR bc.CBOARD_CONTENT LIKE '%' || #{keyword} || '%'
-            OR u.USER_NIC LIKE '%' || #{keyword} || '%'
-        )
+	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
+	        					OR bc.cboard_title LIKE '%' || #{keyword} || '%' 
+	        					OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
+	        OR
+	        (#{type} = 'writer' AND u.user_nic LIKE '%' || #{keyword} || '%')
+	        OR
+	        (#{type} = 'titleContent' AND (bc.cboard_title LIKE '%' || #{keyword} || '%' 
+	        							OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
+	    )
         GROUP BY bc.CBOARD_NO, bc.CBOARD_TITLE, bc.CBOARD_CONTENT,
         bc.CBOARD_VIEWCNT, bc.CBOARD_DATE, bc.USER_NO, bc.CBOARD_DELETE_CHK,
         bc.COMM_BIG, bc.COMM_MID, bc.COMM_BIG2, bc.COMM_MID2,

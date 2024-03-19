@@ -25,6 +25,8 @@ public interface LslService {
 	// 게시판 검색 
 	int totalBoardSearchFree(LslBoardComm lslBoardComm);
 	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm);
+	
+	
 	int totalBoardSearchAsk(LslBoardComm lslBoardComm);
 	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
 

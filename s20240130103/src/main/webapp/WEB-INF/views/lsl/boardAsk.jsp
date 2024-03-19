@@ -37,9 +37,6 @@
 
 <!-- 헤더, 푸터, 사이드바 css -->
 
-
-
-
 <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -67,11 +64,11 @@
 	<!-- ======= Page Title ======= -->
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>자유 질문 게시판</h1>
+			<h1>공유 게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="boardFree">FREE</a></li>
-					<li class="breadcrumb-item"><a href="boardAsk">ASK</a></li>
+					<li class="breadcrumb-item">공유 게시판</li>
+					<li class="breadcrumb-item">질문 게시판</li>
 				</ol>
 			</nav>
 		</div>
@@ -85,7 +82,12 @@
 						<!-- Search Bar -->
 						
 					
-							<form action="boardAskSearch" class="search-form d-flex align-items-center">
+							<form action="boardAskSearch" class="search-form d-flex align-items-center">						
+							<select class="form-select" id ="searchSelect" name="type">
+				                <option value="all">전체</option>
+				                <option value="writer">작성자</option>
+				                <option value="titleContent">제목+내용</option>
+				            </select>
 								<div class="search-bar" >
 								<input type="text" name="keyword" placeholder="키워드를 입력하세요" title="Enter search keyword">
 								<button type="submit" title="Search">
@@ -174,9 +176,7 @@
 	<%@ include file="../footer.jsp"%>
 	<!-- End Footer -->
 
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

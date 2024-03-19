@@ -1,14 +1,15 @@
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
 
 /* Card */
-
 .card {
-    border: none;
-    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-    min-width: 660px !important;
+	border: none;
+	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	min-width: 660px !important;
 }
-.card-header,
-.card-footer {
+
+.card-header, .card-footer {
 	border-color: #ebeef4;
 	background-color: #fff;
 	color: #798eb3;
@@ -16,7 +17,7 @@
 }
 
 .card-title {
-	padding-right:15px;
+	padding-right: 15px;
 	margin-bottom: 40px;
 	font-size: 1.5rem;
 	font-weight: bold;
@@ -31,11 +32,11 @@
 }
 
 .card-body {
-    position: relative;
-    padding: 1rem;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
+	position: relative;
+	padding: 1rem;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
 }
 
 .card-img-overlay {
@@ -52,19 +53,21 @@
 	display: inline-block;
 	border: none;
 	background-color: #0d6dfd;
-	color:  white;
-	
+	color: white;
 }
+
 .btn:hover {
-    background-color: #0b5ed7;
-    color: white;
+	background-color: #0b5ed7;
+	color: white;
 }
 
 .btn.baWrite {
-	position:absolute;
-	width: 80px;
-	right: 20px;
+	position: absolute;
+	width: 70px;
+	right: 30px;
 	bottom: 20px;
+	font-size: 0.9rem;
+	margin-bottom: 15px;
 }
 
 /*--------------------------------------------------------------
@@ -75,32 +78,30 @@
 	padding-top: 10px;
 	font-family: 'NanumSquare', sans-serif;
 	position: absolute; /* 절대 위치로 설정 */
-    top: 30px; /* 상단에 배치 */
-    right: -40px; /* 우측 여백 설정 */
-    margin-bottom: 40px; /* 서치바 아래 여백 설정 */
-    
+	top: 30px; /* 상단에 배치 */
+	right: -40px; /* 우측 여백 설정 */
+	margin-bottom: 40px; /* 서치바 아래 여백 설정 */
 }
 
-@media (max-width : 1199px) {
-.search-bar {
-	position: fixed;
-	top: 50px;
-	left: 0;
-	right: 0;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
-	background: white;
-	z-index: 9999;
-	transition: 0.3s;
-	visibility: hidden;
-	opacity: 0;
+@media ( max-width : 1199px) {
+	.search-bar {
+		position: fixed;
+		top: 50px;
+		left: 0;
+		right: 0;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
+		background: white;
+		z-index: 9999;
+		transition: 0.3s;
+		visibility: hidden;
+		opacity: 0;
 	}
-
-.search-bar-show {
-	top: 60px;
-	visibility: visible;
-	opacity: 1;
+	.search-bar-show {
+		top: 60px;
+		visibility: visible;
+		opacity: 1;
 	}
 }
 
@@ -119,8 +120,7 @@
 	width: 300px;
 }
 
-.search-form input:focus,
-.search-form input:hover {
+.search-form input:focus, .search-form input:hover {
 	outline: none;
 	box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
 	border: 1px solid rgba(1, 41, 112, 0.3);
@@ -137,18 +137,25 @@
 	color: #012970;
 }
 
+#searchSelect {
+	position: absolute;
+	height: 36px;
+	margin-bottom:51px;
+	right: 320px;
+	width: 140px;
+}
+
+
 /*--------------------------------------------------------------
 # list Table
 --------------------------------------------------------------*/
 a:hover, a:link, a:active, a:visited {
-	color: black ;
-    text-decoration: none; 
+	color: black;
+	text-decoration: none;
 }
 
-
 .breadcrumb-item {
-	font-size: 16px;
-	
+	font-size: 14px;
 }
 
 .page-link {
@@ -156,28 +163,24 @@ a:hover, a:link, a:active, a:visited {
 }
 
 tbody th, tbody td {
-    height: 30px;
-    line-height: 30px;
+	height: 30px;
+	line-height: 30px;
 }
-
-.list {
-    border-top: 2px solid #ebeef4; /* 테두리 스타일 및 색상을 지정하세요 */
-}
-
 
 
 /*게시판 리스트 크기 조정 */
-.list .title-column {
-	background-color: #4166ad;
+
+.list {
+	border-top: 2px solid #ebeef4;
+	border-left: 1px solid #dee2e6;
+	border-right: 1px solid #dee2e6;
 }
 
-.list .short-column {
-	background-color: #4166ad;
+
+th[scope="row"] {
+    font-weight: normal;
 }
-.list .board-number {
-	background-color: #4166ad;
-	
-}
+
 
 .table th.title-column {
 	width: 35%;
@@ -190,8 +193,7 @@ tbody th, tbody td {
 	text-overflow: ellipsis;
 }
 
-
 .listTbody tr {
-    border-left: 1px solid #dee2e6;
-    border-right: 1px solid #dee2e6;
+	border-left: 1px solid #dee2e6;
+	border-right: 1px solid #dee2e6;
 }

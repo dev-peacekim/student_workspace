@@ -5,15 +5,16 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>글 수정하기</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- jQuery CDN -->
-<meta content="" name="description">
-<meta content="" name="keywords">
-<!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<title>Blueberry</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+
+	<!-- Favicons -->
+ <link href="assets/img/blueberry-favicon.png" rel="icon">
+ <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
   	<link href="https://fonts.gstatic.com" rel="preconnect">

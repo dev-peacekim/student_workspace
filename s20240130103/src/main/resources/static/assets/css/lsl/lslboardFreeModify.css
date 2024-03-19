@@ -76,7 +76,6 @@
 }
 
 
-
 .upload-title {
     margin: 10px 0;
     height: 85px;
@@ -85,12 +84,22 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-     overflow-y: auto; /* 수직 스크롤을 추가합니다. */
+     overflow-y: auto; 
 }
 
 .upload-title div {
 margin-bottom: -5px;
 margin-left: 10px;
+}
+
+.fileName  div {
+	margin: 10px 0;
+	height: 85px;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	overflow-y: auto;
 }
 
 #formFile-box {

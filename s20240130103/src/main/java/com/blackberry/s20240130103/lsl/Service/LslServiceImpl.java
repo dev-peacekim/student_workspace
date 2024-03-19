@@ -127,7 +127,7 @@ public class LslServiceImpl implements LslService {
 
 	// 질문 게시판 리스트 검색 카운트
 	@Override
-	public int totalBoardSearchAsk(LslBoardComm lslBoardComm) {
+	public int totalBoardSearchAsk(LslBoardComm lslBoardComm ) {
 		int totalBoardSearchAsk = ld.totalBoardSearchAsk(lslBoardComm);
 		return totalBoardSearchAsk;
 	}

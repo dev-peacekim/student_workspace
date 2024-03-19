@@ -61,18 +61,35 @@ public class LslController {
 	
 	// 자유 게시판 검색
 	@RequestMapping(value = "boardFreeSearch")
-	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model) {
+	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword") String keyword) {
 		System.out.println("LslController boardFreeSearch Start...");
+		System.out.println("Search Type : " + type);
+		System.out.println("Search Keyword : " + keyword );
 		
-		int totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm);
+		int totalBoardFree = 0;
+		int totalBoardSearchFree =0;
 		System.out.println("LslController totalBoardFreeList ->" + totalBoardSearchFree);
 		System.out.println("test : " + lslBoardComm);
+		
+		lslBoardComm.setKeyword(keyword);
+		lslBoardComm.setType(type);
+		
+		
+		if(keyword != null && !keyword.isEmpty()) {
+			totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm);
+		}else {
+			totalBoardFree = ls.totalBoardFree();
+		}
+
+		
 		// paging 작업
 		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardSearchFree, lslBoardComm.getCurrentPage());
 		lslBoardComm.setStart(bfpage.getStart());
 		lslBoardComm.setEnd(bfpage.getEnd());
 		System.out.println(lslBoardComm);
 
+		
+		
 		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm);
 		System.out.println("LslController boardFreeList boardFreeSearch.size() ->" + boardFreeList.size());
 
@@ -231,11 +248,24 @@ public class LslController {
 	
 	// 질문 게시판 검색
 	@RequestMapping(value = "boardAskSearch")
-	public String boardAskSearch(LslBoardComm lslBoardComm, Model model) {
+	public String boardAskSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword") String keyword) {
 		System.out.println("LslController boardAskList Start...");
-		int totalBoardSearchAsk = ls.totalBoardSearchAsk(lslBoardComm);
-		System.out.println("LslController totalBoardAsk ->" + totalBoardSearchAsk);
-
+		
+	
+		System.out.println("Search Type : " + type);
+		System.out.println("Search Keyword : " + keyword );
+		
+		int totalBoardAsk = 0;
+		int totalBoardSearchAsk =0;
+		
+		lslBoardComm.setKeyword(keyword);
+		lslBoardComm.setType(type);
+	
+		if(keyword != null && !keyword.isEmpty()) {
+			totalBoardSearchAsk = ls.totalBoardSearchAsk(lslBoardComm);
+		}else {
+			totalBoardAsk = ls.totalBoardAsk();
+		}
 		// paging 작업
 		BoardFreeAskPaging bapage = new BoardFreeAskPaging(totalBoardSearchAsk, lslBoardComm.getCurrentPage());
 		lslBoardComm.setStart(bapage.getStart());
