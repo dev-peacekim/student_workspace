@@ -35,56 +35,70 @@ SELECT *
 ]]>
 	</select>
 
-	<select id="sltotalBoardSearchAsk" resultType="int">
+	<select id="sltotalBoardSearchAsk" parameterType="java.util.Map" resultType="int">
 		SELECT count(*)
-		FROM BOARD_COMM bc , USERS u
+		FROM BOARD_COMM bc, USERS u
 		WHERE bc.USER_NO = u.USER_NO
-		AND
-		bc.COMM_MID = 10
+		AND bc.COMM_MID = 10
 		AND bc.COMM_BIG = 300
 		AND bc.CBOARD_DELETE_CHK = 0
 		AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR bc.cboard_title LIKE '%' || #{keyword} || '%' 
-	        					OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
-	        OR
-	        (#{type} = 'writer' AND u.user_nic LIKE '%' || #{keyword} || '%')
-	        OR
-	        (#{type} = 'titleContent' AND (bc.cboard_title LIKE '%' || #{keyword} || '%' 
-	        							OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
-	    )
+		    (#{type} = 'all' AND (
+		        u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+		        OR bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+		        OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+		    ))
+    OR
+    (#{type} = 'writer' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
+    OR
+    (#{type} = 'titleContent' AND (
+        bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+        OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+    ))
+)
+
 	</select>
 
 
 	<select id="slboardAskSearch" parameterType="LslBoardComm"
 		resultType="LslBoardComm">
-		SELECT * FROM (
+		 SELECT *
+FROM (
     SELECT rownum rn, a.*
     FROM (
-        SELECT bc.*, u.user_nic, COUNT(bcr.CREPLY_NO) creply_cnt
-        FROM BOARD_COMM bc
-        JOIN users u ON bc.USER_NO = u.USER_NO
-        LEFT JOIN BOARD_COMM_REPLY bcr ON bc.CBOARD_NO = bcr.CBOARD_NO AND bcr.CREPLY_DELETE_CHK = 0
-        WHERE bc.COMM_MID = 10
-        AND bc.COMM_BIG = 300
-        AND bc.CBOARD_DELETE_CHK = 0
-        AND (
-	        (#{type} = 'all' AND (u.user_nic LIKE '%' || #{keyword} || '%' 
-	        					OR bc.cboard_title LIKE '%' || #{keyword} || '%' 
-	        					OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
-	        OR
-	        (#{type} = 'writer' AND u.user_nic LIKE '%' || #{keyword} || '%')
-	        OR
-	        (#{type} = 'titleContent' AND (bc.cboard_title LIKE '%' || #{keyword} || '%' 
-	        							OR bc.cboard_content LIKE '%' || #{keyword} || '%'))
-	    )
-        GROUP BY bc.CBOARD_NO, bc.CBOARD_TITLE, bc.CBOARD_CONTENT,
-        bc.CBOARD_VIEWCNT, bc.CBOARD_DATE, bc.USER_NO, bc.CBOARD_DELETE_CHK,
-        bc.COMM_BIG, bc.COMM_MID, bc.COMM_BIG2, bc.COMM_MID2,
-        bc.COMM_UPDATE_DATE, u.USER_Nic
-        ORDER BY bc.CBOARD_DATE DESC
+        SELECT 
+            bc.*, 
+            u.user_nic, 
+            COUNT(bcr.CREPLY_NO) OVER (PARTITION BY bc.CBOARD_NO) creply_cnt
+        FROM 
+            BOARD_COMM bc
+            JOIN USERS u ON bc.USER_NO = u.USER_NO
+            LEFT JOIN BOARD_COMM_REPLY bcr 
+                ON bc.CBOARD_NO = bcr.CBOARD_NO 
+                AND bcr.CREPLY_DELETE_CHK = 0
+        WHERE 
+            bc.COMM_MID = 10
+            AND bc.COMM_BIG = 300
+            AND bc.CBOARD_DELETE_CHK = 0
+            AND (
+                #{type} = 'all' AND (
+                    u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+                    OR bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+                )
+                OR
+                #{type} = 'writer' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+                OR
+                #{type} = 'titleContent' AND (
+                    bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+                )
+            )
+        ORDER BY bc.cboard_no DESC
     ) a
-) WHERE rn BETWEEN #{start} AND #{end}
+)  
+WHERE rn BETWEEN #{start} AND #{end}
+
 	</select>
 
 	<select id="slboardAskContents" parameterType="int"

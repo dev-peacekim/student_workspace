@@ -60,42 +60,33 @@ public class LslController {
 	
 	
 	// 자유 게시판 검색
-	@RequestMapping(value = "boardFreeSearch")
-	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword") String keyword) {
+	@GetMapping(value = "boardFreeSearch")
+	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword", required = false) String keyword) {
 		System.out.println("LslController boardFreeSearch Start...");
+		
 		System.out.println("Search Type : " + type);
 		System.out.println("Search Keyword : " + keyword );
 		
-		int totalBoardFree = 0;
-		int totalBoardSearchFree =0;
+		// 검색 게시글 수 가져오기 
+		int totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm, keyword, type);
 		System.out.println("LslController totalBoardFreeList ->" + totalBoardSearchFree);
-		System.out.println("test : " + lslBoardComm);
-		
-		lslBoardComm.setKeyword(keyword);
-		lslBoardComm.setType(type);
-		
-		
-		if(keyword != null && !keyword.isEmpty()) {
-			totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm);
-		}else {
-			totalBoardFree = ls.totalBoardFree();
-		}
+
 
 		
 		// paging 작업
-		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardSearchFree, lslBoardComm.getCurrentPage());
-		lslBoardComm.setStart(bfpage.getStart());
-		lslBoardComm.setEnd(bfpage.getEnd());
-		System.out.println(lslBoardComm);
 
+		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardSearchFree, lslBoardComm.getCurrentPage());
 		
 		
-		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm);
+		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm,keyword, type, bfpage.getStart(), bfpage.getEnd() );
 		System.out.println("LslController boardFreeList boardFreeSearch.size() ->" + boardFreeList.size());
 
+		
 		model.addAttribute("totalBoardSearchFree", totalBoardSearchFree);
 		model.addAttribute("bfpage", bfpage);
 		model.addAttribute("boardFreeList", boardFreeList);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("type", type);
 
 		return "lsl/boardFree";
 	}
@@ -247,7 +238,7 @@ public class LslController {
 	
 	
 	// 질문 게시판 검색
-	@RequestMapping(value = "boardAskSearch")
+	@GetMapping(value = "boardAskSearch")
 	public String boardAskSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword") String keyword) {
 		System.out.println("LslController boardAskList Start...");
 		
@@ -255,30 +246,26 @@ public class LslController {
 		System.out.println("Search Type : " + type);
 		System.out.println("Search Keyword : " + keyword );
 		
-		int totalBoardAsk = 0;
-		int totalBoardSearchAsk =0;
 		
 		lslBoardComm.setKeyword(keyword);
 		lslBoardComm.setType(type);
 	
-		if(keyword != null && !keyword.isEmpty()) {
-			totalBoardSearchAsk = ls.totalBoardSearchAsk(lslBoardComm);
-		}else {
-			totalBoardAsk = ls.totalBoardAsk();
-		}
+		
+		int totalBoardSearchAsk = ls.totalBoardSearchAsk(lslBoardComm, keyword, type);
+		
 		// paging 작업
 		BoardFreeAskPaging bapage = new BoardFreeAskPaging(totalBoardSearchAsk, lslBoardComm.getCurrentPage());
-		lslBoardComm.setStart(bapage.getStart());
-		lslBoardComm.setEnd(bapage.getEnd());
-		System.out.println(lslBoardComm);
+		
 
 		// 질문 게시판 리스트
-		List<LslBoardComm> boardAskList = ls.boardAskSearch(lslBoardComm);
+		List<LslBoardComm> boardAskList = ls.boardAskSearch(lslBoardComm, keyword, type, bapage.getStart(), bapage.getEnd());
 		System.out.println("LslController boardFreeList.size() ->" + boardAskList.size());
 
 		model.addAttribute("totalBoardSearchAsk", totalBoardSearchAsk);
 		model.addAttribute("boardAskList", boardAskList);
 		model.addAttribute("bapage", bapage);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("type", type);
 
 		return "lsl/boardAsk";
 	}

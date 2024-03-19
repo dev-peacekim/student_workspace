@@ -2,7 +2,9 @@ package com.blackberry.s20240130103.lsl.dao;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -83,14 +85,22 @@ public class LslDaoImpl implements LslDao {
 	
 	// 게시판 검색 토탈 카운트 
 	@Override
-	public int totalBoardSearchFree(LslBoardComm lslBoardComm) {
-		int totalBoardSearchFree = session.selectOne("sltotalBoardSearchFree", lslBoardComm);
+	public int totalBoardSearchFree(LslBoardComm lslBoardComm, String keyword, String type) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("keyword", keyword);
+		param.put("type", type);
+		
+		int totalBoardSearchFree = session.selectOne("sltotalBoardSearchFree", param);
+		
 		return totalBoardSearchFree;
 	}
 
 	@Override
-	public int totalBoardSearchAsk(LslBoardComm lslBoardComm ) {
-		int totalBoardSearchAsk = session.selectOne("sltotalBoardSearchAsk", lslBoardComm);
+	public int totalBoardSearchAsk(LslBoardComm lslBoardComm, String keyword, String type) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("keyword", keyword);
+		param.put("type", type);
+		int totalBoardSearchAsk = session.selectOne("sltotalBoardSearchAsk", param);
 		return totalBoardSearchAsk;
 	}
 
@@ -99,12 +109,17 @@ public class LslDaoImpl implements LslDao {
 	
 	// 게시판 검색
 	@Override
-	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
+	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm, String keyword, String type, int start, int end) {
 		List<LslBoardComm> boardFreeSearch = null;
 		System.out.println("LslDaoImpl boardFreeSearch Start...");
 		
 		try {
-			boardFreeSearch = session.selectList("slboardFreeSearch", lslBoardComm);
+			Map<String, Object> param = new HashMap<>();
+			param.put("keyword", keyword);
+			param.put("type", type);
+			param.put("start", start);
+			param.put("end", end);
+			boardFreeSearch = session.selectList("slboardFreeSearch", param);
 		} catch (Exception e) {
 			System.out.println("LslDaoImpl boardFreeSearch Exception ->" + e.getMessage());
 		}
@@ -112,12 +127,17 @@ public class LslDaoImpl implements LslDao {
 	}
 
 	@Override
-	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
+	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm,String keyword, String type, int start, int end ) {
 		List<LslBoardComm> boardAskSearch = null;
 		System.out.println("LslDaoImpl boardAskSearch Start...");
 		
 		try {
-			boardAskSearch = session.selectList("slboardAskSearch", lslBoardComm);
+			Map<String, Object> param = new HashMap<>();
+			param.put("keyword", keyword);
+			param.put("type", type);
+			param.put("start", start);
+			param.put("end", end);
+			boardAskSearch = session.selectList("slboardAskSearch", param);
 		} catch (Exception e) {
 			System.out.println("LslDaoImpl boardAskSearch Exception ->" + e.getMessage());
 		}
