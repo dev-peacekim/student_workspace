@@ -63,7 +63,7 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">프로젝트</a></li>
-            <li class="breadcrumb-item active">프로젝트 명</li>
+            <li class="breadcrumb-item active">프로젝트 일정</li>
           </ol>
         </nav>
       </div>
@@ -80,11 +80,11 @@
           <div class="top-btn">
             <form action="detailProject" method="get">
 				<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-				<button type="submit" class="project-board-btn btn btn-secondary">프로젝트홈</button>
+				<button type="submit" class="project-board-btn btn btn-secondary">프로젝트 홈</button>
 			</form>
 			<form action="boardProject" method="get">
 				<input class="project_no" type="hidden" name="project_no" value="${project_no }" />
-				<button type="submit" class="project-board-btn btn btn-secondary">공유게시판</button>			
+				<button type="submit" class="project-board-btn btn btn-secondary">공유 게시판</button>			
 			</form>
             <form action="proejctSchedule" method="get">
               <input
