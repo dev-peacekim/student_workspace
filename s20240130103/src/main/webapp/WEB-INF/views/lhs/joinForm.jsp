@@ -102,7 +102,7 @@
                     
                     <div class="col-12">
                       <label for="nicname" class="form-label">닉네임</label>
-                      <input type="text" name="user_nic" class="form-control" required>
+                      <input type="text" name="user_nic" class="form-control" maxlength="10" placeholder="닉네임은 최대 한글10글자입니다" required>
                     </div>
                     
                     <div class="col-12">
