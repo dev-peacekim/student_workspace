@@ -14,9 +14,9 @@ function addressList(){
 		type : 'get',
 		url : '/addressList',
 		success:function(list){
-			
 			for(const content of list){
 				let profileName;
+				let score = Math.floor(content.user_score);
 				if(content.user_profile === null){
 					profileName = "987654321487321564defaultImg.jpg";
 				}else{
@@ -33,7 +33,7 @@ function addressList(){
 			                </div>
 			              </div>
 			              <div class="score-message">
-			              	<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
+			              	<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${score }</div>
 			                <form action="msgWrite" method="get"> 
 			                  <input type="hidden" name="user_no" value="${content.user_no }">
 			                  <button type="submit" class="rounded-circle message">
@@ -68,6 +68,7 @@ function requestList(){
 			console.log(list);
 			for(const content of list){
 				let profileName;
+				let score = Math.floor(content.user_score);
 				if(content.user_profile === null){
 					profileName = "987654321487321564defaultImg.jpg";
 				}else{
@@ -84,7 +85,7 @@ function requestList(){
 			                </div>
 			              </div>
 			              <div class="score-message">
-			                <div class="user-score rounded-circle justify-content-center">${content.user_score }</div>
+			                <div class="user-score rounded-circle justify-content-center">${score }</div>
 			                <div> 
 				                <a href="/addressRequestDelete?re_user_no=${content.user_no}" style="color:white;">
 				                  <button type="button" class="rounded-circle message">
@@ -112,6 +113,7 @@ function responseList(){
 			console.log(list);
 			for(const content of list){
 				let profileName;
+				let score = Math.floor(content.user_score);
 				if(content.user_profile === null){
 					profileName = "987654321487321564defaultImg.jpg";
 				}else{
@@ -130,7 +132,7 @@ function responseList(){
 			              </div>
 			              <div class="score-message">
 			              	<div> 
-			              		<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${content.user_score }</div>
+			              		<div class="user-score rounded-circle justify-content-center" style="margin-left: 20px;">${score }</div>
 			                </div>
 			                <div> 
 				                <a href="/addressResponsePermit?user_no=${content.user_no}" style="color:white;">

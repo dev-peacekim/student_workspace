@@ -77,7 +77,7 @@
 							<form action="eval" method="post">
 								<input type="hidden" name="userListSize" value="${userListSize }">
 								<input type="hidden" name="project_no" value="${project_no }">
-								<div>
+								<div class="eval-group-box">
 									<c:forEach var="user" items="${userList }" varStatus="loop">
 										<div class="eval-box">
 											<div class="user-img-name">

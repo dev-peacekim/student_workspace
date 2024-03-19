@@ -27,7 +27,7 @@
 	font-family:'NanumSquare', sans-serif;
 }
 
-.eval-group form> div:first-child {
+.eval-group .eval-group-box {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
