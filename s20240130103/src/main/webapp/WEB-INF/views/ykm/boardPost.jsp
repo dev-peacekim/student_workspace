@@ -44,10 +44,9 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-<!-- 댓글, 대댓글 comment JS File -->
-<script defer src="assets/js/ykm/comment.js"></script>
-<!-- 삭제 확인 팝업 JS File -->
-<script defer src="assets/js/ykm/confirmPopup.js"></script>
+<!-- 댓글, 대댓글, 삭제 확인 팝업 JS File -->
+<script defer src="assets/js/ykm/ykmBoard.js"></script>
+
 <!-- 화면 css -->
 <link href="assets/css/ykm/boardPost.css" rel="stylesheet">
 
@@ -72,7 +71,6 @@
 			<h1>공모전 스터디 게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="main">Home</a></li>
 					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
 					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
 				</ol>
@@ -80,17 +78,23 @@
 		</div>
 		<!-- 게시판 페이지 본문 -->
 		<section class="community-post-detail">
-			<div class="row card card-body">
+			<div class="row card card-body"> 
 				<div class="card-header community-post-header">
 					<div class="sider-header">
 						<h3 class="card-title post-title">${getPost.cboard_title}</h3>
 						<div class="sider_right">
-							<button class="recruitBtn" name="comm_mid2"
-							<c:if test="${sessionScope.user_no == getPost.user_no}">
-								onclick="updateRecruitment(${getPost.cboard_no}, ${getPost.comm_mid2})"
-							</c:if> value="${getPost.comm_mid2}">
-								${getPost.comm_mid2 == 10 ? '모집 중' : '모집 완료'}
-							</button>
+						<input type="hidden" name="cboard_no" value="${getPost.cboard_no}" />
+						<input type="hidden" name="comm_mid2" value="${getPost.comm_mid2}" />
+							<c:if test="${sessionScope.user_no ne getPost.user_no}">
+								<button class="recruitBtn" name="comm_mid2" value="${getPost.comm_mid2}" disabled>
+									${getPost.comm_mid2 == 10 ? '모집 중' : '모집 완료'}
+								</button>
+							</c:if>
+							<c:if test="${sessionScope.user_no eq getPost.user_no}">
+								<button class="recruitBtn" name="comm_mid2" value="${getPost.comm_mid2}">
+									${getPost.comm_mid2 == 10 ? '모집 중' : '모집 완료'}
+								</button>
+							</c:if>
 							<c:if test="${sessionScope.user_no == getPost.user_no}">							
 								<div class="tooltip">모집완료 상태로 바꾸려면 클릭</div>
 							</c:if>

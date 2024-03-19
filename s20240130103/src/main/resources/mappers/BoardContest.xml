@@ -22,22 +22,32 @@
 	</select>
 	
 	<select id="getCntPostList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
-		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
-			       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
-	 		FROM BOARD_COMM B, USERS U
-	 		WHERE B.COMM_BIG=200 AND B.COMM_MID = 10
-	 			AND B.USER_NO = U.USER_NO
-	 		<choose>
-				<when test="type == 'TC'">
-					AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
-				</when>
-				<when test="type == 'W'">
-					AND U.USER_NIC = #{keyword}
-				</when>
-				<otherwise>
-				</otherwise>
-			</choose>
-			ORDER BY B.CBOARD_DATE DESC
+		SELECT 	a.*
+		FROM(SELECT rownum rn, a.*
+		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+			  (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
+		 		FROM BOARD_COMM B, USERS U
+		 		WHERE B.COMM_BIG=200 
+		 		AND B.COMM_MID = 10
+		 		AND B.USER_NO = U.USER_NO
+		 		<choose>
+		 			<when test='type == "A"'>
+		 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
+		                    OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		                    OR U.USER_NIC = #{keyword}
+		                    )
+			 		</when>
+					<when test='type == "TC"'>
+						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+					</when>
+					<when test='type == "W"'>
+						AND U.USER_NIC = #{keyword}
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				ORDER BY B.CBOARD_DATE DESC) a)a
+		WHERE rn BETWEEN #{start} AND ${end}
 	</select>
 	
 	<insert id="ykmWriteCntPost" parameterType="YkmBoardComm" useGeneratedKeys="true" keyColumn="cboard_no" keyProperty="cboard_no">
@@ -55,4 +65,33 @@
 								COMM_UPDATE_DATE)
 		VALUES (SEQ_BOARD_COMM.NEXTVAL, #{cboard_title}, #{cboard_content}, 0, sysdate, #{user_no}, 0, 200, 10, 0, 0, sysdate)
 	</insert>
+	
+	<!-- <select id="ykmGetCntSearchList" parameterType="ykmBoardComm" resultType="ykmBoardComm">
+		SELECT 	a.*
+		FROM(SELECT rownum rn, a.*
+		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+			  (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
+		 		FROM BOARD_COMM B, USERS U
+		 		WHERE B.COMM_BIG=200 
+		 		AND B.COMM_MID = 10
+		 		AND B.USER_NO = U.USER_NO
+		 		<choose>
+		 			<when test='type == "A"'>
+		 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
+		                    OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		                    OR U.USER_NIC = #{keyword}
+		                    )
+			 		</when>
+					<when test='type == "TC"'>
+						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+					</when>
+					<when test='type == "W"'>
+						AND U.USER_NIC = #{keyword}
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				ORDER BY B.CBOARD_DATE DESC) a)a
+		WHERE rn BETWEEN #{start} AND ${end}
+	</select> -->
 </mapper>

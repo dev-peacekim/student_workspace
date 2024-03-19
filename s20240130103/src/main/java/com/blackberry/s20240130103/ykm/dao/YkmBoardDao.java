@@ -40,23 +40,20 @@ public interface YkmBoardDao {
 
 	int countComment(int cboard_no);
 
-	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
-
 	int getTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 게시글 카운트
 
 	List<YkmBoardCommFile> getFileList(int cboard_no); // 파일 리스트 불러오기
 
-	
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 > 중복이므로 수정 필요
 
+	int getSearchCount(YkmBoardComm ykmBoardComm); // 검색 결과 게시글 조회
 
+	
 	
 	/* 공모전 게시판 */
 	List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm); // 게시판 리스트 조회
 
 	int getCntTotalCount(YkmBoardComm ykmBoardComm); // 전체 게시글 카운트
-
-	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 전체 검색
 
 	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
 
@@ -64,6 +61,7 @@ public interface YkmBoardDao {
 
 	int updateGroup(YkmBoardCommReply ykmBoardCommReply); // 같은 댓글 그룹핑
 
+	
 	
 
 }

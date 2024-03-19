@@ -79,9 +79,9 @@
 						<span>함께 성장할 공모전 팀원을 모집해보세요</span>
 					</div>
 					<div class="search-bar justify-content-end">
-						<form action="/boardCntSearch" method="POST" class="search-form d-flex align-items-center">
+						<form action="boardContest" method="GET" class="search-form d-flex align-items-center">
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
-							    <option selected="A">전체</option>
+							    <option value="A">전체</option>
 							    <option value="TC">제목+내용</option>
 							    <option value="W">작성자</option>
 							</select>
@@ -129,13 +129,13 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
-						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}"><span aria-hidden="true">«</span></a></li>
+						<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage - stuPage.pageBlock}?type=${type}?keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
 						</c:if>
 						<c:forEach var="i" begin="${stuPage.startPage}" end="${stuPage.endPage}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid2=${comm_mid2}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${i}&comm_mid2=${comm_mid2}?type=${type}?keyword=${keyword}">${i}</a></li>
 						</c:forEach>
-						<c:if test="${stuPage.startPage < stuPage.pageBlock}">
-							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}"><span aria-hidden="true">»</span></a></li>
+						<c:if test="${stuPage.endPage < stuPage.totalPages}">
+							<li class="page-item"><a class="page-link" href="/boardContent?currentPage=${stuPage.startPage + stuPage.pageBlock}?type=${type}?keyword=${keyword}"><span aria-hidden="true">»</span></a></li>
 						</c:if>
 						</ul>
 					</nav>

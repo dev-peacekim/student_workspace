@@ -117,6 +117,7 @@ a, a:hover, a:link, a:active, a:hover, a:visited {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	border-bottom: 1px solid #ebeef4; 
 }
 
 .contest-title {

@@ -10,6 +10,22 @@
 						JOIN USERS U ON U.USER_NO = B.USER_NO
 						WHERE B.COMM_BIG=200 
 						AND B.COMM_MID = 20
+				<choose>
+					<when test='type == "A"'>
+						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
+		                   OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		                   OR U.USER_NIC = #{keyword}
+		                   )
+					</when>
+				<when test='type == "TC"'>
+					AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+				</when>
+				<when test='type == "W"'>
+					AND U.USER_NIC LIKE #{keyword}
+				</when>
+				<otherwise>
+				</otherwise>
+				</choose>
 						<choose>
 			 			<when test="comm_mid2 != 99">
 			 			    AND COMM_BIG2 = 400
@@ -22,6 +38,45 @@
 						ORDER BY B.CBOARD_DATE DESC) a) a
 		WHERE a.rn BETWEEN #{start} AND #{end}
 	</select>
+	
+<!-- 	<select id="ykmGetSearchList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
+ 		select a.*
+ 		from (select rownum rn, a.*
+ 		from (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
+		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
+		 		FROM BOARD_COMM B, USERS U
+		 		WHERE B.COMM_BIG=200 AND B.COMM_MID = 20
+		 			AND B.USER_NO = U.USER_NO
+		 		<choose>
+		 			<when test='type == "A"'>
+		 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
+		                    OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		                    OR U.USER_NIC = #{keyword}
+		                    )
+		 			</when>
+					<when test='type == "TC"'>
+						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
+					</when>
+					<when test='type == "W"'>
+						AND U.USER_NIC LIKE #{keyword}
+					</when>
+					<otherwise>
+					</otherwise>
+				</choose>
+				<choose>
+				   <when test="comm_mid2 != 99">
+					    AND B.COMM_BIG2 = 400
+			 	  		AND B.COMM_MID2 = #{comm_mid2}
+		 		   </when>
+		           <otherwise>
+		               AND B.COMM_BIG2 = 400
+		           </otherwise>
+		        </choose>
+				ORDER BY B.CBOARD_DATE DESC) a) a
+		where rn between #{start} and #{end}	
+ 	</select> -->
+	
+	
 	
 	<select id="ykmGetPost" resultType="YkmBoardComm" parameterType="int">
 		SELECT B.*, U.USER_ID, U.USER_NIC
@@ -70,49 +125,38 @@
 		WHERE CBOARD_NO = #{cboard_no}
  	</update>
  	
- 	<select id="ykmGetSearchList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
- 		SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG2 ,B.COMM_MID2, U.USER_ID, U.USER_NIC,
-		       (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
- 		FROM BOARD_COMM B, USERS U
- 		WHERE B.COMM_BIG=200 AND B.COMM_MID = 20
- 			AND B.USER_NO = U.USER_NO
- 			<if test="comm_mid2 != 0">
-			AND B.COMM_MID2 = #{comm_mid2} 
-			</if>
- 		<choose>
- 			<when test="type == 'A'">
+	<!-- 스터디 게시판 전체 게시글 카운트  -->
+	<select id="ykmGetTotalCount" parameterType="YkmBoardComm" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_COMM B, USERS U
+		WHERE B.USER_NO = U.USER_NO 
+		AND B.COMM_BIG = 200
+		AND B.COMM_MID = 20
+		  <choose>
+ 			<when test='type == "A"'>
  				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
                     OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%'
                     OR U.USER_NIC = #{keyword}
                     )
  			</when>
-			<when test="type == 'TC'">
+			<when test='type == "TC"'>
 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%' OR B.CBOARD_CONTENT LIKE '%'||#{keyword}||'%')
 			</when>
-			<when test="type == 'W'">
+			<when test='type == "W"'>
 				AND U.USER_NIC = #{keyword}
 			</when>
 			<otherwise>
 			</otherwise>
 		</choose>
-		ORDER BY B.CBOARD_DATE DESC
- 	</select>
- 	
-	<!-- 스터디 게시판 전체 게시글 카운트  -->
-	<select id="ykmGetTotalCount" parameterType="YkmBoardComm" resultType="int">
-		SELECT COUNT(*)
-		FROM BOARD_COMM
-		WHERE COMM_BIG = 200
-		  AND COMM_MID = 20
 	 	  <choose>
- 			<when test="comm_mid2 != 99">
- 			    AND COMM_BIG2 = 400
- 	 	  		AND COMM_MID2 = #{comm_mid2}
-  			</when>
-            <otherwise>
-                AND COMM_BIG2 = 400
-            </otherwise>
-           </choose>
+			<when test="comm_mid2 != 99">
+			    AND B.COMM_BIG2 = 400
+	 	  		AND B.COMM_MID2 = #{comm_mid2}
+ 			</when>
+           <otherwise>
+               AND B.COMM_BIG2 = 400
+           </otherwise>
+          </choose>
 	</select>
 	
 	<insert id="ykmSaveFileList" parameterType="YkmBoardCommFile" >

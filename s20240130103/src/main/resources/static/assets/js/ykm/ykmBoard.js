@@ -1,6 +1,5 @@
 /* 댓글 REST API */
 
-
 // 세션에 저장된 유저 정보 불러오기
 let seesion_user_no, seesion_user_nic;
 
@@ -44,7 +43,6 @@ function getCommentList(cboard_no) {
 
 let currentTime;
 let commentWriter;
-let deleteCheck;
 
 // 댓글리스트 갱신
 function updateCommentView(data) {
@@ -243,6 +241,14 @@ function deleteComment(creply_no) {
 	});
 }
 
+$('.recruitBtn').on("click", function() {
+	let cboard_no = $('.recruitBtn').closest('.sider_right').find('input[name=cboard_no]').val();
+	let comm_mid2 = $('.recruitBtn').closest('.sider_right').find('input[name=comm_mid2]').val();
+	
+	
+	
+	updateRecruitment(cboard_no, comm_mid2);
+});
 
 // 모집 버튼 이벤트, 모집완료가 되면 값 변경
 function updateRecruitment(cboard_no, comm_mid2) {
@@ -257,6 +263,7 @@ function updateRecruitment(cboard_no, comm_mid2) {
 		}),
 		success: function(data) {
 			console.log('success', data);
+			$('.recruitBtn').closest('.sider_right').find('input[name=comm_mid2]').val(data.comm_mid2);
 			if (data.comm_mid2 === 20) {
 				$('.recruitBtn').text("모집 완료");
 				$('.tooltip').hide();
@@ -317,6 +324,21 @@ function writeReply(creply_no) {
 	
 }
 
-// uri에 값을 보내면 @PathVariable
-// JSON data 객체로 보낼 떈 @RequestBody
-// ex) /recruitment?cboard_no=30 이라면 @RequestParam
+/* 삭제 확인 팝업 */
+
+// 변수 선언
+// 삭제 확인 버튼을 누르면 글 삭제
+var postDeleteBtn = $('#postDeleteBtn');
+
+if (postDeleteBtn!==null) {
+	postDeleteBtn.on("click", function(e) {
+		e.preventDefault();
+		$('.confirmPopup').css("display", "flex");
+	});
+}
+
+
+// 취소 버튼 클릭 시 팝업을 숨김
+$('#cancelButton').on('click', function() {
+	$('.confirmPopup').css("display", "none");
+});

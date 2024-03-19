@@ -36,7 +36,7 @@ public class YkmBoardController {
 
 	/* 스터디 게시판 */
 	
-	// 스터디 게시판 리스트 조회, 페이징 카운트
+	// 스터디 게시판 리스트 조회, 페이징 카운트, 검색
 	@GetMapping(value = "boardStudy")
 	public String boardStudy(YkmBoardComm ykmBoardComm, Model model) {
 
@@ -44,16 +44,18 @@ public class YkmBoardController {
 		if (ykmBoardComm.getComm_mid2() == 0) ykmBoardComm.setComm_mid2(99);
 		
 		int totalCount = ykmService.getTotalCount(ykmBoardComm);
-		System.out.println("YkmController 전체 게시글 카운트 : "+ykmService.getTotalCount(ykmBoardComm));
 		YkmPaging stuPage = new YkmPaging(totalCount, ykmBoardComm.getCurrentPage());
+		System.out.println("YkmController 스터디 게시글 카운트 : "+ykmService.getTotalCount(ykmBoardComm));
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
 		
 		List<YkmBoardComm> getPostList = ykmService.getPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
-		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
 		model.addAttribute("getPostList", getPostList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
+		model.addAttribute("type", ykmBoardComm.getType());
+		model.addAttribute("keyword", ykmBoardComm.getKeyword());
 		return "ykm/boardStudy";
 	}
 
@@ -171,16 +173,7 @@ public class YkmBoardController {
 	
 	
 
-	// 검색
-	@PostMapping(value="/boardSearch")
-	public String getSearchList(YkmBoardComm ykmBoardComm, Model model) {
-		System.out.println("YkmController getSearchList start---*");
-		List<YkmBoardComm> searchResult = ykmService.getSearchList(ykmBoardComm);
-
-		System.out.println("YkmController getSearchList searchResult : "+searchResult);
-		model.addAttribute("getPostList", searchResult);
-		return "ykm/boardStudy";
-	}
+	
 	
 	// 파일 다운로드
 	@GetMapping(value="/fileDownload")
@@ -236,18 +229,36 @@ public class YkmBoardController {
 		List<YkmBoardComm> getCntPostList = ykmService.getCntPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("getCntPostList", getCntPostList);
+		model.addAttribute("CnttotalCount", CnttotalCount);
+		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
+		model.addAttribute("type", ykmBoardComm.getType());
+		model.addAttribute("keyword", ykmBoardComm.getKeyword());
 		
 		return "ykm/boardContest";
 	}
 	
+
+/*
 	// 검색
 	@PostMapping(value="boardCntSearch")
 	public String getCntSearchList(YkmBoardComm ykmBoardComm, Model model) {
 		System.out.println("YkmController getCntSearchList start---*");
+		
+		int totalCntCount = ykmService.getCntTotalCount(ykmBoardComm);
+		System.out.println("YkmController 공모전 게시글 카운트 : "+ykmService.getCntTotalCount(ykmBoardComm));
+		YkmPaging stuPage = new YkmPaging(totalCntCount, ykmBoardComm.getCurrentPage());
+		ykmBoardComm.setStart(stuPage.getStart());
+		ykmBoardComm.setEnd(stuPage.getEnd());
+		
 		List<YkmBoardComm> searchResult = ykmService.getCntSearchList(ykmBoardComm);
 		model.addAttribute("getCntPostList", searchResult);
-		
+		model.addAttribute("stuPage", stuPage);
+		model.addAttribute("comm_mid2", ykmBoardComm.getComm_mid2());
+		model.addAttribute("type", ykmBoardComm.getType());
+		model.addAttribute("keyword", ykmBoardComm.getKeyword());
+		 
 		return "ykm/boardContest";
 	}
 
+*/
 }

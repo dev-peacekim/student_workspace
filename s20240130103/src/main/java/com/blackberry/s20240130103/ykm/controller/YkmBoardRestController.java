@@ -103,6 +103,7 @@ public class YkmBoardRestController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("result", result);
 		response.put("comm_mid2", ykmBoardComm.getComm_mid2());
+		System.out.println("response"+response);
 		return response;
 	}
 	

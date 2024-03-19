@@ -133,15 +133,6 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	// 검색
-	@Override
-	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl getSearchList start ---*");
-		List<YkmBoardComm> getSearchList = ykmBoardDao.getSearchList(ykmBoardComm);
-		System.out.println("YkmServiceImpl getSearchList result ===> " + getSearchList.size());
-		return getSearchList;
-	}
-
 	/* 댓글 RESTful API */
 
 	// 댓글 리스트
@@ -203,14 +194,6 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	// 공모전 글 전체 검색
-	@Override
-	public List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmServiceImpl getCntSearchList start ---*");
-		List<YkmBoardComm> getCntSearchList = ykmBoardDao.getCntSearchList(ykmBoardComm);
-		return getCntSearchList;
-	}
-
 	@Override
 	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
 		YkmBoardCommReply replyValue = ykmBoardDao.getReplyNo(ykmBoardCommReply);
@@ -221,6 +204,13 @@ public class YkmServiceImpl implements YkmService {
 	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
 		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
 		return result;
+	}
+
+	@Override
+	public int getSearchCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("YkmServiceImpl getSearchCount start ---*");
+		int getSearchCount = ykmBoardDao.getSearchCount(ykmBoardComm);
+		return getSearchCount;
 	}
 
 }

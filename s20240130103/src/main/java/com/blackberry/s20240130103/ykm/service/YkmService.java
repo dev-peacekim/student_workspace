@@ -30,6 +30,8 @@ public interface YkmService {
 	
 	int getTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 글 카운트
 	
+	int getSearchCount(YkmBoardComm ykmBoardComm); // (페이징) 검색 게시글 조회
+	
 	
 	/* 스터디 게시판 댓글 */
 	List<YkmBoardCommReply> getCommentList(int cboard_no); // 댓글 리스트 조회
@@ -44,21 +46,18 @@ public interface YkmService {
 
 	int updateRecruitment(YkmBoardComm ykmBoardComm); // 모집여부 값 변경
 
-	List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm); // 검색 결과 조회
-
 	int writeReply(YkmBoardCommReply ykmBoardCommReply); // 대댓글 작성
-
-
+		
+	int updateGroup(YkmBoardCommReply ykmBoardCommReply); // 대댓글 그룹
+	
 	
 	/* 공모전 게시판 */
 	List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm); // 게시글 리스트
 	
 	int getCntTotalCount(YkmBoardComm ykmBoardComm); // (페이징) 전체 게시글 카운트
 
-	List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm); // 공모전 전체 검색
+	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 대댓글 번호 조회
 
-	YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply); // 
-
-	int updateGroup(YkmBoardCommReply ykmBoardCommReply);
+	
 	
 }

@@ -86,15 +86,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return session.update("ykmUpdateRecruitment", ykmBoardComm);
 	}
 	
-	// 검색 결과 조회
-	@Override
-	public List<YkmBoardComm> getSearchList(YkmBoardComm ykmBoardComm) {
-		//System.out.println("YkmBoardDaoImpl getSearchList start ---*");
-		List<YkmBoardComm> getSearchList = session.selectList("ykmGetSearchList",ykmBoardComm);
-		//System.out.println("YkmBoardDaoImpl getSearchList : " + getSearchList.size());
-		return getSearchList;
-	}
-	
 	// 페이징, 전체 게시글 카운트 조회
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
@@ -187,15 +178,6 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
-	// 전체 검색
-	@Override
-	public List<YkmBoardComm> getCntSearchList(YkmBoardComm ykmBoardComm) {
-		System.out.println("YkmBoardDaoImpl getCntSearchList start ---*");
-		List<YkmBoardComm> getCntSearchList = session.selectList("ykmGetCntSearchList", ykmBoardComm);
-		System.out.println("YkmBoardDaoImpl getCntSearchList getCntSearchList result");
-		return getCntSearchList;
-	}
-
 	@Override
 	public int writeCntPost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl writeCntPost start ---*");
@@ -213,6 +195,13 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
 		int result = session.update("ykmUpdateGroup", ykmBoardCommReply);
 		return result;
+	}
+
+	@Override
+	public int getSearchCount(YkmBoardComm ykmBoardComm) {
+		System.out.println("getSearchCount test : " + ykmBoardComm);
+		int getSearchCount = session.selectOne("ykmGetSearchCount", ykmBoardComm);
+		return getSearchCount;
 	}
 	
 	
