@@ -64,8 +64,8 @@
 			<h1>정보게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
-					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
+					<li class="breadcrumb-item">공모전</li>
+					<li class="breadcrumb-item">스터디</li>
 				</ol>
 			</nav>
 		</div>

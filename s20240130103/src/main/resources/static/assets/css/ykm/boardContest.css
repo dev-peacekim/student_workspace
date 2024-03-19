@@ -85,9 +85,9 @@ a, a:hover, a:link, a:active, a:hover, a:visited {
     text-decoration: none; 
 }
 .breadcrumb {
-	font-size: 16px;
-	color: #7f7f7f;
-	margin: 5px;
+	font-size: 14px;
+    font-weight: 600;
+    color: #899bbd;
 }
 /*--------------------------------------------------------------
 # section
@@ -181,14 +181,3 @@ tbody th, tbody td {
 	background: #0d6efd;
 	border-color: #0d6efd;
 }
-/* 
-.wriBtn:hover {
-	background-color: #0d6efd;
-	border-color: #0d6efd;
-}
-
-
-.wriBtn:after {
-	background-color: #6f42c1;
-	transition: all 0.3s ease;
-} */
