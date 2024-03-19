@@ -258,8 +258,6 @@ public class KphProjectServiceImp implements KphProjectService {
 		System.out.println("KphProjectServiceImp taskIncludingProjectMember start...");
 		KphTask task = kphProjectDao.getTask(kphTask);
 		task.setUsers(kphProjectDao.projectMemberListIncludingIsInTask(task));
-		System.out.println(task.getUsers().get(0));
-		System.out.println(task.getUsers().get(1));
 		return task;
 	}
 
