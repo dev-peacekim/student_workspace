@@ -284,19 +284,23 @@ document.addEventListener('DOMContentLoaded', function () {
 				class="msgTrashbox-pagination-container">
 			    <ul class="pagination">
 			        <li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
-			            <a class="page-link prev-page" href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}" aria-label="Previous">
+			            <a class="page-link prev-page" 
+			            href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}
+			            &keyword=${keyword}&type=${tpye}" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			            </a>
 			        </li>
 			
 			        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 			            <li class="page-item ${i == page.currentPage ? 'active' : ''}">
-			                <a class="page-link" href="?currentPage=${i}">${i}</a>
+			                <a class="page-link" href="?currentPage=${i}&keyword=${keyword}&type=${tpye}">${i}</a>
 			            </li>
 			        </c:forEach>
 			
 			        <li class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
-			            <a class="page-link next-page" href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}" aria-label="Next">
+			            <a class="page-link next-page" 
+			            href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}
+			            &keyword=${keyword}&type=${tpye}" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			            </a>
 			        </li>

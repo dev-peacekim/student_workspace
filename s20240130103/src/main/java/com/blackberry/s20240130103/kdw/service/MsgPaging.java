@@ -8,7 +8,7 @@ public class MsgPaging {
     private int currentPage = 1;
 
     // 한 페이지에 보여질 쪽지 수
-    private int rowPage = 15;
+    private int rowPage = 5;
 
     // 페이지네이션 블록에 보여질 페이지 수
     private int pageBlock = 5;

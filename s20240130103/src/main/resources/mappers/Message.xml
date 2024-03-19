@@ -286,7 +286,7 @@
 		    FROM (
 		        SELECT m.*, u.user_nic AS senderNic,
 		            (SELECT mf.msg_file_name
-		             FROM message_file mf, message m
+		             FROM message_file mf
 		             WHERE mf.msg_no = m.msg_no
 		             AND ROWNUM = 1) AS first_file_name 
 		        FROM message m, users u
@@ -357,7 +357,7 @@
 		    FROM (
 		        SELECT m.*, u.user_nic AS receiverNic,
 		            (SELECT mf.msg_file_name
-		             FROM message_file mf, message m
+		             FROM message_file mf
 		             WHERE mf.msg_no = m.msg_no
 		             AND ROWNUM = 1) AS first_file_name 
 		        FROM message m, users u
