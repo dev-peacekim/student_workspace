@@ -51,23 +51,7 @@
 <!-- 검색바&드롭박스 JS -->
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
-	function changeDropdownItem(value) {
-		var dropdown = document.getElementById('dropdownSelect');
-		dropdown.value = value;
-	}
 
-	var dropdown = document.getElementById('dropdownSelect');
-
-	dropdown.addEventListener('click', function(event) {
-		event.stopPropagation();
-		dropdown.classList.toggle('active');
-	});
-
-	document.addEventListener('click', function(event) {
-		if (!dropdown.contains(event.target)) {
-			dropdown.classList.remove('active');
-		}
-	});
 
 	// 체크박스
 	var selectAllCheckbox = document.getElementById("select-all-checkbox");
