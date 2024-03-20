@@ -75,9 +75,8 @@ public class YkmBoardController {
 		}
 		model.addAttribute("countComment",countComment);
 		model.addAttribute("getPost", getPost);
+		System.out.println("getPost!!!!!!!!!!!!!!!!!!!!!!!!!! " + getPost);
 		model.addAttribute("getFileList", getFileList); // 업로드한 파일 목록 보여주기
-		System.out.println("getFileList 파일리스트 : "+getFileList);
-
 		System.out.println("YkmController getPost finish ---*");
 		
 		return "ykm/boardPost";
@@ -224,8 +223,8 @@ public class YkmBoardController {
 	public String boardContest(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 		System.out.println("YkmController boardContest start ---*");
 		System.out.println("YkmController boardContest 검색 start ---*");
-		System.out.println("이거다 이거 이자식 : "+ ykmBoardComm);
 		
+		ykmBoardComm.setComm_mid(10);
 		int CnttotalCount = ykmService.getCntTotalCount(ykmBoardComm);
 		YkmPaging stuPage = new YkmPaging(CnttotalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
@@ -237,6 +236,7 @@ public class YkmBoardController {
 		model.addAttribute("CnttotalCount", CnttotalCount);
 		model.addAttribute("type", ykmBoardComm.getType());
 		model.addAttribute("keyword", ykmBoardComm.getKeyword());
+		model.addAttribute("comm_mid", ykmBoardComm.getComm_mid());
 		
 		return "ykm/boardContest";
 	}

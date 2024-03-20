@@ -80,7 +80,7 @@
 					</div>
 					<div class="search-bar justify-content-end">
 						<form action="boardContest" method="GET" class="search-form d-flex align-items-center">
-							<input type="hidden" name="comm_mid" value="${getCntPostList.comm_mid}">
+							<input type="hidden" name="comm_mid" value="${comm_mid}">
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
 							    <option value="A">전체</option>
 							    <option value="TC">제목+내용</option>

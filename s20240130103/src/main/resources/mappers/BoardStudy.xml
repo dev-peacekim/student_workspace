@@ -28,11 +28,11 @@
 				</choose>
 						<choose>
 			 			<when test="comm_mid2 != 99">
-			 			    AND COMM_BIG2 = 400
-			 	 	  		AND COMM_MID2 = #{comm_mid2}
+			 			    AND B.COMM_BIG2 = 400
+			 	 	  		AND B.COMM_MID2 = #{comm_mid2}
 			  			</when>
 			            <otherwise>
-			                AND COMM_BIG2 = 400
+			                AND B.COMM_BIG2 = 400
 			            </otherwise>
 			           </choose>
 						ORDER BY B.CBOARD_DATE DESC) a) a
@@ -41,7 +41,7 @@
 	
 	
 	<select id="ykmGetPost" resultType="YkmBoardComm" parameterType="int">
-		SELECT B.*, U.USER_ID, U.USER_NIC
+		SELECT B.*, U.USER_ID, U.USER_NIC, U.USER_PROFILE
 		FROM BOARD_COMM B,USERS U
 		WHERE B.CBOARD_NO = #{cboard_no}
 		AND B.USER_NO = U.USER_NO

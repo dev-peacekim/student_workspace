@@ -179,19 +179,16 @@
 	padding: 16px 20px;
 	width: 100%;
 	z-index: 100;
+	padding-right: 0px
 }
 
-.btn-container form {
-	margin-left: 10px; 
-}
-
-.btn-container .btn-secondar {
-	margin-left: 10px; /* 버튼 사이 간격 조정 */
+.btn-container > .btn-secondary {
+	margin-left: 10px !important;
 }
 
 
 /*--------------------------------------------------------------
-# 파일 관련 tooltip #f5f5f5
+# 파일 관련 
 --------------------------------------------------------------*/
 
 .tooltip {
@@ -207,7 +204,7 @@
     line-height: 1.38;
     letter-spacing: -.3px;
     white-space: nowrap;
-    z-index: 1; /* Ensure tooltip is displayed above other content */
+    z-index: 1;
     opacity: initial;
 }
 
