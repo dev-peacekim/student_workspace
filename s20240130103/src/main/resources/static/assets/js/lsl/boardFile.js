@@ -19,7 +19,6 @@ $(document).ready(function() {
             listItem.textContent = fileName;
             fileListDiv.appendChild(listItem);
         }
-        console.log(dataList);``
     });
 });
 
@@ -39,12 +38,8 @@ document.querySelector('.upload-title').addEventListener('drop',function(e){
     fileListDiv.appendChild(listItem);
     dataList.add(file);
     console.log(dataList);
+    formFileInput.files = dataTransfer.files;
 })
 
-function filesChk(){
-	formFileInput.files = dataTransfer.files;
-	console.log(formFileInput.files);
-	return true;
-}
 
 
