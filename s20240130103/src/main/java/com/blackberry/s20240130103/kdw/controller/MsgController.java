@@ -45,7 +45,6 @@ public class MsgController {
 	private final MsgService msgService;
 	private final KphProjectService kphProjectService;
 
-
 	/* ========== 쪽지함 ========== */
 	// 받은 쪽지함 리스트
 	@GetMapping(value = "msgReceivebox")
