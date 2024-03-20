@@ -91,7 +91,7 @@ function updateCommentView(data) {
 					</button>
 					<button type="button" class="replyBtn_${comment.creply_no} badge bg-light text-dark" 
 							onclick="createReplyBox('${comment.creply_no}')">
-							<i class="bi bi-reply-fill"></i>
+							<i class="bi bi-reply-fill"></i> 답글
 					</button>
 				</div>
 			</div>
@@ -323,6 +323,13 @@ function writeReply(creply_no) {
 	$(`.replyContainer_${creply_no} > *`).empty();
 	
 }
+
+
+function hideReplyBox(creply_no) {
+	$(`.replyContainer_${creply_no}`).remove();
+}
+
+
 
 /* 삭제 확인 팝업 */
 
