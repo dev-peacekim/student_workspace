@@ -458,11 +458,9 @@ public class LhsController {
 		Schedule schedule = new Schedule();
 		schedule.setProject_no(Long.parseLong(project_no));
 		List<Schedule> scheduleList = scheduleService.scheduleList(schedule);
-		
 		KphTask kphTask = new KphTask();
 		kphTask.setProject_no(Long.parseLong(project_no));
 		List<KphTask> taskList = (List<KphTask>)kphProjectService.detailProject(kphTask).get("taskList");
-		
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("schedule", scheduleList);
 		returnMap.put("task", taskList);
