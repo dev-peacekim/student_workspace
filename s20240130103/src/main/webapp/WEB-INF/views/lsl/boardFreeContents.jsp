@@ -124,7 +124,7 @@ function goBack() {
 			    </div>
 			</c:forEach>
                     </div>
-                </div>
+                </div> 
             </div>
 
           <section class="community-post-answer">

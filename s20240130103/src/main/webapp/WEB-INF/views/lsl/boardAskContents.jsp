@@ -119,12 +119,12 @@ function goBack() {
 			   		 </div>
 				</c:forEach>
                     </div>
-                </div>
+                </div> 
             </div>	
           <section class="community-post-answer">
             <div class="answer-info-header">
                 <div class="answer-info-title">
-                    댓글 <span class="answer-info-title-count">${boardReplyCnt}</span>
+                    댓글 <span class="answer-info-title-count"  id="replyCnt">${boardReplyCnt}</span>
                 </div>
                 
                 <div class="boardPostComment">

@@ -78,6 +78,7 @@
 				    </c:when>
 				    <c:when test="${comm_mid eq 20}">
 						<li class="breadcrumb-item"><a href="boardStudy">스터디</a></li>
+						<li class="breadcrumb-item">글수정</li>
 				    </c:when>
 				</c:choose>
 				</ol>
@@ -109,8 +110,8 @@
 					</div>
 					<div class="card-subtitle post-user-container">
 						<c:choose>
-						    <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
-						        <img class="rounded-circle post-user-profile" src="${pageContext.request.contextPath}/upload/userImg/${user_profile}" alt="유저 프로필"></img>
+						    <c:when test="${getPost.user_profile ne null}">
+						        <img class="rounded-circle post-user-profile" src="${pageContext.request.contextPath}/upload/userImg/${getPost.user_profile}" alt="유저 프로필"></img>
 						    </c:when>
 						    <c:otherwise>
 						        <img class="rounded-circle post-user-profile" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="유저 프로필" class="rounded-circle"></img>
