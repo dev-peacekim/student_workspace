@@ -116,11 +116,6 @@ thead th:nth-child(7) {
     text-decoration: underline;
 }
 
-.table .list-item .author:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
 .table input[type="checkbox"] {
 	margin-right: 5px;
 	margin-top: 3px; /* 체크박스와 텍스트 사이에 여백 추가 */

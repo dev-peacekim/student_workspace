@@ -117,10 +117,6 @@ thead th:nth-child(7) {
     text-decoration: underline;
 }
 
-.table .list-item .author:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
 
 .table input[type="checkbox"] {
 	margin-right: 5px;
