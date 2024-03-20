@@ -278,9 +278,8 @@ public class LslServiceImpl implements LslService {
 	public int boardUpdate(LslBoardComm lslBoardComm, MultipartFile[] multipartFile, String boardfilePath,
 			String deleteFileFiles) {
 		int boardUpdate = ld.boardUpdate(lslBoardComm);
-		String deleteFiles = deleteFileFiles.trim();
-		if(deleteFiles != null && deleteFiles != "") {
-			String[] deleteFileNum = deleteFiles.split("-");
+		if(deleteFileFiles.length() != 0) {
+			String[] deleteFileNum = deleteFileFiles.split("-");
 			List<LslboardFile> fileList = boardFreeFile(lslBoardComm.getCboard_no());
 			for(String str : deleteFileNum) {
 				for(LslboardFile file : fileList) {

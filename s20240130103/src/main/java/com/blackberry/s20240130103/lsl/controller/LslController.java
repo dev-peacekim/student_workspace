@@ -452,7 +452,7 @@ public class LslController {
 		    // 게시글 정보 업데이트
 		    lslBoardComm.setCboard_no(cboard_no);
 		    lslBoardComm.setBoardType(boardType);
-
+		    
 		    int  boardUpdate = ls.boardUpdate(lslBoardComm,multipartFile,boardfilePath,deleteFileFiles);
 		    model.addAttribute("boardUpdate", boardUpdate);
 		  

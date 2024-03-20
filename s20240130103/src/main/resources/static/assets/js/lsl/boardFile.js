@@ -21,12 +21,10 @@ const fileDivDom = function(fileName,index){
 		for(let i= 0;i<dataList.length;i++){
 			if(dataList[i].getAsFile().name == this.dataset.fileName){
 				dataList.remove(i);
+				formFileInput.files = dataTransfer.files;
 			}
 		}
-		console.log(dataList.length);
-		console.log(dataTransfer.items.length);
 		//console.log(dataList);
-		formFileInput.files = dataTransfer.files;
 		//for(let i=0;i<dataList.length;i++){
 		//	console.log(dataList[i].getAsFile());
 		//}

@@ -104,9 +104,7 @@
 											</c:forEach>
 										</div>
 										<input class="form-control" name="files" type="file" id="formFile" multiple/>
-										<div class="upload-title" id="fileList" >
-											
-									</div>
+										<div class="upload-title" id="fileList" ></div>
 									</div>
 								<div class="mb-3">
 									<textarea class="form-control" style="height: 550px;"
