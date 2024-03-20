@@ -96,7 +96,6 @@
 										<label for="files" class="form-label">파일 첨부</label>
 										<input class="form-control" name="files" type="file" id="formFile" multiple/>
 										   <div class="upload-title" id="fileList">
-										   <div class="preview">파일을 첨부할 수 있습니다.</div>
 										   </div>
 										</div>
                             <div class="mb-3">
