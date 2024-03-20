@@ -151,3 +151,17 @@ margin-left: 10px;
 body{
 	font-family: 'NanumSquare', sans-serif !important;
 }
+
+
+
+/*
+-----------------이한수 추가---------------------------------
+*/
+.file-Xbtn{
+	color: red;
+	border : none;
+	background-color: white;
+}
+#fileList div{
+	margin-bottom: 1px;
+}

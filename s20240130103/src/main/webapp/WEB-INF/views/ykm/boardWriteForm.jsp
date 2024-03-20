@@ -135,7 +135,7 @@ window.onload = function() {
 							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple/>
 							<div class="upload-title">
 								<label for="fileContent" class="form-label">
-						            <div class="preview">파일을 첨부할 수 있습니다</div>
+
 						        </label>
 					        </div>
 						</div>

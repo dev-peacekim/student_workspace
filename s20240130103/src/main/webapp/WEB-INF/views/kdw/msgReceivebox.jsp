@@ -1,26 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Blueberry</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <!-- Favicons -->
 <link href="assets/img/blueberry-favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
 <!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
 <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
 <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
@@ -28,8 +28,7 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/0b22ed6a9d.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
 <!-- jQuery를 포함 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -48,27 +47,6 @@
 <script type="text/javascript">
 	
 	document.addEventListener('DOMContentLoaded', function() {
-		
-		// 검색 기능
-		function changeDropdownItem(value) {
-			var dropdown = document.getElementById('dropdownSelect');
-			dropdown.value = value;
-		}
-
-		var dropdown = document.getElementById('dropdownSelect');
-
-		dropdown.addEventListener('click', function(event) {
-			event.stopPropagation();
-			dropdown.classList.toggle('active');
-		});
-
-		document.addEventListener('click', function(event) {
-			if (!dropdown.contains(event.target)) {
-				dropdown.classList.remove('active');
-			}
-		});
-
-		
 		
 		// ================ 체크박스 ===================
 		var selectAllCheckbox = document.getElementById("select-all-checkbox");
@@ -317,9 +295,7 @@
 			<nav aria-label="Page navigation" class="msgReceivebox-pagination-container">
 			    <ul class="pagination">
 			        <li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
-			            <a class="page-link prev-page" 
-			            href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}
-			            &keyword=${keyword}&type=${tpye}" aria-label="Previous">
+			            <a class="page-link prev-page" href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}&keyword=${keyword}&type=${tpye}" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			            </a>
 			        </li>
@@ -331,9 +307,7 @@
 			        </c:forEach>
 			
 			        <li class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
-			            <a class="page-link next-page" 
-			            href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}
-			            &keyword=${keyword}&type=${tpye}" aria-label="Next">
+			            <a class="page-link next-page" href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}&keyword=${keyword}&type=${tpye}" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			            </a>
 			        </li>
@@ -355,17 +329,15 @@
 	</a>
 
 
-
-
 	<!-- Vendor JS Files -->
 	<!-- <script src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- <script src="assets/vendor/chart.js/chart.umd.js"></script> -->
 	<!-- <script src="assets/vendor/echarts/echarts.min.js"></script> -->
-	<!-- <script src="assets/vendor/quill/quill.min.js"></script>
+	<script src="assets/vendor/quill/quill.min.js"></script>
   	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  	<script src="assets/vendor/php-email-form/validate.js"></script> -->
+  	<script src="assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
