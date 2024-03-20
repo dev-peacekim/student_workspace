@@ -23,12 +23,12 @@ public interface LslService {
 	
 
 	// 게시판 검색 
-	int totalBoardSearchFree(LslBoardComm lslBoardComm);
-	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm);
+	int totalBoardSearchFree(LslBoardComm lslBoardComm, String keyword, String type);
+	List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm, String keyword, String type, int start, int end);
 	
 	
-	int totalBoardSearchAsk(LslBoardComm lslBoardComm);
-	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm);
+	int totalBoardSearchAsk(LslBoardComm lslBoardComm, String keyword, String type);
+	List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm, String keyword, String type, int start, int end);
 
 
 	

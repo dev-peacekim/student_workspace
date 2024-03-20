@@ -72,7 +72,7 @@
 
 						<!-- Search Bar -->
 
-						<form action="boardFreeSearch"class="search-form d-flex align-items-center">
+						<form action="boardFreeSearch" class="search-form d-flex align-items-center" method="get">
 							
 							<div class="search-bar">
 							<select class="form-select" id ="searchSelect" name="type">
@@ -125,7 +125,7 @@
 				<nav aria-label="Page navigation example">
     				<ul class="pagination justify-content-center">
         				<c:if test="${bfpage.startPage > bfpage.pageBlock}"><li class="page-item">
-               				 <a class="page-link" href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}" aria-label="Previous">
+               				 <a class="page-link" href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}&keyword=${keyword}&type=${tpye}" aria-label="Previous">
                     			<span aria-hidden="true">«</span>
                 			</a>
            			 	</li>
@@ -133,13 +133,12 @@
         
         			<c:forEach var="i" begin="${bfpage.startPage}" end="${bfpage.endPage}">
            				 <li class="page-item">
-               				 <a class="page-link" href="boardFree?currentPage=${i}">${i}</a>
-           				 </li>
+							<a class="page-link" href="boardFreeSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a>
         			</c:forEach>
         
         			<c:if test="${bfpage.endPage < bfpage.totalPage}">
             			<li class="page-item">
-                			<a class="page-link" href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}" aria-label="Next">
+                			<a class="page-link" href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}&keyword=${keyword}&type=${type}" aria-label="Next">
                     			<span aria-hidden="true">»</span>
                 			</a>
           		 		</li>

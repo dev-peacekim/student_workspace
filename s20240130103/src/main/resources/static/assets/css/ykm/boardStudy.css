@@ -151,6 +151,7 @@
 	padding: 10px;
 }
 
+<<<<<<< HEAD
 
 .community-bottom {
 	display: flex;
@@ -172,6 +173,43 @@
 	bottom: 15px;
 	right: -80px;
 }
+=======
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+
+.community-bottom {
+    display: flex;
+    justify-content: center; /* 페이지 번호를 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+}
+
+.pagination {
+    margin-right: auto;
+}
+
+
+
+/*----------------------------------------------------------*/
+/* .community-bottom {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    display: block; 
+}
+
+.btn-write {
+	display: flex;
+ 	justify-content: flex-end;
+	align-items: center;
+	height: 50px;
+	width: 100px;
+	margin-left: auto;
+	text-align: center;
+	padding: 6px 12px 6px 12px;
+} */
+>>>>>>> refs/remotes/origin/master
 
 .custom-btn {
 	color: #fff;

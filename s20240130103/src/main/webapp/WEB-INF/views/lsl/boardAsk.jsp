@@ -84,7 +84,7 @@
 					
 							<form action="boardAskSearch" class="search-form d-flex align-items-center">						
 								<div class="search-bar" >
-								<select class="form-select" id ="searchSelect" name="type">
+								<select class="form-select" id ="searchSelect" name="type" method="get">
 				                <option value="all">전체</option>
 				                <option value="writer">작성자</option>
 				                <option value="titleContent">제목+내용</option>
@@ -144,7 +144,7 @@
         
         			<c:forEach var="i" begin="${bapage.startPage}" end="${bapage.endPage}">
            				 <li class="page-item">
-               				 <a class="page-link" href="boardAsk?currentPage=${i}">${i}</a>
+               				 <a class="page-link" href="boardAskSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a>
            				 </li>
         			</c:forEach>
         

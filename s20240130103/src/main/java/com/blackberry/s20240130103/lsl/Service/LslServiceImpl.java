@@ -53,17 +53,17 @@ public class LslServiceImpl implements LslService {
 	
 	//  자유 게시판 리스트 검색 카운트
 	@Override
-	public int totalBoardSearchFree(LslBoardComm lslBoardComm) {
-		int totalBoardSearchFree = ld.totalBoardSearchFree(lslBoardComm);
+	public int totalBoardSearchFree(LslBoardComm lslBoardComm, String keyword, String type) {
+		int totalBoardSearchFree = ld.totalBoardSearchFree(lslBoardComm, keyword, type);
 		return totalBoardSearchFree;
 	}
 	
 	// 자유 게시판 리스트 검색 
 	@Override
-	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm) {
+	public List<LslBoardComm> boardFreeSearch(LslBoardComm lslBoardComm, String keyword, String type, int start, int end) {
 	 List<LslBoardComm> boardFreeSearch = null;
 	 System.out.println("LslServiceImpl boardFreeSearch Start...");
-	  boardFreeSearch = ld.boardFreeSearch(lslBoardComm);
+	  boardFreeSearch = ld.boardFreeSearch(lslBoardComm, keyword, type, start, end);
 	  System.out.println("EmpServiceImpl boardFreeSearch.size() ->"+boardFreeSearch.size());
 	 return boardFreeSearch;
 	}
@@ -127,8 +127,8 @@ public class LslServiceImpl implements LslService {
 
 	// 질문 게시판 리스트 검색 카운트
 	@Override
-	public int totalBoardSearchAsk(LslBoardComm lslBoardComm ) {
-		int totalBoardSearchAsk = ld.totalBoardSearchAsk(lslBoardComm);
+	public int totalBoardSearchAsk(LslBoardComm lslBoardComm , String keyword, String type) {
+		int totalBoardSearchAsk = ld.totalBoardSearchAsk(lslBoardComm, keyword, type);
 		return totalBoardSearchAsk;
 	}
 	
@@ -136,10 +136,10 @@ public class LslServiceImpl implements LslService {
 	
 	// 질문 게시판 리스트 검색 
 	@Override
-	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm) {
+	public List<LslBoardComm> boardAskSearch(LslBoardComm lslBoardComm, String keyword, String type, int start, int end) {
 		 List<LslBoardComm> boardAskSearch = null;
 		 System.out.println("LslServiceImpl boardAskSearch Start...");
-		 boardAskSearch = ld.boardAskSearch(lslBoardComm);
+		 boardAskSearch = ld.boardAskSearch(lslBoardComm, keyword, type, start, end);
 		  System.out.println("EmpServiceImpl boardAskSearch.size() ->"+boardAskSearch.size());
 		 return boardAskSearch;
 	}
