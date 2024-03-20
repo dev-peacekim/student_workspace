@@ -129,11 +129,14 @@ public class YkmBoardController {
 	public String UpdatePostForm(HttpServletRequest request, Model model) {
 		System.out.println("updatePostForm updatePostForm start---*");
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
+		
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
 		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
+		
 		model.addAttribute("getPost", getPost);
 		model.addAttribute("getFileList", getFileList);
-		
+		model.addAttribute("comm_mid", getPost.getComm_mid());
+		System.out.println("comm_mid !!!!!!!!!!!!!!!!!!: "+getPost.getComm_mid());
 		// 로그인 유저
 		Long currentUserNo = (Long) request.getSession().getAttribute("user_no");
 		// 글 작성자
@@ -221,13 +224,13 @@ public class YkmBoardController {
 	public String boardContest(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 		System.out.println("YkmController boardContest start ---*");
 		System.out.println("YkmController boardContest 검색 start ---*");
-		System.out.println("이거 : "+ ykmBoardComm);
+		System.out.println("이거다 이거 이자식 : "+ ykmBoardComm);
 		
 		int CnttotalCount = ykmService.getCntTotalCount(ykmBoardComm);
 		YkmPaging stuPage = new YkmPaging(CnttotalCount, ykmBoardComm.getCurrentPage());
 		ykmBoardComm.setStart(stuPage.getStart());
 		ykmBoardComm.setEnd(stuPage.getEnd());
-		
+	
 		List<YkmBoardComm> getCntPostList = ykmService.getCntPostList(ykmBoardComm);
 		model.addAttribute("stuPage", stuPage);
 		model.addAttribute("getCntPostList", getCntPostList);

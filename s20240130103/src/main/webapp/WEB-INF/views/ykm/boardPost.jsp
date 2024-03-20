@@ -68,11 +68,18 @@
 	<!-- 게시판 페이지 헤더 -->
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>공모전 스터디 게시판</h1>
+			<h1>정보게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active"><a href="boardContest">공모전</a></li>
-					<li class="breadcrumb-item active"><a href="boardStudy">스터디</a></li>
+					<li class="breadcrumb-item">정보게시판</li>
+					<c:choose>
+				    <c:when test="${comm_mid eq 10}">
+				        <li class="breadcrumb-item"><a href="boardContest">공모전</a></li>
+				    </c:when>
+				    <c:when test="${comm_mid eq 20}">
+						<li class="breadcrumb-item"><a href="boardStudy">스터디</a></li>
+				    </c:when>
+				</c:choose>
 				</ol>
 			</nav>
 		</div>

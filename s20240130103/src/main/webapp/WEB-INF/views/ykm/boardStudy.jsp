@@ -64,7 +64,7 @@
 			<h1>정보게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">공모전</li>
+					<li class="breadcrumb-item">정보게시판</li>
 					<li class="breadcrumb-item">스터디</li>
 				</ol>
 			</nav>
@@ -157,15 +157,12 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- 글쓰기 -->
+			
+				<!-- <div class="btn-container">
+					<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
+				</div> -->
+				<!-- ======= 페이지 번호 ======= -->
 				<div class="community-bottom">
-					<!-- <div class="btn-container">
-						<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
-					</div> -->
-					<div class="btn-container">
-						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
-					</div>
-					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
@@ -179,6 +176,10 @@
 						</c:if>
 						</ul>
 					</nav>
+					<!-- 글쓰기 -->
+					<div class="btn-write">
+						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
+					</div>
 				</div>
 			</div>
 		</section>

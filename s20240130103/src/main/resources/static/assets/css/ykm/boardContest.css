@@ -136,10 +136,6 @@ a, a:hover, a:link, a:active, a:hover, a:visited {
 	font-weight: bold;
 	color: #424242;
 }
-
-.community-bottom {
-	width: 100%;
-}
 .table {
 	border: 1px solid #ebeef4;
 }
@@ -161,19 +157,25 @@ tbody th, tbody td {
 	line-height: 30px;
 }
 
+.community-bottom {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	/* width: 100%; */
+}
 /*--------------------------------------------------------------
 # btn
 --------------------------------------------------------------*/
-.btn-container {
+.btn-write {
+	position: absolute;
 	display: flex;
-	justify-content: flex-end;
 	align-items: center;
 	padding: 1rem;
-	width: 100%;
-}
-
-.btn-container form {
-	margin-left: 10px;
+	margin-left: auto;
+	justify-content: flex-end;
+	bottom: 15px;
+	right: 10px;
+	
 }
 
 .custom-btn {

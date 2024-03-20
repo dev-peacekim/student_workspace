@@ -61,8 +61,8 @@
 			<h1>정보게시판</h1>
 			<nav style="--bs-breadcrumb-divider: '/';">
 				<ol class="breadcrumb">
+					<li class="breadcrumb-item">정보게시판</li>
 					<li class="breadcrumb-item">공모전</li>
-					<li class="breadcrumb-item">스터디</li>
 				</ol>
 			</nav>
 		</div>
@@ -80,9 +80,7 @@
 					</div>
 					<div class="search-bar justify-content-end">
 						<form action="boardContest" method="GET" class="search-form d-flex align-items-center">
-							<c:if test="${getCntPostList.size() != 0}">
-								<input type="hidden" name="comm_mid" value="${getCntPostList.get(0).comm_mid}">
-							</c:if>
+							<input type="hidden" name="comm_mid" value="${getCntPostList.comm_mid}">
 							<select class="form-select" name="type" aria-label="Default select example" required="required">
 							    <option value="A">전체</option>
 							    <option value="TC">제목+내용</option>
@@ -123,12 +121,12 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- 글쓰기 -->
+				
+				<!-- ======= 페이지 번호 ======= -->
 				<div class="community-bottom">
-					<div class="btn-container">
-						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=10&comm_big=200'">글쓰기</button>
-					</div>
-					<!-- ======= 페이지 번호 ======= -->
+				<div class="btn-write">
+					<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=10&comm_big=200'">글쓰기</button>
+				</div>
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
@@ -142,7 +140,9 @@
 						</c:if>
 						</ul>
 					</nav>
+					<!-- 글쓰기 -->
 				</div>
+				
 			</div>
 		</section>
 	</main>
