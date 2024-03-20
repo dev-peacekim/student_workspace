@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar","\n"); %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -160,7 +162,7 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<span class="post-content">${getPost.cboard_content}</span>
+					<span class="post-content">${fn:replace(getPost.cboard_content, replaceChar, "<br/>")}</span>
 				</div>
 				<div class="community-post-answer">
 					<div class="comment-form">
