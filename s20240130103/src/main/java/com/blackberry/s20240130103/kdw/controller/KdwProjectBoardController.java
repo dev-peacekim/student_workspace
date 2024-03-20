@@ -76,7 +76,7 @@ public class KdwProjectBoardController {
 	    } else {
 	    	pboardList = pBoardService.getProjectBoardList(userNo, projectNo, page.getStart(), page.getEnd());
 	    }
-
+	    
 		model.addAttribute("userNo", userNo);
 		model.addAttribute("projectNo", projectNo);
 		model.addAttribute("totPboardListCnt", totPboardListCnt);
