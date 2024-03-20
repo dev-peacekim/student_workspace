@@ -223,7 +223,7 @@ public class YkmBoardController {
 	public String boardContest(YkmBoardComm ykmBoardComm, Model model, HttpServletRequest request) {
 		System.out.println("YkmController boardContest start ---*");
 		System.out.println("YkmController boardContest 검색 start ---*");
-		
+
 		ykmBoardComm.setComm_mid(10);
 		int CnttotalCount = ykmService.getCntTotalCount(ykmBoardComm);
 		YkmPaging stuPage = new YkmPaging(CnttotalCount, ykmBoardComm.getCurrentPage());

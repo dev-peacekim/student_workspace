@@ -362,25 +362,29 @@
 	height: 10%;
 	border: none !important;
 }
-.re-btn-container .btn.brDelete {
+.brDelete {
     position: absolute;
-    margin-top: 5px;
-    margin-bottom: -190px;
-    margin-left: -100px;
+    margin-bottom: -20px;
+    margin-left: -120px;
     width: 50px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    font-weight: bold;
     right: 50px;
+    border: none !important;
+    background: white;
 
 }
 
-.re-btn-container .btn.brModify {
+.brModify {
     position: absolute;
-    margin-top: 5px;
-    margin-bottom: -190px;
+    margin-bottom: -20px;
     margin-right: 10px;
     width: 50px;
-    font-size: 0.8rem;
-    right: 100px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    right: 90px;
+    border: none !important;
+    background: white;
 
 }
 

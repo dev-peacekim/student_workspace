@@ -69,7 +69,7 @@
         <nav style="--bs-breadcrumb-divider: '/';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">정보 게시판</li>
-                <li class="breadcrumb-item">자유 게시판</li>
+                <li class="breadcrumb-item">글쓰기</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
