@@ -72,7 +72,7 @@ function updateCommentView(data) {
 				<div class="comment-header">
 				<img class="rounded-circle" src="/upload/userImg/${comment.user_profile== null ? '987654321487321564defaultImg.jpg' : comment.user_profile}" alt="유저 프로필"></img>
 				<div class="comment-user-container">
-					<p class="card-title comment-user-name"><a href="#">${comment.user_nic}</a></p>
+					<p class="card-title comment-user-name">${comment.user_nic}</p>
 					<p class="card-subtitle comment-updated-at">작성일 ${formatted}</p>
 				</div>	
 				<div class="btnContainer">

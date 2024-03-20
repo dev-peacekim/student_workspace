@@ -3,7 +3,7 @@
 <mapper namespace="com.blackberry.s20240130103.BoardContestMapper">
 	<select id="ykmGetCntPostList" parameterType="YkmBoardComm" resultType="YkmBoardComm">
 		SELECT 	a.*
-		FROM(SELECT rownum rn, a.*
+		FROM (SELECT rownum rn, a.*
 		FROM (SELECT B.CBOARD_NO, B.CBOARD_TITLE, B.CBOARD_VIEWCNT, B.CBOARD_DATE, B.COMM_BIG, B.COMM_BIG2, B.COMM_MID, B.COMM_MID2, U.USER_ID, U.USER_NIC,
 			  (SELECT COUNT(creply_no) FROM BOARD_COMM_REPLY WHERE CREPLY_DELETE_CHK = 0 AND CBOARD_NO = B.CBOARD_NO) AS reply_count
 		 		FROM BOARD_COMM B, USERS U

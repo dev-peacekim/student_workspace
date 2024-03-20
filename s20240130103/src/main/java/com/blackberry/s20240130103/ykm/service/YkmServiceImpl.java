@@ -1,24 +1,20 @@
 package com.blackberry.s20240130103.ykm.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
-import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -92,7 +88,6 @@ public class YkmServiceImpl implements YkmService {
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl updatePost start---*");
-		System.out.println("YkmServiceImpl updatePost ykmBoardComm --> " + ykmBoardComm);
 		return ykmBoardDao.updatePost(ykmBoardComm);
 	}
 
@@ -133,8 +128,7 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	/* 댓글 RESTful API */
-
+	
 	// 댓글 리스트
 	@Override
 	public List<YkmBoardCommReply> getCommentList(int cboard_no) {

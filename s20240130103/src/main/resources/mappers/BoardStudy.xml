@@ -10,6 +10,7 @@
 						JOIN USERS U ON U.USER_NO = B.USER_NO
 						WHERE B.COMM_BIG = 200 
 						AND B.COMM_MID = 20
+						AND B.CBOARD_DELETE_CHK = 0
 				<choose>
 					<when test='type == "A"'>
 						AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
@@ -128,7 +129,7 @@
 				#{cboard_file_name}, 
 				#{cboard_file_user_name}, 
 				(SELECT NVL(MAX(cboard_file_cnt), 0) + 1 FROM BOARD_COMM_FILE WHERE CBOARD_NO = #{cboard_no})
-				)
+			   )
 	</insert>
 
 	<select id="ykmGetFileList" parameterType="Integer" resultType="YkmBoardCommFile">
@@ -172,7 +173,9 @@
 	</select>
 	
 	<insert id="ykmWriteComment" parameterType="YkmBoardCommReply">
-		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
+		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, 
+									  CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE
+									  )
 		VALUES (
 				SEQ_BOARD_COMM_REPLY.NEXTVAL, 
 				#{creply_content}, 
@@ -219,7 +222,9 @@
 	</select>
 	
 	<insert id="ykmWriteReply" parameterType="YkmBoardCommReply">
-		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE)
+		INSERT INTO BOARD_COMM_REPLY (CREPLY_NO, CREPLY_CONTENT, CREPLY_DATE, CREPLY_GROUP, CREPLY_LEVEL, 
+									  CREPLY_INDENT, CBOARD_NO, USER_NO, CREPLY_DELETE_CHK, COMM_UPDATE_DATE
+									  )
 		VALUES (
 				SEQ_BOARD_COMM_REPLY.NEXTVAL, 
 				#{creply_content}, 

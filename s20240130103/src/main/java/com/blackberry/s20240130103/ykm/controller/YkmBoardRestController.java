@@ -78,17 +78,19 @@ public class YkmBoardRestController {
 	@PostMapping("/replys")
 	public int writeReply(@RequestBody YkmBoardCommReply ykmBoardCommReply, HttpServletRequest request) {
 		System.out.println("YkmBoardRestController writeReply start ---*");
+		
 		Long user_no = (Long)request.getSession().getAttribute("user_no");
 		ykmBoardCommReply.setUser_no(user_no);
 		YkmBoardCommReply getReplyNo = ykmService.getReplyNo(ykmBoardCommReply);
-		System.out.println("test : " + getReplyNo);
-		System.out.println("YkmBoardRestController writeReply ykmBoardCommReply:"+ykmBoardCommReply);
 		ykmBoardCommReply.setCreply_group(getReplyNo.getCreply_group());
 		ykmBoardCommReply.setCreply_level(getReplyNo.getCreply_level()+1);
 		ykmBoardCommReply.setCreply_indent(getReplyNo.getCreply_indent()+1);
+		
 		int updateGroup = ykmService.updateGroup(ykmBoardCommReply);
+		
 		int result = ykmService.writeReply(ykmBoardCommReply);
 		System.out.println("YkmBoardRestController writeReply result : "+result);
+		System.out.println("YkmBoardRestController updateGroup : " + updateGroup);
 		
 		return result;
 	}

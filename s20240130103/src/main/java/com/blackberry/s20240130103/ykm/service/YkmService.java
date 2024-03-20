@@ -1,14 +1,12 @@
 package com.blackberry.s20240130103.ykm.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommReply;
-import com.blackberry.s20240130103.ykm.model.YkmPaging;
 
 public interface YkmService {
 

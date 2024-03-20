@@ -59,6 +59,7 @@
 	<!-- ======= Sidebar ======= -->
     <%@ include file="../asidebar.jsp" %>
 
+	<!-- ======= 게시판 헤더 ======= -->
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>정보게시판</h1>
@@ -69,9 +70,9 @@
 				</ol>
 			</nav>
 		</div>
-		<!-- End Page Title -->
+		
 
-		<!-- ======= Bordered Tabs ======= -->
+		<!-- ======= 게시판 본문 ======= -->
 		<section class="section">
 			<div class="row card card-body">
 				<div class="community-header">
@@ -80,45 +81,43 @@
 				
 				<!-- 카테고리 탭 시작  -->
 				<div class="community-body">
-				<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link ${comm_mid2=='99' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
-							data-bs-target="#bordered-home" type="button" role="tab"
-							aria-controls="home" aria-selected="${comm_mid2=='0' ? 'true' : 'false'}"
-							onclick="location.href='/boardStudy?=comm_mid2=99';">전체</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link ${comm_mid2=='10' ? 'active' : ''}" id="recruiting-tab" data-bs-toggle="tab"
-							data-bs-target="#bordered-profile" type="button" role="tab"
-							aria-controls="profile" aria-selected="${comm_mid2=='10' ? 'true' : 'false'}"
-							onclick="location.href='/boardStudy?comm_mid2=10';">모집중</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link ${comm_mid2=='20' ? 'active' : ''}" id="recruited-tab" data-bs-toggle="tab"
-							data-bs-target="#bordered-contact" type="button" role="tab"
-							aria-controls="contact" aria-selected="false"
-							onclick="location.href='/boardStudy?comm_mid2=20';">모집완료</button>
-					</li>
-				 
-				<!-- 검색 시작  -->
-					<li class="nav-item ms-auto" role="presentation">
-						<div class="search-bar justify-content-end">
-							<form action="boardStudy" method="GET" class="search-form d-flex align-items-center">
-								<input type="hidden" name="comm_mid2" value="${comm_mid2}">
-								<select class="form-select" name="type" aria-label="Default select example" required="required">
-								    <option value="A">전체</option>
-								    <option value="TC">제목+내용</option>
-								    <option value="W">작성자</option>
-								</select>
-								<input type="text" name="keyword" placeholder="관심 스터디를 검색해보세요" title="Enter search keyword" class="keyword-bar">
-								<button type="submit">
-									<i class="bi bi-search"></i>
-								</button>
-							</form>
-						</div>
-					</li>
-				</ul>
-				
+					<ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link ${comm_mid2=='99' ? 'active' : ''}" id="home-tab" data-bs-toggle="tab"
+									data-bs-target="#bordered-home" type="button" role="tab"
+									aria-controls="home" aria-selected="${comm_mid2=='0' ? 'true' : 'false'}"
+									onclick="location.href='/boardStudy?=comm_mid2=99';">전체</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link ${comm_mid2=='10' ? 'active' : ''}" id="recruiting-tab" data-bs-toggle="tab"
+									data-bs-target="#bordered-profile" type="button" role="tab"
+									aria-controls="profile" aria-selected="${comm_mid2=='10' ? 'true' : 'false'}"
+									onclick="location.href='/boardStudy?comm_mid2=10';">모집중</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link ${comm_mid2=='20' ? 'active' : ''}" id="recruited-tab" data-bs-toggle="tab"
+									data-bs-target="#bordered-contact" type="button" role="tab"
+									aria-controls="contact" aria-selected="false"
+									onclick="location.href='/boardStudy?comm_mid2=20';">모집완료</button>
+						</li>
+					 
+						<!-- 검색 시작  -->
+						<li class="nav-item ms-auto" role="presentation">
+							<div class="search-bar justify-content-end">
+								<form action="boardStudy" method="GET" class="search-form d-flex align-items-center">
+									<input type="hidden" name="comm_mid2" value="${comm_mid2}">
+									<select class="form-select" name="type" aria-label="Default select example" required="required">
+									    <option value="A">전체</option>
+									    <option value="TC">제목+내용</option>
+									    <option value="W">작성자</option>
+									</select>
+									<input type="text" name="keyword" placeholder="관심 스터디를 검색해보세요" title="Enter search keyword" class="keyword-bar">
+									<button type="submit"><i class="bi bi-search"></i>
+									</button>
+								</form>
+							</div>
+						</li>
+					</ul>
 				</div>
 				<!-- 게시글 리스트 -->
 				<div class="table-body">
@@ -152,12 +151,10 @@
 									<td>${postList.cboard_viewcnt}</td>
 									<td>${postList.reply_count}</td>
 								</tr>
-								<!-- <span class="recruited">모집완료</span> -->
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
-			
 				
 				<div class="community-bottom">
 					<!-- 글쓰기 -->
@@ -178,7 +175,6 @@
 						</c:if>
 						</ul>
 					</nav>
-					
 				</div>
 			</div>
 		</section>
@@ -189,9 +185,9 @@
     <!-- End Footer -->
    
    
-   <a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+   <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+   </a>
    
     <!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

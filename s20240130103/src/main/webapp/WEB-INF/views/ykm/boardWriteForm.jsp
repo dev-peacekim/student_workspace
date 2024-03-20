@@ -90,6 +90,7 @@ window.onload = function() {
 	<!-- ======= Sidebar ======= -->
     <%@ include file="../asidebar.jsp" %>
 
+	<!-- 게시판 페이지 헤더 -->
 	<main id="main" class="main">
 		<div class="pagetitle">
 			<h1>정보게시판</h1>
@@ -109,7 +110,7 @@ window.onload = function() {
 				</ol>
 			</nav>
 		</div>
-		<!-- End Page Title -->
+		<!-- 게시판 페이지 본문 -->
 		<section class="section">
 			<div class="row card card-body">
 				<div class="community-header">
@@ -139,14 +140,13 @@ window.onload = function() {
 					        </div>
 						</div>
 						
-						<!-- 내용 -->
+						<!-- 글 내용 작성 -->
 						<div class="content-input">
 							<label for="boardContent" class="form-label"></label>
 							<textarea class="form-control" id="boardContent" rows="15" 
 										placeholder="내용을 입력하세요." name="cboard_content" required="required"></textarea>
 						</div>
 						
-						<!-- 버튼 -->
 						<div class="btn-container">
 							<input type="submit" class="btn btn-primary" value="확인" id="blankchk">
 							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
@@ -155,7 +155,6 @@ window.onload = function() {
 				</form>
 			</div>
 		</section>
-
 	</main>
 
 	<!-- ======= Footer ======= -->
