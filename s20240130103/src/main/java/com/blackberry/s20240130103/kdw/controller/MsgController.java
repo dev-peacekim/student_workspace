@@ -88,6 +88,15 @@ public class MsgController {
 	    } else {
 	        receivedMessages = msgService.getReceivedMessages(msgReceiver, page.getStart(), page.getEnd());
 	    }
+	    // 전체삭제하고 페이지가 비었을때
+	    if(receivedMessages.isEmpty()) {
+	    	MsgPaging page2 = new MsgPaging(totReceiveMsgCnt,String.valueOf(Integer.parseInt(currentPage)-1) );
+	    	if (keyword != null && !keyword.isEmpty()) {
+		        receivedMessages = msgService.searchReceivedMessages(msgReceiver, keyword, type, page2.getStart(), page2.getEnd());
+		    } else {
+		        receivedMessages = msgService.getReceivedMessages(msgReceiver, page2.getStart(), page2.getEnd());
+		    }
+	    }
 	    
 	    System.out.println("MsgController getReceivedMessages 전체쪽지" + totReceiveMsgCnt);
 	    System.out.println("MsgController getReceivedMessages 읽지않은쪽지" + totUnreadReceiveMsgCnt);
