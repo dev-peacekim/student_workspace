@@ -122,11 +122,12 @@
 					</table>
 				</div>
 				
-				<!-- ======= 페이지 번호 ======= -->
 				<div class="community-bottom">
+				<!-- 글쓰기 -->
 				<div class="btn-write">
 					<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=10&comm_big=200'">글쓰기</button>
 				</div>
+					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
@@ -140,7 +141,6 @@
 						</c:if>
 						</ul>
 					</nav>
-					<!-- 글쓰기 -->
 				</div>
 				
 			</div>

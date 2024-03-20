@@ -161,6 +161,9 @@ tbody th, tbody td {
 	display: flex;
 	justify-content: center;
 	position: relative;
+	align-items: center;
+	height: 50px;
+	padding-top: 10px;
 	/* width: 100%; */
 }
 /*--------------------------------------------------------------
@@ -173,9 +176,8 @@ tbody th, tbody td {
 	padding: 1rem;
 	margin-left: auto;
 	justify-content: flex-end;
-	bottom: 15px;
-	right: 10px;
-	
+	right: -15px;
+	bottom: 0px;
 }
 
 .custom-btn {

@@ -158,17 +158,15 @@
 					</table>
 				</div>
 			
-				<!-- <div class="btn-container">
-					<a href="/writeForm?comm_mid=20&comm_big=200"><button class="btn btn-primary custom-btn wriBtn">글쓰기</button></a>
-				</div> -->
-				<!-- ======= 페이지 번호 ======= -->
+				
 				<div class="community-bottom">
-					<!-- <div class="btn-container">
+					<!-- 글쓰기 -->
+					<div class="btn-write">
 						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
-					</div> -->
+					</div>
 					<!-- ======= 페이지 번호 ======= -->
 					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
+						<ul class="pagination justify-content-center page-numbers">
 						<c:if test="${stuPage.startPage > stuPage.pageBlock}">
 							<li class="page-item"><a class="page-link" href="/boardStudy?currentPage=${stuPage.startPage - stuPage.pageBlock}&type=${type}&keyword=${keyword}"><span aria-hidden="true">«</span></a></li>
 						</c:if>
@@ -180,9 +178,7 @@
 						</c:if>
 						</ul>
 					</nav>
-					<!-- 글쓰기 -->
-					<div class="btn-write">
-						<button class="btn btn-primary custom-btn wriBtn" onclick="location.href='/writeForm?comm_mid=20&comm_big=200'">글쓰기</button>
+					
 				</div>
 			</div>
 		</section>

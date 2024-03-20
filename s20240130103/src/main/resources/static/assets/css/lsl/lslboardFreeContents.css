@@ -369,7 +369,7 @@
     width: 50px;
     font-size: 0.75rem;
     font-weight: bold;
-    right: 50px;
+    right: 80px;
     border: none !important;
     background: white;
 
@@ -382,19 +382,21 @@
     width: 50px;
     font-size: 0.75rem;
     font-weight: bold;
-    right: 90px;
+    right: 120px;
     border: none !important;
     background: white;
 
 }
 
 .re-btn-container .btn.brBtn {
-	position: absolute;
-	margin-top : 15px;
-	margin-right: -120px;
-	width: 36px;
-	color: black;
-	background-color: white;
+	 font-size: 0.75rem;
+    margin-top: 18px;
+    right: 10px;
+    width: auto; /* 너비를 자동으로 설정하여 텍스트에 맞춤 */
+    min-width: 36px; /* 최소 너비를 지정하여 너비가 너무 작지 않도록 함 */
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 함 */
+    color: black;
+    background-color: white;
 } 
 
 

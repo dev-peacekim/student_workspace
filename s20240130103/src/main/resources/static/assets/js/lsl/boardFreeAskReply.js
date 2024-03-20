@@ -105,9 +105,10 @@ function updateReplyList(data) {
                     <div class="re-btn-container">
                         <button type="button" class="brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};"><i class="bi bi-pencil-fill"></i>수정</button>
                         <button type="button" class="brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};"><i class="bi bi-trash"></i>삭제</button>
-                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-creply-level="${lslCommReply.creply_level}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-no="${lslCommReply.creply_no}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
+                        <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-creply-level="${lslCommReply.creply_level}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-no="${lslCommReply.creply_no}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i> 답글</button>
                     </div>
                 </div>
+                
                 <div id="replyBox">
                     <div id="editComment_${lslCommReply.creply_no}" class="card-body comment-body" style="display: none;">
                         <textarea id="editCommentText_${lslCommReply.creply_no}" class="form-control">${lslCommReply.creply_content}</textarea>

@@ -10,7 +10,7 @@
 	padding-bottom: 20px;
 	font-family: 'NanumSquare', sans-serif;
     right: 36px;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 .keyword-bar {
 	margin-right: 0px;
@@ -158,6 +158,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    height: 54px;
 }
 
 /*--------------------------------------------------------------
@@ -167,11 +168,10 @@
 	position: absolute;
 	display: flex;
 	align-items: center;
-	padding: 1rem;
 	margin-left: auto;
 	justify-content: flex-end;
 	bottom: 15px;
-	right: -80px;
+	right: -65px;
 }
 /*--------------------------------------------------------------
 # btn
@@ -181,34 +181,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    padding-bottom: 20px;
 }
 
 .pagination {
     margin-right: auto;
+    align-items: center;
 }
+
+.custom-btn {
+	color: #fff;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 7px 7px 20px
+		0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+page-numbers > li > a {
+	margin-top: 0px;
+}
+
+
+
+
 
 
 
 /*----------------------------------------------------------*/
-/* .community-bottom {
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    display: block; 
-}
-
-.btn-write {
-	display: flex;
- 	justify-content: flex-end;
-	align-items: center;
-	height: 50px;
-	width: 100px;
-	margin-left: auto;
-	text-align: center;
-	padding: 6px 12px 6px 12px;
-} */
-
 .custom-btn {
 	color: #fff;
 	background: transparent;
