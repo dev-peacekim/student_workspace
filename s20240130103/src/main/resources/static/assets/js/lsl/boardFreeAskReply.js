@@ -103,8 +103,8 @@ function updateReplyList(data) {
                         <p class="card-subtitle comment-updated-at">작성일 ${formatDate}</p>
                     </div>
                     <div class="re-btn-container">
-                        <button type="button" class="btn brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">수정</button>
-                        <button type="button" class="btn brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};">삭제</button>
+                        <button type="button" class="brModify" onclick="toggleEdit('${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};"><i class="bi bi-pencil-fill"></i>수정</button>
+                        <button type="button" class="brDelete" onclick="deleteComment('${lslCommReply.cboard_no}', '${lslCommReply.creply_no}');" style="display: ${showButtons ? 'block' : 'none'};"><i class="bi bi-trash"></i>삭제</button>
                         <button type="button" class="btn brBtn" data-creply-group="${lslCommReply.creply_group}" data-cboard-no="${lslCommReply.cboard_no}" data-creply-level="${lslCommReply.creply_level}" data-creply-indent="${lslCommReply.creply_indent}" data-creply-no="${lslCommReply.creply_no}" onclick="toggleReply('${lslCommReply.creply_no}');"><i class="bi bi-reply-fill"></i></button>
                     </div>
                 </div>
@@ -180,6 +180,7 @@ function addComment(replyData) {
             if (data > 0) {
                 $('#creply_content').val('');
                 // 댓글 등록 후 댓글 리스트 업데이트
+                $('#replyCnt').text(Number($('#replyCnt').text()) + 1);
                 replyBoardFreeAskList(replyData.cboard_no);
             } else {
                 console.log('댓글 등록에 실패했습니다!');
@@ -255,6 +256,7 @@ function addReply(reReplyData) {
             if (data > 0) {
                 console.log('대댓글 데이터 넘어옴');
                 replyBoardFreeAskList(reReplyData.cboard_no);
+                $('#replyCnt').text(Number($('#replyCnt').text()) + 1);
             }
         },
         error: function(error) {
@@ -308,6 +310,7 @@ function deleteComment(cboard_no, creply_no) {
 			if (data > 0) {
 				// 삭제 성공 시, 다시 댓글 리스트를 업데이트
 				replyBoardFreeAskList(cboard_no);
+				$('#replyCnt').text(Number($('#replyCnt').text()) - 1);
 				 
 			} else {
 				console.log('댓글 삭제에 실패했습니다!');

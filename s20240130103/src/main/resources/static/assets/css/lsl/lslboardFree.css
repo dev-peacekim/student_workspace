@@ -17,7 +17,7 @@
 }
 
 .card-title {
-	padding-top: 16px;
+	padding-top: 20px;
 	padding-left: 20px;
 	padding-right: 15px;
 	margin-bottom: 40px;
@@ -38,7 +38,7 @@
 	position: relative;
 	padding: 1rem;
 	width: 100%;
-	height: 100%;
+	height: 820px;
 	max-height: 100%;
 }
 
@@ -68,7 +68,7 @@
 	position:absolute;
 	width: 70px;
 	right: 30px;
-	bottom: 20px;
+	bottom: 120px;
 	font-size: 0.9rem;
 	margin-bottom: 15px;
 }
@@ -81,9 +81,9 @@
 	padding-top: 10px;
 	font-family: 'NanumSquare', sans-serif;
 	position: absolute; /* 절대 위치로 설정 */
-	top: 30px; /* 상단에 배치 */
-	right: -40px; /* 우측 여백 설정 */
-	margin-bottom: 40px; /* 서치바 아래 여백 설정 */
+	top: 40px; /* 상단에 배치 */
+	right: -45px; /* 우측 여백 설정 */
+	margin-bottom: 20px; /* 서치바 아래 여백 설정 */
 }
 
 @media ( max-width : 1199px) {
@@ -167,7 +167,7 @@ tbody th, tbody td {
 }
 
 .page-link {
-	margin-top: 20px;
+	margin-top: 40px;
 }
 
 
@@ -176,7 +176,7 @@ tbody th, tbody td {
 /*게시판 리스트 크기 조정 */
 
 .list {
-	border-top: 2px solid #ebeef4;
+	border-top: 1px solid #dee2e6;
 	border-left: 1px solid #dee2e6;
 	border-right: 1px solid #dee2e6;
 }
