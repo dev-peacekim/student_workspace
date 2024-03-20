@@ -8,6 +8,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -420,6 +421,7 @@ public class LslController {
 				boardModifyContents = ls.boardAskModify(cboard_no);
 				boardFiles = ls.boardAskFile(cboard_no);
 			}
+	
 			model.addAttribute("boardFiles",boardFiles);
 			model.addAttribute("boardType", boardType);
 			model.addAttribute("boardModifyContents", boardModifyContents);
@@ -428,51 +430,30 @@ public class LslController {
 
 	// 게시판 글 수정 처리
 		@PostMapping("/boardFreeAskUpdate")
-		public String boardFreeAskUpdate(@RequestParam("files") MultipartFile[] multipartFile, @RequestParam("boardType") String boardType,
-				HttpServletRequest request, Model model, LslBoardComm lslBoardComm, LslboardFile lslboardFile) {
+		public String boardFreeAskUpdate(@RequestParam("files") MultipartFile[] multipartFile, 
+										@RequestParam("boardType") String boardType,
+										HttpServletRequest request, 
+										Model model, 
+										LslBoardComm lslBoardComm, 
+										LslboardFile lslboardFile,
+										@Nullable @RequestParam("deleteFiles")String deleteFileFiles) {
 		    // 게시글 번호, 유저 번호, 게시판 타입을 가져옴
 		    int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		    Long user_no = (Long) request.getSession().getAttribute("user_no");
 		    //String boardType = request.getParameter("boardType");
-
 		    System.out.println("boardType = "+boardType);
 		    
 		    // 서버에 저장된 파일 경로 설정
 		    String boardfilePath = request.getSession().getServletContext().getRealPath("/upload/boardFile/");
-		    
 		    // 유저 번호와 게시글 번호 설정
 		    lslBoardComm.setUser_no(user_no);
 		    lslboardFile.setCboard_no(cboard_no);
 
-		    // 서버에 있는 기존 파일 삭제
-		    ls.deleteBoardOldFiles(cboard_no, boardfilePath);
-		    // 기존 파일 데이터 삭제
-		    ls.deleteBoardOldData(cboard_no);
-		    try {
-		        	System.out.println("multipartFile controller ->" + multipartFile);
-		            if(multipartFile.length != 0) {
-		            	
-		            	List<LslboardFile> boardFileName = ls.boardFileNames(multipartFile, boardfilePath);
-		            	for (LslboardFile file : boardFileName) {
-		            		System.out.println("boardFileName ->>>>"+boardFileName);
-		            	    LslboardFile newlslboardFile = new LslboardFile(); // 반복문 내부에서 객체 생성
-		            	    newlslboardFile.setCboard_no(cboard_no);
-		            	    newlslboardFile.setCboard_file_user_name(file.getCboard_file_user_name());
-		            	    newlslboardFile.setCboard_file_name(file.getCboard_file_name());
-		            	    ls.updateBoradFile(newlslboardFile);
-		            	}
-		            }
-		    } catch(Exception e) {
-		        e.printStackTrace();
-		        System.out.println("LslController boardFreeAskUpdate Exception ->" + e.getMessage());
-		    }
 		    // 게시글 정보 업데이트
 		    lslBoardComm.setCboard_no(cboard_no);
 		    lslBoardComm.setBoardType(boardType);
-		    
-		    
-		   int  boardUpdate = ls.boardUpdate(lslBoardComm);
-		   
+
+		    int  boardUpdate = ls.boardUpdate(lslBoardComm,multipartFile,boardfilePath,deleteFileFiles);
 		    model.addAttribute("boardUpdate", boardUpdate);
 		  
 		    // 보드 타입에 따라 페이지 이동

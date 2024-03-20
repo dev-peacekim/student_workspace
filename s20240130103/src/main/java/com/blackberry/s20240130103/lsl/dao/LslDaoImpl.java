@@ -21,7 +21,6 @@ public class LslDaoImpl implements LslDao {
 
 	private final SqlSession session;
 
-	
 	// 자유 게시판 토탈 카운트 및 페이징 
 	@Override
 	public int totalBoardFree() {
@@ -35,7 +34,6 @@ public class LslDaoImpl implements LslDao {
 		}
 		return totalBoardFreeCnt;
 	}
-
 	
 	@Override
 	public List<LslBoardComm> boardFreeList(LslBoardComm lslBoardComm) {
@@ -51,9 +49,6 @@ public class LslDaoImpl implements LslDao {
 		}
 		return boardFreeList;
 	}
-
-	
-	
 	
 	// 질문 게시판 토탈 카운트 및 페이징 
 	@Override
@@ -82,7 +77,6 @@ public class LslDaoImpl implements LslDao {
 		return boardAskList;
 	}
 	
-	
 	// 게시판 검색 토탈 카운트 
 	@Override
 	public int totalBoardSearchFree(LslBoardComm lslBoardComm, String keyword, String type) {
@@ -103,9 +97,6 @@ public class LslDaoImpl implements LslDao {
 		int totalBoardSearchAsk = session.selectOne("sltotalBoardSearchAsk", param);
 		return totalBoardSearchAsk;
 	}
-
-	
-	
 	
 	// 게시판 검색
 	@Override
@@ -143,10 +134,6 @@ public class LslDaoImpl implements LslDao {
 		}
 		return boardAskSearch;
 	}
-
-	
-	
-	
 	
 	// 게시판 글 상세 페이지 
 	@Override
@@ -166,9 +153,6 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeContents;
 	}
 	
-	
-	
-	
 	// 게시판 파일 업로드 
 	@Override
 	public void saveBoardFile(LslboardFile lslboardFile) {
@@ -181,10 +165,6 @@ public class LslDaoImpl implements LslDao {
 			}
 		
 	}
-
-
-	
-	
 	
 	// 게시판 글 파일 상세 내역 
 	@Override
@@ -212,14 +192,12 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeFiles;
 	}
 
-	
 	// 게시판 글 상세 페이지 댓글 카운트
 	@Override
 	public int boardReplyCnt(int cboard_no) {
 		int boardReplyCnt = session.selectOne("slboardReplyCnt", cboard_no);
 		return boardReplyCnt;
 	}
-
 	
 	// 게시판 글쓰기 
 	@Override
@@ -233,9 +211,6 @@ public class LslDaoImpl implements LslDao {
 		int boardAskWriteInsert = session.insert("slboardAskWriteInsert", lslBoardComm);
 		return boardAskWriteInsert;
 	}
-
-
-	
 	
 	// 게시판 글 삭제
 	@Override
@@ -250,9 +225,6 @@ public class LslDaoImpl implements LslDao {
 		return deleteAskBoard;
 	}
 
-
-
-	
 	// 게시판 조회수 
 	@Override
 	public int boardFreeViewCnt(LslBoardComm lslBoardComm) {
@@ -265,11 +237,6 @@ public class LslDaoImpl implements LslDao {
 		int boardAskViewCnt = session.update("slboardAskViewCnt", lslBoardComm);
 		return boardAskViewCnt;
 	}
-
-	
-	
-	
-	
 	
 	// 게시판 글 수정 페이지
 	@Override
@@ -284,8 +251,6 @@ public class LslDaoImpl implements LslDao {
 		LslBoardComm boardAskModify = session.selectOne("slboardAskModify", cboard_no);
 		return boardAskModify;
 	}
-
-	
 	
 	// 게시판 글 수정 
 	@Override
@@ -294,22 +259,16 @@ public class LslDaoImpl implements LslDao {
 		return boardUpdate;
 	}
 	
-	
-
-	// 게시판 파일 업데이트 
 	@Override
-	public void updateBoradFile(LslboardFile newlslboardFile) {
-		session.insert("slInsertBoradFile", newlslboardFile);
-		
+	public void deleteBoardFile(LslboardFile file) {
+		int result = session.delete("sldeleteBoardFile",file);
 	}
 	
 	// 기존 데이터 삭제 
 	@Override
 	public void deleteBoardOldData(int cboard_no) {
 		session.delete("sldeleteBoardOldData", cboard_no);
-		
 	}
-	
 	
 // Rest API  댓글 
 	
@@ -345,7 +304,6 @@ public class LslDaoImpl implements LslDao {
 		return boardFreeAskResult;
 	}
 
-
 	
 	// 대댓글
 	
@@ -371,13 +329,6 @@ public class LslDaoImpl implements LslDao {
 		return updateReply;
 	}
 
-
-	
-
-
-
-
-	
 
 	
 	

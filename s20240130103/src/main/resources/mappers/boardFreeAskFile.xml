@@ -34,5 +34,11 @@
 		COMM_UPDATE_DATE = sysdate
 		where cboard_no = #{cboard_no}
 	</update>
-
+	
+	<delete id="sldeleteBoardFile" parameterType="LslboardFile">
+		delete
+		from board_comm_file
+		where cboard_no = #{cboard_no}
+		and cboard_file_cnt = #{cboard_file_cnt}
+	</delete>
 </mapper>

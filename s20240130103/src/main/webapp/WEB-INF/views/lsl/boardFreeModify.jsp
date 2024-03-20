@@ -86,17 +86,26 @@
 							<form id="boardFreeUpdate" method="post" action="/boardFreeAskUpdate"  enctype="multipart/form-data">
 								<input type="hidden" name="cboard_no"value="${boardModifyContents.cboard_no}" /> 
 								<input type="hidden" name="boardType" id="boardType" value="${boardType}" />
+								<input type="hidden" name="deleteFiles" id="deleteFiles">
 								<div class="mb-3">
 									<input id="ModifyTitle" type="text" class="form-control" name="cboard_title" placeholder="제목을 입력하세요." value="${boardModifyContents.cboard_title}">
 								</div>
 									<!-- 파일 첨부 -->
 									<div class="upload-files">
-										<label for="files" class="form-label">파일 첨부</label>
+										<div>
+											<label for="files" class="form-label">파일 첨부</label>
+										</div>
+										<div class="d-flex" style="margin: 3px 0;">
+											<c:forEach items="${boardFiles}" var="boardFile">
+												<div id="importFile${boardFile.cboard_file_cnt }">
+													<div class="fileName">${boardFile.cboard_file_user_name}</div>
+													<button class="fileXbtn" data-index="${boardFile.cboard_file_cnt }" type="button">X</button>
+												</div>
+											</c:forEach>
+										</div>
 										<input class="form-control" name="files" type="file" id="formFile" multiple/>
 										<div class="upload-title" id="fileList" >
-											<c:forEach items="${boardFiles}" var="boardFile">
-												<div class="fileName">${boardFile.cboard_file_user_name}</div>
-											</c:forEach>
+											
 									</div>
 									</div>
 								<div class="mb-3">

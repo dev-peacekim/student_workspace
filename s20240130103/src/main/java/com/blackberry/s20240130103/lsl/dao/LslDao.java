@@ -62,10 +62,6 @@ public interface LslDao {
 	// 게시판 파일 상세 내역
 	List<LslboardFile> boardAskFiles(int cboard_no);
 	List<LslboardFile> boardFreeFile(int cboard_no);
-	
-	// 게시판 파일 업데이트 
-	void updateBoradFile(LslboardFile newlslboardFile);
-		
 		
 	// 게시판 기존 데이터 삭제
 	void deleteBoardOldData(int cboard_no);
@@ -97,6 +93,7 @@ public interface LslDao {
 	
 	// 대댓글 업데이트 
 	int  updateReply(LslCommReply lslCommReply);
+	void deleteBoardFile(LslboardFile file);
 	
 	
 	

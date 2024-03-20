@@ -23,6 +23,8 @@ const fileDivDom = function(fileName,index){
 				dataList.remove(i);
 			}
 		}
+		console.log(dataList.length);
+		console.log(dataTransfer.items.length);
 		//console.log(dataList);
 		formFileInput.files = dataTransfer.files;
 		//for(let i=0;i<dataList.length;i++){
@@ -69,5 +71,12 @@ document.querySelector('.upload-title').addEventListener('drop',function(e){
     formFileInput.files = dataTransfer.files;
 })
 
-
+if(document.querySelector('.fileXbtn')){
+	document.querySelectorAll('.fileXbtn').forEach((item)=>{
+		item.addEventListener('click',function(){
+			document.getElementById('importFile'+this.dataset.index).remove();
+			document.getElementById('deleteFiles').value += this.dataset.index+'-';
+		})
+	});
+}
 
