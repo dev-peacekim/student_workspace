@@ -155,6 +155,16 @@ public class MsgController {
 	    	sentMessages = msgService.getSentMessages(msgSender, page.getStart(), page.getEnd());
 	    }
 	    
+	    
+	    // 전체삭제하고 페이지가 비었을때
+	    if(sentMessages.isEmpty()) {
+	    	MsgPaging page2 = new MsgPaging(totSentMsgCnt,String.valueOf(Integer.parseInt(currentPage)-1) );
+	    	if (keyword != null && !keyword.isEmpty()) {
+	    		sentMessages = msgService.searchSentMessages(msgSender, keyword, type, page2.getStart(), page2.getEnd());
+		    } else {
+		    	sentMessages = msgService.getSentMessages(msgSender, page2.getStart(), page2.getEnd());
+		    }
+	    }
 	    System.out.println("MsgController getSendMessages 전체쪽지" + totSentMsgCnt);
 	    System.out.println("MsgController getSendMessages 읽지않은쪽지" + totUnreadSentMsgCnt);
 	    
@@ -212,6 +222,16 @@ public class MsgController {
 	    	storedMessages = msgService.getStoredMessages(storeboxUserNo, page.getStart(), page.getEnd());
 	    }
 	    
+	    // 전체삭제하고 페이지가 비었을때
+	    if(storedMessages.isEmpty()) {
+	    	MsgPaging page2 = new MsgPaging(totStoredMsgCnt,String.valueOf(Integer.parseInt(currentPage)-1) );
+	    	if (keyword != null && !keyword.isEmpty()) {
+	    		storedMessages = msgService.searchStoredMessages(storeboxUserNo, keyword, type, page2.getStart(), page2.getEnd());
+		    } else {
+		    	storedMessages = msgService.getStoredMessages(storeboxUserNo, page2.getStart(), page2.getEnd());
+		    }
+	    }
+	    
 	    // 'Model'에 보관된 쪽지 목록과 페이징 정보를 담아서 전달
 	    model.addAttribute("totStoredMsgCnt", totStoredMsgCnt);
 	    model.addAttribute("totUnreadStoredMsgCnt", totUnreadStoredMsgCnt);
@@ -266,6 +286,16 @@ public class MsgController {
 	    	trashMessages = msgService.searchTrashMessages(trashboxUserNo, keyword, type, page.getStart(), page.getEnd());
 	    } else {
 	    	trashMessages = msgService.getTrashMessages(trashboxUserNo, page.getStart(), page.getEnd());
+	    }
+	    
+	    // 전체삭제하고 페이지가 비었을때
+	    if(trashMessages.isEmpty()) {
+	    	MsgPaging page2 = new MsgPaging(totTrashMsgCnt,String.valueOf(Integer.parseInt(currentPage)-1) );
+	    	if (keyword != null && !keyword.isEmpty()) {
+	    		trashMessages = msgService.searchTrashMessages(trashboxUserNo, keyword, type, page2.getStart(), page2.getEnd());
+		    } else {
+		    	trashMessages = msgService.getTrashMessages(trashboxUserNo, page2.getStart(), page2.getEnd());
+		    }
 	    }
         
         // 'Model'에 보관된 휴지통 쪽지 목록과 페이징 정보를 담아서 전달

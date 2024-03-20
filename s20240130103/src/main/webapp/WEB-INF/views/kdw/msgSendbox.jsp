@@ -309,8 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			    <ul class="pagination">
 			        <li class="page-item ${page.startPage <= 1 ? 'disabled' : ''}">
 			            <a class="page-link prev-page" 
-			            href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}
-			            &keyword=${keyword}&type=${tpye}" aria-label="Previous">
+			            href="?currentPage=${page.startPage > 1 ? page.startPage - 1 : '#'}&keyword=${keyword}&type=${tpye}" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			            </a>
 			        </li>
@@ -323,8 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			        <li class="page-item ${page.endPage >= page.totalPage ? 'disabled' : ''}">
 			            <a class="page-link next-page" 
-			            href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}
-			            &keyword=${keyword}&type=${tpye}" aria-label="Next">
+			            href="?currentPage=${page.endPage < page.totalPage ? page.endPage + 1 : '#'}&keyword=${keyword}&type=${tpye}" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			            </a>
 			        </li>
