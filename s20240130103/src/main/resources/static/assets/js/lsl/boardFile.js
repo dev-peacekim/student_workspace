@@ -23,11 +23,11 @@ const fileDivDom = function(fileName,index){
 				dataList.remove(i);
 			}
 		}
-		console.log(dataList);
+		//console.log(dataList);
 		formFileInput.files = dataTransfer.files;
-		for(let i=0;i<dataList.length;i++){
-			console.log(dataList[i].getAsFile());
-		}
+		//for(let i=0;i<dataList.length;i++){
+		//	console.log(dataList[i].getAsFile());
+		//}
 	})
 	xBtnDiv.appendChild(xBtn);
 	firstDiv.appendChild(filetitleDiv);

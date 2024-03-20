@@ -92,7 +92,16 @@
 										<label for="files" class="form-label">파일 첨부</label>
 										<input class="form-control" name="files" type="file" id="formFile"  multiple />
 										<div class="upload-title" id="fileList" >
-											
+											<!-- 
+											<div class="d-flex justify-content-between file-list">
+												<div>
+													파일이름
+												</div>
+												<div>
+													<button>X</button>
+												</div>
+											</div>
+											 -->
 										</div>
 									</div>
                             <div class="mb-3">
