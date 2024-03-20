@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar","\n"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +9,12 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
   
-	  
-	 <title>Blueberry</title>
-	<meta content="" name="description">
-	<meta content="" name="keywords">
+  
+ <title>Blueberry</title>
+ <meta content="" name="description">
+ <meta content="" name="keywords">
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
   
   
   <!-- Favicons -->
@@ -49,21 +51,20 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<script>
-window.onload = function() {
-	 getUserNo();
-     getUserNic();
-	replyBoardFreeAskList(${boardFreeContents.cboard_no});
-}
+	<script>
+	window.onload = function() {
+		 getUserNo();
+	     getUserNic();
+		replyBoardFreeAskList(${boardFreeContents.cboard_no});
+	}
+	
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
 
-function goBack() {
-    window.history.back();
-}
-</script>
-
-
-</head>
-<body>
+	</head>
+	<body>
     <!-- ======= Header ======= -->
     <%@ include file="../header.jsp" %>
     
@@ -72,124 +73,114 @@ function goBack() {
     <%@ include file="../asidebar.jsp" %>
 
     <!-- ======= Main ======= -->
-<main id="main" class="main">
-    <div class="pagetitle">
-        <h1>게시판 </h1>
-        <nav style="--bs-breadcrumb-divider: '/';">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="boardFree">정보 게시판</a></li>
-                <li class="breadcrumb-item">자유 게시판</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+	<main id="main" class="main">
+	    <div class="pagetitle">
+	        <h1>게시판 </h1>
+	        <nav style="--bs-breadcrumb-divider: '/';">
+	            <ol class="breadcrumb">
+	                <li class="breadcrumb-item"><a href="boardFree">정보 게시판</a></li>
+	                <li class="breadcrumb-item">자유 게시판</li>
+	            </ol>
+	        </nav>
+	    </div>
+	
+	    <section class="community-post-detail">
+	        <div class="row card main-card card-body">
+	            <div class="card-header community-post-header">
+	                <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
+	  
+	                <div class="card-subtitle post-user-container">
+	                    <c:choose>
+	                        <c:when test="${boardFreeContents.user_profile !=null}">
+			                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${boardFreeContents.user_profile}" alt="User Profile" ></img>
+			                </c:when>
+			            <c:otherwise>
+			                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="">                   
+	                 	</c:otherwise>
+	                   	</c:choose>	
+	                
+	                    <div class="card-title-header">
+	                        <h5 class="card-title post-user-name"><label>${boardFreeContents.user_nic}</label></h5>
+	                        
+	                        <div class="card-subtitle post-subtitle"><p class="post-updated-at">작성일<fmt:formatDate value="${boardFreeContents.cboard_date}" pattern="yyyy.MM.dd a hh:mm" /></p>
+	                            <p class="post-veiw-count">조회수 ${boardFreeContents.cboard_viewcnt}</p>
+	                        </div>
+	                     </div>
+	                	</div>
+	           		 </div>
+	           
+	            <div class="community-post-header-body">
+	               <span class="post-content">${fn:replace(boardFreeContents.cboard_content, replaceChar, "<br/>")}</span>
 
-    <section class="community-post-detail">
-        <div class="row card main-card card-body">
-            <div class="card-header community-post-header">
-                <h3 class="card-title post-header-title">${boardFreeContents.cboard_title}</h3>
-                <div class="card-subtitle post-user-container">
-                    <c:choose>
-                        <c:when test="${boardFreeContents.user_profile !=null}">
-                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/${boardFreeContents.user_profile}" alt="User Profile" ></img>
-                </c:when>
-                <c:otherwise>
-                    <img class="user-profile" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="">                   
-                 </c:otherwise>
-                </c:choose>
-                    <div class="card-title-header">
-                        <h5 class="card-title post-user-name">
-                            <label>${boardFreeContents.user_nic}</label>
-                        </h5>
-                        <div class="card-subtitle post-subtitle">
-                            <p class="post-updated-at">
-                                작성일
-                                <fmt:formatDate value="${boardFreeContents.cboard_date}"
-										pattern="yyyy.MM.dd a hh:mm" />
-                            </p>
-                            <p class="post-veiw-count">조회수 
-                                ${boardFreeContents.cboard_viewcnt}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="community-post-header-body">
-                <span class="post-content">${boardFreeContents.cboard_content}</span>
-                <div class="boardFileBox">
-                    <div id="files">
-			          <c:forEach items="${boardFreeFile}" var="boardFreeFile">
-			    		<div class="file-container">
-						<a href="boardFreeFileDownload?cboard_file_name=${boardFreeFile.cboard_file_name }&cboard_file_user_name=${boardFreeFile.cboard_file_user_name}" target="_blank" class="file-link">${boardFreeFile.cboard_file_user_name}</a>			        	
-						<i class="bi bi-download file-download-icon"></i>
-			    </div>
-			</c:forEach>
-                    </div>
-                </div> 
-            </div>
+	                
+	                <div class="boardFileBox">
+	                    <div id="files">
+				          <c:forEach items="${boardFreeFile}" var="boardFreeFile">
+				    		<div class="file-container">
+					    		<i class="bi bi-file-earmark-arrow-down"></i>
+								<a href="boardFreeFileDownload?cboard_file_name=${boardFreeFile.cboard_file_name }&cboard_file_user_name=${boardFreeFile.cboard_file_user_name}" target="_blank" class="file-link">${boardFreeFile.cboard_file_user_name}</a>			        		
+							  </div>
+							</c:forEach>
+	                    </div>
+	                </div> 
+	            </div>
+	
+	          <section class="community-post-answer">
+	            <div class="answer-info-header">
+	                <div class="answer-info-title">댓글 <span class="answer-info-title-count" id="replyCnt">${boardReplyCnt}</span></div>
+	               
+	                <div class="boardPostComment">
+							<input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}" /> 
+								<input type="hidden" name="user_no" value="${boardFreeContents.user_no}" /> 
+								<input type="hidden" name="creply_no" value="${boardFreeContents.creply_no}" />
+	                            <input type="hidden" name="boardType" value="${boardFreeContents.boardType}" />
+	                            <input type="hidden" name="user_profile" value="${boardFreeContents.user_profile}" />
+	                
+		                <div class="comment-editor">
+		            		<c:choose>
+		                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
+		                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${sessionScope.user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
+		                        </c:when>
+	                    	<c:otherwise>
+	                            	<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
+	                        </c:otherwise>
+	                    	</c:choose>
+		                   <input type="text" name="comment" id="creply_content" placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
+	               		 </div>
+		                
+		                <div class="btn-container is-editor-open">
+	                    	<button type="button" id="submitBtn" class="btn submitBtn">등록</button>
+	                    </div>
+	             </div>
+	            </div>
+	            
+	            <!-- 댓글 리스트 -->
+					<div id="boardReplyForm">
+						<!-- ajax 비동기 갱신 -->
+					</div>
+					
+	      	 </section>
+	      	 
+	         <div class="btnBox">
+				  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
+				           <a href="boardFreeModify?boardType=free&cboard_no=${boardFreeContents.cboard_no}" class="badge bg-light text-dark"><i class="bi bi-highlighter"></i>수정</a>
+					<form id="deleteForm" action="/deleteFreeBoard" method="post">
+					  	  <input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}">
+					   	  <input type="hidden" name="user_no" value="${boardFreeContents.user_no}">
+					      <button type="submit" class="badge bg-light text-dark"><i class="bi bi-trash"></i> 삭제</button>
+				    </form>
+	                </c:if>
+				</div>
+	                        <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
+	            </div>
+	       </section>
+	</main>
 
-          <section class="community-post-answer">
-            <div class="answer-info-header">
-                <div class="answer-info-title">
-                    댓글 <span class="answer-info-title-count" id="replyCnt">${boardReplyCnt}</span>
-                </div>
-                
-               
-                <div class="boardPostComment">
-						<input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}" /> 
-							<input type="hidden" name="user_no" value="${boardFreeContents.user_no}" /> 
-							<input type="hidden" name="creply_no" value="${boardFreeContents.creply_no}" />
-                            <input type="hidden" name="boardType" value="${boardFreeContents.boardType}" />
-                            <input type="hidden" name="user_profile" value="${boardFreeContents.user_profile}" />
-                
-	                <div class="comment-editor">
-	            		<c:choose>
-                        <c:when test="${user_profile !=null&& sessionScope.user_no == user_no}">
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/${sessionScope.user_profile}" alt="Profile" style="height: 36px; width: 36px"></img>
-                        </c:when>
-                    <c:otherwise>
-                            <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/userImg/987654321487321564defaultImg.jpg" alt="Profile" class="rounded-circle" style="height: 36px; width: 36px"></img>
-                        </c:otherwise>
-                    </c:choose>
-	                   <input type="text" name="comment" id="creply_content"
-                        placeholder="${sessionScope.user_nic}님, 댓글을 작성해보세요." class="form-control" required="required">
-                </div>
-	                <div class="btn-container is-editor-open">
-                    	<button type="button" id="submitBtn" class="btn submitBtn">등록</button>
-                    </div>
-           
-            </div>
-            </div>
-            <!-- 댓글 리스트 -->
-				<div id="boardReplyForm">
-					<!-- ajax 비동기 갱신 -->
-				
-			</div>
-        </section>
-         <div class="btnBox">
-			  <c:if test="${sessionScope.user_no eq boardFreeContents.user_no}">
-			           <a href="boardFreeModify?boardType=free&cboard_no=${boardFreeContents.cboard_no}" class="badge bg-light text-dark">
-						   <i class="bi bi-highlighter"></i>수정</a>
-						<form id="deleteForm" action="/deleteFreeBoard" method="post">
-			  	  <input type="hidden" name="cboard_no" value="${boardFreeContents.cboard_no}">
-			   		 <input type="hidden" name="user_no" value="${boardFreeContents.user_no}">
-			    	<button type="submit" class="badge bg-light text-dark"><i class="bi bi-trash"></i> 삭제</button>
-			</form>
-                    </c:if>
-			</div>
-                        <button type="button" class="btn bfcList" onclick="goBack()">목록</button>
-                    
-            </div>
-            </section>
-</main>
-
-
-    <!-- ======= End Main ======= -->
     
     
     <!-- ======= Footer ======= -->
     <%@ include file="../footer.jsp" %>
-    <!-- End Footer -->
-   
+
    
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
    
