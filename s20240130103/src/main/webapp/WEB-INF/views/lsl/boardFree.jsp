@@ -37,7 +37,7 @@
 <link href="assets/css/lsl/lslboardFree.css" rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
 
-<!-- 헤더, 푸터, 사이드바 css -->
+
 <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -47,6 +47,7 @@
   ======================================================== -->
 </head>
 <body>
+
 	<!-- Header -->
 	<%@ include file="../header.jsp"%>
 	<!-- Sidebar -->
@@ -63,6 +64,7 @@
 				</ol>
 			</nav>
 		</div>
+		
 		<!-- End Page Title -->
 		<div class="row justify-content-center">
 			<div class="col-lg-13">
@@ -71,7 +73,6 @@
 						<h5 class="card-title">자유 게시판</h5>
 
 						<!-- Search Bar -->
-
 						<form action="boardFreeSearch" class="search-form d-flex align-items-center" method="get">
 							
 							<div class="search-bar">
@@ -84,7 +85,6 @@
 								<button type="submit" title="Search"><i class="bi bi-search"></i></button>
 							</div>
 						</form>
-						<!-- End Search Bar -->
 
 
 						<!-- 게시판 테이블 -->
@@ -119,44 +119,37 @@
        							 	<button type="button" class="btn bfWrite">글쓰기</button>
 							    	</a>
 								</div>
-							<!-- 글쓰기 버튼 끝  -->
+					
 
 							<!-- 페이지 표시 -->
 				<nav aria-label="Page navigation example">
-    				<ul class="pagination justify-content-center">
-        				<c:if test="${bfpage.startPage > bfpage.pageBlock}"><li class="page-item">
-               				 <a class="page-link" href="boardFree?currentPage=${bfpage.startPage-bfpage.pageBlock}&keyword=${keyword}&type=${tpye}" aria-label="Previous">
-                    			<span aria-hidden="true">«</span>
-                			</a>
-           			 	</li>
-        				</c:if>
-        
-        			<c:forEach var="i" begin="${bfpage.startPage}" end="${bfpage.endPage}">
-           				 <li class="page-item">
-							<a class="page-link" href="boardFreeSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a>
-        			</c:forEach>
-        
-        			<c:if test="${bfpage.endPage < bfpage.totalPage}">
-            			<li class="page-item">
-                			<a class="page-link" href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}&keyword=${keyword}&type=${type}" aria-label="Next">
-                    			<span aria-hidden="true">»</span>
-                			</a>
-          		 		</li>
-        			</c:if>
-   			 </ul>
-	</nav>
-
-							<!-- 페이지 표시 끝 -->
+				    <ul class="pagination justify-content-center">
+				        <c:if test="${bfpage.startPage > bfpage.pageBlock}">
+				            <li class="page-item"><a class="page-link" href="boardFree?currentPage=${bfpage.startPage - bfpage.pageBlock}&keyword=${keyword}&type=${tpye}" aria-label="Previous"> <span aria-hidden="true">«</span></a></li>
+				        </c:if>
+				        <c:forEach var="i" begin="${bfpage.startPage}" end="${bfpage.endPage}">
+				        <li class="page-item"><a class="page-link" href="boardFreeSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a></li>
+				        </c:forEach>
+				
+				        <c:if test="${bfpage.endPage < bfpage.totalPage}">
+				            <li class="page-item"><a class="page-link" href="boardFree?currentPage=${bfpage.startPage+bfpage.pageBlock}&keyword=${keyword}&type=${type}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				        </c:if>
+				    </ul>
+			</nav>
 						</div>
 					</div>
 				</div>
 			</div>
 	</main>
 	<!-- End #main -->
+	
 	<!-- Footer -->
 	<%@ include file="../footer.jsp"%>
-	<!-- End Footer -->
+
+
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	
+	
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -166,6 +159,7 @@
 	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
 	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
+	
 	
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>

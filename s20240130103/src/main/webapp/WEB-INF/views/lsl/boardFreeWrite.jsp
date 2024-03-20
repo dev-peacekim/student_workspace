@@ -7,19 +7,19 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
-  	<title>Blueberry</title>
-	<meta content="" name="description">
-	<meta content="" name="keywords">
+   <title>Blueberry</title>
+   <meta content="" name="description">
+   <meta content="" name="keywords">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery CDN -->
 
-	<!-- Favicons -->
- <link href="assets/img/blueberry-favicon.png" rel="icon">
- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+   <!-- Favicons -->
+   <link href="assets/img/blueberry-favicon.png" rel="icon">
+   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  	<link href="https://fonts.gstatic.com" rel="preconnect">
-  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+   <!-- Google Fonts -->
+   <link href="https://fonts.gstatic.com" rel="preconnect">
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   
   
   <!-- Vendor CSS Files -->
@@ -51,10 +51,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
 
 </head>
 <body>
+
     <!-- ======= Header ======= -->
     <%@ include file="../header.jsp" %>
     
@@ -62,17 +62,19 @@
     <!-- ======= Sidebar ======= -->
     <%@ include file="../asidebar.jsp" %>
 
+
+
     <!-- ======= Main ======= -->
- <main id="main" class="main">
-    <div class="pagetitle">
-        <h1>게시판</h1>
-        <nav style="--bs-breadcrumb-divider: '/';">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">정보 게시판</li>
-                <li class="breadcrumb-item">글쓰기</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+	 <main id="main" class="main">
+	    <div class="pagetitle">
+	        <h1>게시판</h1>
+	        <nav style="--bs-breadcrumb-divider: '/';">
+	            <ol class="breadcrumb">
+	                <li class="breadcrumb-item">정보 게시판</li>
+	                <li class="breadcrumb-item">글쓰기</li>
+	            </ol>
+	        </nav>
+	    </div>
 
     <section class="section">
         <div class="row justify-content-center">
@@ -81,12 +83,13 @@
                     <div class="card-body">
                         <h5 class="card-title">글쓰기</h5>
 
-                        <!-- General Form Elements -->
+                     	<!-- 글 쓰기 양식  -->
                         <form id="freeWrite" method="post" action="/freeWrite" enctype="multipart/form-data">
                        
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="inputText" name="cboard_title" placeholder="제목을 입력하세요.">
                             </div>
+                            
                             <!-- 파일 첨부 -->
 									<div class="upload-files">
 										<label for="files" class="form-label">파일 첨부</label>
@@ -104,6 +107,7 @@
 											 -->
 										</div>
 									</div>
+									
                             <div class="mb-3">
                                 <textarea class="form-control" id="cboard_content" name="cboard_content" placeholder="내용을 입력하세요." ></textarea>
                             </div>
@@ -119,13 +123,10 @@
     </section>
 </main>
 
-    <!-- ======= End Main ======= -->
-    
     
     <!-- ======= Footer ======= -->
     <%@ include file="../footer.jsp" %>
-    <!-- End Footer -->
-   
+
    
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
    

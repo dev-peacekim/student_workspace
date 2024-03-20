@@ -35,7 +35,6 @@
 <link href="assets/css/style.css" rel="stylesheet"  type="text/css">
 <link href="assets/css/lsl/lslboardAsk.css" rel="stylesheet">
 
-<!-- 헤더, 푸터, 사이드바 css -->
 
 <!-- =======================================================
   * Template Name: NiceAdmin
@@ -53,12 +52,8 @@
 
 	<%@ include file="../header.jsp"%>
 
-	<!-- ======= Sidebar ======= -->
+	<!-- ======= Side bar ======= -->
 	<%@ include file="../asidebar.jsp" %>
-
-
-
-
 
 
 	<!-- ======= Page Title ======= -->
@@ -72,16 +67,15 @@
 				</ol>
 			</nav>
 		</div>
-		<!-- End Page Title -->
+		
 		<div class="row justify-content-center">
 			<div class="col-lg-13">
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">질문 게시판</h5>
 
+
 						<!-- Search Bar -->
-						
-					
 							<form action="boardAskSearch" class="search-form d-flex align-items-center">						
 								<div class="search-bar" >
 								<select class="form-select" id ="searchSelect" name="type" method="get">
@@ -95,7 +89,7 @@
 								</button>
 						</div>
 						</form>
-						<!-- End Search Bar -->
+
 
 						<!-- 게시판 테이블 -->
 						<table class="table table-hover">
@@ -122,7 +116,8 @@
 								</c:forEach>
 								</tbody>
 						</table>
-						<!-- 게시판 테이블 끝 -->
+
+
 
 							<div class="text-end">
 								<a href="boardAskWrite">
@@ -130,51 +125,34 @@
 								</a>
 							</div>
 
-
-						<!-- 페이지 표시 -->
-
-						<nav aria-label="Page navigation example">
-    				<ul class="pagination justify-content-center">
-        				<c:if test="${bapage.startPage > bapage.pageBlock}"><li class="page-item">
-               				 <a class="page-link" href="boardAsk?currentPage=${bapage.startPage-bapage.pageBlock}" aria-label="Previous">
-                    			<span aria-hidden="true">«</span>
-                			</a>
-           			 	</li>
-        				</c:if>
-        
-        			<c:forEach var="i" begin="${bapage.startPage}" end="${bapage.endPage}">
-           				 <li class="page-item">
-               				 <a class="page-link" href="boardAskSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a>
-           				 </li>
-        			</c:forEach>
-        
-        			<c:if test="${bapage.endPage < bapage.totalPage}">
-            			<li class="page-item">
-                			<a class="page-link" href="boardAsk?currentPage=${bapage.startPage+bapage.pageBlock}" aria-label="Next">
-                    			<span aria-hidden="true">»</span>
-                			</a>
-          		 		</li>
-        			</c:if>
-   			 </ul>
-	</nav>
-
-		<!-- 페이지 표시 끝 -->
-
+				<!-- 페이지 표시 -->
+				<nav aria-label="Page navigation example">
+					    <ul class="pagination justify-content-center">
+					        <c:if test="${bapage.startPage > bapage.pageBlock}">
+					            <li class="page-item"><a class="page-link" href="boardAsk?currentPage=${bapage.startPage - bapage.pageBlock}&keyword=${keyword}&type=${tpye}" aria-label="Previous"> <span aria-hidden="true">«</span></a></li>
+					        </c:if>
+					
+					        <c:forEach var="i" begin="${bapage.startPage}" end="${bapage.endPage}">
+					        <li class="page-item"><a class="page-link" href="boardAskSearch?currentPage=${i}&keyword=${keyword}&type=${type}">${i}</a></li>
+					        </c:forEach>
+					
+					        <c:if test="${bapage.endPage < bapage.totalPage}">
+					            <li class="page-item"><a class="page-link" href="boardAsk?currentPage=${bapage.startPage+bapage.pageBlock}&keyword=${keyword}&type=${type}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+					        </c:if>
+					    </ul>
+			</nav>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</main>
-	<!-- End #main -->
 
-	<!-- ======= End Main ======= -->
 
 
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="../footer.jsp"%>
-	<!-- End Footer -->
+
 
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
