@@ -37,7 +37,7 @@
 
 <c:if test="${result eq 1 }">
 	<script type="text/javascript">
-		alert("이메일 확인");
+		alert("비밀번호 변경 주소를 해당 이메일로 보내드렸습니다.");
 		location.href="/";
 	</script>
 </c:if>
