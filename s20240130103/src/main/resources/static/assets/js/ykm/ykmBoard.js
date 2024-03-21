@@ -321,13 +321,15 @@ function writeReply(creply_no) {
 	});
 	
 	$(`.replyContainer_${creply_no} > *`).empty();
-	
+		
 }
 
 
 function hideReplyBox(creply_no) {
 	$(`.replyContainer_${creply_no}`).remove();
 }
+
+
 
 
 

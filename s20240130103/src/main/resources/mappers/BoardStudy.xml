@@ -246,7 +246,7 @@
 	</select>
 	
 	
-	<update id="ykmUpdateReply" parameterType="YkmBoardCommReply">
+	<update id="ykmUpdateGroup" parameterType="YkmBoardCommReply">
 		UPDATE BOARD_COMM_REPLY
 		SET CREPLY_LEVEL = CREPLY_LEVEL + 1
 		WHERE CREPLY_GROUP = #{creply_group}
