@@ -116,9 +116,6 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 	    String fileName = UUID.randomUUID().toString() + fileExtension;
 
 	    File targetFile = new File(path, fileName);
-	    // 파일 복사
-	    // MultipartFile.transferTo() 대신에 파일의 내용을 읽고 지정된 경로에 쓰는 방식으로 변경
-	    // 임시 파일 관리는 프레임워크 또는 서버가 담당 : 요청 처리가 완료되면 자동으로 이러한 임시 파일을 정리
 	    Files.copy(multipartFile.getInputStream(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 	    return fileName;
