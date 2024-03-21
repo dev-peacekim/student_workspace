@@ -10,6 +10,7 @@
 		 		WHERE B.COMM_BIG = 200 
 		 		AND B.COMM_MID = 10
 		 		AND B.USER_NO = U.USER_NO
+		 		AND B.CBOARD_DELETE_CHK = 0
 		 		<choose>
 		 			<when test='type == "A"'>
 		 				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'
@@ -36,6 +37,7 @@
 		WHERE B.USER_NO = U.USER_NO
 		  AND B.COMM_BIG = 200
 	 	  AND B.COMM_MID = 10
+	 	  AND B.CBOARD_DELETE_CHK = 0
 	 	  <choose>
  			<when test='type == "A"'>
  				AND (B.CBOARD_TITLE LIKE '%'||#{keyword}||'%'

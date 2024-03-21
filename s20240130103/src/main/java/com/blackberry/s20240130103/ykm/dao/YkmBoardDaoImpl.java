@@ -198,5 +198,10 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 	}
 
 	
+	@Override
+	public void deleteBoardFile(YkmBoardCommFile file) {
+		int result = session.delete("ykmDeleteBoardFile",file);
+	}
+	
 	
 }

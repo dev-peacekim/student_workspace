@@ -169,14 +169,18 @@ public class YkmBoardController {
 	
 	// 글 수정
 	@RequestMapping(value = "updatePost")  
-	public String updatePost(HttpServletRequest request, Model model, YkmBoardComm ykmBoardComm) {
+	public String updatePost(HttpServletRequest request, 
+							Model model, 
+							YkmBoardComm ykmBoardComm,
+							@Nullable @RequestParam("cboard_file_name") List<MultipartFile> fileList,
+							@Nullable @RequestParam("deleteFiles")String deleteFileFiles) {
 		System.out.println("YkmController updatePost start---*");
 		// 게시글 번호
 		int cboard_no = Integer.parseInt(request.getParameter("cboard_no"));
 		ykmBoardComm.setCboard_no(cboard_no);
-		
+		String studyFilePath = request.getSession().getServletContext().getRealPath("/upload/studyBoardFile/");
 		// 글 수정 메서드
-		int updatePost = ykmService.updatePost(ykmBoardComm);
+		int updatePost = ykmService.updatePost(ykmBoardComm,studyFilePath,fileList,deleteFileFiles);
 		model.addAttribute("updatePost", updatePost);
 		
 		return "redirect:/boardStudy";

@@ -18,7 +18,7 @@ public interface YkmService {
 	
 	YkmBoardComm getPost(int cboard_no); // 글 보여주기
 	
-	int updatePost(YkmBoardComm ykmBoardComm); // 글 수정
+	int updatePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList, String deleteFileFiles); // 글 수정
 
 	int deletePost(int cboard_no); // 글 삭제
 	

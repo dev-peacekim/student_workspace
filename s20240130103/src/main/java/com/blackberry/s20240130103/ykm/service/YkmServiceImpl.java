@@ -11,6 +11,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.blackberry.s20240130103.lsl.model.LslboardFile;
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
@@ -29,10 +30,13 @@ public class YkmServiceImpl implements YkmService {
 	// 게시판 글쓰기, 파일 업로드
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
-
 		System.out.println("YkmServiceImpl writePost start---*");
 		int result = ykmBoardDao.writePost(ykmBoardComm);
-
+		fileUpload(ykmBoardComm,studyFilePath,fileList);
+		return result;
+	}
+	
+	private void fileUpload(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
 		for (MultipartFile file : fileList) {
 			if (!file.isEmpty()) {
 
@@ -66,7 +70,18 @@ public class YkmServiceImpl implements YkmService {
 				}
 			}
 		}
-		return result;
+	}
+	
+	private void fileDelete(String fileName,String filePath) {
+		File file = new File(filePath+fileName);
+		try {
+			if(file.exists()) {
+				file.delete();
+			}
+		}catch (Exception e) {
+			System.out.println("fileDelete exception e : " + e.getMessage());
+		}
+		
 	}
 
 	// 게시판 리스트
@@ -85,9 +100,23 @@ public class YkmServiceImpl implements YkmService {
 	}
 
 	// 글 수정
+	
 	@Override
-	public int updatePost(YkmBoardComm ykmBoardComm) {
+	public int updatePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList,String deleteFileFIles) {
 		System.out.println("YkmServiceImpl updatePost start---*");
+		fileUpload(ykmBoardComm,studyFilePath,fileList);
+		if(deleteFileFIles.length() != 0) {
+			String[] deleteFileNum = deleteFileFIles.split("-");
+			List<YkmBoardCommFile> uploadfileList = getFileList(ykmBoardComm.getCboard_no());
+			for(String str : deleteFileNum) {
+				for(YkmBoardCommFile file : uploadfileList) {
+					if(file.getCboard_file_cnt() == Integer.parseInt(str)) {
+						ykmBoardDao.deleteBoardFile(file);
+						fileDelete(file.getCboard_file_name(),studyFilePath);
+					}
+				}
+			}
+		}
 		return ykmBoardDao.updatePost(ykmBoardComm);
 	}
 
@@ -199,6 +228,8 @@ public class YkmServiceImpl implements YkmService {
 		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
 		return result;
 	}
+
+
 
 
 }

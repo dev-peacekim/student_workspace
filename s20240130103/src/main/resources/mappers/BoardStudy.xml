@@ -253,4 +253,11 @@
 		AND CREPLY_LEVEL >= #{creply_level}
 	</update>
  	
+ 	<delete id="ykmDeleteBoardFile" parameterType="YkmBoardCommFile">
+ 		delete
+		from board_comm_file
+		where cboard_no = #{cboard_no}
+		and cboard_file_cnt = #{cboard_file_cnt}
+ 	</delete>
+ 	
 </mapper>

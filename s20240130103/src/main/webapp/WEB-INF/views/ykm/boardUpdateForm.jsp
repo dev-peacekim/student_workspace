@@ -35,7 +35,7 @@
 
 <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+<script defer="defer" type="text/javascript" src="assets/js/ykm/ykmBoardFile.js"></script>
 <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -50,11 +50,12 @@
 </head>
 <body>
 	<script>
-		window.onload = function() {
-			function back() {
-				window.history.back();
+	function back() {
+		window.history.back();
 
-			}
+	}
+		window.onload = function() {
+			
 
 			function updateFileView() {
 				$('input[type=\'file\']').on(
@@ -130,6 +131,7 @@
 				</div>
 				<form action="updatePost" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="cboard_no" value="${getPost.cboard_no}">
+					<input type="hidden" name="deleteFiles" id="deleteFiles">
 					<div class="title-input">
 						<label for="boradTitle" class="form-label"></label> 
 						<input type="text" name="cboard_title" id="inputTitle" class="form-control" value="${getPost.cboard_title}" />
@@ -140,14 +142,17 @@
 						<label for="inputNumber" class="form-label"> 
 							<span class="upload-file-title">파일 첨부</span>
 						</label> 
-							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple />
-						<div class="upload-title checkboxContainer">
-							<c:forEach items="${getFileList}" var="file">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> 
-									<label class="form-check-label" for="flexCheckDefault"> ${file.cboard_file_user_name}</label>
+						<div class="d-flex" style="margin: 3px 0;">
+							<c:forEach items="${getFileList}" var="boardFile">
+								<div class="fileBox d-flex" id="importFile${boardFile.cboard_file_cnt }">
+									<div class="fileName">${boardFile.cboard_file_user_name}</div>
+									<button class="fileXbtn" data-index="${boardFile.cboard_file_cnt }" type="button">X</button>
 								</div>
 							</c:forEach>
+						</div>
+							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple />
+						<div class="upload-title checkboxContainer" id="fileList">
+							
 						</div>
 					</div>
 

@@ -34,7 +34,7 @@
 
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <script defer="defer" type="text/javascript" src="assets/js/ykm/ykmBoardFile.js"></script>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -133,10 +133,8 @@ window.onload = function() {
 								<span class="upload-file-title">파일 첨부</span>
 							</label> 
 							<input class="form-control" name="cboard_file_name" type="file" id="formFile" multiple/>
-							<div class="upload-title">
-								<label for="fileContent" class="form-label">
-
-						        </label>
+							<div class="upload-title" id="fileList">
+							
 					        </div>
 						</div>
 						

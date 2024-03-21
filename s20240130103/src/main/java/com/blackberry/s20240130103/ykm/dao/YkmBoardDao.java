@@ -59,5 +59,7 @@ public interface YkmBoardDao {
 
 	int writeCntPost(YkmBoardComm ykmBoardComm); // 글 작성, 파일 업로드
 
+	void deleteBoardFile(YkmBoardCommFile file);
+
 
 }
