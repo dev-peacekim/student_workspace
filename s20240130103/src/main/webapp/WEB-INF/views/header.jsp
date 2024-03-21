@@ -25,7 +25,7 @@
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
 		            <i class="bi bi-bell"></i>
-		            <span class="badge bg-primary badge-number">${sessionScope.addressRequestCnt }</span>
+		            <span class="badge bg-primary badge-number" id="badge-number1">${sessionScope.addressRequestCnt }</span>
 		        </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
@@ -64,7 +64,7 @@
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">${sessionScope.messageCnt}</span>
+                        <span class="badge bg-success badge-number" id="badge-number2">${sessionScope.messageCnt}</span>
                     </a><!-- End Messages Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
@@ -180,9 +180,14 @@
     <script type="text/javascript">
 	    $(document).ready(function() {
 	    	/* 쪽지알림 99개 이상이면 +로 표시 */
-	        var messageCount = parseInt($('.badge-number').text(), 10); // 현재 메시지 수를 정수로 변환
+	        var messageCount = parseInt($('#badge-number1').text(), 10); // 현재 메시지 수를 정수로 변환
 	        if (messageCount >= 100) {
-	            $('.badge-number').text('99+');
+	            $('#badge-number1').text('99+');
+	        }
+	    	/* 쪽지알림 99개 이상이면 +로 표시 */
+	        var messageCount = parseInt($('#badge-number2').text(), 10); // 현재 메시지 수를 정수로 변환
+	        if (messageCount >= 100) {
+	            $('#badge-number2').text('99+');
 	        }
 	    });
     </script>
