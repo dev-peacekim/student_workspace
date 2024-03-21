@@ -74,17 +74,38 @@ document.addEventListener('DOMContentLoaded', function() {
 	        return checkbox.getAttribute("data-msg-no");
 	    });
 
+
 	    if (selectedMessageNos.length === 0) {
 	        alert('선택된 쪽지가 없습니다.');
 	        return;
 	    }
 
-	    // 선택된 메시지 번호 로그 출력
-	    console.log("Selected Message Nos for Permanent Delete:", selectedMessageNos);
-
-	    permanentDeleteMessages(selectedMessageNos);
+	    // 커스텀 모달 표시
+	    showModal(selectedMessageNos);
 	});
+	
+	// 영구삭제 모달
+	function showModal(selectedMessages) {
+	    // 모달을 표시하는 로직
+	    document.getElementById('customModal').style.display = 'block';
 
+	    // '확인' 버튼에 대한 이벤트 핸들러 설정
+	    var confirmDeleteButton = document.getElementById('confirmDelete');
+	    // 이전에 추가된 이벤트 리스너가 있다면 제거
+	    var newConfirmButton = confirmDeleteButton.cloneNode(true);
+	    confirmDeleteButton.parentNode.replaceChild(newConfirmButton, confirmDeleteButton);
+	    
+	    // 새로운 '확인' 버튼에 이벤트 리스너 추가
+	    newConfirmButton.addEventListener('click', function() {
+	        permanentDeleteMessages(selectedMessages);
+	    });
+
+	    // '취소' 버튼에 대한 이벤트 핸들러 설정 (모달 숨기기)
+	    document.getElementById('cancelModal').addEventListener('click', function() {
+	        document.getElementById('customModal').style.display = 'none';
+	    });
+	}
+	
 	// 서버 요청 전 데이터 상태 확인
 	function permanentDeleteMessages(selectedMessages) {
 	    var xhr = new XMLHttpRequest();
@@ -106,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	    var data = { msgNos: selectedMessages.map(Number) };
 	    console.log("Sending Data:", JSON.stringify(data));  // 전송 데이터 상태 확인 로그
 	    xhr.send(JSON.stringify(data));
+	    // 모달 숨기기
+	    document.getElementById('customModal').style.display = 'none';
 	}
 });
 // 페이징 << >> 버튼 더이상 쪽지 없을시 비활성화
@@ -258,13 +281,29 @@ document.addEventListener('DOMContentLoaded', function () {
 							</tr>
 						</tbody>
 					</table>
+					<!-- 영구삭제버튼 클릭시 커스텀 모달 생성 -->
+					<div id="customModal" class="delete-modal">
+					    <div class="modal-content">
+					        <span class="modal-header">
+					            <i class="bi bi-exclamation-lg"></i>
+					            <i class="bi bi bi-circle-fill"></i>
+					        </span>
+					        <div class="modal-body">
+					            <p>휴지통의 메일을 지우면 지워진 메일들은 복구할 수 없습니다.<br>메일을 삭제하시겠습니까?</p>
+					        </div>
+					        <div class="modal-footer">
+					            <button id="cancelModal" class="btn-cancel">취소</button>
+					            <button id="confirmDelete" class="btn-confirm">확인</button>
+					        </div>
+					    </div>
+					</div>
 				</div>
 			</section>
 
 			<!-- 받은 쪽지함 세션 END -->
 			<!-- 리스트 하단 버튼 -->
 			<div class="btn-container">
-				<button type="button" class="btn-msg-permanent-delete">영구 삭제</button>
+				<button type="button" id="showModal" class="btn-msg-permanent-delete">영구 삭제</button>
 			</div>
 			<!-- 리스트 번호 -->
 			<nav aria-label="Page navigation"
