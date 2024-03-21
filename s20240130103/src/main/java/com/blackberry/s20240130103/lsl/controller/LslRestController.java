@@ -41,6 +41,7 @@ public class LslRestController {
 	}
 	
 	// 댓글
+	
 	// 게시판 댓글 리스트
 	@GetMapping("/reply")
 	public List<LslCommReply> replyBoardFreeAskList(@RequestParam("cboard_no") int cboard_no,HttpServletRequest request, Model model) {
@@ -90,13 +91,9 @@ public class LslRestController {
 		System.out.println("modifyBoardReply : " + lslCommReply);
 		return ls.modifyBoardReply(lslCommReply);
 	}
-	
-	
-	// 대댓글 
 
-	
-	
-	// 
+
+
 	// 대댓글 등록
 		@PostMapping("/rereplys/reinsert")
 		public int reinsertBoardReply(@RequestBody LslCommReply lslCommReply, HttpServletRequest request) {
@@ -122,11 +119,6 @@ public class LslRestController {
 		  return boardReReplyResult;
 		}
 
-	
-	
-	// 대대댓글 업데이트 
-	// 사용자 권한 막기
-	
-	
+
 
 }
