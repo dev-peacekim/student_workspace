@@ -45,10 +45,7 @@
 <link href="assets/css/ykm/boardWriteForm.css" rel="stylesheet">
 <script>
 window.onload = function() {
-	function back() {
-		window.history.back()
-	}
-	
+
 	function updatePreview() {
 	    $("input[type='file']").on("change", function (e) {
 	    	
@@ -75,10 +72,7 @@ window.onload = function() {
 			inputTitle.focus();
 		}
 	});
-
-	
-}	
-
+}
 </script>
 
 </head>
@@ -147,7 +141,7 @@ window.onload = function() {
 						
 						<div class="btn-container">
 							<input type="submit" class="btn btn-primary" value="확인" id="blankchk">
-							<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
+							<button type="button" class="btn btn-secondary" onclick="window.history.back()">취소</button>
 						</div>
 					</div>
 				</form>

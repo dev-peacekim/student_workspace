@@ -49,53 +49,49 @@
 
 </head>
 <body>
-	<script>
-	function back() {
-		window.history.back();
+<script>
+window.onload = function() {
+	
 
+	function updateFileView() {
+		$('input[type=\'file\']').on(
+				"change",
+				function(e) {
+					$('.checkboxContainer').empty();
+					console.log();
+					const files = e.target.files;
+					const arr = Array.prototype.slice.call(files);
+					arr.reverse();
+
+					$.each(arr, function(index, file) {
+						let fileName = file.name;
+						var checkboxDiv = $('<div>').addClass(
+								'form-check');
+						var checkboxInput = $('<input>').addClass(
+								'form-check-input').attr('type',
+								'checkbox').val(file.name);
+						var checkboxLabel = $('<label>').addClass(
+								'form-check-label').text(file.name);
+						checkboxDiv.append(checkboxInput);
+						checkboxDiv.append(checkboxLabel);
+						$('#checkboxContainer').append(checkboxDiv);
+					});
+				});
 	}
-		window.onload = function() {
-			
+	updateFileView();
 
-			function updateFileView() {
-				$('input[type=\'file\']').on(
-						"change",
-						function(e) {
-							$('.checkboxContainer').empty();
-							console.log();
-							const files = e.target.files;
-							const arr = Array.prototype.slice.call(files);
-							arr.reverse();
-
-							$.each(arr, function(index, file) {
-								let fileName = file.name;
-								var checkboxDiv = $('<div>').addClass(
-										'form-check');
-								var checkboxInput = $('<input>').addClass(
-										'form-check-input').attr('type',
-										'checkbox').val(file.name);
-								var checkboxLabel = $('<label>').addClass(
-										'form-check-label').text(file.name);
-								checkboxDiv.append(checkboxInput);
-								checkboxDiv.append(checkboxLabel);
-								$('#checkboxContainer').append(checkboxDiv);
-							});
-						});
-			}
-			updateFileView();
-
-			$('#blankchk').on("click", function(e) {
-				const inputTitle = $('#inputTitle').val();
-				if (inputTitle.trim() === "") {
-					e.preventDefault();
-					alert('제목에 공백을 사용할 수 없습니다.');
-				} else {
-					inputTitle.focus();
-				}
-			});
-
+	$('#blankchk').on("click", function(e) {
+		const inputTitle = $('#inputTitle').val();
+		if (inputTitle.trim() === "") {
+			e.preventDefault();
+			alert('제목에 공백을 사용할 수 없습니다.');
+		} else {
+			inputTitle.focus();
 		}
-	</script>
+	});
+
+}
+</script>
 
 	<!-- ======= header ======= -->
 	<%@ include file="../header.jsp"%>
@@ -166,7 +162,7 @@
 
 					<div class="btn-container">
 						<input type="submit" class="btn btn-primary" value="확인" id="blankchk">
-						<button type="button" class="btn btn-secondary" onclick="back()">취소</button>
+						<button type="button" class="btn btn-secondary" onclick="window.history.back()">취소</button>
 					</div>
 				</form>
 			</div>
