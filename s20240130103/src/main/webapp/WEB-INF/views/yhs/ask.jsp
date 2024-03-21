@@ -14,7 +14,9 @@
 <!-- Favicons -->
 <link href="assets/img/blueberry-logo.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -187,7 +189,6 @@
 										<th>문의번호</th>
 										<th>제목</th>
 										<th>작성일시</th>
-										<th>발생일시</th>
 										<th>답변여부</th>
 									</tr>
 								</thead>
@@ -199,8 +200,6 @@
 												<a href="askContent?admin_no=${BOARD_ADMIN.admin_no}">${BOARD_ADMIN.admin_title}</a>
 											</td>
 											<td><fmt:formatDate value="${BOARD_ADMIN.admin_date}"
-													pattern="yyyy-MM-dd" /></td>
-											<td><fmt:formatDate value="${BOARD_ADMIN.admin_start}"
 													pattern="yyyy-MM-dd" /></td>
 											<td>
 												<c:if test="${BOARD_ADMIN.admin_reply_chk eq 0 }">

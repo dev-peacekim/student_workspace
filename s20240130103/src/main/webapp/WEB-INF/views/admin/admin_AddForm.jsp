@@ -125,7 +125,7 @@
 							<input type="hidden" name="user_rank_big" value="500" /> <input
 								type="hidden" name="user_rank_mid" value="20" /> <input
 								type="hidden" name="user_nic" value="관리자" />
-							<div class="row mb-3 d-flex justify-content-end">
+							<div class="row mb-3 d-flex justify-content-center">
 								<button type="submit" class="btn btn-outline-info btns">
 									확인</button>
 								<button id="canclebtn" type="button" class="btn btn-outline-secondary btns"
@@ -163,6 +163,9 @@ document.getElementById("idChkBtn").addEventListener('click',function(){
 		alert("id 입력하세요");
 	}
 });
+document.getElementById("canclebtn").addEventListener('click',function(){
+	location.href="adminMain";
+})
 </script>
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer.jsp"%>

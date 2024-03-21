@@ -16,7 +16,9 @@
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -364,6 +366,15 @@
 										pattern="yyyy.MM.dd a hh:mm" />
 								</p>
 							</div>
+							<c:if test="${askContent.admin_start ne null }">
+								<div class="card-subtitle post-subtitle">
+									<p class="post-updated-at">
+										발생일
+										<fmt:formatDate value="${askContent.admin_start}"
+											pattern="yyyy.MM.dd a hh:mm" />
+									</p>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
