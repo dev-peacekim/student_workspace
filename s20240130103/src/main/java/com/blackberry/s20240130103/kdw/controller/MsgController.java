@@ -399,29 +399,37 @@ public class MsgController {
     /* ========== 다운로드 기능 =========== */
 	// 파일 상세정보 조회와 다운로드
 	@GetMapping("/downloadFile")
-	public void downloadFile(@RequestParam("msgNo") Long msgNo, @RequestParam("fileCnt") int fileCnt, HttpServletRequest request, HttpServletResponse response) {
-		
-		System.out.println("MsgController downloadFile msgNo: " + msgNo);
-		System.out.println("MsgController downloadFile fileCnt: " + fileCnt);
-		System.out.println("MsgController downloadFile request: " + request);
-		System.out.println("MsgController downloadFile response: " + response);
+	public void downloadFile(@RequestParam("msgNo") Long msgNo, @RequestParam("fileCnt") int fileCnt, 
+											HttpServletRequest request, HttpServletResponse response) {
 	    try {
 	        MessageFile messageFile = msgService.getFileDetail(msgNo, fileCnt);
+	     // 파일 정보가 존재하는지 확인합니다.
 	        if (messageFile != null) {
-	            // 파일의 실제 경로 설정
+	            // 파일이 저장된 실제 경로를 설정합니다. 웹 애플리케이션의 /upload/msgFile/ 디렉토리 아래에 위치합니다.
+	            // 이 경로는 애플리케이션 서버에 따라 다를 수 있으므로, 동적으로 경로를 구합니다.
 	            String filePath = request.getSession().getServletContext().getRealPath("/upload/msgFile/") + messageFile.getMsg_file_name();
 	            File file = new File(filePath);
+
+	            // 파일이 실제로 존재하는지 확인합니다.
 	            if (file.exists()) {
+	                // 파일의 MIME 타입을 추정 예를 들어 ".pdf" 확장자를 가진 파일의 경우 "application/pdf"가 됨
+	                // 파일 이름을 바탕으로 MIME 타입을 결정하지 못할 경우 "application/octet-stream"을 사용
 	                String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 	                if (mimeType == null) {
 	                    mimeType = "application/octet-stream";
 	                }
 	                
+	                // HTTP 응답의 Content-Type 헤더를 설정 이는 브라우저에게 파일의 타입을 알려주어 올바르게 처리
 	                response.setContentType(mimeType);
+	                // 파일을 다운로드할 때 사용자에게 보여줄 파일 이름을 설정. 파일 이름이 URL 인코딩을 사용하여 올바르게 전송
+	                // Content-Disposition은 HTTP 헤더의 하나로 주로 웹 서버가 클라이언트(브라우저 등)에게 응답의 본문이 어떻게 처리되어야 하는지를 알려주는 데 사용
 	                response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(messageFile.getMsg_file_user_name(), "UTF-8") + "\"");
+	                // HTTP 응답의 Content-Length 헤더를 파일 크기로 설정. 이는 다운로드 진행 상황 표시에 사용.
 	                response.setContentLength((int) file.length());
 
+	                // 파일을 읽기 위한 입력 스트림을 생성.
 	                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+	                // 응답의 출력 스트림으로 파일 내용을 복사. 이 과정에서 사용자가 파일을 다운로드
 	                FileCopyUtils.copy(inputStream, response.getOutputStream());
 	            }
 	        }
