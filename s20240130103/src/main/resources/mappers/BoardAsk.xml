@@ -62,42 +62,40 @@ SELECT *
 
 	<select id="slboardAskSearch" parameterType="LslBoardComm"
 		resultType="LslBoardComm">
-		 SELECT *
-FROM (
-    SELECT rownum rn, a.*
-    FROM (
-        SELECT 
-            bc.*, 
-            u.user_nic, 
-            COUNT(bcr.CREPLY_NO) OVER (PARTITION BY bc.CBOARD_NO) creply_cnt
-        FROM 
-            BOARD_COMM bc
-            JOIN USERS u ON bc.USER_NO = u.USER_NO
-            LEFT JOIN BOARD_COMM_REPLY bcr 
-                ON bc.CBOARD_NO = bcr.CBOARD_NO 
-                AND bcr.CREPLY_DELETE_CHK = 0
-        WHERE 
-            bc.COMM_MID = 10
-            AND bc.COMM_BIG = 300
-            AND bc.CBOARD_DELETE_CHK = 0
-            AND (
-                #{type} = 'all' AND (
-                    u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
-                    OR bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
-                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
-                )
-                OR
-                #{type} = 'writer' AND u.user_nic LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
-                OR
-                #{type} = 'titleContent' AND (
-                    bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
-                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
-                )
-            )
-        ORDER BY bc.cboard_no DESC
-    ) a
-)  
-WHERE rn BETWEEN #{start} AND #{end}
+		  SELECT *
+			FROM (
+				    SELECT rownum rn, a.*
+				    FROM (
+				      		 SELECT *
+							 FROM (
+										SELECT bc.*, u.user_nic, bcr.creply_cnt
+										FROM BOARD_COMM bc, USERS u, (
+																						SELECT CBOARD_NO, COUNT(CREPLY_NO) creply_cnt
+																						FROM BOARD_COMM_REPLY 
+																						GROUP BY CBOARD_NO
+																						 ) bcr
+										WHERE bc.CBOARD_NO = bcr.CBOARD_NO(+)
+											AND bc.USER_NO = u.USER_NO 
+										) bc
+					WHERE bc.COMM_MID = 10
+					     AND bc.COMM_BIG = 300
+					     AND bc.CBOARD_DELETE_CHK = 0
+					     AND (
+				                (#{type} = 'all' AND (
+				                    bc.USER_NIC LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				                    OR bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\' 
+				                ))
+				           OR (#{type} = 'writer' AND bc.USER_NIC LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\')
+				           OR (#{type} = 'titleContent' AND (
+				                    bc.cboard_title LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				                    OR bc.cboard_content LIKE '%' || REPLACE(REPLACE(#{keyword}, '_', '\_'), '%', '\%') || '%' ESCAPE '\'
+				                ))
+				                )
+					ORDER BY bc.cboard_no DESC
+				    		) a
+				)  
+				WHERE rn BETWEEN #{start} AND #{end}
 
 	</select>
 
@@ -131,7 +129,7 @@ WHERE rn BETWEEN #{start} AND #{end}
 		#{cboard_content}, 0 ,
 		sysdate, #{user_no}, 0, 300,
 		10,NULL, NULL,
-		sysdate)
+		NULL)
 	</insert>
 
 

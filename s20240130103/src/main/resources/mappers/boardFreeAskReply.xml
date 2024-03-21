@@ -25,7 +25,7 @@
 		VALUES
 		(SEQ_BOARD_COMM_REPLY.NEXTVAL, #{creply_content}, sysdate,
 		SEQ_BOARD_COMM_REPLY.CURRVAL , 0, 0, #{cboard_no}, #{user_no}, 0,
-		sysdate)
+		NULL)
 	</insert>
 
 

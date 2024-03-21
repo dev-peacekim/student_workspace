@@ -64,7 +64,6 @@ public class LslController {
 	@GetMapping(value = "boardFreeSearch")
 	public String boardFreeSearch(LslBoardComm lslBoardComm, Model model, @RequestParam(name="type",  defaultValue = "all") String type, @RequestParam(name="keyword", required = false) String keyword) {
 		System.out.println("LslController boardFreeSearch Start...");
-		
 		System.out.println("Search Type : " + type);
 		System.out.println("Search Keyword : " + keyword );
 		
@@ -72,15 +71,13 @@ public class LslController {
 		int totalBoardSearchFree = ls.totalBoardSearchFree(lslBoardComm, keyword, type);
 		System.out.println("LslController totalBoardFreeList ->" + totalBoardSearchFree);
 
-
 		
 		// paging 작업
-
 		BoardFreeAskPaging bfpage = new BoardFreeAskPaging(totalBoardSearchFree, lslBoardComm.getCurrentPage());
-		
 		
 		List<LslBoardComm> boardFreeList = ls.boardFreeSearch(lslBoardComm,keyword, type, bfpage.getStart(), bfpage.getEnd() );
 		System.out.println("LslController boardFreeList boardFreeSearch.size() ->" + boardFreeList.size());
+		System.out.println(boardFreeList);
 
 		
 		model.addAttribute("totalBoardSearchFree", totalBoardSearchFree);

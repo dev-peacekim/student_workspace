@@ -392,10 +392,11 @@
 	 font-size: 0.75rem;
     margin-top: 18px;
     right: 10px;
-    width: auto; /* 너비를 자동으로 설정하여 텍스트에 맞춤 */
-    min-width: 36px; /* 최소 너비를 지정하여 너비가 너무 작지 않도록 함 */
-    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 함 */
+    width: auto;
+    min-width: 36px; 
+    white-space: nowrap;
     color: black;
+    font-weight: bold;
     background-color: white;
 } 
 
