@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blackberry.s20240130103.lsl.model.LslboardFile;
 import com.blackberry.s20240130103.ykm.dao.YkmBoardDao;
 import com.blackberry.s20240130103.ykm.model.YkmBoardComm;
 import com.blackberry.s20240130103.ykm.model.YkmBoardCommFile;
@@ -27,7 +26,7 @@ public class YkmServiceImpl implements YkmService {
 
 	/* 스터디 게시판 */
 
-	// 게시판 글쓰기, 파일 업로드
+	// 게시판 글쓰기
 	@Override
 	public int writePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
 		System.out.println("YkmServiceImpl writePost start---*");
@@ -36,6 +35,7 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 	
+	// 파일 업로드
 	private void fileUpload(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList) {
 		for (MultipartFile file : fileList) {
 			if (!file.isEmpty()) {
@@ -72,6 +72,7 @@ public class YkmServiceImpl implements YkmService {
 		}
 	}
 	
+	// 파일 삭제
 	private void fileDelete(String fileName,String filePath) {
 		File file = new File(filePath+fileName);
 		try {
@@ -99,8 +100,9 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.getPost(cboard_no);
 	}
 
-	// 글 수정
 	
+		
+	// 글 수정
 	@Override
 	public int updatePost(YkmBoardComm ykmBoardComm, String studyFilePath, List<MultipartFile> fileList,String deleteFileFIles) {
 		System.out.println("YkmServiceImpl updatePost start---*");
@@ -120,6 +122,14 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updatePost(ykmBoardComm);
 	}
 
+	// 업로드 된 파일 리스트 조회
+	@Override
+	public List<YkmBoardCommFile> getFileList(int cboard_no) {
+		System.out.println("YkmServiceImpl getFileList start---*");
+		List<YkmBoardCommFile> getFileList = ykmBoardDao.getFileList(cboard_no);
+		return getFileList;
+	}
+	
 	// 글 삭제
 	@Override
 	public int deletePost(int cboard_no) {
@@ -140,13 +150,6 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.updateRecruitment(ykmBoardComm);
 	}
 
-	@Override
-	public List<YkmBoardCommFile> getFileList(int cboard_no) {
-		System.out.println("YkmServiceImpl getFileList start---*");
-		List<YkmBoardCommFile> getFileList = ykmBoardDao.getFileList(cboard_no);
-		return getFileList;
-	}
-
 	// 페이징 전체 게시글 조회
 	@Override
 	public int getTotalCount(YkmBoardComm ykmBoardComm) {
@@ -157,7 +160,7 @@ public class YkmServiceImpl implements YkmService {
 		return result;
 	}
 
-	
+	/* 댓글 */
 	// 댓글 리스트
 	@Override
 	public List<YkmBoardCommReply> getCommentList(int cboard_no) {
@@ -190,7 +193,7 @@ public class YkmServiceImpl implements YkmService {
 		return ykmBoardDao.countComment(cboard_no);
 	}
 
-	/* 대댓글 등록 */
+	// 대댓글 등록
 	@Override
 	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
 		System.out.println("YkmServiceImpl writeReply start ---*");
@@ -198,7 +201,21 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl writeReply : " + result);
 		return result;
 	}
+	
+	// 대댓글 번호 조회
+	@Override
+	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
+		YkmBoardCommReply replyValue = ykmBoardDao.getReplyNo(ykmBoardCommReply);
+		return replyValue;
+	}
 
+	// 대댓글 그룹핑
+	@Override
+	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
+		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
+		return result;
+	}
+		
 	/* 공모전 리스트 */
 	@Override
 	public List<YkmBoardComm> getCntPostList(YkmBoardComm ykmBoardComm) {
@@ -208,7 +225,7 @@ public class YkmServiceImpl implements YkmService {
 		return getCntPostList;
 	}
 
-	// 전체 게시글 카운트
+	// 공모전 전체 게시글 카운트
 	@Override
 	public int getCntTotalCount(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmServiceImpl getCntTotalCount start ---*");
@@ -216,20 +233,5 @@ public class YkmServiceImpl implements YkmService {
 		System.out.println("YkmServiceImpl getCntTotalCount result : " + result);
 		return result;
 	}
-
-	@Override
-	public YkmBoardCommReply getReplyNo(YkmBoardCommReply ykmBoardCommReply) {
-		YkmBoardCommReply replyValue = ykmBoardDao.getReplyNo(ykmBoardCommReply);
-		return replyValue;
-	}
-
-	@Override
-	public int updateGroup(YkmBoardCommReply ykmBoardCommReply) {
-		int result = ykmBoardDao.updateGroup(ykmBoardCommReply);
-		return result;
-	}
-
-
-
 
 }

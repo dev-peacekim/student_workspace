@@ -104,6 +104,12 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
         return getFileList;
 	}
 	
+	// 파일 삭제
+	@Override
+	public void deleteBoardFile(YkmBoardCommFile file) {
+		int result = session.delete("ykmDeleteBoardFile",file);
+	}
+	
 	/* 대댓글 */
 	@Override
 	public int writeReply(YkmBoardCommReply ykmBoardCommReply) {
@@ -190,6 +196,7 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return result;
 	}
 
+	// 게시글 작성
 	@Override
 	public int writeCntPost(YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmBoardDaoImpl writeCntPost start ---*");
@@ -197,11 +204,4 @@ public class YkmBoardDaoImpl implements YkmBoardDao {
 		return writeCntPost;
 	}
 
-	
-	@Override
-	public void deleteBoardFile(YkmBoardCommFile file) {
-		int result = session.delete("ykmDeleteBoardFile",file);
-	}
-	
-	
 }

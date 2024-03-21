@@ -146,7 +146,7 @@ public class YkmBoardController {
 		
 		// 게시글 조회
 		YkmBoardComm getPost = ykmService.getPost(cboard_no);
-		
+
 		// 글 작성 시, 업로드 된 파일 리스트 조회
 		List<YkmBoardCommFile> getFileList = ykmService.getFileList(cboard_no);
 		
@@ -183,9 +183,18 @@ public class YkmBoardController {
 		int updatePost = ykmService.updatePost(ykmBoardComm,studyFilePath,fileList,deleteFileFiles);
 		model.addAttribute("updatePost", updatePost);
 		
+		int comm_big = ykmBoardComm.getComm_big();
+		int comm_mid =  ykmBoardComm.getComm_mid();
+		
+		if (comm_big == 200 && comm_mid == 10) {
+			return "redirect:/boardContest";
+		}
+
 		return "redirect:/boardStudy";
+		
 	}
 	
+	// 글 삭제
 	@RequestMapping(value="/deletePost")
 	public String deletePost(HttpServletRequest request, Model model, YkmBoardComm ykmBoardComm) {
 		System.out.println("YkmController deletePost cboard_no : " + request.getParameter("cboard_no"));
@@ -196,8 +205,14 @@ public class YkmBoardController {
 		// 글 삭제 (상태값 0 > 1로 변경, 관리자 페이지에서 최종 삭제)
 		int deletePost = ykmService.deletePost(cboard_no);
 		model.addAttribute("deletePost", deletePost);
-
-		return "forward:boardStudy";
+	
+		int comm_mid =  ykmBoardComm.getComm_mid();
+		
+		if (comm_mid == 10) {
+			return "redirect:/boardContest";
+		}
+		
+		return "redirect:boardStudy";
 	}
 	
 	// 파일 다운로드

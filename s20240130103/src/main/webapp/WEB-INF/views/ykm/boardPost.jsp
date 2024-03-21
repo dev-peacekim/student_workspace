@@ -212,7 +212,7 @@
 					</div>
 					<div class="confirm-deletion">
 						<button type="button" id="cancelButton" class="btn btn-outline-dark">취소</button>
-						<a href="/deletePost?cboard_no=${getPost.cboard_no}">
+						<a href="/deletePost?cboard_no=${getPost.cboard_no}&comm_mid=${getPost.comm_mid}">
 							<button type="button" id="confirmButton" class="btn btn-primary">확인</button>
 						</a>
 					</div>

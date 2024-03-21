@@ -131,6 +131,8 @@
 				</div>
 				<form action="updatePost" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="cboard_no" value="${getPost.cboard_no}">
+					<input type="hidden" name="comm_big" value="${getPost.comm_big}">
+					<input type="hidden" name="comm_mid" value="${getPost.comm_mid}">
 					<input type="hidden" name="deleteFiles" id="deleteFiles">
 					<div class="title-input">
 						<label for="boradTitle" class="form-label"></label> 
