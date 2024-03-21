@@ -107,10 +107,8 @@
 		        // 백스페이스 이외의 키 입력 시, DOM 업데이트 최소화
 		        setTimeout(() => {
 		            let currentValue = $(this).val(); // 현재 값 다시 확인
-		            if (currentValue !== previousValue) {
-		                $(this).val(previousValue); // 값을 이전 상태로 되돌림
-		                showCustomAlert(); // 커스텀 알림 표시
-		            }
+		            $(this).val(previousValue); // 값을 이전 상태로 되돌림
+		            showCustomAlert(); // 커스텀 알림 표시
 		        }, 0);
 		        e.preventDefault(); // 기본 동작 방지
 		    }

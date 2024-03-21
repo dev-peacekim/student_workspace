@@ -320,3 +320,103 @@ thead th:nth-child(7) {
     border: 1px solid #0D6DFD;
 }
 
+/* 영구삭제 커스텀 모달 */
+
+#customModal {
+    display: none; /* 기본적으로 모달을 숨깁니다 */
+    position: fixed;
+    left: 150px;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    overflow: auto; 
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 600;
+    font-weight: 800;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    margin-top: 350px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 420px;
+    min-width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* 모달 헤더 스타일 */
+.modal-header {
+	position: relative;
+	text-align: center;
+    left: 50%;
+    margin-top:50px;
+}
+
+.modal-header .bi-exclamation-lg {
+	font-size: 30px; /* 아이콘 크기 */
+	z-index: 602;
+	position: absolute; 
+    top: -40px;
+    left: -10px;
+    color: red;
+}
+.modal-header .bi-circle-fill {
+	font-size: 30px; /* 아이콘 크기 */
+	z-index: 601;
+	position: absolute; 
+    top: -40px;
+    left: -10px;
+	color: #ffdbe1;
+}
+/* 모달 바디 스타일 */
+.modal-body p {
+    margin: 10px 0;
+    margin-bottom: 55px;
+    font-size: 17px;
+}
+
+/* 모달 푸터 스타일 */
+.delete-modal .modal-footer {
+	position:absolute;
+    text-align: center;
+    margin-left: -100px;
+    bottom: 30px;
+    left: 253px;
+}
+/* 취소 버튼 스타일 */
+.btn-cancel {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px; /* 확인 버튼과의 간격 */
+}
+
+.btn-cancel:hover {
+	background-color: #a21a1d;
+	color: white;
+	border: 1px solid #a21a1d;
+}
+
+/* 확인 버튼 스타일 */
+.btn-confirm {
+    color: #fff;
+    background-color: #0D6DFD;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-confirm:hover {
+	background-color: #0147af;
+}
