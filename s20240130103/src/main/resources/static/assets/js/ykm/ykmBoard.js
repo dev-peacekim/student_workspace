@@ -17,7 +17,6 @@ function getUserInfo() {
 	});
 }
 
-
 // 댓글 리스트
 let cboardNo = null;
 function getCommentList(cboard_no) {
@@ -39,7 +38,6 @@ function getCommentList(cboard_no) {
 		}
 	});
 }
-
 
 let currentTime;
 let commentWriter;
@@ -114,7 +112,6 @@ function updateCommentView(data) {
 	$('#commentContainer').html(replyList);
 }
 
-
 // 댓글 등록 버튼 이벤트
 const commentEditor = $('.comment-editor');
 const commentSubmitBtn = $('#commentSubmitBtn');
@@ -147,8 +144,6 @@ function submitComment() {
 	$('#creply_content').val(''); // 입력 필드 비우기
 }
 
-
-
 // 댓글 등록
 function writeComment(commentData) {
 	const cboard_no = commentData.cboard_no;
@@ -169,7 +164,6 @@ function writeComment(commentData) {
 		}
 	});
 }
-
 
 // 댓글 수정 버튼 이벤트
 function buttonStatus(creply_no) {
@@ -193,7 +187,6 @@ function buttonStatus(creply_no) {
 	}
 
 }
-
 
 // 댓글 수정
 function updateComment(creply_no, creply_content) {
@@ -222,7 +215,6 @@ function updateComment(creply_no, creply_content) {
 	$(`#inputField_${creply_no}`).disabled = true;
 }
 
-
 // 댓글 삭제
 // 댓글 삭제 버튼 클릭하면 삭제상태 값을 0 > 1 변경 (관리자 페이지에서 최종 삭제)
 function deleteComment(creply_no) {
@@ -235,7 +227,7 @@ function deleteComment(creply_no) {
 			deleteComment.remove();
 			$('#answer-count').text(Number($('#answer-count').text()) - 1);
 		},
-		error: function(xhr, status, error) {
+		error: function(error) {
 			console.log('댓글 삭제 오류!', error);
 		}
 	});
@@ -278,7 +270,6 @@ function updateRecruitment(cboard_no, comm_mid2) {
 		}
 	});
 }
-
 
 // 대댓글 이벤트
 function createReplyBox(creply_no) {
@@ -330,12 +321,8 @@ function hideReplyBox(creply_no) {
 }
 
 
-
-
-
 /* 삭제 확인 팝업 */
 
-// 변수 선언
 // 삭제 확인 버튼을 누르면 글 삭제
 var postDeleteBtn = $('#postDeleteBtn');
 
@@ -345,7 +332,6 @@ if (postDeleteBtn!==null) {
 		$('.confirmPopup').css("display", "flex");
 	});
 }
-
 
 // 취소 버튼 클릭 시 팝업을 숨김
 $('#cancelButton').on('click', function() {
