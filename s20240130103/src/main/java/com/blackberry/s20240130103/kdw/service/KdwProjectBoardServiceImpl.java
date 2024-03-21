@@ -90,7 +90,6 @@ public class KdwProjectBoardServiceImpl implements KdwProjectBoardService {
 		            try {
 		                // HDD에 저장
 		                String fileName = saveFile(f, path);
-		                File uploadedFile = new File(path, fileName); // 파일 저장 후 생성된 파일 객체
 		                
 		                // DB에 저장
 		                BoardProjectFile boardProjectFile = new BoardProjectFile();
