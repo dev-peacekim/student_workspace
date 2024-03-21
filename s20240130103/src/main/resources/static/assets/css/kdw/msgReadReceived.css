@@ -228,3 +228,6 @@ body {
     border-radius: 7px;
     resize: none;
 }
+.content-group p {
+	white-space: pre-wrap;
+}

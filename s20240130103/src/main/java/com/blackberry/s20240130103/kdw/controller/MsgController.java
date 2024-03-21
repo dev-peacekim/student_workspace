@@ -444,7 +444,8 @@ public class MsgController {
     // 답장쓰기 버튼 -> 답장쓰기 View 이동
     @GetMapping(value = "msgReply")
     public String msgReplyPage(HttpServletRequest request, Model model, 
-    			@RequestParam(value = "sender", required = false) Long senderUserNo) {
+    			@RequestParam(value = "sender", required = false) Long senderUserNo,
+    			@RequestParam(value = "msgTitle", required = false) String msgTitle) {
     log.info("MsgController msgReplyPage start...");
     // 세션에서 보내는 사람의 아이디 가져오기
     Long senderId = (Long) request.getSession().getAttribute("user_no");
@@ -460,6 +461,9 @@ public class MsgController {
         model.addAttribute("senderUserNo", senderUserNo);
     }
     
+    String replyTitle = "Re: " + msgTitle;
+    
+    model.addAttribute("replyTitle", replyTitle);
     model.addAttribute("senderId", senderId);
     model.addAttribute("userList", userList);
     

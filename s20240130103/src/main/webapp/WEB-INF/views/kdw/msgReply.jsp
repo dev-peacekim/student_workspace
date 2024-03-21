@@ -601,7 +601,7 @@
 									<span class="subject-group-text">제목</span>
 								</div>
 								<!-- 인풋 -->
-								<input type="text" id="msg_title" name="msg_title"
+								<input type="text" id="msg_title" name="msg_title" value="${replyTitle}"
 									class="form-control"
 									aria-label="Text input with segmented dropdown button">
 							</div>
@@ -633,6 +633,7 @@
                         <!-- 내용 -->
 						<div class="form-group">
 							<div class="content-group">
+								<span class="content-group-text">내용</span>
 								<textarea id="message" name="msg_content" rows="5" required></textarea>
 							</div>
 						</div>

@@ -55,7 +55,7 @@ body {
     border: #0D6DFD;
     line-height: 2.2;
 }
-
+/* 취소 버튼 */
 #write-form .msg-cancel-btn {
     position: absolute;
     bottom: -10px;
