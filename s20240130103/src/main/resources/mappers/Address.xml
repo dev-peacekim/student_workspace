@@ -49,4 +49,21 @@
 		delete from address where re_user_no = #{user_no} and user_no = #{re_user_no}
 	</delete>
 	
+	
+	<select id="LhsHeaderNoReadAddressReqeustCnt" parameterType="String" resultType="int">
+		select count(*)
+		from address a
+		where a.agree_chk = 0
+		and a.re_user_no = #{userNo}
+	</select>
+	
+	<select id="LhsHeaderNoReadAddressRequestUserName" parameterType="String" resultType="String">
+		SELECT u.user_name
+		FROM USERS u 
+		WHERE u.USER_NO IN (SELECT a.USER_NO 
+							FROM ADDRESS a 
+							WHERE a.AGREE_CHK = 0 
+							AND a.RE_USER_NO = #{userNo})
+	</select>
+	
 </mapper>

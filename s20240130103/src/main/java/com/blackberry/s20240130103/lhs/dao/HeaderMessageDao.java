@@ -10,4 +10,8 @@ public interface HeaderMessageDao {
 
 	int selectNoReadMessageCnt(String userNo);
 
+	int selectNoReadAddressRequestCnt(String userNo);
+
+	List<String> getFourAddressRequestUserName(String userNo);
+
 }

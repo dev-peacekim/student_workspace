@@ -25,5 +25,17 @@ public class HeaderMessageServiceImpl implements HeaderMessageService {
 		int noReadMessageCnt = headerMessageDao.selectNoReadMessageCnt(userNo);
 		return noReadMessageCnt;
 	}
+	
+	@Override
+	public int selectNoReadAddressRequestCnt(String userNo) {
+		int noReadAddressRequestCnt = headerMessageDao.selectNoReadAddressRequestCnt(userNo);
+		return noReadAddressRequestCnt;
+	}
+	
+	@Override
+	public List<String> getFourAddressRequestUserName(String userNo) {
+		List<String> fourAddressRequestUserName = headerMessageDao.getFourAddressRequestUserName(userNo);
+		return fourAddressRequestUserName;
+	}
 
 }

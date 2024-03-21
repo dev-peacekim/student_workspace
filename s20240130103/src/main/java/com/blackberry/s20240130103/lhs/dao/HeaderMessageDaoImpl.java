@@ -25,4 +25,16 @@ public class HeaderMessageDaoImpl implements HeaderMessageDao {
 		int noReadMessageCnt = session.selectOne("LhsHeaderNoReadMessageCnt", userNo);
 		return noReadMessageCnt;
 	}
+	
+	@Override
+	public int selectNoReadAddressRequestCnt(String userNo) {
+		int noReadAddressRequestCnt = session.selectOne("LhsHeaderNoReadAddressReqeustCnt",userNo);
+		return noReadAddressRequestCnt;
+	}
+	
+	@Override
+	public List<String> getFourAddressRequestUserName(String userNo) {
+		List<String> fourAddressRequestUserName = session.selectList("LhsHeaderNoReadAddressRequestUserName", userNo);
+		return fourAddressRequestUserName;
+	}
 }
