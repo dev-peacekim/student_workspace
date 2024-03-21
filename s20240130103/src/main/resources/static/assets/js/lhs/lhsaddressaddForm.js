@@ -36,7 +36,7 @@ document.getElementById("searchbtn").addEventListener("click",function(){
 				<div class="address-main-inner">
 		            <div class="address-list-card-detail">
 		              <div class="profile-img-user-name">
-		                <img src="upload/userImg/${result.user_profile}" alt="Profile" class="rounded-circle address-list-profile-img">
+		                <img src="upload/userImg/${profileName}" alt="Profile" class="rounded-circle address-list-profile-img">
 		                <div>
 		                  <p class="user-name">${result.user_name}</p>
 		                  <p class="user-id">#${result.user_id}</p>
