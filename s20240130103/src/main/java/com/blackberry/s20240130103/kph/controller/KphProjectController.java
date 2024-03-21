@@ -587,19 +587,28 @@ public class KphProjectController {
 			if(fileInformation != null) {
 				String filePath = request.getSession().getServletContext().getRealPath("/upload/boardProjectFile/") + fileInformation.getPboard_file_name();
 				File boardProjectFile = new File(filePath);
+				
 				if(boardProjectFile.exists()) {
+					 
+  	                 // MIME 타입을 결정하지 못할 경우 "application/octet-stream"
 					 String mimeType = URLConnection.guessContentTypeFromName(boardProjectFile.getName());
 					 if(mimeType == null) {
 						 mimeType = "application/octet-stream";
 					 }
+					 
 					 response.setContentType(mimeType);
+					 // 다운로드 시 파일 이름을 설정
+		             // Content-Disposition은 HTTP 헤더의 하나로 주로 웹 서버가 클라이언트(브라우저 등)에게 응답의 본문 처리 방식 정보를 제공
 		             response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileInformation.getPboard_file_user_name(), "UTF-8") + "\"");
+ 		             // HTTP 응답의 Content-Length 헤더를 파일 크기로 설정. 이는 다운로드 진행 상황 표시에 사용.
 		             response.setContentLength((int)boardProjectFile.length());
-		             
+		             // 파일을 읽기 위한 입력 스트림을 생성.
 		             InputStream inputStream = new BufferedInputStream(new FileInputStream(boardProjectFile));
+		             // 응답의 출력 스트림으로 파일 내용을 복사. 이 과정에서 사용자가 파일을 다운로드
 		             FileCopyUtils.copy(inputStream, response.getOutputStream());
 				}
 			}
+			
 		} catch (FileNotFoundException fileNotFoundException) {
 			fileNotFoundException.printStackTrace();
 		} catch (IOException ioe) {
