@@ -97,7 +97,7 @@
 										</div>
 										<div class="d-flex" style="margin: 3px 0;">
 											<c:forEach items="${boardFiles}" var="boardFile">
-												<div id="importFile${boardFile.cboard_file_cnt }">
+												<div class="fileBox" id="importFile${boardFile.cboard_file_cnt }">
 													<div class="fileName">${boardFile.cboard_file_user_name}</div>
 													<button class="fileXbtn" data-index="${boardFile.cboard_file_cnt }" type="button">X</button>
 												</div>

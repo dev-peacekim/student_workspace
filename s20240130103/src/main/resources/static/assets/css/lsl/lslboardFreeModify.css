@@ -131,8 +131,7 @@ position: relative;
 
 .fileName {
         display: inline-block; 
-        margin-right: 10px; 
-    }
+}
     
 
 body{
@@ -155,4 +154,10 @@ body{
 	border: none;
 	color: red;
 	background-color: white;
+}
+
+.fileBox {
+	border: 1px solid rgba(219, 219, 219, 0.733);
+    padding: 5px;
+    margin-right: 10px;
 }
