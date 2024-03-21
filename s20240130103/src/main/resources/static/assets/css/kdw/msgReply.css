@@ -35,7 +35,7 @@ body {
 /* 보내기 버튼 */
 .reply-section .msg-Sent-Btn {
     position: absolute;
-    margin-top: -20px;
+    margin-top: -10px;
     width: 100px;
     height: 35px;
     border: 1px solid #0D6DFD;
