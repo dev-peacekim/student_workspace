@@ -64,7 +64,7 @@ body {
 .msg-fontAS .far.fa-envelope {
     position: absolute;
     margin-top: -122px;
-    margin-left: -18;
+    margin-left: -18px;
     font-size: 37px; /* 아이콘 크기 조절 */
     color: #0D6DFD; /* 아이콘 색상 지정 */
     z-index: 1;
