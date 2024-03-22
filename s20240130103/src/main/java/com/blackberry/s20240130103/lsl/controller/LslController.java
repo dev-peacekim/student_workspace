@@ -214,7 +214,7 @@ public class LslController {
 		System.out.println("LslController boardAskList Start...");
 		int totalBoardAsk = ls.totalBoardAsk();
 		System.out.println("LslController totalBoardAsk ->" + totalBoardAsk);
-
+		
 		// paging 작업
 		BoardFreeAskPaging bapage = new BoardFreeAskPaging(totalBoardAsk, lslBoardComm.getCurrentPage());
 		System.out.println("LslController boardAskList  bapage->" + bapage);

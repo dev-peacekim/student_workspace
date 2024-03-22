@@ -60,6 +60,67 @@ function goBack() {
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script type="text/javascript">
+$(document).ready(function() {
+    // 작성자 이름 클릭 이벤트 처리
+    $('.authorName').on('click', function() {
+        // 현재 클릭된 요소의 사용자 ID를 데이터 속성에서 가져옴
+        var userId = $(this).data('userId');
+        
+        // 팝업 메뉴 생성
+        var popupMenu = $('<div>')
+            .addClass('custom-popup')
+            .css({ 
+                position: 'absolute', 
+                top: $(this).offset().top + $(this).outerHeight() + -15, // 요소 바로 아래에 팝업 표시
+                left: $(this).offset().left,
+                background: 'white',
+                border: '1px solid #ddd',
+                padding: '5px',
+                'z-index': 1000  // z-index를 지정하여 다른 요소 위에 표시
+            })
+            .append($('<a>').attr({
+                href: '/addressaddForm?userId=' + encodeURIComponent(userId),
+            }).text('주소록 추가').on('click', function(e) {
+                // 기본 링크 이동 이벤트를 방지하고, 대신 수동으로 페이지 이동
+                e.preventDefault();
+                window.location.href = this.href;
+            }));
+
+        // 기존 팝업이 있으면 제거
+        $('.custom-popup').remove();
+        
+        // 팝업을 body에 추가
+        $('body').append(popupMenu);
+        
+        // 다른 부분 클릭 시 팝업 메뉴 제거
+        $(document).on('click', function(e) {
+            if (!$(e.target).is('.custom-popup') && !$(e.target).is('.authorName')) {
+                $('.custom-popup').remove();
+            }
+        });
+
+        // 작성자 이름 클릭 시 다른 클릭 이벤트를 방지
+        return false;
+    });
+    
+    // 주소록 추가 페이지에서 input 필드에 사용자 아이디 채우기
+    if(window.location.pathname === '/addressaddForm') {
+        var params = new URLSearchParams(window.location.search);
+        var userId = params.get('userId');
+        
+        if(userId) {
+            $('#inputid').val(decodeURIComponent(userId));
+        }
+    }
+});
+</script>
+<style type="text/css">
+.authorName:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
 

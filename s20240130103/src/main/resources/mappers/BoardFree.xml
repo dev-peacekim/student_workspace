@@ -17,7 +17,7 @@
 		from
 			(SELECT rownum rn ,a.*
 			from
-				(SELECT bc.*, nvl(cnt,0) creply_cnt, u.user_name, u.user_nic
+				(SELECT bc.*, nvl(cnt,0) creply_cnt, u.user_name, u.user_nic, u.user_id
 				FROM BOARD_COMM bc,
 						(SELECT CBOARD_NO, count(*) cnt 
 						FROM BOARD_COMM_REPLY 

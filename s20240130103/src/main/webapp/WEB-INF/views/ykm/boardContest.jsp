@@ -55,6 +55,58 @@
 <!-- ******************************************************** -->
 
 <link href="assets/css/ykm/boardContest.css" rel="stylesheet">
+<script type="text/javascript">
+$(document).ready(function() {
+    // 작성자 이름 클릭 이벤트 처리
+    $('.authorName').on('click', function() {
+        // 현재 클릭된 요소의 사용자 ID를 데이터 속성에서 가져옴
+        var userId = $(this).data('userId');
+        
+        // 팝업 메뉴 생성
+        var popupMenu = $('<div>')
+            .addClass('custom-popup')
+            .css({ 
+                position: 'absolute', 
+                top: $(this).offset().top + $(this).outerHeight() + -15,
+                left: $(this).offset().left,
+                background: 'white',
+                border: '1px solid #ddd',
+                padding: '5px',
+                'z-index': 1000
+            })
+            .append($('<a>').attr({
+                href: '/addressaddForm?userId=' + encodeURIComponent(userId),
+            }).text('주소록 추가').on('click', function(e) {
+                e.preventDefault();
+                window.location.href = this.href;
+            }));
+        $('.custom-popup').remove();
+        $('body').append(popupMenu);
+        $(document).on('click', function(e) {
+            if (!$(e.target).is('.custom-popup') && !$(e.target).is('.authorName')) {
+                $('.custom-popup').remove();
+            }
+        });
+        return false;
+    });
+    
+    // 주소록 추가 페이지에서 input 필드에 사용자 아이디 채우기
+    if(window.location.pathname === '/addressaddForm') {
+        var params = new URLSearchParams(window.location.search);
+        var userId = params.get('userId');
+        
+        if(userId) {
+            $('#inputid').val(decodeURIComponent(userId));
+        }
+    }
+});
+</script>
+<style type="text/css">
+.authorName:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
 	<!-- ======= header ======= -->
@@ -120,7 +172,7 @@
 								<tr>
 									<th scope="row">${stuPage.start + loop.index}</th>
 									<td><a href="/post?cboard_no=${cntPostList.cboard_no}">${cntPostList.cboard_title}</a></td>
-									<td>${cntPostList.user_nic}</td>
+									<td class="authorName" data-user-id="${cntPostList.user_id}">${cntPostList.user_nic}</td>
 									<td><fmt:formatDate value="${cntPostList.cboard_date}" pattern="yyyy-MM-dd" /></td>
 									<td>${cntPostList.cboard_viewcnt}</td>
 									<td>${cntPostList.reply_count}</td>

@@ -38,6 +38,17 @@
     <script src="https://kit.fontawesome.com/0b22ed6a9d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    var params = new URLSearchParams(window.location.search);
+	    var userId = params.get('userId');
+	    
+	    if (userId) {
+	        $('#inputid').val(userId);
+	        $('#searchbtn').click();
+	    }
+	});
+	</script>
 </head>
 
 <body>
